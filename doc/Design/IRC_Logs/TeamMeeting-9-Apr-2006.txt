@@ -1,0 +1,496 @@
+[2006-04-09 00:00:46] <Xavier|Roam> wb
+[2006-04-09 00:00:48] <Slit> hate having to re-register w/this wireless every 24 hrs :(
+[2006-04-09 00:00:53] <Slit> ty
+[2006-04-09 00:04:59] <Xavier|Roam> so it's basically the four of us?
+[2006-04-09 00:05:44] <Slit> evidently so
+[2006-04-09 00:05:51] <ToxicSoul> Im here somewhat.
+[2006-04-09 00:06:05] <All_for_one> so it's just the four of us then :-P
+[2006-04-09 00:06:49] <Xavier|Roam> well everyone here except slit is pretty much here all the time anyway :\
+[2006-04-09 00:07:03] <ToxicSoul> not all the time
+[2006-04-09 00:07:07] <Xavier|Roam> so do you have anything you want to ask, Slit? ;)
+[2006-04-09 00:07:08] <ToxicSoul> just when your here
+[2006-04-09 00:07:32] <Slit> not today (really)
+[2006-04-09 00:07:38] <Xavier|Roam> this past month for me has been bad for CoS as I have been getting settled in
+[2006-04-09 00:07:40] <Xavier|Roam> k
+[2006-04-09 00:07:52] <Slit> i got everything built except the particlefx
+[2006-04-09 00:07:53] <Xavier|Roam> we're basically art-bound at this point
+[2006-04-09 00:08:03] <Xavier|Roam> odd
+[2006-04-09 00:08:07] <ToxicSoul> This month has been bad for me period.
+[2006-04-09 00:08:21] <Xavier|Roam> I'll go back and do it all again on the VC8 box
+[2006-04-09 00:08:28] <Slit> not a big deal
+[2006-04-09 00:08:38] <Slit> i'll get back to it sooner or later
+[2006-04-09 00:08:56] <Xavier|Roam> I would like to wrap up all the loose ends this month so that next month we can start on new stuff :)
+[2006-04-09 00:09:15] <All_for_one> it's been bad for your period?
+[2006-04-09 00:09:18] <Slit> studying everything in katana.icd right now to ensure i'm up on the changes
+[2006-04-09 00:09:56] <Xavier|Roam> only problem with that,Slit, is that much of it will change with the architecture ;)
+[2006-04-09 00:10:09] <Slit> ok, well nm then :P
+[2006-04-09 00:10:27] <Xavier|Roam> for the entity management tha tis
+[2006-04-09 00:10:51] <Elisor> back in 5
+[2006-04-09 00:10:56] <Slit> just so happens i have entity.cpp open right now ;)
+[2006-04-09 00:10:56] <Xavier|Roam> the loader will change, communication between systems goes to a asynchronous message-based design, and so on
+[2006-04-09 00:11:03] <Xavier|Roam> ahoy Eli
+[2006-04-09 00:11:32] <SG_01> Hrmm, so it started ^^
+[2006-04-09 00:11:35] <Xavier|Roam> ;)
+[2006-04-09 00:12:07] <Xavier|Roam> lol
+[2006-04-09 00:13:03] <Xavier|Roam> I'm also getting plenty of ideas from looking at the code for myproject at work too
+[2006-04-09 00:13:16] <SG_01> Good
+[2006-04-09 00:13:17] <Xavier|Roam> for example, I saw one of the GUI concept layouts and I like it
+[2006-04-09 00:13:38] <Xavier|Roam> what I've seen so far from our guys looks a lot like MW4
+[2006-04-09 00:14:01] <Xavier|Roam> obviously I can't show what I saw but I can sketch something similar for our game maybe
+[2006-04-09 00:15:46] <Sirius> guess I'm here now
+[2006-04-09 00:16:08] <Xavier|Roam> w00t
+[2006-04-09 00:16:22] <All_for_one> Might be interesting to play with a more open system
+[2006-04-09 00:16:23] <SG_01> Soo, what needs yet to be done, programmaticaly, for 0.2?
+[2006-04-09 00:16:28] <Xavier|Roam> so that's what, 5 proggies?
+[2006-04-09 00:16:35] <Xavier|Roam> lets' see
+[2006-04-09 00:16:44] <All_for_one> taking from MC2 and halo and ish
+[2006-04-09 00:16:48] <Xavier|Roam> the mouse movement broke on my end for some reason -- not sure why
+[2006-04-09 00:16:58] <Xavier|Roam> also need to get y-axis movement implemented 
+[2006-04-09 00:17:18] <Xavier|Roam> how do you mean "open" AFO?
+[2006-04-09 00:17:45] <Xavier|Roam> on 0.2, also need to integrate the ConfigFile stuff on both Win32 and Linux
+[2006-04-09 00:17:52] <All_for_one> It's not completely fixed in
+[2006-04-09 00:18:05] <Xavier|Roam> what is not?
+[2006-04-09 00:18:07] <Xavier|Roam> GUI>
+[2006-04-09 00:18:08] <Xavier|Roam> ?
+[2006-04-09 00:18:16] <All_for_one> just a panel on a stick in front of a planet or something
+[2006-04-09 00:18:24] <All_for_one> semi-transparent
+[2006-04-09 00:18:57] <Xavier|Roam> oh you mean ours
+[2006-04-09 00:19:02] <All_for_one> yes
+[2006-04-09 00:19:17] <Xavier|Roam> I really wish I could show what I saw; it's not earth-shattering but it was cool, it fit with the game
+[2006-04-09 00:20:16] <Xavier|Roam> programming needs for 0.2 -- I need to finish the archive system so that we can load stuff generically -- need to implement a resource manager/cache, but that's likely a 0.3 thing
+[2006-04-09 00:20:33] <Elisor> back with me morning cuppa :)
+[2006-04-09 00:20:38] <Xavier|Roam> for 0.2 we could likely go with what we have and live with it
+[2006-04-09 00:20:44] <Xavier|Roam> wb Eli
+[2006-04-09 00:21:08] <Xavier|Roam> wish Anchovy were here so we could talk about the infantry model
+[2006-04-09 00:21:23] <Xavier|Roam> however, we can deal with it on the animation end I suppose ;)
+[2006-04-09 00:21:30] <Elisor> in a blow-up doll kinda way?
+[2006-04-09 00:22:07] * Xavier|Roam shakes head
+[2006-04-09 00:22:07] <Xavier|Roam> :p
+[2006-04-09 00:22:52] <Xavier|Roam> I think we are going to target hardware that supports more than 24 bones
+[2006-04-09 00:23:05] <Xavier|Roam> so the 24-bone limit just went away ;)
+[2006-04-09 00:23:16] <Elisor> lols...from an animation viewpoint I just need the model.  It's just soft-body animation of a single mesh.  Haven't _deliberetly_ done it before, but it's basically the same as animating a robotic model
+[2006-04-09 00:23:17] <All_for_one> how fast would that be?
+[2006-04-09 00:23:41] <Elisor> 24's a lot, but more would be better
+[2006-04-09 00:24:02] <Xavier|Roam> yes and no, eli, because you probably have to do facial animation and you have to blend vertices for morphing to work properly ;)
+[2006-04-09 00:24:09] <Xavier|Roam> fast?
+[2006-04-09 00:24:34] <Xavier|Roam> the 24-bone limit is DX8.1-level hardware
+[2006-04-09 00:24:51] <Elisor> do we need facial anmations on squishes?
+[2006-04-09 00:24:59] <SG_01>  Arn't we already compiling this for DX9c anyhow? :P
+[2006-04-09 00:25:30] <Xavier|Roam> SG: ya but DX9 still supports GeF2 cards ;)
+[2006-04-09 00:25:36] <SG_01> hehe
+[2006-04-09 00:26:31] <All_for_one> Looking at the Ut2k3 VTM on basic infantry skinning, you have to use smooth instead of rigid.
+[2006-04-09 00:26:34] *** Asmudius|Oblivion changed nick to [HJ]-Asmudius_Heng
+[2006-04-09 00:26:36] <[HJ]-Asmudius_Heng> gah
+[2006-04-09 00:26:37] <Xavier|Roam> if we query the hardware and a sufficient level of GPU profile is not supported, they just don't get to play the game (or they can try to play it with software skinning, which will cause them to upgrade their GPU)
+[2006-04-09 00:26:45] <[HJ]-Asmudius_Heng> damn game .. sucks me right in -_-
+[2006-04-09 00:26:50] <Xavier|Roam> lol
+[2006-04-09 00:27:19] <All_for_one> well MW4's is so rigid and closed
+[2006-04-09 00:27:26] <All_for_one> damn scroll bar
+[2006-04-09 00:27:32] <All_for_one> ignore that
+[2006-04-09 00:27:36] <SG_01> [06:33] <Xavier|Roam> if we query the hardware and a sufficient level of GPU profile is not supported, they just don't get to play the game (or they can try to play it with software skinning, which will cause them to upgrade their GPU) <-- well that's exactly what NVidia and Ati want :P
+[2006-04-09 00:28:18] <Xavier|Roam> ya but in our case it's what we want too ;) if someone wants to play CoD2 then they need more than a GeF2 GTS to enjoy it ;)
+[2006-04-09 00:29:01] <[HJ]-Asmudius_Heng> everyones gotta upgrade sometime
+[2006-04-09 00:29:02] <Xavier|Roam> we're going to be so shader-heavy in CoS that software fallbacks will prevent lower-end hardware from running it 
+[2006-04-09 00:29:34] <[HJ]-Asmudius_Heng> BF2 got a lot of flak for that
+[2006-04-09 00:29:35] <Sirius> as long as I don't have to upgrade again to play it I won't be too worried :)
+[2006-04-09 00:29:40] * Xavier|Roam is still amazed at the ease and flexibility of Ogre's material system
+[2006-04-09 00:30:02] <[HJ]-Asmudius_Heng> when did you last update Sirius?
+[2006-04-09 00:30:03] <Xavier|Roam> nah GeF3 Ti200 and up, 128MB VRAM ought to do it
+[2006-04-09 00:30:11] <Sirius> Um... I think a month and a half ago
+[2006-04-09 00:30:20] <[HJ]-Asmudius_Heng> oh thats not much then Xav
+[2006-04-09 00:30:42] <[HJ]-Asmudius_Heng> most games require half a gig of ram and a GeF4 at least these days
+[2006-04-09 00:30:49] <[HJ]-Asmudius_Heng> often more
+[2006-04-09 00:30:50] <Sirius> er. Wow. GeForce 3 isn't exactly mid-range any more
+[2006-04-09 00:30:57] <Xavier|Roam> VS/PS 1.4 should be sufficient, altho SM2.0 would be the "recommended"
+[2006-04-09 00:31:27] <Slit> the original xbox ran a GeF3 GPU
+[2006-04-09 00:31:39] <[HJ]-Asmudius_Heng> lets not cut our own necks trying to bring down the hardware level though people who want to play games on ancient systems just dont apply
+[2006-04-09 00:31:40] <Sirius> What stuff support SM2.0?
+[2006-04-09 00:31:51] <Xavier|Roam> the beauty of OGre's material system is that we can have any number of techniques that fit for various hardsware profiles
+[2006-04-09 00:32:10] <Xavier|Roam> GeF 6xxxx for sure
+[2006-04-09 00:32:15] <Sirius> ah
+[2006-04-09 00:32:16] <Xavier|Roam> I think 5xxx too
+[2006-04-09 00:32:19] <Xavier|Roam> I'd have to look
+[2006-04-09 00:32:20] <Sirius> even my sister's 6200? :)
+[2006-04-09 00:32:26] <Xavier|Roam> 6xxx does SM3 too
+[2006-04-09 00:32:30] <Sirius> Oh, ok
+[2006-04-09 00:32:38] <Xavier|Roam> probably not the 6200
+[2006-04-09 00:32:50] <Xavier|Roam> that's likely 2.0 but not 3.09
+[2006-04-09 00:32:51] <Sirius> my machine is almost high-end I think :P
+[2006-04-09 00:32:53] <Xavier|Roam> 3.0
+[2006-04-09 00:33:08] <Sirius> (6600GT)
+[2006-04-09 00:33:13] <Xavier|Roam> ya I still am doing fine with a P4 3.0, 1GB ram and a 6800GT
+[2006-04-09 00:33:28] <Xavier|Roam> laptop is a 3.4 with a gig and X600
+[2006-04-09 00:33:34] <Sirius> heh... that's pretty much identical to this machine save a slightly faster GPU
+[2006-04-09 00:33:43] * [HJ]-Asmudius_Heng is about to upgrade to 2 gig of ram
+[2006-04-09 00:33:44] <SG_01> Nice Xavier
+[2006-04-09 00:33:48] <Xavier|Roam> but my two build/test machines are P3's, one with a 5200 and one with a Ti200
+[2006-04-09 00:33:53] <Sirius> Ah
+[2006-04-09 00:34:10] <Sirius> Darkhorse I think has a Celery 1700 with a GF FX5200
+[2006-04-09 00:34:18] <Sirius> so that's along the higher-end test machine
+[2006-04-09 00:34:36] <Xavier|Roam> of course if we go beyond what a Ti200 can do then I'll raise the bar again ;)
+[2006-04-09 00:35:09] <Xavier|Roam> actually I think it's safe to make nV 4xxx and ATI 9xxx the minspec
+[2006-04-09 00:35:13] * [HJ]-Asmudius_Heng has a P4 2 gig ram (soon) radeon x800
+[2006-04-09 00:35:24] <Sirius> Yeah, that kind of hardware is cheap now
+[2006-04-09 00:35:26] <[HJ]-Asmudius_Heng> dont know how high end that is but i spent a fair bit on it :P
+[2006-04-09 00:35:34] <Xavier|Roam> let's say a 4200 and 9600 as the mins
+[2006-04-09 00:35:47] * SG_01 has p4 3.0, 1.5 GB Ram and x800 laptop
+[2006-04-09 00:35:47] <Xavier|Roam> X800 is nice
+[2006-04-09 00:35:54] <Xavier|Roam> nice too :)
+[2006-04-09 00:35:59] <Slit> mine is a 1.8GHz w/1GB RAM (runs test 0.1.3 GUI really sloooow)
+[2006-04-09 00:36:03] <SG_01> Oh, P4 HT/ee :P
+[2006-04-09 00:36:11] <Sirius> lol
+[2006-04-09 00:36:21] <Xavier|Roam> slit: use DX instead of GL
+[2006-04-09 00:36:25] <Sirius> am I the only one here with an A64?
+[2006-04-09 00:36:27] <SG_01> Really burns the battery playing games, but hey ^_^
+[2006-04-09 00:36:37] <Xavier|Roam> Sirius: taos has one (or two)
+[2006-04-09 00:36:40] <Sirius> oh, ok
+[2006-04-09 00:36:49] <Slit> yeah, it came up with GL by default, but took 5 mins to move the mouse to change to dx ;P
+[2006-04-09 00:36:50] * [HJ]-Asmudius_Heng making a post in forums still around though
+[2006-04-09 00:36:53] <Xavier|Roam> sg: ya, I use mine as a mobile desktop,. not a laptop ;)
+[2006-04-09 00:37:11] <Sirius> I have been fairly impressed with it under XP actually... things don't annoy me nearly as much as they did with a P3
+[2006-04-09 00:37:15] <Xavier|Roam> slit: ya, I usually change it in cosparams.lua 
+[2006-04-09 00:37:23] <Sirius> should have seen how long Firefox's download manager took to appear
+[2006-04-09 00:37:41] <Xavier|Roam> ?
+[2006-04-09 00:37:43] <ToxicSoul> Im running an A64
+[2006-04-09 00:37:47] <ToxicSoul> System Info :: OS: Windows XP 5.01.2600 Service Pack 2 :: CPU(1): AMD Athlon(tm) 64 Processor 3200+ :: Video: 1280x800 32 bits per pixel :: RAM: 363.32 MB/766.48 MB (403.17 MB of memory used) :: HDD-C: (FIXED)  49.39 GB/93.15 GB (NTFS) :: HHD-E: (UNKNOWN TYPE)  0 Bytes free of 0 Bytes () :: All HDD: 49.39 GB free of 93.15 GB 
+[2006-04-09 00:37:58] <ToxicSoul> Laptop with x200
+[2006-04-09 00:38:07] <Sirius> er ... amusing, exact same spec processor as mine I think
+[2006-04-09 00:39:16] <Sirius> *whistles*
+[2006-04-09 00:39:21] * Sirius wonders how we got to this topic
+[2006-04-09 00:39:27] <Sirius> it's all my fault, I'm sure of it :(
+[2006-04-09 00:39:33] <SG_01> heheh
+[2006-04-09 00:39:55] <Xavier|Roam> 0
+[2006-04-09 00:40:17] <Xavier|Roam> lol
+[2006-04-09 00:40:18] <Xavier|Roam> nah
+[2006-04-09 00:40:25] <Xavier|Roam> talking minspec
+[2006-04-09 00:40:32] <Xavier|Roam> of course we have nothing to base that on ;)
+[2006-04-09 00:40:36] <Xavier|Roam> other than gut
+[2006-04-09 00:40:53] <Xavier|Roam> once we get a game going and have it optimized, we'll create a min spec
+[2006-04-09 00:41:03] <SG_01> Let's at least put up a better minspec than most games have :P
+[2006-04-09 00:41:13] <Xavier|Roam> I'm sure it will ;)
+[2006-04-09 00:41:24] *** RedSpace (redspace@nbt-FC350345.bulldogdsl.com) joined
+[2006-04-09 00:41:44] <Xavier|Roam> lol I can see it now, low-end machines running nothing but untextured meshes
+[2006-04-09 00:41:52] <SG_01> LoL
+[2006-04-09 00:41:53] <Xavier|Roam> simple Phong shading
+[2006-04-09 00:42:19] <Xavier|Roam> (which is what the absolute lowest fixed-function fallback technique always will be)
+[2006-04-09 00:42:54] <SG_01> Yea, just start CoS with that scorpion mech right now, and immagine everything looks like that mesh :P
+[2006-04-09 00:42:56] <Xavier|Roam> one texture per material, with ambient, specular, emissive and diffuse params ;)
+[2006-04-09 00:43:04] <Xavier|Roam> hehe
+[2006-04-09 00:44:19] * Xavier|Roam xavier did
+[2006-04-09 00:44:21] <Xavier|Roam> rofl
+[2006-04-09 00:44:32] <Xavier|Roam> looks like that thing Sigourney Weaver was in in Alien
+[2006-04-09 00:44:49] <Xavier|Roam> safety black and yellow lol
+[2006-04-09 00:46:03] <Xavier|Roam> redspace, which models were you working on atm?
+[2006-04-09 00:46:55] <RedSpace> at the moment, nothing as Rl is being a pain, but i'm hoping to get the Sandstorm finished shortly
+[2006-04-09 00:47:04] <Xavier|Roam> rgr
+[2006-04-09 00:47:14] <Xavier|Roam> (I had to ask since you're the only modeller here ;)
+[2006-04-09 00:47:31] <RedSpace> then on to working on the sol tank concept
+[2006-04-09 00:47:33] <Xavier|Roam> unless you are working on models Eli?
+[2006-04-09 00:47:49] <Xavier|Roam> xlnt
+[2006-04-09 00:48:59] <Xavier|Roam> so programmers, I will post up the outstanding issues for 0.2 and see who wants to do what
+[2006-04-09 00:49:11] <SG_01> Alright
+[2006-04-09 00:49:29] <Slit> k
+[2006-04-09 00:50:00] <Xavier|Roam> and while that is being developed I'll put together the list for 0.3
+[2006-04-09 00:50:12] <Xavier|Roam> which should be fun to develop :)
+[2006-04-09 00:51:14] <Xavier|Roam> anyone want to bring anything up?
+[2006-04-09 00:51:24] <Xavier|Roam> I've about exhausted the tech topics ;)
+[2006-04-09 00:53:16] <[HJ]-Asmudius_Heng> yarr!
+[2006-04-09 00:53:24] <[HJ]-Asmudius_Heng> umm just writign a post about planetside
+[2006-04-09 00:53:31] <[HJ]-Asmudius_Heng> there is a way to play free for a bit
+[2006-04-09 00:53:40] <SG_01> I know
+[2006-04-09 00:53:41] <[HJ]-Asmudius_Heng> got some interesting insights into what we are planning
+[2006-04-09 00:54:32] <[HJ]-Asmudius_Heng> mainly things to avoid though i feel .. not a bad game but has some issues
+[2006-04-09 00:56:41] <[HJ]-Asmudius_Heng> but anyway ... is there anything you need me to comment on Xav? i have not had much time this last week to do anythign for CoS apart from this planetside research (lol research :P )
+[2006-04-09 00:58:12] <Xavier|Roam> well if it's all in the post anbd you dont want to repeat it here, then I guess not ;)
+[2006-04-09 00:59:32] <[HJ]-Asmudius_Heng> yea its a pretty long post :P
+[2006-04-09 00:59:50] <Xavier|Roam> k
+[2006-04-09 00:59:58] <SG_01> Anyhow, I'm going to grab some sleep
+[2006-04-09 01:00:02] <SG_01> Have a good night everyone ^^
+[2006-04-09 01:00:07] <RedSpace> before i forget, Deathdog has asked if he can take part as a idea-man (or lad in his case)
+[2006-04-09 01:00:10] <Elisor> not working on anything at the mo
+[2006-04-09 01:01:14] <Elisor> Redspace, plz let me know when the model is finished and I'll get it animated
+[2006-04-09 01:01:33] <Xavier|Roam> red, age?
+[2006-04-09 01:01:53] <RedSpace> about 14-15 i think
+[2006-04-09 01:02:16] <Xavier|Roam> up to dp but I doubt it oin tghat basis
+[2006-04-09 01:02:41] <RedSpace> he does seem to get excitable at times
+[2006-04-09 01:03:36] <RedSpace> i personally would say no based on my interaction with him in automation issues in our fights
+[2006-04-09 01:03:52] <RedSpace> but i'm not petty enough to not pass it on
+[2006-04-09 01:04:28] <Xavier|Roam> aye
+[2006-04-09 01:05:11] <[HJ]-Asmudius_Heng> what sort of ideas?
+[2006-04-09 01:05:21] <RedSpace> shall i invite him to start posting stuff in the forum and say that we'll think on it?
+[2006-04-09 01:05:43] <RedSpace> didn't say. Not keen on him, so didn't put much effort into talking to him
+[2006-04-09 01:05:44] <[HJ]-Asmudius_Heng> everyone is welcome to post in the suggestion section
+[2006-04-09 01:06:21] <RedSpace> i know, but sometimes peeps need a prod to do so
+[2006-04-09 01:06:57] <[HJ]-Asmudius_Heng> however i have turned down some that have asked to join just because they have "ideas" .. everyone has ideas, some good some bad, but being a part of the CoS CDT team would require some extra skills
+[2006-04-09 01:07:06] * [HJ]-Asmudius_Heng wonders how he got the job actually O_o
+[2006-04-09 01:07:24] <Xavier|Roam> lol
+[2006-04-09 01:07:40] <Xavier|Roam> the old fasghioned way, you earned it :)
+[2006-04-09 01:08:12] <Elisor> several nekked camels laid at Xav's door?
+[2006-04-09 01:08:35] <Xavier|Roam> rofl
+[2006-04-09 01:08:42] <All_for_one> aren't they always nekked though?
+[2006-04-09 01:08:46] <Elisor> lol, that's how I got in :D
+[2006-04-09 01:09:36] <[HJ]-Asmudius_Heng> LOL Eli
+[2006-04-09 01:10:12] <[HJ]-Asmudius_Heng> i reread my application ... i was like "umm .. like i dunno anythign much but this sounds cool can i join .. i write RP! yea i have a skill sure!!"
+[2006-04-09 01:10:12] <[HJ]-Asmudius_Heng> :P
+[2006-04-09 01:10:58] <[HJ]-Asmudius_Heng> but if someone has some good ideas and shows it on the suggestion forums and posts in a way we can see they would be an asset then they have a much b etter chance tell him :)
+[2006-04-09 01:11:31] <Xavier|Roam> Id hire you again :p
+[2006-04-09 01:13:00] <[HJ]-Asmudius_Heng> yay!
+[2006-04-09 01:14:05] <Elisor> AFO are you there?
+[2006-04-09 01:14:12] <All_for_one> yes
+[2006-04-09 01:14:29] <All_for_one> just trying to update CoS
+[2006-04-09 01:14:40] <All_for_one> Got 0.1.3 on there
+[2006-04-09 01:14:52] <Elisor> any chance of turning some of those concept models into finished models with texs?
+[2006-04-09 01:15:18] <All_for_one> at this point no
+[2006-04-09 01:15:34] <Elisor> oki doki
+[2006-04-09 01:17:17] <[HJ]-Asmudius_Heng> texs?
+[2006-04-09 01:17:22] <[HJ]-Asmudius_Heng> textures?
+[2006-04-09 01:17:47] <Elisor> yup
+[2006-04-09 01:17:55] *** Xavier|Roam quit (Ping timeout)
+[2006-04-09 01:17:58] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=851&start=25
+[2006-04-09 01:18:06] <[HJ]-Asmudius_Heng> sidey should texture this one up :)
+[2006-04-09 01:19:37] <RedSpace> is it just me, or is the centre torso too long at the waist?
+[2006-04-09 01:21:26] <Elisor> yeah, that's the one I'm waiting for
+[2006-04-09 01:23:35] <RedSpace> when i get to it, how do you want the sandstorms tracks textured?
+[2006-04-09 01:23:50] <RedSpace> i'm not sure what is needed for animated textures
+[2006-04-09 01:25:39] <[HJ]-Asmudius_Heng> linky to model thread red :)
+[2006-04-09 01:27:55] <RedSpace> eh?
+[2006-04-09 01:28:50] <[HJ]-Asmudius_Heng> where is the pics on the forum dude ... i ahve seen before but i am writing a post not searching for it
+[2006-04-09 01:31:30] <All_for_one> http://www.clashofsteel.net/forums/viewtopic.php?t=984&postdays=0&postorder=asc&start=0
+[2006-04-09 01:31:42] <All_for_one> *cough* LAZY *cough*
+[2006-04-09 01:32:17] *** Xavier|Roam (xavier@nbt-3B4429C.area4.spcsdns.net) joined
+[2006-04-09 01:32:24] <Xavier|Roam> feh
+[2006-04-09 01:33:45] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?p=12009#12009
+[2006-04-09 01:33:52] <[HJ]-Asmudius_Heng> ah thank you AFO :P
+[2006-04-09 01:34:02] <All_for_one> np :-D
+[2006-04-09 01:34:34] <[HJ]-Asmudius_Heng> as for the texture thingy ...
+[2006-04-09 01:34:40] * [HJ]-Asmudius_Heng prods Eli
+[2006-04-09 01:35:22] <[HJ]-Asmudius_Heng> we so need infantry to easilly get into battle in CoS
+[2006-04-09 01:37:05] <All_for_one> Teleporter beacons like ut.
+[2006-04-09 01:37:07] <All_for_one> :-D
+[2006-04-09 01:37:11] <[HJ]-Asmudius_Heng> i dont know if i am just overly sure of the ideas for CoS due to ego or they are just good ideas because i see the same problems in game i have not played show up
+[2006-04-09 01:37:28] <[HJ]-Asmudius_Heng> teleporters are somethign i am thinking about
+[2006-04-09 01:37:46] <RedSpace> we do still need some transport flyers and apc designs
+[2006-04-09 01:37:51] <All_for_one> yes
+[2006-04-09 01:37:53] <[HJ]-Asmudius_Heng> i dont like them in some ways because people will say "why cant you do this this and this with them" ... because they will break the game
+[2006-04-09 01:37:55] * Elisor enjoys prod
+[2006-04-09 01:38:05] <All_for_one> give them a max distance then
+[2006-04-09 01:38:17] <All_for_one> and that both need to be stationary for a fixed time
+[2006-04-09 01:38:42] <[HJ]-Asmudius_Heng> well ... it depends ... there are some things i think we dont need to explain
+[2006-04-09 01:38:44] <RedSpace> i was thinking about a vtol based on the skycrane chopper for Macro transport
+[2006-04-09 01:38:48] <[HJ]-Asmudius_Heng> like infantry skipping from one spawn to another
+[2006-04-09 01:38:49] <All_for_one> not to mention take the page from ut2k3/4 and allow the beacons to be stepped on and shot at to be destroyed
+[2006-04-09 01:39:17] <[HJ]-Asmudius_Heng> the number of inf on the field is not the number in an army we just simulate larger forces by giving them a lot of freedome of moevement to get to flashpoints
+[2006-04-09 01:40:01] <[HJ]-Asmudius_Heng> BF2s next game has small teleporter becaons that allow the squad to dspawn on it instead of the squad leader (so the SL can spawn hiumself)
+[2006-04-09 01:40:16] <[HJ]-Asmudius_Heng> but it can be destroyed
+[2006-04-09 01:40:36] <[HJ]-Asmudius_Heng> though i like APCs being the spawn points for inf up the field .. and drop pods
+[2006-04-09 01:40:55] <[HJ]-Asmudius_Heng> techies might have a teleporter thing with a range that allows spawning off APCs maybe
+[2006-04-09 01:41:18] <[HJ]-Asmudius_Heng> pul an APC up next to a wall .. infiltrate and set a teleporter and people spawning at the APC can spawn on the porter maybe
+[2006-04-09 01:41:49] <[HJ]-Asmudius_Heng> could work off any spawn point in fact
+[2006-04-09 01:41:57] <All_for_one> So maybe some units
+[2006-04-09 01:42:00] <[HJ]-Asmudius_Heng> could be a nice little thing to give the techy class
+[2006-04-09 01:42:03] <All_for_one> Infiltrators
+[2006-04-09 01:42:04] <All_for_one> and techs
+[2006-04-09 01:42:08] <All_for_one> or whatever
+[2006-04-09 01:42:09] <[HJ]-Asmudius_Heng> yes
+[2006-04-09 01:42:13] <[HJ]-Asmudius_Heng> scouts too
+[2006-04-09 01:42:20] <[HJ]-Asmudius_Heng> scouts just get less gadgets
+[2006-04-09 01:42:21] <All_for_one> maybe not scouts
+[2006-04-09 01:42:26] <[HJ]-Asmudius_Heng> so techys could carry that and more
+[2006-04-09 01:42:32] <[HJ]-Asmudius_Heng> scouts are infintrators
+[2006-04-09 01:42:40] <[HJ]-Asmudius_Heng> a scout with a claoking device is an infil
+[2006-04-09 01:42:42] <All_for_one> could lay down a special type of transporter beacon
+[2006-04-09 01:42:47] <[HJ]-Asmudius_Heng> scout is a superclass
+[2006-04-09 01:42:51] <All_for_one> they're also slower
+[2006-04-09 01:42:57] <All_for_one> and less firepower/armor
+[2006-04-09 01:42:58] *** Xavier|Roam quit (Quit: )
+[2006-04-09 01:43:14] <[HJ]-Asmudius_Heng> ?
+[2006-04-09 01:43:27] <All_for_one> but that special type of beacon allows anyone to transport into it one
+[2006-04-09 01:43:31] <All_for_one> *once
+[2006-04-09 01:43:49] <All_for_one> from anywhere, just so long as the beacon is within the sensor net
+[2006-04-09 01:44:41] <All_for_one> basically they'd be like placed charges
+[2006-04-09 01:45:18] <All_for_one> only instead of exploding, a user/unit with a teleport module can teleport onto that beacon
+[2006-04-09 01:45:29] <All_for_one> though the beacons get destroyed in the process
+[2006-04-09 01:46:07] <All_for_one> I have infiltrator class as their own seperate class on my sheet
+[2006-04-09 01:47:34] <[HJ]-Asmudius_Heng> ah i had it down that a scout class can get a cloaking device but that would limit his choices in guns, if he chose a sniper weapon then there would be no room for a cloaking device
+[2006-04-09 01:47:35] *** Xavier|Roam (xavier@nbt-3B4429C.area4.spcsdns.net) joined
+[2006-04-09 01:48:16] <[HJ]-Asmudius_Heng> mainly i just wanted to consolidate some fo the classes so they dont branch out too much and we can apply rules to a superclass that can be tweaked to do different things
+[2006-04-09 01:48:28] <[HJ]-Asmudius_Heng> scout can be a pure scout, or a sniper, or an infiltrator basically
+[2006-04-09 01:48:54] <[HJ]-Asmudius_Heng> depending on thier cjhoice of kits but there are a few defining ones like cloaking devices or sniper rifles etc
+[2006-04-09 01:49:23] <[HJ]-Asmudius_Heng> then some factions might have extra things to put into these kits to make them different
+[2006-04-09 01:49:54] <[HJ]-Asmudius_Heng> Sid might be able to give jump packs to scouts where others cant or something for intance
+[2006-04-09 01:50:16] <[HJ]-Asmudius_Heng> we can have an infiltrator class if we want i was just tryign to be concise
+[2006-04-09 01:50:30] <All_for_one> it's easier with multiple classes
+[2006-04-09 01:50:45] <All_for_one> then it's easier to play with the multipliers
+[2006-04-09 01:50:46] <[HJ]-Asmudius_Heng> just how many classes should we have then
+[2006-04-09 01:50:52] *** Xavier|Roam quit (Ping timeout)
+[2006-04-09 01:51:18] <[HJ]-Asmudius_Heng> should we have a scout a sniper and an infiltrator ... or should they be sub-classes of "light" infantry maybe
+[2006-04-09 01:51:26] <[HJ]-Asmudius_Heng> when you choose light inf you then choose a role from that
+[2006-04-09 01:51:39] <[HJ]-Asmudius_Heng> then you can pick your equipment
+[2006-04-09 01:51:46] <[HJ]-Asmudius_Heng> but some thigns will be hard coded
+[2006-04-09 01:51:57] <[HJ]-Asmudius_Heng> juch as cloaking for infiltraotr
+[2006-04-09 01:52:07] <[HJ]-Asmudius_Heng> basically the armour is the superclass
+[2006-04-09 01:52:21] <[HJ]-Asmudius_Heng> so medium armour would have: assault, techy
+[2006-04-09 01:52:47] <[HJ]-Asmudius_Heng> heavy would have support (light machine guns or grenade launchers) and AT (rockets and heavy inf based lasers)
+[2006-04-09 01:52:57] <[HJ]-Asmudius_Heng> does that fit better?
+[2006-04-09 01:53:15] <All_for_one> sniper can be within scout and infiltrator
+[2006-04-09 01:53:21] <All_for_one> or even assault
+[2006-04-09 01:53:25] <All_for_one> or siege
+[2006-04-09 01:53:42] <All_for_one> just changes movement, detectability, armor and weapons
+[2006-04-09 01:53:55] <All_for_one> it's a config type
+[2006-04-09 01:54:12] <[HJ]-Asmudius_Heng> i just dont want to see every man and his dog with a sniper rifle
+[2006-04-09 01:54:26] <[HJ]-Asmudius_Heng> restricting them to a certain class gives them advanatges and disadvanatges
+[2006-04-09 01:55:47] <All_for_one> they would anyways
+[2006-04-09 01:55:55] <[HJ]-Asmudius_Heng> if we give too much freedom to infantry creation i feel they will have no character and soon the best weapons will start to emerge and be used too much
+[2006-04-09 01:56:04] <All_for_one> while a siege infantry could get a larger sniper rifle
+[2006-04-09 01:56:08] <[HJ]-Asmudius_Heng> unless we then nerf the weapons which is a slipery slope
+[2006-04-09 01:56:12] <All_for_one> he'd also be much easier to see
+[2006-04-09 01:56:29] *** Xavier|Roam (xavier@nbt-3B4429C.area4.spcsdns.net) joined
+[2006-04-09 01:56:30] <All_for_one> sensor wise
+[2006-04-09 01:56:34] <[HJ]-Asmudius_Heng> would that difference be enough though
+[2006-04-09 01:56:46] <[HJ]-Asmudius_Heng> thats where it startsn to come apart for me
+[2006-04-09 01:56:57] <All_for_one> a scout would be faster
+[2006-04-09 01:57:14] <All_for_one> or even if not actually running faster
+[2006-04-09 01:57:33] <All_for_one> just even able to get up from a prone position faster
+[2006-04-09 01:57:43] <All_for_one> and dash off and hide
+[2006-04-09 01:58:04] <All_for_one> an infil would be lower profile and probably invisible by nature
+[2006-04-09 01:58:22] <All_for_one> their suits would come with built in cloaking
+[2006-04-09 01:58:36] <[HJ]-Asmudius_Heng> giving an invisible soldier a sniper rifle might be a bad idea
+[2006-04-09 01:58:54] <[HJ]-Asmudius_Heng> there should be limits to what each class should be able to take for character and game balance
+[2006-04-09 01:59:06] <All_for_one> eh
+[2006-04-09 01:59:15] <All_for_one> that's when you break out the Vts and the napalm
+[2006-04-09 01:59:25] <[HJ]-Asmudius_Heng> O_o
+[2006-04-09 01:59:38] <All_for_one> for a little apocalypse now
+[2006-04-09 02:00:06] <[HJ]-Asmudius_Heng> whats that got to do with infantry class balance? o_O
+[2006-04-09 02:00:37] <All_for_one> that gets rid of any invisible snipers :D
+[2006-04-09 02:00:59] <[HJ]-Asmudius_Heng> if you know where he is ... maybe ..
+[2006-04-09 02:01:02] <All_for_one> besides, could just give the weapon a visible trail
+[2006-04-09 02:01:07] <[HJ]-Asmudius_Heng> remeber .. people will exploit everything
+[2006-04-09 02:01:17] <All_for_one> with enough napalm, anything is possible :D
+[2006-04-09 02:01:40] <[HJ]-Asmudius_Heng> a visible trail from a sniper kind of defeats t he point
+[2006-04-09 02:01:56] <All_for_one> then maybe just a muzzle flash
+[2006-04-09 02:02:01] <[HJ]-Asmudius_Heng> it is adding invisbaility to snipers that may cause problems
+[2006-04-09 02:02:18] <All_for_one> so if he's hidden well
+[2006-04-09 02:02:25] <All_for_one> he can get away with it
+[2006-04-09 02:02:40] <All_for_one> but if he just tries to walk in the open and try it, he's toast
+[2006-04-09 02:02:41] <[HJ]-Asmudius_Heng> you have to be very very very careful with snipers in FPS games remember
+[2006-04-09 02:03:01] <[HJ]-Asmudius_Heng> they are probably the most contested issues in FPS games
+[2006-04-09 02:03:17] <[HJ]-Asmudius_Heng> everyone who likes sniping thinks they should be the best of the best kill everythign in one shot
+[2006-04-09 02:03:25] <[HJ]-Asmudius_Heng> invisable etc etc
+[2006-04-09 02:03:31] <All_for_one> then we don't provide infil class with the ability to tote a sniper rifle
+[2006-04-09 02:03:40] <[HJ]-Asmudius_Heng> thats what i was saying
+[2006-04-09 02:03:49] <[HJ]-Asmudius_Heng> some things should be restricted
+[2006-04-09 02:03:56] <[HJ]-Asmudius_Heng> for balance and class character
+[2006-04-09 02:04:16] <[HJ]-Asmudius_Heng> we will have to evaluate thigns in gameplay it might not be an issue
+[2006-04-09 02:04:32] <All_for_one> which is fairly easy
+[2006-04-09 02:04:48] <[HJ]-Asmudius_Heng> usually yes
+[2006-04-09 02:04:49] <All_for_one> just don't provide configs that can carry a long barrel
+[2006-04-09 02:04:57] <All_for_one> in the infil class
+[2006-04-09 02:05:00] <[HJ]-Asmudius_Heng> exactly
+[2006-04-09 02:05:24] <[HJ]-Asmudius_Heng> same for the techy for instance ... while there is no real danger with them with a sniper rifle it just not in character
+[2006-04-09 02:05:46] <[HJ]-Asmudius_Heng> we want them doing techy things with thier gadjets not just sitting back with a sniper rifle
+[2006-04-09 02:05:54] <RedSpace> just give all equiment weights and all troops wieght limits
+[2006-04-09 02:06:07] <All_for_one> give them a melee range beacon dropping ability
+[2006-04-09 02:06:13] <All_for_one> that will not be a problem then
+[2006-04-09 02:06:23] <All_for_one> they'd give tech class to the rushing nutters
+[2006-04-09 02:06:31] <RedSpace> to balance out, make it so the cloaking device and the sniper rifle is too heavy for troops to use
+[2006-04-09 02:06:58] <All_for_one> or just don't make configs that allow both of those.
+[2006-04-09 02:07:08] <RedSpace> you could also make it that if you are carrying alot of equipement, you can't run as fast or long
+[2006-04-09 02:07:37] <All_for_one> not to mention that stealth field gens take power
+[2006-04-09 02:07:54] <All_for_one> and infantry run off recharging batts
+[2006-04-09 02:08:10] <All_for_one> not the unlimited supply of a reactor
+[2006-04-09 02:08:21] <[HJ]-Asmudius_Heng> tech classes can be used sneakily with traps too allowing them versatility but they would most liekely have standard assault rifles etc as thier weapons
+[2006-04-09 02:08:30] <[HJ]-Asmudius_Heng> so they would rain power
+[2006-04-09 02:08:33] <[HJ]-Asmudius_Heng> err drain
+[2006-04-09 02:08:35] <All_for_one> and maybe an EMP zooka
+[2006-04-09 02:08:35] <[HJ]-Asmudius_Heng> thats makes sense
+[2006-04-09 02:09:03] <[HJ]-Asmudius_Heng> EMP grenade launcher maybe .. big arse rocket lunchers might be for heavy classes but we will see
+[2006-04-09 02:09:24] <[HJ]-Asmudius_Heng> a rocket launcher armed soldier might have a number of rockets
+[2006-04-09 02:09:40] <[HJ]-Asmudius_Heng> EMP, frag, AP, plasma etc
+[2006-04-09 02:10:35] <RedSpace> hmmm. Infiltrator witha steath suit, and a medium range magnetic flechet weapon
+[2006-04-09 02:10:45] <RedSpace> so it would be a farily quiet weapon
+[2006-04-09 02:11:42] <All_for_one> except that it would use power
+[2006-04-09 02:11:45] <All_for_one> and so would the suit
+[2006-04-09 02:12:08] <All_for_one> meaning when he's out of power, he's defenceless for a bit
+[2006-04-09 02:12:32] <RedSpace> everything has pros and cons
+[2006-04-09 02:12:53] <[HJ]-Asmudius_Heng> yep
+[2006-04-09 02:12:59] <[HJ]-Asmudius_Heng> power as a balancer is always good
+[2006-04-09 02:13:02] <RedSpace> but the flechet clips could have a built in power cell to get over that
+[2006-04-09 02:13:26] <[HJ]-Asmudius_Heng> we could also not do that if we want it to be limited
+[2006-04-09 02:13:33] <RedSpace> true
+[2006-04-09 02:13:51] <All_for_one> yes
+[2006-04-09 02:14:01] <[HJ]-Asmudius_Heng> there are always ways around the imposed restrictions ... i find we just impose restrictions where needed for game balance so nothig is a total freebie
+[2006-04-09 02:14:10] <[HJ]-Asmudius_Heng> or at least powerful things often  have drawbacks
+[2006-04-09 02:14:54] <RedSpace> was it the Solari that used rail guns? the Mag-Flechet gun would probably go with that side
+[2006-04-09 02:14:55] <[HJ]-Asmudius_Heng> i do think that EMP type stuff will be an infanties best friend though
+[2006-04-09 02:15:01] <[HJ]-Asmudius_Heng> Kepi have the railguns
+[2006-04-09 02:15:17] <All_for_one> not at the infantry level ATM
+[2006-04-09 02:15:53] <[HJ]-Asmudius_Heng> anyweay i gotta go guys i'll speak ya later
+[2006-04-09 02:16:03] <All_for_one> well maybe
+[2006-04-09 02:16:08] <RedSpace> i was thinking of the mag-flechet weapon as a longer range version of the shotgun
+[2006-04-09 02:16:30] <[HJ]-Asmudius_Heng> smaller charges, EMP grandaes that would bugger up a vehicle that gets too close not destroy it 
+[2006-04-09 02:16:41] <[HJ]-Asmudius_Heng> as in make its systems go screwy
+[2006-04-09 02:16:45] <[HJ]-Asmudius_Heng> anyway i am off later :)
+[2006-04-09 02:16:48] *** [HJ]-Asmudius_Heng quit (Quit: )
+[2006-04-09 02:16:49] <RedSpace> later
+[2006-04-09 02:17:04] <All_for_one> a 75kg(162Kg total) kepi HK infantry might be able to pound around with a 20mm single shot short barrel railgun
+[2006-04-09 02:17:24] <RedSpace> the anti-tank unit?
+[2006-04-09 02:17:33] <All_for_one> or just a BFG unit
+[2006-04-09 02:17:54] <Darkhorse> oh snap I forgot about this.
+[2006-04-09 02:17:58] <RedSpace> only gets enough power for 6 shots
+[2006-04-09 02:18:04] <Darkhorse> anything I should have seen?
+[2006-04-09 02:18:06] <All_for_one> dun technically have shotguns in CoS persay
+[2006-04-09 02:18:30] <All_for_one> use plasma weapons instead, same general effect but hotter
+[2006-04-09 02:18:39] <RedSpace> it's not really a shotgun, but fires say 4 flechets a shot
+[2006-04-09 02:19:18] <All_for_one> could make it a shrapnel ammo type
+[2006-04-09 02:19:27] <RedSpace> that would work
+[2006-04-09 02:19:50] <All_for_one> but it wouldn't be specific to any cannon type
+[2006-04-09 02:20:06] <All_for_one> but nisroch do get a silenced standard solenoid barrel
+[2006-04-09 02:20:15] <RedSpace> i would guess it would be a discarding sabot ammo type
+[2006-04-09 02:21:24] <RedSpace> not really DH. only thing we need is a fully textured models for eli to work on
+[2006-04-09 02:21:56] <RedSpace> most of it was programming related
+[2006-04-09 02:23:44] <All_for_one> anyways, been a long day over here
+[2006-04-09 02:23:45] <All_for_one> night
+[2006-04-09 02:23:55] *** All_for_one quit (Quit: )
+[2006-04-09 02:29:02] *** Slit quit (Ping timeout)
+[2006-04-09 02:29:15] *** [1]Slit (Slit@403B13D2.B18C5BDB.2187D841.IP) joined
+[2006-04-09 02:29:38] *** RedSpace quit (Quit: )
+[2006-04-09 02:30:32] *** Xavier|Roam quit (Ping timeout)
+[2006-04-09 02:30:54] *** [1]Slit changed nick to Slit
+[2006-04-09 02:35:41] *** Slit quit (Quit: HydraIRC -> http://www.hydrairc.com <- 100,000+ downloads can't be wrong)
+[2006-04-09 02:43:12] <&Xavier> those that are still awake, did you enjoy your trip across the Golden Gate Bridge with me?
+[2006-04-09 02:43:31] <&Xavier> I didn't...at least not getting there....SF is such a massive PITA to get around in
+[2006-04-09 02:57:16] <&Xavier> to answer the animated texture question...all you need to do is make a normal texture
+[2006-04-09 02:57:29] <&Xavier> we will animate the UV coordinates on the mesh in the code
+[2006-04-09 03:40:25] * Elisor waits hungrily for first fully tex'd CoS mech to animate
+[2006-04-09 03:40:41] <&Xavier> lol
+[2006-04-09 03:40:45] <&Xavier> Kani doesn't count? ;)
+[2006-04-09 03:41:04] <&Xavier> by fully texd you mean mapped as well right?
+[2006-04-09 03:41:33] <Elisor> Kani's not CoS-specific ;)  seems to have slightly diff texs as well
+[2006-04-09 03:41:44] <Elisor> but yes, mapped, tex'd, a fully CoS-finished mech
+[2006-04-09 03:41:50] <&Xavier> agreed
+[2006-04-09 03:42:02] <&Xavier> I'd like it to be the infantry model ;)
+[2006-04-09 03:42:57] <Elisor> that's a little diff as it's a soft body
+[2006-04-09 03:43:07] <&Xavier> but more fun :p
+[2006-04-09 03:43:08] <Elisor> to be honest I don't care which model ;)
+[2006-04-09 03:43:16] <&Xavier> agreed again
+[2006-04-09 03:43:25] <&Xavier> I want one of each class
+[2006-04-09 03:43:35] <Elisor> IMHO it's a vital step in the whole process to show our own model in our own game world
+[2006-04-09 03:43:42] <&Xavier> we can create N instances of a model class once we actually have one ;)
+[2006-04-09 03:43:45] <&Xavier> yup
+[2006-04-09 03:43:47] <Elisor> how long before you think we're at the point where models will have sticky feet?
+[2006-04-09 03:44:00] <&Xavier> gimme our own models on a map made by RR and we've got something we can be proud of
+[2006-04-09 03:44:06] <&Xavier> oohh good call
+[2006-04-09 03:44:11] <&Xavier> I'll make that another task for 0.2 
+[2006-04-09 03:44:59] <&Xavier> heh interesting job will be to decide whether just to change the position of the ankle bone or do it for the toes as well
+[2006-04-09 03:45:06] <Elisor> yeah, I've had a look at some of his stuff.  Very nice
+[2006-04-09 03:45:09] <&Xavier> that might be a user-definable level-of-detail issue there
+[2006-04-09 03:47:40] <Elisor> depends on how the animation is tracked I guess
+[2006-04-09 03:47:54] <Elisor> whether it's toes or ankles
+[2006-04-09 03:50:55] <Sirius> wonder if it's feasible to overdo it so much that mechs can skid
+[2006-04-09 03:51:20] <&Xavier> ?
+[2006-04-09 03:51:31] <Sirius> physics type stuff
+[2006-04-09 03:51:46] <Sirius> as in, if you try to turn or stop too fast, you can skid
+[2006-04-09 03:52:05] <&Xavier> sure, anything's possible ;)
+[2006-04-09 03:52:31] <Sirius> I'm sure it's possible... though I don't know at this stage whether it's worth it :)
+[2006-04-09 03:52:54] <&Xavier> hehe the designers would have to weigh on that that angle of it :)
+[2006-04-09 03:56:24] <&Xavier> ok me and my headache are off to bed, night all -- I'll post up in the forums tomorrow about the outstanding todos

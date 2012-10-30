@@ -1,0 +1,611 @@
+
+Start of #cos-dev buffer: Sat Mar 12 15:10:11 2005
+[12:56] * Now talking in #cos-dev
+[12:56] * Topic is 'Concept Dev Meetings - Every Sunday 9 PM'
+[12:56] * Set by [HJ]-Asmudius_Heng on Sun Nov 14 17:30:07
+[12:56] * ChanServ sets mode: +oq Xavier Xavier
+[12:59] * Cimex has joined #cos-dev
+[13:00] * flynn has joined #cos-dev
+[13:00] <flynn> hey everyone
+[13:00] <Cimex> hey
+[13:01] <Xavier> hola
+[13:01] <flynn> hey X, how ya doing?
+[13:01] <Xavier> peachy :)
+[13:01] <flynn> excellent :)
+[13:02] <Xavier> hmm ok well Cimex needs to leave here in 45 min so we 
+  should start
+[13:02] <flynn> ok is Jeff not coming?
+[13:03] <Cimex> I won't need to leave right away anymore.
+[13:03] <Xavier> dunno, I got an email from him 20 min ago on another topic
+[13:03] <Xavier> rgr Cim
+[13:04] <flynn> I'm gonna log the meeting anyway
+[13:04] <Xavier> k
+[13:05] <flynn> really we should start to have agendas and keep records of 
+  PDT meetings
+[13:05] <Xavier> true
+[13:06] <flynn> lets say have an offical meeting once every 2 or 4 weeks, 
+  there can be an agendas thread so leads can add to it for each meeting
+[13:06] <Xavier> good idea
+[13:07] * DarkPhoenix has joined #cos-dev
+[13:07] <Xavier> bingo
+[13:07] <flynn> here he is :)
+[13:07] <DarkPhoenix> much better
+[13:08] <flynn> welcome 
+[13:08] <Xavier> every two weeks sounds good to me flynn
+[13:08] <flynn> yeah
+[13:08] <DarkPhoenix> Hi gang
+[13:08] <Xavier> hola
+[13:08] <Cimex> Hey DP
+[13:08] <flynn> i am gonna jot down the major points here from this meeting
+[13:08] <Xavier> rgr
+[13:09] <Xavier> ok
+[13:09] <Xavier> first thing: where we are
+[13:10] <Xavier> in terms of the dev team, we have a framework that allows 
+  us to load up a textured heightmap in the engine along with any number of 
+  exported (to Ogre .mesh) models into a static scene in which the camera 
+  can be moved around
+[13:11] <Xavier> right now Slit is working on a basic mission editor that 
+  will allow the compilation of a mission file that the engine can load
+[13:11] <Xavier> I think he is about 60% done with it
+[13:11] <Xavier> (it's rather similar in functionality and usage to the MW4 
+  mission editor)
+[13:12] <Xavier> no audio or networking has been worked into the engine yet
+[13:12] <Xavier> but the libraries are all there and build just fine (in 
+  other words, they are more or less waiting for content)
+[13:13] <flynn> i suppose much of the other stuff comes with using orge?
+[13:13] <Xavier> other stuff?
+[13:13] <flynn> mmmm like Particals, IK.. all the parts you need to bring 
+  together
+[13:14] * Vanguard has joined #cos-dev
+[13:14] <Xavier> 'lo Van
+[13:14] <Vanguard> hello, Lycan asked me to stop by for him
+[13:14] <Vanguard> is that cool?
+[13:14] <Xavier> welcome :)
+[13:14] <Xavier> yup
+[13:14] <flynn> hi Van
+[13:14] <Vanguard> ok, :)
+[13:14] <Vanguard> hi Flynn, Xav
+[13:15] <Xavier> animations are handled by Ogre, yes, but they are exported 
+  to the .mesh along with all of the other information, so whatever 
+  modelling tool is used can produce animations Ogre can use
+[13:15] <flynn> ok
+[13:15] <Xavier> particles are also supported by Ogre
+[13:16] <Xavier> that's all I have for present status
+[13:16] <flynn> it seems like we are making good progress with coding
+[13:16] <Xavier> once the mission editor is done, it can be used by the 
+  team to create demo or test missions
+[13:17] <Xavier> aye, progress is good I think
+[13:17] <flynn> damn =\
+[13:17] <Xavier> right now I have tagged this state of the code as 0.1.x
+[13:17] <flynn> and i thought anything like that would be a long way off
+[13:17] <flynn> you guys have done some great work :)
+[13:18] <Xavier> nah, it became apparent to me that the best way to 
+  facilitate concurrent development among the teams was to enable each team 
+  to be able to manipulate the engine with the products of their efforts as 
+  soon as possible
+[13:18] <Xavier> thanks :)
+[13:18] <Vanguard> I think maybe we should do a project status announcement
+[13:19] <Xavier> for example, while modellers are producing things and 
+  seeing them as they would be seen in the game, the devs would be 
+  developing things like animation support and model control, etc
+[13:19] <Vanguard> as of now we realy haven't made any, but Xav's progress 
+  might be a good thing to announce
+[13:19] <Xavier> I wouldn't announce it publicly just yet
+[13:19] <flynn> maybe once the mission editor is finished we could do a 
+  small demo vid for public?
+[13:19] <Vanguard> ok, sounds good
+[13:19] <Xavier> have to have content flynn ;)
+[13:19] <flynn> lol
+[13:19] <Xavier> which is where the modellers and artists come in
+[13:20] <Xavier> I'd like to create a terrain and some models ourselves, of 
+  the things that Cim's team has created, before considering any sort of 
+  public display
+[13:20] <Xavier> (and that's more or less up to Taos and DP anyway)
+[13:20] <Xavier> (whether it gets released or not)
+[13:21] <flynn> for terrain what do u need
+[13:21] <flynn> just a hightmap?
+[13:21] <Xavier> that's the easiest
+[13:21] <flynn> yeah
+[13:21] <Xavier> you can also generate one in TerraGen that can be used in 
+  Ogre
+[13:21] <Xavier> Terragen does it in raw format but Ogre can handle those 
+[13:21] <Xavier> it'll have to be textured, which is where the artists come 
+  in
+[13:22] <Xavier> but I haven't been able to raise Zephyr at all for any of 
+  this
+[13:22] <flynn> well i am looking over the concepts team, i like how things 
+  are going but there is still a lot more work to be done there, and some 
+  of the stuff in my mind is still very Battletech like
+[13:23] <Xavier> Cim? how much of your stuff is complete and coherent?
+[13:24] <Cimex> It's really alot of bits and pieces.
+[13:24] <Xavier> nothing that can be modelled yet?
+[13:24] <Cimex> Well, there are plenty of models out there.
+[13:25] <Cimex> I suppose we could pick a couple to focus on to get done.
+[13:25] <Cimex> Have something of a vote to get people to pick their 
+  favorites.
+[13:25] <Xavier> I guess first we need a near-term target
+[13:26] <Xavier> let's make it an outdoor scene, terrain-based, based on a 
+  mission concept that you guys create
+[13:26] <Xavier> that will give your guys the objects to focus on, and will 
+  give Flynn's guys some tangible things to work on
+[13:26] <flynn> we will need building designs for all races, and generic
+[13:27] <flynn> buidlings are something we could work on now
+[13:27] <Xavier> let
+[13:27] <flynn> if we can setup templates for each race, so that designs 
+  follow set rules on design for the races
+[13:28] <Xavier> let's shoot for a 0.5.0 version for this target
+[13:29] <Cimex> We've had the strongest concept threads on the Sidaruuk and 
+  the Solari.  We just need art generated.
+[13:29] <Xavier> the next minor target is 0.2, which gives us some room for 
+  milestones before we have a working demo (the demo ought to be 
+  manipulable, but probably not "playable" in that no game logic would 
+  exist yet in 0.5)
+[13:29] <Xavier> by art do you mean 2-D or 3-D?
+[13:29] <flynn> i think the big thing at the moment in terms of Art is 
+  getting 2D designs finished
+[13:30] <flynn> to work from
+[13:30] <Cimex> I agree.
+[13:30] <flynn> and getting a race design template in place
+[13:30] <flynn> i feel still at the moment people are still just throwing 
+  ideas in the pot
+[13:31] <flynn> but mainly are not putting out finished and dusted off 
+  designs rdy and approved for modelling
+[13:32] <flynn> so lets focus on buildings
+[13:32] <flynn> how do you feel about that Cimex?
+[13:32] <Cimex> No problem.  Who do we have as 2-D artists?
+[13:32] <Xavier> zephyr is it, it appears
+[13:33] <flynn> and myself
+[13:33] <flynn> lycan is not bad also
+[13:34] <Xavier> asmu does sketches does he not?
+[13:34] <DarkPhoenix> Elisor just joined as well, he says he can work in 
+  that regard as well.
+[13:34] <flynn> basicly we are talking drawn, scanned, and photoshoped 
+  final images here
+[13:34] <Xavier> rgr
+[13:34] <flynn> did elisor post any 2D work?
+[13:35] <DarkPhoenix> just based on my conversation with him
+[13:36] <flynn> ok
+[13:37] <Xavier> anything else?
+[13:37] <flynn> well if the concept team works on some building rules per 
+  race, and then we start to get the normal ideas coming in, we can start 
+  to pick out what we want and then get final design sheets done
+[13:38] <flynn> DP how are you feeling overall about the project so far?
+[13:39] <Cimex> What are you looking for in these building rules?
+[13:39] <Xavier> (apart from your demo not working :p)
+[13:39] <DarkPhoenix> I'm very impressed with the members and the work they 
+  are doing
+[13:40] <DarkPhoenix> the primary ones I've been working with are the 
+  modelers of course
+[13:40] <DarkPhoenix> HC is proving a nice way to get their feet wet
+[13:40] <DarkPhoenix> I can't wait to see their CoS material.  :)
+[13:42] <flynn> its not so much of an issue with buildings Cinmex, but 
+  basicly when you do animation there alot of people drawing the same 
+  thing.. every one has their own style so you make design sheets. These 
+  sheets basicly say how to draw that character or building.. so when ur 
+  concepting you have some lose rules on major design features of each race 
+  to keep them looking different from each other but following a race theam.
+[13:42] <flynn> loose*
+[13:43] <flynn> you'll have to excuse my poor spelling ;)
+[13:43] <Xavier> we're all fluent in Typo :p
+[13:43] <flynn> lol
+[13:43] <Xavier> k if there is nothing else there I want to move on to some 
+  items of process
+[13:44] <Vanguard> i wrote the dictionnary on typo ;)
+[13:44] <Xavier> lol
+[13:44] <flynn> fine with me X
+[13:44] <flynn> lol
+[13:45] <Xavier> k, first of all, the modelling tools that are supported by 
+  Ogre exporters: Maya, 3DSMax, Lightwave (via convertor), Milkshape, 
+  Blender3D, Wings3D and XSI
+[13:45] <Xavier> the Ogre exporters will export material descriptions along 
+  with the models, so textured models will export just fine
+[13:46] <Xavier> all of these exporters export to an intermediate XML text 
+  file that gets compiled by a final-step XML convertor app that comes with 
+  Ogre
+[13:46] <Xavier> I will want this intermediate format commited to SVN when 
+  changes are made to models
+[13:47] <Xavier> we'll have to come up with a suitable directory structure
+[13:47] <Xavier> both the native tool mesh/material data as well as the 
+  exprted mesh XML file should be kept in SVN 
+[13:48] <flynn> ok
+[13:48] <Xavier> the regular build process will pick up all of this stuff 
+  and compile it into resource files as part of the build
+[13:48] <Xavier> (btw, these resource files for now are simple ZIP files)
+[13:48] <flynn> what will they be moving to later?
+[13:49] <Xavier> they may stay ZIP files
+[13:49] <Xavier> not sure
+[13:49] <flynn> ok
+[13:49] <Xavier> I like the ZIP file angle because it removes the need to 
+  write a custom compiler: WinZip works well :)
+[13:49] <flynn> if it aint broke, don't fix it ;)
+[13:50] <Xavier> nope ;)
+[13:50] <Xavier> right now, we have a MS installer (.msi) distribution 
+  package for the demo app
+[13:50] <Xavier> that will continue indefinitely, since that will always be 
+  the primary installation method for Windows (RPM on Linux)
+[13:50] <flynn> just out of intrest, we are using .net?
+[13:51] <Xavier> but once the app is installed, hopefully with the 0.2 
+  release, we will include an autoupdate feature, which is part of rakNet
+[13:51] <Xavier> possibly for the game logic Flynn
+[13:51] <flynn> ok
+[13:51] <Xavier> the engine is completely C++
+[13:51] <flynn> cool :)
+[13:52] <flynn> i live with 3 visual programmers.. they don't talk about 
+  .net too highly that's all
+[13:52] <Xavier> Van, Lycan said he had an area on the site (currently 
+  protected) that contains the .msi download point; I have not looked at it 
+  yet, do you know anything about it?
+[13:53] <Xavier> lol flynn
+[13:53] <Xavier> it's Java only better and easier to use
+[13:53] <Xavier> C# that is
+[13:53] <flynn> ahhh ok
+[13:55] <Vanguard> no Xav, he didn't mention it to me
+[13:55] <Xavier> nm Van, I found it...I will need the link at 
+  http://www.clashofsteel.net/index.php?option=com_remository&Itemid=46&func
+  =selectcat&cat=1 to point directly to the .msi in SVN (which is 
+  accessible as a normal webpage)
+[13:55] <Vanguard> ok :)
+[13:55] <Xavier> the build process will check the latest build back into 
+  SVN and always call it the same name
+[13:56] <Xavier> as we go on and public releases are made we can copy them 
+  to a publicly accessible download point
+[13:56] <Xavier> but for now, since it's only internal, having SVN access 
+  is sufficient for security ;)
+[13:56] <Xavier> any questions?
+[13:57] <Xavier> I should add that textures and graphics can come in any 
+  form: Ogre uses OpenIL for image manip and it can deal with just about 
+  anything
+[13:57] <Xavier> obviously JPG, PNG and GIF are the most common
+[13:57] <Xavier> TIFF for heightmaps is fine
+[13:58] <Xavier> heightmaps (non-Terragen) need to be 8- or 16-bit 
+  grayscale no matter what format they come in
+[13:58] <Xavier> the one in the demo is a PNG
+[13:58] <flynn> nope, I'm good. I need to look over the SVN stuff in more 
+  detail so i may have a chat with you a bit more later
+[13:59] <Xavier> rgr
+[13:59] <Xavier> also
+[13:59] <flynn> what about terrain from mesh exported from 3rd party 
+  package?
+[13:59] <Xavier> for any artists that don't have Photoshop, I strongly 
+  recommend Gimp
+[13:59] <Xavier> how do you mean?
+[14:00] <flynn> can we export maps made in say MAX
+[14:00] <flynn> or what ever modelling package
+[14:00] <Xavier> if they export to heightmaps I can for sure say yes
+[14:01] <Xavier> as for terrain as a mesh itself....I'd have to get back to 
+  you on that
+[14:01] <flynn> ok
+[14:01] <Xavier> there are several scene managers in Ogre
+[14:01] <flynn> i'd be intrested to know the answer
+[14:01] <flynn> so if u find out, please let me know
+[14:01] <Xavier> the only one i've used much so far is the octree manager, 
+  which uses heightmaps
+[14:02] <Xavier> they also have a BSP scene mgr which uses Quake levels 
+  directly (for indoor scenes)
+[14:02] <flynn> intresting
+[14:03] <Xavier> there are others in development that are not part of the 
+  actual Ogre release (3rd party plugins)
+[14:03] <Xavier> there is a dotScene manager in the works for dealing with 
+  .scene files
+[14:03] <Xavier> that may be what you need, I'll find out tho
+[14:04] <flynn> well if we are using hightmaps then we have to use the 
+  level editor to place stuff, the reason i asked about being able to load 
+  level meshes into the game was mainly for indoor, or allowing grater 
+  control over a given level 
+[14:05] <flynn> on a model level
+[14:05] <Xavier> for indoor, so long as it can export Quake level files 
+  (bsp) then I can say yes for sure
+[14:05] <flynn> k
+[14:06] <Xavier> Ogre does not do portalling yet, but that also is in the 
+  works and is fairly well along as I understand
+[14:07] <Xavier> that won't be necessary for a v1.0 release however
+[14:07] <flynn> yeah
+[14:07] <Xavier> v1.0 will be strictly terrain I think
+[14:07] <flynn> i think that will be perfect
+[14:07] <flynn> i dont see why we need more at that stage
+[14:07] <Xavier> the goal I think is to get something stable, solid and 
+  playable (and familiar) in the hands of users as soon as possible
+[14:08] <Xavier> I've resigned myself to a v1.0 being similar in gameplay 
+  concept to MW4
+[14:08] <Xavier> other things obviously will not be
+[14:08] <Xavier> netcode
+[14:08] <Xavier> eye candy
+[14:08] <Xavier> etc
+[14:08] <flynn> so we are looking at a map u can move around in 
+[14:09] <Xavier> but v1.0 will probably best be terrain-based outdoor scenes
+[14:09] <Xavier> yup
+[14:09] <flynn> what about GUI, and HUD
+[14:10] <Xavier> the first major usable/testable release will probably be a 
+  single-reticle-no-HUD type thing, FPV, moving around the terrain in a 
+  model
+[14:10] <Xavier> that is probably the 0.5 target
+[14:10] <flynn> ok
+[14:10] <Xavier> right now we are at 0.14
+[14:10] <Xavier> once I get the autoupdate incorporated, and Slit gets the 
+  mission editor done, we'll peg that as 0.2
+[14:11] <Xavier> that leaves determiniation of featuresets for 0.3, 0.4, 
+  and 0.5 (which will be the first actual test release)
+[14:11] <flynn> what about objects for the terrain like trees and stuff?
+[14:12] <Xavier> those are to be placed in the versions listed
+[14:12] <flynn> ok
+[14:13] <Xavier> for example, I do not plan to deal with multiplayer in 0.5 
+  because I don't plan to have a lobby or HUD etc...0.5 will be a simple 
+  single mission startup
+[14:13] <Xavier> up to that point we should work on populating a single 0.5 
+  mission with interesting things
+[14:13] <flynn> yeah
+[14:14] <Xavier> so, for example, Concept decides on a mission that will be 
+  the 0.5 mission
+[14:14] <Xavier> (we'll need that soon btw, Cim)
+[14:14] <Cimex> rr
+[14:14] <Cimex> rgr
+[14:15] <Xavier> we can assign various parts of the artwork and modelling 
+  to the various minor revs
+[14:15] <flynn> well basicly we need to start working on a demo map, so we 
+  need to get designing 
+[14:15] <Xavier> the dev team will need a rigid body at the least, to work 
+  on model movement and control
+[14:16] <Xavier> a finished version of that hovercraft would be fine
+[14:16] <Xavier> that could be a 0.3 milestone
+[14:16] <flynn> ok
+[14:16] <Xavier> and 0.4 could be the manipulation of an animated model
+[14:16] <Xavier> and for us, 0.5 would be the inclusion of sound, perhaps
+[14:16] <flynn> i'll talk to thrash about the hovercraft
+[14:17] <Xavier> given that, that would help define your task list
+[14:17] <Xavier> your tasks will be driven also by what Concept can 
+  provide, and when
+[14:17] <flynn> yeah
+[14:17] <Xavier> you'll be doing a lot of back-and-forht with them
+[14:18] <Xavier> which is why I wanted to get the miossion editor done 
+  first, so that you guys can just build the missions and toss them back 
+  and forth for concept testing and commetn
+[14:19] <Xavier> I'll probably go ahead and start fleshing out a plan for 
+  0.5 in dotProject
+[14:19] <Xavier> as it gets refined we can update it as we go
+[14:20] <flynn> i can start working on the RX20-5s, for an animated mesh. 
+[14:20] <flynn> just something basic
+[14:20] <flynn> but it would give u something to test
+[14:21] <Xavier> http://www.clashofsteel.net/dotproject/ if you weren't 
+  aware, btw
+[14:21] <Xavier> rgr flynn
+[14:21] <flynn> i'll talk to you more about that later
+[14:22] <Xavier> k
+[14:22] <Xavier> ok so anyone have anything else?
+[14:22] <Vanguard> ummm....well I guess my and Lycan will jsut keep on 
+  webbing
+[14:22] <Vanguard> :)
+[14:23] <flynn> if not, i just want to  say i have noted down some points 
+  here for the next meeting which we will review at that time 
+[14:23] <DarkPhoenix> I'm good.
+[14:23] <Vanguard> anything else you need from us in terms of security?
+[14:23] <Xavier> your guys' work will come later once things start being 
+  released
+[14:24] <Xavier> I think Cim moved the gallery stuff over to the Wiki
+[14:24] <Xavier> oh btw
+[14:24] <Xavier> we need a code name for the v1.0
+[14:24] <Xavier> it should have nothing to do with the project
+[14:24] <Xavier> Slit and I were tossing around names the other day
+[14:25] <Vanguard> Mango
+[14:25] <Xavier> one option is atmospheric phenomena
+[14:25] <Vanguard> hmmm...sounds good
+[14:25] <Vanguard> if a bit long to type out
+[14:25] <Xavier> I think the other was mountains
+[14:26] <Xavier> no, I meant the theme of the naming, not the names
+[14:26] <Vanguard> oh whoops
+[14:26] <flynn> lol
+[14:26] <Xavier> like Typhoon, Tsunami, Cyclone, Hurricane, etc....
+[14:26] <Vanguard> yeah, ok i like that actually
+[14:26] <DarkPhoenix> are you sure we wouldn't run out of names?
+[14:26] <Xavier> or Vesuvius, Kilimanjaro, Maunalea, etc
+[14:26] <Xavier> the names would be for major releases DP, like v1.0, v2.0, 
+  etc
+[14:26] <flynn> what about Galaxys?
+[14:27] <Xavier> that works too
+[14:27] <Vanguard> or constellations
+[14:27] <flynn> or fish
+[14:27] <Xavier> Project Sea Bass 
+[14:27] <Xavier> :p
+[14:27] <DarkPhoenix> or kitty cats
+[14:27] <DarkPhoenix> :)
+[14:27] <flynn> project kipper
+[14:27] <Vanguard> v1.0 - Pussand Boots release
+[14:27] <flynn> lol
+[14:27] <Xavier> I like the "grand" natureof the early ones :p
+[14:27] <Xavier> lol
+[14:27] <DarkPhoenix> or major cities
+[14:28] <DarkPhoenix> give me another reason to force people to spell 
+  reykjavik
+[14:28] <Xavier> rofl
+[14:28] <flynn> lol
+[14:28] <Vanguard> i think that's been done somewhere before....lol
+[14:28] <Xavier> to this day I STILL get complaints
+[14:28] <Vanguard> i dont see the problems...i never had any ;)
+[14:28] <Xavier> I mean cmon, they had a friggin OLYMPICS there!!!
+[14:28] <DarkPhoenix> hehe
+[14:28] <Xavier> aye Van, me either
+[14:29] <Xavier> so let's say mountains, galaxies or storms
+[14:29] <flynn> we could use pop singers ;)
+[14:29] <Xavier> ewww
+[14:29] <Xavier> Project Beyonce
+[14:29] <Cimex> hahahah
+[14:29] <Vanguard> wait, I've got it
+[14:29] <DarkPhoenix> types of swords?
+[14:29] <Vanguard> names of koolaid flavors
+[14:29] <Xavier> Project Cherry? o_O
+[14:29] <Vanguard> Project Berry Blast
+[14:29] <DarkPhoenix> katana, scimitar, broadsword, etc
+[14:30] <Vanguard> how could you not bring yourself to download such a 
+  project?
+[14:30] <Xavier> hmm that's workable
+[14:30] <Vanguard> thats an option DP
+[14:30] <flynn> we could run out of sword names
+[14:30] <DarkPhoenix> trust me, I can come up with sword names  :)
+[14:30] <Vanguard> rapier, longsword
+[14:30] <Vanguard> cutlass
+[14:31] <Vanguard> ...umm, the one with the funny cuve
+[14:31] <flynn> im good for that
+[14:31] <Cimex> I can't wait for the bastard release.
+[14:31] <flynn> as long as it sounds like some sort of military bit of kit 
+  i'm good :P
+[14:31] <DarkPhoenix> saber, flamberge
+[14:31] <DarkPhoenix> claymore
+[14:31] <Vanguard> ooo....flamberge
+[14:31] <Xavier> swords then?
+[14:32] <Cimex> Let's name them after Care Bears.
+[14:32] <flynn> sure
+[14:32] <flynn> lmao
+[14:32] <Vanguard> well, if noone likes the koolaid suggestion...then 
+  swords is excellent
+[14:32] <DarkPhoenix> works for me (not the care bears).
+[14:32] <DarkPhoenix> :)
+[14:32] <Xavier> k so how about v1.0 = Katana ?
+[14:32] <Cimex> Yeah, figured you were always a My Little Pony kind of guy, 
+  DP ;)
+[14:32] <Vanguard> I'd be worried if someone could come up with Care Bears 
+  names
+[14:32] <Xavier> rofl Van
+[14:33] <DarkPhoenix> Rainbow Brite, all the way!
+[14:33] <Vanguard> lol
+[14:33] <flynn> shinken sounds better than Katana
+[14:33] <flynn> =D
+[14:33] <DarkPhoenix> ok, this meeting has degenerated just a bit.  :)
+[14:33] <flynn> true :)
+[14:34] <DarkPhoenix> I'll come up with a text file of sword names, and put 
+  it in the doc directory of SVN
+[14:34] <DarkPhoenix> should give you about 2-3 dozen to work with
+[14:34] <flynn> cool
+[14:34] <flynn> i think thats it then :)
+[14:35] <Xavier> btw, in dotProject I am giving the project a target finish 
+  date (for v1.0) of Nov 28 2005...that's not a hard date, it's just a 
+  placeholder
+[14:35] <Xavier> if you need a dotProject account, let me know
+[14:35] <flynn> ok
+[14:35] <flynn> i think i have one
+[14:35] <Xavier> actually everyone should have one, everyone on the team
+[14:35] <Vanguard> do I have one and/or need one?
+[14:36] <flynn> btw, dotproject is excellent
+[14:36] <Xavier> I put a lot of folks in there way back at the start of the 
+  project
+[14:36] <Vanguard> ok, apparently i do, nvm
+[14:36] <Xavier> ya you have one
+[14:37] <Xavier> Cim needs one
+[14:37] <flynn> i need to remember my passwords :P
+[14:37] <Xavier> hehe
+[14:37] <flynn> there u go
+[14:37] <flynn> got it
+[14:37] <Xavier> ok then I guess that's all for today, flynn, you have this 
+  logged? should put it in the forum I suppose?
+[14:38] <flynn> yeah
+[14:38] <Xavier> and like you said, we can put up agendas in the forum too
+[14:38] <Xavier> next meeting two weeks from today?
+[14:38] <Xavier> 26th?
+[14:38] <DarkPhoenix> Great work guys.  A pleasure.  :)
+[14:38] <Taos> gah
+[14:38] <flynn> and i will put up an agenda thread so team leads can to it
+[14:38] <Taos> bloody snow
+[14:38] <Xavier> thx DP and all for coming!
+[14:38] <Xavier> rgr flynn
+[14:38] <flynn> and we will review the progress of the points i have made 
+  here
+[14:38] <Cimex> 2nd and 4th Sat. work better than 1st and 3rd for me.
+[14:39] <Xavier> k then we'll go with that
+[14:39] <DarkPhoenix> I'm in Richmond that weekend
+[14:39] <flynn> i think my bird is up here actully :P
+[14:40] <Xavier> 26th is bad, how about Apr 2?
+[14:40] <Xavier> or 9th?
+[14:40] <DarkPhoenix> either works for me
+[14:40] <flynn> 9th will work best for me
+[14:40] <Xavier> k then we can push it off a month and discuss things in 
+  the forums until then
+[14:40] <DarkPhoenix> I've got to log gang.  Thanks for the excellent work.
+[14:41] <Xavier> rgr, thanks DP!
+[14:41] <Vanguard> later DP
+[14:41] <flynn> good to see ya DP
+[14:41] <flynn> cya later
+[14:41] <Cimex> later all
+[14:41] <flynn> bye 
+[14:41] * Cimex has quit IRC
+[14:41] <DarkPhoenix> DP offline
+[14:41] * DarkPhoenix has quit IRC
+[14:41] <Vanguard> g'day fellas
+[14:41] <Xavier> depending on the content of 0.3, we might go ahead and put 
+  a tentative target date of the 9th on 0.3 to coincide with that meeting?
+[14:41] <flynn> laters
+[14:41] <Xavier> later all!
+[14:41] <Vanguard> wow, thats fast
+[14:41] <flynn> damn =\
+[14:42] <flynn> ok 
+[14:42] <Xavier> depends on the content
+[14:42] <Xavier> if it's minor content then it could work
+[14:42] <Vanguard> good job Xavier, keep it up, looking forward to it
+[14:42] <Xavier> I don't expect to do a minor rev every month ;)
+[14:42] <Xavier> thx Van :)
+[14:42] <Vanguard> :) and on that note...*poof!*
+[14:42] * Vanguard has quit IRC
+[14:42] <Xavier> in fact, it may be the 9th for 0.2, no telling ;)
+[14:42] <flynn> i am trying to fit CoS stuff in as much as i can, but i get 
+  a lot of work on my desk atm
+[14:43] <Xavier> np
+[14:43] <Xavier> you got lots of modellers, delegate ;)
+[14:43] <flynn> yeah well ill talk to Thrash about the hovercraft
+[14:43] <Xavier> rgr
+[14:43] <flynn> i can build a basic RX20 pretty quick
+[14:44] <Xavier> I hate to put actual dates on a volunteer project but it's 
+  the only way to make progress unfortunately
+[14:44] <flynn> but im not sure how i export the animation information
+[14:44] <flynn> yeah i know
+[14:44] <Xavier> I'll get you that information; you can also peruse the 
+  Ogre forums for hints and tips
+[14:44] <flynn> ok
+[14:44] <Xavier> I am pretty sure it's basic keyframing
+[14:44] <flynn> ill be using XSI for the animation
+[14:44] <Xavier> k
+[14:45] <flynn> well i'll have to use IK and keyframing yeah
+[14:45] <flynn> doing the animation is not much of a problem
+[14:45] <flynn> it's just exporting it
+[14:45] <Xavier> I look forward to seeing our first model animated and 
+  controlled around a map :)
+[14:45] <Xavier> the Ogre exporters take care of exporting the animation
+[14:46] <Xavier> btw
+[14:46] <flynn> yeah, i prob wont have it textured... but we will see
+[14:46] <Xavier> I don'tknow how sophisticated everyone is...but we should 
+  try to use GPU features as much as possible (bumpmapping, displacement 
+  mapping, etc) for "high-poly" rendering
+[14:47] <Xavier> Ogre is all about the shader programs
+[14:47] <flynn> agreed
+[14:47] <Xavier> Cg, HLSL, etc
+[14:47] <flynn> i will look into normal mapping
+[14:47] <flynn> i have not done it before, but i know how it works
+[14:47] <Xavier> kewl
+[14:48] <flynn> lupus is prob the main man for normal mapping atm
+[14:48] <Xavier> xlnt :)
+[14:48] <Xavier> ok I am going to start pushing stuff into dotproject to 
+  get us started
+[14:49] <flynn> this is why i want to use XSI mod tool for the final out 
+  puts to the game
+[14:49] <Xavier> np
+[14:49] <flynn> i am waiting a lot of the Concept team
+[14:49] <flynn> but if they can give me something i can start to put out 
+  some milestones
+[14:50] <flynn> but in the mean time this meeting gives me us something to 
+  look at
+[14:50] <flynn> so i am happy
+[14:51] <Xavier> :)
+[14:51] <flynn> in dotproject is there a way to have a subsection for the 
+  model team?
+[14:51] <Xavier> was nice to get everyone together so we all know where we 
+  are and where we are going
+[14:51] <Xavier> I think so
+[14:52] <Xavier> I know that you can assign tasks to various teams
+[14:52] <Xavier> at the least
+[14:52] <flynn> i'll have a look around on it and see what i can find
+[14:53] <flynn> ahhhh ok i see 
+[14:53] <flynn> yeah thats cool
+[14:53] <flynn> anyway i am gonna go cook dinner, if ur still about later, 
+  ill talk to you then
+[14:55] <Xavier> rgr
+[14:55] * Xavier dives into project planning
+[15:00] * flynn has quit IRC (Connection reset by peer)
+[15:02] <flynn> damn thing
+[15:09] <Xavier> lol
+End of #cos-dev buffer    Sat Mar 12 15:10:11 2005

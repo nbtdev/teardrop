@@ -1,0 +1,479 @@
+[20:04] <Xavier> ok well it's 11PM, anyone not seen the minutes from this morning yet?
+[20:04] <RedSpace> gak. morning
+[20:04] <Xavier> (I'll have to fix this stuff with the MSI after the meeting)
+[20:04] * [HJ]-Asmudius_Heng has read
+[20:05] * Gohan has read
+[20:05] <Sidelink> tried and got errors
+[20:05] <Xavier> the minutes or the MSI?
+[20:05] <RedSpace> read the minutes, didn't read the log as i was there
+[20:05] <Xavier> the MSI we know about :(
+[20:05] <Xavier> lol ya
+[20:06] <Xavier> ok, basically then you know where we are at for this milestone -- getting closer each time (despite the stupid installer and launcher nonsense)
+[20:06] <Sidelink> works now
+[20:06] <Xavier> really at this point it's a matter of bug fixing and minor tweaking before we can put this one behind us and move onto the next, which will give us multiplayer and game scripting (as well as solidify the physical universe rules)
+[20:07] <[HJ]-Asmudius_Heng> cool
+[20:07] <Xavier> (btw, if you guys remember to remove the path later, you can get around this issue with the current installed version by setting your PATH to that versions/Development/0.2 directory
+[20:07] <All_for_One> Reading the minutes
+[20:08] <All_for_One> •	Complete a list of factions/models needed to play a (relatively) convincing game on this map in the internal alpha
+[20:08] <All_for_One> That we have really
+[20:08] <All_for_One> Might add one or two
+[20:08] <Xavier> if you do, please remember to remove it or it will screw up testing at some point when you have the path hardcoded on your system ;)
+[20:08] <All_for_One> especially for the macros
+[20:08] <All_for_One> http://www.clashofsteel.net/forums/viewtopic.php?t=822
+[20:09] <Xavier> I would like to have at least one of each type of terrestrial vehicle or infantry 
+[20:09] <All_for_One> 2nd post
+[20:09] <All_for_One> Ahh
+[20:09] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=664  <-- last post was a haven mission idea based on just using Kepi tech
+[20:10] * Thoth has joined #cos-dev
+[20:10] <Thoth> hiyas
+[20:10] <Xavier> hola thoth
+[20:11] <Thoth> liking the where the hurricane design is headed AFO
+[20:11] <Xavier> ok, first things first, AFO, I think what I mean is not the entire list of permutations, but a small subset that will enable a playable game on the map Asmu has there
+[20:11] <Xavier> and Asmu: that is excellent, now we need to find someone to translate that into an actual textured heightmap ;)
+[20:12] <All_for_One> yeah, got that
+[20:12] <Xavier> I want to be able to give the modellers a focus for what needs to be done and tight by the end of the year
+[20:12] <Xavier> of course, if all goes well we can add more later ;)
+[20:12] <[HJ]-Asmudius_Heng> MSpaint ftw ;)
+[20:12] <Xavier> lol
+[20:13] <[HJ]-Asmudius_Heng> a good map maker will give a lot more detail to that i just chucked it togeteh so it was kinda symetrical for a badse mission
+[20:13] <Xavier> right
+[20:13] <Xavier> it's a start though
+[20:13] * [HJ]-Asmudius_Heng nods
+[20:13] <[HJ]-Asmudius_Heng> can someone DCC me the current CoS ... wont download for me
+[20:14] <Xavier> the gametypes described there can also drive both the development of the scripting on both the binding to the game, as well as the script code itself
+[20:14] <[HJ]-Asmudius_Heng> yes ... some of them might not work too well but the options they generate in scripting can always be reused
+[20:15] <[HJ]-Asmudius_Heng> from experience in gaming some scenarios just do not work well
+[20:15] <Xavier> yup
+[20:15] <Xavier> Darkhorse, you have anyone in mind to assign to the map creation?
+[20:15] * [HJ]-Asmudius_Heng migth contact redraven
+[20:15] <[HJ]-Asmudius_Heng> he did sentinal dawn
+[20:15] <Xavier> we know he has a clue ;)
+[20:15] <Xavier> yup
+[20:15] <[HJ]-Asmudius_Heng> not usre how busy he is but i'll mail him
+[20:16] <Xavier> someone  had also mentioned a candidate for 2D texture work
+[20:16] <[HJ]-Asmudius_Heng> godhammer?
+[20:16] <Xavier> we don't really have a 2D graphics lead right now, so I guess that falls to DH as well ;)
+[20:16] <RedSpace> i did and he hasn't got time
+[20:16] <Xavier> k
+[20:16] <Thoth> thats a shame
+[20:17] <[HJ]-Asmudius_Heng> i with lycan has some time he can xo that stuff pretty well
+[20:17] <[HJ]-Asmudius_Heng> with = wish
+[20:17] <Xavier> aye
+[20:17] <RedSpace> Delirium from the Rifles is pretty hot with 2d, but i suspect i'll get the same answer
+[20:18] <[HJ]-Asmudius_Heng> refining art like texturing is not that important to game testing so at least it is not totally urgent
+[20:18] <[HJ]-Asmudius_Heng> but would be nice for some piccie releases
+[20:18] <Xavier> correct
+[20:19] <Xavier> btw, has anyone heard from Rixeh since that first day?
+[20:19] <RedSpace> no
+[20:19] <Gohan> no
+[20:19] <[HJ]-Asmudius_Heng> havent seen since
+[20:19] <Xavier> k
+[20:19] <[HJ]-Asmudius_Heng> might need an email prod
+[20:20] <[HJ]-Asmudius_Heng> or a cattle prod
+[20:20] <Xavier> ya, the forum ping didn't seem to take
+[20:20] <Xavier> thinking about distribution of work on the modelling side
+[20:20] <[HJ]-Asmudius_Heng> some people are not very forum savvy i have found
+[20:20] * [HJ]-Asmudius_Heng is a forum whore however
+[20:20] <Xavier> same
+[20:20] <Thoth> lol, hardcore lurker here
+[20:21] <[HJ]-Asmudius_Heng> as long as ya read :)
+[20:21] <Xavier> once we whittle down the subset of things to be modelled first for this alpha, I'd like to see a list of who is doing what and what their status is until the models are all done
+[20:21] <Thoth> err.... so much to read tho
+[20:21] <Xavier> lol ya especially when I start rambling ;)
+[20:21] <[HJ]-Asmudius_Heng> i kinda skim the prgramming stuff :P
+[20:22] <[HJ]-Asmudius_Heng> enough i have an idea whats going on i think is impoirtant .. but anyway
+[20:22] <Thoth> hehe
+[20:22] <Xavier> Eli and I were talking this morning about what all animations make up a complete set for each model type -- for MACROs we have a pretty good baseline with MW4, plus the few extras we put on them, but for other vehicles and for infantry it's less clear
+[20:22] <[HJ]-Asmudius_Heng> well inf need to do a certain set of actions
+[20:22] <[HJ]-Asmudius_Heng> which i think we outlined a while back
+[20:23] <Gohan> walking, running, reloading, switching weapons, etc.
+[20:23] <Gohan> jumping, prone, crouch
+[20:23] <[HJ]-Asmudius_Heng> stand, walk, run. couch, prone,
+[20:23] <Xavier> k, I'll dig in the forums for that then, or Wiki?
+[20:23] <[HJ]-Asmudius_Heng> ya
+[20:23] * Elisor yawns
+[20:23] <[HJ]-Asmudius_Heng> hmmm might be on wiki not sure .. Cimex woulda been doing the wiki at tghat stage
+[20:23] <Xavier> lol morning Eli
+[20:23] * [HJ]-Asmudius_Heng puts a fish in Elis open mouth
+[20:23] <Elisor> hola all
+[20:24] <Elisor> mouth tastes better now....
+[20:24] <Xavier> hehe
+[20:24] <All_for_One> so no ragdoll for our macros?
+[20:24] <Xavier> lol
+[20:24] <Xavier> does it apply? ;)
+[20:24] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=827&highlight=infantry+prone
+[20:24] <All_for_One> it would makes deaths cooler
+[20:24] <Sirius> hm, I forgot this was on, but n/mj
+[20:24] <Thoth> can one animation be the hokey pokey
+[20:25] <All_for_One> ditto falling down
+[20:25] <[HJ]-Asmudius_Heng> all units MUST dance
+[20:25] <All_for_One> oh yeah
+[20:25] <[HJ]-Asmudius_Heng> :P
+[20:25] <All_for_One> taunt animations
+[20:25] <All_for_One> gotta have those
+[20:25] <Xavier> Eli, how you feel about animating humans?
+[20:25] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=753&highlight=infantry+prone
+[20:25] <Thoth> WoW has ppl expecting nothing less
+[20:25] <Elisor> up for it :D
+[20:25] <Thoth> hehe
+[20:26] <All_for_One> yeah really
+[20:26] <Sirius> are we going to get ASF concepts at some point? :)
+[20:26] <Xavier> ASF?
+[20:26] <All_for_One> but I think we could get a crowd if we say we're not going to do that BECAUSE of WoW..
+[20:26] <Sirius> er, aerospace
+[20:26] <Xavier> I think I saw one somewhere....
+[20:27] <All_for_One> Mostly back a bit
+[20:27] <Xavier> I know AFO has a fighter running around at least in his head right now
+[20:27] <Sirius> right
+[20:27] <All_for_One> not that I can recall
+[20:27] <Xavier> hmm, sorry, thought I saw someone mentioning it
+[20:27] <All_for_One> got a micro, and two destroyer concepts running around
+[20:28] * [HJ]-Asmudius_Heng has quit IRC (Connection reset by peer)
+[20:28] <All_for_One> and a few frigate ideas too
+[20:29] <Xavier> was there anything else beyond the typical MW4 movements for MACROs we need?
+[20:29] <Elisor> AFO can you plz put your concept stuff in the svn?
+[20:29] <Xavier> oh and tank tread animation: texture animation, all agreed?
+[20:29] * [HJ]-Asmudius_Heng has joined #cos-dev
+[20:29] <[HJ]-Asmudius_Heng> gr
+[20:29] <All_for_One> which stuff?
+[20:29] <Xavier> wb
+[20:29] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/wiki/tiki-index.php?page=Infantry+Control+and+Movement
+[20:29] <[HJ]-Asmudius_Heng> thats the wiki details
+[20:29] <[HJ]-Asmudius_Heng> ned an update and expansion
+[20:29] <Elisor> models
+[20:30] <Sirius> Texture animation works
+[20:30] <Xavier> ahh...ya know I need to look at the damn Wiki more
+[20:30] <Xavier> Asmu, anything beyond or different from MW4 for MACROs?
+[20:30] <Thoth> what are specs on animated textures
+[20:31] <[HJ]-Asmudius_Heng> transform animations Xav
+[20:31] <[HJ]-Asmudius_Heng> some have different states
+[20:31] <Xavier> haven't seen those yet
+[20:31] <[HJ]-Asmudius_Heng> some are simple some are complex
+[20:31] <All_for_One> none yet actually
+[20:31] <[HJ]-Asmudius_Heng> XXXs seige MACRO has stabiloisers
+[20:31] <All_for_One> that needs to be reowkred
+[20:31] <All_for_One> *reworked
+[20:31] <Thoth> series of statics or avi
+[20:31] <Sirius> kind of like the Starcraft siege tanks?
+[20:31] <[HJ]-Asmudius_Heng> yes
+[20:31] <All_for_One> 6 280mm railguns is WAY to munchy
+[20:32] <[HJ]-Asmudius_Heng> sure AFO but the design is still a good one
+[20:32] <Xavier> thoth: probably just make it such that the UV values can be altered at runtime
+[20:32] <All_for_One> oh yes
+[20:32] <Xavier> make the texture that is
+[20:32] <Thoth> rgr
+[20:32] <All_for_One> http://www.clashofsteel.net/all_for_one/wasp.jpg
+[20:32] <All_for_One> http://www.clashofsteel.net/all_for_one/toad.jpg
+[20:32] <All_for_One> http://www.clashofsteel.net/all_for_one/icestorm2.jpg
+[20:32] <Xavier> (Darkhorse around right now?)
+[20:32] <All_for_One> http://www.clashofsteel.net/all_for_one/himj42typhoon.jpg
+[20:33] <Sirius> The tread has thickness of course, but you can probably work that just by UV-mapping the sides of the textures to that
+[20:33] <All_for_One> http://www.clashofsteel.net/all_for_one/f24kestrel.jpg
+[20:33] <All_for_One> http://www.clashofsteel.net/all_for_one/dropshiplback.jpg
+[20:33] <Sirius> No Xavier
+[20:33] <All_for_One> http://www.clashofsteel.net/all_for_one/dropship7.jpg
+[20:33] <All_for_One> http://www.clashofsteel.net/all_for_one/aurora.jpg
+[20:33] <Xavier> sirius: yup, that's the goal I think
+[20:33] <All_for_One> That's the aerospace models that I have in my FTP folder
+[20:34] <Xavier> AFO I think Eli means can you drop them in SVN ;)
+[20:34] <Elisor> errr yup, along with the ground-based concepts plz
+[20:34] <All_for_One> Yes
+[20:34] <All_for_One> Oy
+[20:34] <Sirius> typhoon is a LAM?
+[20:34] <All_for_One> Yes
+[20:35] <Sirius> (land-air MACRO if you like! :D)
+[20:35] <[HJ]-Asmudius_Heng> for the first mission i think we just need the infantry classes ... a MICRO or two ... then 1-2 or each class of vehicle
+[20:35] <All_for_One> but we determined that LAMs, at least at that size aren't happening
+[20:35] <[HJ]-Asmudius_Heng> all Kepi since both sides use same tech makes it easier
+[20:35] <Xavier> one thing I mentioned that you designers will like is that soon I plan to implement scripting the model parameters so that you can tweak them yourselves -- I just need to figure out a way to store it first (probably in the model file)
+[20:35] <Xavier> asmu: no MACROs for the first one?
+[20:35] <All_for_One> Make them pirates maybe
+[20:36] <Thoth> does that include animation
+[20:36] <All_for_One> then we can just drop in one of any faction and it's fine
+[20:36] <Xavier> or is that what you meant by one or two classes of vehicles
+[20:36] <Thoth> because I am interested in exporting some of my own
+[20:36] <[HJ]-Asmudius_Heng> vehicle = MACRO
+[20:36] <Xavier> k
+[20:36] <Xavier> thoth: ?
+[20:36] <[HJ]-Asmudius_Heng> MACRO is just a class of vehicle :)
+[20:36] <Xavier> rgr
+[20:36] <Thoth> scripting for model params
+[20:37] <Thoth> what sort of objects/methods are available, can i affect animations
+[20:37] <Xavier> the params I have right now drive the kinematics controller for the MACROs -- other model types will have different params, but they all will be scriptable during testing 
+[20:37] * [HJ]-Asmudius_Heng has quit IRC (Connection reset by peer)
+[20:38] <Xavier> oh, don't worry about that for now -- that all has to be driven from the code side
+[20:38] <Thoth> ok
+[20:38] * Thoth chomping at the bit, so to speak
+[20:38] <Xavier> for example, Eli and I decided on, I think, a 2-second walk cycle for the MACRos
+[20:38] <Xavier> if you animate at 25FPS and make things look fine in the modeller with that, we can tweak it from there
+[20:38] * [HJ]-Asmudius_Heng has joined #cos-dev
+[20:38] <Elisor> 1
+[20:38] <[HJ]-Asmudius_Heng> D:
+[20:39] <Elisor> @ 30 FPS for the higher res
+[20:39] <Thoth> k
+[20:39] <Thoth> rgr Eli
+[20:39] <Xavier> I prefer 1.0 and 2.0 second cycles or lengths because it makes it easier to deal with the calculations in code, but any length animation can be scaled as needed in code
+[20:39] <All_for_One> oh right
+[20:39] <All_for_One> the wasp jet is dual mode
+[20:39] <All_for_One> though it's just low and high speed
+[20:40] <Xavier> each model file, btw, has a manifest in it that describes to the code how to assemble the model -- I plan to use this manifest to describe animations as well for each model, so it may be moot
+[20:41] <Xavier> right now there is no real format for that manifest file, I'm sort of fleshing it out as needed, but it's just clear text and should be easy to work with -- I also plan to make a tool to generate those at some point
+[20:41] <Thoth> rgr, will look
+[20:41] <Thoth> xml format?
+[20:42] <Xavier> nope, just plain name=value text
+[20:42] <Thoth> k
+[20:42] <Xavier> right now each .cos file is a ZIP archive, so you can open it in WinZip
+[20:42] <Thoth> doing that now
+[20:42] <Xavier> whether that stays like that remains to be seen
+[20:43] <Xavier> but you'll see there what I have so far; I expect to draw as much information as possible from there at load time
+[20:43] <Xavier> I woudl like to make this as data-driven as possible, to allow the artists and designers to be able to change stuff on the fly as needed without waiting for a rebuild
+[20:44] <[HJ]-Asmudius_Heng> brb
+[20:44] <Thoth> ok, seems like a simple format
+[20:44] <Thoth> even for non coders
+[20:45] <Thoth> right now... anyway
+[20:45] <Xavier> the point we are at now with the MACRO, for example, is trying to decide how to match model speed in the engine with the animation speed, and for that, even though Eli and I talked about it this morning, I think I am going to change it and make it a param in that file (i.e. note the walkcycle animation length there)
+[20:45] <Xavier> it is
+[20:45] <Xavier> it will just end up being a long list of name=value pairs
+[20:46] <Xavier> it actually drives the .cos file creation process as well as the model loading process
+[20:46] * [HJ]-Asmudius_Heng has quit IRC (Connection reset by peer)
+[20:46] <Xavier> poor asmu
+[20:46] <Thoth> skeleton and mesh files are binary
+[20:47] <Thoth> any format that can be associated
+[20:47] <Thoth> ?
+[20:47] <Xavier> yup, they are created by running the exported Ogre .xml files through the OgreXMLConverter
+[20:47] <Xavier> those are actual loadable files in Ogre
+[20:47] <Thoth> ok
+[20:48] <Thoth> sry, i hope i am not boring others, but one more question
+[20:48] <Xavier> the tool to make .cos files will come as part of a larger content development kit that I am working on
+[20:48] <All_for_One> hmm, should I just upload everything(except the Hurricane, since I don't have a LP model ATM)
+[20:49] <Xavier> no go right ahead Thoth :)
+[20:49] <All_for_One> including failed or rejected models?
+[20:49] <Thoth> what is difference between .manifest file and manifest.txt
+[20:49] <Thoth> other than the associated texture file
+[20:49] <Xavier> the .manifest is an error, a holdover from an earlier design
+[20:49] <Thoth> k
+[20:49] <Xavier> AFO: just put up the stuff that you have ready for use by others, models and art, etc
+[20:50] <Elisor> AFO plz include HPs as well
+[20:50] <Xavier> manifest.txt files were easier to run through the PHP script that drives the creation of those files ;)
+[20:50] <All_for_One> the rejected stuff is good for nipping parts
+[20:50] * All_for_One glances at chinook...
+[20:51] * [HJ]-Asmudius_Heng has joined #cos-dev
+[20:52] <All_for_One> you were lucky
+[20:52] <Xavier> so I expect we've got a couple more weeks of tying up 0.2 before moving on wholesale to 0.3 coding -- also during the next 2-3 weeks I plan to solidify a LOT of the technical design details including the flow between the art and the code
+[20:52] <All_for_One> gohan went streaking when you left
+[20:52] <All_for_One> my eyes still burn
+[20:52] <Xavier> rofl
+[20:52] <[HJ]-Asmudius_Heng> O_o
+[20:53] <All_for_One> http://www.clashofsteel.net/all_for_one/chinookp.jpg
+[20:53] <Xavier> is that a sort of hovercraft?
+[20:53] <All_for_One> yup
+[20:53] <All_for_One> and it's got parts of 3 "good" models and one reject
+[20:54] <Xavier> hhe
+[20:54] <Xavier> hmm I can't think of anything else to bring up...there's already a ton of shiite to do...
+[20:54] <All_for_One> Eli, do you want me to convert them all into polys?
+[20:55] <All_for_One> they're all in Nurbs or mostly nurbs ATM
+[20:55] * Xavier grumbles about NURBS modellers :p
+[20:55] <All_for_One> :-P
+[20:56] <Xavier> I think the short answer is "yes"
+[20:56] <All_for_One> *sigh*
+[20:57] <Xavier> they have to enter the animation stage as polygonal models, cleaned up as outlined in my artilce in the Documentation section on the site
+[20:58] <Elisor> ^ what Xav said
+[21:00] * All_for_One Grumbles about converting and cleaning 24 models.
+[21:00] <Xavier> you don't have to do them all by tomorrow :P
+[21:00] <All_for_One> I guess I should probably finish the skull
+[21:01] <Elisor> afk a little while
+[21:01] <Xavier> well can anyone else think of anything they want to ask or bring up?
+[21:01] <Thoth> ...
+[21:02] <All_for_One> Aircraft
+[21:02] <All_for_One> 	Kepi
+[21:02] <All_for_One> 		Kestrel
+[21:02] <All_for_One> 		Wasp - transforming
+[21:02] <All_for_One> 	Nisroch 
+[21:02] <All_for_One> 		Icestorm*
+[21:02] <All_for_One> Infantry
+[21:02] <All_for_One> 	Nisroch
+[21:02] <All_for_One> 		Infantry
+[21:02] <All_for_One> Macros
+[21:02] <All_for_One> 	Sidarruk
+[21:02] <All_for_One> 		Chulyen*
+[21:02] <All_for_One> 		Kermode
+[21:02] <All_for_One> 		Scorpion*
+[21:02] <All_for_One> 	Kepi
+[21:02] <All_for_One> 		Tyrannos
+[21:02] <All_for_One> 	Nisroch
+[21:02] <All_for_One> 		Hurricane
+[21:02] <All_for_One> 		Firestorm(needs rework)
+[21:02] <All_for_One> 	Solari
+[21:02] <All_for_One> 		Shogun
+[21:02] <All_for_One> 		Horseman - transforming (pulled)
+[21:02] <All_for_One> 		
+[21:02] <All_for_One> Micros
+[21:02] <All_for_One> 	Sidarruk
+[21:02] <All_for_One> 		Jackrabbit
+[21:02] <All_for_One> 		Skull(WIP)
+[21:02] <All_for_One> 		Tartarus
+[21:02] <All_for_One> 	Kepi
+[21:02] <All_for_One> 		Nothing complete.
+[21:02] <All_for_One> 	Solari
+[21:02] <All_for_One> 		Cerbex
+[21:02] <All_for_One> 		Goliath
+[21:02] <All_for_One> 	Nisroch
+[21:02] <All_for_One> 		Engel*
+[21:02] <All_for_One> Dropships
+[21:02] <All_for_One> 	Sidarruk
+[21:02] <All_for_One> 		Nigakdar
+[21:02] <All_for_One> 	Kepi
+[21:02] <All_for_One> 		Toad
+[21:02] <All_for_One> 	Nisroch
+[21:02] <All_for_One> 		Aurora
+[21:02] <All_for_One> 	Solari
+[21:02] <All_for_One> 		Nothing yet
+[21:02] <All_for_One> Vehicles
+[21:02] <All_for_One> 	Sidarruk
+[21:02] <All_for_One> 		Nothing yet
+[21:02] <All_for_One> 	Kepi
+[21:02] <All_for_One> 		Minotaur Tank
+[21:02] <All_for_One> 	Common tech
+[21:02] <All_for_One> 		Chieftain
+[21:02] <All_for_One> 		Hyena
+[21:02] <All_for_One> 		converted excavator
+[21:02] <All_for_One> 	Nisroch
+[21:02] <All_for_One> 		Chinook
+[21:02] <All_for_One> 		Windstorm
+[21:02] <Sirius> why are there so many idiots in the world?
+[21:02] <Gohan> d:
+[21:02] <Xavier> lol @ Sirius 
+[21:02] <All_for_One> because they are the easy ones to lay
+[21:02] <Sirius> a pleasure ;)
+[21:02] <Gohan> why did you do that :(
+[21:02] * Xavier beats AFO with a floodgate
+[21:02] * Gohan hits mute
+[21:02] <Gohan> kick him! :p
+[21:02] <All_for_One> That's the list of units
+[21:03] <Gohan> please kick D:
+[21:03] <Gohan> never do that again please -_-
+[21:03] <Xavier> aggh don't ever do that again :p
+[21:03] <Xavier> those come in one line at a time, one second apart...that takes forever
+[21:04] <Gohan> also I have to hear my sound notification go on repeat forever
+[21:04] <All_for_One> didn't know that
+[21:04] <All_for_One> sry, that's 61 lines
+[21:05] <Xavier> does that include all of the concept stuff that others have done?
+[21:05] <Thoth> ** this application has failed to start because OgreMain.dll was not found...
+[21:05] <Thoth> reinstall didnt work
+[21:05] <All_for_One> just the stuff that's in my CoS modelling folder
+[21:05] <All_for_One> some of it is rejects
+[21:06] <Xavier> thoth, ya, I need to fix that -- for now you can add the path to versions/Develoment/0.2 to your system path (My Computer --> Properties --> Advanced --> Environment Variables)
+[21:06] <All_for_One> I think the total unit count we're looking at is about 120 or so
+[21:06] <Xavier> per unit you mean?
+[21:06] <Xavier> thoth: but I will be getting back to that after the meeting
+[21:07] <All_for_One> total
+[21:07] <Thoth> k
+[21:07] <Xavier> what's the expected total once it's done in 1.0?
+[21:07] * [HJ]-Asmudius_Heng has quit IRC (Connection reset by peer)
+[21:07] <All_for_One> Actually, with the spacecraft and infantry designs it might be closer to 150
+[21:08] <All_for_One> Ideally one of each class for each unit
+[21:08] <All_for_One> err
+[21:08] <All_for_One> one of each TYPE for each FACTION
+[21:08] <All_for_One> and there are 7 classes
+[21:08] <All_for_One> so probably about 40
+[21:09] <Xavier> class == type?
+[21:10] <Xavier> just trying to get a handle on the magnitude of the work that needs to be done between now and the end of next year
+[21:10] <Xavier> (and that's just models....doesn't even begin to account for terrains and levels)
+[21:11] <All_for_One> type is vehicle(micro, macro, light/heavy vehicles, vertical thrust, jets tanks
+[21:11] <All_for_One> implement the space combat later
+[21:12] <All_for_One> class is assault, hunter killer, siege and ilk
+[21:12] <Xavier> so 280?
+[21:13] * [HJ]-Asmudius_Heng has joined #cos-dev
+[21:13] <Xavier> re
+[21:14] <RedSpace> guys, when u got 2 secs can u check out this APC concept? http://www.clashofsteel.net/forums/viewtopic.php?p=10882#10882
+[21:14] <Xavier> almost forgot...I guess without a 2D artist we are sort of stranded still on a firm GUI implementation>
+[21:15] <Xavier> interesting
+[21:15] <Sidelink> reminds me of a movie I once saw
+[21:15] <Xavier> ya I saw that
+[21:15] <Thoth> Damnation Alley was late 80s i think, right
+[21:15] <RedSpace> Quote "The idea for this one is from the main vehicle from Damnation Alley"
+[21:15] <Sidelink> yeah
+[21:15] <Xavier> yup
+[21:16] <Xavier> "hep me Tanner!"
+[21:16] <Thoth> the wheel design is cool, but the body is... volvo like
+[21:16] <RedSpace> lol, which is a good thing for a APC
+[21:17] <Xavier> http://www.imdb.com/gallery/mptv/1362/Mptv/1362/6316_0007.jpg?path=gallery&path_key=0075909
+[21:17] <Thoth> raise the base up so the axel height is higher
+[21:17] <Xavier> http://www.imdb.com/gallery/mptv/1362/Mptv/1362/6316_0040.jpg?path=gallery&path_key=0075909
+[21:17] <Thoth> 77 wow
+[21:18] <Thoth> i was 6
+[21:18] <Xavier> yup I was 7
+[21:18] <All_for_One> ah
+[21:18] <RedSpace> 2
+[21:18] <All_for_One> that would be why it didn't ring any bells
+[21:18] <Thoth> memories
+[21:18] <All_for_One> it predates me
+[21:18] <Xavier> I still remember Peppard's goofy northeast accent in that one 
+[21:18] <Gohan> I was nonexistant.
+[21:19] <Xavier> I think I only watched it because I liked the A Team at the time
+[21:19] <Gohan> But my legend was foretold by ancient manuscripts. Oh yeah.
+[21:19] <Xavier> rofl
+[21:19] <Thoth> well Red its a cool concept, but its really very close to that design
+[21:19] <All_for_One> yeah, they said, look out for this one...
+[21:19] <Gohan> Also, the A-Team is awesome.
+[21:19] <Xavier> the wheel design would be useful on rocky desert terrain like that
+[21:19] <RedSpace> it will change as it's a 5am wonder
+[21:19] <Xavier> thoth: ya but who remembers that movie except me and Red? ;)
+[21:20] * [HJ]-Asmudius_Heng has quit IRC (Connection reset by peer)
+[21:20] <Gohan> how does it turn o_O
+[21:20] <Thoth> lol
+[21:20] <RedSpace> same way as tanks i guess
+[21:20] <Thoth> when it hits resisting rocks
+[21:20] <Gohan> or is it a suicide sweeper
+[21:20] <Thoth> a secondary gear kicks in
+[21:20] <Xavier> lol
+[21:20] <Gohan> oh like those robotic vacuum cleaners
+[21:20] <Xavier> ya I'd say same concept as tanks
+[21:21] <Thoth> i would put the fastcat/sand...whatever its called now, concept to it
+[21:21] <RedSpace> it came to me talking to AFO last night and that wheel design struck me as very Sid
+[21:21] <Thoth> move the wheels out  and downward from the body
+[21:21] * [HJ]-Asmudius_Heng has joined #cos-dev
+[21:21] <[HJ]-Asmudius_Heng> god damnit
+[21:22] <[HJ]-Asmudius_Heng> i cant stay conected
+[21:22] <Gohan> poor Asmoo
+[21:22] <Thoth> Asmu, your internet connection: styrofoam cups and string
+[21:22] <Sidelink> happened to me during one of these meetings
+[21:23] <[HJ]-Asmudius_Heng> seems to be just IRC though nothing else
+[21:24] <All_for_One> Could your timeout be set too high for IRC?
+[21:24] <[HJ]-Asmudius_Heng> * [10053] Software caused connection abort
+[21:24] <[HJ]-Asmudius_Heng> thats the error
+[21:24] <All_for_One> since you are connecting via sat
+[21:26] <[HJ]-Asmudius_Heng> how do ya change it?
+[21:26] <All_for_One> dunno
+[21:26] <All_for_One> that was just an idea
+[21:26] * Disconnected
+Session Close: Sat Feb 04 21:26:55 2006
+
+Session Start: Sat Feb 04 21:27:03 2006
+Session Ident: #cos-dev
+[21:27] * Now talking in #cos-dev
+[21:27] * Topic is 'See topic titled "Dev IRC channel" in programmers forum for key to join channel'
+[21:27] * Set by Xavier on Fri Dec 23 21:52:57
+[21:27] <All_for_One> sry pressed wrong button
+[21:28] <Xavier> I guess we're about done anywqay
+[21:28] <Xavier> I'll go ahead and compile the minutes from this morning and tonight into a single doc and post that up
+[21:28] <[HJ]-Asmudius_Heng> cool
+[21:28] <[HJ]-Asmudius_Heng> anythign else you need from that mission?
+[21:29] <[HJ]-Asmudius_Heng> or we need a map maker first?
+[21:29] <Xavier> a creative map maker shoudl be able to look at it and get some ideas
+[21:30] <Xavier> from there it's an iterative process with the mapper and you guys, until you say "yeah that's it" ;)
+[21:30] <Xavier> don't be shy on size
+[21:31] <Xavier> we can cut up any landscape into smaller chunks and use it with the paging landscape scene manager in Ogre
+[21:31] <Xavier> the only limit of course is the fact that this needs to be distributed via download ;)
+[21:32] <Xavier> that goes ditto for the models; Eli asked today about animating HP, and there's no real GPU reason against it; only the size difference between a LP and a HP model
+[21:32] <Xavier> size on media that is
+[21:32] <Thoth> i can generate a interim map while we wait for someone more skilled
+[21:32] <[HJ]-Asmudius_Heng> go for it thoth
+[21:32] <Xavier> do you get some good vision of what it would look like from that image?
+[21:33] <[HJ]-Asmudius_Heng> i'll email redraven soon see what he might be able to provide
+[21:33] <Thoth> linky
+[21:33] <Thoth> ?
+[21:33] <All_for_One> http://www.clashofsteel.net/forums/viewtopic.php?t=664
+[21:33] <All_for_One> last post
+[21:33] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=664
+[21:33] <All_for_One> :-P

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Havok_Release"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="&quot;$(SolutionDir)\tech\ThirdParty\Havok\Source&quot;;&quot;$(SolutionDir)..\tech\ThirdParty\Havok\Source&quot;"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="hkBase.lib hkSerialize.lib hkSceneData.lib hkCompat.lib hkaInternal.lib hkaRagdoll.lib hkpInternal.lib hkaAnimation.lib hkpVehicle.lib hkpDynamics.lib hkpUtilities.lib hkpConstraintSolver.lib hkpCollide.lib hkVisualize.lib hkGeometryUtilities.lib hkInternal.lib"
+		AdditionalLibraryDirectories="&quot;$(SolutionDir)\tech\ThirdParty\Havok\Lib\win32_net_9-0\release_multithreaded_dll&quot;;&quot;$(SolutionDir)..\tech\ThirdParty\Havok\Lib\win32_net_9-0\release_multithreaded_dll&quot;"
+	/>
+</VisualStudioPropertySheet>

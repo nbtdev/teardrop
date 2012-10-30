@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<object category="Scene" name="Canyon"> 
+    <initial_zone id="12345678" />
+    <zone id="0" type="TerrainZone">
+        <property name="HeightMap" value="assets/scrub6_hgt-138.tga" />
+        <property name="DiffuseMap" value="assets/textures/terrain_texture.tex" />
+        <property name="DetailMap" value="assets/textures/terrain_detail.tex" />
+        <property name="Shader" value="TerrainShader/Main" />
+        <property name="ZoneSize" value="(2000.000000,200.000000,2000.000000,0.000000)" />
+        <property name="Tiling" value="(64.000000,64.000000)" />
+        <property name="Name" value="zoneName" />
+        <property name="Ambient" value="(0.600000,0.600000,0.500000,0.000000)" />
+        <property name="Dimensions" value="(5000.000000,800.000000,5000.000000,0.000000)" />
+        <property name="Origin" value="(0.000000,0.000000,0.000000,0.000000)" />
+        <objects>
+            <object type="SpawnPoint" id="256">
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(0.000000,50.000000,150.000000),(1.000000,0.000000,0.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="SpawnPoint" id="257">
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(30.000000,50.000000,150.000000),(0.707000,0.000000,0.707000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="SpawnPoint" id="258">
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(30.000000,50.000000,200.000000),(-0.000000,0.000000,1.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="SpawnPoint" id="259">
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(0.000000,50.000000,200.000000),(-0.707000,0.000000,0.707000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="PointLight" id="260">
+                <property name="Range" value="1000.000000" />
+                <property name="Attenuation" value="(1.000000,0.000000,0.000000,0.000000)" />
+                <property name="LightColor" value="(0.750000,0.899000,0.980000,0.000000)" />
+                <property name="Name" value="PointLight1" />
+                <property name="Transform" value="[(200.867035,32.386715,19.241638),(1.000000,0.000000,0.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="Prop" name="Hangar" id="261">
+                <property name="Transform" value="[(258.564392,2.966925,95.973923),(0.612463,0.000000,-0.790499,0.000000),(1.000000,1.000000,1.000000)]" />
+                <property name="Name" value="Hangar13" />
+            </object>
+            <object type="Prop" name="Hangar" id="262">
+                <property name="Transform" value="[(235.184036,7.231426,124.657158),(1.000000,0.000000,0.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <property name="Name" value="Area51" />
+            </object>
+            <object type="Prop" name="Hangar" id="263">
+                <property name="Transform" value="[(259.502563,2.937328,76.696609),(0.601448,-0.000000,-0.798912,0.000000),(1.000000,1.000000,1.000000)]" />
+                <property name="Name" value="(undefined)" />
+            </object>
+            <object type="VFX" name="Test" id="264">
+                <property name="Transform" value="[(240, 10, 85),(1,0,0,0),(1.000000,1.000000,1.000000)]" />
+                <property name="Name" value="TestPsys" />
+            </object>
+        </objects>
+    </zone>
+    <aabb>
+        <min value="(-2500.000000,-400.000000,-2500.000000,0.000000)" />
+        <max value="(2500.000000,400.000000,2500.000000,0.000000)" />
+    </aabb>
+</object>

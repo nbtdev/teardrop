@@ -1,0 +1,278 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of the Clash Of Steel Project
+
+For the latest info, see http://www.clashofsteel.net/
+
+Copyright (c) The Clash Of Steel Team
+Also see acknowledgments in Readme.txt
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-----------------------------------------------------------------------------
+*/
+
+#include "ParticleSystemRenderer.h"
+#include "ParticleSystem.h"
+#include "Gfx/include/GfxRenderer.h"
+#include "Gfx/include/GfxMesh.h"
+#include "Gfx/include/GfxSubMesh.h"
+#include "Gfx/include/GfxVertexData.h"
+#include "Gfx/include/GfxVertexFormat.h"
+#include "Gfx/include/GfxMaterial.h"
+#include "Gfx/include/GfxTextureStage.h"
+#include "Gfx/include/GfxTexture.h"
+#include "Gfx/include/GfxUtil.h"
+#include "Math/include/Matrix44.h"
+#include "Math/include/MathUtil.h"
+#include "Resource/include/ResourceManager.h"
+#include "Game/include/Zone.h"
+#include "Util/include/Environment.h"
+
+using namespace CoS;
+//---------------------------------------------------------------------------
+COS_CLASS_IMPL(ParticleSystemRenderer);
+//---------------------------------------------------------------------------
+ParticleSystemRenderer::ParticleSystemRenderer()
+{
+	m_camPos = Vector4::ZERO;
+}
+//---------------------------------------------------------------------------
+ParticleSystemRenderer::~ParticleSystemRenderer()
+{
+
+}
+//---------------------------------------------------------------------------
+void ParticleSystemRenderer::onInstanceCreated()
+{
+	setServerComponent(false); // not needed on a server
+}
+//---------------------------------------------------------------------------
+bool ParticleSystemRenderer::initialize()
+{
+	// initialize the "reference" mesh quad
+	GfxMesh* pMesh = m_inst.m_pProceduralMesh = COS_NEW GfxMesh;
+	GfxSubMesh* pSubmesh = pMesh->createSubMesh();
+
+	m_quad[0].pos = Vector4::ZERO;
+	m_quad[1].pos = Vector4::ZERO;
+	m_quad[2].pos = Vector4::ZERO;
+	m_quad[3].pos = Vector4::ZERO;
+
+	m_quad[0].pos.w = 1;
+	m_quad[1].pos.w = 1;
+	m_quad[2].pos.w = 1;
+	m_quad[3].pos.w = 1;
+
+	m_quad[1].pos.y = 1;
+	m_quad[2].pos.x = 1;
+	m_quad[3].pos.x = 1;
+	m_quad[3].pos.y = 1;
+
+	m_quad[0].texCoord.x = m_quad[0].pos.x;
+	m_quad[0].texCoord.y = m_quad[0].pos.y;
+	m_quad[1].texCoord.x = m_quad[1].pos.x;
+	m_quad[1].texCoord.y = m_quad[1].pos.y;
+	m_quad[2].texCoord.x = m_quad[2].pos.x;
+	m_quad[2].texCoord.y = m_quad[2].pos.y;
+	m_quad[3].texCoord.x = m_quad[3].pos.x;
+	m_quad[3].texCoord.y = m_quad[3].pos.y;
+
+	m_quadIndices[0] = 0;
+	m_quadIndices[1] = 1;
+	m_quadIndices[2] = 2;
+	m_quadIndices[3] = 1;
+	m_quadIndices[4] = 2;
+	m_quadIndices[5] = 3;
+
+	GfxVertexFormat fmt;
+	GfxVertexFormat::Element elem;
+	elem.offset = 0;
+	elem.semantic = POSITION;
+	elem.type = FLOAT4;
+	elem.setUsage(0);
+	elem.setSource(0);
+	fmt.addElement(elem);
+	elem.type = FLOAT2;
+	elem.semantic = TEXCOORD;
+	elem.offset += GfxUtil::getSizeOf(FLOAT4);
+	fmt.addElement(elem);
+
+	size_t stream;
+	GfxVertexData* pVData = pSubmesh->createVertexData(
+		stream, 
+		Environment::get(),
+		fmt.getVertexSize(),
+		4,
+		(GfxVertexData::CreationFlags)(GfxVertexData::STATIC | GfxVertexData::WRITE_ONLY),
+		m_quad);
+
+	GfxIndexData* pIData = pSubmesh->createIndexData(
+		Environment::get(),
+		2,
+		6,
+		m_quadIndices
+		);
+
+	pSubmesh->setPrimitiveType(TRISTRIP);
+
+	// setup a transparent material, with texture if specified
+	GfxMaterial* pMtl = COS_NEW GfxMaterial;
+	if (getTexture().length())
+	{
+		String texPath(getAssetRootPath());
+		texPath += "/";
+		texPath += getTexture();
+
+		GfxTextureStage* pStage = pMtl->addTextureStage();
+		pStage->setTexture(0, 
+			Environment::get().pResourceMgr->acquire(GfxTexture::RESOURCE_TYPE, texPath));
+		pStage->setEnabled(true);
+		pStage->setLayerBlendMode(GfxTextureStage::MODULATE);
+		pStage->setFilter(GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR);
+	}
+
+	pMtl->setDepthWrite(false);
+	pMtl->setAlphaBlended(true);
+	pSubmesh->setMaterial(pMtl, true);
+
+	// set up the instanced-rendering data
+	m_inst.m_instanceVertexData = Environment::get().pRenderer->createVertexData();
+
+	// vertex format adds just the transform (4x4) for now
+	GfxVertexFormat::Element instElem;
+	instElem.offset = 0;
+	instElem.semantic = TEXCOORD;
+	instElem.type = FLOAT4;
+	instElem.setUsage(1);
+	instElem.setSource(1);
+	fmt.addElement(instElem);
+	instElem.offset += GfxUtil::getSizeOf(FLOAT4);
+	instElem.setUsage(2);
+	fmt.addElement(instElem);
+	instElem.offset += GfxUtil::getSizeOf(FLOAT4);
+	instElem.setUsage(3);
+	fmt.addElement(instElem);
+	instElem.offset += GfxUtil::getSizeOf(FLOAT4);
+	instElem.setUsage(4);
+	fmt.addElement(instElem);
+
+	pSubmesh->setVertexFormat(Environment::get(), fmt);
+	
+	return true;
+}
+//---------------------------------------------------------------------------
+bool ParticleSystemRenderer::destroy()
+{
+	// delete everything we own; note that the memory pool cleans itself up
+	if (m_inst.m_pProceduralMesh)
+		m_inst.m_pProceduralMesh->destroy();
+	delete m_inst.m_pProceduralMesh;
+	m_inst.m_pProceduralMesh = 0;
+
+	m_inst.m_instanceCount = 0;
+
+	if (m_inst.m_instanceVertexData)
+		m_inst.m_instanceVertexData->destroy();
+	delete m_inst.m_instanceVertexData;
+	m_inst.m_instanceVertexData = 0;
+
+	return true;
+}
+//---------------------------------------------------------------------------
+bool ParticleSystemRenderer::update(float deltaT)
+{
+	// we only work with ParticleSystem as a host
+	if (!m_pHost->isOfType(ParticleSystem::getClassDef()))
+		return false;
+
+	ParticleSystem* pSystem = static_cast<ParticleSystem*>(m_pHost);
+
+	// once everything is updated, assemble the instanced rendering data
+	m_inst.m_instanceCount = m_particles.size();
+	GfxVertexData* pData = m_inst.m_instanceVertexData;
+	pData->release();
+	pData->initialize(
+		(GfxVertexData::CreationFlags)(GfxVertexData::DYNAMIC|GfxVertexData::WRITE_ONLY), 
+		sizeof(Matrix44), 
+		m_particles.size());
+
+	Matrix44* pBuf = 0;
+	if (pData)
+		pBuf = (Matrix44*)pData->lock();
+	if (!pBuf && pData)
+		pBuf = (Matrix44*)pData->getBuffer();
+
+	// we need to populate the buffer with activeParticleCount 4x4 transform
+	// instances. In order to get the correct transform, we need to have the
+	// particles "look at" the camera. We have the particle's world-space 
+	// position, we have its upvector (UNIT Y) and we have the target (the
+	// camera's world-space position). And we have a Matrix4 method to give us
+	// the transform we want.
+	// We also need to update the particle system's world AABB
+	Vector4 cornerMin = Vector4::POSITIVE_INFINITY;
+	Vector4 cornerMax = Vector4::NEGATIVE_INFINITY;
+
+	for (ParticleList::iterator p = m_particles.begin(); p != m_particles.end(); ++p)
+	{
+		if (pBuf)
+		{
+			Vector4 worldPos((*p)->m_position + m_pHost->getTransformWS().trans);
+			Vector4 z(m_camPos - worldPos);
+			z.normalize(); // this is our orthonormal Z axis
+
+			// Y axis is based on camera's local Y axis
+			Vector4 y(m_camRot * Vector4::UNIT_Y);
+
+			// X axis is the cross of these two
+			Vector4 x(cross(z, y));
+			x.normalize();
+
+			y = cross(x, z);
+
+			Matrix44 mat = Matrix44::IDENTITY;
+
+			mat.m[0][0] = x.x;    mat.m[1][0] = x.y;     mat.m[2][0] = x.z;
+			mat.m[0][1] = y.x;    mat.m[1][1] = y.y;     mat.m[2][1] = y.z;
+			mat.m[0][2] = z.x;    mat.m[1][2] = z.y;     mat.m[2][2] = z.z;
+
+			mat.m[3][0] = worldPos.x; // -dot(worldPos, x);
+			mat.m[3][1] = worldPos.y; // -dot(worldPos, y);
+			mat.m[3][2] = worldPos.z; // -dot(worldPos, z);
+			mat.m[3][3] = 1;
+
+			*pBuf++ = mat;
+		}
+
+		// expand particle system AABB
+		cornerMin = MathUtil::makeMin(cornerMin, (*p)->m_position);
+		cornerMax = MathUtil::makeMax(cornerMax, (*p)->m_position);
+	}
+
+	if (pData)
+		pData->unlock();
+
+	AABB aabb;
+	aabb.fromCorners(cornerMin, cornerMax);
+	aabb.center += m_pHost->getTransformWS().trans; // center on our location
+	m_pHost->setBoundingBox(aabb);
+
+	m_inst.setTransform(m_pHost->getTransformWS());
+
+	return true;
+}

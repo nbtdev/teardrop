@@ -1,0 +1,356 @@
+[2006-06-04 15:03:23] *** Xavier (xavier@nbt-11837EF1.hsd1.ca.comcast.net) joined
+[2006-06-04 15:03:23] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-06-04 15:03:29] <Sirius> I imagine it'd be tricky to find any other way to teleport into mid-air
+[2006-06-04 15:03:29] <Xavier> oingo BOINGO bitch! :p
+[2006-06-04 15:03:31] *** Slit (rtucker@nbt-96B0C432.client.stsn.net) joined
+[2006-06-04 15:03:40] <Xavier> ahoy peeps
+[2006-06-04 15:03:43] <All_for_one> ahoyhoy
+[2006-06-04 15:03:45] <Slit> hola
+[2006-06-04 15:03:47] <Sirius> apart from aiming straight up, of course
+[2006-06-04 15:03:51] <Xavier> who's inna house?
+[2006-06-04 15:03:57] <Gohan> I am in a house.
+[2006-06-04 15:03:58] <Sirius> now this would be funny if, for instance, we had high explosives
+[2006-06-04 15:04:11] <Xavier> k I see Sirius Slit Goham and my one bad self
+[2006-06-04 15:04:17] <All_for_one> we could
+[2006-06-04 15:04:21] <Xavier> and AfO
+[2006-06-04 15:04:22] <Gohan> I never seen a perm like yours
+[2006-06-04 15:04:28] <Gohan> cuz you baddddddddddddd
+[2006-06-04 15:04:56] <Xavier> that's how I roll
+[2006-06-04 15:05:00] <Slit> lol
+[2006-06-04 15:05:04] *** SG_01 (sg01_net@nbt-294197FD.adsl.wanadoo.nl) joined
+[2006-06-04 15:05:05] <All_for_one> but with the kinda arabic leaning, giving them high explosives would be a bad stereotype.
+[2006-06-04 15:05:09] <Xavier> yo SG
+[2006-06-04 15:05:15] <Sirius> LOL
+[2006-06-04 15:05:18] <Xavier> SG early AM reprazent 
+[2006-06-04 15:05:33] <All_for_one> huh?
+[2006-06-04 15:05:37] <Xavier> lol
+[2006-06-04 15:05:39] <Gohan> IRC needs spell check
+[2006-06-04 15:05:40] <Xavier> you aint street
+[2006-06-04 15:05:45] <All_for_one> no
+[2006-06-04 15:05:45] <Xavier> :p
+[2006-06-04 15:05:55] <Gohan> canadians cannot be called "thug" or "street"
+[2006-06-04 15:05:57] <Xavier> sorry I am in Berkeley right now and I am feeling the vibe
+[2006-06-04 15:06:01] <Gohan> it would violate the code
+[2006-06-04 15:06:04] <Xavier> lol
+[2006-06-04 15:06:08] <All_for_one> I'm white, and of the opinion that white people cannot be street
+[2006-06-04 15:06:12] <Xavier> agreed
+[2006-06-04 15:06:15] <All_for_one> or at least
+[2006-06-04 15:06:15] <Xavier> but we can front ;)
+[2006-06-04 15:06:19] <All_for_one> shouldn't speak it
+[2006-06-04 15:06:25] <Xavier> where's the fun in that?
+[2006-06-04 15:06:35] <Xavier> damn Canadians, way too uptight :p
+[2006-06-04 15:06:41] <All_for_one> right...
+[2006-06-04 15:06:46] <SG_01> hehe
+[2006-06-04 15:06:50] * SG_01 is raiding
+[2006-06-04 15:06:55] <Xavier> Portishead playing...
+[2006-06-04 15:06:59] <Xavier> Aimee Mann before that
+[2006-06-04 15:07:06] <Gohan> if you want to be real street, you need my playlist, yo
+[2006-06-04 15:07:09] <All_for_one> http://www.clashofsteel.net/all_for_one/hydralisk2silh.jpg
+[2006-06-04 15:07:10] <Xavier> this is about the most eclectic playlist I've heard yet
+[2006-06-04 15:07:28] <All_for_one> http://www.clashofsteel.net/all_for_one/hydralisk2silh.jpg
+[2006-06-04 15:07:31] <Gohan> oh god, I fought that thing in Final Fantasy X-2 D:
+[2006-06-04 15:07:34] <SG_01> Xavier: How did you like my script coding so far?
+[2006-06-04 15:07:36] <All_for_one> http://www.clashofsteel.net/all_for_one/hydralisk4silh.jpg
+[2006-06-04 15:07:44] <Xavier> I haven't had a chance to look at it yet SG :(
+[2006-06-04 15:07:49] <All_for_one> yeah
+[2006-06-04 15:07:50] <SG_01> Ah, alright
+[2006-06-04 15:07:55] <SG_01> It works pretty well =)
+[2006-06-04 15:08:00] <Xavier> then I love it :)
+[2006-06-04 15:08:01] <All_for_one> dunno how you fought a hydralisk in FFX2...
+[2006-06-04 15:08:23] <Slit> i looked at it, sg
+[2006-06-04 15:08:31] * Xavier looks at the two VS instances open right now, neither containing CoS :(
+[2006-06-04 15:08:45] <SG_01> LoL
+[2006-06-04 15:08:49] <Gohan> it looks similar to that model
+[2006-06-04 15:09:16] <Xavier> ok lets get started I think?
+[2006-06-04 15:09:17] <SG_01> What do you think, Slit? :P
+[2006-06-04 15:09:18] <Slit> one question: you sure you want to write your own parser?
+[2006-06-04 15:09:26] <SG_01> Yea
+[2006-06-04 15:09:44] <Xavier> let's start with SG's scripting implementation, lol :)
+[2006-06-04 15:10:11] <SG_01> Yea, why not
+[2006-06-04 15:10:16] <SG_01> Waiting on AFKs anyhow :P
+[2006-06-04 15:10:16] <Xavier> well we are using Lua
+[2006-06-04 15:10:24] <Xavier> which has its own parser
+[2006-06-04 15:10:54] <Slit> that's what I was thinking
+[2006-06-04 15:11:49] <Slit> i like a lot of the work, especially for registering the callbacks
+[2006-06-04 15:12:16] <SG_01> How do they handle looking up stuff like that?
+[2006-06-04 15:12:17] <Slit> probably just need to modify it to wrap lua
+[2006-06-04 15:13:14] <SG_01> I'm not sure how deep you looked into it, but I did enjoyplaying with hash maps ;)
+[2006-06-04 15:13:23] *** Guest34414 (anchovy@nbt-94895BDE.mh.shawcable.net) joined
+[2006-06-04 15:13:30] <SG_01> hash maps are a very fast impementation btw
+[2006-06-04 15:13:37] <Guest34414> hi guys
+[2006-06-04 15:13:40] <Slit> once the architecture is identified, we can establish the functions that need to be exposed to lua
+[2006-06-04 15:13:43] <SG_01> Hello guest :P
+[2006-06-04 15:14:07] <Gohan> hi, anch
+[2006-06-04 15:14:10] <Guest34414> for some reason it doesn't like my real nick
+[2006-06-04 15:14:17] <Guest34414> hi gohan
+[2006-06-04 15:14:21] <Guest34414> good call
+[2006-06-04 15:14:26] <Gohan> I am the internet
+[2006-06-04 15:14:26] <Xavier> lol
+[2006-06-04 15:14:28] <Xavier> hey anch
+[2006-06-04 15:14:34] <Gohan> I knew when you were logging on
+[2006-06-04 15:14:38] <Xavier> you can change it to _Anchovy if you want
+[2006-06-04 15:14:39] <Guest34414> how can I change my nick?
+[2006-06-04 15:14:51] <Xavier> type /nick Anchovy
+[2006-06-04 15:14:51] <SG_01> /nick nick
+[2006-06-04 15:14:54] <Xavier> or whatever nick you want
+[2006-06-04 15:14:56] *** Guest34414 changed nick to Anchovy
+[2006-06-04 15:14:59] <Anchovy> yay
+[2006-06-04 15:15:23] <Xavier> hash maps are also still in the ext namespace, not STD -- we need to make sure it compiles on all our platforms
+[2006-06-04 15:15:32] <Anchovy> i think gohan might be the AI in my story
+[2006-06-04 15:15:33] <Xavier> lol
+[2006-06-04 15:15:37] <Gohan> I AM RAMPANT
+[2006-06-04 15:15:41] <Gohan> oh wai, this is not halo
+[2006-06-04 15:15:46] * SG_01 snickers
+[2006-06-04 15:15:49] <Xavier> btw nice work on that Anch -- looks like you have a good head of steam up
+[2006-06-04 15:15:56] <Anchovy> thanks
+[2006-06-04 15:16:17] <Xavier> on the Lua interpreter, SG, everything available in the script is available in the stack
+[2006-06-04 15:16:18] <Anchovy> i wish i could get that &^%( face right on that infantry guy
+[2006-06-04 15:16:49] <Xavier> we can find the function names pretty easily -- and for those things which are documented and available (or expected to be implemented) we can just go grab those
+[2006-06-04 15:17:22] <Xavier> so if the script is defining event handlers on the fly, we can parse the function names that exist in the script by looking through the Lua stack
+[2006-06-04 15:18:09] <Sirius> hmm
+[2006-06-04 15:18:25] <Sirius> Xavier - is there anywhere I can read up on the CoS architecture when I have the time for it?
+[2006-06-04 15:18:26] <SG_01> Actually I made my own kinda "stack" which is more of a class structure
+[2006-06-04 15:18:31] <SG_01> Didn't know you where set on LUA ^_^
+[2006-06-04 15:18:55] <Xavier> right now, Sirius, the best place is that thread in the Programmer's forum -- it's going to change fairly significantly in this milestone
+[2006-06-04 15:19:02] <Sirius> k
+[2006-06-04 15:19:16] <Xavier> sg: Lua because it's well-known and lightweight
+[2006-06-04 15:19:43] <SG_01> What I was building is less known, but very light weight ;)
+[2006-06-04 15:19:47] <Xavier> and pretty simple to use -- the code that loads the config defaults from the .lua file was far simpler than I thought it would be
+[2006-06-04 15:19:52] <SG_01> But that's alright
+[2006-06-04 15:20:22] <Slit> more specifically, someone else maintains the parser which means we can concentrate on writing game code ;)
+[2006-06-04 15:20:23] <Xavier> I would rather not reinvent the wheel in this case -- does Lua support the language features you had in mind?
+[2006-06-04 15:20:44] <SG_01> I'm not sure, havn't looked into it
+[2006-06-04 15:20:45] <SG_01> I will take a dive ;)
+[2006-06-04 15:20:52] <SG_01> But not now
+[2006-06-04 15:21:13] <Xavier> k
+[2006-06-04 15:21:18] <Slit> i did some research on embedding lua a few weeks ago, sg. i'll dig the links back up and fwd to you
+[2006-06-04 15:21:25] <SG_01> Kk
+[2006-06-04 15:21:44] <SG_01> So far, take a look what I made in a couple of hours and see for yourself
+[2006-06-04 15:21:48] <Xavier> sirius, on the architecture issue -- in short, the architecture is moving to more of a message-based system
+[2006-06-04 15:21:51] <SG_01> it was easier to make that I thought it was
+[2006-06-04 15:22:57] <Xavier> sirius: the architecture will be decoupling the major parts of the application from each other -- rendering will not be tied directly to the entity management code, instead it will pass messages to the rendering (view) layer which will take care of updating the scene on the local client
+[2006-06-04 15:23:54] <Xavier> Sirius: also, there will be a distinct platform layer that provides all concrete services to the application, such as filesystem interface, system timer, platform-specific message logging and display and so on
+[2006-06-04 15:24:00] <Sirius> Oh, right
+[2006-06-04 15:24:09] <Sirius> nice for portability
+[2006-06-04 15:24:33] <Slit> and tying back to scripting: that's what I see most of the scripting doing -- posting messages to the engine objects
+[2006-06-04 15:24:51] <Sirius> Is message-based efficient enough these days? I guess there is a fair bit of processing power now, though, and the main bottlenecks are still graphical
+[2006-06-04 15:24:57] <Slit> and handling the callbacks
+[2006-06-04 15:24:59] <Xavier> the view will take care not only of display, but also handling user input -- this part will be simple because we already send input events through a message queue -- we will just be extending the message queueing concept used in the input-to-main-loop code to the entire architecture
+[2006-06-04 15:25:13] <Xavier> yes, message-based processing works rather well
+[2006-06-04 15:25:27] <Sirius> Do you need distinct threads for it?
+[2006-06-04 15:25:48] <Xavier> in just about all cases, the messages are not time-sensitive (in other words, it doesn't matter if something gets processed this frame, next frame or ten frames from now)
+[2006-06-04 15:25:56] <Sirius> Ah
+[2006-06-04 15:26:14] <Xavier> it would be a very good idea to design with concurrency in mind, since dual-core is here to stay and will be rather common once we release
+[2006-06-04 15:26:32] <Xavier> even now, we can take advantage of hyperthreading by designing for concurrenct
+[2006-06-04 15:26:41] <Sirius> Right, and dual-core is quite well suited towards handling systems with minimal interaction between components
+[2006-06-04 15:26:52] <Xavier> however, a message-based design does not have to be concurrent -- it just is more efficient if it is ;)
+[2006-06-04 15:27:05] <Xavier> brb, pizza :)
+[2006-06-04 15:27:06] <Slit> user input usually has it's own thread, everything else can be evaluated on a case-by-case basis
+[2006-06-04 15:27:30] <SG_01> Message based processing for the GUI elements might be a bit over though ;)
+[2006-06-04 15:27:41] <Slit> (as to whether another thread is warranted, that is)
+[2006-06-04 15:28:52] * Xavier points out that Gohan would like this pizza -- definitely got Chicago written all over it ;)
+[2006-06-04 15:29:59] <Xavier> the GUI code should raise and send messages as needed to operate with the rest of the architecture, but as for the script sending messages to the GUI handler code, I agree -- the script integration would deal with the script code directly and send messages as needed on its behalf
+[2006-06-04 15:30:18] <Gohan> chicago > *
+[2006-06-04 15:30:45] <Xavier> feel like I am eating Uno's
+[2006-06-04 15:31:32] <Xavier> Pizzaria Uno 4tw
+[2006-06-04 15:31:45] <Xavier> ok, so that's a basic architectural overview
+[2006-06-04 15:32:05] <Xavier> do we want to talk scripting some more or get more involved in the arch? we sort of have two convs going on atm ;)
+[2006-06-04 15:33:15] <Xavier> LOL I am in a room full of game designers from various studios around the Bay, and in a virtual room with a group of devs from around the world
+[2006-06-04 15:33:26] <Xavier> except that we aren't playing board games in here ;)
+[2006-06-04 15:33:44] <SG_01> We can if you want :P
+[2006-06-04 15:33:54] <SG_01> but I 2510fac81 
+[2006-06-04 15:34:03] <Xavier> lol
+[2006-06-04 15:34:10] <SG_01> Silly shift-ins :P
+[2006-06-04 15:34:16] <SG_01> Anyhow, But I ratler play EQ2 ;)_
+[2006-06-04 15:34:31] <Xavier> I learned how to play Confrontation earlier (LotR board game)
+[2006-06-04 15:34:34] <Xavier> hhe
+[2006-06-04 15:34:44] <Xavier> ok, so architecture while SG raids then :)
+[2006-06-04 15:35:15] <Slit> xav: too cool
+[2006-06-04 15:35:15] <Xavier> Slit and I need to talk more on that, so if you want, Sirius, we'll schedule a meeting when all three of us can be there
+[2006-06-04 15:36:02] <Xavier> ya, it's kinda neat, Slit -- some of these guys actually are somebody in the industry (one of them is from Maxis, and so on)
+[2006-06-04 15:36:38] <Sirius> Alright Xavier
+[2006-06-04 15:37:14] <Xavier> OTOH nothing else is going on in here ;)
+[2006-06-04 15:37:14] * SG_01 has been trying to get through to SOE to allow an internship :P
+[2006-06-04 15:37:20] <Xavier> lol
+[2006-06-04 15:37:30] <Xavier> move to the North Bay and intern with us
+[2006-06-04 15:37:42] <SG_01> Hrmmm, I might take you up on that :P
+[2006-06-04 15:37:44] <Xavier> same as working for SOE, except we are not working on EQ (we only use some of its code)
+[2006-06-04 15:38:15] * SG_01 pokes Xavier to http://web.sg01.net/school.slo/english.php
+[2006-06-04 15:39:25] <Xavier> nice :)
+[2006-06-04 15:39:54] <Gohan> woo, VBA
+[2006-06-04 15:40:01] <Gohan> god, I am such a pirate
+[2006-06-04 15:40:09] <All_for_one> VBA is sweet
+[2006-06-04 15:40:13] <SG_01> heh
+[2006-06-04 15:40:14] <All_for_one> go castlevania.
+[2006-06-04 15:40:17] <Gohan> I am currently playing that
+[2006-06-04 15:40:21] <Xavier> Utrecht? Isn't that a CJF planet? ;)
+[2006-06-04 15:40:22] <Gohan> Circle of the Moon
+[2006-06-04 15:40:22] * SG_01 can't watch that page till his Linux server is back up
+[2006-06-04 15:40:25] <SG_01> ROFL
+[2006-06-04 15:40:26] <SG_01> no
+[2006-06-04 15:40:27] <All_for_one> freaky
+[2006-06-04 15:40:29] <All_for_one> ditto
+[2006-06-04 15:40:33] <Gohan> :O
+[2006-06-04 15:40:42] <Gohan> I made it to the underground area with all the poisonous water
+[2006-06-04 15:40:45] <Gohan> naturally, it sucks
+[2006-06-04 15:41:46] <SG_01> Anyhow, if you can find anything that fits, Xav, let me know ;)
+[2006-06-04 15:42:47] <Xavier> hehe will let you know -- things are popping up all the time for us, we are on an upswing in possibilities right now so anything might happen -- if Ubisoft turns out to be serious about this one project it might ramp us up to over 100 devs
+[2006-06-04 15:43:06] <Sirius> Ubisoft?
+[2006-06-04 15:43:08] <SG_01> Nice!
+[2006-06-04 15:43:17] <SG_01> Which studio you working for?
+[2006-06-04 15:43:25] <Gohan> needs less splinter cell
+[2006-06-04 15:43:37] <Xavier> www.mind-control.com
+[2006-06-04 15:43:45] <Xavier> right now I am working on a PSP title
+[2006-06-04 15:43:55] <SG_01> Cool
+[2006-06-04 15:44:23] <Xavier> the other active team is working on a Torque-based title  called DimenXion
+[2006-06-04 15:44:36] <Xavier> glad we didn't pick Torque way back when ;)
+[2006-06-04 15:44:42] <Sirius> heheh
+[2006-06-04 15:44:49] <SG_01> hehe
+[2006-06-04 15:45:26] <Xavier> on the arch note, btw, the PSP title architecture is entirely message-based
+[2006-06-04 15:45:36] <Xavier> and that's running on a MIPS 4000 and it runs fine ;)
+[2006-06-04 15:45:51] <SG_01> Cool
+[2006-06-04 15:46:04] <Xavier> the PSP is so limited in what it can(not) do
+[2006-06-04 15:46:17] <SG_01> Not as limited as the GBA though ;)
+[2006-06-04 15:46:24] <Xavier> I"m just more or less getting the work on it done and hoping for a nice PC or PS3 title to come along after that :)
+[2006-06-04 15:46:32] <Xavier> hehe nearly as limited :)
+[2006-06-04 15:46:49] <Xavier> you end up with about 20MB usable RAM to pack your entire app into
+[2006-06-04 15:46:57] <Xavier> and part of that is shared texture memory
+[2006-06-04 15:47:01] <SG_01> a whole 20MB of RAM? Wow :P
+[2006-06-04 15:47:19] <Xavier> yeah, it's 32MB, 8MB of which is reserved for the OS :p
+[2006-06-04 15:47:21] <SG_01> And definitly not as limited as that bike computer project I had to write... 64KB :P
+[2006-06-04 15:47:25] <Xavier> lol
+[2006-06-04 15:47:25] <Xavier> no
+[2006-06-04 15:47:27] <Xavier> not that limited 
+[2006-06-04 15:47:28] <Xavier> ;)
+[2006-06-04 15:47:36] <Xavier> and we get to write this in C++ using VS2003 :)
+[2006-06-04 15:47:43] <SG_01> Not bad
+[2006-06-04 15:48:03] <Xavier> probably assembler for you?
+[2006-06-04 15:48:16] <SG_01> No, we actually needed to use C++....
+[2006-06-04 15:48:36] <Xavier> kewl
+[2006-06-04 15:48:37] <SG_01> Ofcource it's only more limitting since the C++ stuff takes up soo much space
+[2006-06-04 15:48:53] <Anchovy> Sjoerd Gravelink probably disagrees with you
+[2006-06-04 15:49:09] <SG_01> I think someone misread something :P
+[2006-06-04 15:49:21] <Xavier> SG = Sjoerd
+[2006-06-04 15:49:25] <SG_01> Yep
+[2006-06-04 15:49:31] <Xavier> that's his resume
+[2006-06-04 15:49:33] <Anchovy> LOL
+[2006-06-04 15:49:41] * SG_01 grins :P
+[2006-06-04 15:49:41] <Anchovy> Zapped myself
+[2006-06-04 15:49:43] <Xavier> lol
+[2006-06-04 15:49:46] <Anchovy> sorry dude
+[2006-06-04 15:49:48] <Xavier> np
+[2006-06-04 15:49:59] <Xavier> on the art side, since you are here Anch
+[2006-06-04 15:50:05] <Xavier> how goes the infantry model?
+[2006-06-04 15:50:38] <Anchovy> like i said, the face is taking a lot of time
+[2006-06-04 15:50:52] <Anchovy> i'm working on it often
+[2006-06-04 15:51:22] <Anchovy> perhaps I'll leave the face and get on with the rest
+[2006-06-04 15:51:22] <Xavier> aye, human models are the worst because humans know instinctively what they look like, and are most sensitive to anything that is even slightly off ;)
+[2006-06-04 15:51:54] <Anchovy> the problem is he looks like me
+[2006-06-04 15:51:57] <Xavier> rofl
+[2006-06-04 15:52:04] <Anchovy> i want it to look like maya
+[2006-06-04 15:52:04] <Xavier> nothing wrong with that ;)
+[2006-06-04 15:52:08] <Xavier> hhe
+[2006-06-04 15:52:16] *** [HJ]-Asmudius_Heng|Away changed nick to [HJ]-Asmudius_Heng
+[2006-06-04 15:52:20] <Anchovy> Maya is super hot
+[2006-06-04 15:52:20] <Xavier> its easiest to model what you see in the mirror, no? ;)
+[2006-06-04 15:52:20] <[HJ]-Asmudius_Heng> blarg!
+[2006-06-04 15:52:25] <[HJ]-Asmudius_Heng> bck for a few
+[2006-06-04 15:52:40] <Xavier> kewl
+[2006-06-04 15:52:44] <Anchovy> true, xav
+[2006-06-04 15:53:12] <Anchovy> i'll add the running sores and single eye later
+[2006-06-04 15:53:12] <Xavier> as for the rest of the art, Anch, I think we are just more or less holding on a good solid first map -- Asmu, you talk to RR more than any of us, any luck there or has he suffocated in a mine? ;)
+[2006-06-04 15:53:20] <Xavier> rofl Anch
+[2006-06-04 15:53:20] <Sirius> er wow
+[2006-06-04 15:53:32] <[HJ]-Asmudius_Heng> he was on b4
+[2006-06-04 15:53:33] <Sirius> people are STILL using 10-year-old MIPS cores? The 14000 is out now, from memory
+[2006-06-04 15:53:41] <Sirius> Still, power consumption ... yeah
+[2006-06-04 15:53:45] <[HJ]-Asmudius_Heng> we were talking mapping for a bit  but he had to leave
+[2006-06-04 15:53:45] <Anchovy> xav, do you have a deadline?
+[2006-06-04 15:53:52] <Xavier> form factor in the PSP...ya, power and performance tradeoff
+[2006-06-04 15:54:02] <Xavier> deadline for map? or art in general?
+[2006-06-04 15:54:08] <Xavier> we have plenty to do that does not depend on art
+[2006-06-04 15:54:14] <Anchovy> for models?
+[2006-06-04 15:54:14] <[HJ]-Asmudius_Heng> he is back from the mines for a week i think Xav
+[2006-06-04 15:54:16] <Xavier> but the designers will get bored before long ;)
+[2006-06-04 15:54:21] <Anchovy> for the infantry specifically
+[2006-06-04 15:54:21] <Xavier> rgr Asmu :)
+[2006-06-04 15:54:38] <SG_01> Back to raid with me
+[2006-06-04 15:54:42] <Xavier> infantry probably should be done to a point that Eli can start animating it
+[2006-06-04 15:54:46] <Xavier> rgr SG
+[2006-06-04 15:54:50] <Anchovy> I'd like to get a basic squishie out relatively soon
+[2006-06-04 15:55:00] <Xavier> that will take a long time as well, the animation, to get it looking right
+[2006-06-04 15:55:07] <Anchovy> give me an idea of a deadline
+[2006-06-04 15:55:32] <Xavier> end of June :
+[2006-06-04 15:55:32] <Anchovy> weeks, months?
+[2006-06-04 15:55:36] <Xavier> :)
+[2006-06-04 15:55:58] <Anchovy> if I have a rough idea , then I'll be type A and get it done faster
+[2006-06-04 15:56:06] <Xavier> hehe
+[2006-06-04 15:56:13] <Xavier> end of June -- 4 weeks 
+[2006-06-04 15:56:17] <Anchovy> ok, switching to type A mode
+[2006-06-04 15:56:17] <Xavier> lol
+[2006-06-04 15:56:17] <Slit> sg: (when you get back) i posted up some of those links i promised you in the scritping thread
+[2006-06-04 15:56:35] <Xavier> DH you here?
+[2006-06-04 15:56:44] <SG_01> Kk
+[2006-06-04 15:59:52] <Xavier> work with DH, Anch, on getting it to the point where it can at least be animated -- you guys can coordinate with Eli on passing it over
+[2006-06-04 16:00:00] <Xavier> or, you can work on the animation yourself, up to you and DH and Eli
+[2006-06-04 16:00:47] <Xavier> either way, that will give Eli July to get the kinks worked out and by August we hopefully can have a first pass on the architecture that allows us to load assets using the final design of the asset pipeline
+[2006-06-04 16:00:51] <Anchovy> rgr, i'll talk to him
+[2006-06-04 16:02:17] <Xavier> Sirius, Slit -- anything we want to discuss on the architecture, how to proceed from here, etc?
+[2006-06-04 16:02:45] <Sirius> Um ... well, not urgently
+[2006-06-04 16:02:45] <Slit> pretty much just need to get some meetings scheduled
+[2006-06-04 16:02:49] <Xavier> k
+[2006-06-04 16:03:04] *** Anchovy quit (Connection reset by peer)
+[2006-06-04 16:03:08] <Sirius> except maybe ... is any of it already done
+[2006-06-04 16:03:08] <Slit> so we can hash stuff out
+[2006-06-04 16:03:08] <Xavier> what times are best during the week and on weekends for you both?
+[2006-06-04 16:03:27] <Sirius> Actually, this day of the week usually works best
+[2006-06-04 16:03:39] <Xavier> the implementation of the redesign has not started -- it's all still conceptual for the most part
+[2006-06-04 16:03:39] <Sirius> Friday isn't bad either, though
+[2006-06-04 16:03:43] <Xavier> k
+[2006-06-04 16:03:59] <Slit> i'm usually good most nights after 10 EST
+[2006-06-04 16:04:32] <Slit> challenge for me is getting inet access at the new place, but plan to have that fixed (one way or another) by friday
+[2006-06-04 16:04:40] <Xavier> k
+[2006-06-04 16:05:00] <Xavier> it's Sunday late morning for you Sirius?
+[2006-06-04 16:05:00] <Xavier> right now that is
+[2006-06-04 16:05:08] <Slit> working with comcast is like working with the govt
+[2006-06-04 16:05:14] <Xavier> and for Slit it's midnight in EST (11PM in TX)
+[2006-06-04 16:05:24] <Xavier> hehe I know the feeling there
+[2006-06-04 16:06:20] <Slit> midnight's no issue for me if it's more convenient for the two of you
+[2006-06-04 16:06:43] <Sirius> 4 pm Sunday for me at the moment
+[2006-06-04 16:06:56] <Xavier> k that's right you are east of AU
+[2006-06-04 16:07:44] <Xavier> I am thinking next Friday might be good then
+[2006-06-04 16:08:20] <Xavier> roughly same time -- 11PM EST?
+[2006-06-04 16:09:06] <Slit> i'm good with that (connectivity not withstanding)
+[2006-06-04 16:09:10] <Xavier> k
+[2006-06-04 16:09:27] <Xavier> so we have the scripting assigned and the architecture 
+[2006-06-04 16:09:50] *** Anchovy (anchovy@nbt-94895BDE.mh.shawcable.net) joined
+[2006-06-04 16:09:54] <Xavier> I'll find something that complements those to take on for myself (probably tools and pipeline)
+[2006-06-04 16:09:54] <Xavier> wb anch
+[2006-06-04 16:09:58] <Anchovy> ty
+[2006-06-04 16:10:30] <Slit> i guess that leaves the server for me
+[2006-06-04 16:10:43] <Xavier> SG I will look into the coslib issue and see what it might be
+[2006-06-04 16:10:48] <Xavier> thought you were doing the arch slit?
+[2006-06-04 16:10:58] <Slit> yeah, ok
+[2006-06-04 16:12:10] <Slit> forgot about implementing it ;)
+[2006-06-04 16:12:16] <Xavier> lol
+[2006-06-04 16:14:28] <SG_01> it seems the config file part changed...
+[2006-06-04 16:14:40] <SG_01> Anyhow, that's why I made a quicky app to test the scripting as far as I had it ;)
+[2006-06-04 16:15:28] <Xavier> for next month, Anch will have the inf model to a good point -- SG hopefully will have a good start on redesigning at least the GUI to be completely scriptable -- slit and Sirius hopefully will have a good startt on the arch redo and myself and Toxic should have a good start on the asset and tools pipeline
+[2006-06-04 16:15:36] <Xavier> sg: rgr
+[2006-06-04 16:15:44] <Xavier> good idea :)
+[2006-06-04 16:16:16] <Xavier> I think config file changed but I forget what was needed to fix the break -- slit do you remember?
+[2006-06-04 16:17:07] <ToxicSoul> I've been watching this on and off, and rgr sounds good xav aslong as your.. patient. lol
+[2006-06-04 16:17:16] <Slit> um, add configfile.h to the project? maybe something else.
+[2006-06-04 16:17:28] * Slit looks at his project files
+[2006-06-04 16:18:52] <Xavier> it all builds fine for me SG
+[2006-06-04 16:18:56] <Xavier> just built it all :\
+[2006-06-04 16:19:08] <Xavier> apart from the Raknet header errors ;)
+[2006-06-04 16:19:41] <Slit> here it is, sg: remove config_file.h, config_file.cpp, iniSection.h, iniSection.cpp; add configfile.h, configfile.cpp
+[2006-06-04 16:23:36] *** Gohan quit (Quit: my eyes are burnin' with sleep)
+[2006-06-04 16:28:11] <Xavier> k I think that's it for tonight
+[2006-06-04 16:28:20] <Xavier> anyone have anything else before we wrap up?
+[2006-06-04 16:29:00] <Slit> nah, go party, xav :)
+[2006-06-04 16:30:00] <Xavier> k then, night all! slit and sirius, cya next week same time same channel :)
+[2006-06-04 16:30:12] <Xavier> anything else post in the forums :)
+[2006-06-04 16:30:16] <Xavier> <<<
+[2006-06-04 16:31:04] *** Xavier quit (Quit: )

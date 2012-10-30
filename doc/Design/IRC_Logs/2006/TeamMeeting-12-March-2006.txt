@@ -1,0 +1,624 @@
+[2006-03-12 17:05:53] <Xavier> k, I guess we are it for tonight
+[2006-03-12 17:06:07] <Xavier> which is fine because I have a feeling it's a CDT night anyway ;)
+[2006-03-12 17:06:47] <Xavier> on the tech front, very little has happened since last month due to me having actually to start writing this Ogre book, as well as interviewing and writing programming challenges and relocating and all
+[2006-03-12 17:07:09] <[HJ]-Asmudius_Heng> speeds can be adjusted ... but total realism is a game killer
+[2006-03-12 17:07:15] <[HJ]-Asmudius_Heng> game balance is more important
+[2006-03-12 17:07:30] <Xavier> SG has gone into a bit of hibernation due to RL stuff and so has Cheiron, so the entire active tech dept is basically me, since I haven't had time to get with poor Sirius to get him oriented :(
+[2006-03-12 17:07:32] <Sidelink> a sports car on the ground could out run it
+[2006-03-12 17:07:59] <Xavier> and finally, I am planning on bringing aboard ToxicSoul, if no one objects -- he seems to be a go-getter
+[2006-03-12 17:08:02] <Eli-asleep-with-the-camels> meeting time now?
+[2006-03-12 17:08:07] <Xavier> yup
+[2006-03-12 17:08:18] <Eli-asleep-with-the-camels> ok, 2 mins, getting a cuppa *yawn*
+[2006-03-12 17:08:20] <[HJ]-Asmudius_Heng> as i said sidelink it can be adjusted .. no point nitpicking till testing starts
+[2006-03-12 17:08:42] <[HJ]-Asmudius_Heng> bugger Xav ... i gota ll these things i need you to code ;)O
+[2006-03-12 17:08:49] <Xavier> I'd personally like to hear where the art is at; there is plenty to do, but has anyone got anything to near-completion level yet? unfortunately DH is not avail...
+[2006-03-12 17:09:04] <Xavier> lol asmu
+[2006-03-12 17:09:12] <Xavier> I'll get to them soon l;)
+[2006-03-12 17:09:36] * Xavier is actually "borrowing" someone's open WiFi network here in the condo complex atm ;)
+[2006-03-12 17:09:49] <[HJ]-Asmudius_Heng> i am not sure about the art department
+[2006-03-12 17:10:08] <Xavier> but what about concept? There seems to be a rather active thread about the current state of it...
+[2006-03-12 17:10:09] <[HJ]-Asmudius_Heng> i have been concentrating on game mechanics mainly
+[2006-03-12 17:10:16] * Xavier turns over the floor to ASmu
+[2006-03-12 17:10:26] <[HJ]-Asmudius_Heng> concept what art or game concept?
+[2006-03-12 17:12:11] <Xavier> yes
+[2006-03-12 17:12:12] <Xavier> lol
+[2006-03-12 17:12:23] <Xavier> probably game
+[2006-03-12 17:12:37] <[HJ]-Asmudius_Heng> game concept wise right
+[2006-03-12 17:12:44] <Xavier> IIRC art concept is solid enough for artists to start coming up with stuff
+[2006-03-12 17:12:54] <[HJ]-Asmudius_Heng> the main page got an update using an old document on what we wanted CoS to be
+[2006-03-12 17:13:22] <[HJ]-Asmudius_Heng> it got posted before i could have a look and see if it was as up to date as we needed it to be
+[2006-03-12 17:13:45] <[HJ]-Asmudius_Heng> so we had a discussion yesterday about how the game is looking compared to that original vision.
+[2006-03-12 17:14:07] <[HJ]-Asmudius_Heng> overall we felt in terms of the final version with league interactivity and so forth it was pretty well on track
+[2006-03-12 17:14:30] <[HJ]-Asmudius_Heng> some parts have had some compromises to the exact wording but generally the things we wanted to achieve have been set in place
+[2006-03-12 17:14:56] <[HJ]-Asmudius_Heng> the point we got out of every part though was "can we achieve this for public play?"
+[2006-03-12 17:15:38] <[HJ]-Asmudius_Heng> unless we have some sort of theatre level game type for pick up play many of the concepts will not work and though we will have some awesome missions with dynamic play it will not have tghat level of theatre combat
+[2006-03-12 17:15:50] <[HJ]-Asmudius_Heng> they will be "tradational" multi player map combat
+[2006-03-12 17:15:53] *** Eli-asleep-with-the-camels changed nick to Elisor
+[2006-03-12 17:15:57] <Elisor> back
+[2006-03-12 17:16:00] <[HJ]-Asmudius_Heng> unless we do something drastic to the game types
+[2006-03-12 17:16:14] <[HJ]-Asmudius_Heng> the variety we plan for the game will mean it will not be same old same olf
+[2006-03-12 17:16:34] <[HJ]-Asmudius_Heng> but each mission seperate to each other is a self contained map with win obejectives
+[2006-03-12 17:16:50] <[HJ]-Asmudius_Heng> so if we are happy to leave it at that and say the full description referce to league play that is fine
+[2006-03-12 17:17:16] <[HJ]-Asmudius_Heng> if not we need to work out a theatre level mode for public play but all attempts at that have been met with negative responses
+[2006-03-12 17:17:27] <[HJ]-Asmudius_Heng> problems of single players controlling the strategic level
+[2006-03-12 17:17:30] *** Xavier quit (Ping timeout)
+[2006-03-12 17:17:31] <[HJ]-Asmudius_Heng> numbers of players
+[2006-03-12 17:17:32] <[HJ]-Asmudius_Heng> etc
+[2006-03-12 17:17:40] <Sidelink> busted
+[2006-03-12 17:17:42] <[HJ]-Asmudius_Heng> bah .. ping timepout my ass!
+[2006-03-12 17:17:44] <[HJ]-Asmudius_Heng> :P
+[2006-03-12 17:17:49] *** Xavier (xavier@nbt-40DBFE99.area4.spcsdns.net) joined
+[2006-03-12 17:17:50] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 17:17:53] <Xavier> bah
+[2006-03-12 17:17:59] <Sidelink> did you get busted?
+[2006-03-12 17:18:10] <Sidelink> hehe :P
+[2006-03-12 17:18:31] <Xavier> dunno, find out later ;) bumped back over to the Sprint PCS card for now ;)
+[2006-03-12 17:18:57] <Xavier> last I saw was making sure it was all good for public play
+[2006-03-12 17:19:26] <[HJ]-Asmudius_Heng> what was the last line i'll cop paste the rest
+[2006-03-12 17:19:48] <Xavier> last I saw was making sure it was all good for public play
+[2006-03-12 17:20:07] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> the point we got out of every part though was "can we achieve this for public play?"
+[2006-03-12 17:20:08] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> unless we have some sort of theatre level game type for pick up play many of the concepts will not work and though we will have some awesome missions with dynamic play it will not have tghat level of theatre combat
+[2006-03-12 17:20:08] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> the point we got out of every part though was "can we achieve this for public play?"
+[2006-03-12 17:20:09] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> unless we have some sort of theatre level game type for pick up play many of the concepts will not work and though we will have some awesome missions with dynamic play it will not have tghat level of theatre combat
+[2006-03-12 17:20:18] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> the point we got out of every part though was "can we achieve this for public play?"
+[2006-03-12 17:20:18] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> unless we have some sort of theatre level game type for pick up play many of the concepts will not work and though we will have some awesome missions with dynamic play it will not have tghat level of theatre combat
+[2006-03-12 17:20:22] <[HJ]-Asmudius_Heng> fuck
+[2006-03-12 17:20:25] <[HJ]-Asmudius_Heng> sry
+[2006-03-12 17:20:32] <[HJ]-Asmudius_Heng> this keyboard is whacked
+[2006-03-12 17:20:37] <Xavier> hehe
+[2006-03-12 17:20:51] <Xavier> that is the last I saw, there
+[2006-03-12 17:20:53] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> they will be "tradational" multi player map combat
+[2006-03-12 17:20:54] <[HJ]-Asmudius_Heng> * Eli-asleep-with-the-camels is now known as Elisor
+[2006-03-12 17:20:54] <[HJ]-Asmudius_Heng> <Elisor> back
+[2006-03-12 17:20:54] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> unless we do something drastic to the game types
+[2006-03-12 17:20:54] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> the variety we plan for the game will mean it will not be same old same olf
+[2006-03-12 17:20:54] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> but each mission seperate to each other is a self contained map with win obejectives
+[2006-03-12 17:21:14] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> so if we are happy to leave it at that and say the full description referce to league play that is fine
+[2006-03-12 17:21:14] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> if not we need to work out a theatre level mode for public play but all attempts at that have been met with negative responses
+[2006-03-12 17:21:14] <[HJ]-Asmudius_Heng> <[HJ]-Asmudius_Heng> problems of single players controlling the strategic level
+[2006-03-12 17:21:29] <Gohan> o.O
+[2006-03-12 17:21:41] <[HJ]-Asmudius_Heng> ok i hope you can decipher that
+[2006-03-12 17:22:02] <[HJ]-Asmudius_Heng> asically the league level is true to the original vision but public play cannot achieve theatre level combat like a league
+[2006-03-12 17:22:19] <[HJ]-Asmudius_Heng> and will be "traditional" in the sense they will be preset maps with objectives
+[2006-03-12 17:22:22] <[HJ]-Asmudius_Heng> unless we get a random map generator workign
+[2006-03-12 17:22:37] <[HJ]-Asmudius_Heng> but even then the map will have boundaries and obkjectives
+[2006-03-12 17:23:11] <Sidelink> or create some theatre sized maps, filled with towns, roads, forest and so on
+[2006-03-12 17:23:17] <[HJ]-Asmudius_Heng> since i am concentrating on public play for the moment we need to find some sort of consensus that this is ok as is or if not .. what we can do to change it
+[2006-03-12 17:23:40] <[HJ]-Asmudius_Heng> i thought technically that might be way too mcuh sidelink but i dont know really
+[2006-03-12 17:23:55] <[HJ]-Asmudius_Heng> also how to balance those sorts of maps and make them fun is a challenge
+[2006-03-12 17:24:18] <[HJ]-Asmudius_Heng> if the players spend most of the match driving around or something then it becomes a bit of a downer
+[2006-03-12 17:24:20] <Xavier> I'm one of those that is not so sure that public play benefits fully from theater combat
+[2006-03-12 17:24:26] <[HJ]-Asmudius_Heng> we did discuss some large sized maps though yes
+[2006-03-12 17:24:38] <[HJ]-Asmudius_Heng> brb
+[2006-03-12 17:24:49] <Xavier> I would have to play more FPS public servers (or any at all) to get an idea of what is "expected" at the least currently
+[2006-03-12 17:25:26] <Sidelink> they won't more than likely
+[2006-03-12 17:26:01] *** RedSpace (redspace@nbt-B6113AC5.bulldogdsl.com) joined
+[2006-03-12 17:26:10] <Elisor> try WWIIonline, that looks like it might have some good ideas
+[2006-03-12 17:26:31] <RedSpace> morning
+[2006-03-12 17:27:48] * Elisor waves
+[2006-03-12 17:28:06] <Xavier> 'lo red
+[2006-03-12 17:28:27] <Xavier> the problem always comes down to the fact that most public servers are quick-in-quick-out for the most part
+[2006-03-12 17:28:52] <RedSpace> give me 10 min or so to get my witts about me, just woke up.
+[2006-03-12 17:29:32] <Xavier> the players most often will see the server as a sequence of unrelated maps, whether they are actually unrelated or not
+[2006-03-12 17:29:36] <[HJ]-Asmudius_Heng> WW2 online is a MM game though right? persistance etc?
+[2006-03-12 17:29:47] <Elisor> yep
+[2006-03-12 17:30:05] <[HJ]-Asmudius_Heng> Xav, if we are happy letting public servers not include any higher strategic level that is fine
+[2006-03-12 17:30:14] <Elisor> but it seems to have some good ideas on dealing with large scale maps, and making sure you don't spend 90% of your time travelling over them before getting into the game
+[2006-03-12 17:30:45] <Elisor> might cancel that planetside subscription and subscribe to WWII just to test it
+[2006-03-12 17:31:15] <[HJ]-Asmudius_Heng> on large sized maps we have transports capable of transporting vehicles .. infantry can get pretty much anywhere by spawing at all place and being able to trade themselves in at points to reapear at others
+[2006-03-12 17:31:21] <[HJ]-Asmudius_Heng> givign t he illusion of more infantry
+[2006-03-12 17:31:33] <[HJ]-Asmudius_Heng> since no one wants to defend a point for 15 minutes with no action
+[2006-03-12 17:31:40] <Xavier> yup
+[2006-03-12 17:32:00] <[HJ]-Asmudius_Heng> vehicle so far have to fend for themselves
+[2006-03-12 17:32:21] <[HJ]-Asmudius_Heng> CoS is much mroe vehicle based than most online games too
+[2006-03-12 17:32:29] <Sidelink> AC asked for a test image, but I haven't seen him lately  http://www.clashofsteel.net/sidelink/images/solarus.jpg  
+[2006-03-12 17:32:32] <[HJ]-Asmudius_Heng> which is why we give infantry low costing and lots of options
+[2006-03-12 17:33:00] <[HJ]-Asmudius_Heng> cool :)
+[2006-03-12 17:33:32] <Xavier> I always envisioned infantry as being most useful in SpecOps actions more than anything...more of a Rogue Spear feel to things at that level -- they would be used as such by the commander
+[2006-03-12 17:34:08] <[HJ]-Asmudius_Heng> infantry are vital as they are used to capturwe points
+[2006-03-12 17:34:11] <[HJ]-Asmudius_Heng> they can also man defense guns
+[2006-03-12 17:34:26] <[HJ]-Asmudius_Heng> AA emplacemrnts or mounted machine guns etc
+[2006-03-12 17:34:40] <[HJ]-Asmudius_Heng> generally they would function in small squads to assault areas or defend them
+[2006-03-12 17:34:48] <[HJ]-Asmudius_Heng> also some areas only inf and MICROs can fight in
+[2006-03-12 17:34:57] <[HJ]-Asmudius_Heng> so they will have thier role but they will  not be numerous
+[2006-03-12 17:35:04] <[HJ]-Asmudius_Heng> as in not hordes of them
+[2006-03-12 17:35:24] <[HJ]-Asmudius_Heng> the easy of getting an infantryman to many parets of the map is the way to simulate there being mroe infantry than there really are
+[2006-03-12 17:35:56] <Xavier> right
+[2006-03-12 17:36:15] <Elisor> afk 5 mins
+[2006-03-12 17:36:21] <[HJ]-Asmudius_Heng> hmm this WW2 looks interesting but i cant get much out of it unless i played it it think =.
+[2006-03-12 17:36:55] <[HJ]-Asmudius_Heng> basically it has a theatre map ... and a battle line
+[2006-03-12 17:37:15] <[HJ]-Asmudius_Heng> so fighting occurs only at the battle line
+[2006-03-12 17:37:29] <Xavier> hmm, no deep-in-enemy-space ops?
+[2006-03-12 17:37:38] <[HJ]-Asmudius_Heng> maybe i am not sure
+[2006-03-12 17:37:54] <Gohan> Now that I think about it, the only areas that an inf could enter and not be smashed by MACRO's or other large vehicles would be underground. Well, unless there are special building with "reinforced materials."
+[2006-03-12 17:37:59] <[HJ]-Asmudius_Heng> WW2 was an infantry war and stuff like that was rarer
+[2006-03-12 17:38:16] <[HJ]-Asmudius_Heng> buildings will not all be destructable
+[2006-03-12 17:38:23] <[HJ]-Asmudius_Heng> causes too many balance problems
+[2006-03-12 17:38:35] <Gohan> noooo, shots will dissipate into buildings
+[2006-03-12 17:38:39] <Gohan> ;p
+[2006-03-12 17:38:54] <[HJ]-Asmudius_Heng> but with enough debris in built up areas infa can hide and flank
+[2006-03-12 17:39:07] <[HJ]-Asmudius_Heng> generally inf are not meant to fight the vehicle in open plains
+[2006-03-12 17:39:17] <[HJ]-Asmudius_Heng> but remember once a vehicle dies it cant spawn close and fight ... inf can
+[2006-03-12 17:39:41] <[HJ]-Asmudius_Heng> inf will want armour support
+[2006-03-12 17:39:48] <[HJ]-Asmudius_Heng> unles they are doign a behind the lines mission
+[2006-03-12 17:39:52] <[HJ]-Asmudius_Heng> wheer inf on inf combat can happen
+[2006-03-12 17:40:21] <[HJ]-Asmudius_Heng> also if you get a laser to the face you dotn cost much .. you can have a heap of deaths as inf and not pay as much as someoen who loses a MACRO without doing much
+[2006-03-12 17:40:25] <Xavier> ya, they are meant to die there ;)
+[2006-03-12 17:40:26] <[HJ]-Asmudius_Heng> this is the plan anyway
+[2006-03-12 17:40:40] <[HJ]-Asmudius_Heng> to be honest i think there will be problems
+[2006-03-12 17:40:46] <[HJ]-Asmudius_Heng> but thats what testing and tweaking are for
+[2006-03-12 17:40:59] <[HJ]-Asmudius_Heng> also some game modes are much mroe inf based than others
+[2006-03-12 17:41:11] <[HJ]-Asmudius_Heng> so inf people can have thier maps and armour people thier own
+[2006-03-12 17:41:44] <[HJ]-Asmudius_Heng> from what i ahev heard of WW2 online you have ranks and stuff and the higher ranks start getting a bit bossy as tey get power
+[2006-03-12 17:42:33] <[HJ]-Asmudius_Heng> lemme find some in game stuff maybe
+[2006-03-12 17:42:46] <RedSpace> would it be possible (assuming there would be a engineering class) for a engineer to be able to build a forward spawn point?
+[2006-03-12 17:43:38] <Elisor> back
+[2006-03-12 17:43:38] <[HJ]-Asmudius_Heng> we have a few options for roaming spawn points
+[2006-03-12 17:43:48] <[HJ]-Asmudius_Heng> one is APCs which act as infantry forward spawn points
+[2006-03-12 17:43:58] <[HJ]-Asmudius_Heng> allowing sustained infantry assaults as logn as te APC is alive
+[2006-03-12 17:44:15] <[HJ]-Asmudius_Heng> another is a drop pod if you control the space above the theatre section
+[2006-03-12 17:44:26] <[HJ]-Asmudius_Heng> this can spawn a variety of units
+[2006-03-12 17:44:32] <[HJ]-Asmudius_Heng> lastly we have mobile bases
+[2006-03-12 17:44:48] <[HJ]-Asmudius_Heng> in public play they would proba not be purchasable but would be part of the map balancing
+[2006-03-12 17:45:04] <[HJ]-Asmudius_Heng> one mission has 4 of them for a faction that start at each corner but can be moved
+[2006-03-12 17:45:15] <[HJ]-Asmudius_Heng> it takes time though but these could spawn most unit types
+[2006-03-12 17:45:42] <[HJ]-Asmudius_Heng> so the standard control and spawn points are not the only options yes :)
+[2006-03-12 17:46:50] <[HJ]-Asmudius_Heng> the role of the engineer as it appears in most games may be taken by the commander often we have found .. the comander has a few options he can do such as salvage trucks, minefield layers, drop pods mobile repair bays etc
+[2006-03-12 17:47:18] <[HJ]-Asmudius_Heng> things that player either dont want to do or are too hard to do the commander can control from his map view of the battle
+[2006-03-12 17:47:48] <[HJ]-Asmudius_Heng> players can form groups and request stuff from the comnader too so everyone is involved and interacting
+[2006-03-12 17:49:06] <[HJ]-Asmudius_Heng> if you play WW2 online Eli i would love to hear how that works it dont give much real info here
+[2006-03-12 17:49:23] <Elisor> k, I'll see if I can set it up
+[2006-03-12 17:50:00] <[HJ]-Asmudius_Heng> i think there is a trail if a friend directs you as well which if you  sign up and it looks good i could try form a bit to ge6t some ideas
+[2006-03-12 17:51:21] <[HJ]-Asmudius_Heng> i cant find a single screenshot
+[2006-03-12 17:51:36] <Xavier> :\
+[2006-03-12 17:51:59] <[HJ]-Asmudius_Heng> ah think i found something
+[2006-03-12 17:52:09] <[HJ]-Asmudius_Heng> a MWV training file might give some insight
+[2006-03-12 17:52:34] <[HJ]-Asmudius_Heng> anyway, while that is going what else to discuss i feel liie i am just spamming
+[2006-03-12 17:53:14] <[HJ]-Asmudius_Heng> also give me feedback .. alot of this stuff i say are things only a few ppl have discussed but thats because the CDT is small we need outside influence too
+[2006-03-12 17:53:22] <Elisor> Xav, is there anything pending from me at the mo?
+[2006-03-12 17:53:36] <Xavier> no, that was all good stuff there
+[2006-03-12 17:54:08] <Xavier> not at present; I have to finish up the Max exporter and polish the file/archive loading (which I was in the process of totally revamping)
+[2006-03-12 17:54:28] <Xavier> pretty much what I had in mind from the beginning, Asmu
+[2006-03-12 17:54:45] <Xavier> Eli: in terms of art we are mostly waiting on the modellers to come up with something
+[2006-03-12 17:54:47] <Elisor> were you able to test the HP Archer?
+[2006-03-12 17:55:18] <Xavier> I'd like to see someone's opinion of the various map creation tools we've been pointing out, if anyone is using them, and if RR or Thoth have anything they'd like to show the team yet
+[2006-03-12 17:55:38] <Xavier> I was able to load it, yes
+[2006-03-12 17:55:56] <Elisor> what kind of performance difference was there?
+[2006-03-12 17:56:06] <Xavier> hard to tell how it would perform just based on its mvoements in the meshviewer tho
+[2006-03-12 17:56:16] <Xavier> none when it's just by itself
+[2006-03-12 17:56:43] <Xavier> on an 8X AGP or PCX bus I don't expect there to be any real difference at those polycounts
+[2006-03-12 17:57:21] <Xavier> but until we get a densely populated high-res map to run them on we simply won't know :(
+[2006-03-12 17:58:07] <Xavier> this next period we're entering here is going to be a lot of trial-and-error while we figure out what will work and what won't, in terms of art -- mainly it will depend on how detailed the levels and maps are
+[2006-03-12 17:58:08] <[HJ]-Asmudius_Heng> on map creation i think red is researching what options there are
+[2006-03-12 17:58:17] <Xavier> all options are open
+[2006-03-12 17:58:21] <[HJ]-Asmudius_Heng> i asked him to keep me up to d ate .. he is on site now though
+[2006-03-12 17:59:03] <Xavier> we don't have a strict tool flow for content yet -- animated models basically go through Eli but for things like levels and maps, RR will be helping define that process ;)
+[2006-03-12 17:59:04] <Xavier> so we can'
+[2006-03-12 17:59:09] <Xavier> can't give him a process yet ;)
+[2006-03-12 17:59:13] <[HJ]-Asmudius_Heng> well one thing we wanted early on was a populated map ... the maps must look real fro infa and tankers and flyboyds alike
+[2006-03-12 17:59:37] <[HJ]-Asmudius_Heng> we prob do not need to be overly detailed but it has to be enough to be immersive for all units
+[2006-03-12 18:00:07] <Xavier> we have all technical options open to us atm -- the maps can be made as detailed as he likes, with whatever layers of texturing are needed to make it happen
+[2006-03-12 18:00:13] <Xavier> right
+[2006-03-12 18:00:13] <[HJ]-Asmudius_Heng> how hard that will be tech wise i dont know
+[2006-03-12 18:00:31] <Xavier> single diffuse (color) and single normal map ought to be enough for that level of realism
+[2006-03-12 18:01:30] <[HJ]-Asmudius_Heng> wen have been using some 5km by 5km maps as a standard for large sized missions so far
+[2006-03-12 18:01:47] <[HJ]-Asmudius_Heng> posted a more recent mission with was 10 by 5 for a bigger area of combat
+[2006-03-12 18:02:17] <Xavier> whether we do fully real-time shadows or not remains to be seen -- do the missions (gameplay) benefit from the sun casting shadows at various angles? for example...
+[2006-03-12 18:02:52] *** Xavier quit (Connection reset by peer)
+[2006-03-12 18:02:58] <[HJ]-Asmudius_Heng> well weather effects and lighting will always make a different to gameplay
+[2006-03-12 18:03:10] <[HJ]-Asmudius_Heng> peer pwns Xav
+[2006-03-12 18:03:37] <Elisor> signed up for WWII, DL'ing now
+[2006-03-12 18:03:57] <[HJ]-Asmudius_Heng> cool ... found some pages with more info .. not easy to find
+[2006-03-12 18:04:04] <[HJ]-Asmudius_Heng> maybe i just look for things regular ppl dont O_o
+[2006-03-12 18:04:19] <Gohan> O_o
+[2006-03-12 18:04:42] *** Xavier (xavier@nbt-40DBFE99.area4.spcsdns.net) joined
+[2006-03-12 18:04:43] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 18:04:50] <[HJ]-Asmudius_Heng> looks like they dont have much in the way of graphical detail but a 6km view distance is pretty good for games these days
+[2006-03-12 18:04:53] <RedSpace> by red, i assume you mean redraven? :)
+[2006-03-12 18:04:55] <Xavier> *sigh* might as well stay with the hijacked connection :(
+[2006-03-12 18:04:59] <[HJ]-Asmudius_Heng> oh yes sry :)
+[2006-03-12 18:05:21] <[HJ]-Asmudius_Heng> http://www.wwiionline.com/scripts/wwiionline/be_features.jsp
+[2006-03-12 18:06:34] <Xavier> view distance is sort of a nebulous term
+[2006-03-12 18:06:53] <Xavier> cards nowadays all support infinite clip planes if you want them
+[2006-03-12 18:07:04] <Xavier> the limiting factor is depth-buffer precision
+[2006-03-12 18:07:27] <Xavier> which is governed more by near clip-plane distance than far
+[2006-03-12 18:08:16] <[HJ]-Asmudius_Heng> i notice most game do not have that long a draw distance  even newer onces
+[2006-03-12 18:08:47] <Xavier> depends on whether or not gameplay benefits from it
+[2006-03-12 18:08:51] <[HJ]-Asmudius_Heng> BF2 is about 1km or so only i think ... but it is very detailed
+[2006-03-12 18:09:02] <[HJ]-Asmudius_Heng> to be honestn i guess it doesnt
+[2006-03-12 18:09:23] <[HJ]-Asmudius_Heng> hough planes can hide out of eyeshot a bit easy
+[2006-03-12 18:09:27] <Gohan> draw distance is good for open, mobile games
+[2006-03-12 18:09:47] <Gohan> draw distance is overkill for pretty much every game Nintendo makes
+[2006-03-12 18:09:50] <[HJ]-Asmudius_Heng> yes ... you should be able to see a tank column driving across the desrt from a fair way
+[2006-03-12 18:09:58] <[HJ]-Asmudius_Heng> for instance
+[2006-03-12 18:10:13] <[HJ]-Asmudius_Heng> but for gameplay  terms it probably does not need to be exactly realistic either
+[2006-03-12 18:10:33] <[HJ]-Asmudius_Heng> might be something we have to fiddle with .. i assume the draw distance does put more pressure on the game performance though?
+[2006-03-12 18:10:45] <Xavier> nope
+[2006-03-12 18:11:27] <[HJ]-Asmudius_Heng> really?
+[2006-03-12 18:11:29] <Xavier> just becomes an issue if you start to have objects drawing "through" each other (which is a depth-buffer precision issue known as "depth fighting")
+[2006-03-12 18:11:44] <[HJ]-Asmudius_Heng> what do you mean drawing through?
+[2006-03-12 18:12:26] <[HJ]-Asmudius_Heng> example for a tech dummy like me ;)
+[2006-03-12 18:12:53] <Xavier> the card doesn't care whether your near/far clip planes are 5/1k or 0.05/1k or 10/100k
+[2006-03-12 18:12:53] <Xavier> it just uses the ratio of near and far to divide up the depth so that it can sort which polygons are "nearer" to the camera (and therefore should draw "on top" of other polys)
+[2006-03-12 18:13:23] <Xavier> if you have objects close to each other they might draw "through" each other if you have insufficient depth precision
+[2006-03-12 18:13:44] *** Xavier quit (Connection reset by peer)
+[2006-03-12 18:15:22] *** Xavier (xavier@nbt-69F95CB.hsd1.ca.comcast.net) joined
+[2006-03-12 18:15:23] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 18:15:35] <Xavier> test?
+[2006-03-12 18:16:02] <[HJ]-Asmudius_Heng> yo
+[2006-03-12 18:16:08] <Gohan> phail
+[2006-03-12 18:16:13] <Xavier> kewl, did any of that get through?
+[2006-03-12 18:16:23] <Xavier> my ramblings on depth precision that is
+[2006-03-12 18:16:24] <[HJ]-Asmudius_Heng> <Xavier> if you have objects close to each other they might draw "through" each other if you have insufficient depth precision
+[2006-03-12 18:16:29] <Xavier> k
+[2006-03-12 18:16:34] <Xavier> that was the last thing before I discoed
+[2006-03-12 18:16:37] <[HJ]-Asmudius_Heng> ya
+[2006-03-12 18:16:38] <Xavier> make sense>
+[2006-03-12 18:16:38] <Xavier> ?
+[2006-03-12 18:16:56] <[HJ]-Asmudius_Heng> kinda ... so if there are a lot of objects close together there can be problems
+[2006-03-12 18:16:59] <[HJ]-Asmudius_Heng> too much clutter?
+[2006-03-12 18:17:13] <Elisor> this might be it: http://training.wwiionline.com/scripts/training/resource.jsp?rid=154
+[2006-03-12 18:17:15] <Xavier> only if the near and far clip distances are chosen to far apart
+[2006-03-12 18:17:18] <Elisor> oops
+[2006-03-12 18:17:29] <Xavier> a 1000:1 ratio seems to be a common pick
+[2006-03-12 18:17:43] <Xavier> however, that means you can use 10k far and 10 near ;)
+[2006-03-12 18:18:46] <[HJ]-Asmudius_Heng> cool
+[2006-03-12 18:18:57] <[HJ]-Asmudius_Heng> just reading up some of the similarities we have with WW2online
+[2006-03-12 18:19:42] <Xavier> the number of polys in your scene is not as important as the number of batches; Ogre has a means to stick all static stuff in a scene into a single (or small number of) batch(es) so that takes care of a lot of the "scenery" issues performance-wise
+[2006-03-12 18:19:48] <[HJ]-Asmudius_Heng> in fact it looks very similar to some of the league ideas we have proposed hehe
+[2006-03-12 18:19:56] <Xavier> bastardos!
+[2006-03-12 18:20:07] <[HJ]-Asmudius_Heng> except they are persistant
+[2006-03-12 18:20:12] <Elisor> so far as I know its about the closest game to what we're trying to achieve
+[2006-03-12 18:20:19] <[HJ]-Asmudius_Heng> while i assume we cannot be (and i dont really weant to be)
+[2006-03-12 18:20:24] <Xavier> and we can be persistent if we want ;)
+[2006-03-12 18:20:33] <[HJ]-Asmudius_Heng> a good find eli it does have a lot of t hings we can compare
+[2006-03-12 18:20:42] <Xavier> if we had the servers to do it, we could be persistent and MMO
+[2006-03-12 18:20:54] <Elisor> Seriously Xav, I'd like to look at that
+[2006-03-12 18:20:55] <[HJ]-Asmudius_Heng> well .. the problem with rolling persistant games is ... he who goes to bed last wins
+[2006-03-12 18:21:13] <Xavier> mostly the persistence is on a per-league basis rather than in a central huge server farm
+[2006-03-12 18:21:18] <[HJ]-Asmudius_Heng> planetside looked a bit odd because the side with the largest population at the time rolled over everyone else
+[2006-03-12 18:21:33] <Xavier> asmu: if there is no one to pick up the other side of the battle, there is no battle ;)
+[2006-03-12 18:21:41] <[HJ]-Asmudius_Heng> there was no balancing mechanisem apart from "we have so many players it kinda evens out"
+[2006-03-12 18:21:43] <Elisor> are we planning on having AI in-game to bulk up the numbers?
+[2006-03-12 18:21:55] <[HJ]-Asmudius_Heng> not so far eli
+[2006-03-12 18:22:07] <[HJ]-Asmudius_Heng> however some commander fiunctions might be controlled by AI
+[2006-03-12 18:22:10] <[HJ]-Asmudius_Heng> some defenses too
+[2006-03-12 18:22:13] <[HJ]-Asmudius_Heng> like MW4 turrets
+[2006-03-12 18:22:17] <Elisor> k
+[2006-03-12 18:23:06] <[HJ]-Asmudius_Heng> but yes if we have persistance where battles are locked till the number of players is reached it works
+[2006-03-12 18:23:38] <[HJ]-Asmudius_Heng> however a locked battle needs to be faught ... and its outcome will effect the rest of the campaign .. so keepign things running which a battle remains unfaught can be a problem
+[2006-03-12 18:23:45] <[HJ]-Asmudius_Heng> fought blech
+[2006-03-12 18:23:48] <[HJ]-Asmudius_Heng> cant spell
+[2006-03-12 18:24:04] <[HJ]-Asmudius_Heng> ahhh WW2online uses AI
+[2006-03-12 18:24:13] *** Xavier quit (NickServ (GHOST command used by Xavier|Roam))
+[2006-03-12 18:24:28] *** Xavier (xavier@nbt-40DBFE99.area4.spcsdns.net) joined
+[2006-03-12 18:24:29] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 18:24:41] <[HJ]-Asmudius_Heng> if we find rear attacks with no defenders are a problem we might implement some sort o f defense droids
+[2006-03-12 18:24:50] <Xavier> hmm, I guess I will ahve to call Comcast anyway :(
+[2006-03-12 18:25:03] <[HJ]-Asmudius_Heng> light defense like WW2O has just to stop one person capping something
+[2006-03-12 18:25:11] <[HJ]-Asmudius_Heng> but we will see if it is a problem
+[2006-03-12 18:26:05] <Xavier> my idea was to have battles "picked" and queued and two sides fight them when the personnel are available -- it doesn't solve the "we're getting our asses kicked tonight so we're done for the night" MW4 syndrome, but it does allow for a persistent battlefield and attack/counter-attack and rear-guard battles
+[2006-03-12 18:26:22] <[HJ]-Asmudius_Heng> now CoS does not have a "battle line" like WW2O seems to have ... we instead have an army battle radius ... if 2 armys stray into that radius a battle will occur
+[2006-03-12 18:26:32] *** Xavier quit (Connection reset by peer)
+[2006-03-12 18:26:44] <[HJ]-Asmudius_Heng> man .. Xav is worse than me today for drop offs
+[2006-03-12 18:27:26] *** Xavier (xavier@nbt-40DBFE99.area4.spcsdns.net) joined
+[2006-03-12 18:27:27] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 18:27:32] <Xavier> any of that get through?
+[2006-03-12 18:27:43] <[HJ]-Asmudius_Heng> man .. you are not havign a good time of it are ya X O_o
+[2006-03-12 18:28:48] <[HJ]-Asmudius_Heng> so how would a typical theatre battle work then do ya think Xav
+[2006-03-12 18:28:56] <[HJ]-Asmudius_Heng> <Xavier> my idea was to have battles "picked" and queued and two sides fight them when the personnel are available -- it doesn't solve the "we're getting our asses kicked tonight so we're done for the night" MW4 syndrome, but it does allow for a persistent battlefield and attack/counter-attack and rear-guard battles
+[2006-03-12 18:29:00] <[HJ]-Asmudius_Heng> thats what i got
+[2006-03-12 18:29:27] <Xavier> yup
+[2006-03-12 18:30:00] <[HJ]-Asmudius_Heng> so how does the theatre function while battles are queued?
+[2006-03-12 18:30:01] <Xavier> so if you pick a fight on a target where the commander left it undefended, you win by default or stealth
+[2006-03-12 18:30:17] <Xavier> how do you mean>?
+[2006-03-12 18:30:31] <[HJ]-Asmudius_Heng> does the theatre workmin real time or turn based?
+[2006-03-12 18:30:50] <[HJ]-Asmudius_Heng> when the stratetic commander moves his armies what is the other side doing?
+[2006-03-12 18:31:17] <Xavier> it really can't wrk in real time, not when you are able to teleport people around it to fight the various battles
+[2006-03-12 18:31:30] <[HJ]-Asmudius_Heng> so it would be turn based then?
+[2006-03-12 18:31:41] <[HJ]-Asmudius_Heng> do a set of moves ... generate a set of battle and fight them?
+[2006-03-12 18:32:14] <Xavier> nearly has to be; if it were real time then like you said, whoever goes to bed last, wins ;)
+[2006-03-12 18:32:40] <[HJ]-Asmudius_Heng> yep ... persistance and many players and limited factions can help lessen the problem of real time but it is always there
+[2006-03-12 18:32:42] <Xavier> more or less...I think the idea of putting Risk-type rules in NBT came up towards the end; I liked that
+[2006-03-12 18:32:57] <[HJ]-Asmudius_Heng> i was a big supporter of a risk style environment
+[2006-03-12 18:33:33] <Xavier> so ya, turn-based for the most part
+[2006-03-12 18:33:41] <Xavier> on a league level that is
+[2006-03-12 18:33:50] <[HJ]-Asmudius_Heng> basically the strategic level would have a theatre ... but porob not divided into sections you could move armies but the armys can move a certain distance per turn
+[2006-03-12 18:34:10] <[HJ]-Asmudius_Heng> each army has a scouting radius and a combat radius
+[2006-03-12 18:34:26] <[HJ]-Asmudius_Heng> if two armies end up in combat radius a skirmish would go ahead
+[2006-03-12 18:34:30] <Gohan> this would be for the league?
+[2006-03-12 18:34:41] <[HJ]-Asmudius_Heng> if you are attacking special points then the type of attack would be determined by the commander
+[2006-03-12 18:34:42] <[HJ]-Asmudius_Heng> yes
+[2006-03-12 18:34:47] <Xavier> ya; they can have ultimate destinations but how far they move per unit time is up to testing
+[2006-03-12 18:35:15] <[HJ]-Asmudius_Heng> yep ... so if you flank through the mountains it is gonna be longer than travelling through the field .. but he combnat raidus is reduced and people cannot scout you as easy
+[2006-03-12 18:35:19] <Xavier> for example you can do a brigade-level end-around and your opponent would have to react to it
+[2006-03-12 18:35:26] <Xavier> right
+[2006-03-12 18:35:45] <Gohan> sounds like Advance Wars on a more detailed scale
+[2006-03-12 18:35:56] <[HJ]-Asmudius_Heng> the  battles are generated then the opposition can retreat if possible or reenforce is he has more forces in a certain radius
+[2006-03-12 18:36:03] <[HJ]-Asmudius_Heng> advance wars?
+[2006-03-12 18:36:04] <[HJ]-Asmudius_Heng> wassat?
+[2006-03-12 18:36:16] <Gohan> A Game Boy Advance RTS.
+[2006-03-12 18:36:34] <[HJ]-Asmudius_Heng> ah, well it follows rules that a lot of strategic game suse yes
+[2006-03-12 18:36:53] <[HJ]-Asmudius_Heng> so enemies can also retreat if the enemies numbers are too much to regroup and so forth too
+[2006-03-12 18:37:03] <Xavier> right, strategy is strategy regardless of game
+[2006-03-12 18:37:10] <[HJ]-Asmudius_Heng> or you can try to hole the enemy up by fighting losing battles for a time
+[2006-03-12 18:37:21] <[HJ]-Asmudius_Heng> but haviong references is very good
+[2006-03-12 18:37:28] <[HJ]-Asmudius_Heng> many good ieas from other games out there we can use
+[2006-03-12 18:37:34] <[HJ]-Asmudius_Heng> and many bad things we can try to avoid too
+[2006-03-12 18:38:13] <Xavier> but ya, each side forces the other into makes moves and countermoves based on intel and deduction and feints and the like
+[2006-03-12 18:38:14] <Xavier> that's where the strategic level has fun
+[2006-03-12 18:38:14] <Xavier> the tactical level is the field commander actually directing his forces and troops in the battles
+[2006-03-12 18:38:30] <Xavier> aye
+[2006-03-12 18:38:43] <[HJ]-Asmudius_Heng> the tactical lvel must be done first though since the strategic level is only controlled by a few
+[2006-03-12 18:38:53] <[HJ]-Asmudius_Heng> the main portion of players will be in the tactical level
+[2006-03-12 18:38:57] <Xavier> that and the tactical level is what the public server play would be based on
+[2006-03-12 18:39:02] <[HJ]-Asmudius_Heng> yes
+[2006-03-12 18:39:50] <[HJ]-Asmudius_Heng> strategic play cannot  be done with many players ... even if you subdivide areas .. you could for instance subdivide a theatre into an overall comander and captains who control thier own armys
+[2006-03-12 18:39:56] <[HJ]-Asmudius_Heng> but i think that would be mroe trouble than it is worth
+[2006-03-12 18:40:00] <Xavier> ya
+[2006-03-12 18:40:35] <[HJ]-Asmudius_Heng> in a lague system though i think it is very important to show the players what is happening on a strategic level
+[2006-03-12 18:40:47] <Xavier> single strategic level is fine -- when you get down below regimental level the commanders usually are on the field anyway
+[2006-03-12 18:40:49] <[HJ]-Asmudius_Heng> with a way to view the start map and show who owns what
+[2006-03-12 18:40:54] <[HJ]-Asmudius_Heng> like the star map in NBT
+[2006-03-12 18:40:58] <[HJ]-Asmudius_Heng> tjhat weas soo cool as a player
+[2006-03-12 18:41:16] <Xavier> that would be up to the league, of course -- that's where the persistence mechanism comes in
+[2006-03-12 18:41:28] <RedSpace> still trying to get to grips with LW... thoughts? http://www.clashofsteel.net/redspace/CoS/no-idea-what-this-will-be_v002.jpg
+[2006-03-12 18:42:09] <[HJ]-Asmudius_Heng> coming along :) looks like it has a handle on top though
+[2006-03-12 18:42:24] <Gohan> [11:41:40 PM] <[HJ]-Asmudius_Heng> tjhat weas soo cool as a player -- that depends what type of player you were ;)
+[2006-03-12 18:42:53] <[HJ]-Asmudius_Heng> this is true G ... but having it doe not do anythign bad to players who dont care
+[2006-03-12 18:43:03] <[HJ]-Asmudius_Heng> makes it more imersive for many though
+[2006-03-12 18:43:23] <[HJ]-Asmudius_Heng> personally i would like to see how much ground my team has made or lost
+[2006-03-12 18:45:03] <Xavier> looks boxy and utilitarian...forget who that is characteristic of...
+[2006-03-12 18:45:27] <[HJ]-Asmudius_Heng> Kepi generally
+[2006-03-12 18:45:46] *** Gohan quit (Quit: g2g)
+[2006-03-12 18:47:30] <Xavier> wow 3 min 42 second ping to myself
+[2006-03-12 18:47:32] <[HJ]-Asmudius_Heng> the missile pod might be a bit big, following more MW4 design rules
+[2006-03-12 18:47:39] <[HJ]-Asmudius_Heng> nice Xav O_o
+[2006-03-12 18:49:14] <[HJ]-Asmudius_Heng> so we got anything else to discuss?
+[2006-03-12 18:49:21] <[HJ]-Asmudius_Heng> or any questions of me?
+[2006-03-12 18:49:32] <Xavier> that should be about it Concept wise
+[2006-03-12 18:49:41] <Xavier> the thing we are in a holding pattern on now is art
+[2006-03-12 18:49:53] <Elisor> has that been made clear to the modellers?
+[2006-03-12 18:49:59] <Xavier> dunno
+[2006-03-12 18:50:06] <Elisor> don't think it has
+[2006-03-12 18:50:08] <Xavier> hopefully DH reads this and makes it so ;)
+[2006-03-12 18:50:32] <Xavier> I need to know where Thoth is on learning Ultimapper
+[2006-03-12 18:50:42] <Xavier> looks like he's got a good start on it
+[2006-03-12 18:50:43] <Elisor> can't remember seeing a fully modelled/tex'd CoS model
+[2006-03-12 18:51:13] <Xavier> we'll have to get a report from DH on who is doing what 
+[2006-03-12 18:51:15] <Xavier> and where they are on it
+[2006-03-12 18:51:31] <[HJ]-Asmudius_Heng> i am gonna contact XXX ... see if he can come back and do any work for us
+[2006-03-12 18:51:41] <Xavier> I haven't heard from Rixeh since that first day so I guess he's done -- we need someone to do an infantry model
+[2006-03-12 18:51:44] <Xavier> k
+[2006-03-12 18:52:29] <Elisor> can we post in the forums?  I would have thought getting content would be the least of our worries....we have lots of skilled modellers
+[2006-03-12 18:52:43] <Xavier> we've got a couple of MICROs in the works that I know of
+[2006-03-12 18:52:43] <Xavier> couple MACROs
+[2006-03-12 18:52:43] <Xavier> and a map or two
+[2006-03-12 18:52:48] <Xavier> sure
+[2006-03-12 18:53:02] <Elisor> ok, I'll go post now
+[2006-03-12 18:53:15] <Xavier> they are skilled but I'm not so sure they feel like they have a lot of direction
+[2006-03-12 18:53:36] <Elisor> Darkhorse's job?
+[2006-03-12 18:53:54] <Xavier> unforunately we don't have a lot of good solid concept 2D sketches they can work from
+[2006-03-12 18:53:58] <Xavier> so they are sort of winging it unguided
+[2006-03-12 18:54:13] <Xavier> you mean making 2D art?
+[2006-03-12 18:54:17] <[HJ]-Asmudius_Heng> we have no sketch concept people ... i tried to get a few back but they havent done anything
+[2006-03-12 18:54:52] <Xavier> we do need a single completed model of each type to give the modellers something to base their work on
+[2006-03-12 18:54:56] <Xavier> but that's sort of a catch-22
+[2006-03-12 18:54:57] <Elisor> I mean who's running the modelling side of things
+[2006-03-12 18:55:00] <Xavier> DH
+[2006-03-12 18:55:41] <Elisor> k
+[2006-03-12 18:55:47] <Elisor> hope I'm not stepping on any toes here lol
+[2006-03-12 18:56:20] <Xavier> dunno; depends on what you are about to do ;)
+[2006-03-12 18:56:26] *** All_for_One (all_for_on@nbt-7455BA1.bchsia.telus.net) joined
+[2006-03-12 18:57:07] <RedSpace> I'll probably step back from LW for the time being and try and get the Sandstorm finished at least
+[2006-03-12 18:57:29] <Elisor> One of the things that came out of the meeting today was that it's now content that's holding up game development. 
+[2006-03-12 18:57:30] <Elisor> Specifically we have few (if any) completely modelled and textured CoS models. 
+[2006-03-12 18:57:30] <Elisor> Ideally we need one of each class of model (AFO, can you note them down plz?). 
+[2006-03-12 18:57:30] <Elisor> So I guess this is a role-call to all the modellers we have - time to start producing some completed work  
+[2006-03-12 18:57:30] <Elisor> If you have any questions, or need direction, then please post up. A lot of info is spread throughout the forums but if you post here it will provide a central place for ppl to ask/answer WRT models and texturing. 
+[2006-03-12 18:57:51] <Elisor> post in the Model section
+[2006-03-12 18:58:33] <Elisor> AFO would you mind posting up one of each that we need plz?
+[2006-03-12 18:58:50] <[HJ]-Asmudius_Heng> i find i am not very good at directing the content process
+[2006-03-12 18:58:55] <All_for_One> micro
+[2006-03-12 18:59:00] <All_for_One> wheeled
+[2006-03-12 18:59:02] <All_for_One> hover
+[2006-03-12 18:59:04] <All_for_One> treaded
+[2006-03-12 18:59:16] <All_for_One> V-thrust(aka helicopter)
+[2006-03-12 18:59:19] <All_for_One> Jet
+[2006-03-12 18:59:20] <All_for_One> Macro
+[2006-03-12 18:59:55] <All_for_One> http://www.clashofsteel.net/forums/viewtopic.php?t=822
+[2006-03-12 18:59:59] <All_for_One> This is what we're going for
+[2006-03-12 19:00:00] <Xavier> I dont' have a problem with it, but you may want to make sure DH is on the same page as you ;)
+[2006-03-12 19:00:14] <Xavier> don't see why he wouldn't but...
+[2006-03-12 19:02:17] <Elisor> oh well it's up now lol
+[2006-03-12 19:02:57] <Sidelink> hmm
+[2006-03-12 19:03:12] <[HJ]-Asmudius_Heng> now i dont know if this is draggin up things best left alone but what was Taos' gripe in that thread he deleted his post from?
+[2006-03-12 19:04:52] <Xavier> he was getting frustrated by what he saw as constant changing in what the game would be
+[2006-03-12 19:05:35] <[HJ]-Asmudius_Heng> hmmm
+[2006-03-12 19:08:01] <[HJ]-Asmudius_Heng> well i hope my rundown of our objectives and how they match up helps
+[2006-03-12 19:08:32] <Xavier> we'll see...could have just been a bad day at work too -- if he deleted it then it might just have been that
+[2006-03-12 19:08:48] <Xavier> as for me, you and I are mostly on the same page :)
+[2006-03-12 19:09:22] <Sidelink> yeah, I agree mostly, just not on aircraft
+[2006-03-12 19:09:41] <Elisor> thx AFO, adjusted the post
+[2006-03-12 19:09:53] <[HJ]-Asmudius_Heng> aircraft ARE a tricky think side and a lot of tweakign will be needed
+[2006-03-12 19:10:07] <[HJ]-Asmudius_Heng> all games with air power end up compromising
+[2006-03-12 19:10:37] <[HJ]-Asmudius_Heng> but not being slaves to realism we will have them work in thier role and still feel immersive .. that is the goal
+[2006-03-12 19:10:55] <All_for_One> One of the things I did to the rules is that aircraft have notably less hardpoints and weight to play with than other units their size
+[2006-03-12 19:11:27] <All_for_One> which from making the nimbus does force you away from the cannons and into the missiles generally.
+[2006-03-12 19:11:51] <[HJ]-Asmudius_Heng> that is good i think ... should have some guns for dogfighting though ppl love that
+[2006-03-12 19:13:30] *** Xavier quit (Ping timeout)
+[2006-03-12 19:14:01] <[HJ]-Asmudius_Heng> missile payloads are good though .. they can hit then return for rearming
+[2006-03-12 19:18:10] *** Xavier (xavier@nbt-E34B333C.snfcca.dsl-w.verizon.net) joined
+[2006-03-12 19:18:10] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 19:18:32] *** RedSpace quit (Connection reset by peer)
+[2006-03-12 19:19:48] <[HJ]-Asmudius_Heng> anyway .. if there is nothing else
+[2006-03-12 19:19:56] <Xavier> stoopid connection...ya, I think that should be about it
+[2006-03-12 19:19:57] <Elisor> silly question, but are we going to have in-game voice comms or leave that to teamspeak etc.?
+[2006-03-12 19:19:59] <Sidelink> I liked the nimbus and its interesting loadout, but just laughed at the speed.  but until I see it in game, I'll just wait and continue to disagree
+[2006-03-12 19:20:09] <All_for_One> Yeah I know
+[2006-03-12 19:20:18] <Xavier> I was thinkiing about that Eli but it's so easy to circumvent
+[2006-03-12 19:20:22] <[HJ]-Asmudius_Heng> how feasable is in game coms
+[2006-03-12 19:20:45] <Xavier> it's a great idea for comm disruption, but so easy to get around
+[2006-03-12 19:20:45] <[HJ]-Asmudius_Heng> well in game coms do not need to be something to restrict
+[2006-03-12 19:20:56] <Elisor> there's enough free software on the market I can't think of a good reason to include it
+[2006-03-12 19:21:03] <[HJ]-Asmudius_Heng> BF2 has in game coms .. for public play it is great
+[2006-03-12 19:21:07] <All_for_One> might have to bump jet speed up to 1000%
+[2006-03-12 19:21:13] <All_for_One> ditt ut2k4
+[2006-03-12 19:21:17] <All_for_One> *ditto
+[2006-03-12 19:21:28] <Xavier> RakNet has a voice comms that comes with it
+[2006-03-12 19:21:36] <Xavier> we woulnd't have to do anything special 
+[2006-03-12 19:21:37] <[HJ]-Asmudius_Heng> cool .. if it is easy we may as well
+[2006-03-12 19:21:44] <Xavier> k
+[2006-03-12 19:21:45] <[HJ]-Asmudius_Heng> poeople will still use TS
+[2006-03-12 19:22:06] <[HJ]-Asmudius_Heng> actually in BF2 i use both ... i use in game comes to talk to my squad and commander .. and i use TS2 to talk to everyone if needed
+[2006-03-12 19:22:27] <[HJ]-Asmudius_Heng> cuts down on coms clutter in a large game
+[2006-03-12 19:22:42] <Xavier> one thing I'd like to do in terms of gameplay
+[2006-03-12 19:23:01] <Xavier> make the pace slow enough that there is time to issue commands and have them carried out
+[2006-03-12 19:23:02] <[HJ]-Asmudius_Heng> no amazons ...
+[2006-03-12 19:23:03] <[HJ]-Asmudius_Heng> :P
+[2006-03-12 19:23:09] <[HJ]-Asmudius_Heng> yes definatly
+[2006-03-12 19:23:17] <Xavier> but fast enough that it doesn't feel sludgly
+[2006-03-12 19:23:22] <[HJ]-Asmudius_Heng> game pace is very important
+[2006-03-12 19:23:23] <Sidelink> would be cool if we did have in game comms, would make an electronics macro worths it's weight in gold.  be able to crack into other teams comms or disrupt them
+[2006-03-12 19:23:27] <All_for_One> side, all the multipliers are very rough
+[2006-03-12 19:23:52] <[HJ]-Asmudius_Heng> BF2 is my main benchmark being close to what we are doing
+[2006-03-12 19:23:56] <[HJ]-Asmudius_Heng> and its pace is too fast
+[2006-03-12 19:24:05] <All_for_One> especially in the catagories I haven't gotten around to playing with.
+[2006-03-12 19:24:08] <[HJ]-Asmudius_Heng> commanding is a frenzied affair most of the ime
+[2006-03-12 19:24:20] <[HJ]-Asmudius_Heng> things change too quickly
+[2006-03-12 19:24:27] <Xavier> I don't want to slow down to realistic pace, but I don't want the frenetic pace of most MW4 drops
+[2006-03-12 19:24:31] <Xavier> ya
+[2006-03-12 19:24:33] <[HJ]-Asmudius_Heng> and co-ordinated attacks are rare it is just luck that things pull together sometimes
+[2006-03-12 19:24:44] <[HJ]-Asmudius_Heng> MW4 frenetic? lol
+[2006-03-12 19:24:49] <[HJ]-Asmudius_Heng> MW4 is slow most the time ;)
+[2006-03-12 19:24:55] <Xavier> towards the end it was too fast
+[2006-03-12 19:25:01] <[HJ]-Asmudius_Heng> which is one of its apeals
+[2006-03-12 19:25:16] <Xavier> I liked the pace of V and BK more than Mercs and later
+[2006-03-12 19:25:28] <[HJ]-Asmudius_Heng> i never thought they werer much differnet o be honest
+[2006-03-12 19:25:35] <Xavier> had more time actually to plan and do something
+[2006-03-12 19:25:35] <Xavier> they were
+[2006-03-12 19:25:45] <[HJ]-Asmudius_Heng> the game type changes how this all works drastically from MW4 though
+[2006-03-12 19:25:49] <Xavier> the average speeds went WAY up when Mercs came out
+[2006-03-12 19:25:52] <Xavier> right
+[2006-03-12 19:25:58] <Xavier> just was using that as a comparison
+[2006-03-12 19:26:03] <[HJ]-Asmudius_Heng> rgr
+[2006-03-12 19:26:10] <All_for_One> side, do you think 387kph would be good for the nimbus
+[2006-03-12 19:26:14] <Xavier> but again, we're on the same page :)
+[2006-03-12 19:26:16] <[HJ]-Asmudius_Heng> pace is something that is going to evolve i think
+[2006-03-12 19:26:25] <[HJ]-Asmudius_Heng> hard to judge
+[2006-03-12 19:26:27] <Xavier> ya
+[2006-03-12 19:26:36] <All_for_One> we can't really have supersonic for obvious reasons
+[2006-03-12 19:26:38] <[HJ]-Asmudius_Heng> but i think the best way to find it is in terms of comanding
+[2006-03-12 19:26:41] <Elisor> like this idea -> [10:23] <Sidelink> would be cool if we did have in game comms, would make an electronics macro worths it's weight in gold.  be able to crack into other teams comms or disrupt them
+[2006-03-12 19:26:56] <[HJ]-Asmudius_Heng> if a commander has time to make plans but not enough time to procrastinate it is good
+[2006-03-12 19:27:14] <[HJ]-Asmudius_Heng> the only prob with that side is that TS2 gets around it
+[2006-03-12 19:27:18] <All_for_One> screw an electronics macro
+[2006-03-12 19:27:29] <All_for_One> a jet with some big EMP missiles
+[2006-03-12 19:27:39] <All_for_One> :-D
+[2006-03-12 19:27:47] <[HJ]-Asmudius_Heng> but we also have to look at ground troops and thier fun levels
+[2006-03-12 19:28:00] <Sidelink> I don't know, but I do know that at the moment the nimbus is slower than most WWI bi-planes
+[2006-03-12 19:28:05] <[HJ]-Asmudius_Heng> we gotta balance command with fighting and so forth .. but i think it is doable
+[2006-03-12 19:28:18] <All_for_One> heheh
+[2006-03-12 19:28:19] <Elisor> tapping into another team's comms (voice or team chat) does have a great appeal.  even if it can't be done, would be good to look into it.  would add significantly to eletronic warfare
+[2006-03-12 19:28:21] <All_for_One> yeah
+[2006-03-12 19:28:34] *** Xavier quit (Connection reset by peer)
+[2006-03-12 19:28:55] <[HJ]-Asmudius_Heng> certainly an option ... would work more in pub play though in league play i would us TS and feed false info in in game coms
+[2006-03-12 19:28:56] <[HJ]-Asmudius_Heng> ;)
+[2006-03-12 19:29:27] <[HJ]-Asmudius_Heng> IN GAME: Alright guys full attack on the north point all forces go go go!    TS: send one harraser north everyong hit south
+[2006-03-12 19:29:29] <[HJ]-Asmudius_Heng> :P
+[2006-03-12 19:30:06] <Sidelink> make the game turn off Teamspeak and other comms programs if the league required it
+[2006-03-12 19:30:07] <All_for_One> Ut2k4 has team coms
+[2006-03-12 19:30:15] <Elisor> true....but also potentially tapping text chat as well
+[2006-03-12 19:30:16] <All_for_One> com channels
+[2006-03-12 19:30:18] <Elisor> gots to go, back in 30 mins
+[2006-03-12 19:30:19] <[HJ]-Asmudius_Heng> i dont think that can be done sidelink
+[2006-03-12 19:30:36] <All_for_One> and you can't enter the enemy channel
+[2006-03-12 19:30:37] <[HJ]-Asmudius_Heng> we would have multiple coms channels on push to talk ..
+[2006-03-12 19:30:52] <[HJ]-Asmudius_Heng> commander, all, squad, even a PM one might work
+[2006-03-12 19:30:55] <All_for_One> it has one per team
+[2006-03-12 19:31:00] <All_for_One> and a communal
+[2006-03-12 19:31:12] <All_for_One> I haven't played the CTF4 mod
+[2006-03-12 19:31:26] <All_for_One> but I presume that would have 5 channels, one per team and the communal
+[2006-03-12 19:31:36] <[HJ]-Asmudius_Heng> multiple channels for different p[urposes are good for keeping things where they need to be and not clogging up coms
+[2006-03-12 19:31:41] <[HJ]-Asmudius_Heng> esspecially with many players
+[2006-03-12 19:32:13] <[HJ]-Asmudius_Heng> each team can have multiple so a comander telling a squad leader his job will not override other info being passed
+[2006-03-12 19:32:16] *** Xavier (xavier@nbt-69F95CB.hsd1.ca.comcast.net) joined
+[2006-03-12 19:32:16] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 19:32:18] <[HJ]-Asmudius_Heng> less ppl all talking at same time
+[2006-03-12 19:32:19] <Xavier> bleh
+[2006-03-12 19:32:46] <Sidelink> sure it could be done, just have the program occacsionally scan what processes are running, and then either alert or just shut down the process that is the command program
+[2006-03-12 19:32:56] <Sidelink> comm
+[2006-03-12 19:33:05] <[HJ]-Asmudius_Heng> however it is not as essential as BF2 because the pace means you can type .. in BF2 if you are typing you are wasting time, tickets and will be killed soon
+[2006-03-12 19:33:05] <Sidelink> comm program
+[2006-03-12 19:33:09] <Xavier> ehh we don't want to be spyware ;)
+[2006-03-12 19:33:17] <[HJ]-Asmudius_Heng> no .. we dpont do that
+[2006-03-12 19:33:19] <[HJ]-Asmudius_Heng> we dont need that
+[2006-03-12 19:33:35] <Sidelink> you missed the earlier part
+[2006-03-12 19:33:46] <All_for_One> eh
+[2006-03-12 19:33:47] <Sidelink> make the game turn off Teamspeak and other comms programs if the league required it
+[2006-03-12 19:33:55] <[HJ]-Asmudius_Heng> ethically no ...
+[2006-03-12 19:33:59] <All_for_One> well isn't the autoupdater kinda spyware right now?
+[2006-03-12 19:34:06] <Xavier> no
+[2006-03-12 19:34:09] <[HJ]-Asmudius_Heng> i dont think coms should be something used as a combat tool and so forth
+[2006-03-12 19:34:10] <All_for_One> it doesn't say anything
+[2006-03-12 19:34:15] <Xavier> it should
+[2006-03-12 19:34:20] <All_for_One> it just goes and gets
+[2006-03-12 19:34:24] <Xavier> if it's updating it should pop up a dialog
+[2006-03-12 19:34:34] <[HJ]-Asmudius_Heng> i need to get the latest
+[2006-03-12 19:34:38] <Xavier> and before launch it's going to ask if you want to do the update
+[2006-03-12 19:34:41] <All_for_One> I guess I should keep up with the versions then :-D
+[2006-03-12 19:34:58] <Xavier> if there are no files to download it just fires up the game
+[2006-03-12 19:35:16] <Xavier> but ya, before this goes public it will ask if the user wants to update or not
+[2006-03-12 19:35:34] <Sidelink> there wouldn't be any eithics about it, if the league required you not to run TS or something and used in games comms, you'd know ahead of time when you joined the league
+[2006-03-12 19:35:35] <All_for_One> yeah, I think I got that one fixed side
+[2006-03-12 19:35:59] <All_for_One> changed the jet speed modifier to 1000% and the Vthrust one to 600%
+[2006-03-12 19:36:21] <Xavier> side: I agree, but that should be a "gentlemen's agreement" between league members, not something the game should police, IMO
+[2006-03-12 19:36:38] <All_for_One> and halfed the armor percentages on both too
+[2006-03-12 19:36:55] <[HJ]-Asmudius_Heng> and since it is impossible to police unless the game hacks thier system it is useless
+[2006-03-12 19:37:10] <[HJ]-Asmudius_Heng> i donmt know if forcing ppl to use in game coms really adds much to the game
+[2006-03-12 19:37:27] <Xavier> it would, but it's too easy to hack around
+[2006-03-12 19:37:53] <All_for_One> Instead of fiddling with that
+[2006-03-12 19:37:58] <All_for_One> could we fiddle with TS2?
+[2006-03-12 19:38:10] <All_for_One> stop it's packet or disable the mic?
+[2006-03-12 19:38:19] <All_for_One> when comms are knocked out
+[2006-03-12 19:38:20] <Xavier> that's what was being discussed
+[2006-03-12 19:38:26] <Xavier> and the answer is not really
+[2006-03-12 19:38:31] <Xavier> too many ways around it
+[2006-03-12 19:38:32] <All_for_One> k
+[2006-03-12 19:38:39] <Xavier> simplest would be just to rename the exe
+[2006-03-12 19:38:53] <All_for_One> I'm going a different method
+[2006-03-12 19:38:57] <All_for_One> instead of having in-game comms
+[2006-03-12 19:39:13] <All_for_One> have the game mess with the mic when your comms go out
+[2006-03-12 19:39:25] <All_for_One> thus rendering TS2 useless until you get the comms back up
+[2006-03-12 19:39:36] <Xavier> which mic?
+[2006-03-12 19:39:37] <Sidelink> hehe
+[2006-03-12 19:39:43] <Xavier> I have two and them some on my Audigy
+[2006-03-12 19:39:50] <All_for_One> all mics then
+[2006-03-12 19:40:12] <Xavier> someone may have legitimate non-game uses for the other mics
+[2006-03-12 19:40:19] <Xavier> it's just too open-ended
+[2006-03-12 19:40:27] <Xavier> and not enough benefit for the cost involved
+[2006-03-12 19:40:31] <All_for_One> heheh
+[2006-03-12 19:40:35] <All_for_One> np
+[2006-03-12 19:40:51] <Xavier> all good ideas, just not worth pursuing IMO
+[2006-03-12 19:44:45] *** Xavier quit (Connection reset by peer)
+[2006-03-12 19:44:58] <All_for_One> http://www.clashofsteel.net/forums/viewtopic.php?p=11406#11406
+[2006-03-12 19:45:05] <All_for_One> There side, revised speed and armor
+[2006-03-12 19:46:00] <Sidelink> cool
+[2006-03-12 19:46:27] *** Xavier (xavier@nbt-E34B333C.snfcca.dsl-w.verizon.net) joined
+[2006-03-12 19:46:27] *** ChanServ sets channel #cos-dev mode +oa Xavier Xavier
+[2006-03-12 19:46:38] <Sidelink> Xavier needs some cable for himself :P
+[2006-03-12 19:46:43] <Xavier> *sigh* I think the 10th disco is my sign ;)
+[2006-03-12 19:46:44] <[HJ]-Asmudius_Heng> just downlaoded from the svn xav
+[2006-03-12 19:46:54] <[HJ]-Asmudius_Heng> missine ogremain.dll
+[2006-03-12 19:47:25] <Xavier> k, I'll have a look
+[2006-03-12 19:47:41] <All_for_One> http://www.clashofsteel.net/forums/viewtopic.php?p=11407#11407
+[2006-03-12 19:47:42] <Xavier> hmm, wait a sec
+[2006-03-12 19:47:46] <All_for_One> Templar updated too
+[2006-03-12 19:48:23] <All_for_One> while I'm here I might as well write up your chopper side
+[2006-03-12 19:49:37] <Xavier> hmm I'll get this fgured out
+[2006-03-12 19:51:29] <Xavier> ping?
+[2006-03-12 19:51:46] <All_for_One> pong!
+[2006-03-12 19:51:53] <Xavier> bleh, stupid IRC
+[2006-03-12 19:52:05] <Xavier> I guess I'll have to go then until I get some nice cable in here ;)
+[2006-03-12 19:52:33] <Xavier> nite all, and thanks! :)
+[2006-03-12 19:53:30] *** Xavier quit (Quit: mental note: call Comcast Monday...)

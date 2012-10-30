@@ -1,0 +1,571 @@
+<[HJ]-Asmudius_Heng> ok
+<[HJ]-Asmudius_Heng> been a slow month for the CDT not a heck of a lot to do
+<[HJ]-Asmudius_Heng> but we got a bit of a list
+<[HJ]-Asmudius_Heng> - Explanations for breaking of realism (slow jets etc) 
+<[HJ]-Asmudius_Heng> whats your thoughts on this as a general rule
+<[HJ]-Asmudius_Heng> because we will break realism at every corner 
+<Gohan> imo, realism is not as important as having a solid, reasonable design decision for whatever we decide to do
+<[HJ]-Asmudius_Heng> persaonally i would like to slap people who complain about it and say its just a game
+<[HJ]-Asmudius_Heng> sure, i think we agree that realism is not somethign we are going to pander too
+<[HJ]-Asmudius_Heng> should we even try to explain some things though
+<Gohan> so if we want rainbow stripes on a 17 wheeled space train, as long as our reason is pwn, then that is enough
+<[HJ]-Asmudius_Heng> so you think explanations not worth doing unless you have a pet reason for something like AFOs Jet explanation?
+<All_for_One> just a while
+<All_for_One>  it's not really breaking realism
+<All_for_One> what that was is an attempt to reason to explain why jets are slow
+* ToxicSoul has quit IRC (Connection reset by peer)
+<All_for_One> simply that it isn't worth flying supersonic at high altitudes near a combat zone
+<Gohan> I think we should have reasons for everything we do
+<[HJ]-Asmudius_Heng> yep i understand ... but io dont think we need to explain everything if people start to make an issue out of stuff 
+<Gohan> we explain the basics
+<Gohan> let the players explore
+<Gohan> and explain and discuss afterward
+<Gohan> imo
+<All_for_One> anyways, dinner bbl
+<[HJ]-Asmudius_Heng> if we have no real reason for a feature in the game that makes the game better i dont feelo i need to explain
+<[HJ]-Asmudius_Heng> if we can BS a reason then sure
+<[HJ]-Asmudius_Heng> if we cant i dont think we should even worry about it
+<[HJ]-Asmudius_Heng> agree or disagree?
+<Gohan> if we have no real reason for a feature in the game then I doubt it will make the game better
+<[HJ]-Asmudius_Heng> the reason might be it balances the game ... or makes it more fun
+<[HJ]-Asmudius_Heng> i just dont think game features need to be tied to psuedo scientific reasons all the time
+<Gohan> we need a reason for everything
+<Gohan> but it does not have to be 8 paragraphs long
+<[HJ]-Asmudius_Heng> do we need to document it all?
+<Gohan> we should try
+<[HJ]-Asmudius_Heng> sure, but i know i wont wanna waste time on that if other more important things need doing
+<[HJ]-Asmudius_Heng> it feels like a good way to get really bogged down esspecially if you get a few pedantic people ionvolved
+<[HJ]-Asmudius_Heng> - Role of Transports and how we might make them different to fighting vehicles. 
+<Gohan> well, they are transportation vehicles :P
+<[HJ]-Asmudius_Heng> that line will soon get blurred ;)(
+<Gohan> their mechanics do not allow for heavy armament because the focus is on deployment and extraction
+<[HJ]-Asmudius_Heng> also i was thinking should they be purchased just like other vehicles?
+<[HJ]-Asmudius_Heng> or should we allow some freeebie transports?
+<[HJ]-Asmudius_Heng> since no-one is gonna fight over a transport should we allow some of the generic ones at main bases and so forth
+<[HJ]-Asmudius_Heng> if we are going to have large maps will transports be used a great deal?
+<[HJ]-Asmudius_Heng> dropping armour and troops off regularly
+<Gohan> yeah
+<[HJ]-Asmudius_Heng> should we allow easy access to transports compared to fighting vehicle i guess
+<[HJ]-Asmudius_Heng> but some more specialised or powerful tansports might be purchase only
+<Gohan> maybe it should depend on the gametype
+<[HJ]-Asmudius_Heng> and the map i guess
+<[HJ]-Asmudius_Heng> anjd the spawn point
+<Gohan> that might make it too specific
+<[HJ]-Asmudius_Heng> some points might give rtansports as the reason to get that point
+<[HJ]-Asmudius_Heng> we might make some transports spawn like in BF ... after a period of time
+<[HJ]-Asmudius_Heng> and maybe it could be a commander upgrade to a point ... transport Depot
+<[HJ]-Asmudius_Heng> anyway i gues the point is that many people will not want to be a transporter esspecially if they have to purchase the transport ... but if they are freely available it becomes easy to use when needed, you dont need to be a specialist
+<Gohan> true
+<Gohan> though some people may like that
+<Gohan> oh hey a mortal kombat commercial
+<[HJ]-Asmudius_Heng> like what sry? being a spoecialist transporeter?
+<Gohan> yeah
+<Gohan> well ,not a specialist
+<Gohan> but doing "their job" of flying in and out
+<[HJ]-Asmudius_Heng> sure and we make it easy for those guys who to be honest have a pretty thankless job often
+<Gohan> which is probably why BFx has an armed flight machine
+<[HJ]-Asmudius_Heng> well BF screws transports just becase the game is too fast
+<[HJ]-Asmudius_Heng> you get a blackhawk .. it drops ioff some troops ... then you may as well bail
+<Gohan> that and everyone looks up when it is around
+<[HJ]-Asmudius_Heng> yea
+<[HJ]-Asmudius_Heng> but going to pick people up is almost useless
+<Gohan> I would not mind a strong transport vehicle
+<[HJ]-Asmudius_Heng> people who dont often get stranded .. and if they do wasting your time to pick them up is not effeciant
+<[HJ]-Asmudius_Heng> saure .. the strionger more faction specific ones might be purchase only
+<[HJ]-Asmudius_Heng> the APCs that are spawn points and the lick
+<[HJ]-Asmudius_Heng> like
+<[HJ]-Asmudius_Heng> the more heavilly armed flying transports etc
+<[HJ]-Asmudius_Heng> the one we have in progress would be a generic one easy to use dont do much else .. jeep like transpoerts would be easy finds
+<[HJ]-Asmudius_Heng> ones that transport large numbers of vehicles might even be map specific if you can buy em
+<[HJ]-Asmudius_Heng> basically repositioning your troops i think will  be a major feature of this game
+<[HJ]-Asmudius_Heng> having strong scouting to find where enemies are headed will be c rucial
+<[HJ]-Asmudius_Heng> then either position to fight atb a good defensiove ara or intercept in open country .. or even send harrassers while gathering your forces
+<[HJ]-Asmudius_Heng> positioning your vehicles will be major ... infantry will be able to appeare and reapear easilly so it looks like most places are defended with infantry at all times
+<[HJ]-Asmudius_Heng> BF kinda annoys me when i can just sneak in and take a flag
+<[HJ]-Asmudius_Heng> flag merry go round is gay
+<[HJ]-Asmudius_Heng> ok i think we seem to be in agreement there ... give people the tools to get into the action and play tactically
+
+--------------------------------------------------
+
+[09:17:48 PM] <All_for_One> back
+[09:18:07 PM] <[HJ]-Asmudius_Heng> kk
+[09:18:37 PM] <[HJ]-Asmudius_Heng> ok G, you have put some worek into this what do we need to nail down?
+[09:19:19 PM] <Gohan> main areas
+[09:19:34 PM] <Gohan> namely, SP component, MP component, Options/Settings, other stuff
+[09:19:52 PM] <Gohan> and their respective subareas
+[09:20:19 PM] <Gohan> SP can be broken down into Tutorial and Mission Training, MP is configuration settings and the server browser, etc
+[09:20:44 PM] <All_for_One> Is hosting a main menu thing then?
+[09:20:54 PM] <Gohan> no
+[09:21:05 PM] <Gohan> that would be under MP
+[09:21:26 PM] <Gohan> unless we have a server client seperate from the player client
+[09:22:49 PM] <Gohan> we also need the R&D area
+[09:23:06 PM] <All_for_One> yeah
+[09:23:42 PM] <Gohan> and the outlandishly important Community area
+[09:23:45 PM] <[HJ]-Asmudius_Heng> the post you put up looks pretty comprehensive
+[09:24:09 PM] <Gohan> it is, but there is always room for streamlining stuff
+[09:24:33 PM] <All_for_One> Profiles?
+[09:24:58 PM] <[HJ]-Asmudius_Heng> in the setup area i guess?
+[09:25:42 PM] <Gohan> I am not going to lie and say that the way I see it used in BF2142 is not a good way
+[09:26:02 PM] <[HJ]-Asmudius_Heng> bf does setup stuff pretty well
+[09:26:04 PM] <Gohan> where your login is the top most area followed by going into a created profile
+[09:26:21 PM] <[HJ]-Asmudius_Heng> well in bf your login connects to a server
+[09:26:29 PM] <[HJ]-Asmudius_Heng> do we need to login in CoS
+[09:26:31 PM] <All_for_One> could just have a first-time run thing
+[09:26:36 PM] <[HJ]-Asmudius_Heng> what purpose does it serve?
+[09:26:44 PM] <[HJ]-Asmudius_Heng> do people change profiles often?
+[09:26:48 PM] <Gohan> stat tracking
+[09:26:52 PM] <[HJ]-Asmudius_Heng> if i didnt have to login with BF i woulodnt
+[09:26:55 PM] <Gohan> and having an email attached to your account
+[09:26:55 PM] <All_for_One> league stuff
+[09:29:14 PM] <Gohan> well, what reasons are there to use different profiles?
+[09:29:20 PM] <[HJ]-Asmudius_Heng> will we make people login in each time or just on first start up
+[09:29:32 PM] <[HJ]-Asmudius_Heng> then let them change accounts in setup after that
+[09:29:42 PM] <[HJ]-Asmudius_Heng> i cant see any reason to use a different profile
+[09:29:44 PM] <Gohan> I can think of experimenting with different control schemes while keeping a "standard" one intact
+[09:29:52 PM] <[HJ]-Asmudius_Heng> we dont have any ongoing RPG elements
+[09:30:20 PM] <[HJ]-Asmudius_Heng> there might be a reason to have multiple profiles but i think making people login each time makes little sense
+[09:30:56 PM] <Gohan> auto-login :P
+[09:31:09 PM] <Gohan> even GW can do that
+[09:32:07 PM] <All_for_One> yeah, I think just making it pop up on first run, then from there just leaving it in setup.  If people want to change profiles(like say with multiple users) it could load up the last one used and people can switch from the setup menu
+[09:32:10 PM] <[HJ]-Asmudius_Heng> yea thats fine
+[09:32:35 PM] <[HJ]-Asmudius_Heng> no need to demand they select thier profile each time .. it may only be an extra click but its annoying
+[09:33:11 PM] <Gohan> what about a QuickSwap button
+[09:33:23 PM] <Gohan> like, you toggle your profile via a smaller button somewhere
+[09:33:34 PM] <Gohan> then it switches your controls, insignia, etc. to that
+[09:33:53 PM] <[HJ]-Asmudius_Heng> i was thinking they can just do it in the setup area
+[09:34:04 PM] <Gohan> talk about extra annoying clicks :P
+[09:34:07 PM] <[HJ]-Asmudius_Heng> having a specific button to cater for something very minor seems wasteful
+[09:34:15 PM] <[HJ]-Asmudius_Heng> if people are doinmg it all the time maybe
+[09:34:24 PM] <[HJ]-Asmudius_Heng> but i canot see people changing profiles often
+[09:34:31 PM] <Gohan> well, it could display your logged in profile somewhere
+[09:34:34 PM] <Gohan> and just click that
+[09:34:37 PM] <Gohan> or double click
+[09:34:39 PM] <Gohan> or click an arrow
+[09:34:48 PM] <Gohan> or click a smiley face of a guy with TNT and red eyes
+[09:35:34 PM] <[HJ]-Asmudius_Heng> sure, a small text box saying "Welcome Gohan" and if you click it it shortcuts you to the change profiles area
+[09:35:41 PM] <[HJ]-Asmudius_Heng> but i still don think it would be used much
+[09:36:08 PM] <Gohan> that will work
+[09:36:24 PM] <[HJ]-Asmudius_Heng> but yes having something showing your profile name is cute enoughn for inclusion
+[09:36:38 PM] <[HJ]-Asmudius_Heng> ok lets look at each of the main menues you got
+[09:36:40 PM] <[HJ]-Asmudius_Heng> single player
+[09:36:59 PM] <Gohan> I hesitate to even call it that, but ok
+[09:37:07 PM] <[HJ]-Asmudius_Heng> campaigns - training - anyting else?
+[09:37:12 PM] <Gohan> because single player conjures up the notion of a story driven campaign
+[09:37:13 PM] <All_for_One> Instant action?
+[09:37:18 PM] <Gohan> nooooooo
+[09:37:22 PM] <All_for_One> offline player
+[09:37:25 PM] <All_for_One> *play
+[09:37:28 PM] <All_for_One> eh
+[09:37:35 PM] <All_for_One> the term isn't unique to mw4
+[09:37:53 PM] <All_for_One> but I see where you are coming from
+[09:37:56 PM] <Gohan> it is when it comes from a group of former MW4 players
+[09:38:12 PM] <Gohan> hence why I tried to put different names for each area
+[09:38:32 PM] <Gohan> I think Campaign support should be added later, if at all
+[09:38:34 PM] <[HJ]-Asmudius_Heng> offline play seems fine
+[09:38:48 PM] <[HJ]-Asmudius_Heng> campaign might also be mods from the comunity
+[09:38:53 PM] <[HJ]-Asmudius_Heng> people making thier own single player missions
+[09:38:56 PM] <Gohan> hence why it should be added later
+[09:39:08 PM] <Gohan> because what we would have is an empty section
+[09:39:14 PM] <Gohan> or faux missions
+[09:39:46 PM] <Gohan> we could make it a VR Training Center
+[09:39:51 PM] <[HJ]-Asmudius_Heng> well the campaign was an idea to have a singpoemplayer mission for each faction tbhat was actually training
+[09:40:19 PM] <Gohan> not necessarily a campaign is it :P
+[09:40:48 PM] <All_for_One> doesn't stop the UT series from calling it that...
+[09:41:16 PM] <[HJ]-Asmudius_Heng> i rekon offline play and obnline play might go ok
+[09:41:25 PM] <[HJ]-Asmudius_Heng> i dont think anyone uses that is people are worried about names
+[09:41:34 PM] <All_for_One> it just has a series of missions where basically it gets you up to speed on a number of gametypes and familiar with the weapons
+[09:41:51 PM] <Gohan> does not make me like its usage anymore though
+[09:42:20 PM] <All_for_One> http://www.unf-unf.de/gum.html
+[09:42:26 PM] <[HJ]-Asmudius_Heng> renaming it is not gonna take any time .. lets focus on content
+[09:42:45 PM] <[HJ]-Asmudius_Heng> in offline play or whatever we will have a training area basicallty
+[09:42:51 PM] <[HJ]-Asmudius_Heng> testiugn stuff against bots
+[09:43:08 PM] <Gohan> and introductory missions to the factions
+[09:43:10 PM] <[HJ]-Asmudius_Heng> and maybe some scripted missions for training .. maybe ;later mods for singple player campiagns
+[09:43:14 PM] <[HJ]-Asmudius_Heng> yes
+[09:44:53 PM] <Gohan> SP should really focus heavily on teaching customization options
+[09:45:05 PM] <Gohan> as well as relevant control buttons
+[09:45:17 PM] <All_for_One> With a mw4 base
+[09:45:26 PM] <All_for_One> combined arms might be a good thing to throw in there
+[09:45:39 PM] <Gohan> you could take the AA route
+[09:45:47 PM] <All_for_One> eh
+[09:45:50 PM] <Gohan> force the tutorial on you until it is completed ;p
+[09:45:54 PM] <All_for_One> I didn't like that
+[09:46:14 PM] <All_for_One> particularly that it just restarted the tut if you shot your instructor.
+[09:46:19 PM] <Gohan> rofl
+[09:47:45 PM] <All_for_One> how would we compare mw4's single mission to 
+[09:48:02 PM] <All_for_One> mw3's multiple training missions?
+[09:48:25 PM] <All_for_One> or even ut2k4's video intros to the gametypes.
+[09:49:15 PM] <Gohan> I like hands on more
+[09:49:24 PM] <Gohan> because sitting through a video can be boring
+[09:49:32 PM] <Gohan> I am looking at you, BF2141 demo video
+[09:49:39 PM] <Gohan> 2909279027917
+[09:49:41 PM] <All_for_One> isn't it 2142?
+[09:49:53 PM] <Gohan> BF2K!
+[09:49:58 PM] <Gohan> or BF2+
+[09:50:07 PM] <All_for_One> bf2 XP.
+[09:50:26 PM] <[HJ]-Asmudius_Heng> sry was watching that link :P
+[09:50:57 PM] <[HJ]-Asmudius_Heng> having the "training" as a faction storyline campaign makes it hands on, interesting and so forth
+[09:51:05 PM] <[HJ]-Asmudius_Heng> i think we will not require people to do it
+[09:51:21 PM] <[HJ]-Asmudius_Heng> but we might have strong recommendations if they try to start multiplay without doing it
+[09:51:34 PM] <[HJ]-Asmudius_Heng> i want people to do the training because it will be fgun
+[09:51:41 PM] <[HJ]-Asmudius_Heng> not a chore
+[09:51:43 PM] <Gohan> ONE POP UP THAT SHOULD NEVER APPEAR AGAIN
+[09:52:08 PM] <[HJ]-Asmudius_Heng> O_O
+[09:52:11 PM] <[HJ]-Asmudius_Heng> umm ... yes
+[09:52:11 PM] <Gohan> yes
+[09:52:14 PM] <Gohan> I had to put that is caps
+[09:52:26 PM] <[HJ]-Asmudius_Heng> :P
+[09:52:27 PM] <Gohan> because I do not want a pestering reminder of not playing the tutorial
+[09:52:31 PM] <Gohan> in*
+[09:52:35 PM] <Gohan> god I fail at english
+[09:52:36 PM] <[HJ]-Asmudius_Heng> yep
+[09:52:50 PM] <[HJ]-Asmudius_Heng> me fail english? thats unpossible
+[09:52:51 PM] <Gohan> I am looking at you, Navi from Legend of Zelda
+[09:53:05 PM] <Gohan> "HEY, HEY, HEY, HEY, LISTEN, HEY, HEY, LISTEN!"
+[09:53:11 PM] <Gohan> DIE YOU STUPID FAIRY >:(
+[09:53:44 PM] <[HJ]-Asmudius_Heng> ok ... thats basically all we need for offline play ... training/tutorials in whatever context we put it and a "instant action" training section for people to test configs against biots
+[09:53:50 PM] <All_for_One> okay
+[09:54:00 PM] <All_for_One> then how about we put in a "navi" clone
+[09:54:06 PM] <All_for_One> and make it shootable.
+[09:54:33 PM] <All_for_One> anytime it starts up with something, you can shoot it, it'll scream and die.
+[09:54:42 PM] <All_for_One> and shut up till next time
+[09:55:47 PM] <Gohan> D:
+[09:56:09 PM] <[HJ]-Asmudius_Heng> ok for online play
+[09:56:21 PM] <Gohan> oh god
+[09:56:22 PM] <Gohan> I remember
+[09:56:23 PM] <All_for_One> like that BF2 vid
+[09:56:23 PM] <[HJ]-Asmudius_Heng> obviously we need a GOOD browser
+[09:56:34 PM] <[HJ]-Asmudius_Heng> bf2 vid?
+[09:56:42 PM] <Gohan> please let the server browser sort by multiple options
+[09:56:48 PM] <All_for_One> tut voice: "press enter to enter a" Shut up! 
+[09:56:52 PM] <[HJ]-Asmudius_Heng> yes indeedy G
+[09:56:59 PM] <[HJ]-Asmudius_Heng> oh right the snoken one
+[09:57:00 PM] <Gohan> because I hate all server browsers that lack that
+[09:57:09 PM] <Gohan> which is apparently every one in existance
+[09:57:11 PM] <[HJ]-Asmudius_Heng> bf2 has the worst browser ever
+[09:57:19 PM] <[HJ]-Asmudius_Heng> multiple option sort
+[09:57:22 PM] <Gohan> yes
+[09:57:26 PM] <[HJ]-Asmudius_Heng> all variables veiwable on request
+[09:57:26 PM] <Gohan> masturbatory addition
+[09:57:37 PM] <Gohan> right click server to see information
+[09:57:41 PM] <[HJ]-Asmudius_Heng> yep
+[09:57:44 PM] <Gohan> a.k.a., players inside, settings, etc
+[09:57:50 PM] * [HJ]-Asmudius_Heng nods
+[09:57:59 PM] <All_for_One> eh
+[09:58:00 PM] <[HJ]-Asmudius_Heng> do we have net options in here?
+[09:58:08 PM] <All_for_One> ut's shows that on the page
+[09:58:10 PM] <[HJ]-Asmudius_Heng> like what connection you are onj etc?
+[09:58:34 PM] <[HJ]-Asmudius_Heng> no need to clog up the page though AFO ... also if we ave so many variables to show we may not hqve room is all
+[09:58:44 PM] <All_for_One> though that means that the actual server brower screen only takes up like half the screen, the other half is the server info/mods and player screen(minus bots)
+[09:59:08 PM] <Gohan> the only UT I ever played was UT99
+[09:59:20 PM] <Gohan> let me say that it has the worst browser system I have ever seen
+[09:59:39 PM] <Gohan> it tries to act like a web browser and it fails hardcore
+[09:59:50 PM] <Gohan> fun game, sure, but oh how I loathe the GUI
+[10:00:49 PM] <[HJ]-Asmudius_Heng> in any case ... the browser should have good search and sorting abilities
+[10:00:57 PM] <[HJ]-Asmudius_Heng> easy to get server info
+[10:01:00 PM] <[HJ]-Asmudius_Heng> comprehensive inf
+[10:01:01 PM] <All_for_One> IMO, the only thing missing from ut2k4's browser is a legend of what all the little icons mean in the server list
+[10:01:02 PM] <[HJ]-Asmudius_Heng> info
+[10:01:20 PM] <[HJ]-Asmudius_Heng> what else does it need?
+[10:01:28 PM] <[HJ]-Asmudius_Heng> favourite server list?
+[10:01:31 PM] <[HJ]-Asmudius_Heng> friends list?
+[10:01:42 PM] <[HJ]-Asmudius_Heng> can we do a friends list without access to all servers?
+[10:01:42 PM] <Gohan> do we need a friends list?
+[10:01:44 PM] <Gohan> efb
+[10:01:53 PM] <[HJ]-Asmudius_Heng> friends lists are very good i find
+[10:01:59 PM] <Gohan> I think that is the point of a login
+[10:02:00 PM] <[HJ]-Asmudius_Heng> knowing where your mates ar eplaying
+[10:02:11 PM] <Gohan> because it would be like xFire integrated into your game
+[10:02:23 PM] <[HJ]-Asmudius_Heng> well ... we wont have a dedicated server for that info i dont think will we?
+[10:02:31 PM] <Gohan> depends on DP and Xavier
+[10:02:37 PM] <Gohan> from a monetary and coding standpoint
+[10:02:39 PM] <[HJ]-Asmudius_Heng> friends list would just search the servers for your mates names or ID
+[10:02:46 PM] <[HJ]-Asmudius_Heng> thats the simplest way
+[10:02:48 PM] <[HJ]-Asmudius_Heng> imo
+[10:03:02 PM] <Gohan> a search like that might take quite a bit of resources :P
+[10:03:09 PM] <Gohan> and how often would it update that search?
+[10:03:20 PM] <Gohan> every time you disconnect from a server?
+[10:03:23 PM] <Gohan> every 5 minutes?
+[10:03:25 PM] <[HJ]-Asmudius_Heng> either way i think it should be included ... some people have Xfire, some use MSN or whatever but if you want to add guys you enjoyed playing with before in game then it should be an option
+[10:03:43 PM] <[HJ]-Asmudius_Heng> technical issue i guess, it might be easy to do it evert 5 seconds i dont know
+[10:03:43 PM] <Gohan> I agree, but that is on DP and Xavier's end now
+[10:03:53 PM] <[HJ]-Asmudius_Heng> on demand too
+[10:04:06 PM] <[HJ]-Asmudius_Heng> either way the techy types can work it out but its imp-ortant imo
+[10:04:11 PM] <[HJ]-Asmudius_Heng> for good comunity 
+[10:04:45 PM] <Gohan> oh, and the normal stuff like wanting servers that are locked, passworded, etc
+[10:04:51 PM] <Gohan> sorting by that
+[10:05:07 PM] <Gohan> and I hate to rip off BFx again, but search makes me pants excited
+[10:05:20 PM] <[HJ]-Asmudius_Heng> comrehensive sorting and searching should cover all that
+[10:05:34 PM] <[HJ]-Asmudius_Heng> but yes being able to nail down the exact servers you like and want is good
+[10:06:38 PM] <Gohan> yes
+[10:06:45 PM] <Gohan> and have it all tied to that profile ;D
+[10:07:28 PM] <[HJ]-Asmudius_Heng> sure
+[10:07:31 PM] <Gohan> I would love for an Import/Export button for controls
+[10:07:44 PM] <Gohan> because how many times did we reinstall MW4 and have to reset everything?
+[10:07:46 PM] <All_for_One> maybe a favorites list of servers?
+[10:07:50 PM] <[HJ]-Asmudius_Heng> well if they are just files you can copy and paste them
+[10:07:57 PM] <Gohan> though I think there was a file that had all that info, but still
+[10:08:00 PM] <[HJ]-Asmudius_Heng> already mentioned a favourites list yea
+[10:08:10 PM] <[HJ]-Asmudius_Heng> anythign elkse?
+[10:08:27 PM] <Gohan> it would be a whatever.xxx file that you can send to anywhere that has all of the vital information for that profile
+[10:08:43 PM] <Gohan> so that if the game needs to be reinstalled, boom, import whatever.xxx and all your stuff is back to the way it was
+[10:09:34 PM] <Gohan> if we had the support for web-based storage, we could do it that way, but we do not, so I think this is a good idea
+[10:10:21 PM] <Gohan> but for now, I think that is it for MP
+[10:12:25 PM] <Gohan> so ... R&D I suppose is next
+[10:12:36 PM] <Gohan> how much information do we want in there?
+[10:12:47 PM] <Gohan> obviously, the parts and vehicles will have definitions
+[10:12:54 PM] <Gohan> and various statistics
+[10:13:17 PM] <[HJ]-Asmudius_Heng> and the leb to customise each chassis and the weapons lab too
+[10:13:24 PM] <[HJ]-Asmudius_Heng> err lab
+[10:13:38 PM] <[HJ]-Asmudius_Heng> in fact i think the main use of this will be to make variants
+[10:13:42 PM] <Gohan> basically
+[10:13:50 PM] <All_for_One> Are we going to have a history thing in there too?
+[10:13:57 PM] <[HJ]-Asmudius_Heng> so the info should be second tier to the actualy customising environment
+[10:14:00 PM] <Gohan> might be overkill with history
+[10:14:01 PM] <All_for_One> (like MC2 did)
+[10:14:07 PM] <All_for_One> not in the lab
+[10:14:11 PM] <All_for_One> just in the game
+[10:14:14 PM] <Gohan> oh
+[10:14:15 PM] <[HJ]-Asmudius_Heng> i thought histiory and chassis info more than statistics would be in the library
+[10:14:31 PM] <[HJ]-Asmudius_Heng> the R&D would just have game based stuff
+[10:14:38 PM] <All_for_One> yeah, if we have a seperate area for history and that stuff
+[10:14:45 PM] <Gohan> honestly, I would hope SOMETHING is in the game that explains at least the basic structure of our universe
+[10:15:03 PM] <Gohan> it does not have to be a 100+ page book like in MGS1
+[10:15:12 PM] <Gohan> (which I actually read!)
+[10:15:13 PM] <All_for_One> we probably don't really need to have big descriptions like mw4
+[10:17:21 PM] <[HJ]-Asmudius_Heng> we might have br eif descriptions in the RD ara but the main stuff for each vehicle and gun etc would all be in the library
+[10:17:31 PM] <[HJ]-Asmudius_Heng> there might be a library link in the RD area
+[10:17:46 PM] <[HJ]-Asmudius_Heng> a little "i" somewhere in a corner if people want to link directly
+[10:17:48 PM] <Gohan> what about consolidating them
+[10:17:59 PM] <Gohan> we could have a transparent popup
+[10:18:05 PM] <Gohan> yes, a pop up
+[10:18:15 PM] <Gohan> and that has all of that background info on X Vehicle or Y Weapon
+[10:18:58 PM] <Gohan> with a close button, obviously
+[10:19:35 PM] <All_for_One> don't need the full background if we have a history thing elsewhere
+[10:19:38 PM] <[HJ]-Asmudius_Heng> the majority of the time people will not want to see that stuff so it has to be on demand
+[10:19:46 PM] <All_for_One> just a quick little blurb about it
+[10:19:48 PM] <Gohan> that is why it is a popup
+[10:19:53 PM] <Gohan> that is selected on demand
+[10:19:58 PM] <Gohan> it is not shown to you every time
+[10:20:00 PM] <[HJ]-Asmudius_Heng> but yea some history and info stuff might be quite lone if ppl wanna see that they will find it
+[10:20:34 PM] <Gohan> or we could also move the library under SP
+[10:20:56 PM] <[HJ]-Asmudius_Heng> why? they do not logically group
+[10:21:10 PM] <Gohan> it is if the SP missions are rooted into the factions
+[10:21:15 PM] <All_for_One> yeah
+[10:21:26 PM] <All_for_One> but better to keep everything history related in one place
+[10:21:28 PM] <[HJ]-Asmudius_Heng> the multiplayer ones are too that does nto mean they should be in multiplay
+[10:21:30 PM] <All_for_One> IMO anyways
+[10:21:37 PM] <Gohan> MP has enough stuff
+[10:21:38 PM] <[HJ]-Asmudius_Heng> the SP bit is about the in game stuff
+[10:21:41 PM] <All_for_One> anyways, I g2g
+[10:21:42 PM] <All_for_One> later all
+[10:21:44 PM] <[HJ]-Asmudius_Heng> history shold be in its own section imo
+[10:21:44 PM] *** All_for_One quit (Quit: )
+[10:21:46 PM] <Gohan> and who is going to be looking for history stuff in MP
+[10:21:56 PM] <[HJ]-Asmudius_Heng> who is gonn be loking for it in SP?
+[10:21:59 PM] <Gohan> you could even have it unlock once all fake missions are completed
+[10:22:04 PM] <[HJ]-Asmudius_Heng> when there is a history and library section easy to find
+[10:22:12 PM] <[HJ]-Asmudius_Heng> i dont see the point
+[10:22:53 PM] <[HJ]-Asmudius_Heng> seems logical and easy and good for the pklatyer to just have all that info in its own menu
+[10:23:25 PM] <[HJ]-Asmudius_Heng> remember that many people will not care about the histroy ... and then most will only read it once
+[10:23:42 PM] <[HJ]-Asmudius_Heng> it should be there but trying to integrate it too much will just be an annoyance
+[10:24:02 PM] <Gohan> not if it is in SP :P
+[10:24:08 PM] <Gohan> how often do you see people going to SP?
+[10:24:18 PM] <Gohan> once? twice? three times at most?
+[10:24:43 PM] <Gohan> if interest in SP and History is going to be the same, why waste menu space on two items?
+[10:25:21 PM] <[HJ]-Asmudius_Heng> because it logically groups them better and we have plenty of space in the menu screen its not like we are cluttered
+[10:26:12 PM] <Gohan> not yet anyway :p
+[10:26:48 PM] <[HJ]-Asmudius_Heng> 6 options you posted seem fine to me
+[10:27:09 PM] <[HJ]-Asmudius_Heng> we dont need to reinvent the wheel
+[10:27:47 PM] <Gohan> I suppose
+[10:27:59 PM] <Gohan> I am in the devil's advocate mood
+[10:28:00 PM] <Gohan> ;p
+[10:28:32 PM] <[HJ]-Asmudius_Heng> well i cant stay too much longer so unless you really believe in it over discussion should prob be dropped ;)
+[10:30:21 PM] <Gohan> lol
+[10:30:34 PM] <Gohan> well, the history thing is obviously what it says
+[10:30:50 PM] <Gohan> perhaps we could tell different chapters via that area
+[10:30:55 PM] <Gohan> and have it updateable
+[10:31:00 PM] <Gohan> as to not overwhelm the player
+[10:31:13 PM] <Gohan> some cool graphic art that depicts different moments could be sweet too
+[10:31:22 PM] <[HJ]-Asmudius_Heng>  art would bve nice
+[10:31:48 PM] <Gohan> some different art assets only found in there too
+[10:31:54 PM] <Gohan> like the planets
+[10:31:55 PM] <Gohan> each one
+[10:31:58 PM] <Gohan> the galazy
+[10:32:01 PM] <Gohan> with an x
+[10:32:07 PM] *** ToxicSoul (admin@irc.netbattletech.com) joined
+[10:32:22 PM] <Gohan> the Options/Setup area is pretty straightforward
+[10:32:35 PM] <Gohan> video, audio, control
+[10:33:02 PM] <[HJ]-Asmudius_Heng> i think we cna safelty rip off BF for controls
+[10:33:07 PM] <[HJ]-Asmudius_Heng> seems to work well
+[10:33:13 PM] <Gohan> WASD is a staple of every PC game
+[10:33:45 PM] <ToxicSoul> I miss any relevations?
+[10:34:03 PM] <Gohan> Asmu came up with an idea so good that our brains are now gone.
+[10:34:28 PM] <Gohan> we have been talking about the differences between kangaroos, lint, and chocolate bunnies for the remainder
+[10:35:21 PM] <ToxicSoul> okay
+[10:35:24 PM] <ToxicSoul> sounds good.
+[10:35:30 PM] <[HJ]-Asmudius_Heng> lint flavoured chocolate roo/bunny hybrids
+[10:37:38 PM] <Gohan> :O
+[10:37:40 PM] <[HJ]-Asmudius_Heng> sound and video setup i dont know much about apart from volume and resolution etc
+[10:37:42 PM] <Gohan> my mind just melted
+[10:37:46 PM] <[HJ]-Asmudius_Heng> techy guys can fill us in on that more
+[10:38:22 PM] <Gohan> we should be able to support a ton of resolutions
+[10:38:32 PM] <Gohan> but 800x600 should probably be the lowest
+[10:38:37 PM] <[HJ]-Asmudius_Heng> also have multi monitor support awww yeaaa
+[10:38:48 PM] <Gohan> and widescreen support
+[10:38:51 PM] <[HJ]-Asmudius_Heng> maybe even have your HUD setups in there
+[10:38:58 PM] <[HJ]-Asmudius_Heng> can click an drag to fit
+[10:39:44 PM] <Gohan> I guess
+[10:40:12 PM] <Gohan> I did like that Tribes had that with a small mod
+[10:40:22 PM] <Gohan> depends on how much we have on screen
+[10:42:26 PM] <[HJ]-Asmudius_Heng> if you wanna alter the list you pout up to reflect a few of these changes Gohan
+[10:42:34 PM] <Gohan> I will
+[10:42:40 PM] <[HJ]-Asmudius_Heng> cool
+[10:43:05 PM] <Gohan> now get cracking on our secret "lint flavoured chocolate roo/bunny hybrid" project
+[10:43:31 PM] <[HJ]-Asmudius_Heng> bwahahaha
+[10:43:56 PM] <[HJ]-Asmudius_Heng> ok, didnt get through half the topics but thats cool we got more for hnext week
+[10:44:36 PM] <Gohan> true
+[10:44:39 PM] <Gohan> plus the mega meeting
+[10:44:44 PM] <Gohan> or the Meeting of the Bosses
+[10:44:54 PM] <Gohan> or the Collection of e-Genius Summit.
+[10:45:24 PM] <[HJ]-Asmudius_Heng> where we shall reveal the "lint flavoured chocolate roo/bunny hybrid" project
+[10:45:28 PM] <Gohan> which means I can also finally use the bathroom too
+[10:45:29 PM] <Gohan> brb
+[10:56:59 PM] <ToxicSoul> Multimonitor btw will be a streched window over added content to be fair.
+[10:57:39 PM] <ToxicSoul> And there is sound options like EAX, english only voices, VoIP
+[10:57:54 PM] <ToxicSoul> then other things like hud color, transparency, refresh rate
+[10:58:48 PM] <ToxicSoul> There is other things like FPS count etc
+[10:59:05 PM] <ToxicSoul> that I want to be an option over say a console command like in BF2, to make it easier to use.
+[10:59:17 PM] <ToxicSoul> Poly counts
+[10:59:17 PM] <ToxicSoul> etc.
+[10:59:39 PM] <ToxicSoul> (have a key that can be set to them, or say an option for always on)
+[11:00:37 PM] <ToxicSoul> font size is another option
+[11:00:42 PM] <ToxicSoul> texture quality
+[11:00:45 PM] <ToxicSoul> shadow quality
+[11:00:51 PM] <ToxicSoul> drawing distance
+[11:01:00 PM] <ToxicSoul> dynamic lighting
+[11:01:00 PM] <ToxicSoul> etc.
+[11:01:04 PM] <Gohan> that should go under an advanced tab, imo
+[11:01:12 PM] <ToxicSoul> Why?
+[11:01:20 PM] <ToxicSoul> You're going to have a lot of open space then
+[11:01:21 PM] <Gohan> because it is advanced
+[11:01:33 PM] <ToxicSoul> People shouldn't have to hunt for it though =p
+[11:01:43 PM] <Gohan> it is one tab that is right there
+[11:01:46 PM] <Gohan> or button
+[11:01:48 PM] <Gohan> or section
+[11:01:51 PM] <ToxicSoul> Have you ever seen BF2s menus?
+[11:01:51 PM] <Gohan> or mouse click
+[11:01:54 PM] <Gohan> yes
+[11:01:57 PM] <Gohan> well, no
+[11:01:57 PM] <ToxicSoul> Or go look at GWs
+[11:02:07 PM] <ToxicSoul> Its all in one section
+[11:02:12 PM] <ToxicSoul> why? because that makes sense
+[11:02:13 PM] <[HJ]-Asmudius_Heng> i will depends on screen real estate most likely
+[11:02:24 PM] <Gohan> I suppose
+[11:02:24 PM] <ToxicSoul> hell theirs didn't even take up a full section of the screen.
+[11:02:45 PM] <ToxicSoul> The HUD thing will have to be on a seperate section if we're allowing people to move it around
+[11:02:57 PM] <ToxicSoul> otherwise you have 10 or so options for an entire screen
+[11:03:06 PM] <ToxicSoul> makes it look like its missing content.
+[11:03:19 PM] <ToxicSoul> Look at UT - that was a bad way to do options
+[11:03:29 PM] <Gohan> UT fails at GUI design completely
+[11:03:56 PM] <Gohan> I ranted on that earlier
+[11:04:00 PM] <ToxicSoul> lol
+[11:05:22 PM] <ToxicSoul> If I knew what features we had nailed down (stats, etc) I could make a mock gui layout (not like MDKs, more like a black and white flow chart looking thing) but yeah I don't know where we stand on a lot of things *shrug*
+[11:05:41 PM] <ToxicSoul> And some of them I need to talk to xavier about because I still haven't looked at the sample updater code yet.
+[11:05:49 PM] <Gohan> go work on a friends list :P
+[11:05:52 PM] <Gohan> that is asmu's pet baby
+[11:06:01 PM] <ToxicSoul> hm?
+[11:06:04 PM] <ToxicSoul> For the game? =p
+[11:06:12 PM] <ToxicSoul> Nowhere near that point =p
+[11:06:36 PM] <Gohan> or server browser should be awesome to the extreme
+[11:06:39 PM] <Gohan> our*
+[11:06:47 PM] <ToxicSoul> Lua or CEGUI, or python, whichever they've finally desided on as a scripting interface needs to be implemented
+[11:06:52 PM] <Gohan> flashing pop up ads for bigger penises, etc.
+[11:07:02 PM] <ToxicSoul> one thing I'm going to stress is proper controls
+[11:07:17 PM] <ToxicSoul> I can't stand how so many games the controls are delayed / slow / inaccurate
+[11:07:30 PM] <ToxicSoul> MW4 is really bad for controls
+[11:07:34 PM] <ToxicSoul> controls being scroll boxes etc.
+[11:07:58 PM] <ToxicSoul> GUI Controls I should of said... oh well
+[11:09:23 PM] <ToxicSoul> Or did you already rant on that too?
+[11:09:59 PM] <Gohan> not that, no
+[11:10:11 PM] <Gohan> but I see what you mea
+[11:10:13 PM] <Gohan> mean even
+[11:10:53 PM] <ToxicSoul> It depends on what its done it and what the language supports, I may not be able to get them perfect but Im willing to nag someone else to.
+[11:12:16 PM] <ToxicSoul> But overall if you take, BF2, BF2142, GW, MW4, UT you can see what is good and what isn't -- add other games CoD2, Doom3 and you can get an even larger picture
+[11:12:37 PM] <Gohan> true
+[11:12:47 PM] <ToxicSoul> So far the common things that I've seen that I'm really pushing - Profile at the begining.
+[11:13:09 PM] <Gohan> I think I should post the log of what we said earlier :P
+[11:13:15 PM] <[HJ]-Asmudius_Heng> lol
+[11:13:16 PM] * Gohan gives [HJ]-Asmudius_Heng a clout round the head with a fresh copy of HydraIRC
+[11:13:17 PM] <ToxicSoul> Responsive GUI controls, Simplistic GUI (less sections better), etc.
+[11:13:21 PM] <Gohan> good, asmu
+[11:13:23 PM] <[HJ]-Asmudius_Heng> X_x
+[11:13:32 PM] <ToxicSoul> Well I'm late so I get to rant
+[11:13:33 PM] <Gohan> do you have the stuff before the GUI conversation
+[11:13:46 PM] <[HJ]-Asmudius_Heng> prob
+[11:13:51 PM] <ToxicSoul> Instead of sleeping a bit before retaking the SATs
+[11:14:02 PM] <Gohan> [09:17:48 PM] <All_for_One> back
+[11:14:02 PM] <Gohan> [09:18:07 PM] <[HJ]-Asmudius_Heng> kk
+[11:14:02 PM] <Gohan> [09:18:37 PM] <[HJ]-Asmudius_Heng> ok G, you have put some worek into this what do we need to nail down?
+[11:14:06 PM] <Gohan> basically, before that
+[11:14:08 PM] <[HJ]-Asmudius_Heng> hmm... well i dont log stuff i just realised but its scrollable to
+[11:14:22 PM] <Gohan> just copy/paste into a .txt everything you have
+[11:14:32 PM] <[HJ]-Asmudius_Heng> before that was the transport stuff yea?
+[11:14:36 PM] <Gohan> yeah
+[11:14:50 PM] <ToxicSoul> I'll read over it later
+[11:15:02 PM] <ToxicSoul> Did you guys decide anything about stats?
+[11:15:28 PM] <Gohan> depends on DP and the coders
+[11:15:41 PM] <Gohan> mainly the latter
+[11:16:02 PM] <Gohan> like, the type of physical resources we would need to store and track that sort of thing
+[11:16:05 PM] <ToxicSoul> More DP than the latter I think
+[11:16:20 PM] <ToxicSoul> =p
+[11:16:35 PM] <ToxicSoul> Simply because -- stats are easy to track -- well matters how indepth we get
+[11:17:01 PM] <[HJ]-Asmudius_Heng> ok in a text file .. you want G?
+[11:17:28 PM] <Gohan> plz
+[11:17:52 PM] <Gohan> I think the NBT stats are the absolute minimum of what to expect in player statistics
+[11:17:55 PM] -[HJ]-Asmudius_Heng- DCC Send meeting first half.txt (211.30.116.242)
+[11:17:56 PM] CTCP/DCC request from [HJ]-Asmudius_Heng : SEND meeting_first_half.txt 3541988594 14460 6672
+[11:17:57 PM] ctcp/dcc Receive from [HJ]-Asmudius_Heng of meeting_first_half.txt Completed (Received 6KB of 6KB)
+[11:18:07 PM] <ToxicSoul> Once you get the information in the database the rest is easy
+[11:18:14 PM] <ToxicSoul> The web API, etc.
+[11:18:39 PM] <ToxicSoul> The part I'm worried about is security
+[11:19:08 PM] <ToxicSoul> Its open source -- so the encryption will be available
+[11:19:35 PM] <ToxicSoul> and you need some way to decrypt on said database end
+[11:19:41 PM] <ToxicSoul> to prevent stat hacking
+[11:19:59 PM] <[HJ]-Asmudius_Heng> what would stats be used for?
+[11:20:05 PM] <ToxicSoul> So it can't be something like a MD5 - which are known as hashs to the non-tech people
+[11:20:08 PM] <ToxicSoul> Leagues
+
+[11:20:22 PM] <ToxicSoul> Imagine if you can track how much you used an not have to enter that into the automation
+[11:20:29 PM] <ToxicSoul> have partially destroyed units
+[11:20:33 PM] <ToxicSoul> etc
+[11:20:37 PM] <Gohan> just general player stats too
+[11:20:40 PM] <Gohan> people like those
+[11:20:42 PM] <ToxicSoul> Yeah =p
+[11:21:04 PM] <ToxicSoul> Well besides the make players happy part, there is a number of league uses
+[11:21:25 PM] <ToxicSoul> And development uses
+[11:21:52 PM] <ToxicSoul> I can create data models off of stats -- and create new tweaking rules.
+[11:21:58 PM] <ToxicSoul> To balance things etc.
+[11:22:25 PM] <ToxicSoul> Ofcourse stats aren't always the best to go by as seen in MW4, but with this I think they'll work a bit better.
+[11:22:43 PM] <Gohan> the more information on hand the better
+[11:23:15 PM] <ToxicSoul> If we end up with a BF2 size player base -- thats a lot of stats and bandwidth.
+[11:23:16 PM] <Gohan> it also shows what gametypes/situations are more popular than others
+[11:23:44 PM] <ToxicSoul> We're talking TB
+[11:24:15 PM] <Gohan> terabytes, woop
+[11:25:41 PM] <ToxicSoul> This is what the BF2S site is running on -- it probably gets as much traffic as the game does in the end
+[11:25:42 PM] <ToxicSoul> - Rackmount case and mobo by iwill
+[11:25:42 PM] <ToxicSoul> - Dual AMD Opterons, 2.0ghz
+[11:25:42 PM] <ToxicSoul> - Dual 36gb Raptors, Raid 1
+[11:25:42 PM] <ToxicSoul> - 16GB ram
+[11:25:52 PM] <Gohan> :O
+[11:26:08 PM] <ToxicSoul> When the site hit 1,000,000 hits a day, I though I had reached a crowning achievement in my web development career. Then it doubled, and again, and again, and again. Last time I checked, ya'll was causing more than 21,000,000 hits PER DAY against this website. To say I am elated would be an grievous understatement.
+[11:26:23 PM] <Gohan> BAH GAWD
+[11:26:37 PM] <ToxicSoul> They have to run multiple servers IIRC one alone just for the images
+[11:26:38 PM] <Gohan> that paragraphed evolved like like an episode of DBZ
+[11:26:54 PM] <ToxicSoul> and I believe another for the Database
+[11:26:55 PM] <Gohan> paragraph*
+[11:27:35 PM] <ToxicSoul> Now it's time to move again. BF2S, thanks to everyone's patronage, has outgrown this machine. As such, it's also outgrowing the 1.2TB/month data transfer allotment.
+[11:27:56 PM] <ToxicSoul> I bet they're at 5TB or around there
+[11:30:48 PM] *** [HJ]-Asmudius_Heng changed nick to [HJ]-Asmudius_Heng|Away
+[11:30:50 PM] <[HJ]-Asmudius_Heng|Away> gotta go guys
+[11:30:55 PM] <Gohan> peace

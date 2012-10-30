@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Intel Profiling API"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(VTUNE_AMPLIFIER_XE_2011_DIR)\Include"
+		PreprocessorDefinitions="INTEL_PROFILING"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="libittnotify.lib"
+		AdditionalLibraryDirectories="$(VTUNE_AMPLIFIER_XE_2011_DIR)\Lib32"
+	/>
+</VisualStudioPropertySheet>

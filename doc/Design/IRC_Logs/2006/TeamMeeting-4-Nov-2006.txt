@@ -1,0 +1,145 @@
+[09:07:32 PM] <~Xavier> I don't think lack of a team lead has too much to do with people not finishing the projects they were already working on
+[09:07:37 PM] <~Xavier> or at least I hope not
+[09:07:40 PM] <Gohan> there is no motivation :P
+[09:07:54 PM] <~Xavier> don't know what else to do to motivate ppl
+[09:08:13 PM] <~Xavier> "hey, I can get your art in the game...if you complete any,,,"
+[09:08:26 PM] <~Xavier> cattle prods failed
+[09:12:44 PM] <Gohan> well, I guess there is a difference between making a model for a project and making a model for a game
+[09:12:57 PM] <Gohan> in terms of the amount of care one has for each creation
+[09:14:28 PM] <~Xavier> that is true
+[09:15:17 PM] <~Xavier> one problem we do have is that no one on the art team has ever done models from scratch for a game (meaning, no one knows the whole process -- most of those that made HC models turned them over to Scanner after the mesh and UV unwrap was done)
+[09:16:10 PM] <[HJ]-Asmudius_Heng> heya Xav
+[09:16:23 PM] <~Xavier> hiya ASmu
+[09:16:42 PM] <~Xavier> but even in our case, we have an animator that can deal with the unrigged models
+[09:16:45 PM] <~Xavier> and get them in the game
+[09:17:01 PM] <~Xavier> we just need ppl to finish (even if it's just a first-pass type of thing) models to get them to Eli
+[09:21:00 PM] <[HJ]-Asmudius_Heng> dont we have even one?
+[09:21:17 PM] <~Xavier> I don't think so
+[09:21:19 PM] <Gohan> not completed
+[09:21:25 PM] <~Xavier> all we have is a Kana and that's an HC model
+[09:21:28 PM] <Gohan> yeah
+[09:21:36 PM] <~Xavier> not a single completed sausage
+[09:21:36 PM] <Gohan> I meant not completed that advances CoS
+[09:21:51 PM] <~Xavier> we don't even anything completed that is static
+[09:21:54 PM] <~Xavier> ya
+[09:22:04 PM] <~Xavier> nothing is advancing CoS in terms of art
+[09:22:41 PM] <[HJ]-Asmudius_Heng> =/
+[09:22:46 PM] <[HJ]-Asmudius_Heng> i dont know what to do about that
+[09:23:13 PM] <~Xavier> none of us do
+[09:23:18 PM] <~Xavier> try to get more artists I suppose
+[09:23:27 PM] <~Xavier> R/L kicking ours arses
+[09:24:05 PM] <[HJ]-Asmudius_Heng> well i am trying to do something this month to add soemthing to pro project but maybe releasing some stuff might garner some interst
+[09:24:12 PM] <[HJ]-Asmudius_Heng> the QnA ting
+[09:24:15 PM] <[HJ]-Asmudius_Heng> for a start
+[09:26:30 PM] <[HJ]-Asmudius_Heng> we cannot attract talent with our current prescence on the net imo
+[09:26:39 PM] <[HJ]-Asmudius_Heng> but we do need a dedicated art lead
+[09:28:15 PM] <Gohan> the holidays are certainly not going to help
+[09:28:20 PM] <Gohan> from an RL and gaming standpoint
+[09:28:32 PM] <Gohan> my catalog of games I want to play is growing exponentially
+[09:29:55 PM] <~Xavier> hehe
+[09:30:10 PM] <~Xavier> I'd like to release something, but it's that catch-22
+[09:30:14 PM] <~Xavier> what do we have yet? :(
+[09:30:25 PM] <~Xavier> there is a map which needs lots of work
+[09:30:29 PM] <~Xavier> and a mech that isn't ours
+[09:30:44 PM] <~Xavier> no buildings, no naturals
+[09:30:49 PM] <[HJ]-Asmudius_Heng> release concepts
+[09:31:01 PM] <~Xavier> granted, I could easily hit up TurboSquid and get some cheaply-made crap for free
+[09:31:04 PM] <[HJ]-Asmudius_Heng> more detail of what we are trying to achieve
+[09:31:09 PM] <~Xavier> but that hardly is what we want the world to see
+[09:31:12 PM] <~Xavier> true
+[09:31:22 PM] <~Xavier> we need a good 2D artist for good concept art
+[09:31:31 PM] <[HJ]-Asmudius_Heng> some  info on the CoS universe .. might fire up some ppl
+[09:31:32 PM] <[HJ]-Asmudius_Heng> yea
+[09:31:35 PM] <~Xavier> AFO's rough models don't quite cut it
+[09:31:37 PM] <[HJ]-Asmudius_Heng> wish lycan was back
+[09:32:00 PM] <~Xavier> what we need for an art lead, is someone who aspiring artists look up to
+[09:32:15 PM] <~Xavier> someone who has the charisma actually to attract talent just because he or she is on the team
+[09:32:38 PM] <[HJ]-Asmudius_Heng> yes, but where from?
+[09:32:41 PM] <~Xavier> exactly
+[09:32:54 PM] <[HJ]-Asmudius_Heng> does DP know anyone?
+[09:32:58 PM] <~Xavier> anyone who comes from the current HC community will want to make MW5 I think
+[09:33:02 PM] <~Xavier> not that I know of
+[09:33:44 PM] <~Xavier> I know plenty of game artists but I am not so sure they want to do game models for a volunteer project after 8-10 hours a day of doing them for py
+[09:33:46 PM] <~Xavier> *pay
+[09:34:32 PM] <Gohan> the problem with straight words is that it is, quite frankly, not visual enough
+[09:34:46 PM] <[HJ]-Asmudius_Heng> but to get more visuals we need visuals that we do not have
+[09:34:49 PM] <[HJ]-Asmudius_Heng> catch22
+[09:34:49 PM] <Gohan> how often do stories about other games get published without screenshots or video?
+[09:35:01 PM] <[HJ]-Asmudius_Heng> not often but we have no choice
+[09:35:08 PM] <[HJ]-Asmudius_Heng> it is betterbthan nothing
+[09:35:12 PM] <~Xavier> it would be enough just to have 2D sketch concept art
+[09:35:38 PM] <[HJ]-Asmudius_Heng> we can release some of the 2d concept stuff we have even if it is not stuff we are using
+[09:35:39 PM] <~Xavier> we also need one or two artists who can work steadily on a model to completion
+[09:38:44 PM] <[HJ]-Asmudius_Heng> do we have anyone from HC willing to do that?
+[09:38:58 PM] <~Xavier> I have had no contact with that community for ages
+[09:39:02 PM] <Gohan> that was one of the original goals of HC
+[09:39:03 PM] <~Xavier> DP might know
+[09:39:13 PM] <[HJ]-Asmudius_Heng> we need DP to help us out then
+[09:39:31 PM] <Gohan> so anyone who was doing HC work and is with CoS, whether in name or actual work, is already here
+[09:39:39 PM] <~Xavier> ya
+[09:41:40 PM] <[HJ]-Asmudius_Heng> then what can we do as a group? i am attempting to add .. only in word something to our backstory. We already have a ton of concepts for how we want the game to run ... what can the CDT do at this point?
+[09:42:17 PM] <~Xavier> not much, really -- it's a project management issue
+[09:43:00 PM] <~Xavier> you guys have done a fantastic amount of good work on this -- we now just need someone to turn the words into "reality"
+[09:43:17 PM] <~Xavier> engineers can't do that obviously -- we just make the content move around the screen ;)
+[09:43:59 PM] <[HJ]-Asmudius_Heng> how are we doing on that front then?
+[09:44:40 PM] <~Xavier> in the asbsence of having any content to work with, we are doing what engineers do -- refactoring the engine ;)
+[09:45:04 PM] <Gohan> all of the behind the scenes stuff that we never see
+[09:45:07 PM] <[HJ]-Asmudius_Heng> cqan we start doing things with placeholder stuff?
+[09:45:11 PM] <Gohan> like oompaloompas
+[09:45:12 PM] <~Xavier> I personally am going to get that to a point where I can task out the other engineers with stuff to work on in that effort, and then turn back to content creation tools 
+[09:45:31 PM] <Gohan> we have placeholder stuff? :P
+[09:45:40 PM] <~Xavier> aye asmu, I was just thinking that -- as much as TurboSquid stuff sucks, it at least occupies screen space ;)
+[09:45:47 PM] <~Xavier> www.turbosquid.com
+[09:45:53 PM] <[HJ]-Asmudius_Heng> yea
+[09:46:07 PM] <[HJ]-Asmudius_Heng> nto even to release to the public but we can start going gameplay stuff then
+[09:46:14 PM] <~Xavier> yup
+[09:46:15 PM] <[HJ]-Asmudius_Heng> its another step
+[09:46:18 PM] <~Xavier> not a bad idea
+[09:46:26 PM] <Gohan> better than nothing
+[09:46:30 PM] <[HJ]-Asmudius_Heng> then once we start getting models in game and the modellers se it they might be spurred on
+[09:46:30 PM] <~Xavier> it'll also give me test data for working on tools
+[09:46:36 PM] <[HJ]-Asmudius_Heng> yea
+[09:46:43 PM] <~Xavier> go through turbosquid and see if there is stuff there you like 
+[09:47:01 PM] <[HJ]-Asmudius_Heng> we are at an impass with art so lets continue without our own stuff and add it later .. will do xav
+[09:47:19 PM] <~Xavier> I think we made a decision and a minor breakthrough here :)
+[09:47:31 PM] <[HJ]-Asmudius_Heng> hehe
+[09:47:41 PM] <~Xavier> I am re-invigorated :)
+[09:47:49 PM] <[HJ]-Asmudius_Heng> to be honest i am mroe of a good gameplay person than a great graphics person so it wont bother me for a whiel :)
+[09:47:56 PM] <~Xavier> :)
+[09:48:05 PM] <Gohan> :)
+[09:48:08 PM] <Gohan> sorry, had to join in
+[09:48:20 PM] <[HJ]-Asmudius_Heng> though my typing might bother G ;)
+[09:48:21 PM] <~Xavier> :P
+[09:48:35 PM] <[HJ]-Asmudius_Heng> got a second PC running all my coms and chat stuff so i am typing on an od angle
+[09:48:35 PM] <Gohan> you aussie's and your extra u's
+[09:48:59 PM] <[HJ]-Asmudius_Heng> we have sheep, wheat and ... "u"s
+[09:49:08 PM] <[HJ]-Asmudius_Heng> gotta use em up you yanks dont buy em :P
+[09:49:13 PM] <~Xavier> lol
+[09:49:13 PM] <Sirius> er what
+[09:49:17 PM] <[HJ]-Asmudius_Heng> oh and urnaium
+[09:49:28 PM] <[HJ]-Asmudius_Heng> heya Sirius ;)
+[09:49:29 PM] <Sirius> I thought the australians followed the US' example
+[09:49:32 PM] <Sirius> hi
+[09:49:40 PM] <Sirius> hence "labor party"
+[09:49:47 PM] <~Xavier> aluminium -- you don't pronounce it like the Brits do you?
+[09:50:03 PM] <[HJ]-Asmudius_Heng> we will be closer to the brits than yanks in most ways
+[09:50:14 PM] <Sirius> NZ does, don't know about Australia
+[09:50:17 PM] <[HJ]-Asmudius_Heng> though i never understood Gaol to Jail
+[09:51:07 PM] <Sirius> I might. "Gaol" looks antiquated and sounds about the same
+[09:51:09 PM] <[HJ]-Asmudius_Heng> it is odd that the ALP is spelt labor
+[09:51:20 PM] * ~Xavier takes this opportunity to slink back to coding land ;)
+[09:51:25 PM] <Sirius> lol
+[09:51:36 PM] <[HJ]-Asmudius_Heng> to be honest ... i just dont care much about those spelling i mix n match accidentally
+[09:51:41 PM] <Sirius> I haven't done any coding outside of work for so long...
+[09:51:47 PM] <[HJ]-Asmudius_Heng> checkign out turbosquid
+[09:52:11 PM] <[HJ]-Asmudius_Heng> i met a guy that migth wanna help out in coding btw .. i'll get back into him soon and get him to email ya
+[09:52:42 PM] <~Xavier> sirius: I would like to but since I started working in SF the commute has taken way too much of my time -- I am working on getting a motorcycle so I can get back to "real" commute times (as in, 20-30 min instead of 60-75)
+[09:52:51 PM] <~Xavier> rgr Asmu
+[09:53:15 PM] <Sirius> ...that would be nice
+[09:53:48 PM] <[HJ]-Asmudius_Heng> i think we can grab some tanks, and generic soldiers from that site
+[09:53:59 PM] <[HJ]-Asmudius_Heng> also soem modern or sci fi aircraft
+[09:54:24 PM] <[HJ]-Asmudius_Heng> dont think they have mechs but i am not too concerned .. heck we can just enlarge a human and apply mecha physics maybe :P
+[09:54:35 PM] <~Xavier> pick a few you like, and post them (links) in the forums so that we can all have a look -- some of them will just go straight off to Eli
+[09:54:57 PM] <[HJ]-Asmudius_Heng> kk .. i gotta go see my mum now though i'll do it this arvo when i get home
+[09:55:04 PM] <~Xavier> no hurry :)
+[09:55:20 PM] <[HJ]-Asmudius_Heng> if you got any Questions for the CTD leave me a PM and i'll get back to you

@@ -1,0 +1,379 @@
+[2006-07-02 14:48:34] *** Xavier|Away changed nick to Xavier
+[2006-07-02 14:49:26] *** Gohan quit (Quit: brb)
+[2006-07-02 14:52:33] <Xavier> DH you here by any chance?
+[2006-07-02 14:59:00] <Darkhorse> yeah
+[2006-07-02 14:59:10] <Darkhorse> in and out of GW
+[2006-07-02 15:01:14] <Xavier> k
+[2006-07-02 15:01:33] <Xavier> do you have a list of which artists are working on what?
+[2006-07-02 15:02:15] *** Gohan (Gohan@845E1B08.C0D1922D.A1B1F669.IP) joined
+[2006-07-02 15:02:29] *** Gohan quit (Quit: HydraIRC -> http://www.hydrairc.com <-)
+[2006-07-02 15:02:41] <Darkhorse> nope. not sure which models they're doing right now
+[2006-07-02 15:02:44] *** Gohan (Gohan@845E1B08.C0D1922D.A1B1F669.IP) joined
+[2006-07-02 15:02:48] <Xavier> k
+[2006-07-02 15:03:14] <Darkhorse> think some are working on finishing MW models, some are messing with CoS ones
+[2006-07-02 15:04:20] <Xavier> have you asked any of them if they want to step up into your role?
+[2006-07-02 15:04:26] <Darkhorse> think it was AC who isn't going to be available for some time, but you would have read that
+[2006-07-02 15:04:43] <Darkhorse> no, haven't actually contacted them regarding that
+[2006-07-02 15:05:27] <Xavier> oh, for those that are here and don't know, DH is stepping down as Art lead and we will need someone to take his place
+[2006-07-02 15:06:10] *** Thoth (Thoth@1E202008.620FFC03.EDF174F2.IP) joined
+[2006-07-02 15:06:47] <Xavier> in the meantime I will take over his duties insofar as seeing that people have stuff to do that works towards a single goal -- we still need someone to do the role though, for mentoring and making sure that the art is consistent between modelers
+[2006-07-02 15:07:07] <Xavier> heya Thoth 
+[2006-07-02 15:07:14] <Thoth> hiya
+[2006-07-02 15:07:22] <Thoth> greats to all
+[2006-07-02 15:07:25] <Gohan> yo
+[2006-07-02 15:07:26] <Thoth> greets*
+[2006-07-02 15:07:34] <Darkhorse> ya, organising that is tricky when I can't organise what I'm doing either. hehe
+[2006-07-02 15:07:38] <Xavier> Thoth proved how much good work could get done in a short time in a focused, concentrated burst -- so I know it can be done :p
+[2006-07-02 15:08:07] * Thoth wishes he could finish something
+[2006-07-02 15:08:10] <Xavier> lol
+[2006-07-02 15:08:19] <Xavier> finish that model you started earlier in the week ;)
+[2006-07-02 15:08:20] * Darkhorse wishes he felt like finishing anything :P
+[2006-07-02 15:08:28] <Xavier> :(
+[2006-07-02 15:08:45] <Thoth> i feel like the work, i just have RL work
+[2006-07-02 15:09:05] <Xavier> one of the things we will do tonight is decide what needs to be done first -- a minimal set of art assets that need to be completed in order to play something resembling a level in the game
+[2006-07-02 15:09:14] * Xavier is right there with Thoth
+[2006-07-02 15:09:15] <Thoth> noted
+[2006-07-02 15:09:28] <Xavier> luckily this book thing is pretty much behind me in two weeks 
+[2006-07-02 15:09:34] <Darkhorse> I actually have a break for the next four weeks, so I -could- be doing quite a bit.
+[2006-07-02 15:09:45] <Xavier> :-)
+[2006-07-02 15:09:47] <Thoth> very cool
+[2006-07-02 15:09:54] <Sidelink> hiya
+[2006-07-02 15:09:55] <Darkhorse> but I'm just racking up rice wine and red bean cakes in GW :P
+[2006-07-02 15:09:59] <Xavier> hiya Side
+[2006-07-02 15:10:06] <Xavier> lol
+[2006-07-02 15:10:18] <Thoth> the new blender 2.42 RC offers some new stuff to play with in that time DH
+[2006-07-02 15:10:31] <Darkhorse> new release out?
+[2006-07-02 15:10:43] <Thoth> just a Candidate
+[2006-07-02 15:10:47] <Thoth> its mostly stable
+[2006-07-02 15:11:02] <Darkhorse> actually, I still have to finish going through the world builder readme
+[2006-07-02 15:11:03] <Thoth> new texturing pipleline
+[2006-07-02 15:11:16] <Xavier> oh?
+[2006-07-02 15:11:19] <Darkhorse> had that for about three months but never got around to doing that much with it
+[2006-07-02 15:11:33] <Darkhorse> thoth - what's changed there?
+[2006-07-02 15:11:58] <Thoth> they added a modular system for piping surfacing effects together
+[2006-07-02 15:12:15] <Thoth> you place a module on the screen and connect it to another and so on
+[2006-07-02 15:12:30] <Thoth> that make it clear?
+[2006-07-02 15:12:40] <Thoth> im not sure i said that well enough
+[2006-07-02 15:12:43] <Darkhorse> me either :D
+[2006-07-02 15:12:48] <Thoth> lol
+[2006-07-02 15:12:54] <Thoth> well, just check it out
+[2006-07-02 15:13:02] <Darkhorse> it almost makes sense but not quite
+[2006-07-02 15:13:38] <Thoth> well, instead of having disjointed button sets to work with, you have a system or process pipeline to get materials
+[2006-07-02 15:14:02] <Thoth> you can place them on the screen in a similar way to the Outline flow chart
+[2006-07-02 15:14:04] <Xavier> it sounds like something I saw in Houdini -- procedural modeling might be just around the corner
+[2006-07-02 15:14:08] <Darkhorse> oh, now I get you
+[2006-07-02 15:14:18] <Darkhorse> so it'll be more like bryce. that's going to be quite handy
+[2006-07-02 15:14:41] <Thoth> speaking of procedural modeling, did you hear about the physics chip that ....
+[2006-07-02 15:14:44] <Thoth> brb
+[2006-07-02 15:14:53] <Xavier> on the topic of world building... the first thing we need for a level, of course, *is* the level -- I know REdRaven was supposed to be working on a map but I have not heard from him in ages, so anyone else want to take a crack at constructing a heightfield and texture based on the first mission as detailed in the forums?
+[2006-07-02 15:15:02] <Xavier> (while we are waiting for Thoth that is )
+[2006-07-02 15:15:07] *** [HJ]-Asmudius_Heng|AFK changed nick to [HJ]-Asmudius_Heng
+[2006-07-02 15:15:09] <[HJ]-Asmudius_Heng> O_O
+[2006-07-02 15:15:14] <Xavier> hiya ASmu
+[2006-07-02 15:15:22] <Darkhorse> yeah, I've done terrains, levels etc. before as well. particularly in descent 3
+[2006-07-02 15:15:28] <[HJ]-Asmudius_Heng> hey hey
+[2006-07-02 15:15:36] <Xavier> want to take a shot?
+[2006-07-02 15:15:42] <Darkhorse> so, if I can stop slacking in GW, sure.
+[2006-07-02 15:15:45] <Xavier> lol
+[2006-07-02 15:16:11] <Darkhorse> that's in the concept forum right?
+[2006-07-02 15:16:27] <Xavier> think so -- asmu?
+[2006-07-02 15:16:35] <[HJ]-Asmudius_Heng> sry whats in the forum?
+[2006-07-02 15:16:44] <[HJ]-Asmudius_Heng> levels?
+[2006-07-02 15:16:44] <Darkhorse> the mission to be designed.
+[2006-07-02 15:16:50] <[HJ]-Asmudius_Heng> ah yea one sec i'll find the thread
+[2006-07-02 15:17:35] <Thoth> k, back
+[2006-07-02 15:17:40] <Xavier> http://www.clashofsteel.net/forums/viewtopic.php?t=664&postdays=0&postorder=asc&start=50
+[2006-07-02 15:17:45] <Thoth> minor cat emergency
+[2006-07-02 15:17:51] <Xavier> (that is the third page of three)
+[2006-07-02 15:17:52] <Xavier> np
+[2006-07-02 15:18:08] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=664
+[2006-07-02 15:18:15] <[HJ]-Asmudius_Heng> beat me to it ..
+[2006-07-02 15:18:16] <[HJ]-Asmudius_Heng> :P
+[2006-07-02 15:18:19] <Xavier> :-D
+[2006-07-02 15:18:36] <Xavier> that mission had infantry as well as MACROs and MICROs right?
+[2006-07-02 15:18:42] <Xavier> or just the vehicles?
+[2006-07-02 15:18:49] <[HJ]-Asmudius_Heng> which one sry?
+[2006-07-02 15:18:52] <Xavier> 1
+[2006-07-02 15:18:55] <Xavier> that thread
+[2006-07-02 15:18:56] <Thoth> sry to interrupt, just finishing my thought above : http://www.ageia.com/physx/
+[2006-07-02 15:19:02] <Xavier> Thoth: yup
+[2006-07-02 15:19:47] <Xavier> Ageia bought up Novodex a long time ago as their physics API and Novodex is what we will be using on the WIndows port, so by default we'll be supporting PhysX ;0
+[2006-07-02 15:19:50] <Xavier> ;)
+[2006-07-02 15:19:56] <Thoth> nice
+[2006-07-02 15:20:22] <Thoth> on topic with the mission: I am pretty sure I can convert a terrain mesh to a height map
+[2006-07-02 15:20:29] <Xavier> it's free on Windows for non-commercial games, tens of thousands of dollars for commercial unless you specfically intend to exploit the PPU, and then it's free again, LOL
+[2006-07-02 15:20:33] <Thoth> so if that makes it easier for someone to do the work
+[2006-07-02 15:20:47] <Xavier> do we even have a terrain mesh yet?
+[2006-07-02 15:20:51] <[HJ]-Asmudius_Heng> most missions are based on making a large map and cutting it down into smaller maps for different styles of missions
+[2006-07-02 15:20:52] <Thoth> no
+[2006-07-02 15:21:03] <[HJ]-Asmudius_Heng> all missions posted are based on the largest set so far
+[2006-07-02 15:21:17] <Thoth> understood
+[2006-07-02 15:21:23] <[HJ]-Asmudius_Heng> for example the first mission might have a smaller mission with JUST the powrer plant not the area around
+[2006-07-02 15:21:30] <[HJ]-Asmudius_Heng> basically we need a map
+[2006-07-02 15:21:38] <[HJ]-Asmudius_Heng> then the missions can be overlayed onto that map
+[2006-07-02 15:21:41] <Darkhorse> so, which mission is it? there's a couple drawings there
+[2006-07-02 15:21:47] <Thoth> i am just volunteering to help with conversion if someone finds it easier to work with mesh over heightmap
+[2006-07-02 15:22:19] <Xavier> aye Thoth, thanks :) we probably can actually work with the mesh directly, in fact
+[2006-07-02 15:22:29] * Thoth points to 664 topic above for DH
+[2006-07-02 15:22:34] <Darkhorse> other thing is, based on filesize, which would you prefer, a heightmap or terrain model?
+[2006-07-02 15:22:39] <[HJ]-Asmudius_Heng> whichever one you want really, we dont have enough models for any faction at this point to be picky
+[2006-07-02 15:22:50] <[HJ]-Asmudius_Heng> i think whatever strikes your fancy
+[2006-07-02 15:23:02] <[HJ]-Asmudius_Heng> and we can use a bunch of ranodm models for testing if need be
+[2006-07-02 15:23:06] <Xavier> either way -- if overhangs or caves are central to the map design then mesh, otherwise heightmap certainly is simple 
+[2006-07-02 15:23:08] <Xavier> simpler*
+[2006-07-02 15:23:23] <[HJ]-Asmudius_Heng> the more temperate forst ones are usually Kepi vs Kepi seperatists so require only one faction set of models though
+[2006-07-02 15:23:48] <Xavier> that was the point, Asmu: we are going to decide tonight  which minimal set of models needs to be done to have something resembling a playable level/mission
+[2006-07-02 15:23:54] <Xavier> k
+[2006-07-02 15:24:13] <Darkhorse> there are several different missions shown in that thread
+[2006-07-02 15:24:15] <[HJ]-Asmudius_Heng> kk then a Kepi map .. mission 7 i think
+[2006-07-02 15:24:19] <Thoth> top one
+[2006-07-02 15:24:31] <[HJ]-Asmudius_Heng> that has an example how the big map gets scaled down
+[2006-07-02 15:24:33] <Thoth> errr that one :)
+[2006-07-02 15:24:42] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/asmudius_heng/mission7divisions.GIF
+[2006-07-02 15:24:58] <Xavier> once we have that set of models then we are going to assign them out or ask for volunteers and have an actual goal or deadline to meet, which I think should make for a better sense of focus and achievemnet
+[2006-07-02 15:25:12] <[HJ]-Asmudius_Heng> i agree
+[2006-07-02 15:25:23] <[HJ]-Asmudius_Heng> i work better with deadline i admit
+[2006-07-02 15:25:47] <Xavier> I think we all do -- I hate to set them for a volunteer project but without a target it's hard to get motivated 
+[2006-07-02 15:25:53] <Thoth> same here, i just havent hit one yet :P
+[2006-07-02 15:25:59] <Xavier> hehe
+[2006-07-02 15:26:45] <[HJ]-Asmudius_Heng> i have been very busy recently .. but gimme a target and i'll forgo a night of WoW or something to do it ;)
+[2006-07-02 15:26:51] <Xavier> rofl
+[2006-07-02 15:26:57] <Gohan> WoW is for nubcakes
+[2006-07-02 15:26:57] <[HJ]-Asmudius_Heng> at heart .. i am still a gamer not a developer :P
+[2006-07-02 15:27:05] <[HJ]-Asmudius_Heng> Gohan is for nubcakes
+[2006-07-02 15:27:09] <Xavier> Wow, GW and Oblivion -- they are all conspiring to end community software projects :p
+[2006-07-02 15:27:16] <Gohan> Gohan is for ricecakes
+[2006-07-02 15:27:17] <[HJ]-Asmudius_Heng> i have all 3
+[2006-07-02 15:27:20] <[HJ]-Asmudius_Heng> i suck
+[2006-07-02 15:27:22] <Gohan> GW is old and busted
+[2006-07-02 15:27:32] * [HJ]-Asmudius_Heng dont play GW anymore though had some fun with it
+[2006-07-02 15:27:45] <[HJ]-Asmudius_Heng> oblivion is for when my net dies a great standby :P
+[2006-07-02 15:27:59] <[HJ]-Asmudius_Heng> WoW works only because i got mates who play it ... but anyway
+[2006-07-02 15:28:03] <Darkhorse> rice wine = <3
+[2006-07-02 15:28:17] <Xavier> as for that map in ASmu's link, it is a very simple matter with the Ogre tools to cut it up into smaller pages, so feel free to make heightfields any size you wish (assuming you are doing it as a heightmap)
+[2006-07-02 15:28:22] <[HJ]-Asmudius_Heng> we have a mission, we have a faction, we just need a set of models and a map
+[2006-07-02 15:28:50] <Xavier> ok so lets say we do the medium-sized one
+[2006-07-02 15:28:56] <[HJ]-Asmudius_Heng> and i suppose i can map some more detailed ideas of how servers can constuct a game out of it
+[2006-07-02 15:29:03] <Xavier> would that be MACRO vs MACRO? or combined?
+[2006-07-02 15:29:29] <[HJ]-Asmudius_Heng> that depends on what the server chooses ... what we want is the general gametype at the highest level is mission play
+[2006-07-02 15:29:41] <[HJ]-Asmudius_Heng> which is usually combined arms units vary depending on size of map
+[2006-07-02 15:29:45] <Xavier> for a near-term target, however, which subset of models should we focus on?
+[2006-07-02 15:30:00] <[HJ]-Asmudius_Heng> the mid size one would be lighter vehicles
+[2006-07-02 15:30:05] <Xavier> k
+[2006-07-02 15:30:06] <[HJ]-Asmudius_Heng> maybe only 1 MACRO even
+[2006-07-02 15:30:12] <[HJ]-Asmudius_Heng> APCs, tanks
+[2006-07-02 15:30:17] <[HJ]-Asmudius_Heng> VTOL gunships
+[2006-07-02 15:30:19] <[HJ]-Asmudius_Heng> no jets
+[2006-07-02 15:30:25] <[HJ]-Asmudius_Heng> inf and MICROs
+[2006-07-02 15:30:29] <Thoth> artillery>
+[2006-07-02 15:30:30] <Thoth> ?
+[2006-07-02 15:30:38] <[HJ]-Asmudius_Heng> maybe no hovercraft since the map is heavilly forested
+[2006-07-02 15:30:50] <[HJ]-Asmudius_Heng> smaller mortars but the battle is not large enough for major arty
+[2006-07-02 15:30:51] <Thoth> :)
+[2006-07-02 15:31:12] <Xavier> so if we set a deadling of Aug 15 for completed, textured, and rigged models, those models should be 1 MACRO, 1 tank, 1 APC, 1 gunship, let's say one infantry
+[2006-07-02 15:31:20] <[HJ]-Asmudius_Heng> that forest would vary in thickness so inf have places to hide but there are plenty of options for vehicles too
+[2006-07-02 15:31:29] <[HJ]-Asmudius_Heng> inf have 4 classes
+[2006-07-02 15:31:34] <[HJ]-Asmudius_Heng> they all come from a base model though
+[2006-07-02 15:31:39] <Gohan> at least an inf model :P
+[2006-07-02 15:31:40] <Xavier> and the map of course -- whether it has any buildings or vegetation or not is entirely up to whoever has the extra time
+[2006-07-02 15:31:42] <[HJ]-Asmudius_Heng> yea
+[2006-07-02 15:31:54] <[HJ]-Asmudius_Heng> and one MICRO
+[2006-07-02 15:31:59] <Xavier> which one?
+[2006-07-02 15:32:05] <[HJ]-Asmudius_Heng> best ask AFO
+[2006-07-02 15:32:17] <Gohan> see, this is why I want the image galleries filled ;P
+[2006-07-02 15:32:28] <[HJ]-Asmudius_Heng> he has a klto of concepts that can be high polied texed etc
+[2006-07-02 15:32:45] <[HJ]-Asmudius_Heng> i know G ... i  just cant keep track :P .. i'll do a forum search
+[2006-07-02 15:33:01] <[HJ]-Asmudius_Heng> he usualy has the faction listed and the type word searches will reveal them!
+[2006-07-02 15:33:25] <Thoth> well, for the Macro, I got one going, and AFO says it looks Kepi
+[2006-07-02 15:33:29] <Xavier> if AFO shows up tonight we'll ask him which ones he would prefer for a coherent set of models for a first pass on a mission
+[2006-07-02 15:33:36] <[HJ]-Asmudius_Heng> on the 3rd page of that thread is also an idea for a mission for the smaller size .. that logging camp should be fairly extensive too
+[2006-07-02 15:33:37] <Thoth> granted
+[2006-07-02 15:33:43] <Xavier> k, Thoth gets the MACRO ;)
+[2006-07-02 15:33:47] <[HJ]-Asmudius_Heng> i think AFO and anch are drunk .. canada day?
+[2006-07-02 15:33:52] <Thoth> WOOT!
+[2006-07-02 15:33:54] <Darkhorse> the logging camp should be fun.
+[2006-07-02 15:34:00] <Thoth> LOL
+[2006-07-02 15:34:21] <Darkhorse> of course I have only superficial knowledge of what to put there. hehe
+[2006-07-02 15:34:24] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=1152&highlight=kepi+micro
+[2006-07-02 15:34:25] <[HJ]-Asmudius_Heng> aha
+[2006-07-02 15:34:27] <[HJ]-Asmudius_Heng> he did make a list
+[2006-07-02 15:34:39] <Thoth> Xavier, for LowPolys, can I use a weight map for subdivision meshes?
+[2006-07-02 15:35:06] <Darkhorse> you're doing subdivision modelling?
+[2006-07-02 15:35:12] <Xavier> if you are asking whether the renderer will do subdivision, the answer is no -- you have to tesselate the mesh before exporting it
+[2006-07-02 15:35:20] <Darkhorse> doh.
+[2006-07-02 15:35:29] <Darkhorse> that won't be so handy then. :(
+[2006-07-02 15:35:37] <Thoth> noted
+[2006-07-02 15:35:45] <Xavier> real-time graphics still don't lend themselves real well to real-time subdivision
+[2006-07-02 15:35:55] <Darkhorse> yeah. true.
+[2006-07-02 15:36:05] <Thoth> k, actually that takes a worry away then
+[2006-07-02 15:36:41] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=1143
+[2006-07-02 15:36:44] <[HJ]-Asmudius_Heng> apc concepts
+[2006-07-02 15:36:50] <Thoth> thats quite a list
+[2006-07-02 15:37:20] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/all_for_one/tyrannosp.jpg
+[2006-07-02 15:37:23] <[HJ]-Asmudius_Heng> MACRO concept
+[2006-07-02 15:37:33] <[HJ]-Asmudius_Heng> alot of concepts nothing really nailed down though thoth
+[2006-07-02 15:38:36] <Xavier> hmm am I the only one who immediately thinks of that 75t IS mech when they see the Tyrannos? I forget the name...
+[2006-07-02 15:39:00] <Darkhorse> rakshasa?
+[2006-07-02 15:39:08] <Xavier> the energy boat with the big ballistic gun on its head
+[2006-07-02 15:39:11] <[HJ]-Asmudius_Heng> i think its way too big for this misison to be honest
+[2006-07-02 15:39:12] <Thoth> Marauder?
+[2006-07-02 15:39:15] <Xavier> yup
+[2006-07-02 15:39:15] <Darkhorse> oh, that
+[2006-07-02 15:39:19] <Darkhorse> yeah, you are :P
+[2006-07-02 15:39:22] <Xavier> thats it the Marauder 
+[2006-07-02 15:39:42] <Gohan> I told him that months ago
+[2006-07-02 15:39:46] <Thoth> hehe @ DH
+[2006-07-02 15:40:18] <Thoth> it's a good concept, it can be melded to be less marauderesque
+[2006-07-02 15:40:30] <Darkhorse> it looks more like a blood asp than a marauder
+[2006-07-02 15:40:32] <Thoth> into something
+[2006-07-02 15:40:36] <Xavier> OK so which small target do we want to hit? the smallest part of the map with the logging camp? the medium with the two base camps?
+[2006-07-02 15:40:43] <[HJ]-Asmudius_Heng> your kepi macro though thoth is smaller yea?
+[2006-07-02 15:40:49] <Thoth> yeah
+[2006-07-02 15:40:58] <Thoth> its meant to be slightly larger than 3m
+[2006-07-02 15:41:13] <Thoth> but i am not sure how that fits with the rules that AFO has
+[2006-07-02 15:41:20] <Thoth> so he and I can work that out
+[2006-07-02 15:42:01] <[HJ]-Asmudius_Heng> some of the other tank concepts are also bleeding huge .. needs some tone down in size
+[2006-07-02 15:42:09] <Xavier> so DH will do the map, Thoth will do the MACRO, and I suppose Anchovy will do the inf -- that leaves an APC, tank, MICRO and gunship
+[2006-07-02 15:42:25] <Xavier> sidelink, anything you fancy in that list?
+[2006-07-02 15:42:47] <Xavier> there are a few APC concepts already begun -- any of them Kepi?
+[2006-07-02 15:43:19] <[HJ]-Asmudius_Heng> APC warner was working on
+[2006-07-02 15:43:22] <Darkhorse> actually, I have an enormous heightmap sitting around that I should appropriate for something in CoS
+[2006-07-02 15:43:31] <Xavier> :)
+[2006-07-02 15:43:41] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=1143
+[2006-07-02 15:43:44] <Darkhorse> doesn't fit this mission but it might work elsewhere
+[2006-07-02 15:43:45] <Xavier> k, is Warner still interested in finishing it?
+[2006-07-02 15:43:45] <Thoth> RedSpace has a couple of things going, and I am sure he would like to team up with someone on to help spread the responsibility
+[2006-07-02 15:43:50] <[HJ]-Asmudius_Heng> down page .. could ask him to focus on that
+[2006-07-02 15:44:11] <[HJ]-Asmudius_Heng> then we need a MICRO and a gunship .. AFO is nto bad with gunships might ask him to do that
+[2006-07-02 15:44:28] <Xavier> thoth: rgr, we can find out what he wants to see completed
+[2006-07-02 15:44:48] <Xavier> I've not seen a HP from AFO yet -- can he do them?
+[2006-07-02 15:45:27] <Xavier> so then warner on APC
+[2006-07-02 15:45:35] <Xavier> maybe AFO on gunship
+[2006-07-02 15:45:41] <Xavier> leaves MICRO and tank
+[2006-07-02 15:46:07] <[HJ]-Asmudius_Heng> not sure Xav dont think he has tried except on that MACRO
+[2006-07-02 15:46:16] <Sidelink> hmm
+[2006-07-02 15:46:37] <Xavier> or Sidelink, if you want to do an additional of any of the above, that works too
+[2006-07-02 15:46:38] <Sidelink> sorry, been watching TV, let me catch up a bit
+[2006-07-02 15:46:41] <Xavier> lol
+[2006-07-02 15:47:25] <Darkhorse> sigh. think that heightmap may be gone. oh well
+[2006-07-02 15:47:45] <Xavier> what will happen then is that engineering will focus their efforts on implementing the logic and gameplay support needed for the different types of models
+[2006-07-02 15:47:55] <Xavier> (along with everything else we have going on, LOL)
+[2006-07-02 15:49:38] <[HJ]-Asmudius_Heng> i hope this set of models can define the themes for the Kepi faction
+[2006-07-02 15:49:39] <Thoth> speaking of all that you guys have going on
+[2006-07-02 15:50:10] <Thoth> are we going to be waiting for the mission content before another build?
+[2006-07-02 15:50:28] <Xavier> by Aug 31 I would like to be able at least to move completed, textured and rigged models around on a textured heightmap in the game -- the models do not have to shoot at each other at that point, but the point of that deadline is the minimal set of completed art
+[2006-07-02 15:50:36] <Thoth> @Asmu, I will be happy to conform what I am working on to a spec
+[2006-07-02 15:51:25] <[HJ]-Asmudius_Heng> ok ... as we are working on these models updates would be awesome in a single thread where we can review them
+[2006-07-02 15:51:47] <[HJ]-Asmudius_Heng> all the weapons will prob just be placeholders till we get a set of weapon type art
+[2006-07-02 15:51:50] <Xavier> thoth: I'll get the nightly build working so that new builds are constantly available every day -- for the purposes of being able to see your stuff in the engine, that will be the first thing I will be working on, a means to enable that
+[2006-07-02 15:52:23] * Thoth makes Mr. Burns-style "Excellent" comment
+[2006-07-02 15:52:27] <Xavier> hehe 
+[2006-07-02 15:53:51] <Xavier> the first and fastest way I plan to do that is with a small converter exe that will bundle up the content into a CoS format which you will be able just to drop in a directory in the install and run the game that way -- the "final" way of viewing content in the game will be much more interactive in the game itself, but that won't be ready for a couple months yet
+[2006-07-02 15:54:12] <Thoth> k
+[2006-07-02 15:54:15] <Darkhorse> regarding the terrain. Is there going to be any fixed method of doing it, or will it be variable per mission?
+[2006-07-02 15:55:03] <Darkhorse> what I could do is make it mostly heightmap and then build everything else, such as caves, complex buildings, etc. into it as a unique model.
+[2006-07-02 15:55:25] <Darkhorse> although caves would require some method of knocking polygons out of the heightmap
+[2006-07-02 15:55:27] <Xavier> probably variable per mission -- any mission will be able to use multiple types of level geometry, btw -- for example we can easily support landscapes that portal into interiors, now that Ogre supports multiple active scene managers
+[2006-07-02 15:55:46] <Xavier> for caves and over hangs, just go ahead and do a normal mesh for the map
+[2006-07-02 15:55:53] <Darkhorse> yeah. How do you cut faces out of the terrain?
+[2006-07-02 15:56:14] <Xavier> we could come up with some wacky scheme whereby a whole terrain tile is replaced with a mesh, LOL
+[2006-07-02 15:56:29] <Darkhorse> hm, possible. would that risk seams though?
+[2006-07-02 15:56:33] * Xavier notes that would require tools to be developed by the engineers
+[2006-07-02 15:56:47] <Xavier> not with tools that enable you to place them properly
+[2006-07-02 15:56:55] <Darkhorse> k
+[2006-07-02 15:57:01] <Xavier> however, you might be better off just doing the whole thing as a mesh
+[2006-07-02 15:57:09] <Darkhorse> despite filesize?
+[2006-07-02 15:57:11] <Xavier> we'll make a tool then that cuts up the mesh into tiles
+[2006-07-02 15:57:24] <Xavier> ya
+[2006-07-02 15:57:29] <Xavier> it won't be that bad
+[2006-07-02 15:57:49] <Darkhorse> ok. What I'll do is develop a heightmap, load that into Bryce, export it and work on it with Blender then.
+[2006-07-02 15:58:03] <Xavier> the tool might even be able to turn non-overhang tiles into heightfields automatically
+[2006-07-02 15:58:06] <Xavier> k
+[2006-07-02 15:58:44] <Darkhorse> probably won't have that many overhang tiles on this map once that's finished.
+[2006-07-02 15:58:44] <Xavier> btw, just so everyone knows, exporting content for the game will be a two-step process, possibly forever, but definitely for a while
+[2006-07-02 15:59:08] <Xavier> the first step is the Ogre exporter for meshes, skeletons and materials -- the second will be a resource compiler that generates the resource into a format that the game will load
+[2006-07-02 15:59:12] <Xavier> rgr
+[2006-07-02 15:59:46] <Thoth> haven't tested it yet, but i have a Ogre exporter for LW
+[2006-07-02 15:59:54] <Darkhorse> wish I had some good method of painting textures on terrain >:I
+[2006-07-02 16:00:15] <Thoth> DeepPaint
+[2006-07-02 16:00:27] <Darkhorse> bryce has a procedural deal, but that doesn't accommodate for stuff like roads, landslides, etc
+[2006-07-02 16:00:31] <Thoth> there is a demo
+[2006-07-02 16:00:37] <Xavier> thoth: P's LW exporter should work fine, AFAIK
+[2006-07-02 16:00:42] <Thoth> k
+[2006-07-02 16:01:09] <Xavier> for things like roads, it depends on whether that is something the designers want to tweak, or just bake into the level
+[2006-07-02 16:01:20] <Xavier> for designer tweaking, we'll have to splat the roads
+[2006-07-02 16:01:25] <Thoth> or a second layer of texturing
+[2006-07-02 16:01:34] <Darkhorse> possible actually thoth
+[2006-07-02 16:02:19] <Darkhorse> although adding them as models might give better detail
+[2006-07-02 16:02:28] <Darkhorse> unless the terrain texture map is insanely high res
+[2006-07-02 16:02:44] <Darkhorse> but somehow I'm not sure that's the best option.
+[2006-07-02 16:03:26] <Thoth> im just thinking of the MW4 map method, where you have a second layer that renders in the near/mid field of vision
+[2006-07-02 16:03:37] <Xavier> roads as models has the problem of coplanar polys, which leads to depth fighting (although we can bias the road to be above the terrain always)
+[2006-07-02 16:04:17] <Darkhorse> yeah, it'd have to be above the terrain... although there may be cases where it has reason to be below. so that could be restrictive.
+[2006-07-02 16:04:54] <Xavier> well not above as in above-all-terrain-verts, but above as in painted-on-top
+[2006-07-02 16:05:02] <Xavier> not familiar with it, Thoth
+[2006-07-02 16:05:19] <Darkhorse> MW4's method does lead to massive filesize.
+[2006-07-02 16:05:31] <Darkhorse> may as well just use ultra-highres.
+[2006-07-02 16:06:27] <Darkhorse> it basically has a 4096x4096 texture map with individual 512x512 (I think) detail tiles that you see up close.
+[2006-07-02 16:06:41] <Sirius> um
+[2006-07-02 16:06:49] <Sirius> if you use compression that need only be like 2 MB
+[2006-07-02 16:06:50] <Thoth> the terrain and base texture drives up mw4 file size more than the topical treatments
+[2006-07-02 16:07:19] <Thoth> not sure why they are so high, when you get so little from them
+[2006-07-02 16:08:05] <Thoth> the 512s can be 256 as well, but they can be individuals if you hex edit the files
+[2006-07-02 16:08:23] <Thoth> so you are not limited to only 1 repeating detail texture
+[2006-07-02 16:09:27] <Thoth> neither here nor there in this case
+[2006-07-02 16:09:48] <Thoth> sry for that tangent
+[2006-07-02 16:09:53] <Xavier> lol np
+[2006-07-02 16:10:25] <Xavier> I will get more familiar with the paging scene manager in Ogre and find out what the recommended techniques and methods are
+[2006-07-02 16:11:07] <Thoth> again WOOT!
+[2006-07-02 16:11:16] <Xavier> lol
+[2006-07-02 16:13:11] <Xavier> so what else....Sidelink, you come up with anything you wanted to work on?
+[2006-07-02 16:13:47] <Sidelink> still deciding
+[2006-07-02 16:13:50] <Xavier> k
+[2006-07-02 16:14:07] <Sirius> anything I should know that I didn't see?
+[2006-07-02 16:14:08] <Xavier> when we are done here I would like DH to post in the art forums about who is tasked with what
+[2006-07-02 16:14:08] <Sirius> :)
+[2006-07-02 16:14:27] <Xavier> lol I am making a nice long post in the forums for you and the architecture Sirius ;)
+[2006-07-02 16:14:35] <Sidelink> maybe a tank, maybe a micro
+[2006-07-02 16:14:45] <Xavier> rgr
+[2006-07-02 16:15:27] <Xavier> all of the tasked art will need to be done by Aug 15, because for Aug 31 I would like to have a pre-alpha build with the alpha content in it
+[2006-07-02 16:16:06] <Thoth> noted
+[2006-07-02 16:16:18] <Xavier> DH, also point out that we will need someone to volunteer for vegetation and someone to make a couple of buildings -- not necessary for Aug 15 but shortly after
+[2006-07-02 16:16:25] <[HJ]-Asmudius_Heng> got a job for me Xav?
+[2006-07-02 16:16:39] <[HJ]-Asmudius_Heng> i'll keep bugging the artists as they build but anything else? ;)
+[2006-07-02 16:17:24] <Xavier> LOL,,,,not right away -- once we've got a few things done on the tech side I will start working on an in-game world editor that should let you at least place stuff on the terrain
+[2006-07-02 16:17:29] <Gohan> you and I are on the spirit squad, Asmu
+[2006-07-02 16:17:39] <[HJ]-Asmudius_Heng> i drink vodka then G?
+[2006-07-02 16:17:53] <Gohan> and cheer loudly ... with pom-poms
+[2006-07-02 16:17:54] <Xavier> it will of course progress beyond that but the first order of business will be getting the tech part nailed down 
+[2006-07-02 16:18:22] <[HJ]-Asmudius_Heng> awesome .. drunk, pom poms, cheering ... all good i can do that
+[2006-07-02 16:18:33] <Xavier> for Aug 31 the world will be hand-constructed by the engineers and artists, but after that I hope to have the world editor done for you :)
+[2006-07-02 16:19:35] <Sirius> Xavier ... the comma thing gives me the creeps :P
+[2006-07-02 16:19:39] <Xavier> (btw, we should all feel free to exceed the Aug 15 deadline and make more art, but that deadline will coincide with an engineering deadline that no one knows about yet ;) )
+[2006-07-02 16:20:08] <Xavier> which comma? ;)
+[2006-07-02 16:20:18] <Sirius> the multiple ones
+[2006-07-02 16:20:25] <Sirius> reminds me of DragonDan :/
+[2006-07-02 16:20:47] <Xavier> eep didnt even notice :(
+[2006-07-02 16:20:50] <Xavier> lol
+[2006-07-02 16:21:26] <Sirius> hmm
+[2006-07-02 16:21:29] <Darkhorse> Xavier - who's on what again?
+[2006-07-02 16:21:35] <Sirius> I take it you're working on the tools now X?
+[2006-07-02 16:21:43] <Darkhorse> not clear on what the list of art needed is
+[2006-07-02 16:21:58] <Xavier> sirius: I will be shortly
+[2006-07-02 16:22:05] <Sirius> ok
+[2006-07-02 16:22:44] <Xavier> DH: you map, Thoth MACRO, Warner APC? AFO gunship, Sidelink was either tank or MICRO, and Anchovy was supposed to have an infantry done by today ;)
+[2006-07-02 16:24:23] <Thoth> ok, im slipping off into LightWave.
+[2006-07-02 16:24:27] <Thoth> take care all
+[2006-07-02 16:24:29] <Xavier> lol k
+[2006-07-02 16:24:32] <Gohan> peazy
+[2006-07-02 16:24:32] <Sirius> ziajian
+[2006-07-02 16:24:33] <Xavier> night Thoth :)
+[2006-07-02 16:24:36] <Sirius> er, zai even
+[2006-07-02 16:24:54] <Thoth> night, laters, etc
+[2006-07-02 16:24:56] *** Thoth quit (Quit: HydraIRC -> http://www.hydrairc.com <- IRC for those that like to be different)
+[2006-07-02 16:24:58] <Xavier> I suppose that about wraps it up for the IRC portion of the night
+[2006-07-02 16:25:29] <Gohan> time for the strippers 8)
+[2006-07-02 16:25:32] <[HJ]-Asmudius_Heng> w00t!
+[2006-07-02 16:25:36] * [HJ]-Asmudius_Heng strips
+[2006-07-02 16:25:38] <Gohan> D:
+[2006-07-02 16:25:48] <[HJ]-Asmudius_Heng> oh .. you meant female strippers? ..

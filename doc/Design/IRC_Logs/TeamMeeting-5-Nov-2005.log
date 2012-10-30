@@ -1,0 +1,1151 @@
+
+Start of #cos-dev buffer: Sun Nov 06 01:49:52 2005
+* Now talking in #cos-dev
+* Xavier has quit IRC (Connection reset by peer)
+<_Xavier_> *sigh*
+* _Xavier_ is now known as Xavier
+-> *nickserv* identify BCCF5005
+<[HJ]-Asmudius_Heng> yarr!
+<Xavier> wb to me *kicks Linksys inna nutz*
+<[HJ]-Asmudius_Heng> O_O
+<Taos> Owie, yoru gonna hurt Cisco if you do that too hard
+<Xavier> can't hurt their stock anymroe than its already hurt...
+<Taos> lol
+* Sirius has joined #cos-dev
+<Xavier> Dogstar!
+<Sirius> Hi :)
+* CSR-Des has joined #cos-dev
+<CSR-Des> any mt IN HERE?
+<Darkhorse> uh
+<[HJ]-Asmudius_Heng> no
+<Darkhorse> ...no.
+<Xavier> no
+<CSR-Des> hehe sry about that 
+* CSR-Des has left #cos-dev
+<Xavier> hmm
+<Xavier> stupid Chanserv
+<Taos> oops, guess I forgot to add the pass when I reregistered
+<Xavier> :p
+<Sirius> does /names work on this IRC server?
+<Xavier> *shrug*
+<Sirius> it doesn't seem to for me, but then I know IRC commands like the back of a hand I've never seen before
+* Taos sets mode: +k 2510fac81
+<Taos> that's better
+<Xavier> Sirius: lol
+* Taos changes topic to 'See topic titled "Dev IRC channel" in programmers forum for key to join channel'
+<Sirius> hmm
+<Xavier> reminds me, I need to get you SVN access Siruis
+<Sirius> ah
+<Xavier> *Sirius
+<Sirius> What is SVN anyway?
+<Xavier> revision control system
+<Sirius> ah
+<Xavier> if you are familiar with ClearCase or RCS or CVS or Perforce or StarTeam
+<Sirius> similar to CVS?
+<Sirius> oh, right
+<Xavier> "a better CVS" is their billing ;)
+<Sirius> I'm not really FAMILIAR with CVS, I just know what it does and more or less how it works :)
+<Sirius> never used it personally because I haven't done large enough group projects before
+<Xavier> it's painless with TortoiseSVN
+<Sirius> right
+<Xavier> in fact, I don't necessarily require the modellers to use it, now that SVN supports read/write access 
+  via DAV to the repository
+<Sirius> you know, it seems to me the coolest thing about object-oriented design is the 'huh?' factor from people 
+  who don't understand it
+<Xavier> so it's as simple as mounting a "Web Folder" in Explorer and cut-n-paste between windows
+<Sirius> ah, right
+<Xavier> lol
+<Xavier> problem with that is (1) no log comments to the commit, and (2) it causes a new commit for each file 
+  committed
+<Taos> the most irritating thing about OO design is the activists that are always trying to force the idea that 
+  you must write all your code completely OO. I like to use a lot of OO but not religiously, sometimes the 
+  performance tradeoff isn't worth it
+<Sirius> (about comment above, it's mainly the vast reserves of terminology that is unbelievably abstract)
+<Xavier> most OO design patterns have no real performance penalty
+<Taos> yes, but some OO aproaches can not be done without abstraction
+<Sirius> I think Java makes people think differently from the rest of the world. Although C# seems much the same 
+  from all these online resources
+<Taos> well, depending entirely on the prject of course
+<Sirius> yeah
+<Sirius> AFAIK in C++ you just don't want to make EVERYTHING OO
+<Sirius> ...because it doesn't need to be
+<Xavier> right
+<Sirius> is C# much faster than Java by the way? I haven't really looked up many comparisons yet
+<Xavier> I think so
+<Xavier> on Windows anyway
+<Sirius> ah
+<Sirius> The .NET SDK documentation was saying something along the lines of being designed to escape the 
+  performance penalty usually associated with managed execution environments
+<Sirius> as far as I can tell, C# doesn't really come without .NET either
+<Xavier> it's a CLR language
+<Xavier> so it has to have it
+<Sirius> but it's not always easy to find the information you're looking for on these things
+<Sirius> ah
+<Xavier> or some other .NET implementation anyway
+<Sirius> is it really cross-platform then?
+<Xavier> yup
+<Xavier> just as much as Java
+<Sirius> Microsoft HAS .NET for Unix/Mac?
+<Xavier> anywhere that Mono or another .NET implementation runs, C#and VB.NET will run
+<Taos> not entirely natively, but with some help it is just as portable as java
+<Sirius> right
+<Xavier> even J#
+* Thoth has joined #cos-dev
+<Xavier> they all compile to bytecode like Java
+<Thoth> hiya
+<Xavier> 'lo Thoth
+<Taos> Mono is an implimentation of the .net VM
+<Xavier> there are a few others
+<Sirius> it's just been my experience that ... well ... Microsoft will do anything in their power not to support 
+  anything but Windows :) But they may be changing a bit
+<Xavier> Mono seems the most aggressively developed
+<Xavier> I think that they had to give .NET over to ECMA to avoid any more Java lawsuits
+<Sirius> So J# is essentially Java with .NET?
+<Sirius> ah
+<Xavier> C# basically was Java
+<Xavier> the language pretty much is
+<Sirius> Yeah, C# doesn't have that many differences from what I can see
+<Xavier> but once they gave .NET to ECMA it became fair game anywhere
+<Sirius> I don't know whether or not you can do the two-million-import trick though
+<Xavier> lol
+<Xavier> probably
+<Sirius> seems using is a one-use directive?
+<Sirius> oh
+<Sirius> wait, probably only using namespace
+<Xavier> right
+<Sirius> probably more like Java's package directive then
+<Taos> I suppose Vanguard is the only one left with web details?
+<Xavier> you tell it what namespaces to use, it finds them in the assembly search path, etc
+<Sirius> right...
+<Xavier> I can always get into the database if I have to Taos
+<Xavier> MS will always have dominance because (a) their development tools and dev support are second to none, 
+  and (b) their level of documentation is in a class by itself
+<Taos> I'll get DP to activate me as an admin on the forums when he appears
+<Xavier> rgr
+<Sirius> right
+<Sirius> I do like the .NET SDK documentation actually.
+<Sirius> It's a case of ... well ... you don't really need anything else so far
+<Taos> actually, MS's tools may be second to none but quality wise they are matched in a few places
+<Xavier> Windows doesn't dominate because it's the best OS...it dominates because it has always been the easiest 
+  to develop apps for, and apps drive OS usage....witness the lack of penetration of MacOS in any form
+<Darkhorse> Van has been half-dead for some time.
+<Sirius> umm
+<Sirius> Maybe I've been looking the wrong way
+<Taos> I know, and haven't seen Lycan either
+<Sirius> MFC is a lot easier than Win32 to use, I suppose?
+<Taos> MFC suxxorz
+<Xavier> eh, I am not too much on MFC, but it does make developing windows apps a breeze
+<Sirius> ah
+<Xavier> Win32 I can live with, it's like developing in COM ;)
+<Sirius> Win32 gave me a headache the first time I looked at it
+<Sirius> it still does, just not as much so
+<Xavier> but WIndows.Forms makes it just too dakn easy
+<Taos> yeah, with pre canned forms that are actually far more difficult to interact with at a code level than 
+  they need be
+<Sirius> that's the .NET approach?
+<Xavier> for windows apps
+<Xavier> web forms in ASP.NET is pretty simple too
+<Xavier> program your web pages like they were windows apps
+<Taos> mfc pre canned forms I mean
+<Xavier> they really scored one big with .NET
+<Xavier> taos: right
+<Sirius> weird thing is ... well ... Java's Swing is actually quite simple to use in comparison
+<Sirius> heck knows why
+<Xavier> I just never have met the Java IDE that I liked
+<Xavier> they all seem clumsy to me
+<Taos> I hate trying to interface with MFC forms, that is where borland really 1 upped MS with VCL
+<Xavier> and slow
+<Sirius> Yeah... Eclipse isn't bad
+<Sirius> but I haven't tried anything else
+<Xavier> even Eclipse seems slow to me
+<Sirius> and it's not terribly fast either, hah
+<Xavier> I love it for C++ and PHP development, but it seesm to take forever for Java apps
+<Sirius> Eclipse is better than Dev-C++ is though... I tried that and went back to Notepad
+<Xavier> Dev-C++ is a POS
+<Sirius> agreed. Totally agreed. :)
+<Xavier> for a non-MS IDE Code::Blocks looks very promising
+<Sirius> Indentation system is incredibly POOR.
+* SG_01 has joined #cos-dev
+<Xavier> Code::Blocks + VC2k3 Toolkit makes for a nice alternative...but you don't get the stuff you really need 
+  to write windows apps that way
+<Sirius> right
+<Xavier> welcome SG!
+<Taos> Can I interrupt momentarilly
+<Xavier> sure
+<Sirius> I imagine VS.NET 2k3 would be a good idea for me to get one day... it's just that it's expensive even 
+  with an academic license
+<Taos> I'd like everyone to meet a long time friend of mine, SG will be joining our programming team after he has 
+  a chance to familliarise himself and settle
+<Sirius> Ah, cool
+<Xavier> @Sirius: when SlitScan (former CoS dev) worked at MS I got it for the MS employee price: US$125 ;)
+<Sirius> Ah
+<Sirius> That's not really that steep I guess
+<Xavier> not for a $1200 IDE ;)
+<[HJ]-Asmudius_Heng> heya SG <bows>
+<SG_01> Lo there <bows>
+* Thoth waves
+<Sirius> Visual Studio .Net Pro 2003... NZ$250 from the university's IT outlet... that's quite reasonable
+<Xavier> assuming 2:1 NZ:US that's about right
+<Sirius> Um
+* Taos slaps [HJ]-Asmudius_Heng around a bit with a large trout
+<[HJ]-Asmudius_Heng> X_x
+* [HJ]-Asmudius_Heng eats the trout
+<Sirius> NZ$1 ~= US$0.68-69 at the moment I think
+<Taos> sorry, can't let you ausies get too big or anything
+<Sirius> so it's a bit more
+<Sirius> but
+<Sirius> not that much
+<[HJ]-Asmudius_Heng> ;)
+<Sirius> if you're the only one here
+<Sirius> yes, 2-to-1
+<Elisor-sleeping> morning guys, does the meeting start in 15 mins?
+<Taos> is the NZ dollar that much below the AU?
+<Sirius> Um
+* Elisor-sleeping is now known as Elisor
+<Sirius> Not hugely.... $.90 AU = $1 NZ I think
+<Sirius> maybe the AUD is a bit higher though
+<Taos> yeah, that put you 70 some odd cents US then
+<Sirius> I think we used to be, might have gone back up
+<Sirius> whoa.
+<Sirius> it looks more like 94 AU cents
+<Taos> I think my dollar is worth 86 or 87 cents US right now
+* SG_01 slaps the AU$ with the EUR
+<Sirius> USD... about 70, yeah
+<Thoth> brb
+<Darkhorse> it's about 69.5 cents.
+* Thoth is now known as thoth_smoke_and_a_drink_brb
+* [HJ]-Asmudius_Heng throws some AU dollars to the NZ plebs
+* [HJ]-Asmudius_Heng also runs
+<Darkhorse> I don't need your Monopoly money.
+<Darkhorse> :p
+<[HJ]-Asmudius_Heng> hehe
+<[HJ]-Asmudius_Heng> right .. when is this shindig suppose to start?
+<[HJ]-Asmudius_Heng> i got the booze and the hookers who brought the drugs?
+* thoth_smoke_and_a_drink_brb is now known as thoth
+<Darkhorse> In about nine minutes.
+<thoth> damn, first flight out
+* SG_01 throws some eurocents at Asmudius
+* [HJ]-Asmudius_Heng pays the hookers with them .. gets slapped
+<[HJ]-Asmudius_Heng> X_o
+<SG_01> haha
+<[HJ]-Asmudius_Heng> well there goes the entertainment
+* [HJ]-Asmudius_Heng starts drinking
+* thoth raises glass
+* [HJ]-Asmudius_Heng wears one of those beer hats
+<thoth> hehe
+<[HJ]-Asmudius_Heng> best invention evar
+<Xavier> k we'll get moving in about 5-10 min
+<[HJ]-Asmudius_Heng> brb in 5 then :)
+<thoth> well i prefer alchohol to IDE and compiler discussions, but theres little to say...
+<thoth> and with that, the time has come
+<thoth> ;)
+<thoth> ... to talk of many things of shoes and ships and sealing wax
+<thoth> next line anyone?
+<[HJ]-Asmudius_Heng> umm ...
+<[HJ]-Asmudius_Heng> nope sry i dont know :P
+<thoth> of ca...
+<thoth> cabages and kings
+<thoth> cabbages*
+<[HJ]-Asmudius_Heng> whats that from?
+<thoth> Alice in Wonderland
+<[HJ]-Asmudius_Heng> ahh ... the ultimate drug induced story
+<thoth> well, you'll have to read eco's Island of the day before
+<[HJ]-Asmudius_Heng> nice n weird?
+<thoth> yeah
+<Darkhorse> 5-10 minutes yet?
+<thoth> eco was just curious about writing in english for kicks
+<[HJ]-Asmudius_Heng> heh
+<[HJ]-Asmudius_Heng> no idea Dark i am talking shit to fill in time :)
+<Xavier> lol
+<Xavier> ok
+<Xavier> I guess this is it
+<Xavier> ========================================= CUT LINE ============================================
+<Xavier> I just want to give a brief status update, where we are, what we need, where we are going
+* SG_01 grabs a pair of scissors
+<Xavier> here's the topics from the forums:
+<Xavier> # With Cimex stepping down, we need a new Concept team lead
+<Xavier> # Progress towards 0.2 (remaining issues) and looking forward to the 0.3 featureset (reference the 
+  overview topic at http://www.clashofsteel.net/forums/viewtopic.php?t=597 )
+<Xavier> # State of completeness of the overall concept (background, history, traits, etc); this will have to be 
+  summarized by someone else since Cimex is not available
+<Xavier> # General Q&A 
+<Xavier> and also
+<Xavier> I also want to go over what needs to be done to create a GUI "skin" of our own, and have someone commit 
+  to doing it
+<Xavier> Item 1: Cimex has left the team, said he didn't ahve the time anymore, so the CDT is going to need to 
+  figure out who they want to have the responsibility of interfacing with the other project teams (modellers, 
+  programmers, etc)
+<Taos> On your first note Xavier, can we touch on positions that need be filled in general, not just Cimex'
+<Xavier> I think his is the only one
+<[HJ]-Asmudius_Heng> are all other team leads filled and active?>
+<Xavier> I guess technically we need a graphics lead, but there's really not much that needs to be done in terms 
+  of graphics, unless I misread the team function
+<Xavier> Taos has the PR team, I have the devs,
+<Xavier> I guess we need a modelling lead
+<Xavier> since Flynn is AWOL
+<Taos> we are going to need to touch base with Flynn at some point in reguards to artistic, and there are many 
+  member positions that need be filled and I need to know what specifically so I can start recruiting
+<Xavier> one thing that the team leads does...is documentation....Cimex did that wonderfully
+<Xavier> for modellers, we just need to get ours back from HC
+<Taos> flynn was supposed to cover artistic in the sense of 2d and 3d art
+<Xavier> rgr
+<Xavier> the main thing I need in terms of 2D art right now, is a GUI
+<Xavier> that's item 5
+<[HJ]-Asmudius_Heng> for GUI stuff Lycan was doing some good stuff but i dont know how available he is
+<Xavier> it was a start, but it was just a background
+<Xavier> I guess we can do the GUI now
+<Xavier> ah let's finish the positions first
+<Xavier> sorry
+<[HJ]-Asmudius_Heng> :)
+<Xavier> CDT lead
+<Xavier> someone has to be the point person for questions regarding the concept
+<Xavier> either to know where to find the answers in the docs, or to know the answers outright
+<Xavier> the concept is mostly documented
+<Xavier> also
+<Xavier> the CDT lead will soon become the Test Team lead
+<Xavier> ;)
+<thoth> well, I would think Heng is the obvious choice
+<[HJ]-Asmudius_Heng> well the only ppl active in CDT are me, Thoth Gohan and AFO at this point
+<[HJ]-Asmudius_Heng> i can take over if needed ... though i am not the most organised person
+<Xavier> keep in mind that when you start firm testing, you'll swell in numbers
+<[HJ]-Asmudius_Heng> true
+<[HJ]-Asmudius_Heng> i am keen on testing though
+<Xavier> testing is an art of its own
+<Taos> even technology demo's will draw attention to our project and releaseable tech demo's aren't too far off 
+  by the looks of it
+<Xavier> correct
+<Taos> and in reguards to the testing Gohan is very good with organisation in that reguards and I will help as I 
+  can as well
+<Taos> speaking of Gohan
+<Xavier> rgr
+<Taos> where is he?
+<[HJ]-Asmudius_Heng> speak of the devil?
+<[HJ]-Asmudius_Heng> :P
+<[HJ]-Asmudius_Heng> not sure
+<Xavier> I suggest you guys discuss it among the CDT and figure out who wants the job
+<Taos> he's an odd one to be mia
+<Xavier> testing is a thankless task but the most important one in terms of success
+<[HJ]-Asmudius_Heng> i'll make a post about in the CDT forum
+<Taos> anyhow, this is my recruitment draft at present for CDT, any alterations or objections note them now
+<Xavier> rgr, hope for a resolution this week?
+<Taos> CDT
+<Taos>   -lead
+<Taos>   -editors
+<Taos>   -content developers
+<Taos>   -creative writers
+<[HJ]-Asmudius_Heng> we should yes X
+<Xavier> is that it, T?
+<[HJ]-Asmudius_Heng> what is a content dev?
+<Taos> I'd like to get 1 or 2 creative writers to turn some of our universe rules into a real story as it reads 
+  more like a TRO than a novel
+<Darkhorse> Was going to ask the same.
+<[HJ]-Asmudius_Heng> i am writing some stories but i have been lazy of late :(
+<[HJ]-Asmudius_Heng> gime a deadline and i will prob work better hehe
+<Taos> you are content devs, the ones drafting the rules and requirements, essentially everyone onthe team is a 
+  content dev
+<Sirius> For universe rules, a TRO isn't exactly a bad format... well, okay
+<Sirius> at least a sourcebook
+<Sirius> for the storyline, it's pretty ... yeah
+<[HJ]-Asmudius_Heng> TROs are good for techy stuff
+<Taos> oops, it's supposed to say concept devs
+<Sirius> right
+<[HJ]-Asmudius_Heng> for our factions, and how they work it can be used
+<[HJ]-Asmudius_Heng> for characters and more in depth universe stuff a good story can spell things out
+<[HJ]-Asmudius_Heng> along with some good piccies and a good soundtrack :)
+<[HJ]-Asmudius_Heng> the whole multimedia glut ;)
+<SG_01> Haha, yep, that always works :P
+<Taos> what you have written our there is very good for faction, planet and tech outlines, but we want to 
+  introduce first with more freeform story and then give them the hard info
+<[HJ]-Asmudius_Heng> thoguh for the "look" of the universe we are still kinda fiddling with motifs for each 
+  faction
+<[HJ]-Asmudius_Heng> sure Mr T, as i said i'll see if i can get more stories done
+* Gohan has joined #cos-dev
+<[HJ]-Asmudius_Heng> was gonna have a short story for each faction
+<[HJ]-Asmudius_Heng> i just gotta get my arse outta gaming for a while
+<Taos> ah, speaking of mexican slave labor
+<Darkhorse> Evening G-sus.
+<Gohan> cheap labor
+<[HJ]-Asmudius_Heng> G-Maaaaan
+<SG_01> Lo there
+<Xavier> 'lo Gohan
+* [HJ]-Asmudius_Heng gives Gohan a magic bean to clean his shoes
+<Xavier> hide the sheep
+<[HJ]-Asmudius_Heng> yea those new zealanders ...
+* [HJ]-Asmudius_Heng runs again
+<Gohan> ugh, my hands are sore
+<Gohan> stupid GC controller
+<Darkhorse> We have stashes here Asmu, there's no point hiding the excess.
+<[HJ]-Asmudius_Heng> anyway ... is there anything in particular that needs to be written in story form you could 
+  use T?
+<[HJ]-Asmudius_Heng> true Dark :P
+<Taos> not really, for starters something short and attention grabbing
+<Taos> maybe an introduction of a key character or something  but try to keep under 5 mins read
+<Taos> that is bout the most specific I'd like to see and I have 1 particular goal for a short piece and that's 
+  bout it
+<[HJ]-Asmudius_Heng> so an intro to our universe for release to the public
+<[HJ]-Asmudius_Heng> harder than it sounds :P
+<[HJ]-Asmudius_Heng> ok i'll have a think onit
+<Xavier> you da man ;)
+<Taos> anything beyond that will help build the audience into the universe but format is not essential
+<Sirius> Probably more of an example than an introduction? If you know what I mean
+<Sirius> an introduction as a whole would be very broad
+<Darkhorse> Seen the Guild Wars handbook?
+<Darkhorse> That has an interesting "intro" in it.
+<SG_01> Which one of the two, Dark? :P
+<Darkhorse> First I think.
+<Gohan> No one read that handbook.
+<SG_01> That's the story book
+<Darkhorse> Yeah, that one.
+<Taos> pick something like a solari liason meeting  with the Kepi to notify them of Solari's friendship with Kepi 
+  ceasing to be or some such
+<Sirius> I did Gohan :/
+<SG_01> The story book was pretty good
+<Darkhorse> Sirius' slow ass machine took so long he had to do something.
+<SG_01> It was the control manual I didn't read :P
+<Sirius> that's the way
+<Xavier> l, that all T?
+<Sirius> working out the controls as you go
+<Xavier> *k
+<Taos> yes, sorry for slipping off topic
+<Xavier> np, it's part of the "things we need done" general topic ;)
+<SG_01> Which is very broad indeed ^^
+<Taos> back to topic I believe you still need more for your team Xavier but I think we'll have to work on that 
+  case by case
+<Xavier> well we got two new programmers, Sirius and SG, both of who are here tonight :)
+<[HJ]-Asmudius_Heng> what do we want to concentrate on in the sotry thoguh T ... the factions and thier wars? the 
+  history? the catylist for war?
+<[HJ]-Asmudius_Heng> w00t programmers!
+<Xavier> Sirius is going to start working with the toolset, and SG is going to start with the C++ side of things 
+<Darkhorse> The toolset?
+<Sirius> Um
+<Sirius> You know MW4's mission editor? Stuff like that
+<Darkhorse> Ah.
+<thoth> hehe
+<Xavier> toolset = content development SDK
+<[HJ]-Asmudius_Heng> for modders? or is this the tools we use to make the game too?
+<Xavier> the first thing he'll be working on is a GUI editor 
+<Taos> Asmu, pick a histroical event and then play out 1 part of it, if you can't choose 1 then do 3 or 4 and 
+  I'll slip one between each faction outline
+<Xavier> we eat our own dog food here ;)
+<[HJ]-Asmudius_Heng> a historical event recent to the current situation you mean? we got lots of history :)
+<Taos> in english we build with our own tools so that we know they are complete and not comproised
+<Taos> Asmu, PM ->
+<[HJ]-Asmudius_Heng> rgr
+* Xavier takes cue ;)
+<Xavier> ok moving one
+<Xavier> *on
+<Xavier> progress towards 0.2
+<Xavier> those who have downloaded and ran the little demo know where that's at
+<Xavier> load a heightmap terrain (MW4's Canyon in this case), put a model on it
+<Xavier> the main part of the current 0.1.3 release is that it implements the basic main loop processing that the 
+  rest of the code will build on
+<Xavier> the thing we are waiting on before caling it a 0.2 is the rigged and animated model from Elisor
+<Xavier> which is almost done
+<Elisor> if we could figure out the technical issues :S
+<Xavier> when we can move it around the terrain and control it with the key/mouse we can call that 0.2
+<[HJ]-Asmudius_Heng> whats the issues?
+<Xavier> lol hiya Eli :)
+<Xavier> mainly how to get the thing so that Ogre (the 3D library) can understand it
+<Elisor> in short it's exporting rigid-body animations from Blender or MAX.  I've moved to MAX now, but am 
+  hitting many of the same problems
+<Xavier> we didn't have a lot of success in Blender so Eli went back to Max
+<Xavier> hmm
+<Elisor> the systems seem to be setup for characters, which have soft, deformable bodies.  we're trying to do 
+  this with mechs
+<Xavier> it may be an Ogre thing that we dont understand so I'll have to hit the Ogre forums
+<Elisor> I can export a full, static mesh from MAX now, what I'm working on is getting it animated, then try to 
+  fix the softbody issue
+<Xavier> there have been robotic style models run in this engine
+<Xavier> it's completely general
+<Elisor> the actual animation is a breeze
+<thoth> is this a function of the rigging or the exported rig in Ogre
+<Xavier> if I could figure out how to get Ogre to work with multiple meshes parented to multiple armatures 
+  (bones) we'd be fine
+<Sidelink> use bones and umm whats it called...  one sec
+<Xavier> exprted rig in Ogre
+<Elisor> it must be possible, but at the mo I can't see how they've done it.  been through the forums but they 
+  just seem to concentrate on softbody
+<Xavier> the Blender Ogre exporter considers everything to be a separate object
+<Xavier> and the Max exporter has its own issues (no maintainer for one)
+<Xavier> so exporting from Blender, for exmple, only one armature seems to move
+<Taos> Eli, once we figgure out exactly how we need the modellers to turn in thier meshes what would be a 
+  conservative estimate as to animating time?
+<Xavier> even tho it works great in Blender
+<Elisor> the MAX one requires all parts to be attached as a single mesh, which means the bones act on all parts 
+  of the mesh (depending on the envelope)
+<Xavier> Eli: is that the same vertex group issue as in Blender>?
+<Elisor> or a start/walk/stop anim including the rigging?  say it was a custom rig then 1-2 weeks.  it's not that 
+  tough
+<Elisor> or = for
+<Sidelink> bones and linked xform modifier in max
+<Elisor> it's similar, yes Xav
+<Xavier> the way we did it in Blender, FYI all, is to model as component meshes (like MW models), assign the 
+  vertex groups from those submeshes then join the whole thing as a single mesh
+<Xavier> then you rig using a single armature made up of a ton of bones
+<Xavier> bones which are named the same as the vertex groups they control
+<thoth> but you can just turn off the deform in the blender bones
+<Xavier> problem Eli ran into was a FK problem, the IK worked fine
+<Taos> Ogre doesn't allow us IK animation?
+<Xavier> thoth: I just assigned each submesh 1.0 weighting to a single group, and no affinity to any other group
+<Xavier> 1 vertex, 1 group
+<Xavier> and therefore one bone
+<Xavier> taos: they don't have a solver, no
+<Xavier> you can model with IK, but you have to do it as keyframes
+<thoth> k, well without looking at Ogre and whats involved in the export, i am just asking
+<Xavier> they just do interpolations in Ogre
+<Xavier> I wasnt aware there was another way to do it in Blender, thoth: anything easier is better ;)
+<thoth> only used bones once, a while back with earlier Marshal model, will take a look at it
+<Elisor> this must have been cracked before, and if you have really tight envelopes and lots of bones it might be 
+  possible with the current system, but there has to be a more elegant solution
+<Xavier> I agree
+<Xavier> once we crack this, however, the next major version, 0.3, will be worked on
+<Xavier> in the meantime, we have got to get someone to design a GUI
+<Xavier> and that means not just the background, but the actual controls
+<Xavier> the look and feel
+<Sirius> How difficult are GUIs to implement with the tools we have?
+<Xavier> simple
+<Sirius> ah, nice.
+<Xavier> they are XML text-file based
+<Xavier> the XML defines everything about it
+<Xavier> but the actual graphics are very much like UV mapping
+<Xavier> those with SVN access should go to the katana/bin/resources directory and look at gui.zip
+<Xavier> in there you see a Taharezlook.tga file
+<Xavier> that's a lot like a UV texture
+<Sirius> right
+<Xavier> and the GUI system references that graphic to display the actual "things" in the GUI
+<Xavier> three states of buttons, spinner controls, dropdowns, etc
+<Xavier> everythingf
+<[HJ]-Asmudius_Heng> so this goes from the menus to the RnD LAB to actual in game stuff?
+<[HJ]-Asmudius_Heng> or is in game stuff like HUD etc a different beast
+<Xavier> anything that is a GUI control that will be used
+<Xavier> HUDs are different
+<[HJ]-Asmudius_Heng> so pre-in game stuff really
+<SG_01> HUDs arn't part of the GUI? :P
+<Xavier> those are simple overlays and will also require alpha-channel techniques
+<Xavier> no
+<[HJ]-Asmudius_Heng> rgr
+<Xavier> the game has two major states: GUI and SIMULATION
+<SG_01> Ah
+<Xavier> the difference is in how input is handled
+<Sirius> GUI is like Windows :)
+<Xavier> the GUI state requires that input events be injected into it
+<Xavier> the SIMULATION state, the game logic consumes the input events
+<SG_01> I see
+<Xavier> the GUI then does callbacks for functionality...in that way it;s like every other window system 
+  including Windows
+<[HJ]-Asmudius_Heng> so what do we need
+<Xavier> anyone done website mockups in Photoshop?
+<Taos> I know just the person
+<Xavier> when the client accepts a "comp" the graphic gets cut up into its component parts
+<Xavier> and those parts are used in the website 
+<Xavier> this is no different
+<Sirius> Hm
+<Taos> I normally do his cutting but he does some awesome UI work, but that's something we can discuss later
+<Sirius> So, in a twisted way
+<Xavier> I need someone to create graphic mockups of screens which will contain all of the interactive controls 
+  we'll use in the GUI
+<Sirius> vaguely like how they used to do bitmap fonts?
+<Xavier> kinda
+<Sirius> Except of course the scale varies
+<Xavier> right, in this case, CEGUI uses TTF fonts ;)
+<Xavier> wel
+<Sirius> yeah
+<Xavier> it uses anything that FreeType will deal with :)
+<SG_01> Just like how Winamp skinning works basicaly :P
+<Xavier> probably 
+<Xavier> it's a common technique
+<Taos> Xavier, we going to have to add resizes for each rez setting or can the GUI system handle dynamic resizing?
+<Xavier> the TaharezLook TGA is 512x512
+<Sirius> Is the TGA of fixed size?
+<Xavier> I am trying to think of what 2D library it uses to do resizes
+<Taos> it will scale then?
+<Xavier> that demo comes from a 512x512 TGA so if the scaling lkooks ok then we should be good
+<Xavier> we can always do multiple graphics
+<Taos> kk, that saves a bit of zone
+<Taos> bit of size
+<Sirius> going to be one heck of a graphical design job, anyway, heh
+<Xavier> yup
+<Xavier> it will involve the CDT a lot
+<Xavier> lots of back and forth
+<Xavier> once it's OKed it can be cut up and formed into a single TGA and then we can use it in the GUI
+<[HJ]-Asmudius_Heng> what do you need from CDT at this time for the GUI?
+<Xavier> think of how you want our widgets to look
+<Xavier> sliders, buttons, dropdowns, list boxes, etc
+<Xavier> whatever it is
+<Taos> layout sketches for ideas would be helpfull, rules for what the GUI must accomplish is kinda a must
+<Xavier> once we have an artist that can start doing renderings the work can start on that
+<[HJ]-Asmudius_Heng> did we do a flow chart for the GUI?
+<Xavier> yup
+<thoth> im interested in getting that rolling
+<[HJ]-Asmudius_Heng> the actual look and feel i think the artists should give us some examples
+<[HJ]-Asmudius_Heng> i dont think the CDT needs to control that part too much
+<Xavier> https://svn.clashofsteel.net:8445/cos/trunk/doc/Katana-Processing-Flow.gif
+<Xavier> right
+<Xavier> the artist will want some concept to start with tho
+<Taos> at very least try to develop guidelines for theme
+<Xavier> maybe a basic overview of the "feel" of the universe
+<[HJ]-Asmudius_Heng> rgr, who is the artist(s) that will be doing this
+<Xavier> in the meantime we can use the base Taharezlook theme for development...since all widgets have the same 
+  behavior in CEGUI it will be no problem to swap in the new imageset
+<Taos> if we don't have any volunteers internally I'll bring in someone
+<thoth> id like to have a go
+<[HJ]-Asmudius_Heng> Lycan was the only one i was aware that was doing stuff like that ... in any event please 
+  get them to contact the CDT team
+<[HJ]-Asmudius_Heng> and thoth can also have a go :)
+<Xavier> :-D
+<Taos> take a go at it Thoth
+<thoth> rgr
+<Darkhorse> for user interfaces, don't forget that a 3D element can work as well
+<Xavier> not as easily
+<Darkhorse> I think there were many space sims that had examples of that
+<thoth> understood, dark
+<Xavier> 3D picking is tricky at best
+<Xavier> but
+<Xavier> nm
+<Darkhorse> Wing Commander, Freespace come to mind
+<Xavier> I se what you mean
+<[HJ]-Asmudius_Heng> if anyone needs info from the CDT team please contact us though .. we have so much stuff 
+  going that it is hard to put out all the info you need
+<Xavier> 2D rendering of 3D object? 
+<Darkhorse> yeah
+<[HJ]-Asmudius_Heng> better you ask us and we respond
+<Xavier> ohh good idea :)
+<Sirius> hmm
+<Sirius> Just checked out the flowchart - I take it no single player is planned? :)
+<Xavier> ok so that takes care of item 5 I guess...we'll take that up further in the forums
+<Xavier> aye, no SP at this time
+<Sirius> Right
+<Taos> yes, designing interfaces in a #D interface, skinning them, and then rendering out to @d and cutting could 
+  work quite well
+<Xavier> which also reduces the development load, since no AI is needed
+<Sirius> (I know about jack about the game proper at the moment)
+<Sirius> True
+<Sirius> Well, there is the training bit
+<Sirius> however that works
+<Gohan> press X to shoot
+<SG_01> X? :P
+<Xavier> right, but the only scripting support we need is for MP game rulesets
+<Gohan> I am still stuck in SSBM mode.
+<Xavier> hee
+<Sirius> sounds respectable
+<Taos> AI will pretty much be it's own endeavor if at all
+<Xavier> definintely a post-1.0 if we even do it
+<Sirius> are there plans to have AI being addable if you know what I mean - through scripting etc?
+<Xavier> not at present
+<Sirius> right
+<Darkhorse> No automated turrets?
+<Xavier> the concept is pretty much for an MP-only experience
+<Sirius> lol
+<Sirius> that's really quite easy if you want that
+<Xavier> not decided yet DH
+<Xavier> that is minor AI at best, however
+<Taos> there are libraries that could be bound into it by a team that wished to do so through the logic code so 
+  it will never be impossible, probably difficult at best though
+<Xavier> doesn't require paths or any real decision making ability
+<Sirius> it'd probably be 'closest enemy I can see' material... even I can tell you how to figure that out
+<SG_01> Xavier: If you're going to have a Training mission, simple paths might be an option though :P
+<Sirius> Oh, and one last n00b question... macro/micro ... what's that? :)
+<[HJ]-Asmudius_Heng> lol
+<Gohan> Macro is akin to a 'Mech.
+<Darkhorse> Macros are like Battlemechs
+<Darkhorse> Micros, battle armour.
+<Sirius> Right
+<Darkhorse> Well, powered BA.
+<Xavier> SG: but not something we need to support in terms of mission editing (like in the MW editor where you 
+  can define paths, etc)
+<SG_01> Right
+<SG_01> Not too familiar with the MW editor, but the Freespace editor also had paths in it ;)
+<Darkhorse> Or you could hard-code the training mission. Teehee.
+<Xavier> right
+<SG_01> Haha
+<Xavier> probably will do it that way
+<SG_01> Hardcode in the logic I take it then
+<Xavier> I don't expect the training to be much more than the first levels in AA
+<Sirius> Parallax did that for the Descent 2 single-player campaign and I hated them for it. *cough* but anyway.
+<thoth> so any environmental type effects  ie similar to birds flying etc
+<thoth> ...
+<Gohan> An explanation of the controls and key commands, hoo rah.
+<Xavier> for the most part it's tehre to help test "lab" (R&D) designs
+<Xavier> thoth: for "naturals", we really hadn't considered them yet
+<thoth> i c
+<Xavier> haven't really figured out the CPU budget because tech is changing too much right now
+<Xavier> between parallel physics accelerators and dual-core machines and SLI making a comebck...
+<Sirius> physics accelerators now?
+<Xavier> there will be a HUGE gap between the low end and flamethrower soon
+<Xavier> www.aegia.com
+<Xavier> bash
+<Xavier> bah
+<Xavier> ageia
+<Xavier> www.ageia.com
+<Sirius> there's already a huge gap between the low end and my computer... except it's in the wrong direction
+<Taos> tech prices will likely drop fast though with the constant stream of major makeovers so the gap may not be 
+  so bad as we think
+<Xavier> Novodex was either bought by or became, Ageia
+<[HJ]-Asmudius_Heng> btw
+<[HJ]-Asmudius_Heng> Modular Armor Combat Robotics (MACRo)
+<[HJ]-Asmudius_Heng> Modular Infantry Combat Robotics (MICRo) 
+<Sirius> ah
+<Xavier> ok moving on....
+<Sirius> I swear, some people are far too good at acronyms
+<Gohan> imho that is true
+<Xavier> the next rfelease, 0.3, will see netowrked MP and scriting support (mainly for MP gametype rulesets, but 
+  also possibly for test automation as well), and "eye candy" and positional audio
+<Xavier> by "eye candy" I mean what are now becoming common modelling and rendering techniques
+<Gohan> positional audio?
+<Xavier> 3D audio
+<Xavier> EAX for example
+<Gohan> oh
+<[HJ]-Asmudius_Heng> when will we get more modellers from HC btw?
+<Taos> EAX, dolby, all through OpenAL
+<[HJ]-Asmudius_Heng> and how much do they know of the CoS universe
+<Xavier> apparently when they learn to model, asmu ;)
+* [HJ]-Asmudius_Heng looks at the models
+<Xavier> hehe
+<[HJ]-Asmudius_Heng> i think they can O_O
+<Sirius> that would be a nice start, yeah...
+<Sirius> asmu
+<Sirius> which ones? ;)
+<Xavier> they still make lots of mistakes asmu
+<Gohan> the bottleneck right now is that the teachers HC has are few in number
+<thoth> well i dont know where all these mythical modelers in HC are?
+<thoth> what 5 ppl maybe
+<Darkhorse> ...hmm
+<Xavier> had more than that not too long ago I thought
+<Darkhorse> Natas shows promise, the rest I wouldn't say can hack it yet.
+<Taos> Asmu, most of them can make pretty models that will work with Scanners touch ups and MW4's simplified 
+  engine, but they would be in real trouble with the advanced techniques we are using here due to some bad 
+  habbits in the basics
+<Xavier> this project will live and die on the modelling, btw
+<Xavier> it's really more important than the programming
+<Gohan> None of them are really HC modelers until a completed model is presented.
+<[HJ]-Asmudius_Heng> ok
+<Gohan> and by completed I mean the entire package
+<thoth> my point exactly gohan
+<Xavier> we ahve some really mature and fantastic libraries we can use for just about everything on the 
+  programming end, so we are basically gluing it all together...but for the gamer, the models ARE the game
+<Gohan> 12 low poly models are useless without the rest.
+<thoth> so there is scanner, thrashdog, fireslave, XXX
+<thoth> Darkhorse ;)
+<Taos> Lupus will be about before too long once he has something for his creations to come alive in
+<Gohan> 3 out of 4 which are afk.
+<thoth> Redspace
+<thoth> that covers it, right?
+<Darkhorse> hmm... maybe, I thought there was someone else too
+<Xavier> thing is, success breeds success, and product attracts talent
+<Darkhorse> who did the Crusader?
+<[HJ]-Asmudius_Heng> ok, i do hope they get into the CoS universe though so they do not have too many BT 
+  misconceptions
+<Sirius> yeah
+<Xavier> once we have something to show, we can actually start recruiting from the rest of the game community
+<Sirius> We very well may find interested parties outside of NBT
+<thoth> true, im just thinking this "getting our modelers back from HC" thing is getting old and not really a 
+  valid problem
+<Taos> exactly, flashy tech demo's will draw modellers and programmers to the extent that we have to be really 
+  picky as to who we accept
+<Xavier> if we can get 12 dedicated modellers/animators (at least one more of which is a talented animator) we 
+  should be at a good level
+<Darkhorse> hehe, I've only done marginal animation so far
+<Xavier> that means 12 productive talented persons who can get it done
+<Taos> thoth, 1 or 2 of the modellers that went to work on HC focusing on CoS would suffice for now
+<Xavier> Eli just about is the default animation lead
+<Xavier> well he's the only animator right now ;)
+<Elisor> *ducks back in hole
+<Xavier> btw I am damn glad to have you all...the CDT has been simply amazing in its dedication and progress
+<[HJ]-Asmudius_Heng> if i could do this full time i would ;)
+<Xavier> but once we have something respectable to show, I expect the team to swell to about 40, to be honest
+<Taos> so far AFO is the only one who's focused on CoS models and they aren't exactly up to production grade as 
+  they are more concept than game models
+<Xavier> right T
+<[HJ]-Asmudius_Heng> we do need some concept stuff to find the "feel" of our factions 
+<Darkhorse> Some art direction in other words.
+<Darkhorse> ;)
+<[HJ]-Asmudius_Heng> yes ... i suck at art
+<[HJ]-Asmudius_Heng> i am a hack writer thats all ;)
+<Sirius> hack writers of the world unite
+<Taos> we need 2d artists but they are a quirky breed and hard to come by if you find a good one
+<Sirius> I mean, dude
+<Sirius> you can look fairly decent by just having an imagination, a good grasp of the English language and 
+  knowing how to spell sometimes
+<Darkhorse> What kind of 2D art?
+<Taos> and I'm sure nobody wants me doing any drawing, I'm an out of practice toonist with a broken tablet
+<Darkhorse> yeah, I'm not necessarily the greatest drawer around but that won't stop me having a good go at it
+<Xavier> for one, DH, the GUI
+<Sirius> it's fine for concept type stuff, obviously
+<Taos> what we were after in the beginning was some sketch artists to visualise some of the concept discussion 
+  but we've not really had any luck
+<Xavier> keep in the back of your mind the need for a set of HUD graphics
+<Darkhorse> but I should stop volunteering myself for things anyway
+<Xavier> hehe
+<SG_01> I might see what I can do with Photoshop, though I can't promise it'll be any good ^^
+<Xavier> hehe
+<Taos> don't suppose anyones got an old graphire that they've upgraded and no longer need the stylus?
+<Sirius> heheh
+<thoth> im not very good either but i can draw some basic shapes, ill get back to it
+<Darkhorse> graphire?
+<Taos> yes, graphire tablet
+<Darkhorse> is that anything like Letraset?
+<Xavier> ok I guess that about wraps up everything I wanted to discuss...does anyone have any questions (besides 
+  Dogstar and SG, who probably have tons)?
+<Darkhorse> oh, guess not :p
+<thoth> i work better with a team, so perhaps Dark and I can try to work off each other or some such idea
+<SG_01> Haha ^_^
+<thoth> when do paychecks go out, again?
+<thoth> ;P
+<[HJ]-Asmudius_Heng> lol
+<Taos> 2010
+<Xavier> lol
+<[HJ]-Asmudius_Heng> i am holding you to that Mr T!
+<SG_01> Taos: I was thinking about when Christmis and Easter fall on the same day :P
+<Taos> and you'll be well worth the 10 cents Asmu
+<[HJ]-Asmudius_Heng> :D
+<SG_01> hehe
+<Darkhorse> well, it would be nice if I could figure out exactly how models are translated into the 3D engine :)
+<Darkhorse> but that's not so much a question as a MORE MORE
+<Taos> the exporter is in the forums there
+<[HJ]-Asmudius_Heng> well all i want to say is if anyone wants info about the universe do not hesistate to send a 
+  PM or email to me or the CDT ppl
+<Darkhorse> yeah, I should have a look at it Taos
+<Sirius> translating models into the 3D engine could well become my job later on ... but we'll see how it goes
+<Darkhorse> oh, one other thing
+<Xavier> DH: Ogre has exporters for just about every modelling package; it exports to a .xml intermediate format, 
+  which is then converted to a binary format with a command-line tool; the .mesh files are loadable by the engine
+<Sirius> ahhh
+<Sirius> that's better :)
+<Darkhorse> it may be a good idea to sticky something about the cultural artistic definition for each of the four 
+  factions (hope that makes sense)
+<Gohan> or, the style of each faction so modelers know what is up
+<Sirius> DH - for um
+<Darkhorse> just to say what the feel of the factions is/are.
+<Gohan> in other words
+<Sirius> a kind of coherent style? Right
+<Xavier> DH: some of them can export directly to .mesh; Ogre is an XSI partner so XSI has the best export 
+  support, since the project owner can write exporters for the format he wrote ;)
+<Darkhorse> yeah, that Gohan
+<Taos> DH, hit the Wiki for faction info
+<Taos> if you need an account contact myself or Xavier
+<Xavier> if you need access let me know
+<[HJ]-Asmudius_Heng> this is why we need some artistic direction .. we have vague motifs for each faction but 
+  nothing locked in
+<Xavier> ot Taos
+<Darkhorse> I don't remember being able to get so far into the Wiki
+<Xavier> btw, for a tentative timeline (ignote the dates for now) look at http://www.clashofsteel.net/forums/viewt
+  opic.php?t=597
+<Darkhorse> yeah, looks like you have still to hook my ass up :b
+<Xavier> I'll get it Taos; I have to hook up SG and Sirius when we're done here
+<SG_01> I still need some account(s) activated/created, but I guess you're alright on that then ;)
+<Xavier> yup
+<[HJ]-Asmudius_Heng> i havent used the wiki much myself as i wrote most of it i dont look again
+<[HJ]-Asmudius_Heng> is it too hard to find faction info?
+<Darkhorse> only when it's verboten
+<Taos> you had best get SG on the forums also, don't look like you managed to get my access upgrade to work
+<Xavier> I'll work on that too Taos
+<Taos> even did a cookie dump to be sure
+<Xavier> just have to find the right table
+<Taos> it looks like your access is set proper
+<Taos> see if you can find the admin interface and do it through the boards themselves
+<SG_01> Somewhere http://www.clashofsteel.net/forums/admin/ I guess :P
+<thoth> Asmu: the concept roundtable link on wiki is best bet
+<SG_01> It should be possible to activate my account from there :P
+<[HJ]-Asmudius_Heng> just wanna make sure the wiki is easy for all members to use if it is not it might need to 
+  be adjusted
+<thoth> i think it needs adjusting, to be sure
+<thoth> but usage would be a good start
+* [HJ]-Asmudius_Heng looks at Gohan
+<Gohan> whoa what I do
+<Gohan> I did not steal that car
+<Gohan> but I did kill the channel
+<SG_01> hehe\
+* [HJ]-Asmudius_Heng shoots Gohan
+<Taos> concept and programming stuff is in a block at the top of the page when you are logged in, don't think it 
+  could be easier to find in the wiki than that, and pretty well anything regular users should need to do with it 
+  will be done from the pages themselves
+<Sirius> yes.
+<Xavier> I need to move all Wiki content over to the site
+<Xavier> how much CDT content is on the Wiki>?
+<Xavier> I should just have used the site to begin with
+<Xavier> my fault :(
+<[HJ]-Asmudius_Heng> http://www.clashofsteel.net/wiki/tiki-index.php?page=Concept+Development+Roundtable
+<[HJ]-Asmudius_Heng> ah ok
+<[HJ]-Asmudius_Heng> there is a heap of stuff there i had forgotton about
+<[HJ]-Asmudius_Heng> including art directions
+<[HJ]-Asmudius_Heng> http://www.clashofsteel.net/wiki/tiki-index.php?page=Kepi+Unit+Design+Rules
+<[HJ]-Asmudius_Heng> for instance
+<Xavier> ok, at this point if there are no other questions, I'd like to adjourn  for the night/day (you don't 
+  have to leave but you don't have to stick around if you don't want)
+<Xavier> we'll do this every month
+<[HJ]-Asmudius_Heng> awesome :)
+<Xavier> probably first Sat each month
+* thoth waves
+<Elisor> agreed Xav.  got a lot of work done while here ;)
+<Xavier> I want to start having a set amount of work that will be done each month, for all teams
+<thoth> was good to be here
+<Xavier> :)
+<Xavier> nite thoth!
+<Xavier> glad to have you here :)
+* thoth has left #cos-dev
+<Darkhorse> see you around then.
+<Xavier> nite DH!
+<Darkhorse> I ain't going yet. :)
+<Darkhorse> someone else was, I think.
+<[HJ]-Asmudius_Heng> ok, byt the end of this month i am gonna have as much story written as i can for my personal 
+  goal anyway
+<SG_01> he was already gone :P
+<Darkhorse> oh... dumb.
+<Xavier> I think the only way to move the project along on a regular basis is to identify small tasks for each 
+  group and dev to get done bt the next meeting
+<[HJ]-Asmudius_Heng> yes good idea
+<Darkhorse> serves me right for trying to figure out footnotes.
+<Sirius> Do we need more programmers still Xavier? Can't say I know any personally though, at least not that I 
+  would expect to be interested
+<[HJ]-Asmudius_Heng> i got a few jobs i'll delegate to others in the CDT team
+<Xavier> yep
+<Xavier> Sirius: yep
+<Xavier> I 6-7 total is a nice number
+<Xavier> hmm
+<Xavier> 6-7 total is a good number
+<Sirius> apart from perhaps that guy who sits on a chat channel with an away message "please talk to me if you 
+  know anything about Delphi" for 1-2 weeks straight
+<Sidelink> I didn't answer your question on the forum Xavier.  I don't know what faction it was for or role, it 
+  was just an image in my head bugging me
+<Xavier> hehe
+<Sirius> obviously no-one there does, but he still leaves it up...
+<Xavier> lol
+<Sirius> personally, if I want to know anything about a programming language I hit Google or something ... but he 
+  is 14 or 15 I guess
+<SG_01> Google, MSDN, whatever, should be easy enough to find >.>
+<Darkhorse> in other words, even if he was interested, the answer is no
+<Xavier> I know a lot of people like just to ask the question without looking first...it drives forum regulars in 
+  Ogre nutz
+<Sirius> yep DH :)
+<Sirius> lol, right
+<Sirius> I see a lot of that sort of people, unfortunately, and not just programming types either
+<Xavier> yup
+<SG_01> Hehe, too true
+<SG_01> Lazy bums
+<Sirius> was a classic a couple of days ago
+<Xavier> it's a normal human trait, just to ask the person you know must know....however, that's why there are 
+  IRC channels for most projects ;)
+<Taos> and the reason I hide from Tox
+<Darkhorse> haha
+<Taos> oops, did I say that out loud?
+<Xavier> rofl
+<Darkhorse> I get that regarding texture mapping for some reason.
+<Xavier> hehe UV mapping is not hard, it's just friggin tedious
+<Sirius> someone was asking on an internet forum what Kali and UDP were... and was told fairly impolitely to go 
+  to Google and look it up... his response was something along the lines of "well I get sick of searching through 
+  10 pages and finding nothing relevant when people right here know the answer"
+<Darkhorse> yeah, exactly
+<Xavier> roflmao sirius
+<Darkhorse> does Ogre have any issues with Blender's texture mapping?
+<Sirius> I keyed "Kali" and "UDP" into Google, hit "I'm Feeling Lucky" and got exactly the information he wanted
+<Xavier> nothing relevant on UDP, LOL
+<Sirius> yeah, exactly
+<Xavier> none that I know of DH
+<Darkhorse> yeah, UDP gets you the Wikipedia article first result
+<Darkhorse> Kali gets you the company's website.
+<Sirius> Wasn't Wikipedia, I think it was Webopedia, but still
+<Taos> ugh, UDP, I'm gonna go hide now
+<Xavier> lol
+<Xavier> Raknet uses "reliable" UDP for its connections :p
+<Taos> that just means that they have already done the part I am afraid of
+<Xavier> you simply cannot use TCP for gaming, it's too heavy
+<Xavier> yup
+<Xavier> Raknet will make MP networking a snap with this
+<SG_01> There is no such thing as Reliable UPD, just a programmed layer that simulates it :P
+<Taos> implimentation of the custom packet delivery guarantee system
+<Xavier> especially if we use the DNO support (Distributed Network Object)
+<Sirius> The only thing I like about TCP over UDP
+<Sirius> is that the cavemen who designed my router didn't get it wrong
+<SG_01> hah
+<Taos> the only problem with TCP is that it's blocking
+<Xavier> yup
+<Xavier> and it's 1:1 and no other way around it
+<Xavier> non-scalable in MMO scenarios
+<Sirius> I know almost nothing concrete about networks, but if memory serves TCP is a layer over UDP, which is a 
+  layer over IP?
+<Xavier> and way too heavy to set up and tear down
+<Xavier> more or less Sirius
+<Xavier> TCP and UDP are separate tho
+<Sirius> ah, ok
+<Sirius> I was just told you can emulate TCP more or less exactly with UDP
+<SG_01> You can have a TCP and a UDP listener on the same port if you want :P
+<Xavier> true
+<Xavier> which is what DirectPlay does
+<Xavier> 2300-2400 for both
+<Darkhorse> okay, so what relevant model translators should I be looking for?
+<Xavier> for Blender?
+<Taos> yes, you pretty much have TCP when you get your guaranteed delivery routines into your UDP code
+<Darkhorse> yeah, that's probably the best option
+<Taos> but then it's still more efficient
+<Xavier> http://www.ogre3d.org/index.php?option=com_remository&Itemid=74&func=selectcat&cat=5
+<SG_01> And you don't have to worry about the Stream that's in TFCP
+<SG_01> Though you can write your own stream into the mix if you really feel like recreating TCP in UDP :P
+<Darkhorse> haha you didn't even need to ask which one :p
+<Xavier> ;)
+<Xavier> keep in mind that the Maya one has just been picked up again, the max one has no maintainer and has some 
+  issues, but the Blender and XSI ones are actively supported and developed
+<Xavier> if you grab the meshviewer you can load up the exports in the same engine that the game uses
+<Sirius> is the engine planned to work more like MW4 or UT in terms of structure? Sounded like MW4
+<Xavier> don't know yet
+<Sirius> ok
+<SG_01> Ooh, a Meshviewer, that brings me back...
+<Xavier> I really don't want to have to use multiple body parts
+<Xavier> it's horrible for performance (kills batching in the GPU)
+<SG_01> Freespace (2) used to have a meshviewer ^_^
+<Xavier> hehe
+<Sirius> meshviewer?
+<Elisor> Isn't the bargan basement version of XSI free?
+<Xavier> I want to figure out a way to peform collision detection using intersecting vertices and map them to 
+  bones, and using the bone names figure out which body part was affected
+<Xavier> no more hitbox generation
+<SG_01> Shows a how a Mesh looks ^^
+<Sirius> as in something that displays the in-game 3D models?
+<Xavier> at the least, I want to generate bounding volumes during the load and not rely on humans to make them ;)
+<Darkhorse> ah, this should be helpful
+<SG_01> Yea
+<Sirius> which uhm, are probably meshes... hehe
+<Sirius> funny thing is, I probably know who the guy that did it was
+<Xavier> Eli: it's great for learning XSI but unless you are making HL2 mods or paying the license, it's no good
+<Xavier> can't export shit
+<Darkhorse> Heiko Herrmann
+<Sirius> hmmm
+<Darkhorse> I think.
+<Sirius> not so sure about HH, might have been Garry
+<Sirius> but ...
+<Darkhorse> It was related to the Descent 2 PMView.
+<Darkhorse> Yeah, probably was actually.
+<Sirius> Garry wrote PMView
+<Darkhorse> Ah, would have been then.
+* Gohan has quit IRC (Connection reset by peer)
+<Sirius> he came, he saw, he lagged out :(
+<Taos> lol
+<SG_01> hehe
+<[HJ]-Asmudius_Heng> doeth
+<[HJ]-Asmudius_Heng> bastard
+<Darkhorse> ./mourn Gohan
+<[HJ]-Asmudius_Heng> was just PMing him
+<Sirius> fs2view. Yep, probably.
+<Sirius> cob2fs2 as well, heh
+<SG_01> hehe
+<Sirius> if memory serves that was for people that wanted to make custom ships for Freespace
+<SG_01> Yep, cause fs2 used it's own model type I believe
+<Darkhorse> I still wanted to pilot a Hatshepsut.
+<Sirius> Yeah, it was its own data format
+<SG_01> I only changed the textures on some ships once ^_^
+<Sirius> I don't know how much code Freespace had that originated in Descent/Descent 2, but I heard there was some
+<SG_01> Heh, prolly
+<Darkhorse> The basic display engine I think.
+<Sirius> always seems to have been their style to use their own model formats though
+<Sirius> ah
+<Sirius> er
+<Darkhorse> Though I hope they fixed the BSP problems.
+<Sirius> I would suspect so, it was 3D accelerated
+<Sirius> and ... well, Descent's 3D engine sucked
+<Sirius> IMHO :)
+<SG_01> The Freespace series was near flawless
+<Sirius> It probably used depth buffering
+<Darkhorse> That was because they were too lazy for software anti-aliasing Sir.
+<Sirius> Descent took shortcuts to avoid that
+<Sirius> because it was written for 486s
+<Sirius> um
+<Sirius> DH, I have my doubts anti-aliasing ever happened in 1995
+<Darkhorse> No, in FS.
+<Sirius> Oh
+<Sirius> Right
+<Darkhorse> Probably D3 too actually. Hehe
+<Sirius> who the hell wants to do that kind of stuff manually anyway? ;)
+<Sirius> help, I'm getting IM spammed :(
+<Darkhorse> Well, there are 32-bit textures I suppose.
+<Darkhorse> Though... if I remember correctly they were running on 24-bit at the time.
+<SG_01> Did the Freespace 3 project ever get anywhere?
+<Darkhorse> Nah, it was cancelled.
+<Sirius> there was one?
+<SG_01> There was a community project for it
+<Sirius> Ah
+<Darkhorse> That would have failed in that case.
+<Sirius> I wonder if THQ has enough clue to figure out that a Freespace 3 would probably sell
+<Darkhorse> Even BWO never seemed to get finally completed.
+<Darkhorse> It would sell on console.
+<Sirius> anything sells on console :/
+<Darkhorse> FS2 is just one of those legendary games that never really sold.
+<SG_01> Volition wanted to do it, but Interplay didn't let them
+<Sirius> figures
+<Darkhorse> oh yeah... because Interplay own the rights
+<SG_01> Exactly
+<Darkhorse> same as that "Descent 4" thing
+<Sirius> difference is
+<Darkhorse> of course you can always just rename it
+<Sirius> FS3 would almost certainly work now
+<Sirius> D4 is anyone's guess
+<SG_01> There havn't been too many "good" games story-wise lately
+<SG_01> Especially no games like FS
+<Darkhorse> Games don't really sell for the story.
+<Sirius> Anyone that remembers Descent now would probably think "haha, that weird-ass game"
+<Darkhorse> RPGs might, but sadly, anything else...
+<Xavier> I long for Duke Nukem 3D
+<Xavier> hehe
+<Xavier> very playable game
+<Sirius> heheh
+<Sirius> It wasn't too bad, I recall
+<Xavier> good exdample of waht you can do with a sprite-based engine
+<SG_01> Hehe, not at all
+<Sirius> I never figured out the 5th level of the demo though
+<Sirius> or whichever one it was
+<Sirius> but I was 10 or something at the time I guess
+<SG_01> hehe, me too, somewhere around there anyhow
+<Xavier> I got through the whole thing then tried the next level of diff and just gave up
+<Xavier> Sg/Sirius, you guys in the forums yet?
+<Xavier> well we know Sirius is
+<Xavier> duh
+<Xavier> SG then
+<Sirius> yeah, I killed the open forums
+<SG_01> "You have specified an incorrect or inactive username, or an invalid password.
+<SG_01> "
+<SG_01> Did you get me active yet?
+<Xavier> there you go
+<Xavier> k make sure you can see the WIki content now
+<Xavier> you too Sirius
+<Sirius> ok
+<SG_01> Do I need to register on it?
+<Xavier> nope, you shold be set
+<Sirius> which username/password set is it for it?
+<Sirius> same as site or 
+<Sirius> um
+<Sirius> SVN?
+<SG_01> Both of those are giving me an invalid user/password thingy
+<Xavier> ok you should have an email
+<SG_01> Hrmm, not yet, but I'll give it a min
+<Xavier> go to the wiki and do forgot-my-assword
+<Xavier> *password
+<SG_01> Alright, got it
+<Xavier> :)
+* Taos sets mode: +o Xavier
+<SG_01> Does Ogre use that NVidia Cg library or something?
+<Xavier> their CgProgramManager plugin uses it
+<SG_01> Ah
+<Xavier> but since HLSL is basically Cg, and HLSL is supported by both nv and ATI, it's become the de facto 
+  standard for shader langs
+<Xavier> I don't build it as part of the engine code, I don't think
+<Xavier> if I do it can be turned off in the Configuration Manager in VS.NET
+<Xavier> Sirius, did we determine whetehr you had VS or not?
+<Sirius> I don't have the IDE, no
+<Sirius> I do have the rest of the tools, I believe...
+<Xavier> including C#?
+<Sirius> unless .NET 1.1 is out of date
+<Sirius> yes
+<[HJ]-Asmudius_Heng> later ppl i'll see ya round ... dont be afraid to drop into the CDT forum and have yer say!
+* [HJ]-Asmudius_Heng has quit IRC (Quit: )
+<Xavier> nope, 1.1 is still the standard
+<Xavier> 2.0 won't come out until the next Windows
+<Sirius> right
+<SG_01> 2.0 is nice for web stuff, but it's not the standard jsut yet :P
+<Xavier> hell, I think Mono will hve 2.0 support before windows does
+<SG_01> hehe
+* SG_01 is now known as SG_01`Zzz
+<Xavier> alright guys, I will copy this log and make it available via SVN (probably in the docs/ directory)
+<Sirius> k
+<Xavier> oh btw, I will be putting things on the site instead of int he Wiki from now on, and the latest info 
+  will always be on the site (so some thigns in the Wiki will be superseded)
+<Xavier> including the SVN directory structure and what and where and why
+<Taos> Xavier, I'll be home during the day most of this coming week and do some migration for you
+End of #cos-dev buffer    Sun Nov 06 01:49:52 2005

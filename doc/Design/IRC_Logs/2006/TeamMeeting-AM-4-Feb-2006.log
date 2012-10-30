@@ -1,0 +1,248 @@
+RedSpace so how are things going in the programming side?
+Xavier just about wrapping up this milestone I think
+RedSpace cool stuff
+Xavier can't really think of anything else we need to do for it -- have control of the model with all three input types (key, mouse, stick) -- it moves around obeying adjustable parameters (limits, accelerations etc)
+RedSpace did you get the torso twist working?
+Xavier we can choose missions and models at runtime (that was an extra for this milestone)
+Xavier that is what I wan to ttalk to Eli about
+Xavier wanna see if we can break that in the hierarchy during modelling
+Xavier we have a workaround for it but it's kinda kludgy and wastefull (in memory), since it keeps two copies of the same skeleton around to work
+RedSpace model construction is something we need to nail down for sure
+RedSpace esp silly things like how do we do tank tracks?
+RedSpace will it be a solid piece, but with an animated tex?
+RedSpace 'cause i'llneed to know that sort of thing when i leave the concept model behind and work on the game model
+Xavier there is a whole thread on tank tracks in the Ogre forums -- it's not straightforward, for sure
+Xavier I think that's the general consensus - animated texture
+Xavier with normal and displacement maps it can be made to look very realistic yet still be compuatationally inexpensive
+RedSpace that's certainly the name of the game
+Xavier yup...altho with the ability of vertex animation in Ogre now, it could be done that the tracks simply animate in three keyframes too...the biggest issue is how the hell to do that in the modelling tool ;)
+Xavier altho I'll bet there is a method of using path control on the track vertices to make it simpler to create the keyframes
+Xavier I need to know if Rixeh is still around...haven't heard from him in a while -- he was supposed to be doing an infantry model, but then there's been nothing since the first night
+Xavier lol
+Xavier Eli should be here any second
+Xavier heh I guess I should have given some advance notice, more than just the day before, about this early meeting ;)
+Xavier then again, I didn't decide on it until yesterday...
+* All_for_One (all_for_on@nbt-7455BA1.bchsia.telus.net) has joined #cos-dev
+Xavier yo
+Xavier up early ;)
+* Elisor (elisor@85D61D5.6F48E85D.631212C1.IP) has joined #cos-dev
+Xavier afternoon, Eli :)
+Elisor yo :)  is the first meeting now?
+Xavier aye
+Elisor oki doki.  afk 1 min
+Xavier np...Redspace brought up a couple of good questions: tank track animation, and also asked about the torso twist
+All_for_One just up
+All_for_One I know UT2k4's tank tread animation is texture panning
+Xavier on the first one, I wanted your opinion -- animated textures or actual vertex animations, are two of the options, can you think of anything else?
+All_for_One From playing around on LM's BF maps in BAs, I think W4
+All_for_One *MW4's are as well
+Elisor would think it would be easier with tex animation.  off hand I can't think of any other way
+Xavier that seems to be the standard way of doing it, ya -- with some good normal/displacement maps it can look good
+Xavier k, well I guess that answers that ;)
+Xavier next one: Eli, is there a way to be able to break the dependency chain on the skeleton during animation such that the whole skeleton does not rotate when the torso twists?
+Elisor Yes, just break the chain.  I'll check it now while we're talking.  But I do remember something in the exporter documentation warning about breaking chains
+Xavier hmm...does it export different skeletons if you do that, or something similar?
+Xavier we can break it during the loading by not sharing the skeleton between the torso and the main model, but then we have two copies of the same skeleton running around, which I was trying to avoid -- I suppose I could lop off the unused bones in each if it became an issue, but I wanted to find out first if there was an alternate way of doing it
+All_for_One How does mw4 do it?
+Elisor just one thing, the whole skeleton doens't move when you move the torso.  it's when you move the pelvis it all moves
+Xavier not a clue, but they aren't using Ogre either so I couldn't even begin to speculate on MW4's methods
+Xavier hmm...when we load the top part, which doesn't include the pelvis, and turn its node, the whole thing turns...if you rotate the upper spine in Max, the rest of the model doesn't move?
+Elisor no, if you move the spine in MAX just the spine/arms move
+Xavier hmm
+Elisor I've got MAX open now testing it to make sure
+Elisor it's not even the pelvis, it's the BIPED01 object that moves the whole thing
+Elisor if you open up one of the MAX files and select the Bip01 object, that's teh only one that'll move the whole skeleton
+* Elisor AFO plz look at your other windows
+Xavier looks like I get to investigate some .xml files ;)
+Xavier oh while I'm thinking about it, yes, I have not forgotten about fixing up the maxscript exporter to make your life easier ;)
+Elisor cool :)
+Xavier AFO, question for you: what factions will we be using for the internal alpha?
+Xavier one or more?
+All_for_One internal alpha?
+Xavier and do we have a complete set of "things" selected for use in the mission in that alpha?
+Xavier ya, the timeline has a first internal alpha release set for later this year
+Xavier likely Dec 2006
+Xavier that alpha will be a single mission on a single map involving a consistent set of completed models
+Xavier the first full game in other words -- even if it is just a single mission/map with a limited set of models
+All_for_One sorry,  I don't know, Heng is dealing with that part IIRC
+Xavier k
+Xavier on the programming front, we're just about done with this milestone
+Xavier we've got autopatching (a bit buggered right now, I'm working on that presently)
+Xavier got control of a model in the engine using all forms of input (mouse, keyboard, stick)
+Xavier we can select "mission" and "model" at launch
+Xavier so for the next few days it'll be cleanup and bugfixing on this milestone and development will begin on the features for the next one
+All_for_One though on the map thing I think heng has a thread up dealing with hypothetical map scenarios
+Xavier aye, but at some point someone needs to begin actually creating a terrain/landscape/level
+Xavier not sure which of our modellers is most keen on that
+All_for_One could we use RL greyscale satellite pic?
+Xavier we could try and see how it turns out -- it needs to be N^2+1 x N^2+1
+Xavier and 8- or 16-bit greyscale
+Xavier the texture(s) that go on it are of course a different matter
+All_for_One I know it worked in MW4 in MP3 on that titan base map
+Xavier and even then, there are any number of different things we can do to the terrain texture
+Xavier k
+All_for_One it's heightmap is one of the actual pics of titan
+Xavier well then it works in Ogre because that Canyon map I got from Lynx directly out of some MW4 extract
+All_for_One could we maybe go pester Ash if he'd like to whip us up something?
+Xavier might want to run that by DP and Taos first; is Ash still even remotely involved?
+All_for_One don't think so
+All_for_One or just maybe get someone in the mw4 world to do it for us and for mw4.
+Xavier real quick on the development milestones - I think I will swap the featureset for 0.3 and 0.4 milestones a bit...0.3 should have networked multiplayer support and scripting, and audio support pushed off to 0.4
+Xavier I think we can find someone internally to do it
+Xavier the easy part is the heightmap
+All_for_One yeah
+RedSpace Magnus is pretty hot with map creation isn't he?
+Xavier the hard part is a good looking texture
+All_for_One yes
+All_for_One he's behind the BF maps and everything you see in them
+All_for_One and most of the other maps in MP3
+Xavier the main thing is that it follows the theme of whichever planet we've selected (Haven?)
+Xavier pick one zone, one section, and do it right
+RedSpace it strikes me it would be good to get him involved with the project
+All_for_One jeho did titan base and that deathmatch-but-really-a-TKOTH map
+All_for_One he
+All_for_One is heavily in mektek, but no harm trying
+Xavier hmm I'd rather not bring in someone with that strong a relationship with an agency that seems to be biased against the project simply because of its relationship to DP
+Xavier I think we can probably homegrow the talent, honestly
+Xavier again, the heightmap is easy, the texures are a big 2-D project more than anything
+All_for_One I'll ask anyways
+RedSpace so we'd be more interested in gaining some more 2d artists?
+Xavier Eli, on the Scorpion, you said you had a new animation? was it exported and committed yet?
+Xavier RedSpace: one good one would be nice
+Elisor no reason you can't take an existing grey-scale and tex satellite map of part of the earth and use that
+Elisor no, I said I'd do a new one ;)  havne't had time to work on it yet
+Xavier k
+RedSpace @X: Godhammer seems to be quite good
+RedSpace he created a nice texture for his mech in HC
+Elisor AFO, would you expect both legs on each side to move at the same time?  the alternative is to have the front legs then the back.  would give almost a rabbit kind of movement
+Xavier RedSpace: feel free to ask him ;)
+RedSpace rgr
+All_for_One legs across from each other and on the same side would be opposite to each other
+Elisor so diagonal legs would move together?
+All_for_One so like RF, LR, LF RR
+RedSpace that would be logical
+Elisor ok, cos that's how it moves now
+All_for_One dunno, I'm getting that error you are
+Elisor but it's a very jerky, awkward movement
+* All_for_One pokes xav
+Elisor dl that file I mentioned in the other window and then you can look at the source MAX file in the SVN
+All_for_One k
+Xavier I know I know...I'm working on one other thing I forgot to mention for 0.2....a progress window that shows you what files are being downloaded ;)
+Xavier and also trying to figure out what borked the download process as well...
+Elisor weird was when I was downloading those "zip" files a few days ago I'm sure they were 600+ kb.  The ones I dl'd and don't work were 200+ Kb
+Xavier oh and Eli...we'll need several animations for each model, of course....MACROs will have not only the startup and walk, but also "stamping of feet" for while they are turning, something for in-air movements while jumping, a landing animation for after the jump...and not sure what to do for falling/exploding/etc
+Xavier they are different sizes
+Xavier kana is 600k
+Xavier scorp is 200k
+Elisor nuderstood.  do you have a categorical list of anims that are needed for each model?
+Xavier shogun is 1.4M
+Xavier er
+Xavier 1.0M
+Xavier tbolt is 2.1M
+Xavier mostly depends on the textures involved...I'm going to have to start removing those to a central location (the textures.zip file) so that they dont' clash when loading
+Xavier um, not yet
+Xavier we'll go over this again tonight and brainstorm on that list -- right now that's all I coudl think of
+Xavier and that's just for MACROs ;)
+Xavier infantry models are another story
+Xavier oh, and little things like missle flaps that open --- plan on doing those as vertex animations, not skeletal
+Xavier we'll just blend the two at runtime
+Elisor k.  I'd like to get to get one model completely animated start to finish.  prolly the Kana cos that's just sooooooooooo damn cute
+Xavier hehe yup :)
+Xavier and the texture looks really good
+Xavier even if it is a MW4 model :p
+Elisor would like to do the Engel.  Having the soldier in there + the dangly bits gives a lot of artistic licence
+Xavier which is that?
+All_for_One the one with the wing-things
+Xavier ours? 
+Elisor yeah it's one of AFO's concepts
+* Xavier confesses to not having kept up on all the concepts as they go whizzing by ;)
+Elisor just having problems with normals on AFOs models :P
+Xavier kewl...the more of our own stuff the better obviously ;)
+All_for_One http://www.clashofsteel.net/all_for_one/engel3.jpg
+Elisor he's got some juicy concepts, it's just getting them properly normalled that's taking time.  
+All_for_One though I've since gotten rid of the forward/top gun/wing
+* Elisor nudges AFO to try max :P
+Xavier what do you use AFO?
+All_for_One rhino
+RedSpace that should be a interesting challenge to animate Eli
+Xavier two-sided polys, eh? ;)
+All_for_One yes
+All_for_One though I can check the normals and flip them one at a time
+* Xavier points to the Modellers' Guide on two-sided normals :p
+Xavier er\
+Elisor _really_ looking forward to it Redspace.  it'd look phrickin excellent animated
+Xavier two-sdied polys
+RedSpace would a 2 sided normal be abnormal?
+Xavier lol
+All_for_One games only use on-sided
+Elisor I've tried DeepEx and MAX to sort out the normals.  deepex sorted out the Shogun, but didn't sort out the other three
+All_for_One *one-sided
+Elisor had to make the Shogun double-sided
+Xavier Blender did a bang-up job on sorting the normals and two-sided
+RedSpace it certainly sorted out my trebuchet model out
+Xavier for shadowing reasons we don't want two-sided polys
+RedSpace did you get any further with your experiments with that model Xav?
+Xavier Eli, you shouldn't have to deal with it -- the models are supposed to come to you already cleaned up
+Xavier no, I think I am going to have taos lean on Lupus to use ZBrush to do it
+Elisor I know, but I wanted to play with AFO's concepts so took the time to try to import them.  told ya I thought they were juicy ;)
+Xavier but then I have not had a chance since then to try any of the other tools -- been busy with this other stuff :(
+Xavier lol k
+* Xavier puts normal mapping on the nearterm to-do list
+Xavier I have your model and the rifle of AC's to work with
+Elisor do you need any other animated models, or should I concentrate on the ones that've been done and get them totally animated?
+Xavier RedSpace, is your Terb ready for animation?
+Xavier *Treb
+Xavier eli: so far this is still prototyping -- probably we'll go ahead and sort out the complete list of animations needed (as well as the speed factors to use for the length of each animation), something we'll do hopefully tonigiht
+Xavier actually, we can just put a static number on the stride-length I think
+Xavier I'll just scale it at runtime to match the model's top speed
+* Xavier makes another note to get the model params from script so that the designers can tweak that stuff at runtime without rebuilding
+Xavier so basically, Eli, we'll continue refining the animations we have and figuring out which ones we need
+Xavier RedSpace, is the Treb ready for animation?
+Elisor oki doki.  when we can see the work in-game as well it'll give better feedback on changing the anim
+Xavier right
+* Xavier makes another note to provide a small tool to create .cos model files ;)
+Xavier that one I already have in progress tho
+Xavier I still am working on this CDK, but it's slow going with everything else that needs to be done :(
+Xavier I need two more goo dprogrammers :(
+Xavier anything else we need to talk about? anyone have any questions about the state of the project or the roadmap?
+Xavier Eli, you had asked about the cinematic trailer...that will rely on completion of the internal alpha at least, for in-game shots
+Xavier as for standard film-level CG, that can be done at any time but we need a storyboard first, something I don't expect to start considering for a few months yet
+RedSpace @ Xav: I've just checked the Treb, all 2 sided polys have been delt with and it's textured, just not fantastically
+Xavier so long as it's got at least one level of UV coords, it's better than plastic Phong shading ;)
+Xavier the texture can be fixed later
+Elisor oki doki Xav
+Xavier go ahead and drop that in your folder in SVN, Red, and Eli can pick it up from there -- format is .blend?
+Xavier actually, just export it to .obj and .mtl
+Xavier Lightwave that is
+Xavier Eli can import those
+Elisor sure
+Elisor you're usingn Lightwave, Redspace?
+Xavier thought he was using Blender
+RedSpace Wings
+Xavier ah that's right
+Xavier but I am guessing the best interchange format right now is still Lightwave .obj/.mtl
+Elisor plz export it as a .obj plz along with the tex
+RedSpace rgr
+Xavier drop those in your SVN folder
+Xavier Eli, do you want to be on the SVN email list? you'll get all of the programming commit messages, but you can also see when stuff is added to the models/ folders
+Elisor sure
+Xavier k
+Elisor elisor@clashofsteel.net ;)
+Xavier aye :)
+Xavier k, anyone have any questions or comments?
+Elisor nope
+RedSpace where's the donuts?
+Xavier lol
+Xavier then I'll compile this into notes for tonight's meeting and build a set of minutes from both meetings :)
+RedSpace Eli: Treb.zip is the file u want
+Xavier next month I'll be sure to announce this early one well in advance so that we can get a bit higher attendance ;)
+Elisor oki doke's is it in the svn?
+RedSpace Any extra ideas to improve the AA tank?
+RedSpace yes
+All_for_One looks good
+RedSpace are you using the size for lasers as a moddeling guide or in game too?
+All_for_One both
+Xavier excellent, thanks everyone for coming, even if it was a lower turnout than I hoped, we covered some good items -- like I said next time I expect to have more of us here at this hour (maybe even DP for a change ;)
+All_for_One http://www.clashofsteel.net/all_for_one/cosspeeds2.xls if you want to play around in that mess of a sheet
+Xavier (not trying to cut you off, sorry :( )
+All_for_One that is everything I have thus far

@@ -1,0 +1,619 @@
+[2007-03-04 08:16:06] -->| Taos (Taos@nbt-781AD675.abhsia.telus.net) has joined #cos-dev
+[2007-03-04 08:16:30] * Taos pokes Xavier with a stick
+[2007-03-04 08:17:23] * Taos sharpens stick and pokes Xavier again
+[2007-03-04 08:17:30] <Xavier> :p
+[2007-03-04 08:17:56] <Taos> how's it goin aside from crazy?
+[2007-03-04 08:18:28] <Xavier> not bad, you?
+[2007-03-04 08:18:59] <Xavier> this project's moving forward, work is great, going to GDC all next week...it's 70 and sunny here in CA, can't ask for much more :)
+[2007-03-04 08:19:05] <Taos> was already crazy so can't get any worse
+[2007-03-04 08:20:48] <Taos> do we have any artistic talent left in the project or is that gonna have to be built up again?
+[2007-03-04 08:21:20] <Xavier> goign to have tpo be built up again
+[2007-03-04 08:21:29] <Xavier> we need to start with a concept artist and an art lead tho
+[2007-03-04 08:21:54] <Taos> I have a pretty good idea how to do it successfully
+[2007-03-04 08:22:15] <Xavier> I know for a fact what works in practice ;)
+[2007-03-04 08:22:32] <Xavier> and the reason our art has lagged or died is there is no good concept art to work from
+[2007-03-04 08:22:33] <Taos> paying them :P
+[2007-03-04 08:22:45] <Taos> yeah
+[2007-03-04 08:22:46] <Xavier> that too
+[2007-03-04 08:23:25] <Taos> I think we need another open discussion like the one that sparked the project
+[2007-03-04 08:23:44] <Xavier> well there's supposed to be a meeting tonight ;)
+[2007-03-04 08:24:14] <Taos> yeah
+[2007-03-04 08:24:37] <Xavier> I've been moving forward with the tools and tech tho regardless -- once the art issues get sorted out we'll need to have those, and ideally immediately upon sorting those issues
+[2007-03-04 08:24:39] <Taos> providing nothing blows up at work between now and then I should be about
+[2007-03-04 08:25:21] <Taos> will talk with Gohan a bit beforehand also if I get the chance
+[2007-03-04 08:25:51] <Xavier> sweet :)
+[2007-03-04 08:28:12] <Taos> nearing a point yet where the topic of game logic can start to be addressed?
+[2007-03-04 08:28:35] <Taos> or is the platform still too far from control?
+[2007-03-04 08:35:01] <Xavier> we're getting near that point, yes
+[2007-03-04 08:40:00] <Xavier> the engine side will take care of the logic in terms of how various classes of actors behave -- MACROs, MICROs, infantry, and so on
+[2007-03-04 08:40:52] <Xavier> the game side actually largely will be data-driven -- the parameters that define the various behaviors for each instance of a particular actor type will all come from the game data
+[2007-03-04 08:42:08] <Xavier> in fact I can't think of much that the "client" code (client of the engine API that is) will do other than set the data file path 
+[2007-03-04 08:42:53] <Xavier> the engine design is almost completely data-driven 
+[2007-03-04 08:43:41] <Xavier> and things like MP scorekeeping/refereeing and UI action handling will be scripted
+[2007-03-04 08:46:29] |<-- Xavier has left irc.netbattletech.com (Connection reset by peer)
+[2007-03-04 08:47:41] -->| Xavier (Xavier@nbt-8E7341B5.hsd1.ca.comcast.net) has joined #cos-dev
+[2007-03-04 08:47:41] =-= Mode #cos-dev +qo Xavier Xavier by ChanServ
+[2007-03-04 08:47:47] <Xavier> stupid router
+[2007-03-04 08:50:16] <Taos> hmm, so there should actually be a rather light scripting load when we're ready to put the engine to work
+[2007-03-04 08:50:54] <Xavier> pretty much
+[2007-03-04 08:51:07] <Xavier> and it won't really be much of a programming language either
+[2007-03-04 08:51:17] <Xavier> I expect more of a state-machine design for the scriptingt
+[2007-03-04 08:51:33] <Taos> mostly references and probably XML value sheets
+[2007-03-04 08:52:09] <Xavier> even more straightforward than that
+[2007-03-04 08:52:40] <Taos> hmm, I'd take a look at what your up to so far but I've gone and lost my svn password again
+[2007-03-04 08:52:49] <Taos> I think
+[2007-03-04 08:53:19] <Taos> can't recall if I just broke down and gave you my regular code last time or not
+[2007-03-04 08:54:51] <Xavier> I've changed you to taos for both u and pwd
+[2007-03-04 08:55:05] <Taos> oh
+[2007-03-04 08:55:15] <Xavier> you can go to https://svn.netbattletech.com:8445 to change it
+[2007-03-04 08:55:22] <Xavier> no, I meant I just changed it ;)
+[2007-03-04 08:55:41] <Taos> ah, nice
+[2007-03-04 08:56:55] <Taos> hmm, guess the page needs to be reloaded before it takes it
+[2007-03-04 08:59:46] <Xavier> ?
+[2007-03-04 09:00:07] <Taos> nothin, took a bit to realise the password was changed, all working fine now
+[2007-03-04 09:00:18] <Xavier> :)
+[2007-03-04 09:04:08] <Xavier> when you get the stuff open studio.exe, and then with that open the Test.nsproj file in the data directory
+[2007-03-04 09:04:38] <Xavier> it's rudimentary right now but it is fully functional in terms of building the data files needed
+[2007-03-04 09:04:40] <Xavier> however
+[2007-03-04 09:05:02] <Xavier> you need the individual resource files in cos/trunk/nese/bin/data
+[2007-03-04 09:05:26] <Xavier> actually you want to open cos/tunk/nese/bin/data/Test.nsproj
+[2007-03-04 09:05:49] <Xavier> since the data file directories are relative to the location of the .nsproj (a lot like VS)
+[2007-03-04 09:06:03] <Xavier> that way you have access to the individual data files
+[2007-03-04 09:06:45] <Taos> kk
+[2007-03-04 09:07:11] <Taos> still roaming bout the forums getting an idea of what I've missed in the past few months
+[2007-03-04 09:08:17] <Taos> work is starting to get back to normal and I have some holiday time coming up that I'm going to be at my dad's with nothing to do during the days so I'm trying to get back into the swing of things I've neglected recently
+[2007-03-04 09:08:55] <Xavier> :-D
+[2007-03-04 09:09:32] <Taos> he's still having problems with his health so I'm planning to spend as much holiday time out there as I can this year
+[2007-03-04 09:09:44] <Taos> got 5 weeks, booked 2 in april so far
+[2007-03-04 09:10:18] <Xavier> sorry to hear -- I do recall you saying he was having problems last year
+[2007-03-04 09:10:56] <Taos> near lost him, he's doing much better, well enough to be back to work but he's on permanent light duty and not allowed to work by himself anymore
+[2007-03-04 09:11:38] <Taos> they have him training apprentices so that the apprentices can do the real work and he just answers questions all day
+[2007-03-04 09:11:59] <Taos> or that's how it's supposed to be anyhow, bit stubborn
+[2007-03-04 09:12:45] <Taos> got me a new system :D
+[2007-03-04 09:13:32] <Taos> built me a core 2 desktop bout 2 weeks ago
+[2007-03-04 09:14:17] <Taos> now I'm saving my nickels for june when the X2000 series radeon's are due to ship
+[2007-03-04 09:17:03] <Xavier> hehe
+[2007-03-04 09:17:08] <Xavier> you and ATI :p
+[2007-03-04 09:17:52] <Xavier> I still can't think of a reason to upgrade from my P4 3.0 6800GT rig
+[2007-03-04 09:17:59] <Xavier> it plays FEAR fine in high/maximum
+[2007-03-04 09:18:11] <Xavier> and now really it just runs Linux all the time ;)
+[2007-03-04 09:20:37] <Taos> I did the Nvidia thing and got burnt bad by crap drivers, I've had my problems with ati but always been able to sort them but nvidia has caused me endless grief and for that I will stick with ati
+[2007-03-04 09:22:09] <Taos> besides, I take visual and color quality over a few points in framerate any day, if my framerate is that bad that it's unplayable it's time for an upgrade
+[2007-03-04 09:27:01] <Xavier> right on
+[2007-03-04 09:27:12] <Xavier> I am off for a shower and then out till about 6ish PST
+[2007-03-04 09:27:19] <Taos> later
+[2007-03-04 09:27:21] <Xavier> back in time for the meeting, if anyone shows up ;)
+[2007-03-04 09:27:30] <Taos> if anyone's left :(
+[2007-03-04 09:27:46] <Xavier> mostly programmers and designers
+[2007-03-04 09:27:49] <Taos> I'll poke SG in a bit here and see what he's up to
+[2007-03-04 09:27:59] <Xavier> not many artists left -- I think we have two actually working on stuff
+[2007-03-04 09:28:03] <Xavier> rgr
+[2007-03-04 09:28:04] <Xavier> ttyl :)
+[2007-03-04 09:28:16] <Taos> yeah, and both are conceptualists as much as artists
+[2007-03-04 09:45:43] <Xavier> in AFO's case
+[2007-03-04 09:45:57] <Xavier> but ya, we don't have any actual complete modelers
+[2007-03-04 09:46:06] <Xavier> meaning they don't really know how to finish it up
+[2007-03-04 09:46:14] <Xavier> that's where an experienced art lead would come in handy
+[2007-03-04 09:55:48] <Xavier> bbl
+[2007-03-04 13:44:56] |<-- ToxicSoul has left irc.netbattletech.com (Connection reset by peer)
+[2007-03-04 14:14:28] -->| ToxicSoul (admin@irc.netbattletech.com) has joined #cos-dev
+[2007-03-04 14:19:29] <Xavier> back and afk again for a bit
+[2007-03-04 14:48:38] -->| Gohan (Gohan@nbt-9C8E5ECB.dsl.chcgil.sbcglobal.net) has joined #cos-dev
+[2007-03-04 15:04:37] <Xavier> gohan
+[2007-03-04 15:04:45] <Xavier> you get no error messages, no anything?
+[2007-03-04 15:04:50] <Gohan> nope
+[2007-03-04 15:04:53] <Gohan> nothing launches
+[2007-03-04 15:05:01] <Xavier> oh wait
+[2007-03-04 15:05:08] <Xavier> you need to get them on your local machine
+[2007-03-04 15:05:17] <Xavier> you can't just run them from the web folder, unfortunately
+[2007-03-04 15:05:26] <Gohan> that is what I originally asked! :P
+[2007-03-04 15:07:14] <Xavier> ya I just realized that ;)
+[2007-03-04 15:07:31] <Xavier> forgot not all of us are using an SVN client :)
+[2007-03-04 15:07:41] <Gohan> I had one before
+[2007-03-04 15:07:46] <Gohan> but it would never stop running
+[2007-03-04 15:08:24] <Gohan> so, copy/paste resources onto my drive?
+[2007-03-04 15:08:56] <Xavier> well copy what is in releases to your local drive, aye
+[2007-03-04 15:09:07] <Xavier> you can just copy the whole releases/ folder if you like
+[2007-03-04 15:10:54] <Gohan> "The application failed to start because the application configuration is incorrect. Reinstalling the application may fix this problem."
+[2007-03-04 15:11:14] <Xavier> didn't ask for any particular D3D DLL?
+[2007-03-04 15:11:17] <Gohan> nope
+[2007-03-04 15:11:25] <Xavier> is there a katana.log?
+[2007-03-04 15:11:32] <Gohan> nope
+[2007-03-04 15:11:35] <ToxicSoul> im checking out right now btw xavier
+[2007-03-04 15:11:44] <ToxicSoul> I just need to apply that damn patch and I'll be good to go
+[2007-03-04 15:11:46] <Gohan> does it matter that I do not have .NET 2.0 installed
+[2007-03-04 15:11:50] <Xavier> so it's missing an executable DLL and it won't tell you which one :(
+[2007-03-04 15:12:04] <Xavier> no, the EngineTest exe doesn't use .NET
+[2007-03-04 15:12:15] <Xavier> trying to run the Studio app, it will -- that's .NET 2.0
+[2007-03-04 15:12:55] <Xavier> did it give you any hex digits in the error message?
+[2007-03-04 15:13:01] <Xavier> or just that stupid message?
+[2007-03-04 15:13:14] <Gohan> just the message
+[2007-03-04 15:13:26] <ToxicSoul> lol @ the patch - this may take several minutes to several hours depending on what you have installed
+[2007-03-04 15:13:26] <Xavier> k do this for me
+[2007-03-04 15:13:51] <Xavier> get the Dependency Walker tool from  www.dependencywalker.com
+[2007-03-04 15:14:11] <Xavier> unpack it somewhere, run depends.exe and File-->Open the EngineTest.exe
+[2007-03-04 15:14:31] <Xavier> it will have yellow things at the bottom next to the DLLs it can't find
+[2007-03-04 15:14:38] <Xavier> msjava you can ignore
+[2007-03-04 15:14:53] <Xavier> it is probably looking for one of the msvcr80 DLLs
+[2007-03-04 15:15:05] <Xavier> which should have been installed with the redist thing you installed from MS
+[2007-03-04 15:17:30] <Xavier> btw this is the sort of BS that statically linking the exe will solve -- with no DLLs it needs to load, this will cease to be a problem...first tho I need to figure out how to get the GUI library to work static-linked, or find a new GUI lib
+[2007-03-04 15:18:09] <Gohan> MSVCP80.DLL
+[2007-03-04 15:18:12] <Gohan> MSVCR80.DLL
+[2007-03-04 15:18:17] <Gohan> DWMAPI.DLL
+[2007-03-04 15:18:28] <Xavier> which module is looking for the MSVC ones>?
+[2007-03-04 15:19:46] <Gohan> there :P
+[2007-03-04 15:24:12] <Xavier> enginetest ceguibase and ogremain all have it
+[2007-03-04 15:24:23] <Xavier> which means none of the DLLs are gonna work
+[2007-03-04 15:24:26] <Xavier> wtf
+[2007-03-04 15:24:35] <Xavier> wonder if the redist is VS SP1 or not
+[2007-03-04 15:24:36] <Xavier> hmm
+[2007-03-04 15:24:44] <ToxicSoul> ?
+[2007-03-04 15:25:28] <Xavier> go to c:\windows\winsxs and look for x86_microsoft_VC80.CRT*
+[2007-03-04 15:25:34] <ToxicSoul> Ithought thats why you used VS SP1 =p
+[2007-03-04 15:25:35] <Xavier> and tell me if you have one or two of them
+[2007-03-04 15:26:38] <Gohan> 3
+[2007-03-04 15:26:57] <Xavier> weird -- it should definitely find one of them :\
+[2007-03-04 15:27:46] <Xavier> go inside each one in turn -- copy the DLLs in there to where your exe is and try again (not sure this will work at all, to be honest)
+[2007-03-04 15:28:13] <Xavier> if one of them does, let me know which one (the whole directory name) and I'll add those to the releases/ folder
+[2007-03-04 15:28:38] <Gohan> nope, all failed
+[2007-03-04 15:28:39] <Gohan> same error
+[2007-03-04 15:28:42] <Xavier> I fail
+[2007-03-04 15:28:44] <Xavier> lol
+[2007-03-04 15:28:46] <Gohan> lol
+[2007-03-04 15:28:54] <Xavier> ya VC80 runtimes don't work like that anymore :(
+[2007-03-04 15:28:58] <Xavier> hmm
+[2007-03-04 15:29:27] <Xavier> I'm going to copy both of mine up to releases/
+[2007-03-04 15:29:54] <Xavier> copy both directories over to c:\windows\winsxs and see if this works (if it asks about copying over existing directories, don't)
+[2007-03-04 15:31:06] <Gohan> nope
+[2007-03-04 15:31:08] <Gohan> same error
+[2007-03-04 15:31:43] <Xavier> well I just now finished uploading them :p
+[2007-03-04 15:31:51] <Gohan> oh
+[2007-03-04 15:32:51] <ToxicSoul> wow this patch is killing me
+[2007-03-04 15:32:52] <ToxicSoul> =(
+[2007-03-04 15:33:02] <Gohan> one copied over
+[2007-03-04 15:33:08] <Gohan> the other asked to copy over
+[2007-03-04 15:33:19] <Xavier> it takes a long time tox -- it was like a half hour on my core2 at work
+[2007-03-04 15:34:01] <ToxicSoul> ouch
+[2007-03-04 15:34:18] <ToxicSoul> well it will be near an hour on my 64 3200 then
+[2007-03-04 15:34:19] <ToxicSoul> lol
+[2007-03-04 15:34:37] <Xavier> nah it was about an hour on my P4 3.4 laptop too ;)
+[2007-03-04 15:34:51] <Xavier> I really do think it's actually patching isntead of just copying over files
+[2007-03-04 15:34:57] <Xavier> which is stupid IMO
+[2007-03-04 15:35:01] <ToxicSoul> agreed
+[2007-03-04 15:35:02] <Gohan> x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.762_x-ww_6b128700 copied into the folder no problem
+[2007-03-04 15:35:11] <Gohan> the other I did not allow
+[2007-03-04 15:35:14] <Gohan> still failed, same error
+[2007-03-04 15:35:17] <Xavier> k you already had it then
+[2007-03-04 15:35:18] <Xavier> hmm
+[2007-03-04 15:35:21] <ToxicSoul> Probably saving them a few hundred TBs overall ... but still
+[2007-03-04 15:35:22] <ToxicSoul> lol
+[2007-03-04 15:35:33] <Xavier> well I guess it's missing registry entries -- worth a try anyway
+[2007-03-04 15:35:56] <Xavier> I may just intensify my efforts to static link the exe then
+[2007-03-04 15:36:01] <Xavier> with no help from MS
+[2007-03-04 15:36:16] <Xavier> lemme see if there's a redist in the VS directories somewhere
+[2007-03-04 15:37:54] * Xavier gets an idea
+[2007-03-04 15:38:07] <Xavier> just gonna do a tiny little app and pack it up in the MS installer
+[2007-03-04 15:38:08] <ToxicSoul> C:\Program Files\Microsoft Visual Studio 8\VC\redist
+[2007-03-04 15:38:25] <Xavier> ya -- the manifest in there needs to be built in so that an installer can install it properly yada yada
+[2007-03-04 15:38:45] <Xavier> btw this was supposed to fix DLL hell -- it did....by making it *our* problem instead of Windows'
+[2007-03-04 15:38:47] <Xavier> bastardos
+[2007-03-04 15:38:52] <ToxicSoul> lol
+[2007-03-04 15:40:08] <Xavier> I may have to do this at work too -- exact same problem there
+[2007-03-04 15:40:24] <Xavier> the artists and designers don't have VS on their machines
+[2007-03-04 15:40:55] <Xavier> our IDE is also a .NET app, but I added some managed-C++ wrappers to it recently and it won't work on non-VS machines ;)
+[2007-03-04 15:41:07] <ToxicSoul> lol
+[2007-03-04 15:41:43] <ToxicSoul> yeah I bet they're happy about hat
+[2007-03-04 15:41:45] <ToxicSoul> that*
+[2007-03-04 15:42:15] <ToxicSoul> the thing is if people have the redist it should work.
+[2007-03-04 15:43:44] <ToxicSoul> *sigh* I think the patch is frozen
+[2007-03-04 15:43:50] <ToxicSoul> no change in ram or CPU usage really
+[2007-03-04 15:44:04] <Gohan> so, uh, what is next after ... after burner ;)
+[2007-03-04 15:46:04] <Xavier> hehe
+[2007-03-04 15:46:04] <Xavier> can't say
+[2007-03-04 15:46:11] <Xavier> all I can say is that it's a THQ title
+[2007-03-04 15:46:17] <Xavier> as yet unannounced
+[2007-03-04 15:46:22] <Xavier> on a next-gen console
+[2007-03-04 15:46:30] <Xavier> let it go tox
+[2007-03-04 15:46:34] <Xavier> it'll be like that for a while
+[2007-03-04 15:46:49] <Xavier> ok you should have a setup1.msi in the releases folder Gohan
+[2007-03-04 15:46:53] <Xavier> er
+[2007-03-04 15:46:57] <Xavier> not yet
+[2007-03-04 15:47:00] <Xavier> now you should
+[2007-03-04 15:47:01] <ToxicSoul> *sigh* I'm going to go watch some TV then
+[2007-03-04 15:47:01] <ToxicSoul> lol
+[2007-03-04 15:47:02] <Gohan> hmm, THQ, next-gen ...
+[2007-03-04 15:47:10] <Xavier> install that setup1.msi
+[2007-03-04 15:47:18] <Xavier> it should set up the runtime DLLs correctly
+[2007-03-04 15:47:25] <Xavier> then try to run the enginetest
+[2007-03-04 15:49:29] <Gohan> well I know it is WH40k MMO because that is already announced
+[2007-03-04 15:49:32] <Gohan> it is not*
+[2007-03-04 15:49:36] <Xavier> lol
+[2007-03-04 15:49:36] <Gohan> it is not the**
+[2007-03-04 15:50:02] <Gohan> I guess it is not stuntman: ignition neither
+[2007-03-04 15:52:36] <Gohan> tetris: evolution or motogp '07 would be my guesses, but those are, again, announced
+[2007-03-04 15:52:37] <Gohan> I give up
+[2007-03-04 15:52:56] <Xavier> hehe you probably won't figure it out -- it's a fairly innovative concept
+[2007-03-04 15:56:24] <Gohan> it worked
+[2007-03-04 15:57:00] <Xavier> sweet
+[2007-03-04 15:57:08] <Gohan> ended up using 100% of my cpuz
+[2007-03-04 15:57:18] <Xavier> I can remove that extra download from the forums and also know how to fix the issue at work ;)
+[2007-03-04 15:57:44] <Xavier> now do me a favor, and uninstall that Tiny thing and see if it still works (if it leaves the DLLs behind)
+[2007-03-04 15:58:15] <Xavier> it will use 100% for now -- it's got several free-running threads in it -- non-throttled -- which will just run
+[2007-03-04 15:58:25] <Xavier> but the rest of the system should be responsive still
+[2007-03-04 15:58:35] <Gohan> had to kill it via task manager
+[2007-03-04 15:58:45] <Xavier> you'll need to ALT-TAB off it to get to other apps -- the window is not fully "well-behaved" yet ;)
+[2007-03-04 15:58:51] <Xavier> you can just hit ESC
+[2007-03-04 15:58:55] <Xavier> to exit
+[2007-03-04 16:00:32] <Gohan> deleted the file and it still worked
+[2007-03-04 16:00:44] <Xavier> most xlnt
+[2007-03-04 16:01:42] <Xavier> ok so you saw 4 Kana's
+[2007-03-04 16:01:47] <Xavier> from different views
+[2007-03-04 16:01:53] <Gohan> yup
+[2007-03-04 16:02:02] <Xavier> you don't have .NET 2.0 so you probably can't run the Studio.exe app
+[2007-03-04 16:02:12] <Xavier> top-notch -- nice to know that works
+[2007-03-04 16:02:17] <Xavier> thanks! :)
+[2007-03-04 16:02:19] <Gohan> tried the studio thing and it fails
+[2007-03-04 16:03:06] <Gohan> now to see if anybody else shows up tonight ;)
+[2007-03-04 16:03:35] -->| Slit (Slit@nbt-6672902D.client.stsn.net) has joined #cos-dev
+[2007-03-04 16:07:23] <Xavier> slit@!
+[2007-03-04 16:07:41] <Xavier> well the engineers are all now well-represented ;)
+[2007-03-04 16:07:49] <Xavier> me slit tox sirius
+[2007-03-04 16:08:02] <Slit> hola
+[2007-03-04 16:08:09] <Xavier> gohan reprazent the design team, Taos the project mgmt :)
+[2007-03-04 16:08:30] <Gohan> I represent the oh so sexy public relations sex kitten crew
+[2007-03-04 16:11:52] <Xavier> booth girls, woot!
+[2007-03-04 16:12:20] <Gohan> in hotel rooms
+[2007-03-04 16:12:23] <Gohan> at "E3"
+[2007-03-04 16:12:24] <Gohan> awesome
+[2007-03-04 17:00:12] <Xavier> k I suppose we should start
+[2007-03-04 17:00:24] <Xavier> who is here and responsive?
+[2007-03-04 17:00:36] <Slit> lurking
+[2007-03-04 17:00:50] <Gohan> watching MUGEN videos but I am in ur base killing ur DLL filez
+[2007-03-04 17:01:39] <Taos> here but nobody told me I had to be responsive :P
+[2007-03-04 17:02:10] <Xavier> lol
+[2007-03-04 17:02:14] <Xavier> and tox is here too I think
+[2007-03-04 17:02:22] <Xavier> ok well it's a high-level meeting then ;)
+[2007-03-04 17:02:23] <Xavier> so
+[2007-03-04 17:02:30] <Xavier> I've posted up where we stand in that thread
+[2007-03-04 17:02:36] <Xavier> what progress we've made
+[2007-03-04 17:02:51] <Xavier> it took longer to redesign the engine than I thought but it's worth ti
+[2007-03-04 17:02:52] <Xavier> it
+[2007-03-04 17:03:02] <Xavier> in the end what we will have is an engine that is largely data-driven
+[2007-03-04 17:03:16] <Xavier> with scripting ability for MP logic and UI action handling
+[2007-03-04 17:03:58] <Xavier> the scripting will be limited in scope, mainly state-machine processing with access to a set of engine objects whose scope is TBD
+[2007-03-04 17:04:19] <Xavier> so, in theory, and entire game can be created without writing a single line of C++
+[2007-03-04 17:04:33] <Xavier> which is good in general, not just for mods
+[2007-03-04 17:05:07] <Xavier> in terms of managing the game data, we're creating an IDE in C# that can be used to build all of the game's data files
+[2007-03-04 17:05:40] <Xavier> I've put a lot of potential features in the IDE -- you can see these in the TODO list I recently put in SVN
+[2007-03-04 17:05:59] <Xavier> basically the Studio IDE will be where the game is created
+[2007-03-04 17:06:09] <Xavier> and the engine will take care of the domain-specific logic
+[2007-03-04 17:06:26] <Xavier> that is, anything that pertains in general to how various actor types behave in the sim
+[2007-03-04 17:06:36] <Xavier> MACROs, MICROs, infantry, and so on
+[2007-03-04 17:07:04] <Xavier> the data that descibes each particular instance of an entity that the engine understands will be manipulated in the IDE
+[2007-03-04 17:07:24] <Xavier> art assets will be created the normal way, and assigned to actors in the IDE
+[2007-03-04 17:07:36] <Xavier> we have an exporter for Max that is functional at this time
+[2007-03-04 17:08:06] <Xavier> I haven't tested the skeletal animation yet in the engine, and have not yet included vertex animation support, but it's pretty much what we need for now
+[2007-03-04 17:08:22] <Xavier> that's the high-level description of where we are and where we are headed
+[2007-03-04 17:08:32] <Xavier> project-wise, we are still at a standstill in art
+[2007-03-04 17:08:46] <Xavier> for the interim, we are planning to use free or cheap models as placeholders
+[2007-03-04 17:09:00] <Xavier> but for art, our first needs are concept artist(s) and art lead
+[2007-03-04 17:09:28] <Xavier> modellers need a concept to work from, and not just a low-poly mockup in a 3D package like we've had so far
+[2007-03-04 17:09:35] <Xavier> I think everyone here has seen what concept art looks like?
+[2007-03-04 17:09:48] <Gohan> yup
+[2007-03-04 17:10:06] <Taos> typically pencil sketches with 2 or 3 perspectives of an object
+[2007-03-04 17:10:21] <Xavier> more or less - sometimes in color too -- it is from that source tho that models are created 
+[2007-03-04 17:10:22] <Taos> just idea's on paper
+[2007-03-04 17:10:49] <Xavier> usually under the direction of an art director (in a studio) and an art lead (who is responsible for maintaining consistency in the models)
+[2007-03-04 17:11:40] <Xavier> I plan for us to continue to progress on tools and tech, and to release to the team builds from time to time when additional functionality is worth a release
+[2007-03-04 17:12:03] <Xavier> the releases will be of the form I posted a bit ago -- just SVN update to cos/releases and you'll always have the latest builds
+[2007-03-04 17:12:20] <Xavier> that is mainly for the non-engineers -- engineers will always have the code for the tools and tech
+[2007-03-04 17:12:52] <Xavier> the engine, btw, will be done as LGPL
+[2007-03-04 17:13:03] <Xavier> not that I expect to have to release actual source or allow access to SVN
+[2007-03-04 17:13:19] <Xavier> the point is to be able to statically-link the entire app and not have to deal with DLLs
+[2007-03-04 17:13:33] <Xavier> and since our libraries are mainly LGPL....
+[2007-03-04 17:14:05] <Xavier> any questions so far?
+[2007-03-04 17:14:10] <Taos> is that going to potentially limit options for distribution and update models?
+[2007-03-04 17:14:31] <Taos> by creating a rather large executable?
+[2007-03-04 17:15:07] <Xavier> the actual executable will be small -- I expect along the lines of 8-10MB
+[2007-03-04 17:15:38] <Xavier> that should allow simple downloads of a new exe
+[2007-03-04 17:15:49] <Xavier> the largest part of all this will be the data files
+[2007-03-04 17:15:53] <Xavier> mainly textures
+[2007-03-04 17:17:23] <Xavier> one thing I would like to do is have all of the engineers take a look at the to-do list and see if they can think of anything else that's missing
+[2007-03-04 17:17:29] <Xavier> actually, everyone look at it
+[2007-03-04 17:17:53] -->| Darkhorse (Darkhorse@nbt-5A65E258.ubs-dsl.xnet.co.nz) has joined #cos-dev
+[2007-03-04 17:17:55] <Xavier> those that are using the tools should make sure they do not interfere with getting actual work done ;)
+[2007-03-04 17:18:00] <Xavier> hiya DH
+[2007-03-04 17:18:02] <Darkhorse> ih
+[2007-03-04 17:18:12] <Darkhorse> just swap the i and h around.
+[2007-03-04 17:18:24] <Xavier> lol
+[2007-03-04 17:18:47] <Sirius> FSM engine? Interesting
+[2007-03-04 17:18:49] <Darkhorse> can't even spell a two letter word right :p
+[2007-03-04 17:19:17] <Sirius> *scratches head* although maybe not FINITE
+[2007-03-04 17:19:18] <Sirius> but
+[2007-03-04 17:19:43] <Sirius> what does that mean for scripting?
+[2007-03-04 17:19:44] <Xavier> I've got the engine code to a point where most of the basic communication is in place and usable as a reference -- also some of the more difficult bits -- like loading Ogre resources from our data formats -- has been done
+[2007-03-04 17:19:54] <Taos> which tree is the todo list in? Trunk/doc ?
+[2007-03-04 17:19:58] <Xavier> aye
+[2007-03-04 17:20:21] <Taos> kk, makin sure I got the right one and not one that slipped past your housekeeping
+[2007-03-04 17:20:46] <Xavier> states can be assigned to any phase of a MP game, for example -- in each state a different sort of processing might take place, and in those states it would be more an event-driven approach
+[2007-03-04 17:21:19] <Xavier> ya, NESE Todo.doc
+[2007-03-04 17:21:32] <Xavier> UI scripting would largely be an event-driven model too
+[2007-03-04 17:21:46] <Sirius> that's the way people generally do it
+[2007-03-04 17:21:48] <Xavier> but it's in the scripting for UI events where I expect things like "load this level" to be done
+[2007-03-04 17:22:12] <Xavier> whatever engine objects need to be exposed or interfaces made, can be done at the script interface
+[2007-03-04 17:22:59] <Xavier> in theory, things like level transitions and UI screen transitions can be set in the IDE
+[2007-03-04 17:23:08] <Sirius> I assume actually playing the game counts as a single state, though
+[2007-03-04 17:23:24] <Sirius> at least a single state in high-level terms
+[2007-03-04 17:23:33] <Xavier> well you might have several states between leaving the lobby and returnign to it
+[2007-03-04 17:23:49] <Xavier> but ya, the "in-game" state is the SIMULATION state currently
+[2007-03-04 17:24:08] <Sirius> just curious, is most of the code actually there?
+[2007-03-04 17:24:15] <Sirius> or is it elsewhere
+[2007-03-04 17:24:19] <Xavier> the skeleton of most of this is in place
+[2007-03-04 17:24:22] <Sirius> menus can be big sometimes :)
+[2007-03-04 17:24:34] <Xavier> not all states have been defined, but the state management code is in place
+[2007-03-04 17:24:52] <Xavier> as for UIs, we haven't designed the UI/script interface yet
+[2007-03-04 17:25:00] <Xavier> we haven't done any scripting in fact yet
+[2007-03-04 17:25:15] <Sirius> you were planning on using Lua for that from memory?
+[2007-03-04 17:25:21] <Sirius> or something else now
+[2007-03-04 17:25:24] <Xavier> haven't decided yet
+[2007-03-04 17:25:25] <Sirius> ok
+[2007-03-04 17:25:30] <Xavier> we have Squirrel in SVN atm too
+[2007-03-04 17:25:52] <Xavier> I'm not sure we need to expose actual C++ classes to script, to be honest
+[2007-03-04 17:26:43] <Xavier> we could implement a simple scripting interface ourselves, but the availability of the various existing script implementations makes that kinda moot
+[2007-03-04 17:27:01] <Xavier> we can do simple scripting in Lua, for example, without requiring the scripter to have to know the full language
+[2007-03-04 17:27:30] <Sirius> yeah
+[2007-03-04 17:27:36] <Xavier> btw the current state of the engine is such that it can load and extract data from the data files and create a visual rendering from that 
+[2007-03-04 17:27:52] <Sirius> ok
+[2007-03-04 17:28:00] <Xavier> the engine had been redesigned and refactored for a new architecture, one that hopefully will take advantage of multi-core when available
+[2007-03-04 17:28:14] <Xavier> and the base of that is in place
+[2007-03-04 17:28:18] <Sirius> implementing a scripting interface is great to figure out how it's done but it's a bit of a waste of time
+[2007-03-04 17:28:37] <Sirius> since I'm sure it's been done many times before ...
+[2007-03-04 17:28:46] <Xavier> a lot of the work now will be in fleshing out the existing functionality, and also designing and implementing the logic for various actor types, and so on
+[2007-03-04 17:28:56] <Sirius> k
+[2007-03-04 17:29:17] <Xavier> for example, there are only a few messages defined for the logic/graphics communiucation
+[2007-03-04 17:29:28] <Xavier> there will be hundreds I think by the time this is done
+[2007-03-04 17:29:48] <Xavier> what is there now is very limited, but extending it will be straightforward since the foundation is in place
+[2007-03-04 17:29:57] <Xavier> ditto for most of the systems in the engine atm
+[2007-03-04 17:30:22] <Xavier> new stuff that needs to be done, such as actor behaviors, can progress in parallel with all of that
+[2007-03-04 17:30:42] <Xavier> in other words, the engine is at a point I think where the work can more easily be divided among the engineers
+[2007-03-04 17:30:58] <Sirius> cool
+[2007-03-04 17:31:34] <Xavier> the nice thing, btw, about having an IDE that knows what data and game object types the engine understands, is that so much can be done in data definition outside of the engine, without requiring rebuilds to try new stuff
+[2007-03-04 17:32:20] <Xavier> at work the IDE we use actually is extremely general -- we don't need that because we are targeting one specific game type -- multi-level combined-arms combat sim
+[2007-03-04 17:32:40] <Gohan> ah ha! another clue
+[2007-03-04 17:32:44] <Xavier> so a lot of simplifications can be made compared to what we have at work
+[2007-03-04 17:32:46] <Xavier> no, no clue :p
+[2007-03-04 17:32:54] <Gohan> it is! :shakes fist:
+[2007-03-04 17:33:05] <Xavier> it's the same IDE and engine used on Afterburner -- it's not a genre-specific engine at all
+[2007-03-04 17:33:11] <Gohan> oh
+[2007-03-04 17:33:44] <Xavier> and it's still under development -- it's amazing that they were able to get AB done (and done well) with the tools at hand considering how immature they were (and still are)
+[2007-03-04 17:34:02] <Xavier> tools are crucial -- that's one reason the redesign of our engine took so long
+[2007-03-04 17:34:03] <Taos> Is Gohan trying to coax info about new projects from you Xavier? :P
+[2007-03-04 17:34:07] <Gohan> sssh
+[2007-03-04 17:34:13] <Gohan> I am trying to nab an exclusive here!
+[2007-03-04 17:34:20] <Gohan> before 1up does another photo raid
+[2007-03-04 17:34:25] <Xavier> I wanted to get the tools working reasonably well before worrying about the tech ;)
+[2007-03-04 17:34:26] <Xavier> lol
+[2007-03-04 17:34:34] <Xavier> no, NDA prevents me from saying anything more :p
+[2007-03-04 17:34:50] <Xavier> but ya, T, he is ;)
+[2007-03-04 17:35:00] <Sirius> you know ... this is a little bit of a tangential question, but would the CoS engine be flexible enough to make a script-heavy single-player game from?
+[2007-03-04 17:35:07] <Xavier> should be
+[2007-03-04 17:35:12] <Sirius> interesting
+[2007-03-04 17:35:27] <Xavier> it would require implementing some non-server scripting
+[2007-03-04 17:35:36] <Xavier> which are not in the immediate plans
+[2007-03-04 17:35:37] <Sirius> yeah, true
+[2007-03-04 17:35:59] <Sirius> you could fake that by having a server run on the local machine though
+[2007-03-04 17:36:00] <Xavier> and there is no AI to speak of in the engine -- it's strictly MP at this point
+[2007-03-04 17:36:03] <Taos> and AI which is a bit of a biotch given all the decent api's are commercial
+[2007-03-04 17:36:04] <Sirius> thought so
+[2007-03-04 17:37:45] <Xavier> so the next step is for me to figure out which tasks need to be done in which order, and then the engineers can divvy up the work and hopefully we can kick this bastard into gear ;)
+[2007-03-04 17:37:56] <Xavier> a lot of it can be done in parallel
+[2007-03-04 17:38:40] <Xavier> like tools for example -- can be done entirely independent of the engine work, so long as the tools and engine write and read, resp., the same data formats ;)
+[2007-03-04 17:38:50] <Xavier> that's just a communcation issue
+[2007-03-04 17:39:06] <Taos> Gohan and myself need to put our heads together and figgure out how to entice a qualified individual into the art lead position
+[2007-03-04 17:39:17] <Xavier> we have tools -- that should help ;)
+[2007-03-04 17:39:47] <Xavier> in fact, at this point, I think it is possible for an artist to create something and put it in the engine (at least to replace the Kana) fgor viewing
+[2007-03-04 17:40:00] <Xavier> I know Slit wanted to tackle a mesh viewer, which would be integrated into the IDE
+[2007-03-04 17:40:03] <Taos> unfortunately artistik, organised, and motivational are a tough bunch of traits to find in the same person
+[2007-03-04 17:40:13] <Xavier> hehe true
+[2007-03-04 17:40:27] <Xavier> DH you have time yet? ;)
+[2007-03-04 17:40:29] <Taos> and I can't type to save my life tonight
+[2007-03-04 17:40:50] <Gohan> which is ironic because someone with those talents coming into a project that really does not have much art to speak of would probably go somewhere more ... established
+[2007-03-04 17:40:55] <Xavier> I've been surprisingly accurate on the keyboard tonight for some reason ;)
+[2007-03-04 17:41:18] <Xavier> well the art lead would be responsible for seeing that content created -- ya, it's sort of a cathc-22
+[2007-03-04 17:41:22] <Taos> which is why we need to figgure out how to entice them :D
+[2007-03-04 17:41:23] <Gohan> because I am scanning each of your sentences for subtle hints and next-gen THQ title for the 360 only
+[2007-03-04 17:41:31] <Xavier> lol
+[2007-03-04 17:41:32] <Gohan> at*
+[2007-03-04 17:42:14] <Xavier> one thing I would like is input from the team on which tools features they want to see most/first
+[2007-03-04 17:43:23] <Xavier> that's a pretty ambitious list I have in the todo -- I'd like some help prioritizing it 
+[2007-03-04 17:43:34] <Taos> I'd say probably the mesh/skeleton viewers and importers would be kinda priority seeing as art is once again coming to the point where it will be holding up progress
+[2007-03-04 17:43:53] <Xavier> true
+[2007-03-04 17:44:32] <Xavier> nice thing about the IDE, Sirius, is that it's 100% done in C#, which might as well be Java (with a better library of objects to use)
+[2007-03-04 17:44:44] <Xavier> which means you can help out there if you want -- no C++ needed :)
+[2007-03-04 17:44:48] <Sirius> True
+[2007-03-04 17:45:01] <Sirius> I've used C# a bit anyway
+[2007-03-04 17:45:11] <Xavier> I'm just floored by the PropertyGridControl
+[2007-03-04 17:45:20] <Xavier> so much functionality for so little code needed
+[2007-03-04 17:45:25] <Sirius> property grid. ... oh.
+[2007-03-04 17:45:42] <Sirius> Is that like a table that allows you to set values for various attributes of a class?
+[2007-03-04 17:45:48] <Xavier> if you run the Studio IDE, it's the thing on the right side
+[2007-03-04 17:45:48] <Xavier> ya
+[2007-03-04 17:45:52] <Sirius> lol. Awesome
+[2007-03-04 17:46:00] <Sirius> doing that in Java tends to be kind of tricky
+[2007-03-04 17:46:07] <Xavier> open up the Test.nsproj file in Studio and open one of the Objects, and select an object
+[2007-03-04 17:46:16] <Sirius> Granted, with Swing and some reflection it's probably possible to replicate that, but it's more work
+[2007-03-04 17:46:17] <Xavier> in C# with .NET it's one line of code
+[2007-03-04 17:46:42] <Xavier> just set the SelectedObject property and it reads and displays all of the object's public properties
+[2007-03-04 17:47:02] <Xavier> the .nsproj file is XML because serializing an object model to XML in .NET is about 4 lines of code
+[2007-03-04 17:47:15] <Sirius> uh wait ... a property was the C# term for a wrapper for accessor code wasn't it
+[2007-03-04 17:47:17] <Xavier> so the entire project hierarchy can be saved off with little to no code
+[2007-03-04 17:47:19] <Taos> sounds like your talking bout the properties and events portion of delphi/builder UI's
+[2007-03-04 17:47:32] <Xavier> properties in .NET are setters/getters
+[2007-03-04 17:47:37] <Sirius> right, thought so
+[2007-03-04 17:47:54] <Taos> exactly like delphi/builder components
+[2007-03-04 17:47:57] <Sirius> Java sort of leans that way by convention but doesn't explicitly support it
+[2007-03-04 17:48:29] <Xavier> ya they did a lot of stuff in .NET and C# that fix many shortcomings in Java I think
+[2007-03-04 17:48:38] <Xavier> I feel like I am cheating when I write C# code ;)
+[2007-03-04 17:48:44] <Xavier> but it's an awesome language for tools
+[2007-03-04 17:48:47] <Xavier> because it's so easy
+[2007-03-04 17:49:38] <Xavier> we need to refactor a lot of stuff in the IDE code, tho
+[2007-03-04 17:49:43] <Xavier> you'll see that on the to-do
+[2007-03-04 17:50:03] <Xavier> it's in a "it works" state right now but extending it will be tough unless we refactor it
+[2007-03-04 17:50:52] <Taos> what is Mogre?
+[2007-03-04 17:51:04] <Xavier> it's Ogre compiled as managed C++
+[2007-03-04 17:51:12] <Xavier> works astoundingly well
+[2007-03-04 17:51:34] <Xavier> and so much easier to compile it as CLR instead of trying to wrap it, so it pretty much has all of OGre's API available
+[2007-03-04 17:51:39] <Taos> would that not be the best way to approach the mesh and skeleton viewers?
+[2007-03-04 17:51:42] <Xavier> yup
+[2007-03-04 17:51:57] <Xavier> it's a godsend for Ogre-based stuff that is more easily done in C#
+[2007-03-04 17:51:57] <Slit> that's the plan
+[2007-03-04 17:52:22] <Taos> then it should be at the top of your ide todo and lighting I think should be at the bottom
+[2007-03-04 17:52:35] <Xavier> the main trick there, tho, will be (a) do we wrap the Resource code in the engine in CLR, or do we try to read the binary data files directly
+[2007-03-04 17:52:54] <Xavier> ya, that todo is in no particualr order -- it's a brain dump from a couple of weeks ago
+[2007-03-04 17:53:03] <Xavier> just wrote stuff down as it occurred to me ;)
+[2007-03-04 17:54:13] <Taos> no, I mean if you put Mogre impliomentation at the top of the ide stuff and lighting and scripting near the bottom that's a pretty decent order of operations to start with I would think
+[2007-03-04 17:54:23] <Xavier> ah gotcha
+[2007-03-04 17:54:39] <Taos> fit typing lessons for Taos somewhere in your To-Do
+[2007-03-04 17:54:54] <Xavier> placing lights tho is one of those things that if it gets to be too much a tedious PITA for me while I'm testing something, I'd just put it in the IDE at some point ;)
+[2007-03-04 17:55:18] <Xavier> but ya, implementing Mogre for the mesh viewer is probably at the top 
+[2007-03-04 17:55:39] <Xavier> afk a few min -- feel free to ask anything and I'll answer when I get back
+[2007-03-04 17:55:59] <Taos> true, but lighting really seems like a low priority object cause art won't need it till they are ready to start fine tuning thier mapping
+[2007-03-04 17:57:32] <Taos> which I assume will be tied to the point in production where we have to start putting things together in game and figguring out how much the technology can handle at once
+[2007-03-04 17:58:27] <Taos> what kind of map resolutions we can cram in hardware to achieve target number of non lod culled entities for example
+[2007-03-04 18:00:25] <Taos> I suppose level design will need it a fair sooner though
+[2007-03-04 18:00:57] <Taos> but not before the level editor portion of the toolset is useable
+[2007-03-04 18:01:31] <Xavier> we'll have to create a cell-portal scene manager at some point
+[2007-03-04 18:01:44] <Xavier> ya the level editor will have to take that into account
+[2007-03-04 18:02:31] <Taos> please leave level design alone for tonight, my head still hurts from last time we discussed portalling techniques :P
+[2007-03-04 18:02:33] <Xavier> the first thing for the engine I think is to be able to control an entity and move it around
+[2007-03-04 18:02:37] <Xavier> lol
+[2007-03-04 18:02:50] <Xavier> cell-portal is well documented, but just not trivial to implement ;)
+[2007-03-04 18:03:48] <Taos> good thing you know what your up to with it cause the room starts spinning just hearing bout it for me
+[2007-03-04 18:04:18] <Xavier> and controlling an entity means starting to design its property set -- starting with the attributes already in place for the kinematic controller used for the Kana in the old demo
+[2007-03-04 18:05:46] <Xavier> I don't plan to use a physics engine in our app
+[2007-03-04 18:06:18] <Xavier> I'd rather just use collision detection and implement physical simulation as needed on a custom basis
+[2007-03-04 18:06:19] <Taos> planning to roll your own collision detection?
+[2007-03-04 18:06:23] <Xavier> probably
+[2007-03-04 18:06:37] <Xavier> OPCODE is nice but it's still trimesh I think, which is fairly expensive
+[2007-03-04 18:06:52] <Xavier> we just need convex hull collision
+[2007-03-04 18:07:01] <Xavier> I suppose we could use OPCODE for convex hulls tho
+[2007-03-04 18:07:04] <Taos> expensive as in hardware demands?
+[2007-03-04 18:07:10] <Xavier> it *is* already done, of course
+[2007-03-04 18:07:17] <Xavier> expensive in computation
+[2007-03-04 18:07:31] <Xavier> convex hulls tho are not as detailed as rendering meshes
+[2007-03-04 18:07:41] <Xavier> so the expense is not as great
+[2007-03-04 18:07:57] <Taos> you lose accuracy though, no?
+[2007-03-04 18:08:25] <Xavier> only so much as the convex hull
+[2007-03-04 18:08:53] <Xavier> the actors will be represented in the collision world fairly closely to their rendered versions
+[2007-03-04 18:09:27] <Xavier> the arm on a MACRO for example, would be a straightforward oriented bounding box that tightly fits the arm
+[2007-03-04 18:09:30] <Xavier> or arm portion
+[2007-03-04 18:09:43] <Xavier> the collision bodies would be collections of hulls
+[2007-03-04 18:09:46] <Taos> essentially what we have in MW4
+[2007-03-04 18:09:55] <Xavier> not just s single hull for the whole MACRO
+[2007-03-04 18:09:59] <Xavier> more or less
+[2007-03-04 18:10:20] <Xavier> to be able to do the per-body-part collision we need there's no other way
+[2007-03-04 18:10:30] <Xavier> but the toolset will assist in that
+[2007-03-04 18:10:40] <Xavier> I think they had to make the collision bodies by hand for MW4
+[2007-03-04 18:11:00] <Xavier> we can create them systematically and let the modellers manipulate them as needed
+[2007-03-04 18:11:03] <Taos> hopefully we can use far more boxes than they used for MW4
+[2007-03-04 18:11:05] <Xavier> Max plugins in other words
+[2007-03-04 18:11:09] <Xavier> ya
+[2007-03-04 18:11:15] <Xavier> should be able to use as many as needed
+[2007-03-04 18:11:23] <Xavier> each one would be attributed to a particular body part of course
+[2007-03-04 18:11:33] <Xavier> whichever part the designer or modeller deems fit
+[2007-03-04 18:11:57] <Taos> we may need for multiple boxes to attribute a single body part in some cases
+[2007-03-04 18:11:58] <Xavier> so the precision can be as coarse or fine as needed
+[2007-03-04 18:12:01] <Xavier> aye
+[2007-03-04 18:12:14] <Xavier> legs for example have multiple parts 
+[2007-03-04 18:12:30] <Xavier> but each collision body that represents the leg would be attributed to the leg
+[2007-03-04 18:12:57] <Xavier> then engine would read that information from the data files and treat the various parts as designed
+[2007-03-04 18:13:33] <Xavier> so the engine doesn't have to have knowledge of what is what, it just reports collisions and the logic deals with them (and passes on the collision events) as generic things
+[2007-03-04 18:15:31] <Taos> hmm
+[2007-03-04 18:16:22] <Taos> I suppose that also makes damage calculation quite simple
+[2007-03-04 18:16:47] <Xavier> ya -- data driven -- the engine just applies whatever damage per part has been set in the IDE
+[2007-03-04 18:17:05] <Xavier> this pushes all the work to the designers, in other words
+[2007-03-04 18:17:26] <Xavier> which is great, because now the engine programmers can just worry about the engine and not making game-specific stuff
+[2007-03-04 18:17:32] <Taos> apply determined damage to the box which acts as a reference to the limb in essence
+[2007-03-04 18:17:37] <Xavier> ya
+[2007-03-04 18:17:41] <Gohan> adios, my babies
+[2007-03-04 18:17:42] |<-- Gohan has left irc.netbattletech.com (Quit:  Try HydraIRC -> http://www.hydrairc.com <-)
+[2007-03-04 18:17:57] <Xavier> the collision world exists in parallel with the graphics rendering world
+[2007-03-04 18:18:13] <Xavier> they have many of the same objects, just wth different representations
+[2007-03-04 18:18:27] <Xavier> the collision world is central to the logic 
+[2007-03-04 18:18:48] <Taos> and in practical sense it also opens up a very easy equation for determining damage vs. durability
+[2007-03-04 18:18:50] <Xavier> the rendering world is used only for rendering, which works out great since the rendering is on the other side of an opaque message bridge ;)
+[2007-03-04 18:18:57] <Xavier> true
+[2007-03-04 18:19:48] <Xavier> it's all predicated, of course, on having robust tools to make it all happen
+[2007-03-04 18:19:56] <Xavier> but I think we are on the right track for that
+[2007-03-04 18:20:28] <Taos> engine determines a damage value from vas and velocity properties and removes that from the referenced limbs density or durability property
+[2007-03-04 18:20:43] <Taos> mass, not vas
+[2007-03-04 18:21:15] <Xavier> if that's how the design works, ya :)
+[2007-03-04 18:22:22] <Taos> cool
+[2007-03-04 18:23:18] <Taos> anyhow, looks like the meeting actually ended 45 mins ago, been mostly entertaining my curiosities since then
+[2007-03-04 18:23:19] <Xavier> I can't think of much else to cover -- anyone have any questions? Comments? Suggestions?
+[2007-03-04 18:23:22] <Xavier> lol
+[2007-03-04 18:23:23] <Taos> :p
+[2007-03-04 18:23:29] <Xavier> well the lecture ended 45 min ago ;)
+[2007-03-04 18:23:44] <Xavier> just wanted to let everyone know where we are and what the next steps are
+[2007-03-04 18:24:38] <Taos> I think your todo list needs a bit of shuffling personally but is fairly well on track for getting what we need in place
+[2007-03-04 18:24:59] <Xavier> ya -- I know Slit wanted to work on the mesh viewer
+[2007-03-04 18:25:39] <Taos> I'll try to get with Gohan and see what we can come up with tomorrow for renewing recruiting efforts
+[2007-03-04 18:25:45] <Xavier> I can get working on some other stuff -- like fleshing out existing functionality 
+[2007-03-04 18:25:50] <Taos> I have a few unconventional idea's
+[2007-03-04 18:26:01] <Xavier> and Sirius, if you want to dive in let me know -- there's plenty to do in the IDE now ;)
+[2007-03-04 18:26:06] <Xavier> good deal :)
+[2007-03-04 18:26:11] <Xavier> unconventional is nice
+[2007-03-04 18:26:17] <Xavier> we have a huge ambitious project here
+[2007-03-04 18:26:22] <Xavier> the more the merrier
+[2007-03-04 18:26:44] <Xavier> I could actually use a couple more programmers, but for now I think we're good
+[2007-03-04 18:26:50] <Xavier> you get to talk to SG yet?
+[2007-03-04 18:26:57] <Xavier> I know he's busy on their school project
+[2007-03-04 18:27:21] <Taos> he hasn't been on this evening, normally I see him in EQ2 but he's not been around for a couple weeks
+[2007-03-04 18:28:20] <Taos> I'm gonna bug Lupus and see what he's up to. last I talked to him he was finishing up his portfolio and sending out job app's to studio's in the states
+[2007-03-04 18:28:31] <Xavier> what sort of work?
+[2007-03-04 18:29:01] <Taos> Lupus has an innate talent for working in 3D
+[2007-03-04 18:29:11] <Xavier> modeller then?
+[2007-03-04 18:29:13] <Taos> you've seen some of his stuff on the forums
+[2007-03-04 18:29:46] <Xavier> have him send me his resume/portfolio link
+[2007-03-04 18:29:47] <Taos> pretty sure his scylla pics are still there and he did the first hi-rez human model
+[2007-03-04 18:30:17] <Xavier> don't know if they are going to be ramping up artists on the new project but they might
+[2007-03-04 18:30:21] <Taos> I'll talk to him
+[2007-03-04 18:31:20] <Taos> he's been bugging me the past few days for contact details for any studio I know of here in canada but I know he's preparing app's for studio's all over north america
+[2007-03-04 18:31:41] <Xavier> well have him send me his stuff :p
+[2007-03-04 18:31:46] <Xavier> he's in the UK or Aus?
+[2007-03-04 18:31:49] <Taos> UK
+[2007-03-04 18:31:53] <Xavier> he'll fit in perfectly
+[2007-03-04 18:31:58] <Taos> him and Eli are in the same area
+[2007-03-04 18:32:01] <Xavier> the studio is run by Brits and Scots ;)
+[2007-03-04 18:32:14] <Taos> he's a scott but in the UK
+[2007-03-04 18:32:28] <Xavier> he'll get along famously with one of the co-owners then ;)
+[2007-03-04 18:33:20] <Taos> big thing we need as you said is concept artists
+[2007-03-04 18:33:25] <Xavier> yup
+[2007-03-04 18:33:50] <Xavier> was hoping we could get some out of Kyouken
+[2007-03-04 18:34:06] <Xavier> nd not just models either
+[2007-03-04 18:34:07] <Taos> I know a few good modellers but they all need que's, which is why Lupus stepped out to begin with, lack of direction
+[2007-03-04 18:34:21] <Xavier> understood
+[2007-03-04 18:34:34] <Xavier> we need concept artists for environments too
+[2007-03-04 18:35:08] <Taos> give him a picture he'll make it real but he needs that direction or he ends up looking for it elsewhere
+[2007-03-04 18:35:17] <Xavier> perfectly reasonable
+[2007-03-04 18:35:23] <Xavier> we need those pictures ;)
+[2007-03-04 18:35:58] <Taos> used to do a lot of that myself but not in 10 or so years, pencil is foriegn to me now
+[2007-03-04 18:36:09] <Xavier> and I have no art skills whatsoever ;)
+[2007-03-04 18:36:16] <Taos> and a tablet is plain unmanageable
+[2007-03-04 18:37:54] <Taos> anyhow, I'm gonna call it
+[2007-03-04 18:38:00] <Xavier> same, I think we're done
+[2007-03-04 18:38:08] <Taos> night
+[2007-03-04 18:38:12] <Xavier> thanks all! night T
+[2007-03-04 18:38:17] <Taos> you gonna log and archive?
+[2007-03-04 18:38:31] <Xavier> I don't think I have the space
+[2007-03-04 18:38:36] <Xavier> not enough buffer set :(
+[2007-03-04 18:38:50] <Xavier> ya, I only have about half :(
+[2007-03-04 18:39:05] <Sirius> I think I log this channel
+[2007-03-04 18:39:19] <Xavier> kewl :)
+[2007-03-04 18:40:06] <Sirius> any way to send?
+[2007-03-04 18:40:24] <Xavier> you can just save it to SVN and tell Gohan where it is
+[2007-03-04 18:40:51] <Sirius> it seems to split it by days, so I'll just save today's log I guess... most of it is meeting stuff anyway
+[2007-03-04 18:41:10] <Xavier> k
+[2007-03-04 18:41:14] <Xavier> thx :)
+[2007-03-04 18:41:17] <Taos> looks like I have all of the meeting and bout 2 hours before that
+[2007-03-04 18:41:51] <Taos> post that Sirius, Gohan can crop it

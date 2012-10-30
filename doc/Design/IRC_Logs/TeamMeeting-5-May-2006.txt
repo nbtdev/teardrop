@@ -1,0 +1,808 @@
+[2006-05-05 14:27:46] *** Toxic|Sleep changed nick to ToxicSoul
+[2006-05-05 15:20:05] *** Xavier|Work (xavier@73329681.70236125.D88B206.IP) joined
+[2006-05-05 15:20:15] <Xavier|Work> Eli, well done :)
+[2006-05-05 15:24:49] <Elisor> thanks man :)
+[2006-05-05 15:25:19] <Xavier|Work> who is Pawel Czarnecki?
+[2006-05-05 15:25:36] <Elisor> did ya ever see these two?  first one I did - http://www.media4g.ae/Paul/Pillage_and_burn_final.zip and the second one - http://www.media4g.ae/Paul/Final_newsreel.zip
+[2006-05-05 15:25:49] <Elisor> Pawel = God.  I'm just trying to find some examples of his work to post up for you
+[2006-05-05 15:26:02] <Xavier|Work> not yet, but I will look at them now :)
+[2006-05-05 15:26:34] <Xavier|Work> but, is he just a freewheeling artist or someone in NBT or MT or...?
+[2006-05-05 15:26:41] <Elisor> http://www.battletech-movie.com/forum/viewtopic.php?t=18&sid=1c460da4d21c7ceb593fa7928ee24a26
+[2006-05-05 15:27:22] <Elisor> he's a guy who's been around since before MW4.  He's able to marry modelling, texturing and scene-building in a way that no-one before or since has been able to do
+[2006-05-05 15:27:39] <Elisor> now adays he's hardly seen as he's too busy in RL (and I think he got a bit bored of it all)
+[2006-05-05 15:28:20] <Xavier|Work> ya, I saw that at the bottom of that thread
+[2006-05-05 15:28:52] <Xavier|Work> that is truly a ton of work he'd done though
+[2006-05-05 15:29:28] <Elisor> he helped a lot of us in the community out some time ago.  basically he's the guru lol, just a shame he doesn't have time anymore
+[2006-05-05 15:32:18] <Elisor> bedtime now....laters :)
+[2006-05-05 15:32:45] <Xavier|Work> hehe nite Eli :)
+[2006-05-05 15:35:25] <Xavier|Work> dude the shadowing in the newsreel clip rocks
+[2006-05-05 15:35:39] <Xavier|Work> it's looks completely natural
+[2006-05-05 15:35:58] *** Darkhorse (Darkhorse@nbt-AFF0C9B3.ubs-dsl.xnet.co.nz) joined
+[2006-05-05 15:36:08] <Xavier|Work> hey DH
+[2006-05-05 15:36:12] <Darkhorse> yo
+[2006-05-05 15:36:17] <Xavier|Work> have you seen Eli's clips?
+[2006-05-05 15:36:31] <Xavier|Work> <Elisor> did ya ever see these two?  first one I did - http://www.media4g.ae/Paul/Pillage_and_burn_final.zip and the second one - http://www.media4g.ae/Paul/Final_newsreel.zip
+[2006-05-05 15:36:34] <Darkhorse> no
+[2006-05-05 15:36:39] <Xavier|Work> and the one he posted up in the forums today
+[2006-05-05 15:38:48] <Xavier|Work> the shadowing in the newsreel one is awesome
+[2006-05-05 15:40:07] <Darkhorse> yeah, that first one has some problems
+[2006-05-05 15:40:25] <Xavier|Work> the newsreel is better and the one from today just rocls
+[2006-05-05 15:40:26] <Darkhorse> the mech's centre of gravity doesn't look like it's shifting between the legs
+[2006-05-05 15:40:28] <Xavier|Work> rocks even
+[2006-05-05 15:59:57] <Darkhorse> wish I could do boolean ops with NURB objects here.
+[2006-05-05 16:01:22] <Darkhorse> still, considering what you can get away with on a texture map and low-poly it probably isn't necessary
+[2006-05-05 16:37:06] *** Sirius (Sirius@nbt-AFF0C9B3.ubs-dsl.xnet.co.nz) joined
+[2006-05-05 19:31:07] *** Gohan (Gohan@nbt-AF55B84A.dsl.chcgil.ameritech.net) joined
+[2006-05-05 20:55:11] *** Xavier|Work quit (Connection reset by peer)
+[2006-05-05 21:01:11] *** All_for_one (all_for_on@nbt-7455BA1.bchsia.telus.net) joined
+[2006-05-05 21:02:58] <All_for_one> hola
+[2006-05-05 21:04:03] <Gohan> cola
+[2006-05-05 21:04:12] <All_for_one> coca
+[2006-05-05 21:10:04] <All_for_one> ine
+[2006-05-05 21:10:07] <All_for_one> is not for me
+[2006-05-05 21:11:40] *** [HJ]-Asmudius_Heng (weeble@nbt-BBE8E9B1.carlnfd2.nsw.optusnet.com.au) joined
+[2006-05-05 21:11:49] * [HJ]-Asmudius_Heng stumbles in
+[2006-05-05 21:12:17] <All_for_one> eyyyy
+[2006-05-05 21:12:32] <[HJ]-Asmudius_Heng> blarg
+[2006-05-05 21:12:34] * [HJ]-Asmudius_Heng just got up
+[2006-05-05 21:12:50] * All_for_one didn't
+[2006-05-05 21:12:53] <[HJ]-Asmudius_Heng> excuse me while my brain realigns itself
+[2006-05-05 21:23:26] * [HJ]-Asmudius_Heng just replying to a post ion the forum
+[2006-05-05 21:26:05] *** Taos (v52318@nbt-B7AC774E.abhsia.telus.net) joined
+[2006-05-05 21:26:05] *** ChanServ sets channel #cos-dev mode +oq Taos Taos
+[2006-05-05 21:26:30] <~Taos> what I miss?
+[2006-05-05 21:26:58] <All_for_one> the whole meeting
+[2006-05-05 21:27:06] <All_for_one> we were wrapping up
+[2006-05-05 21:27:12] <All_for_one> :-P
+[2006-05-05 21:27:14] <All_for_one> nothing
+[2006-05-05 21:27:20] <~Taos> awefull short meeting
+[2006-05-05 21:31:17] <[HJ]-Asmudius_Heng> teh lol
+[2006-05-05 21:31:36] <[HJ]-Asmudius_Heng> i am just asnwering a post on the forum then i'll start talking one sec
+[2006-05-05 21:33:25] <[HJ]-Asmudius_Heng> ok
+[2006-05-05 21:33:37] <All_for_one> sure
+[2006-05-05 21:33:55] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=1100
+[2006-05-05 21:34:17] <[HJ]-Asmudius_Heng> how an architechtual tunnel design turns into a post on Nisroch government style i dont know :P
+[2006-05-05 21:35:01] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=1099 <-- thats the agenda thread Anch set up
+[2006-05-05 21:35:49] <[HJ]-Asmudius_Heng> though we have discussed mosty of it its good to go through again and i will update the wiki as we go unless Gohan wants to do it
+[2006-05-05 21:35:54] * [HJ]-Asmudius_Heng hopes gohan want to do it :P
+[2006-05-05 21:36:57] <[HJ]-Asmudius_Heng> "1. If I'm not mistaken the M1A1 Abrams can go pretty fast on a highway. Even cross country it can go pretty fast."
+[2006-05-05 21:37:53] <[HJ]-Asmudius_Heng> 67 Kms max speed for an abrahms ... that sounds reasonable for a similar sized tank in CoS .. that would be on a good road only though
+[2006-05-05 21:38:08] <[HJ]-Asmudius_Heng> what sort of speeds do our current tanks go with typical loadouts AFO?
+[2006-05-05 21:38:17] <All_for_one> not that
+[2006-05-05 21:38:39] <All_for_one> but that is best and optimal conditions
+[2006-05-05 21:38:45] <All_for_one> which will be rare
+[2006-05-05 21:38:46] <[HJ]-Asmudius_Heng> yes
+[2006-05-05 21:38:53] <All_for_one> typical is 48
+[2006-05-05 21:38:58] <[HJ]-Asmudius_Heng> clean road no slope
+[2006-05-05 21:39:07] <All_for_one> that is dirt no slops
+[2006-05-05 21:39:21] <[HJ]-Asmudius_Heng> rgr that ... whats a MACRO usually go ... for a typical mid range config?
+[2006-05-05 21:39:29] <All_for_one> 10k
+[2006-05-05 21:39:42] <All_for_one> black bear is 11k and it does almost 90kph.
+[2006-05-05 21:40:03] <All_for_one> chulyen does about 100
+[2006-05-05 21:40:08] <[HJ]-Asmudius_Heng> so decently fast ... whats a hovers speed?
+[2006-05-05 21:40:19] <[HJ]-Asmudius_Heng> at those speeds shooting would be difficult i imagibne
+[2006-05-05 21:41:02] <All_for_one> faster than that
+[2006-05-05 21:41:26] <All_for_one> but they are the least armored and weaponed of the vehicles
+[2006-05-05 21:41:51] <[HJ]-Asmudius_Heng> yep ... that brings me to another point of interest about hovers
+[2006-05-05 21:42:16] <[HJ]-Asmudius_Heng> will we restrict high recoil weapons on them .. or make high recoil weapons rock the hover and send it off course etc?
+[2006-05-05 21:42:26] <~Taos> 70 - 75 knots wouldn't be unreasonable on water or real smooth land
+[2006-05-05 21:42:43] <[HJ]-Asmudius_Heng> it makes sense and gives them a diffeent role using lasers, missiles and maybe low calibre ballistics only
+[2006-05-05 21:42:54] <[HJ]-Asmudius_Heng> so grounded units have the big hitters
+[2006-05-05 21:42:55] <All_for_one> no reason to restrict them
+[2006-05-05 21:42:58] <All_for_one> but yeah
+[2006-05-05 21:43:02] <All_for_one> if they mouted one
+[2006-05-05 21:43:11] <All_for_one> they'd get a nice ride out of it. :D
+[2006-05-05 21:43:19] <[HJ]-Asmudius_Heng> yea not restrict nesseseraly but the disadvantages of a big recoil weapon will be apparaent
+[2006-05-05 21:43:23] <[HJ]-Asmudius_Heng> hehe
+[2006-05-05 21:43:55] <~Taos> nice big balistic projectile take em from 40k to stopped fast enough that they need a squugie to get the pilot off the bug screen :P
+[2006-05-05 21:43:57] <[HJ]-Asmudius_Heng> i think hovers will be bit users of lasers while strafing .. thier smooth motive style is perfect for using DoT weapons like lasers too
+[2006-05-05 21:44:08] <[HJ]-Asmudius_Heng> lol T
+[2006-05-05 21:44:42] <[HJ]-Asmudius_Heng> or shoot sideways and send you craft carreening off course into a building or something .. could be fun:P
+[2006-05-05 21:45:11] <All_for_one> unless you stopped and "planted" yourself.
+[2006-05-05 21:45:12] <~Taos> hovers are going to be the true test of our entity control
+[2006-05-05 21:45:26] <[HJ]-Asmudius_Heng> whats entity control?
+[2006-05-05 21:45:34] <[HJ]-Asmudius_Heng> yea AFO, some will have that ability
+[2006-05-05 21:45:39] <[HJ]-Asmudius_Heng> the zaucer etc
+[2006-05-05 21:45:40] <~Taos> manipulation of object placement
+[2006-05-05 21:45:49] <~Taos> every object in the game is an entity
+[2006-05-05 21:45:49] <[HJ]-Asmudius_Heng> ah right
+[2006-05-05 21:45:51] <All_for_one> zaucer is a Vthrust
+[2006-05-05 21:45:59] <All_for_one> not actually a hover
+[2006-05-05 21:46:04] <[HJ]-Asmudius_Heng> i spose you could land and fire yes
+[2006-05-05 21:46:11] <[HJ]-Asmudius_Heng> however i get the feeling its just nto worth it
+[2006-05-05 21:46:29] <[HJ]-Asmudius_Heng> i have seen hovers done decently in other games, hope we can make them behave well
+[2006-05-05 21:46:31] <[HJ]-Asmudius_Heng> 2. Medical technology. What level is medical technology at? Will it have any visible effect on game mechanics? Is Medivac something we want to add to a tactical simulation? Perhaps as a mission?
+[2006-05-05 21:46:46] <[HJ]-Asmudius_Heng> what is a medivac exactly?
+[2006-05-05 21:46:59] <~Taos> perhaps a vehicle and unit type
+[2006-05-05 21:47:01] <All_for_one> medical evacuation
+[2006-05-05 21:47:24] <All_for_one> an APC designed to get injured soldiers from the front to a hospital ASAP.
+[2006-05-05 21:47:32] <All_for_one> now typically heli
+[2006-05-05 21:47:39] <[HJ]-Asmudius_Heng> ah right
+[2006-05-05 21:47:52] <~Taos> air ambulance essentially
+[2006-05-05 21:47:57] <[HJ]-Asmudius_Heng> perhaps APCs and transport vehicle can be configured with a medical unit
+[2006-05-05 21:48:09] <[HJ]-Asmudius_Heng> this will take space away from weapons or electronics though
+[2006-05-05 21:48:21] <[HJ]-Asmudius_Heng> and it might be of limited value unless it is an infantry heavy map
+[2006-05-05 21:49:10] <All_for_one> could just be a general quartermaster/hospital unit
+[2006-05-05 21:49:37] <All_for_one> gives out the big infantry toys and the bandaids.
+[2006-05-05 21:49:48] <~Taos> or any personnel transport could be a medivac if it has a medic type unit aboard
+[2006-05-05 21:49:54] <[HJ]-Asmudius_Heng> possibly but i think having a combat chassis rerigged might be better because i just dont think pure hospital units will be fun for players
+[2006-05-05 21:50:10] <[HJ]-Asmudius_Heng> thats what BF2 does
+[2006-05-05 21:50:18] <[HJ]-Asmudius_Heng> if you are a medic in any vehicle you heal those around you
+[2006-05-05 21:50:25] <[HJ]-Asmudius_Heng> howeer we do not curently have a medic unit
+[2006-05-05 21:50:28] <[HJ]-Asmudius_Heng> infantry that is
+[2006-05-05 21:50:32] <[HJ]-Asmudius_Heng> i am not sure we need it
+[2006-05-05 21:50:46] <[HJ]-Asmudius_Heng> what say you guys?
+[2006-05-05 21:51:00] <[HJ]-Asmudius_Heng> the game will be quite vehicle based so a lot of abilities are carried by vehicles
+[2006-05-05 21:51:30] <[HJ]-Asmudius_Heng> infantry depending on the map will not be too numerous and many things can kill them in one shot making medical stuff maybe less useful
+[2006-05-05 21:51:50] <[HJ]-Asmudius_Heng> and i dont like the idea of reviving someone like BF2 either unless i can be convinced otherwise
+[2006-05-05 21:51:56] <~Taos> I say questionable, I wouldn't say a medic unit, but like a coreman type with triage training, a unit with an expendable number of band-aids so to speak but that is not thier primary role
+[2006-05-05 21:52:31] <[HJ]-Asmudius_Heng> well any infantry could be equiped with a limited medipack as part of thier gear
+[2006-05-05 21:53:02] <[HJ]-Asmudius_Heng> however i was thinking a proper healing unit on an APC would make a good base of operations in a captured point where infantry could defend then run back for healing if injured defending
+[2006-05-05 21:53:08] <[HJ]-Asmudius_Heng> could have both really
+[2006-05-05 21:53:11] <~Taos> are we going to have some premade gear packs?
+[2006-05-05 21:53:24] <[HJ]-Asmudius_Heng> all units will have a number of dev made stock configs
+[2006-05-05 21:53:30] <[HJ]-Asmudius_Heng> then people can make thier own too
+[2006-05-05 21:53:41] <~Taos> then make 1 or 2 of those packs carry bandages, but not all
+[2006-05-05 21:53:44] <[HJ]-Asmudius_Heng> so a technitian might have a "medic" config 
+[2006-05-05 21:54:08] <[HJ]-Asmudius_Heng> and an assault maybe
+[2006-05-05 21:54:17] <~Taos> and sure, an apc or something that acts as a hospital zone is something worth trying out
+[2006-05-05 21:54:18] <[HJ]-Asmudius_Heng> not all classes might be able to get them too might just be those 2
+[2006-05-05 21:55:00] <[HJ]-Asmudius_Heng> i think medical supplies are something that is not going to be a unit specific think but an option a few units will be able to carry to change thier role a bit
+[2006-05-05 21:55:06] <~Taos> everything is worth trying, just a matter of trying it out as soon as we can so that we can determine if it will work
+[2006-05-05 21:55:21] <[HJ]-Asmudius_Heng> since APCs will be spawn points for infa to having a re-ammo and rearm would be good for them
+[2006-05-05 21:55:39] <[HJ]-Asmudius_Heng> how muhc would an infantry medic pack heal?
+[2006-05-05 21:55:49] <[HJ]-Asmudius_Heng> can heal 100% of health once?
+[2006-05-05 21:56:07] <~Taos> that would be up to balance testing to determine but I'd say about 25% of max
+[2006-05-05 21:56:09] <[HJ]-Asmudius_Heng> or has 100% that can heal 2 people 50% eahc or 40% 60% etc?
+[2006-05-05 21:56:16] * [HJ]-Asmudius_Heng nods
+[2006-05-05 21:56:18] <All_for_one> yeah, that's generally the standard
+[2006-05-05 21:56:32] <[HJ]-Asmudius_Heng> 3. Air power. How close will air-ground cooperation be? Will voice comms be used? Will jamming be a factor? Will it be possible to have a big enough scenario map to allow jets? Helicopters and VTOL might be ok on a smaller map but jets can go pretty far pretty fast.
+[2006-05-05 21:56:37] <[HJ]-Asmudius_Heng> in wiki debate this
+[2006-05-05 21:57:09] <~Taos> ugh, 1 question at a time man
+[2006-05-05 21:57:56] <~Taos> if all works out jets shouldn't be a problem, but that is one thing that is left up to technical ends
+[2006-05-05 21:58:07] <[HJ]-Asmudius_Heng> this is Anchovys Qs ;)
+[2006-05-05 21:58:18] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=1099
+[2006-05-05 21:58:22] <[HJ]-Asmudius_Heng> my answers are there already
+[2006-05-05 21:59:03] <All_for_one> since jets won't be SS and will be VTOL for simplicity
+[2006-05-05 21:59:14] <All_for_one> and makes things easier
+[2006-05-05 21:59:17] <~Taos> air ground cooperation, well, I'd think that would be up to balance testing again, but I'd see the air as target breakers that would have a hard time hitting at infantry unit due to the size and distance
+[2006-05-05 22:00:17] <~Taos> as for voice comms and jamming, both are idea's we toyed with early on but I'd say yet to be decided
+[2006-05-05 22:01:58] <All_for_one> I think we could swap sensor net for comms and it could work
+[2006-05-05 22:02:04] <[HJ]-Asmudius_Heng> I think jets will be similar to BF2 ... though we will ahve effective AA. BF2 has them used for bombign runs and dogfighting and need to be rearmed often
+[2006-05-05 22:02:05] <All_for_one> you'd still have your own sensors
+[2006-05-05 22:02:31] <All_for_one> but you wouldn't be able to see the whole picture
+[2006-05-05 22:02:41] <[HJ]-Asmudius_Heng> the Jets will be very unrealistic but i simply dont care about that as long as they fill the role a jet does on a battlefield
+[2006-05-05 22:03:14] <[HJ]-Asmudius_Heng> on air ground co-operation i would think we could arm scouts with target designators
+[2006-05-05 22:03:25] <[HJ]-Asmudius_Heng> allwing them to paint targets for air units
+[2006-05-05 22:03:56] <[HJ]-Asmudius_Heng> also squad leades and the commander can call for airstrickes at points which will show on air units maps where they are requested
+[2006-05-05 22:03:58] <~Taos> well see what Xavier can give us for mission size, that will ultimately determine how things play out for jets, but making them vtol's is at least an acceptible fallback
+[2006-05-05 22:04:24] <All_for_one> they would be anyways
+[2006-05-05 22:04:25] <[HJ]-Asmudius_Heng> so if an enemy are holding a bridge the commander could put an Air strick request in and air units would get a visual and audio request to the position
+[2006-05-05 22:04:44] <All_for_one> Probably don't have room for a runway :D
+[2006-05-05 22:05:09] <[HJ]-Asmudius_Heng> the runways might be way backl of the map sitting within a dead zone even ...
+[2006-05-05 22:05:25] <~Taos> once again that would all be dependant upon mission size constraints
+[2006-05-05 22:05:26] <[HJ]-Asmudius_Heng> the runway could be a LOT shorter than a normal runway we dont need to be realistic in size
+[2006-05-05 22:05:29] <[HJ]-Asmudius_Heng> yep
+[2006-05-05 22:05:51] <[HJ]-Asmudius_Heng> as for coms ... i am with Gohan .. let the team have unrestricted coms or people will just use TS
+[2006-05-05 22:06:00] <[HJ]-Asmudius_Heng> and those that dont will get annoyed
+[2006-05-05 22:06:10] <[HJ]-Asmudius_Heng> sensor nets are the thing people will fuck with
+[2006-05-05 22:06:17] <Gohan> those that do not will be caught out of the loop
+[2006-05-05 22:06:24] <[HJ]-Asmudius_Heng> destroying nodes, hackign nodes, ECM nodes and the like
+[2006-05-05 22:06:27] <[HJ]-Asmudius_Heng> sensor warfare
+[2006-05-05 22:06:47] <~Taos> I don't see too many server admins allowing the in game comms reguardless
+[2006-05-05 22:06:57] <[HJ]-Asmudius_Heng> i think it is very important actually
+[2006-05-05 22:07:21] <~Taos> it's an extra throughput load that the server doesn't need when TS2 is a viable alternative
+[2006-05-05 22:07:42] <[HJ]-Asmudius_Heng> in game coms allow pick up games to be more organised
+[2006-05-05 22:07:49] <[HJ]-Asmudius_Heng> and since pick up games will be the most played
+[2006-05-05 22:08:04] <~Taos> I suppose on pickup games, but in structured play I see ts2 becoming the norm
+[2006-05-05 22:08:12] <[HJ]-Asmudius_Heng> if it screws up things and lags it out well ok but if it can handle it i would like to see it in
+[2006-05-05 22:08:20] <[HJ]-Asmudius_Heng> in BF2 my unit uses both
+[2006-05-05 22:08:31] <[HJ]-Asmudius_Heng> TS for global chat and in game chat for just squads
+[2006-05-05 22:08:36] <All_for_one> I'd imagine the same with UT2k4 leagues
+[2006-05-05 22:08:42] <~Taos> how much abuse of in game comms do you see on the pubs?
+[2006-05-05 22:08:49] <[HJ]-Asmudius_Heng> next to none
+[2006-05-05 22:09:00] <[HJ]-Asmudius_Heng> you cannot hold the spoeak jey down for too long it cuts off
+[2006-05-05 22:09:07] <[HJ]-Asmudius_Heng> you cann only speak in squads
+[2006-05-05 22:09:10] <[HJ]-Asmudius_Heng> and the commander
+[2006-05-05 22:09:15] <All_for_one> yeah, in ut2k4 they can vote kick people to rooms and stuff
+[2006-05-05 22:09:21] <All_for_one> or just from the server
+[2006-05-05 22:09:22] <[HJ]-Asmudius_Heng> one i had a commander that would spam the channel but that was just once
+[2006-05-05 22:09:36] <[HJ]-Asmudius_Heng> and BF2 is full of tards unlikc CoS hopefully ;)
+[2006-05-05 22:09:45] <~Taos> I suppose that would help, I know when I watch my brother play SOCOM 2 it's just a constant trash talk
+[2006-05-05 22:09:58] <[HJ]-Asmudius_Heng> you cannot talk to the opposition
+[2006-05-05 22:10:09] <~Taos> no, this is between team mates
+[2006-05-05 22:10:14] <[HJ]-Asmudius_Heng> lol
+[2006-05-05 22:10:41] <~Taos> bunch of 13 year olds in a pickup game makes for one hell of a crude conversation
+[2006-05-05 22:10:53] <[HJ]-Asmudius_Heng> i dont see it happening really but you canot stop all griefers
+[2006-05-05 22:11:17] <~Taos> not without taking things away from everybody
+[2006-05-05 22:11:30] <[HJ]-Asmudius_Heng> yea
+[2006-05-05 22:11:50] <Gohan> per player option to mute other players
+[2006-05-05 22:11:57] <[HJ]-Asmudius_Heng> it depends on how much pressure it puts on the server i guess but communication is key to team based games like ours is my strong belief
+[2006-05-05 22:12:04] <[HJ]-Asmudius_Heng> yep that works too G
+[2006-05-05 22:12:16] <~Taos> Ideally if in game comms does come to light I am hopefull that it is done in a pure P2P manner so as to keep the server loads more reasonable
+[2006-05-05 22:12:48] <[HJ]-Asmudius_Heng> something to put to the coders fer sure
+[2006-05-05 22:12:55] <[HJ]-Asmudius_Heng> 4. Will the game have room for naval (sea) support? Will there be beach assaults? What special weapons and vehiclkes need to be designed to accomplish this?
+[2006-05-05 22:13:06] <~Taos> something I've already mentioned but will remind in the future
+[2006-05-05 22:13:22] <Gohan> beach assaults D:
+[2006-05-05 22:13:27] <Gohan> WWII in the future 4tl.
+[2006-05-05 22:14:04] <[HJ]-Asmudius_Heng> airborne assaults would be more likely .. jhowever on a planet like galaphine there is sea and beach everywheer ... kinda hard to get around it :P
+[2006-05-05 22:14:09] <~Taos> no reason it can't have naval, but I'd expect most of the fight would be done with hovers and aircraft
+[2006-05-05 22:14:59] <[HJ]-Asmudius_Heng> I cant see prope naval battles unless people want to model naval ships aswell
+[2006-05-05 22:15:11] <[HJ]-Asmudius_Heng> but i think hovers will be more used
+[2006-05-05 22:15:36] <[HJ]-Asmudius_Heng> our spoace combat will be more like naval combat in some ways anyway
+[2006-05-05 22:15:53] <~Taos> just an extra dimension
+[2006-05-05 22:16:47] <~Taos> well, not even
+[2006-05-05 22:16:49] <[HJ]-Asmudius_Heng> as for beach assaults ... with the zones we will have for theatre combat soimetimes the zone entrance will be a beach or somethign along those lines
+[2006-05-05 22:17:22] <[HJ]-Asmudius_Heng> the zone entrances will often be attacker vs defender missions so some might look a little omaha beach (or which ever one it was)
+[2006-05-05 22:17:24] <~Taos> instead of lattitude, longitude, and altitude, you have x,y,z
+[2006-05-05 22:17:37] <[HJ]-Asmudius_Heng> yup
+[2006-05-05 22:18:05] <~Taos> sorry, slow send, internet is flaking
+[2006-05-05 22:18:18] <[HJ]-Asmudius_Heng> however since these will be missions map makers can meake it so it is not a WW2 clone and hase more \aspects ... also the proliferation of vehicle in CoS means it is not an infantry war like WW2
+[2006-05-05 22:19:11] <[HJ]-Asmudius_Heng> so a beach assault will not be masses of infantyr fighting but vehicles comign through which might make it very different and interesting
+[2006-05-05 22:19:17] <~Taos> infantry has to remain important, but it may be best to base thier importance on objective measures more than combat effectiveness
+[2006-05-05 22:19:27] <[HJ]-Asmudius_Heng> yes, thats is the point of them
+[2006-05-05 22:19:29] <[HJ]-Asmudius_Heng> for example
+[2006-05-05 22:19:43] <[HJ]-Asmudius_Heng> in a beach assault you are requored to have infantry to take the clifs .. vehicle cannot do it
+[2006-05-05 22:20:00] <~Taos> I don't need an example, if that was already the plan that's fine enough for me
+[2006-05-05 22:20:07] <[HJ]-Asmudius_Heng> :)
+[2006-05-05 22:20:30] <[HJ]-Asmudius_Heng> so vehicle might need to shapard the infantry in on a nasty assault
+[2006-05-05 22:20:51] <[HJ]-Asmudius_Heng> or inf might paradrop in etc etc ... inf are vital which is cool
+[2006-05-05 22:21:03] <~Taos> ground vehicles may not but the air assets could very well do most of that, I was thinking more along the lines of data raids on bunkers and such
+[2006-05-05 22:21:35] <~Taos> bring new meaning to the term recon in games
+[2006-05-05 22:21:45] <[HJ]-Asmudius_Heng> any objective based stuff in a mission will have to be donme by infantry yes
+[2006-05-05 22:22:16] <[HJ]-Asmudius_Heng> vehicles are either infantry support or pure combat units ... makes infa and vehicle work together
+[2006-05-05 22:22:46] <[HJ]-Asmudius_Heng> bringin an aspect of teamwork ... inf on thier own are gonna be pwned
+[2006-05-05 22:22:55] <[HJ]-Asmudius_Heng> 5. Will the game have room for smoke to obscure targets?
+[2006-05-05 22:23:01] <[HJ]-Asmudius_Heng> simple answer: Yes
+[2006-05-05 22:23:03] <[HJ]-Asmudius_Heng> :)
+[2006-05-05 22:24:07] <[HJ]-Asmudius_Heng> 6. Will buildings and static features (ie. bridges, trees) be subject to destruction?
+[2006-05-05 22:24:20] <[HJ]-Asmudius_Heng> this is a bit more contentious
+[2006-05-05 22:24:50] <[HJ]-Asmudius_Heng> just how much destrucability can the server handle ... and how muhc is good for gameplay
+[2006-05-05 22:25:14] <Gohan> You have to remember that, in theory, our maps will be far more populated with buildings and other objects. So, it is not a huge deal for inf.
+[2006-05-05 22:25:59] <~Taos> possibly to a confined extent I'd say Asmu
+[2006-05-05 22:27:01] <[HJ]-Asmudius_Heng> i think at the very least, trees and tactical objectives (bridges etc) should be
+[2006-05-05 22:27:14] <~Taos> I'd say buildings should be destructable if enough firepower is brought to bear, but the landscape features such as tree's will be vital to the survival of infantry and wiping them out could be a balancing nightmare
+[2006-05-05 22:27:46] <[HJ]-Asmudius_Heng> the scenario i think of is this ... an urban zone is occupied by a heap of infantry. Rather than fight them they bombard the buildigns from range into the dirt
+[2006-05-05 22:27:47] <~Taos> I dunno
+[2006-05-05 22:27:59] <All_for_one> yeah
+[2006-05-05 22:28:10] <All_for_one> but you can't bombard it to dust really
+[2006-05-05 22:28:17] <All_for_one> there is always remains of stuff
+[2006-05-05 22:28:21] <[HJ]-Asmudius_Heng> in some ways i really want it all to be destructble but i think infantry defense will suffer
+[2006-05-05 22:28:27] <[HJ]-Asmudius_Heng> remains is a very interesting point
+[2006-05-05 22:28:41] <~Taos> and how much firepower is required to topple a reinforced strucutre?
+[2006-05-05 22:28:45] <[HJ]-Asmudius_Heng> in many wargames i play (usually WW2 based) ruins are very good places for infantry to hide
+[2006-05-05 22:29:00] <[HJ]-Asmudius_Heng> we could have 3 stages of damage to a building
+[2006-05-05 22:29:09] <[HJ]-Asmudius_Heng> undaamged, damaged and ruined
+[2006-05-05 22:29:20] <[HJ]-Asmudius_Heng> all stages will have lots of cover for infantry
+[2006-05-05 22:29:27] <[HJ]-Asmudius_Heng> but you cannot wipe it off the map
+[2006-05-05 22:29:42] <[HJ]-Asmudius_Heng> ruined will still have standing walls and rubble that cannot be destroyed any further
+[2006-05-05 22:29:42] <~Taos> that makes sense
+[2006-05-05 22:30:03] <[HJ]-Asmudius_Heng> so a tank cannot just blast something into the ground but might need to manuver or call in infantry support to kill the enemy inf
+[2006-05-05 22:30:09] <[HJ]-Asmudius_Heng> trees could be the same
+[2006-05-05 22:30:21] <[HJ]-Asmudius_Heng> always leave a stump
+[2006-05-05 22:30:22] <All_for_one> also gives napalm and stuff a use
+[2006-05-05 22:30:24] <[HJ]-Asmudius_Heng> and smoke
+[2006-05-05 22:30:27] <[HJ]-Asmudius_Heng> yes
+[2006-05-05 22:30:27] <All_for_one> :-D
+[2006-05-05 22:30:38] <~Taos> if tree's are destructable we need to make sure it's not shoot 1 with a small weapon and have a whole grove dissapear
+[2006-05-05 22:30:47] <[HJ]-Asmudius_Heng> direct fire would be blocked but dropping esplosives behind walls will be the option
+[2006-05-05 22:30:53] <[HJ]-Asmudius_Heng> no nothing like MW4
+[2006-05-05 22:31:21] <[HJ]-Asmudius_Heng> i think scenery will be a lot tougher than people expect just for balance
+[2006-05-05 22:31:49] <[HJ]-Asmudius_Heng> also trees that die might prioduce lots of smoke to give infantryh time to retreat fuerther into a forest
+[2006-05-05 22:32:07] <~Taos> the problem however with doing it any way other than that of MW4 is that a single tree in a forest becomes 1 of thousands of entities, and entity count is going to be our enemy from a technical perspective because that is what will be our counter to scale
+[2006-05-05 22:33:06] <[HJ]-Asmudius_Heng> the technical aspects i will need to be advised on ... this current level of destruction will be the maximum we want ... we can scale ack if we have to
+[2006-05-05 22:33:19] <All_for_one> well, do we have forests then?
+[2006-05-05 22:33:25] <~Taos> I'm not certain as to the ability to tile 1 entity over and over, that may be possible and if it is that may also be efficient enough to minimise the performance hit
+[2006-05-05 22:33:30] <All_for_one> or rather
+[2006-05-05 22:33:35] <All_for_one> do they fight in forests
+[2006-05-05 22:33:40] <[HJ]-Asmudius_Heng> i hope so
+[2006-05-05 22:33:48] <[HJ]-Asmudius_Heng> i would say so
+[2006-05-05 22:33:54] <All_for_one> they don't have to
+[2006-05-05 22:33:58] <[HJ]-Asmudius_Heng> planetside had some very cool forests
+[2006-05-05 22:34:10] <[HJ]-Asmudius_Heng> i think they could and should
+[2006-05-05 22:34:21] <All_for_one> we could also take the wookie/tokara forest style of tree
+[2006-05-05 22:34:28] <All_for_one> trees the size of buildings
+[2006-05-05 22:34:35] <[HJ]-Asmudius_Heng> all our foliage can be tweaked to buggery
+[2006-05-05 22:34:41] <[HJ]-Asmudius_Heng> huge assed trees
+[2006-05-05 22:34:42] <[HJ]-Asmudius_Heng> small ones
+[2006-05-05 22:34:45] <[HJ]-Asmudius_Heng> really tall ones
+[2006-05-05 22:34:50] <[HJ]-Asmudius_Heng> massive mushrooms
+[2006-05-05 22:34:53] <[HJ]-Asmudius_Heng> whatever :P
+[2006-05-05 22:35:11] <[HJ]-Asmudius_Heng> i think we will have a library of foliage for each planet and each part of a planet 
+[2006-05-05 22:35:14] <All_for_one> well most fir trees are about 4-5 times taller than MW4 shows them
+[2006-05-05 22:35:19] <[HJ]-Asmudius_Heng> yes indeed
+[2006-05-05 22:35:20] <~Taos> bigger the entity the higher the complexity requirements so let's not get totally carried away
+[2006-05-05 22:35:35] <All_for_one> yeah
+[2006-05-05 22:35:38] <[HJ]-Asmudius_Heng> migth have a few big ones then a heape of standard sized trees
+[2006-05-05 22:35:41] <All_for_one> but then you need fewer trees :D
+[2006-05-05 22:35:45] <[HJ]-Asmudius_Heng> enough to keep a forest looking a little diverse
+[2006-05-05 22:35:52] <All_for_one> and can make them indestructible.
+[2006-05-05 22:36:10] <[HJ]-Asmudius_Heng> yes, some things will be indestrucable i think
+[2006-05-05 22:36:22] <[HJ]-Asmudius_Heng> certain buildings ... fportifications etc
+[2006-05-05 22:36:37] <All_for_one> I would love to have a fight in a rainforest
+[2006-05-05 22:36:44] <All_for_one> but I don't think that it's possible
+[2006-05-05 22:36:45] <~Taos> if it is possible to tile entities in a gpu then 4 or 5 sizes of trees could make a forest of thousands
+[2006-05-05 22:37:00] <All_for_one> too much crap
+[2006-05-05 22:37:00] <[HJ]-Asmudius_Heng> sounds doable T
+[2006-05-05 22:37:18] <All_for_one> not to mention than even an infantry would have a hard time moving
+[2006-05-05 22:37:28] <[HJ]-Asmudius_Heng> again this is in the realms of the coders and what can be done
+[2006-05-05 22:37:30] <All_for_one> anything larger would be stuck outside
+[2006-05-05 22:37:41] <~Taos> that depends how much space those thousands of tree's span
+[2006-05-05 22:37:57] <All_for_one> in your standard west coast rainforest
+[2006-05-05 22:38:09] <All_for_one> that's about 1-2m between trees
+[2006-05-05 22:38:15] <~Taos> good, create a few limitations to keep the siege macro's out of the fray and just lobbing in from a distance
+[2006-05-05 22:38:34] <All_for_one> with anything ranging from bare ground cover to solid mini trees
+[2006-05-05 22:38:56] <[HJ]-Asmudius_Heng> forests should be the domain of inf and MICROs
+[2006-05-05 22:39:07] <All_for_one> not to mention rotting remains of old trees everywhere.
+[2006-05-05 22:39:14] <[HJ]-Asmudius_Heng> lots of cover
+[2006-05-05 22:39:20] <~Taos> not in the rainforest I was last in, the trees are 1 - 2m across the trunks, I think the smallest spacing between them trees was about 6m
+[2006-05-05 22:39:26] <[HJ]-Asmudius_Heng> forests would often be a no go for vehicles
+[2006-05-05 22:39:36] <[HJ]-Asmudius_Heng> it depends on the type of forest yes
+[2006-05-05 22:39:37] <All_for_one> where were you?
+[2006-05-05 22:39:49] <~Taos> most of vancouver island is rainforest
+[2006-05-05 22:40:05] <All_for_one> depends on where you go
+[2006-05-05 22:40:26] <~Taos> aye, but that's the case for everything
+[2006-05-05 22:40:37] <All_for_one> that's also cathedral grove
+[2006-05-05 22:40:51] <All_for_one> which is fair to say not typical trees in CoS
+[2006-05-05 22:41:06] <~Taos> nice place, but not the only spot I had in mind
+[2006-05-05 22:41:20] <Gohan> Ae trees going to look like trees? Or are they going to be original creations? Does it matter?
+[2006-05-05 22:41:51] <[HJ]-Asmudius_Heng> the solari fleet took samples of many earth flora with them
+[2006-05-05 22:41:56] <[HJ]-Asmudius_Heng> they were used to terraform
+[2006-05-05 22:42:05] <[HJ]-Asmudius_Heng> however some had to be alterteed to work in the new planets
+[2006-05-05 22:42:09] <~Taos> yur a mexi-fry, you don't have tree's in mexico, come back at a later topic :P
+[2006-05-05 22:42:16] <[HJ]-Asmudius_Heng> trees on Haven are prob the most earth based
+[2006-05-05 22:42:43] <[HJ]-Asmudius_Heng> but the ones on Nisroch will be a mixed bag for example
+[2006-05-05 22:42:52] <[HJ]-Asmudius_Heng> but general they will prob look akin to "trees"
+[2006-05-05 22:42:58] <All_for_one> fir trees
+[2006-05-05 22:43:03] <All_for_one> just make it easy heng
+[2006-05-05 22:43:18] <[HJ]-Asmudius_Heng> i'll leave the mappers and modellers to see if they come up with anything else
+[2006-05-05 22:43:32] <[HJ]-Asmudius_Heng> lets make it look a little alien it is not earth
+[2006-05-05 22:43:56] <[HJ]-Asmudius_Heng> the more habitable eareth like planets will be the closest though for sure
+[2006-05-05 22:44:01] <[HJ]-Asmudius_Heng> corriugnus might be very different
+[2006-05-05 22:44:06] <Gohan> we have trees, just not enough people care to water them D:
+[2006-05-05 22:44:07] <~Taos> so 50 foot tall norfolk pine would be a good alien tree then :P
+[2006-05-05 22:44:20] <[HJ]-Asmudius_Heng> as long as it easts people T
+[2006-05-05 22:44:21] <[HJ]-Asmudius_Heng> ;)
+[2006-05-05 22:44:39] <[HJ]-Asmudius_Heng> 7. Mines. Do we forsee mine fields and mine clearing as mission types? Can mine fields be created on the fly?
+[2006-05-05 22:44:44] <Gohan> [09:43:53 PM] <[HJ]-Asmudius_Heng> lets make it look a little alien it is not earth -- this is the reason I asked. I hated that Halo basically took place in rural Earth.
+[2006-05-05 22:45:17] <Gohan> If we want inf to actually survive against machines of doom, I fear minefields.
+[2006-05-05 22:45:25] <[HJ]-Asmudius_Heng> yes i agree to an extent ... we have a reason it might look earth like, but we can make some exeptions
+[2006-05-05 22:45:41] <[HJ]-Asmudius_Heng> for instance some trees might havce blue leaves .. simple change but it looks different
+[2006-05-05 22:45:56] <~Taos> norfolk pine looks alien already
+[2006-05-05 22:46:28] <[HJ]-Asmudius_Heng> not to me :P
+[2006-05-05 22:46:41] <All_for_one> ditto gohan
+[2006-05-05 22:46:56] <All_for_one> though because it is technically all earth life in system
+[2006-05-05 22:47:01] <[HJ]-Asmudius_Heng> as for mines see my responce
+[2006-05-05 22:47:04] <All_for_one> it is allowed to look like that
+[2006-05-05 22:47:05] <~Taos> they grow thier branches and needles in almost symmetrical disks around the trunk, symmetry in a tree is very alien
+[2006-05-05 22:47:06] <[HJ]-Asmudius_Heng> Some maps might have set minefields that shouldnt be a problem. Large expanses of minefields can be layed by minelayers which are a commander tool. Technitian infantry can also set mines and charges if they equip themselves with them ... these can be placed more carefully at chokpoints and so forth. 
+[2006-05-05 22:47:19] <[HJ]-Asmudius_Heng> they are communist trees
+[2006-05-05 22:47:25] <All_for_one> besides
+[2006-05-05 22:47:31] <~Taos> works for me
+[2006-05-05 22:47:33] <All_for_one> minefields are in the open right?
+[2006-05-05 22:47:44] <[HJ]-Asmudius_Heng> fields yes
+[2006-05-05 22:47:45] <All_for_one> which then any infantry in the open
+[2006-05-05 22:47:49] <~Taos> on the mine fields, that sounds good Asmu
+[2006-05-05 22:47:51] <All_for_one> deserves to die
+[2006-05-05 22:48:13] <[HJ]-Asmudius_Heng> depend son the minefield .. they might be vehiclular only
+[2006-05-05 22:48:35] <[HJ]-Asmudius_Heng> in fact i was refering to vehiclular mines only ... might just disable them aghainst infantry
+[2006-05-05 22:48:59] <[HJ]-Asmudius_Heng> techniticans can carry AT and AP mines though
+[2006-05-05 22:49:00] <~Taos> I'd say anything that gives infantry an ability to fight back against the armor but still poses risk is good
+[2006-05-05 22:49:32] <[HJ]-Asmudius_Heng> generally minefields are layed by commander controlled stuff as i said but inf have access to mines yes
+[2006-05-05 22:49:33] <~Taos> as for vehicles placing mines I dunno
+[2006-05-05 22:49:48] <[HJ]-Asmudius_Heng> getting a proper minefield up would be too time consuming for a player
+[2006-05-05 22:49:59] <[HJ]-Asmudius_Heng> remember in MC you had a minelayer
+[2006-05-05 22:50:03] <[HJ]-Asmudius_Heng> worked quite well
+[2006-05-05 22:50:04] <~Taos> wouldn't be bad for a squad
+[2006-05-05 22:50:13] <[HJ]-Asmudius_Heng> it would be boring
+[2006-05-05 22:50:23] <All_for_one> space laid mines :D
+[2006-05-05 22:50:30] <[HJ]-Asmudius_Heng> all things that are boring are things i am trying to let the commander do
+[2006-05-05 22:50:31] <All_for_one> Moab minefield.
+[2006-05-05 22:50:42] <All_for_one> actually
+[2006-05-05 22:50:46] <All_for_one> that worked in generals
+[2006-05-05 22:51:05] <[HJ]-Asmudius_Heng> say you have a large expans of land between two forests ... laying a line of mines might be a better thing for the commander to do with a few clicks than tying up infantry for ages is a;ll
+[2006-05-05 22:51:11] <[HJ]-Asmudius_Heng> Moab?
+[2006-05-05 22:51:57] <~Taos> I just don't like seeing something with unit stopping power like that able to be deployed without risk to the one deploying them
+[2006-05-05 22:52:22] <[HJ]-Asmudius_Heng> well you stop yer own vehicles going through too
+[2006-05-05 22:52:33] <[HJ]-Asmudius_Heng> i think of it as a tactical option
+[2006-05-05 22:52:49] <[HJ]-Asmudius_Heng> infanrtry uses mines in chocke points like streets and gates etc
+[2006-05-05 22:53:09] <[HJ]-Asmudius_Heng> but large expanses would not work well ... people do not want to spenmt 10 minutes laying mines one at a time
+[2006-05-05 22:53:12] <[HJ]-Asmudius_Heng> thats my feeling
+[2006-05-05 22:53:29] <Gohan> I guess it depends on the type of maps we want.
+[2006-05-05 22:53:37] <Gohan> Maps promote combat types.
+[2006-05-05 22:53:51] <[HJ]-Asmudius_Heng> minelayers would only be available on larger maps
+[2006-05-05 22:54:03] <[HJ]-Asmudius_Heng> smaller maps would not need them and inf can fulfil that job if tey c hoose to
+[2006-05-05 22:54:08] <~Taos> you wouldn't mine a large expanse, you would use artillery strikes, you mine choke points because it focuses the effect
+[2006-05-05 22:54:18] <All_for_one> I mean instead of a ground unit that goes and lays a mindfield
+[2006-05-05 22:54:27] <[HJ]-Asmudius_Heng> even so a choke point might be quiten large for infantry to cover
+[2006-05-05 22:54:33] <All_for_one> let a AI aircraft do it
+[2006-05-05 22:54:58] <~Taos> ai is still up in the air
+[2006-05-05 22:55:02] <[HJ]-Asmudius_Heng> the commander will have artilly to use aswell ... but using mines is just another option for him
+[2006-05-05 22:55:11] <[HJ]-Asmudius_Heng> some maps will ahve it sonme wont
+[2006-05-05 22:55:25] <[HJ]-Asmudius_Heng> some sides miht have itn  while others dont depending on the scenario
+[2006-05-05 22:55:55] <~Taos> it's not a simple task to develop AI and what is available prebuilt is not cheap
+[2006-05-05 22:56:00] <[HJ]-Asmudius_Heng> if it doesnt work it is easy enough to remove the commander option
+[2006-05-05 22:56:20] <[HJ]-Asmudius_Heng> we are not using AI much ... anything AI is usually a commander controlled entity
+[2006-05-05 22:57:45] <[HJ]-Asmudius_Heng> minelayers can also be destroyed of course and once they are gone they are other gone totally or have a long respawn for the commander
+[2006-05-05 22:58:09] <[HJ]-Asmudius_Heng> minelayers will also be slow and weak
+[2006-05-05 22:58:27] <~Taos> pathing command que's are easy to work with, but the path has to be laid out by a player from the starting point through the entire command set unless an AI library can be aquired or something come up with
+[2006-05-05 22:59:01] <[HJ]-Asmudius_Heng> i think you could say "lay mines" and put a start and end point for it do to a run of mines
+[2006-05-05 22:59:18] <[HJ]-Asmudius_Heng> so the comander might need to pay some attention while laying mines
+[2006-05-05 22:59:29] <All_for_one> off-field aircraft work nicely then
+[2006-05-05 22:59:35] <[HJ]-Asmudius_Heng> ?
+[2006-05-05 22:59:36] <All_for_one> just fly in
+[2006-05-05 22:59:39] <Gohan> Mines just come off as cheesy to me. It is not promoting combat; rather, it turns everyone into eggshell walkers.
+[2006-05-05 22:59:40] <All_for_one> drop a bomb
+[2006-05-05 23:00:05] <[HJ]-Asmudius_Heng> isnt that the role of actualy player controlled aircraft?
+[2006-05-05 23:00:08] <All_for_one> and you get a little circular minefield
+[2006-05-05 23:00:18] <[HJ]-Asmudius_Heng> mines may not instantly destrioy a vehicle ... just damage the legs and tracks
+[2006-05-05 23:00:43] <[HJ]-Asmudius_Heng> and they will not be everywheer they have limited mines
+[2006-05-05 23:00:48] <All_for_one> AI pathing is really easy
+[2006-05-05 23:00:57] <[HJ]-Asmudius_Heng> it just means the commander can set a defensive line in limited areas
+[2006-05-05 23:01:02] <All_for_one> and a high flying plane is easy to see
+[2006-05-05 23:01:19] <~Taos> I still say that if there is a risk of tripping a mine with a vehicle there should be a risk of getting blown up trying to plant the mine in the first place
+[2006-05-05 23:01:41] <[HJ]-Asmudius_Heng> why?
+[2006-05-05 23:01:53] <[HJ]-Asmudius_Heng> should a gun backfire?
+[2006-05-05 23:02:16] <~Taos> if it isn't kept proper there should be a chance of it, yes
+[2006-05-05 23:02:37] <[HJ]-Asmudius_Heng> why would we inflict that on players?
+[2006-05-05 23:02:47] <[HJ]-Asmudius_Heng> we assume thier weapons are functional
+[2006-05-05 23:02:51] <[HJ]-Asmudius_Heng> why not mines?
+[2006-05-05 23:03:03] <~Taos> I agree with Gohan, it is a combat game, having someone sitting back looking at a tactical screen is not fighting, they are playing god
+[2006-05-05 23:03:04] <All_for_one> yes
+[2006-05-05 23:03:13] <[HJ]-Asmudius_Heng> thats the point of a commander
+[2006-05-05 23:03:23] <[HJ]-Asmudius_Heng> that is one person in a server of many
+[2006-05-05 23:03:34] <[HJ]-Asmudius_Heng> and the mines are not god tools .. they just give a limited tactical option
+[2006-05-05 23:03:46] <[HJ]-Asmudius_Heng> the mines can be avoided, destroiyed, removed
+[2006-05-05 23:03:48] <All_for_one> then maybe take a page from red orchestra
+[2006-05-05 23:03:53] <~Taos> it is one person who should be coordinating the other players, not taking over the fight themselves
+[2006-05-05 23:04:00] <All_for_one> put a 'commander"
+[2006-05-05 23:04:03] <All_for_one>  role
+[2006-05-05 23:04:17] <All_for_one> is your standard infantry but can call in help.
+[2006-05-05 23:04:23] <All_for_one> set nav points and whatnot
+[2006-05-05 23:04:26] <[HJ]-Asmudius_Heng> he can do both .. he has 2 tools to help a fight, ,mines, and arty
+[2006-05-05 23:04:34] <[HJ]-Asmudius_Heng> thats a squad leaders role AFO
+[2006-05-05 23:04:48] <~Taos> and call for supplies and equipment for the other players to use
+[2006-05-05 23:04:49] <[HJ]-Asmudius_Heng> a commander has an RTS like screen and uses it to direct a battle
+[2006-05-05 23:05:02] <[HJ]-Asmudius_Heng> he has some other otpiions that allow him to influence a battle
+[2006-05-05 23:05:18] <~Taos> yes, direct and involved are 2 totally different things
+[2006-05-05 23:05:30] <[HJ]-Asmudius_Heng> antyhing commander controlled is simply something that we remove from players hands because it is not fesable .. laying entire minefields is an example of that
+[2006-05-05 23:06:05] <~Taos> it is feasable, and if it's boring it won't get used except by those who are apt to win
+[2006-05-05 23:06:19] <[HJ]-Asmudius_Heng> are we makign a fun game or a game that is a chore?
+[2006-05-05 23:06:56] <~Taos> not everything in the game has to be accessible to everyong, if it is, then it becomes mundane
+[2006-05-05 23:07:09] <[HJ]-Asmudius_Heng> i am simply trying to create optiosn that allow tactics that ar enot just restricyted to hardcore clanners
+[2006-05-05 23:07:23] <Gohan> O_ o
+[2006-05-05 23:07:41] <[HJ]-Asmudius_Heng> the problem with mines is also ... if the enemy dont go that way .. you just wasted a lot of time
+[2006-05-05 23:07:50] <All_for_one> you know
+[2006-05-05 23:07:53] <All_for_one> forget mines
+[2006-05-05 23:07:55] <[HJ]-Asmudius_Heng> while in the comanders hands it didnt take too much effort
+[2006-05-05 23:08:02] <~Taos> I just do see letting mr. godmode in the back laying a minefield as actually combative
+[2006-05-05 23:08:04] <All_for_one> just have airdrop turrets
+[2006-05-05 23:08:15] <[HJ]-Asmudius_Heng> it is tactical
+[2006-05-05 23:08:24] <[HJ]-Asmudius_Heng> mr godmode is hard;ly a god
+[2006-05-05 23:08:45] <All_for_one> mines are being fazed out by all countries not bend on world domination anyways right now
+[2006-05-05 23:09:08] <[HJ]-Asmudius_Heng> well ... our guys kinda are bent on that :P some of them anyway
+[2006-05-05 23:09:33] <~Taos> yes, it may be tactical, but so is running into a furball with nothing but a nife just to distract them from your budies in the back, but the suicide is actually player involved
+[2006-05-05 23:10:38] <[HJ]-Asmudius_Heng> should a commander not have tactical influence?
+[2006-05-05 23:11:27] <~Taos> aye, and they would, in where they direct thier forces, where they send the supplies, what supplies they send
+[2006-05-05 23:11:51] <~Taos> how they support thier forward forces with arty
+[2006-05-05 23:12:02] <~Taos> emphasis on support
+[2006-05-05 23:12:08] <[HJ]-Asmudius_Heng> mines are support
+[2006-05-05 23:12:23] <All_for_one> yes
+[2006-05-05 23:12:25] <[HJ]-Asmudius_Heng> retricting an enemies attack position for inatcne so your own guys can consolidate
+[2006-05-05 23:12:28] <All_for_one> but we do need mines
+[2006-05-05 23:12:40] <All_for_one> especially if entities might be a problem
+[2006-05-05 23:13:01] <All_for_one> might be better just to let them drop a turret
+[2006-05-05 23:13:10] <All_for_one> be it person controlled
+[2006-05-05 23:13:17] <All_for_one> even maybe remotely via the commander
+[2006-05-05 23:13:38] <All_for_one> or an AI that picks a target in it's LOS and shoots at it perfectly until it's dead
+[2006-05-05 23:13:44] <[HJ]-Asmudius_Heng> the commander i was thinking can drop turrets as well
+[2006-05-05 23:13:50] <[HJ]-Asmudius_Heng> so they can re-enforce captured points
+[2006-05-05 23:14:25] <~Taos> there's something that would make me feel better about letting a commander place minefields
+[2006-05-05 23:14:49] <~Taos> only on captured territory that his troops already hold
+[2006-05-05 23:15:01] <[HJ]-Asmudius_Heng> sure
+[2006-05-05 23:15:10] <[HJ]-Asmudius_Heng> its a defensive measure not effensive
+[2006-05-05 23:15:18] <~Taos> that way someone has already fought for that land
+[2006-05-05 23:15:23] <Gohan> also, little flags/markers that teammates can see
+[2006-05-05 23:15:31] <[HJ]-Asmudius_Heng> how do we define wat is "controlled land"
+[2006-05-05 23:15:45] <[HJ]-Asmudius_Heng> yes, traps and mines will be marked for friendlies
+[2006-05-05 23:15:59] <~Taos> certain radius from a control point perhaps
+[2006-05-05 23:16:13] <~Taos> maybe regional bounds for each control point
+[2006-05-05 23:16:19] <[HJ]-Asmudius_Heng> or between held points too
+[2006-05-05 23:16:33] <[HJ]-Asmudius_Heng> if they are not in line (cut off from supply) it is just a radius
+[2006-05-05 23:16:51] <~Taos> if you hold 2 points with direct LOS you would have the territory between them as well
+[2006-05-05 23:17:20] <~Taos> and control points could be anything from a building to a hill or some landmark
+[2006-05-05 23:17:20] <[HJ]-Asmudius_Heng> would they need LOS? some might be close but cut off fromt sight and still well into frieldnly lines
+[2006-05-05 23:17:39] <Gohan> you could have a radius based on the points importance
+[2006-05-05 23:17:39] <[HJ]-Asmudius_Heng> control points are many and varied and are what infantry are required to capture
+[2006-05-05 23:17:48] <~Taos> theoretical LOS, hills and terrain features not counted
+[2006-05-05 23:18:01] <[HJ]-Asmudius_Heng> all commander dropped itmes would need to be within this control
+[2006-05-05 23:18:09] <Gohan> a repair base would have, say, a 20m radius while some smaller shack or whatever would be smaller
+[2006-05-05 23:18:17] <[HJ]-Asmudius_Heng> that works
+[2006-05-05 23:18:21] <[HJ]-Asmudius_Heng> some points will be more important
+[2006-05-05 23:18:36] <[HJ]-Asmudius_Heng> some will provide nothing but an infantry spawn .. others will have sensor nodes, repair points etc
+[2006-05-05 23:18:58] <~Taos> I'd say the radius would likely be determined by the defensibility of the point
+[2006-05-05 23:19:06] <[HJ]-Asmudius_Heng> some poitns with no aspects might get a radius bonus as a "pro" to take that point however even .. one with good LOS around them perhaps even
+[2006-05-05 23:19:34] <[HJ]-Asmudius_Heng> something that can be tweaked for each point perhaps dpeending on its tactical importance
+[2006-05-05 23:19:43] <[HJ]-Asmudius_Heng> probably later found from testing
+[2006-05-05 23:20:14] <~Taos> say a stronghold of some sort would be large radius, drop a couple turets around it and gain an extra half k or so to the radius for increasing it's defensibility
+[2006-05-05 23:20:19] <[HJ]-Asmudius_Heng> a point in the middle of an open field might have a large one just because it is so open and has room to put things in or something
+[2006-05-05 23:20:38] <All_for_one> dun need to test it
+[2006-05-05 23:20:44] <All_for_one> just give it a radius
+[2006-05-05 23:20:59] <All_for_one> and it gets more points the more friendly things are in that radius
+[2006-05-05 23:21:07] <~Taos> everything needs testing
+[2006-05-05 23:21:11] <[HJ]-Asmudius_Heng> will need to tweak i am sure ... everything that can be explited will be so we dont know what this thing might c ause in terms of problems .. possibly none but then again
+[2006-05-05 23:21:22] <All_for_one> yes
+[2006-05-05 23:21:36] <[HJ]-Asmudius_Heng> ok ... so if we tie commanders support abilities to the control points
+[2006-05-05 23:21:51] <[HJ]-Asmudius_Heng> and allow the commander to increase this via certain actions
+[2006-05-05 23:22:12] <[HJ]-Asmudius_Heng> other abilities like artillery might need payer input like painting targets or being within sensor net
+[2006-05-05 23:22:14] <~Taos> and tie control points influence over ground to it's defensibility and unit compliment
+[2006-05-05 23:22:23] <[HJ]-Asmudius_Heng> unit compliment?
+[2006-05-05 23:22:46] <~Taos> vehicles and infantry within the command points influece range
+[2006-05-05 23:23:03] <[HJ]-Asmudius_Heng> so a point held for long enough for a commander to place many defenses could become a monster of a point to assault
+[2006-05-05 23:23:05] <~Taos> those effect it's defensibility as well
+[2006-05-05 23:23:36] <[HJ]-Asmudius_Heng> allowing the most insignifican tpoint to become a tactical nightmare for an enemy if left alone
+[2006-05-05 23:23:37] <~Taos> aye, and creates more tactical freedom for both commander and players
+[2006-05-05 23:23:53] <[HJ]-Asmudius_Heng> i think tying commander abilities to player actions is important yes
+[2006-05-05 23:24:02] <[HJ]-Asmudius_Heng> teamwork means making everyone rely on everyone else
+[2006-05-05 23:24:10] <[HJ]-Asmudius_Heng> commander not excluded
+[2006-05-05 23:25:09] <Gohan> gg
+[2006-05-05 23:25:12] <~Taos> it's something that could also make the player consider the commanders actions more because if they press out too far from thier commanders influece rings they end up losing the support
+[2006-05-05 23:25:30] <~Taos> err, consider the commanders directions
+[2006-05-05 23:25:38] <[HJ]-Asmudius_Heng> yup yup
+[2006-05-05 23:25:55] <[HJ]-Asmudius_Heng> also allows us to expand the commander repitour of support because it is restricted
+[2006-05-05 23:26:02] <[HJ]-Asmudius_Heng> some maps will nto alloow certian things of course
+[2006-05-05 23:26:14] <~Taos> aye
+[2006-05-05 23:26:34] <[HJ]-Asmudius_Heng> size, location , mission type
+[2006-05-05 23:26:41] <~Taos> AfO, what's your thoughts on this line of idea's?
+[2006-05-05 23:26:46] <[HJ]-Asmudius_Heng> a defender might have different optioins than an attacker in certain scenarios etc
+[2006-05-05 23:27:11] <[HJ]-Asmudius_Heng> as for AFOs AI air craft that seems to fill a similar role to artillery
+[2006-05-05 23:27:20] <[HJ]-Asmudius_Heng> both might be optiosn with slight differences
+[2006-05-05 23:27:32] <[HJ]-Asmudius_Heng> arty might be big radius .. aircraft could be a strafign run in a line or soemthing
+[2006-05-05 23:28:17] * [HJ]-Asmudius_Heng pokes teh AFO
+[2006-05-05 23:28:39] <All_for_one> yes
+[2006-05-05 23:28:46] <All_for_one> ?
+[2006-05-05 23:28:55] <[HJ]-Asmudius_Heng> that seem ok to you
+[2006-05-05 23:29:06] <All_for_one> yeah sure
+[2006-05-05 23:29:13] <[HJ]-Asmudius_Heng> Gohan?
+[2006-05-05 23:29:17] <~Taos> napalm and arty perhaps could be infantry target aquisition within a limited range of any influence ring which would keep the commander from bombing the enemies base right off the bat
+[2006-05-05 23:29:24] <All_for_one> only note is that it might be cooler to have space take the place of aircraft
+[2006-05-05 23:29:26] <Gohan> I like it since I brought it up. :p
+[2006-05-05 23:29:30] <All_for_one> just for the coolness factor
+[2006-05-05 23:29:37] <[HJ]-Asmudius_Heng> rrg that G ;)
+[2006-05-05 23:29:43] <All_for_one> aircraft can be done easily enough by players
+[2006-05-05 23:29:57] <[HJ]-Asmudius_Heng> sure thing AFO .. determined by space orbit influence in a league system
+[2006-05-05 23:30:09] <All_for_one> make a special ship designed for bombarding
+[2006-05-05 23:30:14] <[HJ]-Asmudius_Heng> just like drop pods
+[2006-05-05 23:30:33] <[HJ]-Asmudius_Heng> drop pods are another commander function T .. though i dotn know how restricted they should  be
+[2006-05-05 23:31:03] <[HJ]-Asmudius_Heng> infantry spawn poitns than can be dropped perhaps anywhere outside the enemies control area?
+[2006-05-05 23:31:19] <~Taos> probably about the same range from influence as arty but no target aquisition required
+[2006-05-05 23:31:31] <All_for_one> not really drop pods
+[2006-05-05 23:31:34] <All_for_one> energy cannons
+[2006-05-05 23:31:43] <All_for_one> the big huge beam of light from the sky typ
+[2006-05-05 23:31:44] <[HJ]-Asmudius_Heng> drop pods are for infantry spawns afo 
+[2006-05-05 23:31:48] <All_for_one> ah
+[2006-05-05 23:31:52] <All_for_one> nvrmnd
+[2006-05-05 23:31:57] <[HJ]-Asmudius_Heng> orbital bombardment would be cool though yes
+[2006-05-05 23:32:10] <[HJ]-Asmudius_Heng> big beam of ligth does a strafe across the ground or something
+[2006-05-05 23:32:21] <~Taos> cheap unless it was highly inaccurate
+[2006-05-05 23:32:25] <~Taos> but cool
+[2006-05-05 23:32:37] <[HJ]-Asmudius_Heng> restyrictions and power to be reviews of course :)
+[2006-05-05 23:34:15] <[HJ]-Asmudius_Heng> but it should have a different sort of effect than artillery
+[2006-05-05 23:34:41] <~Taos> arty types, drop pods, and some limited supply options I'd say enemy region within 1mile or so from any influence ring, arty types requiring infantry target
+[2006-05-05 23:34:44] <All_for_one> turns the area into a lava lake :-D
+[2006-05-05 23:35:18] <~Taos> 1 mile of course just being any number I could pull out of my arse for samples sake
+[2006-05-05 23:35:24] <[HJ]-Asmudius_Heng> exact restrictions to be tested i think .. 1 mile might be too much for instance but we really just dont know atm
+[2006-05-05 23:35:31] <[HJ]-Asmudius_Heng> ah right
+[2006-05-05 23:35:38] <[HJ]-Asmudius_Heng> all based on regional conrtrol
+[2006-05-05 23:35:59] <[HJ]-Asmudius_Heng> regional control is based of points held .. points held based on infantry assaults, infantry assault sucessful from vehicle support etc etc
+[2006-05-05 23:36:00] <[HJ]-Asmudius_Heng> all tied together
+[2006-05-05 23:36:16] <~Taos> I wouldn't base it on how much region is controlled, advancement from influence should be restricted reguardless
+[2006-05-05 23:36:24] <[HJ]-Asmudius_Heng> sure
+[2006-05-05 23:36:28] <[HJ]-Asmudius_Heng> ok next point
+[2006-05-05 23:36:30] <[HJ]-Asmudius_Heng> 8. Can enemy comms be jammed? Can enemy comms be listened into?
+[2006-05-05 23:36:35] <[HJ]-Asmudius_Heng> think we covered this already
+[2006-05-05 23:36:49] <Gohan> gg
+[2006-05-05 23:36:51] <~Taos> except for the listening into
+[2006-05-05 23:37:00] <~Taos> that's kinda a unique idea
+[2006-05-05 23:37:03] <[HJ]-Asmudius_Heng> sine some might use TS i think we should leave it out
+[2006-05-05 23:37:15] <All_for_one> again sensor net subs into this nicely
+[2006-05-05 23:37:29] <[HJ]-Asmudius_Heng> i think hackign a sensor net might give you the enemies commands
+[2006-05-05 23:37:32] <All_for_one> especially seeing stuff like targets being painted
+[2006-05-05 23:37:32] <[HJ]-Asmudius_Heng> for a period
+[2006-05-05 23:37:35] <All_for_one> nav points
+[2006-05-05 23:37:36] <~Taos> not so much comms, but perhaps fragments of a commanders maps could be up for recon
+[2006-05-05 23:37:36] <Gohan> In fact, it would drive people to TS2 to avoid opponents listening in to discussions.
+[2006-05-05 23:37:39] <[HJ]-Asmudius_Heng> but not voice comm
+[2006-05-05 23:37:44] <All_for_one> support units
+[2006-05-05 23:37:46] <[HJ]-Asmudius_Heng> yes Gohan
+[2006-05-05 23:37:54] <[HJ]-Asmudius_Heng> yep Taos
+[2006-05-05 23:38:14] <All_for_one> could we just then tie them into the speakers of an enemy player then?
+[2006-05-05 23:38:17] <~Taos> I think that's something for another night though, after the commander stuff is sorted
+[2006-05-05 23:38:21] <All_for_one> same diff :-D
+[2006-05-05 23:38:23] <[HJ]-Asmudius_Heng> if a technitian with a hackign tool finds and enemy sensor node he might be able to show the enemies movements or commands on the map for freiendlies
+[2006-05-05 23:38:27] <[HJ]-Asmudius_Heng> for a short period of time
+[2006-05-05 23:38:27] <All_for_one> only slightly more viral.
+[2006-05-05 23:38:36] <[HJ]-Asmudius_Heng> 9. If battle occurs in an vaccuum will there be explosive decompression in ships, MACROS/MICROS/Infantry.
+[2006-05-05 23:38:44] <[HJ]-Asmudius_Heng> That depends on how complex we make indoors areas in space. Most scenarios for space are ship combat with stations being large stationary (or limited movement) objects. Any scenarios so far in a space station will be a seperate type of battle. In fact one of the scenarios we have written up has a section that has been closed off due to being destroyed by you can access it with an air lock (MICROs only due of course). On
+[2006-05-05 23:39:20] <All_for_one> almost most military ships probably wouldn't be big enough for a large micro/infantry attack
+[2006-05-05 23:39:32] <[HJ]-Asmudius_Heng> i was talking abotu stations on ships
+[2006-05-05 23:39:35] <[HJ]-Asmudius_Heng> err not
+[2006-05-05 23:39:44] <[HJ]-Asmudius_Heng> ships would not beatatckable via inf no
+[2006-05-05 23:39:57] <[HJ]-Asmudius_Heng> maybe carriers ... but even then maybe not
+[2006-05-05 23:40:00] <All_for_one> eh, maybe
+[2006-05-05 23:40:04] <[HJ]-Asmudius_Heng> space sation combat ciould be fun though
+[2006-05-05 23:40:07] <All_for_one> disable the engines
+[2006-05-05 23:40:09] <All_for_one> land
+[2006-05-05 23:40:12] <All_for_one> *dock
+[2006-05-05 23:40:20] <All_for_one> then two guys can go at it
+[2006-05-05 23:40:41] <[HJ]-Asmudius_Heng> basically infantry die in no atmosphere
+[2006-05-05 23:40:52] <[HJ]-Asmudius_Heng> some scanarios woulod be MICRO only for inf types
+[2006-05-05 23:40:59] <[HJ]-Asmudius_Heng> on moons outside for instance
+[2006-05-05 23:41:26] <[HJ]-Asmudius_Heng> any no artmopshere maps would be restrict many vehicles too
+[2006-05-05 23:41:56] <[HJ]-Asmudius_Heng> we might have a "sealed" boolean variable for each unit to say if they can survive in space basically
+[2006-05-05 23:41:57] <~Taos> we getting close to the end?
+[2006-05-05 23:42:00] <[HJ]-Asmudius_Heng> yes
+[2006-05-05 23:42:06] <[HJ]-Asmudius_Heng> 10. During naval combat (space) how detailed will the ship models be? Will specific areas have different hit locations that cause special types of damage? Can surviving naval units be retreated and repaired after combat?
+[2006-05-05 23:42:16] <[HJ]-Asmudius_Heng> Just like the ground combat there will be escape points you can use to save ships and resources ... usualy just specific area along the map boundary. There are a few different sizes of ships and yes just like ground combat all vehicles will have damage locations ... the bigger the ship the more locations. The critical systems in those locations will effect your ships handling ... if your engines get semi fried its gonna
+[2006-05-05 23:42:21] <[HJ]-Asmudius_Heng> last Q from Anchovy
+[2006-05-05 23:42:26] <[HJ]-Asmudius_Heng> and my initial responce
+[2006-05-05 23:42:36] <[HJ]-Asmudius_Heng> not sure if thats much to discuss
+[2006-05-05 23:43:03] <~Taos> that works
+[2006-05-05 23:43:30] <[HJ]-Asmudius_Heng> ok thats everything from anchovys list .. pity he couldnt make it :P
+[2006-05-05 23:43:37] <Gohan> lol
+[2006-05-05 23:43:43] <~Taos> who's logging?
+[2006-05-05 23:43:55] * [HJ]-Asmudius_Heng cannot log, does not work =/
+[2006-05-05 23:44:00] <[HJ]-Asmudius_Heng> i think Tox does
+[2006-05-05 23:44:05] * [HJ]-Asmudius_Heng pokes toxicsoul
+[2006-05-05 23:44:19] <~Taos> I'll dump it
+[2006-05-05 23:45:42] <~Taos> kk, dumped
+[2006-05-05 23:46:10] <[HJ]-Asmudius_Heng> dumped? in a text file on the CoS site or something you mean?
+[2006-05-05 23:46:23] <~Taos> hopefully before tomorrows meeting I'll have had the chance to pick through and find all the ask Xavier questions
+[2006-05-05 23:46:50] <[HJ]-Asmudius_Heng> cool, i am writitn aq rundown on the forum including any techy issues raised
+[2006-05-05 23:46:51] <~Taos> dumped the window buffer to a text file
+[2006-05-05 23:47:45] <Gohan> I am a genius.
+[2006-05-05 23:48:01] <Gohan> Who else generates responses to totally asinine threads? No one other than me.
+[2006-05-05 23:48:10] <Gohan> I am like Jesus but with a better sound system.
+[2006-05-05 23:48:25] <~Taos> your a tool
+[2006-05-05 23:48:42] <[HJ]-Asmudius_Heng> you are a genius Jesus tool?
+[2006-05-05 23:50:17] <Gohan> Exactly.
+[2006-05-05 23:50:23] <Darkhorse> :p
+[2006-05-05 23:50:23] <Gohan> But totally beyond your comprehension. :D
+[2006-05-05 23:50:32] <~Taos> new flood of bots for ya tonight Gohan :P
+[2006-05-05 23:50:41] <Darkhorse> gohan
+[2006-05-05 23:50:44] <Darkhorse> jesus our forums plx
+[2006-05-05 23:50:53] <Gohan> I deleted the bajesus out of dem bots, yo.
+[2006-05-05 23:51:03] <Darkhorse> fo sho
+[2006-05-05 23:51:16] <Gohan> so much for authentication via random numbers/letters D:
+[2006-05-05 23:51:40] <[HJ]-Asmudius_Heng> =/
+[2006-05-05 23:51:45] <Darkhorse> text recognition systems
+[2006-05-05 23:51:56] <Darkhorse> what we need is an IQ test
+[2006-05-05 23:52:05] <Darkhorse> that prevents both bots and retards from signing up
+[2006-05-05 23:52:12] <Darkhorse> two problems solved immediately
+[2006-05-05 23:52:56] <Darkhorse> fascists are me!
+[2006-05-05 23:53:54] * [HJ]-Asmudius_Heng is glad he signed up before this!!
+[2006-05-05 23:53:55] <[HJ]-Asmudius_Heng> :P
+[2006-05-05 23:54:16] <Darkhorse> yeah, suppose it discriminates against aussies too :D
+[2006-05-05 23:54:19] <Gohan> What we need is to nuke Russia.
+[2006-05-05 23:54:26] <Gohan> All the bots have .ru email addresses.
+[2006-05-05 23:54:33] <Darkhorse> russia nukes you bish.
+[2006-05-05 23:54:34] <Gohan> Time to take it to the motherland.
+[2006-05-05 23:55:01] <Gohan> In Soviet Russia, you.. uh, nuke ... Russia?
+[2006-05-05 23:55:19] <[HJ]-Asmudius_Heng> brb
+[2006-05-05 23:55:31] <Darkhorse> that just ruined all of it
+[2006-05-05 23:55:41] <Gohan> gg
+[2006-05-05 23:56:12] <All_for_one> I think starforce is angry at us
+[2006-05-05 23:56:13] <All_for_one> :D
+[2006-05-05 23:56:26] <~Taos> Gohan, if I hung roland from the cieling by his big toe would you beat him with a stick till candy fell out his ears?
+[2006-05-05 23:56:55] <Gohan> only if I can wear my Solid Snake outfit
+[2006-05-05 23:57:08] <Gohan> complete with bandana and mullet
+[2006-05-05 23:57:26] <~Taos> that guy is more annoying than a 12 year old on a jolt cola overload
+[2006-05-05 23:57:54] <Darkhorse> oh hello, another LET'S POST thread
+[2006-05-05 23:57:59] <Darkhorse> same treatment = win
+[2006-05-05 23:58:55] <[HJ]-Asmudius_Heng> <Darkhorse> yeah, suppose it discriminates against aussies too <-- hey .. didnt we kick your ass in the rugby League last night ...
+[2006-05-05 23:58:57] <[HJ]-Asmudius_Heng> ;)
+[2006-05-05 23:59:08] <Darkhorse> what rugby league?
+[2006-05-05 23:59:26] <Darkhorse> apologies, I don't follow dumb sports
+[2006-05-05 23:59:27] <[HJ]-Asmudius_Heng> the thing we beat you in ;)
+[2006-05-05 23:59:31] <[HJ]-Asmudius_Heng> lol
+[2006-05-05 23:59:37] <[HJ]-Asmudius_Heng> neither do i i just like to rub it in
+[2006-05-05 23:59:40] <[HJ]-Asmudius_Heng> in true sydney style
+[2006-05-05 23:59:46] <[HJ]-Asmudius_Heng> we only like winners :P
+[2006-05-06 00:00:00] <Darkhorse> might occasionally watch rugby union, but cricket, league, basketball, soccer can suck me
+[2006-05-06 00:00:18] <Darkhorse> if you want winners, you won't find them here
+[2006-05-06 00:00:39] <[HJ]-Asmudius_Heng> well ... rugby you still put up a good fight
+[2006-05-06 00:00:53] <Darkhorse> unless you're talking about winners at life, in which case we're a step up from ex-cons but we're still all whiny bastards.
+[2006-05-06 00:01:30] <[HJ]-Asmudius_Heng> hey that means we are winners! we were ex cons and are now winners! ;D
+[2006-05-06 00:01:44] <Darkhorse> you still are ex-cons
+[2006-05-06 00:01:47] <Gohan> Australia should become the world's trashcan. :p
+[2006-05-06 00:01:51] <Darkhorse> your police are too
+[2006-05-06 00:01:52] * [HJ]-Asmudius_Heng stals Darkhorses lunch
+[2006-05-06 00:01:57] <Darkhorse> hahah
+[2006-05-06 00:02:05] <Darkhorse> actually I skipped lunch
+[2006-05-06 00:02:12] <[HJ]-Asmudius_Heng> thats because i stole it :P
+[2006-05-06 00:02:26] <Darkhorse> no, it's because there are chickens taking a dump in the kitchen
+[2006-05-06 00:03:02] <[HJ]-Asmudius_Heng> see how classy these New zealanders are
+[2006-05-06 00:03:23] * [HJ]-Asmudius_Heng steals the chickens
+[2006-05-06 00:03:30] <All_for_one> some could say it already was
+[2006-05-06 00:03:31] <Darkhorse> shoot them first
+[2006-05-06 00:04:00] <Darkhorse> actually you might want to clear out the ants and flour beetles too
+[2006-05-06 00:04:14] <Darkhorse> think the cockroaches are mostly gone
+[2006-05-06 00:04:31] <Gohan> what the christ
+[2006-05-06 00:04:37] <Darkhorse> moths are only hiding in the rice now
+[2006-05-06 00:04:53] <~Taos> chickens taking a dump in the kitchen? you people don't kill em before ya cook em?!!
+[2006-05-06 00:05:06] <Darkhorse> guns are illegal
+[2006-05-06 00:05:16] <~Taos> that's what the axe is for
+[2006-05-06 00:05:17] <Darkhorse> that's what happens under a liberal government
+[2006-05-06 00:05:29] <Darkhorse> oh, but you need a resource consent for that
+[2006-05-06 00:05:39] <~Taos> or even a snap of the wrist, thier heads come off easy
+[2006-05-06 00:05:59] <Darkhorse> green party would impose sanctions
+[2006-05-06 00:06:27] <~Taos> hmm, good thing we keep the green party here absolutely powerless
+[2006-05-06 00:06:46] <Darkhorse> in reality they are here too. fortunately.
+[2006-05-06 00:06:59] <~Taos> I think they are everywhere
+[2006-05-06 00:07:13] <[HJ]-Asmudius_Heng> yea
+[2006-05-06 00:07:14] <Darkhorse> they were trying to prevent genetic modification here.
+[2006-05-06 00:07:25] <[HJ]-Asmudius_Heng> some might latch on to a bigger party in some places for power but generally they are just sucky
+[2006-05-06 00:07:38] <~Taos> now if the green they were campaigning for is the green they just decriminalised a few years ago they may be running this country
+[2006-05-06 00:07:51] <Darkhorse> oh, exactly the same, they want weed legal too
+[2006-05-06 00:08:12] <Darkhorse> you know, it's easier to vote when you can't think about it, you just sort of do it
+[2006-05-06 00:08:13] <~Taos> oh, not here, that's not the green party, that was the liberals that did that
+[2006-05-06 00:08:13] <[HJ]-Asmudius_Heng> i dont mind being ecologicaly sound etc but miost in the greens are nutcases .. bit scary in fact
+[2006-05-06 00:08:22] <All_for_one> I think it's funny here
+[2006-05-06 00:08:55] <All_for_one> in Vancouver simple possestion seems to be largely ignored
+[2006-05-06 00:09:06] <Darkhorse> much the same
+[2006-05-06 00:09:11] <~Taos> always has been
+[2006-05-06 00:09:20] <~Taos> nanaimo is worse yet
+[2006-05-06 00:09:24] <All_for_one> heheh
+[2006-05-06 00:09:29] <All_for_one> not that bad
+[2006-05-06 00:09:30] <Darkhorse> they don't hunt down people who have a little, though they don't consciously ignore them either
+[2006-05-06 00:09:37] <All_for_one> it's not small enough
+[2006-05-06 00:09:38] <~Taos> they say 3 grams but anything under an ounce aint worth thier time
+[2006-05-06 00:09:45] <Darkhorse> obviously, growers, distributors and laboratories get owned in the face
+[2006-05-06 00:10:19] <~Taos> the islands are tough cause the growers are competing with mother nature
+[2006-05-06 00:10:50] <~Taos> some spots up the mountains the grow ops got out of hand and it truly is a weed now
+[2006-05-06 00:11:23] <Darkhorse> can imagine a scrubfire
+[2006-05-06 00:11:35] <Darkhorse> high times yo
+[2006-05-06 00:11:50] <~Taos> none for me thanks
+[2006-05-06 00:12:09] <~Taos> I left the island 7 years ago and aint looked at it since
+[2006-05-06 00:12:15] <All_for_one> when I worked at a 7-11 we once had a garbage fire that revealed that a grow op was nearby and was dumping it's "refuse" in the bin :D
+[2006-05-06 00:12:17] <Darkhorse> which island?
+[2006-05-06 00:12:38] <~Taos> vancouver island off the west coast of canada
+[2006-05-06 00:12:43] <Darkhorse> ah
+[2006-05-06 00:12:53] <All_for_one> it's not the worst place
+[2006-05-06 00:13:00] <~Taos> AfO, your in van?
+[2006-05-06 00:13:04] <All_for_one> yes
+[2006-05-06 00:13:17] <~Taos> just a bathtub ride away from my folks
+[2006-05-06 00:13:23] <Darkhorse> the green party must dislike fires in marijuana crops too
+[2006-05-06 00:13:30] <All_for_one> I have folks over there.
+[2006-05-06 00:13:44] <~Taos> no more tub races?
+[2006-05-06 00:13:51] <All_for_one> no more
+[2006-05-06 00:13:58] <~Taos> ugh, too many drowned?
+[2006-05-06 00:14:08] <All_for_one> I don't remember why
+[2006-05-06 00:14:16] <Darkhorse> omg quick run downwind of the fire, we could be getting stoned off that
+[2006-05-06 00:14:19] <All_for_one> I think they canned it because they weren't making enough money
+[2006-05-06 00:14:30] <Gohan> AMERIKKKA
+[2006-05-06 00:14:31] <All_for_one> or they at least changed the course
+[2006-05-06 00:14:43] <~Taos> I never heard why, just cuaght rumor that they were done and some joke bout a newfie pulling the plug
+[2006-05-06 00:14:56] <All_for_one> oh probably.
+[2006-05-06 00:15:37] <~Taos> for those out of the loop they used to race modified bathtubs with outboard motors across the straight of georgia
+[2006-05-06 00:15:50] <[HJ]-Asmudius_Heng> sweet
+[2006-05-06 00:16:04] <All_for_one> about 36 clicks
+[2006-05-06 00:18:30] <~Taos> anyhow, bedtime
+[2006-05-06 00:18:54] *** Taos quit (Quit: )
+[2006-05-06 00:24:11] *** Gohan quit (Quit: Want to be different? HydraIRC -> http://www.hydrairc.com <-)
+[2006-05-06 00:27:21] <[HJ]-Asmudius_Heng> meeting review posted
+[2006-05-06 00:30:49] *** Slit (rtucker@403B13D2.B18C5BDB.2187D841.IP) joined
+[2006-05-06 00:31:49] <[HJ]-Asmudius_Heng> heya slit
+[2006-05-06 00:31:57] <All_for_one> hey slit
+[2006-05-06 00:32:08] <Slit> hola
+[2006-05-06 00:36:56] <[HJ]-Asmudius_Heng> ok i got some stuff to do ... bbl ... i will write up those character ideas for Nisroch tomorrow including the revisions to nicole
+[2006-05-06 00:37:02] <[HJ]-Asmudius_Heng> havent had time this week =/
+[2006-05-06 00:37:04] *** [HJ]-Asmudius_Heng changed nick to [HJ]-Asmudius_Heng|Away
+[2006-05-06 01:25:52] *** All_for_one quit (Connection reset by peer)
+[2006-05-06 01:57:57] *** All_for_one (all_for_on@nbt-7455BA1.bchsia.telus.net) joined
+[2006-05-06 01:58:42] <All_for_one> http://www.clashofsteel.net/all_for_one/sdragron.jpg
+[2006-05-06 01:58:46] <All_for_one> http://www.clashofsteel.net/all_for_one/sdragonp.jpg
+[2006-05-06 01:59:11] <All_for_one> not actually within CoS as it's supposed to be a robot.
+[2006-05-06 02:02:49] *** All_for_one quit (Quit: )
+[2006-05-06 03:29:40] *** [HJ]-Asmudius_Heng|Away quit (Quit: )
+[2006-05-06 05:32:51] *** Sirius quit (Connection reset by peer)

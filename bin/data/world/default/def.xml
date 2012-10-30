@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<object category="Scene" name="Default"> 
+    <initial_zone id="12345678" />
+    <zone id="0" type="TerrainZone">
+        <property name="HeightMap" value="assets/scrub6_hgt-138.tga" />
+        <property name="DiffuseMap" value="assets/textures/terrain_texture.tex" />
+        <property name="DetailMap" value="assets/textures/terrain_detail.tex" />
+        <property name="ZoneSize" value="(2000.000000,200.000000,2000.000000,0.000000)" />
+        <property name="Tiling" value="(64.000000,64.000000)" />
+        <property name="Name" value="zoneName" />
+        <property name="Ambient" value="(0.688000,0.688000,0.588000,0.000000)" />
+        <property name="Dimensions" value="(5000.000000,800.000000,5000.000000,0.000000)" />
+        <property name="Origin" value="(0.000000,0.000000,0.000000,0.000000)" />
+        <objects>
+            <object type="SpawnPoint" name="(undefined)" id="256">
+                <AABB>
+                    <min value="(0.000000,50.000000,150.000000,0.000000)" />
+                    <max value="(0.000000,50.000000,150.000000,0.000000)" />
+                </AABB>
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(0.000000,50.000000,150.000000),(1.000000,0.000000,0.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="SpawnPoint" name="(undefined)" id="257">
+                <AABB>
+                    <min value="(30.000000,50.000000,150.000000,0.000000)" />
+                    <max value="(30.000000,50.000000,150.000000,0.000000)" />
+                </AABB>
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(30.000000,50.000000,150.000000),(0.707000,0.000000,0.707000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="SpawnPoint" name="(undefined)" id="258">
+                <AABB>
+                    <min value="(30.000000,50.000000,200.000000,0.000000)" />
+                    <max value="(30.000000,50.000000,200.000000,0.000000)" />
+                </AABB>
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(30.000000,50.000000,200.000000),(-0.000000,0.000000,1.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="SpawnPoint" name="(undefined)" id="259">
+                <AABB>
+                    <min value="(0.000000,50.000000,200.000000,0.000000)" />
+                    <max value="(0.000000,50.000000,200.000000,0.000000)" />
+                </AABB>
+                <property name="Name" value="(undefined)" />
+                <property name="Transform" value="[(0.000000,50.000000,200.000000),(-0.707000,0.000000,0.707000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="PointLight" name="PointLight1" id="260">
+                <AABB>
+                    <min value="(0.000000,0.000000,0.000000,0.000000)" />
+                    <max value="(0.000000,0.000000,0.000000,0.000000)" />
+                </AABB>
+                <property name="Range" value="1000.000000" />
+                <property name="Attenuation" value="(1.000000,0.000000,0.000000,0.000000)" />
+                <property name="LightColor" value="(0.750000,0.899000,0.980000,0.000000)" />
+                <property name="Name" value="PointLight1" />
+                <property name="Transform" value="[(500.000000,500.000000,130.000000),(1.000000,0.000000,0.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+                <components />
+            </object>
+            <object type="Prop" name="Hangar" id="261">
+                <AABB>
+                    <min value="(-7.000000,6.000000,123.599991,0.000000)" />
+                    <max value="(7.000000,16.799999,139.300003,0.000000)" />
+                </AABB>
+                <property name="Name" value="Hangar13" />
+                <property name="Transform" value="[(0.000000,6.000000,130.000000),(1.000000,0.000000,0.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+            </object>
+            <object type="Prop" name="Hangar" id="262">
+                <AABB>
+                    <min value="(5.000000,0.060762,182.257904,0.000000)" />
+                    <max value="(19.000000,10.860762,197.957886,0.000000)" />
+                </AABB>
+                <property name="Name" value="Area51" />
+                <property name="Transform" value="[(12.000000,5.460762,190.107895),(1.000000,0.000000,0.000000,0.000000),(1.000000,1.000000,1.000000)]" />
+            </object>
+        </objects>
+    </zone>
+    <aabb>
+        <min value="(-2500.000000,-400.000000,-2500.000000,0.000000)" />
+        <max value="(2500.000000,400.000000,2500.000000,0.000000)" />
+    </aabb>
+</object>

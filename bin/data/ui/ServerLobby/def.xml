@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<object category="UI" name="ServerLobby">
+	<layout>
+		<layer>
+			<!-- 
+				 Flash element width/height must be positive
+				 and in pixels, and are not scaled when the 
+				 screen is resized. In general, the element
+				 width and height must match the SWF stage size
+				 to avoid texture smearing.
+				 
+				 If x and y are provided and alignment is not set,
+				 those values should still be in normalized coordinates.
+			-->
+			<element 
+				type="swf" 
+				name="ServerLobby" 
+				valign="middle" 
+				halign="center"
+				w="800"
+				h="600"
+			>ServerLobby.swf</element>
+		</layer>
+	</layout>
+</object>

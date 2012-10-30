@@ -1,0 +1,12 @@
+<object category="VFX" class="ParticleSystem" name="Test">
+	<components>
+		<component type="RenderComponent">
+			<property name="ShaderName" value="ParticleShader/Main" />
+		</component>
+		<component type="RandomPointEmitter">
+		</component>
+		<component type="ParticleSystemRenderer">
+			<property name="Texture" value="textures/smoke.tex" />
+		</component>
+	</components>
+</object>

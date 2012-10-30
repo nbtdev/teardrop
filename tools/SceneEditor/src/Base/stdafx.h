@@ -1,0 +1,61 @@
+#include <wx/wxprec.h>
+#include <wx/splitter.h>
+#include <wx/treectrl.h>
+#include <wx/propgrid/propgrid.h>
+#include <wx/propgrid/manager.h>
+#include <wx/panel.h>
+#include <wx/dialog.h>
+#include <wx/listctrl.h>
+
+// add additional headers here...
+#include "Game/include/OrbitCamController.h"
+#include "Game/include/FreeCamController.h"
+#include "Game/include/TerrainPatch.h"
+#include "Game/include/Scene.h"
+#include "Game/include/SceneUtil.h"
+#include "Game/include/Zone.h"
+#include "Game/include/ZoneObject.h"
+#include "Game/include/Component_Render.h"
+#include "Game/include/Input.h"
+#include "Game/include/InputFilter.h"
+#include "Game/include/InputEvent.h"
+#include "Game/include/ObjectLibrary.h"
+#include "Game/include/Manifest.h"
+#include "Game/include/LoadListener.h"
+#include "Game/include/Component.h"
+#include "Gfx/include/GfxRenderer.h"
+#include "Gfx/include/GfxCamera.h"
+#include "Gfx/include/GfxMaterial.h"
+#include "Gfx/include/GfxMesh.h"
+#include "Gfx/include/GfxSubMesh.h"
+#include "Gfx/include/GfxTextureStage.h"
+#include "Gfx/include/GfxTexture.h"
+#include "Gfx/include/GfxRenderWindow.h"
+#include "Gfx/include/GfxViewport.h"
+#include "Physics/include/Physics.h"
+#include "Animation/include/Animation.h"
+#include "Resource/include/ResourceManager.h"
+#include "Memory/include/Memory.h"
+#include "Memory/include/MemoryRegion.h"
+#include "Stream/include/FileStream.h"
+#include "Reflection/include/Reflection.h"
+#include "Reflection/include/ClassDef.h"
+#include "Reflection/include/PropertyDef.h"
+#include "Util/include/Logger.h"
+#include "Util/include/Timer.h"
+#include "Util/include/Environment.h"
+#include "Util/include/_String.h"
+#include "Util/include/StringUtil.h"
+#include "Math/include/MathUtil.h"
+#include "Math/include/Matrix44.h"
+#include "Math/include/Transform.h"
+#include "Math/include/Vector4.h"
+#include "Math/include/Quaternion.h"
+
+#include <string>
+#include <list>
+#include <map>
+#include <algorithm>
+
+#define DIRECTINPUT_VERSION 0x0800
+#include <DInput.h>

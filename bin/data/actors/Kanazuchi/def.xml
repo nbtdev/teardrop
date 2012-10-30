@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<object class="MACRO" name="Kanazuchi" category="Vehicle">
+	<property name="FreeRotation" value="false" />
+	<property name="LinearSelfBraking" value="true" />
+	<property name="RadialSelfBraking" value="true" />
+	<property name="RotationalSelfBraking" value="true" />
+	<property name="MaxForwardLinearAccel" value="35" />
+	<property name="MaxReverseLinearAccel" value="20" />
+	<property name="MaxRadialAccel" value="60" />
+	<property name="MaxRotationalAccel" value="63" />
+	<property name="MaxForwardSpeed" value="35.28" />
+	<property name="MaxReverseSpeed" value="-18" />
+	<property name="MaxRadialVelocity" value="90" />
+	<property name="MaxRotationalVelocity" value="44" />
+	<property name="MaxRotationalDisplacement" value="114" />
+	<property name="LinearSelfBrake" value="18" />
+	<property name="RadialSelfBrake" value="7" />
+	<property name="RotationalSelfBrake" value="2" />
+	<property name="MaxPitchAngle" value="40" />
+	<components>
+		<component type="RenderComponent">
+			<property name="MeshName" value="Kanazuchi_Mesh.msh" />
+			<property name="ShaderName" value="MACROShader/Main" />
+		</component>
+		<component type="CharacterPhysicsComponent">
+			<property name="RagdollName" value="ragdoll/Kanazuchi_Ragdoll.rag" /> 
+		</component>
+		<component type="InterpolatorComponent" />
+		<component type="AnimationComponent">
+			<property name="RigName" value="rig/Kanazuchi_Rig.rig" />
+			<property name="BlendConfigName" value="anim/blendgraph.xml" />
+		</component>
+		<!--
+		<component type="CameraInterfaceComponent">
+			<property name="CameraController" value="FirstPersonCamController" />
+			<property name="MountPoint" value="mountCam" />
+			<property name="Offset" value="(0,1.25,0.5,0)" />
+		</component>
+		-->
+		<component type="CameraInterfaceComponent">
+			<property name="CameraController" value="ChaseCamController" />
+			<property name="MountPoint" value="mountCam" />
+			<property name="Offset" value="(-2,5,-15,0)" />
+		</component>
+		<component type="EquipmentSlotComponent">
+			<property name="ID" value="1" />
+			<property name="MountPoint" value="mount1" />
+		</component>
+		<component type="EquipmentSlotComponent">
+			<property name="ID" value="2" />
+			<property name="MountPoint" value="mount2" />
+		</component>
+	</components>
+</object>

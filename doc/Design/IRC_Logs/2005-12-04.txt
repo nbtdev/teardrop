@@ -1,0 +1,307 @@
+[2005-12-04 16:47:38] <Xavier> we canb start early if you want
+[2005-12-04 16:47:40] <Xavier> like now ;)
+[2005-12-04 16:47:50] <Elisor> one sec, putting milk in tea
+[2005-12-04 16:48:17] <[HJ]-Asmudius_Heng> hmm ... Australia requests more hot roos then emperor!
+[2005-12-04 16:48:33] <Xavier> Asmu, on that mission desc, I don't mind the smaller MICROs so much as the big mech-like MACROs with lots of parts
+[2005-12-04 16:48:45] <Elisor> back
+[2005-12-04 16:48:46] <Xavier> but like I said, the more I learn about Ogre the less I think it will matter
+[2005-12-04 16:49:00] <Xavier> Eli, I think we'll be able just to use the models in parts
+[2005-12-04 16:49:14] <Xavier> I need to figure out how to tie together the skeletons so that they all use the same one
+[2005-12-04 16:49:15] <[HJ]-Asmudius_Heng> rgr that, inf and micros will only have limbs, torso, head really
+[2005-12-04 16:49:16] <Elisor> cool :)  does it make it much harder for you?
+[2005-12-04 16:49:30] <Xavier> that part remains to be seen
+[2005-12-04 16:50:01] <Xavier> the issue is how the GPU and rendering pipeline deal with batching, and how the model design and scene content fit into that
+[2005-12-04 16:50:29] <Xavier> but I am pretty sure, and tell me if I am wrong, that even those models that are many parts, they all use the same texture, correct?
+[2005-12-04 16:50:31] <Elisor> model design / animation is much easier doing it piecemeal, but I can definitely see how it would make your job a nightmare
+[2005-12-04 16:50:38] <Xavier> they are all UVmapped to the same texture?
+[2005-12-04 16:51:00] <Xavier> well, it has to be piecemeal for this just like MW because we are doing multiple damage areas
+[2005-12-04 16:51:03] <Elisor> yes, although plz keep in mind I just applied a single tex across them all.  it wouldn't normally be done that way
+[2005-12-04 16:51:08] <Xavier> hmm
+[2005-12-04 16:51:14] <Xavier> how many different textures would you use?
+[2005-12-04 16:51:21] <Elisor> yeah, I was going to ask you about damage models and weapons changes
+[2005-12-04 16:51:35] <Xavier> or would you just use one texmap and UV it all over the different bits
+[2005-12-04 16:51:58] <Elisor> depend on the modeler, but if you're doing it piecemeal I'd expect one per object.  TBH Xav I'm not that clued up on how a modeler would tex it in that situation
+[2005-12-04 16:52:23] <Xavier> it all comes down to an as-yet-unknown performance penalty with the way Ogre sends submeshes to the renderer...that will have to be measured, and it may be negligible
+[2005-12-04 16:52:26] <Elisor> I would imagine tho one per object, especially if there will be damage models / textures
+[2005-12-04 16:52:36] *** Gohan quit (Connection reset by peer)
+[2005-12-04 16:52:53] <Xavier> hmm, k
+[2005-12-04 16:52:59] <Xavier> we'll have to measure the impact then
+[2005-12-04 16:53:11] <Elisor> but it's a Q for the modelers....(sry to be unhelpful)
+[2005-12-04 16:53:28] <Xavier> even so, with multiple texture maps the rendereing pipeline sees that as multiple batches, and that will slow down performance
+[2005-12-04 16:53:31] <Xavier> np
+[2005-12-04 16:53:42] <Xavier> ok
+[2005-12-04 16:53:48] <Xavier> so for what we've been doing in the tech ward
+[2005-12-04 16:53:54] <Xavier> which is back by the psych ward
+[2005-12-04 16:53:57] <Xavier> ;)
+[2005-12-04 16:54:05] <Xavier> still on track to complete 0.2
+[2005-12-04 16:54:23] <Xavier> it's a long process this one, because we're implementing a lot of foundation logic that we will build on later
+[2005-12-04 16:54:45] <Xavier> plus, once it's done, I want it to be solid in its own right, before moving on
+[2005-12-04 16:55:19] <Xavier> we were toying with the idea of physical simujlation (which would answer partially the issue of damage models) but pushed that off for later, at least for now
+[2005-12-04 16:56:01] <Xavier> SG is working on the model controls, and I am working on the Linux port and implementing a cross-platform input lib
+[2005-12-04 16:56:18] <Xavier> we want to build the two ports side by side as we go because to try to do it later would be increasingly impossible
+[2005-12-04 16:56:19] <[HJ]-Asmudius_Heng> physical simulation?
+[2005-12-04 16:56:49] <Xavier> ya, basically you apply a force to an object and it just obeys Newtonian laws in the simulation
+[2005-12-04 16:57:15] <Xavier> as opposed to the way we will be doing it, which is to maintain ideal dynamic motion from frame to frame
+[2005-12-04 16:57:35] <Xavier> the one way lets the physical laws determine how the object moves through the scene
+[2005-12-04 16:57:56] <Xavier> and the latter is where we just apply accelerations and velocities and move the things around ourselves
+[2005-12-04 16:58:01] <[HJ]-Asmudius_Heng> ah i c
+[2005-12-04 16:58:03] <Elisor> would that be able to use the new physics cards?
+[2005-12-04 16:58:08] <Xavier> we may end up doing a mixed sim before the final release
+[2005-12-04 16:58:24] <Xavier> but for now, definitely for 0.2, it'll be ideal dynamics
+[2005-12-04 16:59:07] <Xavier> Eli: that woudl be the Novodex library and the PhysX card by its owner, Ageia...that only works on Windows in non-commerical usage
+[2005-12-04 16:59:19] <Xavier> for Linux we'd be stuck with ODE and software only
+[2005-12-04 16:59:24] <Elisor> ok
+[2005-12-04 16:59:44] <Xavier> I really want to support Novodex, which is why we are going to use a wrapper lib that will let us abstract the actual physics lib used
+[2005-12-04 16:59:54] <Xavier> so on Windows we'd use Nx, and on Linux, ODE
+[2005-12-04 17:00:03] <Xavier> unless we decide to make this a commercial product ;)
+[2005-12-04 17:00:29] <Elisor> if it works well enough, with enough community interest, might be worth looking at ;)
+[2005-12-04 17:00:42] <Elisor> anyways, I'm dragging you OT lol
+[2005-12-04 17:00:43] <Xavier> keeping all options open ;)
+[2005-12-04 17:00:50] <Xavier> Sirius is working on a GUI editor, for which you CDT people will be the consumers :)
+[2005-12-04 17:01:25] <Xavier> I am planning on probably scripting the whole UI experience, which will let the CDT tweak the UI behavior without having to rebuild the app to test an idea ;)
+[2005-12-04 17:01:55] <Xavier> the GUI editor will ultimately target this script language and even run the GUI in the editor for you, independent of the game
+[2005-12-04 17:02:23] <Xavier> then, when you're happy, it would generate a gui resource file that the game could read, load, and react to, and bingo :)
+[2005-12-04 17:02:46] <Xavier> in case you hadn't caught on, it's the first plugin for a modders' SDK and IDE that will target the game platform we're writing :)
+[2005-12-04 17:03:28] <Xavier> as for level and map creation, there are several things emerging and coming available in the next 6 months, so when you see me post up in the Programmers forum about such stuff have a look, because it may be what we end up using for map and level creation ;)
+[2005-12-04 17:03:39] <Xavier> that includes the Max plugin Eli ;)
+[2005-12-04 17:03:52] <Elisor> phew! :)
+[2005-12-04 17:03:59] <Xavier> oh and I also bought a copy of TrueSpace 5.2, if anyone cares or has models in that format
+[2005-12-04 17:04:40] <Elisor> dunno if it's of any help for level creation, but Vue are expecting to release a plugin for Max/Maya this year that allows you to fully import and edit Vue 5 scenes in MAX.  if any level creation goes on in there it might be a great help
+[2005-12-04 17:04:55] <Xavier> andf finally, Cheiron is working on both the config file foudnation code for the app, as well as a autoconfig applet similar in capability to what MW has
+[2005-12-04 17:05:32] <Xavier> keep your eyes and ears open about COLLADA support in the tools
+[2005-12-04 17:05:59] <Xavier> nfz of the Ogre team is working on a COLLADA plugin for Ogre which could help content management greatly too
+[2005-12-04 17:06:41] <Xavier> I hope to have 0.2 done and ready by the end of the year
+[2005-12-04 17:06:53] <Xavier> 0.3 will see network support and audio implemented
+[2005-12-04 17:07:21] <Xavier> oh we probably will implement some sort of "mission" selection in 0.2 as well
+[2005-12-04 17:07:49] <Xavier> I need something to make performance testing and profiling easier, so we might as well implement that logic now ;)
+[2005-12-04 17:08:24] <Xavier> so look for 0.2 to have the ability to move a model we made around a terrain of your choice...I might even implement "spawn point" selection too :p
+[2005-12-04 17:08:34] <[HJ]-Asmudius_Heng> w00t!
+[2005-12-04 17:08:36] <[HJ]-Asmudius_Heng> ;)
+[2005-12-04 17:08:45] <Xavier> we've already got that basis in the code, it's just a matter of writing the GUI to do it
+[2005-12-04 17:08:51] <Xavier> which reminds me....
+[2005-12-04 17:08:52] <[HJ]-Asmudius_Heng> and i am making crappy MSpaint maps
+[2005-12-04 17:08:52] <Xavier> as for GUI
+[2005-12-04 17:09:26] <Xavier> we need someone, I gues the only one who can is Lycan. to come up with the GUI look so that we can start an iterative design on the GUI elements
+[2005-12-04 17:09:32] <Xavier> lol asmu
+[2005-12-04 17:10:20] <Xavier> and one other thing before I forget....I would like, sometime in the next 6 months, for someone to create a few models and animate them into a dramatic short or trailer that we can use for OR
+[2005-12-04 17:10:23] <Xavier> *PR
+[2005-12-04 17:10:28] <Xavier> something done in the game environment...
+[2005-12-04 17:11:15] <[HJ]-Asmudius_Heng> only model i think we are happy with the design is the shogun
+[2005-12-04 17:11:31] <Xavier> so a short 30-second script, or set of short scenes, someone should create
+[2005-12-04 17:11:38] <Xavier> ya but that's a mech :p
+[2005-12-04 17:11:52] *** Gohan (Gohan@nbt-5C45C1F8.dsl.chcgil.ameritech.net) joined
+[2005-12-04 17:12:01] <Xavier> even so, it is a perfectly feasible start
+[2005-12-04 17:12:19] <Gohan> woo for restarting 4 times because my PSX emulator was not configured right
+[2005-12-04 17:12:33] <Xavier> the main thing is a script or set of short scene ideas to string together with a nice dramatic dissolve that can give a hint of the universe and the storyline
+[2005-12-04 17:12:43] <Xavier> 30 seconds max
+[2005-12-04 17:13:08] <Xavier> something compelling and interesting
+[2005-12-04 17:13:51] <Xavier> I'd like one to coincide with the 0.3 release (even if that is an internal release)
+[2005-12-04 17:13:51] <[HJ]-Asmudius_Heng> rgr that
+[2005-12-04 17:13:59] <Xavier> which is probably 6 months off
+[2005-12-04 17:14:12] <[HJ]-Asmudius_Heng> once we do the written faction intros i think the scene creators will have a better idea
+[2005-12-04 17:14:16] <Xavier> rgr
+[2005-12-04 17:14:19] <[HJ]-Asmudius_Heng> that is my current task once i get back online proper
+[2005-12-04 17:14:25] <Xavier> oh
+[2005-12-04 17:14:27] <[HJ]-Asmudius_Heng> should be this week
+[2005-12-04 17:14:31] <Xavier> and the modellers can back me up on this
+[2005-12-04 17:14:34] <Xavier> rgr
+[2005-12-04 17:14:40] * Elisor makes note of 30 sec movie short
+[2005-12-04 17:15:05] <Xavier> the best way the concept folks can help the modellers, is to make front/side and perhaps top sketches of their ideas, and maybe a 3D view too
+[2005-12-04 17:15:27] <Xavier> something that the modeller can use as a front/side/top view backgroun in the modeller to give them a headstart on creating the model
+[2005-12-04 17:15:51] <Xavier> just do it in pencil and scan it into a GIF or something
+[2005-12-04 17:16:26] <Xavier> I think that's all I had...CDT team?
+[2005-12-04 17:17:37] <[HJ]-Asmudius_Heng> well we need artists for that which i am not
+[2005-12-04 17:17:45] <Xavier> ok
+[2005-12-04 17:17:51] * Xavier pokes Taos
+[2005-12-04 17:17:52] <[HJ]-Asmudius_Heng> i have done that twice now and we have some models for it but they were early on
+[2005-12-04 17:18:21] <[HJ]-Asmudius_Heng> we need some artists to make some solid designs to give to the modellers and base those designs off our faction writings and feedback
+[2005-12-04 17:18:22] <Sirius> hmmm
+[2005-12-04 17:18:33] <[HJ]-Asmudius_Heng> my drawing skills are pretty poor
+[2005-12-04 17:18:46] <SG_01> Taos is MIA I'm afraid :P
+[2005-12-04 17:18:47] <Sirius> I suppose you don't really need to be an artist - you just need to be able to express the essential points of your idea
+[2005-12-04 17:18:54] <SG_01> Something about lots of snow over there
+[2005-12-04 17:19:00] <Sirius> whether by drawing, or by verbal description...
+[2005-12-04 17:19:06] <Sirius> but drawing is easier to follow of course
+[2005-12-04 17:19:08] <Xavier> I know AFO keeps trying to do models, when his interests might best be served doing sketches that have more detail
+[2005-12-04 17:19:18] <[HJ]-Asmudius_Heng> well i can do that ... but someone with artisic talent will have a better idea of what goes where
+[2005-12-04 17:19:49] <Xavier> the drawing speficially allows the modeller to base their work on something they can load into the modeller, it's a standard modelling technique, Sirus
+[2005-12-04 17:20:07] <Sirius> right
+[2005-12-04 17:20:29] <Xavier> I just wanted something to make the process of drawing the sketches serve as much purpose as possible ;)
+[2005-12-04 17:20:30] <[HJ]-Asmudius_Heng> well i do think that if modellers are willling to mutate thier work over time it can start from them like the thread in the modling area now
+[2005-12-04 17:20:55] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=851
+[2005-12-04 17:21:10] <Xavier> unforunately, changes of any magnitude require a restart in most cases
+[2005-12-04 17:21:10] <[HJ]-Asmudius_Heng> this is a good example of design formed by feedback
+[2005-12-04 17:21:43] <Xavier> because of the basic techniques in modelling, you almost always have to start over, because so many things are done with extrusions and mirroring, etc
+[2005-12-04 17:21:54] <Xavier> and you can't really go back on that and have it come out right
+[2005-12-04 17:22:05] <Xavier> how long did that one take to pull out tho?
+[2005-12-04 17:22:16] <[HJ]-Asmudius_Heng> would have to ask sidelink i guess
+[2005-12-04 17:23:02] <Xavier> I do agree that better artists would help that task but that's a matter of recruting *pokes taos again* :p
+[2005-12-04 17:23:16] <[HJ]-Asmudius_Heng> however .. i think this low poly stuff is good to look at .. it might not even get used byt the ideas of what works and what motifs are good will be learnt from that
+[2005-12-04 17:23:30] <[HJ]-Asmudius_Heng> i might find an old thread on design motifs we had
+[2005-12-04 17:23:36] <Xavier> at some point during the 0.3 development I thinki we'll attain enough content to be able to attract talent to the project
+[2005-12-04 17:23:50] <Xavier> rgr
+[2005-12-04 17:24:04] <[HJ]-Asmudius_Heng> Cimex got a few good guys but they dissapeared because no-one made models of thier designs at that point i think
+[2005-12-04 17:24:12] <Xavier> about how close to "done" is the concept, in terms of history?
+[2005-12-04 17:24:30] <Xavier> ya, I want to blame HC for that Asmu :p
+[2005-12-04 17:24:36] <[HJ]-Asmudius_Heng> history is pretty much set
+[2005-12-04 17:24:40] <Xavier> k
+[2005-12-04 17:24:49] <[HJ]-Asmudius_Heng> current politics and characters are being done
+[2005-12-04 17:25:08] <[HJ]-Asmudius_Heng> i have to revise the history in the wiki but that is part of the faction intros that is current task
+[2005-12-04 17:25:14] <Xavier> what's a realistic ETA on that?
+[2005-12-04 17:25:24] <Xavier> that would be a good backdrop for the video short
+[2005-12-04 17:25:52] <[HJ]-Asmudius_Heng> well it will contain the essense of all our factions
+[2005-12-04 17:26:12] <[HJ]-Asmudius_Heng> so yes using this set of history and writings i hope to give enough of the feel of the universe for ppl to draw on
+[2005-12-04 17:26:22] <Xavier> k
+[2005-12-04 17:26:23] <[HJ]-Asmudius_Heng> i hope to have to done by first week Jan
+[2005-12-04 17:26:29] <Xavier> perfect :)
+[2005-12-04 17:26:33] <[HJ]-Asmudius_Heng> since i have 2 weeks holidays after Xmas
+[2005-12-04 17:26:36] <Xavier> :)
+[2005-12-04 17:26:39] <[HJ]-Asmudius_Heng> and no current plans
+[2005-12-04 17:26:57] <Xavier> gameplay is solid enough to make a demo of if we needed to? a single mission?
+[2005-12-04 17:27:12] <Xavier> I know it's been the least talked about aspect so far
+[2005-12-04 17:27:27] <[HJ]-Asmudius_Heng> would need to be tested but the concept is taken from games that are succesful
+[2005-12-04 17:27:30] <Xavier> but once we have a way to implement the ideas we can start iterating on the gameplay concepts
+[2005-12-04 17:27:33] <Xavier> k
+[2005-12-04 17:27:46] <Xavier> for a v1.0 that would be sufficient
+[2005-12-04 17:28:18] <Xavier> anything else in the Concept arena?
+[2005-12-04 17:28:42] <[HJ]-Asmudius_Heng> Well vehicle design at this point is still not finished
+[2005-12-04 17:28:54] <[HJ]-Asmudius_Heng> we have a basic plan for the R&D labs
+[2005-12-04 17:29:03] <[HJ]-Asmudius_Heng> but the rules are nbeing made by AFO atm
+[2005-12-04 17:29:07] <Xavier> k
+[2005-12-04 17:29:08] <[HJ]-Asmudius_Heng> they are coming along though
+[2005-12-04 17:29:17] <[HJ]-Asmudius_Heng> first release might even have to be stock weps
+[2005-12-04 17:29:27] <[HJ]-Asmudius_Heng> no R&D but i hope not
+[2005-12-04 17:29:38] <Xavier> the R&D concept is probably the most pressing, tech-wise
+[2005-12-04 17:29:48] <[HJ]-Asmudius_Heng> yesterday we got a base wep lab down in general design
+[2005-12-04 17:30:08] <[HJ]-Asmudius_Heng> we are most likely going to use a grid system to build weapons
+[2005-12-04 17:30:18] <[HJ]-Asmudius_Heng> similar to mechcommander in some ways
+[2005-12-04 17:30:27] <Xavier> don't make it too complex or it won't be used ;)
+[2005-12-04 17:30:35] <[HJ]-Asmudius_Heng> shoulodnt be too complex
+[2005-12-04 17:30:39] <Xavier> k
+[2005-12-04 17:30:52] <[HJ]-Asmudius_Heng> will be very intuative
+[2005-12-04 17:31:07] <Xavier> k before Eli has to do, I want to touch on interchangeable weaps
+[2005-12-04 17:31:12] <[HJ]-Asmudius_Heng> but allow a wide variety
+[2005-12-04 17:31:35] <[HJ]-Asmudius_Heng> gameplay or graphics wise?
+[2005-12-04 17:31:51] <Xavier> even if we don't support full custom right away (and I don't see why we wouldn;t) the models will have to be made from the start for custimzation
+[2005-12-04 17:31:59] <[HJ]-Asmudius_Heng> yes
+[2005-12-04 17:32:14] <Xavier> when each model is complete there is a list or drawing of what can be changed out?
+[2005-12-04 17:32:27] <Xavier> at least, the stuff that should look different ingame
+[2005-12-04 17:32:52] <Xavier> each faciton has their own weapon types that they can put on their person and vehicles?
+[2005-12-04 17:32:54] <[HJ]-Asmudius_Heng> we decided yesterday that not every part needs to be shown as much would be encased in armour
+[2005-12-04 17:33:02] <Xavier> k
+[2005-12-04 17:33:10] <[HJ]-Asmudius_Heng> weapon: type, barrel, larger firing systems
+[2005-12-04 17:33:18] <[HJ]-Asmudius_Heng> are prob the only stuff that needs to look the part
+[2005-12-04 17:33:23] <Xavier> rgr
+[2005-12-04 17:33:47] <[HJ]-Asmudius_Heng> a clip fed solenoid would prob look no different than a sinle shotter unless he barrel was different for example
+[2005-12-04 17:34:09] <Xavier> on infantry, how much variation is there between rigs?
+[2005-12-04 17:34:30] <[HJ]-Asmudius_Heng> inf ahve 3 classes, light med heavy
+[2005-12-04 17:34:45] <[HJ]-Asmudius_Heng> again the type and barrel will be most prominant
+[2005-12-04 17:35:07] <Xavier> I'd have to go visit the different weapon types for infantry but do those three classes map to a single scrap of geometry each, or are there multiple bits of geometry that need to exist for multiple weaps in each class?
+[2005-12-04 17:35:09] <Xavier> k
+[2005-12-04 17:35:35] <Xavier> so if some sniper is zoomed in on a target, he can or cannot tell which weapon the target has in his hands?
+[2005-12-04 17:35:45] <[HJ]-Asmudius_Heng> he will be able to tell
+[2005-12-04 17:35:47] <Xavier> looking for a LoD guesstimate on that
+[2005-12-04 17:35:56] <[HJ]-Asmudius_Heng> if this is too much the minimum should be the weapon type
+[2005-12-04 17:36:13] <[HJ]-Asmudius_Heng> a rocket launcher will lok different than a laser etc
+[2005-12-04 17:36:17] <Xavier> right
+[2005-12-04 17:36:38] <Xavier> but it's not like trying to tell the diff between an Uzi and an MP5?
+[2005-12-04 17:36:43] <[HJ]-Asmudius_Heng> for inf berrel length would not be too huge a difference but a sniper berrel might be cause for attention etc
+[2005-12-04 17:36:45] <[HJ]-Asmudius_Heng> no
+[2005-12-04 17:36:49] <Xavier> k
+[2005-12-04 17:36:56] <[HJ]-Asmudius_Heng> a submachine gun would look the same usually
+[2005-12-04 17:37:01] <Xavier> kewl
+[2005-12-04 17:37:01] <[HJ]-Asmudius_Heng> hmm
+[2005-12-04 17:37:10] <[HJ]-Asmudius_Heng> unless we do differences per faction
+[2005-12-04 17:37:15] <[HJ]-Asmudius_Heng> but for the moment i would say no
+[2005-12-04 17:37:27] <Xavier> just trying to get a feel for the complexity of the model matrix
+[2005-12-04 17:37:28] <[HJ]-Asmudius_Heng> the base tech came from the old solari records
+[2005-12-04 17:38:47] <Xavier> ok
+[2005-12-04 17:39:03] <Xavier> anyone have any questions?
+[2005-12-04 17:39:10] <Xavier> or did I bore you all to sleep? ;)
+[2005-12-04 17:39:21] <[HJ]-Asmudius_Heng> i would prefer each factons wep types to be different however the more i think on it 
+[2005-12-04 17:39:38] <Xavier> that's not a problem; I would expect that anyway
+[2005-12-04 17:39:43] <[HJ]-Asmudius_Heng> rgr
+[2005-12-04 17:40:17] <[HJ]-Asmudius_Heng> but yes each vehicle will also have to integrate a base wepoan type design to fit in the required areas
+[2005-12-04 17:40:18] <Xavier> just so that we're not trying to have 4 different sniper rifles that all need to look different in a little bit of a way and can be discrened in a zoom lens at 200m :)
+[2005-12-04 17:40:26] <Xavier> rgr
+[2005-12-04 17:40:41] <[HJ]-Asmudius_Heng> at that range as long as it is long n pointy it prob ok
+[2005-12-04 17:40:47] <Darkhorse> ah.. was I supposed to be reading?
+[2005-12-04 17:40:53] <Xavier> lol
+[2005-12-04 17:41:07] <Xavier> you can scroll back up at your leisure :p
+[2005-12-04 17:41:07] <[HJ]-Asmudius_Heng> hmmm calibre might also need to be taken into account ...
+[2005-12-04 17:41:35] <[HJ]-Asmudius_Heng> a big gun looks different than a smaller one ... that will prob depend on the bulk in the RnD lab some share the same bulk but different weight
+[2005-12-04 17:41:55] <Xavier> k
+[2005-12-04 17:42:40] <Xavier> not to interrupt, Asmu, but before Eli has to go, i wanted to touch on the roadmap real quick: what I have in the Programmers forum is wildly ambitious ;)
+[2005-12-04 17:42:54] <[HJ]-Asmudius_Heng> rgr going back to crappy MSpain maps!
+[2005-12-04 17:43:04] <Xavier> I am looking now at a first internal alpha sometime in late 2006
+[2005-12-04 17:43:25] <Xavier> and I would like that alpha to be a complete single MP mission
+[2005-12-04 17:43:31] <Xavier> we'll focus on that for now
+[2005-12-04 17:43:54] <Xavier> once that is in place and solid making the rest of the content will be easier
+[2005-12-04 17:44:14] <Xavier> I'll detail that more in the forums as I flesh it out but keep that in mind for the first major target
+[2005-12-04 17:44:24] <Xavier> late next year, I'd like to have a workable alpha
+[2005-12-04 17:44:32] <Xavier> it doesn't have to be textured properly, etc
+[2005-12-04 17:44:44] <Xavier> we can make thje levels all orange if we have to :p
+[2005-12-04 17:44:58] <[HJ]-Asmudius_Heng> nice
+[2005-12-04 17:45:08] <Xavier> but I do want the logic and the gameplay to come together in a single "mission" bt then
+[2005-12-04 17:45:12] <Xavier> *by
+[2005-12-04 17:45:27] <[HJ]-Asmudius_Heng> gameplay before art ... good
+[2005-12-04 17:45:33] <[HJ]-Asmudius_Heng> some gaming companies forget that
+[2005-12-04 17:45:33] <Xavier> hopefuly early next year we'll bring on more help to make it happen
+[2005-12-04 17:45:41] <Xavier> the two can work in parallel tho Asmu
+[2005-12-04 17:45:47] <Xavier> it's how they did HL2
+[2005-12-04 17:46:03] <Xavier> and I think we can duplicate that process here
+[2005-12-04 17:46:24] <Xavier> true enough Asmu ;)
+[2005-12-04 17:46:40] <[HJ]-Asmudius_Heng> sure ... putting art before gameply is a pet peeve of mine .. i dont care if a game looks good if it plays crap is all :P
+[2005-12-04 17:46:46] <Xavier> yup
+[2005-12-04 17:46:54] <Xavier> Farcry comes to mind...
+[2005-12-04 17:46:58] <Elisor> sry, was AFK (cleaning the phrickin cat litter)
+[2005-12-04 17:47:02] <Xavier> lol np
+[2005-12-04 17:47:07] <Xavier> you can read the log :p
+[2005-12-04 17:47:11] <Elisor> will do ;)
+[2005-12-04 17:47:26] <Gohan> FarCry was an e-penis game for the people who spent $2,000 on a machine.
+[2005-12-04 17:47:33] <Elisor> GTG guys.  go to see ya'll and will catch ya'll laters <<<<
+[2005-12-04 17:47:40] <Xavier> later Eli, thanks!
+[2005-12-04 17:47:43] *** Elisor changed nick to Eli-away
+[2005-12-04 17:47:44] <[HJ]-Asmudius_Heng> cya eli :)
+[2005-12-04 17:47:46] <Xavier> agreed Gohan
+[2005-12-04 17:47:57] <Xavier> the first scene bored me
+[2005-12-04 17:48:07] <Xavier> luckily I didnt buy it, it came with the 6800GT ;)
+[2005-12-04 17:48:33] <Xavier> see, for some reason, even tho the grahics are circa 1997, I like Duke Nukem3D
+[2005-12-04 17:48:38] <Xavier> the latest version sucked IMO
+[2005-12-04 17:48:41] <Gohan> I played the demo. It felt like a first person version of Metal Gear Solid ... except with a larger emphasis on mass murder.
+[2005-12-04 17:48:52] <[HJ]-Asmudius_Heng> lol
+[2005-12-04 17:49:00] <Xavier> the Nukem3D version was fun and playable and put that before graphics (even if the grafx were still good for the day)
+[2005-12-04 17:49:14] <Gohan> lol doom 3
+[2005-12-04 17:49:15] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?p=9626#9626
+[2005-12-04 17:49:27] <[HJ]-Asmudius_Heng> mission 2 and 3 added
+[2005-12-04 17:49:51] <Xavier> lol 4/12/05...it ain't April you Aussie foo! :p
+[2005-12-04 17:49:52] <Xavier> j/k
+[2005-12-04 17:50:15] <[HJ]-Asmudius_Heng> i am wondering if capturing a point should be more complex for bigger bases...
+[2005-12-04 17:50:23] <[HJ]-Asmudius_Heng> oh quite ya seppo ;)
+[2005-12-04 17:50:29] <[HJ]-Asmudius_Heng> errr quiet
+[2005-12-04 17:50:33] <Xavier> lol
+[2005-12-04 17:50:43] <Gohan> MS Paint is awesome.
+[2005-12-04 17:50:51] <Gohan> clearly Microsoft's best product to date
+[2005-12-04 17:50:56] <[HJ]-Asmudius_Heng> i do better grphics than farcry
+[2005-12-04 17:51:00] <[HJ]-Asmudius_Heng> look at my genius
+[2005-12-04 17:51:14] <Gohan> what are the gray circles
+[2005-12-04 17:51:15] <Xavier> lol
+[2005-12-04 17:51:30] <[HJ]-Asmudius_Heng> maybe larger bases require multiple points to be "switched" before the whole base is turned
+[2005-12-04 17:51:46] <[HJ]-Asmudius_Heng> hills you buffoon!
+[2005-12-04 17:51:52] <Gohan> oh :(
+[2005-12-04 17:51:57] <[HJ]-Asmudius_Heng> though i cut out any terrain in the others really :P
+[2005-12-04 17:52:19] <[HJ]-Asmudius_Heng> just the basics for map makers to then use as a basis
+[2005-12-04 17:52:51] <[HJ]-Asmudius_Heng> mission 3 will either be really unbalanced or really fun i dont know which :P
+[2005-12-04 17:53:48] <Gohan> holy jesus
+[2005-12-04 17:54:09] <[HJ]-Asmudius_Heng> yes my son?
+[2005-12-04 17:54:57] <Gohan> Can you create a Bahram Battleship for me?
+[2005-12-04 17:55:09] <Xavier> ?
+[2005-12-04 17:55:11] * [HJ]-Asmudius_Heng loads up MSpaint
+[2005-12-04 17:55:13] <[HJ]-Asmudius_Heng> coming up!
+[2005-12-04 17:55:27] <[HJ]-Asmudius_Heng> ... erm .. what is a Bahram Battleship?
+[2005-12-04 17:55:30] * SG_01 doesn't want to see the end result
+[2005-12-04 17:55:31] <Gohan> :P
+[2005-12-04 17:55:48] <Gohan> I am on my ZOE2 kick.
+[2005-12-04 17:55:53] <Xavier> blah
+[2005-12-04 17:56:02] <Gohan> yes I am very much obsessed with ZOE2
+[2005-12-04 17:57:19] <Xavier> well I guess we managed to fit the whole thing into the 50 minutes that Eli was here ;) so with that I would say we are adjourned, and I am going back to the linux port now :p asmu, I will look over the missions later or tomorrow and see what feeling I get about them and let you know.....thanks everyone! I will post up a summary and put this log in the same place as last month's

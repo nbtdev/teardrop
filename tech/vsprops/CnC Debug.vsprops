@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="CnC Debug"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(CNC_INSTALL_DIR)\Include"
+		PreprocessorDefinitions="CNC_STATIC_LIB"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		UseLibraryDependencyInputs="true"
+		AdditionalDependencies="cnc_static_debug.lib"
+		AdditionalLibraryDirectories="$(CNC_INSTALL_DIR)\Lib\ia32\vc9"
+	/>
+</VisualStudioPropertySheet>

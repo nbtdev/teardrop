@@ -1,0 +1,49 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {476193C7-9FDD-4e5b-AC0F-3296DEC42965} = s  'DCPExplorerExtension Class'
+		{
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+		}
+	}
+
+	NoRemove *
+	{
+		NoRemove ShellEx
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove OpenFolder = s '{476193C7-9FDD-4e5b-AC0F-3296DEC42965}'
+			}
+		}
+	}
+
+	NoRemove Folder
+	{
+		NoRemove ShellEx
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove OpenFolder = s '{476193C7-9FDD-4e5b-AC0F-3296DEC42965}'
+			}
+		}
+	}
+	
+	NoRemove Directory
+	{
+		NoRemove Background
+		{
+			NoRemove ShellEx
+			{
+				NoRemove ContextMenuHandlers
+				{
+					ForceRemove OpenFolder = s '{476193C7-9FDD-4e5b-AC0F-3296DEC42965}'
+				}
+			}
+		}
+	}
+}

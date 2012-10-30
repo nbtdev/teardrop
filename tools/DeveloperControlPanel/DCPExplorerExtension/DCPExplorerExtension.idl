@@ -1,0 +1,66 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of the Clash Of Steel Project
+
+For the latest info, see http://www.clashofsteel.net/
+
+Copyright (c) The Clash Of Steel Team
+Also see acknowledgments in Readme.txt
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-----------------------------------------------------------------------------
+*/
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+// // {D75EB882-8C58-4481-94A2-51DEA73DD78B}
+//DEFINE_GUID(<<name>>, 0xd75eb882, 0x8c58, 0x4481, 0x94, 0xa2, 0x51, 0xde, 0xa7, 0x3d, 0xd7, 0x8b);
+
+
+[
+	object,
+	uuid(D75EB882-8C58-4481-94A2-51DEA73DD78B),
+	dual,
+	helpstring("DCPExplorerExtension"),
+	pointer_default(unique)
+]
+interface IDCPExplorerExtension : IDispatch
+{
+};
+
+[
+	uuid(A7182090-F4F0-47b0-939E-487A01A9FD95),
+	version(1.0),
+	helpstring("DCPExplorerExtension 1.0 Type Library")
+]
+library DCPExplorerExtensionLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(476193C7-9FDD-4e5b-AC0F-3296DEC42965),
+		helpstring("DCPExplorerExtension Class")
+	]
+	coclass DCPExplorerExtension
+	{
+		[default] interface IDCPExplorerExtension;
+	};
+}

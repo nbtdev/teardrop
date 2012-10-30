@@ -1,0 +1,813 @@
+
+Start of #cos-dev buffer: Sun Jan 08 01:38:46 2006
+[22:45] * Now talking in #cos-dev
+[22:45] * Topic is 'See topic titled "Dev IRC channel" in programmers forum for key to 
+join channel'
+[22:45] * Set by Xavier on Sat Dec 24 00:52:57
+[22:45] * ChanServ sets mode: +oa Xavier Xavier
+[22:46] * All_for_One has joined #cos-dev
+[22:48] <Xavier> hola
+[22:48] <Xavier> heh so far there's no one here that doesn't already know what the 
+  current state is ;)
+[22:48] <Darkhorse> yeah, big surprise :)
+[22:49] <Xavier> no biggie, I can dispense with a long-winded report on what's going on 
+  and we can do more of a Q&A instead
+[22:49] <Xavier> we got ten minutes yet, we'll see who else shows up
+[22:49] <Darkhorse> shore fing
+[22:50] <Xavier> DH you and Asmu got together yet?
+[22:50] <Darkhorse> nah, online at the wrong times
+[22:50] <Xavier> :(
+[22:50] <[HJ]-Asmudius_Heng> talking now ... got him on MSN
+[22:50] <Xavier> and you are both only two timezones from each other :p
+[22:50] <Darkhorse> you got me on MSN or some really clever double?
+[22:51] <Darkhorse> it's all the working around US timezones, screws the body clock up
+[22:51] <Sirius> hmm
+[22:51] <Sirius> OISEvents.h....
+[22:51] <All_for_One> hehehe
+[22:51] <Darkhorse> I actually feel like going to bed at 2 am PST and so on
+[22:51] <[HJ]-Asmudius_Heng> i have just been really randoim recently coz of holidays
+[22:52] <[HJ]-Asmudius_Heng> back to work tomorrow though ... 9-5 then gamings time :)
+[22:52] <Xavier> which is PST in GMT terms?
+[22:52] <Sirius> I wonder whether SVN screwed up on me
+[22:52] <All_for_One> -8
+[22:52] <Darkhorse> -8
+[22:52] <Xavier> so PST as I know it...DH, thought you were in NZ?
+[22:53] <Darkhorse> yeah but I just live in the wrong timezone or something
+[22:53] <Darkhorse> hit the hay and wake up too early
+[22:53] <Xavier> lol
+[22:54] <All_for_One> I know a guy like that
+[22:54] <[HJ]-Asmudius_Heng> it is 3:00PM here atm Xav
+[22:54] <All_for_One> goes to bed at like 1900 and wakes up at like 0300
+[22:54] <[HJ]-Asmudius_Heng> so i am usually home on a weekday in about 2-3 hours
+[22:55] <[HJ]-Asmudius_Heng> so DH is a few hours ahead of me i think ...
+[22:55] <Darkhorse> two
+[22:55] <[HJ]-Asmudius_Heng> only 2, thats not too bad
+[22:55] <Darkhorse> the timezone in the middle is for fishermen
+[22:56] <All_for_One> I think gohan is 2 ahead of me in CST.
+[22:56] <Gohan> CST runs the world.
+[22:56] <All_for_One> GMT rules the world
+[22:56] <[HJ]-Asmudius_Heng> i thought the freemasons did?
+[22:56] <Darkhorse> yeah, the only thing the Brits still run around here. time.
+[22:56] <Sirius> Cookie Sales Tax
+[22:56] <All_for_One> nah
+[22:56] <All_for_One> it's the secret reptilian overlords
+[22:57] <[HJ]-Asmudius_Heng> anyway ... as long as the meetings are on weekends i can 
+  usually attend them :)
+[22:57] <Sirius> Xavier
+[22:57] <Sirius> where does OISEvents.h usually come from?
+[22:57] <Sirius> the Tools projects won't compile because it's missing, apparently
+[22:57] <Xavier> it is in nese/src/input/ois , and gets coped to nese/include in the 
+  OIS.vcproj build
+[22:58] <Xavier> easiest thing to do might be just load up the Engine.sln and build all 
+  that
+[22:59] <Darkhorse> two minutes, time to do a runner - brb.
+[22:59] * All_for_One reads the greek and nods blankly
+[23:01] <Xavier> hehe
+[23:01] <Xavier> you would need to build OIS anyway, and CEGUI and Ogre, in order to 
+  build the CDK
+[23:02] * Thoth has joined #cos-dev
+[23:02] <Thoth> hiyas
+[23:02] <Xavier> oi!
+[23:02] <All_for_One> Eek!
+[23:02] <Sirius> k
+[23:02] <[HJ]-Asmudius_Heng> yo thoth :) feeling better?
+[23:02] <All_for_One> \me runs
+[23:02] * All_for_One runs
+[23:03] <Thoth> lol, a bit thanks
+[23:03] <Sirius> a bunch of the engine projects are failing to build for whatever 
+  reason... just not sure which yet
+[23:03] <All_for_One> oh, on a bit of a different point, how reputable is the MS 
+  antispyware thingy?
+[23:04] <Gohan> I heard good things about it
+[23:04] <Gohan> considering it is just rebranded software
+[23:04] <Thoth> i ran it in an office of 200 stations
+[23:04] <All_for_One> heheh
+[23:04] <Thoth> no/few problems
+[23:04] <All_for_One> seems to work better here than ad-aware.
+[23:04] <Xavier> Sirius: do you have the DirectX SDK and Cg Toolkit installed, and 
+  directories set up for them in the IDE optins?
+[23:04] <Xavier> *options
+[23:05] <Xavier> what MS antispyware?
+[23:05] <Gohan> formerly Giant Antispyware
+[23:05] <Gohan> then MS bought it
+[23:05] <Gohan> and called it MS AntiSpyware
+[23:05] <Thoth> speaking of rebranding, konfabulator => Yahoo widgets
+[23:05] <All_for_One> and you can download the "beta"
+[23:05] <Gohan> which was recently extended to June of this year
+[23:05] <All_for_One> if you have a legit copy of windowz
+[23:06] <All_for_One> and crap => MWDA.
+[23:06] <Xavier> lol
+[23:06] <Darkhorse> windowz?
+[23:06] <Darkhorse> the "z" usually has spiritual significance that indicates a chaotic 
+  alignment
+[23:06] * SG_01 Yawns
+[23:06] <SG_01> Anything going on?
+[23:07] <Xavier> lol SG I didn'
+[23:07] <Darkhorse> hell yeah
+[23:07] <Xavier> didnt even think you were here :p
+[23:07] <Sirius> Cg Toolkit being? I'm not sure exactly which came with VC++
+[23:07] <Sirius> I know I have the Win32 framework installed, but beyond that I didn't 
+  add anything custom
+[23:07] <SG_01> We where bussy
+[23:07] <Xavier> sirius: http://www.clashofsteel.net/index.php?option=com_content&task=vi
+  ew&id=32&Itemid=49
+[23:08] <All_for_One> no, it's that I've been trying to get SP2 on this damn rig for the 
+  last 3 hours, and only now did auto update stop trying to download and install it at 
+  the same time.
+[23:09] <Xavier> sirius: if you are using the VC8 express, then the Platform SDK is not 
+  optional either; you'll need that for sure, and there will be a couple of additional 
+  tweaks you'll need to get it to build things properly
+[23:09] <Sirius> Platform SDK... yeah, I have that
+[23:09] <Sirius> looks like this will take some time
+[23:10] <[HJ]-Asmudius_Heng> btw ... jargon aside what stage are we at with the 
+  programming for us CDT types?
+[23:10] <Xavier> ya, it's a serious amount of downloading
+[23:10] <Xavier> ok, let's start then
+[23:10] <Darkhorse> to reiterate: shore fing
+[23:11] <Xavier> current capabilities are full model control (mouse, keyboard, stick) 
+  with a little bit of tweaking needed
+[23:11] <Xavier> we still need Elisor to finish the in-place animation to get an idea of 
+  what we need to do there to synch the animation with the model's motion
+[23:12] <Darkhorse> so right now I'm guessing it skates
+[23:12] <Xavier> loading logic is ready to accept player profile (whenever the GUI is 
+  done for that), it loads a mission file selected in the GUI, and it's ready to accept 
+  networking in the next milestone
+[23:12] <SG_01> Hrmm, I really need some sleep anyhow
+[23:12] <Xavier> DH: yes
+[23:12] <SG_01> I'll read all of this stuff tomorrow when my head is clear
+[23:12] <Xavier> SG: nothing new for you here anyway ;)
+[23:12] <SG_01> have a good night all :)
+[23:12] <Xavier> nite SG
+[23:13] <Darkhorse> see you round
+[23:13] <SG_01> Where have I heard that before? Oh yea, last meeting :P
+[23:13] <Xavier> lol
+[23:13] <Thoth> gn
+[23:13] <SG_01> nn
+[23:13] * SG_01 is now known as SG_Zzz
+[23:13] <Xavier> did you have anything specific in mind Asmu?
+[23:14] <Xavier> I've been working on  the GUI editor portion of the CDK (content 
+  development kit) so that doing layouts isn't such a chore moving forward
+[23:14] <Darkhorse> giving me a kick in the backside probably :)
+[23:14] <Xavier> I diverted myself to that in the middle of putting together an input 
+  mapping GUI sheet
+[23:15] <Sirius> How far are you on that Xavier?
+[23:15] <Xavier> in fact I'll probably be doing a fair bit of tools, trying to set it up 
+  all to run from a single IDE...which may be moot soon for those using Max or XSI, 
+  since much of waht I would want to do is supported directly in plugins for each of 
+  those
+[23:15] <Xavier> about the same as the other night
+[23:16] <Xavier> I can move things around on an existing sheet, but I am a bit stuck on 
+  intuitive ways to drag-drop GUI bits onto a sheet, and I don't have New or Save 
+  functionality yet either
+[23:16] <[HJ]-Asmudius_Heng> nothing in particular Xav just a gneral update is good :)
+[23:16] <Sirius> right
+[23:16] <All_for_One> k, bbl, SP2 says it's ready
+[23:17] <Xavier> hehe
+[23:17] <[HJ]-Asmudius_Heng> and if there is anything we can show to the rest of the 
+  team to maybe garner some more interst would be good too
+[23:17] <Sirius> I'm not sure when I'm going to be able to start working on something... 
+  especially since I've realised I have some way until I know what I'm doing :)
+[23:17] <Xavier> btw, modellers, if any of you are in the market for a new tool or an 
+  upgrade, XSI Foundation is under US$500 and does pretty much everything we likely need 
+  for this project
+[23:18] <Gohan> or just look around for "five finger discounts" :p
+[23:18] * All_for_One has quit IRC (Quit: )
+[23:18] <Thoth> I have read some very good reviews of it
+[23:18] <Xavier> Asmu: I am waiting for Elisor to give me the animated model before I do 
+  another build of the demo app
+[23:18] <Darkhorse> yeah, sadly I'm not familiar with it nor do I have the money for it 
+  right now
+[23:18] <Thoth> industry standard stuff
+[23:18] <[HJ]-Asmudius_Heng> rgr that Xav ... good that we have in game stuff mostly 
+  working
+[23:18] <Xavier> nice thing about XSI is authoring content for an Ogre based app, the 
+  plugin is written by the Ogre founder ;) so maintenance is not an issue :)
+[23:19] <Xavier> aye Asmu, it's just waiting for meaningful content really before we can 
+  start working forward again
+[23:19] <Xavier> we're stuck with the canyon terrain and a stock Ogre terrain and they 
+  are getting boring ;)
+[23:19] <Xavier> (that's why I was asking about maps last night)
+[23:19] <[HJ]-Asmudius_Heng> of course ... but each step forward i see pumps me up .. 
+  last i saw was a pic of the hovercraft sitting in canyon :)
+[23:20] <Xavier> lol
+[23:20] <Xavier> WAY beyond that
+[23:20] <Xavier> ;)
+[23:20] <[HJ]-Asmudius_Heng> good .. is it downlaodable and testable?
+[23:20] <Xavier> the next step is figuring out where scripting fits into all this
+[23:20] <Xavier> to an extent
+[23:20] <[HJ]-Asmudius_Heng> right
+[23:20] <[HJ]-Asmudius_Heng> for maps
+[23:20] <Thoth> is this the 1.3 katan dl?
+[23:20] <[HJ]-Asmudius_Heng> and rules of gametypes i am guessing?
+[23:20] <Taos> Xavier, when your finished up here I have a question for you
+[23:20] <Xavier> the one that is up there was put there so that Eli could see the 
+  animation, but the current state moves better, and with a stick if you want it, but 
+  it's not built yet
+[23:21] <Xavier> ya, that's cos-latest-demo.msi
+[23:21] <Xavier> scripting definitely for game scoring and basic mission logic, how much 
+  further beyond that is up for debate
+[23:21] <Xavier> go ahead T
+[23:22] <[HJ]-Asmudius_Heng> rgr that ... i have that mission thread but i can put 
+  together a more general idea of what things must be achieved with scripting for all 
+  missions
+[23:22] <[HJ]-Asmudius_Heng> what parameters and functions would be needed
+[23:22] <Xavier> (another part of scripting will be something that is for testing only, 
+  and will be disabled in a release build, and that is to be able to automate testing 
+  runs)
+[23:23] <Taos> would you be game for doing an audio developers diary of sorts once we 
+  get content sorted and artists doing the bulk of the post processing? short 10 minute 
+  or so bit twice a month?
+[23:23] <Xavier> audio diary?
+[23:23] <Taos> kinda like a dev blog but recorded in wav
+[23:23] <Gohan> a bootleg podcast!
+[23:24] <Gohan> :P
+[23:24] <Xavier> I've not the best voice for that, but I suppose we can try
+[23:24] <[HJ]-Asmudius_Heng> put a porn music intro and it will not matter!
+[23:24] <[HJ]-Asmudius_Heng> sounds like a good ida actually
+[23:25] <Taos> voice dont matter a lick, it's the content that counts, and a short bit 
+  on the progress and technology behind an indie game could draw some positive attention 
+  to our project and I have the perfect medium for distribution well set and underway
+[23:26] <Xavier> k
+[23:26] <[HJ]-Asmudius_Heng> what sort fo stuff would be in it?
+[23:26] <[HJ]-Asmudius_Heng> and who do you need input from?
+[23:26] <[HJ]-Asmudius_Heng> concpet stuff or more techy programming stuff? artistic? 
+  all in one?
+[23:26] <Taos> well, me and SG I should say given SG is one of the men behind the magic
+[23:28] <Taos> to start would be what the project is about, then would be progress 
+  updates and brief bits on how it all works together and how a community is coming 
+  together to build the project
+[23:28] <Taos> nothing so much on the game itself, more on the motivation and movement 
+  through the project
+[23:29] <Xavier> ya if you want to give me a bit of direction on the sort of thing 
+  you're looking for each time, I'll do my best
+[23:29] <[HJ]-Asmudius_Heng> maybe the PR team could put forth some questions to be 
+  answered too
+[23:29] <[HJ]-Asmudius_Heng> i liked what BF2 did before release
+[23:29] <Taos> essentially our biggest marketing strength is the fact that we are doing 
+  this as a community for our own goals rather than a profitable venture
+[23:30] <[HJ]-Asmudius_Heng> they had some small interviews with the project directors 
+  ... flashed a few questions in front of them and let them ramble on about it for a 
+  while
+[23:30] <[HJ]-Asmudius_Heng> maybe even ask the comunity for some questions to add?
+[23:30] <Xavier> problem is that the community doesn't even know what to ask...most of 
+  them still think we're doing MW5 here ;)
+[23:30] <Taos> I won't trouble you any further with specifics untill we are ready to 
+  really show somethging to the world
+[23:30] <[HJ]-Asmudius_Heng> then let that be our first answer to the community
+[23:31] <[HJ]-Asmudius_Heng> this aint MW5 .. its better >:)
+[23:31] <Xavier> hehe
+[23:31] <Xavier> Taos: probably looking at spring for that
+[23:31] <Darkhorse> damn, thought you said "anit" for a sec there
+[23:31] <Xavier> I think we might have something to be able to show by then
+[23:31] <Darkhorse> sorry, Keith is making me paranoid
+[23:31] <Taos> I want visual content to show on our own site, that drawing factor to 
+  draw more talent to our project before I launch a dev diary feature
+[23:32] <Xavier> right
+[23:32] <Xavier> that's the same point I am shooting for
+[23:32] <Xavier> gotta have something concrete to show to attract people
+[23:32] <Taos> that should also give you a backlog of stuff to ramble on about
+[23:32] <Xavier> can't pick up talent in art and programming with just concepts ;)
+[23:33] <[HJ]-Asmudius_Heng> D:
+[23:33] <[HJ]-Asmudius_Heng> ;)
+[23:34] <Xavier> not what I meant :p
+[23:34] <Taos> the moment we can release an impressive in engine tech demo is the moment 
+  this project can truly take off
+[23:35] <Xavier> you can look through dozens of posts in the Ogre Recruitment forum that 
+  are all "hey, we have this idea and we need someone to help program it" and that's as 
+  far as it gets...but as soon as you put up screenies that are worth a shit it's a LOT 
+  easier to find people looking to work on an established project
+[23:35] <[HJ]-Asmudius_Heng> yes
+[23:35] <[HJ]-Asmudius_Heng> just saying to DH how it has a snowball effect
+[23:36] <Taos> oh, Xav, did you get ahold of Loopy on the Z-Brush stuff or should I nail 
+  him down again?
+[23:37] <Xavier> nah, I am thinking that XSI might be the way to go anyway...it's highly 
+  supported for Ogre and its Ultimapper got rave reviews and comes with XSI 5 
+  Foundation, which is the same price as ZBrush
+[23:37] <Taos> he already has Zbrush though :P
+[23:38] <Xavier> right
+[23:38] <Xavier> but I gathered he doesn't really have the time atm
+[23:39] <Taos> he has more time than he will tell you about, he lacks the motivation to 
+  use it if I don't pin him down
+[23:39] <Xavier> I figure I'll have to have one or the other anyway in order to be able 
+  properly to design a DCC pipeline to incorporate map extractions
+[23:39] <Xavier> lol
+[23:40] <Taos> he tinkers, tis a matter of focusing that tinkering time to something 
+  productive
+[23:40] <Xavier> once we have some good HP models we might be able to split up the work 
+  of extracting a good map; usually the LP version of the model is completely orthogonal 
+  to the HP in every way, including UV coords
+[23:41] <Taos> well, let me know when you got a project to test him against and I'll get 
+  him into it
+[23:41] <Xavier> whoever does the map extraction, whether it's the original modeller or 
+  someone else, can pull out the normals and tangents and displacements and diffuse, oh 
+  my, and that can all be reapplied to the LP at a later date
+[23:41] <Xavier> got DH and Asmu working towards that
+[23:42] <Xavier> an infantry model might be a real good opportunity
+[23:42] <Taos> he did say he likes organics :P
+[23:42] <Xavier> depends on how organic it ends up being ;)
+[23:42] <Taos> I'll see if I can get him to do his scout model up proper
+[23:43] <Xavier> from what I can tell, and asmu correct if wrong, the infantry will be 
+  more like fully-armored Star Wars Stormtroopers than actual ragdoll characters
+[23:44] <[HJ]-Asmudius_Heng> not quite as armoured as that ... all factions will have 
+  significant armour ont he body though
+[23:44] <Taos> his scout is fully armored, so hopefully he can handle his own model
+[23:44] <Xavier> (returning to the toolset for a brief instanct, one problem I may run 
+  into is that other tools are just too damn good at doing various things that there is 
+  little reason not to use them and maybe build a plugin for them instead of rolling our 
+  own, so our CDK may just end up being more of a toolbox that wraps up major content 
+  that was created elsewhere...thinking maps and levels here mainly for this)
+[23:44] <[HJ]-Asmudius_Heng> for game balance and realism purposes we ant that so they 
+  can survive a hit and we have the science to backup why :)
+[23:44] <Xavier> k
+[23:45] <Xavier> that's where you and the modelling team hook up anyway, we just load 
+  it, material it and animate it :)
+[23:46] <Xavier> on that note, we've got the CDT and modellers working together on a 
+  consistent and depth-complete set of models for a single faction
+[23:46] <Xavier> that's why I figured sometime in the spring would be a good opportunity 
+  for a tech demo
+[23:47] <Taos> Smu, has your team laid out a unit outline for Kepi yet?
+[23:47] <[HJ]-Asmudius_Heng> check the modelling forum
+[23:47] <[HJ]-Asmudius_Heng> we have a thread up now
+[23:48] <[HJ]-Asmudius_Heng> we are still in early stages though ... we have not got a 
+  consistant theme yet
+[23:48] <Taos> youve got a list of units that need to be modelled?
+[23:48] <[HJ]-Asmudius_Heng> me and DH are talking about how to acjhieve that now
+[23:48] <[HJ]-Asmudius_Heng> we do ... but for the moment we still need some concepts
+[23:48] <[HJ]-Asmudius_Heng> without a solid theme nailing down exact units i not worth 
+  it
+[23:48] <[HJ]-Asmudius_Heng> all the modellers need to know what a kepi unit should look 
+  like
+[23:49] <[HJ]-Asmudius_Heng> if not we get a bunch of random models
+[23:49] <Taos> try to get a listing in place for each faction of what units you want 
+  represented as far as roles are concerned, it will likely be a very loosely followed 
+  listing but that is the best way to provide forcus to the modellers by giving them 
+  general guidelines of what you want
+[23:50] <[HJ]-Asmudius_Heng> we do have a list of roles and how many units for each role 
+  in each faction lemme find it should be in the thread
+[23:50] <Taos> aye, consistency in theme is important, but you also need to tell the 
+  modellers what roles need to be filled
+[23:50] <[HJ]-Asmudius_Heng> http://www.clashofsteel.net/forums/viewtopic.php?t=822
+[23:50] <[HJ]-Asmudius_Heng> last link in the thread i put it so they have the info
+[23:51] <[HJ]-Asmudius_Heng> however i have he beliefe this will change somewhat in 
+  tsting
+[23:51] <[HJ]-Asmudius_Heng> and if we get 5 Assault MACROs for instance we can always 
+  cull a fewe .. or reassign some to other roles with some modifications
+[23:52] <Xavier> I think that's what he was saying...the focus should be directed so as 
+  to avoid that ;)(
+[23:52] <Sirius> Depending, of course, whether the weight class distinction works that 
+  way or exists
+[23:52] <Sirius> :)
+[23:52] <[HJ]-Asmudius_Heng> at the moment i am encouraging freedom and concepts ... 
+  once we have enough of a theme going i will task people with mroe speciifc models i 
+  think
+[23:52] <Xavier> so if we need 5 models and we have 5 modellers, then each should not be 
+  doing MACROs for example
+[23:52] <Taos> post that listing if it's deemed sufficient to the modelling forum and 
+  update it as models are deemed complete to reflect how many remain in each role
+[23:53] <Xavier> Asmu: I was hoping that DH or DH and one other modeller could come up 
+  with the rough drafts that other modellers could work from
+[23:54] <[HJ]-Asmudius_Heng> that is the stage we are at :)
+[23:54] <Xavier> it would be easier than trying to "herd the cats" as it were with 
+  design elements from 6 different people
+[23:54] <Xavier> once the rough drafts are done and approved, then they can be posted 
+  with "here, we need this one done" and HP design can commence
+[23:55] <Taos> for Kepi we have concept sketches for most of the different unit types, 
+  correct?
+[23:55] <[HJ]-Asmudius_Heng> i am not comfortable going full steam ahead until a theme 
+  is set is all .. i do nto want to turn around to each modeller and ask him to 
+  continually change his model each time we discover something new theme wise
+[23:55] <Thoth> well, I can start work on something specific if you outline exactly what 
+  you want, on a per unit way
+[23:55] <[HJ]-Asmudius_Heng> no we do not Taos, we have very little in the way of art at 
+  all
+[23:55] <Thoth> i dont want to waste time on something that will be "culled"
+[23:55] <[HJ]-Asmudius_Heng> yes
+[23:56] <Xavier> Thoth: that's why we want a set of rough drafts first, so that the 
+  modeller knows what is wanted -- if you mean that you want to work on the drafts, then 
+  the thread in the modellers forum contains those specifics :)
+[23:56] <Thoth> rgr
+[23:56] <Taos> we have infantry and to an extent micros from the infantry designs 
+  though, which leaves 3 different types of ground themes and a handfull of 
+  aerospace/vtol themes
+[23:56] <Xavier> Thoth: that's also why I want the rough drafts done and approved before 
+  anyone starts working on a HP
+[23:56] <Thoth> k
+[23:57] <Xavier> we don't have to have ALL drafts done, as each one is done it should be 
+  posted up and called for volunteers
+[23:57] <[HJ]-Asmudius_Heng> so far only 2 modelers have responded
+[23:57] <[HJ]-Asmudius_Heng> and they have had questions about the factions
+[23:57] <Taos> Xavier, the artists will have to work thier own rough drafts and submit 
+  for aproval, we can only provide a theme, not a basis to model upon
+[23:57] <Xavier> I want the modellers to have a 3D representation of what needs done, 
+  with just enough detail to propel the actual HP design
+[23:58] <Xavier> taos: I just see that as somewhat of chaos; that's basically what we 
+  have now -- if we have the drafts coming from a "central" source, they are consistent 
+  in quality and approval, and better serve the modellers, IMO
+[23:58] <[HJ]-Asmudius_Heng> i just want to make it clear we are behind on art and 
+  models really ... this is early stages yet so concrete stuff should not be rushed
+[23:59] <Xavier> right
+[23:59] <Taos> if you start providing them with rough drafts to work upon you are 
+  eliminating thier creative freedom, make it clear that units must follow form and be 
+  accepted before inclusion, but don't lay out each model for them
+[23:59] <Xavier> but it's easier for a modeller to work off a 3D draft than it is words
+[23:59] <Xavier> not really, a rough draft is just a tad more detail than what AFO has 
+  done
+[00:00] <Xavier> the artistic freedom is still entirely in the hands of the modeller
+[00:00] <Xavier> but now they know what the CDT has in mind
+[00:00] <[HJ]-Asmudius_Heng> what we need is an understandign among our modllers on what 
+  a Kepi vehicle should look like ... so any player when they see it will say "That is 
+  Kepi"
+[00:00] <Taos> what we truly need is sketch artists
+[00:00] <[HJ]-Asmudius_Heng> yes
+[00:00] <Xavier> instead of guessing or trying to decipher the words into visuals
+[00:00] <[HJ]-Asmudius_Heng> i have emailed Tuchten
+[00:01] <Xavier> Taos: I don't think we'll have that luxury :(
+[00:01] <[HJ]-Asmudius_Heng> and Lycan was our only other sketch artis i think
+[00:01] <Taos> for Kepi infantry to start with we have had that luxury
+[00:02] <Xavier> I agree Asmu, which is why in the interests of getting the modellers 
+  started ASAP, that rough drafts should come from one or two modellers that work 
+  closely with you and AFO so that iterations are short and the draft is done quickly 
+[00:02] <Thoth> perhaps a selection of existing, non-related art would help illustrate 
+  some of the design schemes
+[00:02] <[HJ]-Asmudius_Heng> i have posted a few pictures in the thread as examples
+[00:02] <Taos> for MACROs we have AFO's work but I'd leave it as it is and let the 
+  modellers use it as general guidelines rather than a starting point
+[00:03] <Thoth> the forum is a cumbersome way to absorb all of this
+[00:03] <[HJ]-Asmudius_Heng> actually they ar eon the wiki page
+[00:03] <Xavier> ya, I had not intended rough drafts as a starting point, just as a 
+  reference -- like TRO models for mechs
+[00:03] <Xavier> (except that TROs are way more detailed than what I mean)
+[00:04] <Xavier> the point being, it gives the modeller some way to say "yeah, I see 
+  what they mean" 
+[00:04] <Taos> personally I'd like to see what the modellers can come up with on our 
+  own, perhaps they may even change our minds on some of the faction design concepts
+[00:04] <Xavier> if we can find talented sketch artists, that may work just as well
+[00:04] <Xavier> lol like AC's bug? I love it, Asmu hates it :p
+[00:05] <[HJ]-Asmudius_Heng> a low poly model is as good as a sketch soemtimes ... we 
+  just need a bunch of them to review
+[00:05] <Xavier> (one of the main things I like about the bug is that pivot design, 
+  instead of having an exposed block of steel)
+[00:06] <Taos> I love it and hate it at the same time personally, but it's one of many 
+  idea's, and as they say, a picture is worth a thousand words, well, what if we gave 
+  the modellers a couple weeks to pitch thier own concept ideas at us
+[00:06] <[HJ]-Asmudius_Heng> that is an example of what we need .. we need not take the 
+  whole thing ... but ceretain elements might click and can be used as a theme
+[00:06] <Xavier> right Asmu, just dont' want the modellers to feel like they are jsut 
+  spinning their wheels -- they would rather, I think, be shown "this is what we think 
+  it looks like" instead of "tell us what you think it looks like"
+[00:06] <Xavier> I could be wrong
+[00:07] <Taos> I likely am wrong, but personally, when I draw (of which you'll never 
+  see) I hate being told how my work should look
+[00:08] <Xavier> ya, but that's why we have a concept team ;)
+[00:08] <Xavier> that's their job
+[00:08] <[HJ]-Asmudius_Heng> well i have tried to put a middle ground ... i give them 
+  the faction and what it is about .. some general guidlines
+[00:08] <[HJ]-Asmudius_Heng> then from that i hope they can make something that clicks
+[00:08] <[HJ]-Asmudius_Heng> certain elements should be the same so we have a theme
+[00:08] <Xavier> right but how much have you gotten so far from that Asmu? I have a 
+  feeling that the modellers dont' even know where to begin...that's where a workiung 
+  draft comes in :)
+[00:08] <[HJ]-Asmudius_Heng> i havent even seen many modeller to be honest
+[00:08] <Darkhorse> ah, I can figure it out
+[00:09] <[HJ]-Asmudius_Heng> i dont think the modellers have tried much except for AC 
+  and AFO
+[00:09] <Taos> yeah, have fun DH
+[00:09] <Taos> :P
+[00:09] <Darkhorse> hehe
+[00:09] <Darkhorse> hey, I have to do something, it may as well be that
+[00:10] <[HJ]-Asmudius_Heng> its gotta be a two way street ... they gotta come to the 
+  CDT and ask otherwise i will have to start drawing again .. and NOBODY wnats that again
+[00:10] <Gohan> ms paint D:
+[00:10] <[HJ]-Asmudius_Heng> hey i sketch too!
+[00:10] <Thoth> i would rather work from bad drawings that a volumous argument about 
+  what something should look like
+[00:10] <Sirius> Xavier - is the October 2004 SDK restriction still in place?
+[00:10] <Thoth> than*
+[00:10] <Taos> I could draw if I really had to but I'm a toonist so technical style 
+  sketches really are way out of my area of practice
+[00:11] <Xavier> Sirius: you should be able to use the current one; that was an old Ogre 
+  issue that has been fixed for a while
+[00:11] <Sirius> ok
+[00:11] <Xavier> right thoth, I don't think you are alone in that
+[00:11] <[HJ]-Asmudius_Heng> ok ... you asked for it ... i am gonna have to sketch again
+[00:11] <[HJ]-Asmudius_Heng> i warned you
+[00:11] <Xavier> lol
+[00:12] <[HJ]-Asmudius_Heng> i ahve no design talent and no artistic ability
+[00:12] * Thoth waits for the non-euclidian horrors
+[00:12] <[HJ]-Asmudius_Heng> i am a story writer and a wargamer not an artist ;)
+[00:12] <Taos> Thoth, could you model from a picture of a bobble head? :P
+[00:12] <Thoth> lol
+[00:12] <Thoth> sure
+[00:12] <Xavier> I told you, if you and DH and maybe one other modeller can get together 
+  and whip up some low-res drafts of what you have in mind, then those go much further 
+  in launching a modeller's creative juices than do words
+[00:12] <[HJ]-Asmudius_Heng> thats what we are planning :)
+[00:13] <Xavier> they got to have something to look at
+[00:13] <Xavier> k
+[00:13] <Taos> I'll try again to dig up some sketch artist talent
+[00:13] <Thoth> DH, tell me what i can do to help in this way... though I still would 
+  like to see drawings :)
+[00:13] <Xavier> just wanted to make sure that we still weren't waiting for the 
+  modellers themselves to submit something first ;)
+[00:14] <Darkhorse> first thing I had planned is just to do some concepts of what 
+  defines Kepi
+[00:14] <Darkhorse> whether they're tanks or whatever
+[00:14] <Taos> they got some time while they wait for these guideline models, put out a 
+  tell and get em to send in some ideas while they wait
+[00:14] <Xavier> the CDT are the game designers in this, and as such, theirs is the 
+  primary word in what something should look or feel like -- that's your role, so don't 
+  feel bad about saying what things should look like :)
+[00:14] <Darkhorse> yeah, my concepts would just be bounced off the CDT to verify that 
+  I'm on the right track
+[00:15] <Xavier> if everyone wants to do that, then that's fine too
+[00:15] <Xavier> but
+[00:15] <Darkhorse> if you want to add to the concepts as well Thoth, go ahead
+[00:15] <Thoth> rgr
+[00:15] <Xavier> if DH and Thoth want to do the drafts, that's keen too 
+[00:16] <Darkhorse> so by drafts you mean the beginning of the specific models as well?
+[00:16] * [HJ]-Asmudius_Heng is now known as [HJ]-Asmudius_Heng|Sketching
+[00:16] <Xavier> trust me, most of the modellers would rather reference something 
+  tangible than try to wing it ;)
+[00:16] <Darkhorse> yeah, that's doable as well.
+[00:16] <Xavier> no, these would be reference geometry, consider it throwaway, even if 
+  the modeller elects to start from it
+[00:16] <Darkhorse> 'k
+[00:17] <Taos> that's it, were doomed, where's my sketch pad? :P
+[00:17] <Xavier> talking under 1000 poly for the most part
+[00:17] <Sirius> sounds like the sort of stuff even I could do... haha
+[00:17] <Xavier> hehe
+[00:17] <Sirius> except I don't have an imagination for that
+[00:17] <Taos> bobble heads for all!! :P
+[00:17] <Xavier> I'm betting AFO's stuff is in the low-to-mid hundreds
+[00:17] * Thoth just downloaded Lightwave to Ogre converter
+[00:19] <[HJ]-Asmudius_Heng|Sketching> yes ... stuff we do now is throwaway stuff, you 
+  can use em later if you want but unitl the theme is nailed down there is no point 
+  falling in love with it
+[00:19] <Thoth> i can work off of something that AFO put together without a problem, 
+  should he be comfortable with that
+[00:19] <Xavier> with this in motion, the programming is somewhat on hold, or at least 
+  not much to do, until Eli gets that animation done
+[00:20] <Darkhorse> going to have to buy myself a new sketchbook too, filled my others up
+[00:20] <Xavier> heh, oru toolbox is going to be enormous for this...I keep thinking of 
+  different DCC tools that we need...
+[00:21] <Xavier> the other thing too, don't forget, is to nail down a first terrain to 
+  redner
+[00:21] <Xavier> *create
+[00:21] <Xavier> for the first mission
+[00:21] <Xavier> we'll need a modeller on that too
+[00:21] <[HJ]-Asmudius_Heng|Sketching> crap .. forgot to post the first mission ... will 
+  do that too
+[00:22] <Xavier> a relatively detailed description of the terrain and fixtures/buildings 
+  would help too
+[00:22] <Xavier> if we can get a terrain started, we can start on figuring out CPU and 
+  GPU budgets
+[00:24] <Darkhorse> done terrains in past myself
+[00:24] <Darkhorse> a lot actually
+[00:24] <Taos> ugh, DH, you aint the only one run out of pages in the sketch pad, I got 
+  near a dozen pads here and appear to have 3 blank pages
+[00:26] <Taos> anyhow, may I properly derail this train for a minute?
+[00:26] <Xavier> sure
+[00:26] <Taos> some good news if I may
+[00:26] <Xavier> your'
+[00:26] <Xavier> you're a daddy?
+[00:27] <[HJ]-Asmudius_Heng|Sketching> your a mommy?
+[00:27] <Xavier> O_O
+[00:29] <Darkhorse> what the
+[00:29] <Taos> it's sounding as though when we reach the point of beta testing and RC 
+  stages we will have pretty well all the backing our project desires from a well 
+  developed and constantly growing gaming site. The webmaster of which is a strong 
+  supporter of community projects and sounds quite optimistic about establishing and 
+  maintaining a prolonged working relationship with our project
+[00:29] <Xavier> kewl
+[00:29] <Xavier> does that mean server farm? ;)
+[00:30] <Taos> that doesn't mean anything specific at present aside from advertising our 
+  project but it's far too early to determine what the future holds
+[00:30] <Xavier> k
+[00:30] <Xavier> either way that's kewl
+[00:30] <Xavier> cool even
+[00:30] * Xavier slaps face every time he types "kewl"
+[00:30] <Gohan> so, what is this website that I can conquer? -- I mean, visit.
+[00:31] <Sirius> haha
+[00:31] <Darkhorse> pwn
+[00:31] <Darkhorse> in the face
+[00:31] <Xavier> I still think that a late 2006 internal alpha is feasible
+[00:31] <Taos> Gohan, had you not been present I would have already mentioned it, 
+  however given your presence you will just have to wait and find out in due time
+[00:32] <Gohan> D:
+[00:32] <Gohan> come on, it gives me something to do other than twiddle my thumbs and 
+  moonlight as Antonio Handsome
+[00:32] <Taos> ah hell, the site is www.gameclubcentral.com
+[00:32] <Xavier> and a first public beta in 2007 is realistic -- the main difference I 
+  see between internal alphas and public betas is CONTENT -- internal alphas likely will 
+  be small content-wise, and will test functionality and performance rather than 
+  content; errors in content creation process will be fixed then as well, so that when 
+  the full-scale effort begins for creating public content, those errors are eliminated
+[00:34] <Thoth> looking forward to that point
+[00:34] <Taos> SG is the primary web hand of the site so to speak, and over the 6 years 
+  it's been operating it has reached an average of roughly 6 or 7 thousand hits a day
+[00:34] <Xavier> not bad
+[00:35] <Taos> it's not exactly a good sole exposure point, however that site is at the 
+  point where the other major sites are gleaning content from it which means far more 
+  coverage over the course as well as good support
+[00:35] * Xavier starts planning the to-do lists for the remainder of 0.2 and the next 
+  2-3 milestones before first alpha, to put in dotProject
+[00:36] <[HJ]-Asmudius_Heng|Sketching> sound spromising T good work :)
+[00:36] <Xavier> I'm all about exposure once we ahve our ass covered :)
+[00:37] <[HJ]-Asmudius_Heng|Sketching> we need pants to cver our asses yes!
+[00:37] * Gohan has quit IRC (Quit:  oh god my pants are on fire, afk for the night)
+[00:37] <Taos> wasn't really any work, the webmaster of the site as well as SG and the 
+  majority of the site's staff are long time friends of mine so they would back this 
+  project reguardless, I just happened to get somewhat oficial word on it tonight
+[00:38] <Xavier> :-D
+[00:38] <Darkhorse> Gohan - beware of Made in China.
+[00:38] <Xavier> taos: hehe, once it was clear we were serious about making progress on 
+  it ;)
+[00:39] <Xavier> this whole thing has been enlightening as hell for me...got to find out 
+  all the stuff I didn't know that I didn't know about game development ;)
+[00:40] <Taos> those of you who have the time and interest check out the site and 
+  involve yourself in the community as you can, you'll likely not find a better gaming 
+  community on the web no matter how long and hard you searched
+[00:40] <Sirius> oooh, the phantom gaming site
+[00:40] <Sirius> oh wait
+[00:40] <Sirius> you mentioned it
+[00:40] <Sirius> heh
+[00:41] * Xavier slaps Darkhorse around a bit with a large trout
+[00:41] * Xavier slaps Sirius around a bit with a large trout
+[00:41] * Xavier takes back DH slap
+[00:41] * [HJ]-Asmudius_Heng|Sketching eats the fish
+[00:41] <Taos> not exactly a phantom according to google, just small and developing yet, 
+  but getting to the point of notice
+[00:41] <Xavier> mmm, good North American rainbox trout...
+[00:41] <Xavier> *rainbow
+[00:41] <Sirius> I missed the URL, that's all
+[00:41] <Xavier> lol T, he didn't know you linked it :p
+[00:42] <Taos> oh
+[00:42] <Sirius> was thinking "check out the site, sure! But we have to find it first, 
+  huh?"
+[00:42] <Xavier> hehe
+[00:42] * Taos slaps Sirius around a bit with a large trout
+[00:42] <Taos> that's what ya get for not payin attention
+[00:42] <Sirius> eh
+[00:42] <Sirius> comms was getting a bit
+[00:42] <Sirius> weird.
+[00:43] <Taos> is badass in em by chance?
+[00:43] <Sirius> yes.
+[00:43] <Darkhorse> yeah
+[00:43] <Darkhorse> it wasn't his fault, honest
+[00:43] <Taos> then that is to be expected, tell him I say hello
+[00:43] <Darkhorse> you can blame me for pretty much all of it
+[00:43] <Xavier> ya know, with the existence of the amount of quality middleware we have 
+  at our disposal (and this goes just as well for commercial games using commercial 
+  engines) the game development process is only about 25% code....the rest is content, 
+  and for modern games, about 40% of that is GPU programming (shaders)
+[00:43] <Sirius> right
+[00:43] <Sirius> problem with middleware of course
+[00:44] <Sirius> is it confuses the hell out of me :)
+[00:44] <Xavier> hehe
+[00:44] <Taos> that's just cause they cheat too much
+[00:44] <Xavier> I had tried early on to create an engine API layer to wrap the 
+  middleware and make it more straightforward
+[00:44] <Taos> ANSI C ftw!!
+[00:45] <Xavier> I might have a go at that again now that I have a better understanding 
+  of how it might all go together
+[00:45] <Xavier> lol
+[00:45] <Sirius> Yeah, that's been my field for far too long
+[00:45] <Sirius> That and Java
+[00:45] <Sirius> no Windows, no OpenGL, no nothing... heh
+[00:45] <Xavier> ya know, Sirius, you might want to hold off trying to build the Engine 
+  stuff; I need to make a CoS "SDK" build of the libs and headers and package that up 
+  and make it available; the engine libraries just don't change enough for everyone to 
+  need to build them
+[00:46] <Sirius> ok
+[00:46] <Xavier> I'll grab VC8 and build it on that
+[00:46] <Sirius> apart from the fact that that thing is huge anyway
+[00:46] <Xavier> ya
+[00:46] <Sirius> something like 90,000 files
+[00:46] <Taos> I don't mind C++ with liberal use of STL and I tend to find myself all 
+  too often debugging Toxic's VCL but some of the frameworks just drive me batty
+[00:46] <Xavier> it's great to have if we need to change something, but if that happens, 
+  the change would just be rebuilt and the new DLLs and headers made available
+[00:47] <Xavier> what frameworks?>
+[00:47] <Sirius> STL... Standard Template Library?
+[00:47] <Xavier> ya
+[00:47] <Sirius> Heard of it
+[00:47] <Sirius> not quite sure what it is, but!
+[00:47] <Thoth> extentions library
+[00:47] <Taos> yes, on STL, and most of the framworks Xavier. MFC, >NET, OWL, all drive 
+  me batty
+[00:48] <Sirius> what sort of stuff does it add?
+[00:48] <Xavier> MFC isn't bad... .NET is the only way to fly for business programming 
+  on Windows
+[00:48] <Thoth> seems like there is a basic database type set push pop type thing
+[00:48] <Taos> it's mostly stuff to simplify common tasks
+[00:48] <Thoth> string tools
+[00:48] <Xavier> sirius: basic algorithm classes such as stacks, queues, vectors, etc, 
+  and also full stream handling including file IO
+[00:49] <Sirius> Oh, right
+[00:49] <Xavier> there is another non-official library called Boost that includes a 
+  shitload more useful stuff
+[00:49] <Xavier> it's meant to make programming common things cross-platform
+[00:49] <Xavier> the more you use STL instead of platform-specific APIs in your code, 
+  the easier it is to port to other platforms
+[00:49] <Xavier> bewcause it's standard :)
+[00:50] <Taos> reason I like working with the API's directly if I can't use CLX and STL 
+  is because I find it easiest to maintaint portability that way
+[00:50] <Taos> otherwise it's STL and if I can CLX all the way
+[00:51] <Taos> CLX is the greatest
+[00:51] <Taos> but then again I'm stubborn and opinionated so you are probably best to 
+  ignore that comment as I really don't want any more debugging work
+[00:51] <Xavier> hehe
+[00:51] <Xavier> ok, so is there anything else we need to cover?
+[00:52] <Sirius> 119 of 326 MB of the DX9 SDK...
+[00:52] <Xavier> yup, it's a biggie
+[00:52] <Taos> Sirius, don't tempt him, we'll be here all night
+[00:52] <Sirius> :)
+[00:54] <Taos> Xav
+[00:54] <Thoth> ok, guys, i guess im headed out
+[00:54] <Thoth> gn all
+[00:54] <Xavier> rgr, thanks Thoth 
+[00:54] <Xavier> nite!
+[00:54] <Darkhorse> see you.
+[00:54] * Thoth has left #cos-dev
+[00:54] <Taos> did you ever find that article I mentioned about the vertex and pixel 
+  shader 3 workflow?
+[00:55] <Xavier> I don't recall
+[00:55] <Taos> was in a max PC article, outlined the operating mechanics of the shader 
+  engines
+[00:55] <Taos> I'll have to see if I can dig it up as it would probably be good for 
+  pretty much everyone
+[00:56] <Taos> but I'll do that tomorrow when I can actually get my regular PC running 
+  as it kinda died this evening
+[00:56] <Xavier> k
+[00:56] <Taos> chipset fan went on vacation
+[00:57] <Xavier> :(\
+[00:57] <Taos> yeah, and this is the replacement they sent me because the first one was 
+  a known problem
+[00:57] <Xavier> problem not fixed eh? ;)
+[00:57] <Taos> it lasted bout 3 weeks longer than the last one
+[00:58] <Taos> just gonna give up on Asus this time and install an aftermarket
+[00:59] <Xavier> my Gigabyte treating me well
+[01:00] <Taos> this MB rocks all but that fan which they have since replaced with a 
+  heatpipe unit instead due to all the problems with the sleeve type bearing fans they 
+  were using]
+[01:00] <Taos> the fan I got to replace this one is a ball bearing type so it should 
+  last longer
+[01:01] <Taos> kinda suck though given I just installed my X1800 a couple days ago and 
+  haven't had time to play with it yet
+[01:01] <Xavier> X1800 is...ATI card?
+[01:02] <Taos> damn straight, best upgrade I ever made was from nvidia to ati
+[01:02] <Taos> was dumb to give nvidia a try in the first place
+[01:02] <Taos> ati stability on this system is absolutely unparralleled
+[01:03] <Taos> not so much as a hiccup no matter what I've tossed at it
+[01:03] <Xavier> same here with P4 and 6800GT :p
+[01:04] <Taos> my 6600 just did not get along with my A64 version NF4 chipset
+[01:04] <Xavier> I'm not surprised that ATI works better in Canada :p
+[01:04] <Taos> I was just being abused for being a traitor
+[01:04] <Xavier> rofl
+[01:05] <Taos> buying yank junk when the best was right here at home
+[01:05] <Taos> :P
+[01:05] <Xavier> omg *rolls eyes* :p
+[01:05] <Xavier> altho
+[01:06] <Xavier> I do recall some significant driver issues with nVidia and 64-bit
+[01:06] <Xavier> I dont' recall specifics, or even if they got them fixed or not
+[01:06] <Xavier> when I need more than 4GB of physical RAM I'll get a 64-bit system ;)
+[01:07] <Taos> I've found that nvidia graphics cards just can't compete on an amd 
+  system, they have had a nightmare of a time maintaining stability every time I've 
+  tried em and although I swore not to try it again I heard better things and did the 
+  dumb thing again
+[01:08] <Xavier> I dont' think I've ever actually had an AMD system so I can't say 
+  personally
+[01:08] <Taos> I've only had a few intel systems and I've never been impressed
+[01:11] <Xavier> 575KB/sec, I guess my ISP finally got their shit together
+[01:23] <Xavier> taos:
+[01:23] <Xavier> 15.  	Will the Visual Studio Express Editions install side-by-side with 
+  other versions of Visual Studio?
+[01:23] <Xavier> 	
+[01:23] <Xavier> Yes, side-by-side compatibility with other versions of Visual Studio 
+  has been tested.
+[01:24] <Xavier> yet you said that folks you know had problems with VC# 2005 and 1.1/2.0 
+  .NET frameworks?
+[01:25] <Taos> visual studio, yes, >NET development, yes, >NET runtime, not exactly 
+  compatible
+[01:25] <Xavier> correct, but 1.1 and 2.0 install side by side and dont' interfere with 
+  each other...or shouldn't anyway
+[01:26] <Xavier> ah well, I don't do ASP.NET on this machine anymore anyway; that's all 
+  on the laptop
+[01:27] <Taos> it's not VS that is a problem, it's that some portions of the 1.1 
+  framework will not run on 2.0 and some portions of the 2.0 framework will not run on 
+  1.1 and when both frameworks are installed at the same time there is no mechanism 
+  present for the application to specify which framework to run upon
+[01:28] <Xavier> hmm, should be...assemblies are built with a specific framework version 
+  coded in them I thought
+[01:28] <Taos> oh, wait, is 2.0 official now?
+[01:29] <Taos> from what I'm hearing it's a problem specifically with the 2.0 beta 
+  runtime
+[01:29] <Taos> and the problem should not exist beyond the beta cycle'
+[01:30] <Xavier> well the VS Express editions have been gold for a couple of months and 
+  they rely on 2.0
+  is installed and all reports on GCC state that shoot which is a site supported 
+  application also refuses to work when 2.0 is installed as they were both developed 
+  against 1.1
+[01:37] <Xavier> k I'm outtie, nite all!
+[01:38] * Xavier saves a copy of the log this time ;)
+End of #cos-dev buffer    Sun Jan 08 01:38:46 2006
