@@ -151,133 +151,127 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="Integration"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\src\Animation.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\AnimationBlender.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\BlendGraph.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Bone.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Rig.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\SkeletonInstance.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\stdafx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\stdafx.h"
-				>
-			</File>
 			<Filter
 				Name="Havok"
 				>
 				<File
-					RelativePath="..\..\..\src\Havok\AnimationBlenderHavok.cpp"
+					RelativePath="..\..\..\integration\Havok\AnimationBlenderHavok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\AnimationBlenderHavok.h"
+					RelativePath="..\..\..\integration\Havok\AnimationBlenderHavok.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\AnimationHavok.cpp"
+					RelativePath="..\..\..\integration\Havok\AnimationHavok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\AnimationHavok.h"
+					RelativePath="..\..\..\integration\Havok\AnimationHavok.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\BoneHavok.cpp"
+					RelativePath="..\..\..\integration\Havok\BoneHavok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\BoneHavok.h"
+					RelativePath="..\..\..\integration\Havok\BoneHavok.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\RigHavok.cpp"
+					RelativePath="..\..\..\integration\Havok\RigHavok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\RigHavok.h"
+					RelativePath="..\..\..\integration\Havok\RigHavok.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\SkeletonInstanceHavok.cpp"
+					RelativePath="..\..\..\integration\Havok\SkeletonInstanceHavok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\SkeletonInstanceHavok.h"
+					RelativePath="..\..\..\integration\Havok\SkeletonInstanceHavok.h"
 					>
 				</File>
 			</Filter>
 		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		<File
+			RelativePath="..\..\..\Animation.cpp"
 			>
-			<File
-				RelativePath="..\..\..\include\Animation.h"
+		</File>
+		<File
+			RelativePath="..\..\..\Animation.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\AnimationBlender.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\AnimationBlender.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\BlendGraph.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\BlendGraph.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Bone.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Bone.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Rig.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Rig.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SkeletonInstance.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SkeletonInstance.h"
+			>
+		</File>
+		<File
+			RelativePath="..\stdafx.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\AnimationBlender.h"
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\BlendGraph.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Bone.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Rig.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\SkeletonInstance.h"
-				>
-			</File>
-		</Filter>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\stdafx.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
