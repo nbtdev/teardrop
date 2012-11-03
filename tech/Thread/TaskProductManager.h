@@ -27,54 +27,31 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(TASKSCHEDULER_INCLUDED)
-#define TASKSCHEDULER_INCLUDED
+#if !defined(TASKPRODUCTMANAGER_INCLUDED)
+#define TASKPRODUCTMANAGER_INCLUDED
 
-#include "TaskProductManager.h"
-#include "Memory/include/Allocators.h"
-#include <map>
+#include <Thread/TaskTypes.h>
 
+// this interface is implemented by a TaskProduct "sink"
 namespace CoS
 {
-	class Task;
-	class TaskGraph;
+	class TaskProduct;
 
-	class TaskScheduler
-		: public TaskProductManager
+	class TaskProductManager
 	{
 	public:
-		TaskScheduler();
-		virtual ~TaskScheduler();
+		// indicate availability of a TaskProduct instance to the TaskProductManager;
+		// TaskProductManager does *not* take ownership of the product instance (it is
+		// expected that in many cases, this simply will be a pointer to data that is 
+		// owned by some other object or system in the application)
+		virtual void productAvailable(TaskProduct*) = 0;
 
-		// to be implemented by derived classes
-		virtual void addTask(Task *) = 0;
-		virtual void removeTask(Task *) = 0;
-		// returns the number of Task instances executed
-		virtual int executeTasks() = 0;
+		// fetch a product instance by its type
+		virtual const TaskProduct* fetchProduct(TaskProductType* pType) = 0;
 
-		enum SchedulerType
-		{
-			TASKSCHEDULER_SERIAL,
-			TASKSCHEDULER_MT,
-		};
-
-		// static methods
-		static TaskScheduler* create(SchedulerType type);
-		static void destroy(TaskScheduler*);
-
-		// TaskProductManager implementation
-		void productAvailable(TaskProduct* pProduct);
-		TaskProduct* fetchProduct(TaskProductType* pType);
-		void clearProducts();
-
-		COS_DECLARE_ALLOCATOR();
-
-	protected:
-		TaskGraph* m_pGraph;
-
-		typedef std::map<TaskProductType*, ProductList> ProductLUT;
-		ProductLUT m_productLUT;
+		// clear all available products
+		virtual void clearProducts() = 0;
 	};
 }
 
-#endif // TASKSCHEDULER_INCLUDED
+#endif // TASKPRODUCTMANAGER_INCLUDED

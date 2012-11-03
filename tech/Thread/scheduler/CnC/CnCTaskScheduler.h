@@ -27,30 +27,37 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(TASKPRODUCT_INCLUDED)
-#define TASKPRODUCT_INCLUDED
+#if !defined(CNCTASKSCHEDULER_INCLUDED)
+#define CNCTASKSCHEDULER_INCLUDED
 
-#include "Reflection/include/Reflection.h"
+#include "TaskScheduler.h"
+#include "Memory/Allocators.h"
 
-// derive from this class to implement data types for task products
 namespace CoS
 {
-	class Task;
+	struct cnc_context;
 
-	class TaskProduct : public Reflection::Object
+	class CnCTaskScheduler : public TaskScheduler
 	{
 	public:
-		COS_CLASS(TaskProduct, Object);
+		CnCTaskScheduler();
+		virtual ~CnCTaskScheduler();
 
-		TaskProduct();
-		TaskProduct(Task* pProducer);
-		virtual ~TaskProduct();
+		// TaskScheduler implementation
+		void addTask(Task *);
+		void removeTask(Task *);
+		int executeTasks();
 
-		Task* getProducer() { return m_pProducer; }
+		// TaskProductManager implementation
+		void productAvailable(TaskProduct* pProduct);
+		TaskProduct* fetchProduct(TaskProductType* pType);
+		void clearProducts();
 
-	protected:
-		Task *m_pProducer;
+		COS_DECLARE_ALLOCATOR();
+
+	private:
+		cnc_context* m_pContext;
 	};
 }
 
-#endif // TASKPRODUCT_INCLUDED
+#endif // CNCTASKSCHEDULER_INCLUDED

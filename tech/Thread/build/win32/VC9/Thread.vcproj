@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../../;../../../scheduler;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../../;../../../scheduler;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				OpenMP="true"
 				UsePrecompiledHeader="0"
@@ -147,90 +147,78 @@
 	<References>
 	</References>
 	<Files>
+		<File
+			RelativePath="..\..\..\Task.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskGraph.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskProduct.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskScheduler.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ThreadUtil.cpp"
+			>
+		</File>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="CnC"
 			>
 			<File
-				RelativePath="..\..\..\src\Task.cpp"
+				RelativePath="..\..\..\scheduler\CnC\CnCTaskScheduler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\TaskGraph.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\TaskProduct.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\TaskScheduler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\ThreadUtil.cpp"
-				>
-			</File>
-			<Filter
-				Name="CnC"
-				>
-				<File
-					RelativePath="..\..\..\src\CnC\CnCTaskScheduler.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\CnC\CnCTaskScheduler.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Serial"
-				>
-				<File
-					RelativePath="..\..\..\src\Serial\SerialTaskScheduler.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Serial\SerialTaskScheduler.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\..\..\include\Task.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\TaskGraph.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\TaskProduct.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\TaskProductManager.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\TaskScheduler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\TaskTypes.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ThreadUtil.h"
+				RelativePath="..\..\..\scheduler\CnC\CnCTaskScheduler.h"
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Serial"
+			>
+			<File
+				RelativePath="..\..\..\scheduler\Serial\SerialTaskScheduler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scheduler\Serial\SerialTaskScheduler.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath="..\..\..\Task.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskGraph.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskProduct.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskProductManager.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskScheduler.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskTypes.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ThreadUtil.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

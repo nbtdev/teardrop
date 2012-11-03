@@ -27,31 +27,30 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(TASKPRODUCTMANAGER_INCLUDED)
-#define TASKPRODUCTMANAGER_INCLUDED
+#if !defined(TASKPRODUCT_INCLUDED)
+#define TASKPRODUCT_INCLUDED
 
-#include <Thread/include/TaskTypes.h>
+#include "Reflection/Reflection.h"
 
-// this interface is implemented by a TaskProduct "sink"
+// derive from this class to implement data types for task products
 namespace CoS
 {
-	class TaskProduct;
+	class Task;
 
-	class TaskProductManager
+	class TaskProduct : public Reflection::Object
 	{
 	public:
-		// indicate availability of a TaskProduct instance to the TaskProductManager;
-		// TaskProductManager does *not* take ownership of the product instance (it is
-		// expected that in many cases, this simply will be a pointer to data that is 
-		// owned by some other object or system in the application)
-		virtual void productAvailable(TaskProduct*) = 0;
+		COS_CLASS(TaskProduct, Object);
 
-		// fetch a product instance by its type
-		virtual const TaskProduct* fetchProduct(TaskProductType* pType) = 0;
+		TaskProduct();
+		TaskProduct(Task* pProducer);
+		virtual ~TaskProduct();
 
-		// clear all available products
-		virtual void clearProducts() = 0;
+		Task* getProducer() { return m_pProducer; }
+
+	protected:
+		Task *m_pProducer;
 	};
 }
 
-#endif // TASKPRODUCTMANAGER_INCLUDED
+#endif // TASKPRODUCT_INCLUDED

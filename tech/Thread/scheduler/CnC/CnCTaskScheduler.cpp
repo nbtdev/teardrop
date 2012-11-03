@@ -30,8 +30,8 @@ THE SOFTWARE.
 #include "CnCTaskScheduler.h"
 #include "Task.h"
 #include "TaskProduct.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 #include <cnc/cnc.h>
 #include <vector>
 #include <map>

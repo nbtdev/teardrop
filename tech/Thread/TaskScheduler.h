@@ -27,42 +27,54 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(TASK_INCLUDED)
-#define TASK_INCLUDED
+#if !defined(TASKSCHEDULER_INCLUDED)
+#define TASKSCHEDULER_INCLUDED
 
-#include "Thread/include/TaskTypes.h"
+#include "TaskProductManager.h"
+#include "Memory/Allocators.h"
+#include <map>
 
 namespace CoS
 {
-	class Task
+	class Task;
+	class TaskGraph;
+
+	class TaskScheduler
+		: public TaskProductManager
 	{
 	public:
-		Task();
-		virtual ~Task();
+		TaskScheduler();
+		virtual ~TaskScheduler();
 
-		// execute this task; when finished, pass on the task's product(s)
-		// to the provided TaskProductManager reference
-		virtual void execute(TaskProductManager&) = 0;
+		// to be implemented by derived classes
+		virtual void addTask(Task *) = 0;
+		virtual void removeTask(Task *) = 0;
+		// returns the number of Task instances executed
+		virtual int executeTasks() = 0;
 
-		// provide a listing of the TaskProduct types provided by this task
-		const ProducesList& provides() { return m_produces; }
-		// provide a listing of the TaskProduct types required by this task
-		const ConsumesList& consumes() { return m_consumes; }
+		enum SchedulerType
+		{
+			TASKSCHEDULER_SERIAL,
+			TASKSCHEDULER_MT,
+		};
+
+		// static methods
+		static TaskScheduler* create(SchedulerType type);
+		static void destroy(TaskScheduler*);
+
+		// TaskProductManager implementation
+		void productAvailable(TaskProduct* pProduct);
+		TaskProduct* fetchProduct(TaskProductType* pType);
+		void clearProducts();
+
+		COS_DECLARE_ALLOCATOR();
 
 	protected:
+		TaskGraph* m_pGraph;
 
-		// both should be filled in by derived classes to indicate what type(s)
-		// of thing(s) they produce and consume
-		ProducesList m_produces;
-		ConsumesList m_consumes;
+		typedef std::map<TaskProductType*, ProductList> ProductLUT;
+		ProductLUT m_productLUT;
 	};
 }
 
-#define TASK_DEPENDS(c) \
-	m_consumes.push_back(c::getClassDef())
-
-#define TASK_PRODUCES(c) \
-	m_produces.push_back(c::getClassDef())
-
-
-#endif // TASK_INCLUDED
+#endif // TASKSCHEDULER_INCLUDED

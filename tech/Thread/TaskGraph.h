@@ -32,7 +32,7 @@ THE SOFTWARE.
 
 #include <map>
 #include <list>
-#include "Thread/include/TaskTypes.h"
+#include "Thread/TaskTypes.h"
 
 namespace CoS
 {

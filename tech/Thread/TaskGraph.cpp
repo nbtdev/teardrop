@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "TaskGraph.h"
 #include "Task.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 #include <set>
 
 using namespace CoS;

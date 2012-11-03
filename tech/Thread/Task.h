@@ -27,37 +27,42 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(CNCTASKSCHEDULER_INCLUDED)
-#define CNCTASKSCHEDULER_INCLUDED
+#if !defined(TASK_INCLUDED)
+#define TASK_INCLUDED
 
-#include "TaskScheduler.h"
-#include "Memory/include/Allocators.h"
+#include "Thread/TaskTypes.h"
 
 namespace CoS
 {
-	struct cnc_context;
-
-	class CnCTaskScheduler : public TaskScheduler
+	class Task
 	{
 	public:
-		CnCTaskScheduler();
-		virtual ~CnCTaskScheduler();
+		Task();
+		virtual ~Task();
 
-		// TaskScheduler implementation
-		void addTask(Task *);
-		void removeTask(Task *);
-		int executeTasks();
+		// execute this task; when finished, pass on the task's product(s)
+		// to the provided TaskProductManager reference
+		virtual void execute(TaskProductManager&) = 0;
 
-		// TaskProductManager implementation
-		void productAvailable(TaskProduct* pProduct);
-		TaskProduct* fetchProduct(TaskProductType* pType);
-		void clearProducts();
+		// provide a listing of the TaskProduct types provided by this task
+		const ProducesList& provides() { return m_produces; }
+		// provide a listing of the TaskProduct types required by this task
+		const ConsumesList& consumes() { return m_consumes; }
 
-		COS_DECLARE_ALLOCATOR();
+	protected:
 
-	private:
-		cnc_context* m_pContext;
+		// both should be filled in by derived classes to indicate what type(s)
+		// of thing(s) they produce and consume
+		ProducesList m_produces;
+		ConsumesList m_consumes;
 	};
 }
 
-#endif // CNCTASKSCHEDULER_INCLUDED
+#define TASK_DEPENDS(c) \
+	m_consumes.push_back(c::getClassDef())
+
+#define TASK_PRODUCES(c) \
+	m_produces.push_back(c::getClassDef())
+
+
+#endif // TASK_INCLUDED
