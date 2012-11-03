@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined (SCRIPTHELPER_INCLUDED)
 #define SCRIPTHELPER_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 struct lua_State;
 

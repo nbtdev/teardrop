@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../..;../../../integration"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -107,7 +107,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../..;../../../integration"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -148,81 +148,69 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Lua"
 			>
 			<File
-				RelativePath="..\..\..\src\ScriptVM.cpp"
+				RelativePath="..\..\..\integration\Lua\LuaScriptVM.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\stdafx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\stdafx.h"
+				RelativePath="..\..\..\integration\Lua\LuaScriptVM.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\targetver.h"
+				RelativePath="..\..\..\integration\Lua\ScriptHelper.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Variant.cpp"
-				>
-			</File>
-			<Filter
-				Name="Lua"
-				>
-				<File
-					RelativePath="..\..\..\src\Lua\LuaScriptVM.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Lua\LuaScriptVM.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Lua\ScriptHelper.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Lua\ScriptHelper.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\..\..\include\ScriptVM.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Variant.h"
+				RelativePath="..\..\..\integration\Lua\ScriptHelper.h"
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\..\ScriptVM.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ScriptVM.h"
+			>
+		</File>
+		<File
+			RelativePath="..\stdafx.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath="..\targetver.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Variant.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Variant.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
