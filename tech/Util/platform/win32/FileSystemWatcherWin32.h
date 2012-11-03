@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(FILESYSTEMWATCHERWIN32_INCLUDED)
 #define FILESYSTEMWATCHERWIN32_INCLUDED
 
-#include "Util/include/FileSystemWatcher.h"
+#include "Util/FileSystemWatcher.h"
 #include <map>
 
 namespace CoS

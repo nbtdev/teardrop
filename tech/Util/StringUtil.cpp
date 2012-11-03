@@ -290,10 +290,10 @@ void StringUtil::fromString(const String& in, String& out)
 //---------------------------------------------------------------------------
 // TODO: move this out to Math lib somehow (probably have to make StringUtil
 // a namespace and not a class)
-#include "Math/include/Transform.h"
-#include "Math/include/Vector4.h"
-#include "Math/include/Vector2.h"
-#include "Math/include/Quaternion.h"
+#include "Math/Transform.h"
+#include "Math/Vector4.h"
+#include "Math/Vector2.h"
+#include "Math/Quaternion.h"
 void StringUtil::fromString(const String& in, Transform& out)
 {
 	// format of Transform string rep is [(px,py,pz),(qw,qx,qy,qz),(sx,sy,sz)]

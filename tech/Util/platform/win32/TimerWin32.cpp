@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "Timer.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

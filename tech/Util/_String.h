@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(COS_STRING_INCLUDED)
 #define COS_STRING_INCLUDED
 
-#include "Serialization/include/SerialPointer.h"
-#include "Serialization/include/Serialization.h"
-#include "Memory/include/Memory.h"
+#include "Serialization/SerialPointer.h"
+#include "Serialization/Serialization.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

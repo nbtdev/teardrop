@@ -27,31 +27,36 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(COSTIMER_INCLUDED)
-#define COSTIMER_INCLUDED
+#if !defined(FILESYSTEMWATCHER_INCLUDED)
+#define FILESYSTEMWATCHER_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Util/_String.h"
+#include "Memory/Allocators.h"
+#include <list>
 
 namespace CoS
 {
-	class Timer
+	class String;
+
+	class FileSystemWatcher
 	{
-		struct Impl;
-		Impl* m_pImpl;
-		float m_elapsed;
-
 	public:
-		Timer();
-		~Timer();
+		// provide the path to watch
+		static FileSystemWatcher* create(
+			const String& watchPath,	// pathname to watch
+			bool bRecursive	= true,		// watch or don't watch subtree
+			float timeout = 0.5f		// how much time until we decide that a file is "settled down"
+			);
+		static void destroy(FileSystemWatcher* pWatcher);
+		virtual ~FileSystemWatcher();
 
-		float getCurrentTime() const;
-		float getElapsedTime() const { return m_elapsed; }
-		float saveElapsedTime(); // resets "lastTime" value
-		float reset(); // resets all to zero, returns previous current time
-		void update(); // advances current time
+		// rather than spawn a separate thread for each watcher, simply 
+		// poll for changes at the owner's leisure
+		typedef std::list<String> FileSystemChanges;
+		virtual void update(FileSystemChanges& changed) = 0;
 
 		COS_DECLARE_ALLOCATOR();
 	};
 }
 
-#endif // COSENVIRONMENT_INCLUDED
+#endif // FILESYSTEMWATCHER_INCLUDED

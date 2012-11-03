@@ -27,26 +27,27 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
-#include "Config.h"
-#include "Logger.h"
-#include "Stream/include/FileStream.h"
-#include "Memory/include/Memory.h"
-#include <string.h>
+#if !defined(FILESYSTEM_INCLUDED)
+#define FILESYSTEM_INCLUDED
 
-using namespace CoS;
-//---------------------------------------------------------------------------
-Logger::Logger(Stream& logStream)
-	: m_logStream(logStream)
+#include "Util/_String.h"
+#include <list>
+
+namespace CoS
 {
+	class FileSystem
+	{
+	public:
+		typedef std::list<String> FileList;
+		static void glob(const String& startingDirectory, const String& searchPattern, FileList& files, bool recursive=false);
+		static void findAll(const String& startingDirectory, const String& fileName, FileList& files, bool recursive=false);
+
+		// "to" is the full pathname; "from" is the partial directory "root" for the relative path operation
+		static void makeRelativePath(/*out*/String& result, /*in*/const String& from, /*in*/const String& to);
+
+		// get the path to the "appdata" directoy
+		static void getAppDataPath(/*out*/String& path);
+	};
 }
-//---------------------------------------------------------------------------
-Logger::~Logger()
-{
-}
-//---------------------------------------------------------------------------
-void Logger::logMessage(const char* message)
-{
-	m_logStream.write((void*)message, strlen(message));
-	m_logStream.write("\r\n", 2);
-}
+
+#endif // FILESYSTEM_INCLUDED

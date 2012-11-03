@@ -30,8 +30,8 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "_String.h"
 #include <string.h>
-#include "Stream/include/Stream.h"
-#include "Memory/include/Memory.h"
+#include "Stream/Stream.h"
+#include "Memory/Memory.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define SHAREDPOINTER_INCLUDED
 
 #include <assert.h>
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

@@ -27,36 +27,26 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(FILESYSTEMWATCHER_INCLUDED)
-#define FILESYSTEMWATCHER_INCLUDED
+#include "stdafx.h"
+#include "Config.h"
+#include "Logger.h"
+#include "Stream/FileStream.h"
+#include "Memory/Memory.h"
+#include <string.h>
 
-#include "Util/include/_String.h"
-#include "Memory/include/Allocators.h"
-#include <list>
-
-namespace CoS
+using namespace CoS;
+//---------------------------------------------------------------------------
+Logger::Logger(Stream& logStream)
+	: m_logStream(logStream)
 {
-	class String;
-
-	class FileSystemWatcher
-	{
-	public:
-		// provide the path to watch
-		static FileSystemWatcher* create(
-			const String& watchPath,	// pathname to watch
-			bool bRecursive	= true,		// watch or don't watch subtree
-			float timeout = 0.5f		// how much time until we decide that a file is "settled down"
-			);
-		static void destroy(FileSystemWatcher* pWatcher);
-		virtual ~FileSystemWatcher();
-
-		// rather than spawn a separate thread for each watcher, simply 
-		// poll for changes at the owner's leisure
-		typedef std::list<String> FileSystemChanges;
-		virtual void update(FileSystemChanges& changed) = 0;
-
-		COS_DECLARE_ALLOCATOR();
-	};
 }
-
-#endif // FILESYSTEMWATCHER_INCLUDED
+//---------------------------------------------------------------------------
+Logger::~Logger()
+{
+}
+//---------------------------------------------------------------------------
+void Logger::logMessage(const char* message)
+{
+	m_logStream.write((void*)message, strlen(message));
+	m_logStream.write("\r\n", 2);
+}

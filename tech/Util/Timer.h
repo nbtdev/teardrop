@@ -27,27 +27,31 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(FILESYSTEM_INCLUDED)
-#define FILESYSTEM_INCLUDED
+#if !defined(COSTIMER_INCLUDED)
+#define COSTIMER_INCLUDED
 
-#include "Util/include/_String.h"
-#include <list>
+#include "Memory/Allocators.h"
 
 namespace CoS
 {
-	class FileSystem
+	class Timer
 	{
+		struct Impl;
+		Impl* m_pImpl;
+		float m_elapsed;
+
 	public:
-		typedef std::list<String> FileList;
-		static void glob(const String& startingDirectory, const String& searchPattern, FileList& files, bool recursive=false);
-		static void findAll(const String& startingDirectory, const String& fileName, FileList& files, bool recursive=false);
+		Timer();
+		~Timer();
 
-		// "to" is the full pathname; "from" is the partial directory "root" for the relative path operation
-		static void makeRelativePath(/*out*/String& result, /*in*/const String& from, /*in*/const String& to);
+		float getCurrentTime() const;
+		float getElapsedTime() const { return m_elapsed; }
+		float saveElapsedTime(); // resets "lastTime" value
+		float reset(); // resets all to zero, returns previous current time
+		void update(); // advances current time
 
-		// get the path to the "appdata" directoy
-		static void getAppDataPath(/*out*/String& path);
+		COS_DECLARE_ALLOCATOR();
 	};
 }
 
-#endif // FILESYSTEM_INCLUDED
+#endif // COSENVIRONMENT_INCLUDED
