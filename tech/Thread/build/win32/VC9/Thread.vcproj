@@ -147,8 +147,40 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Scheduler"
+			>
+			<Filter
+				Name="CnC"
+				>
+				<File
+					RelativePath="..\..\..\scheduler\CnC\CnCTaskScheduler.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\scheduler\CnC\CnCTaskScheduler.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Serial"
+				>
+				<File
+					RelativePath="..\..\..\scheduler\Serial\SerialTaskScheduler.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\scheduler\Serial\SerialTaskScheduler.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
 		<File
 			RelativePath="..\..\..\Task.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Task.h"
 			>
 		</File>
 		<File
@@ -156,47 +188,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\TaskProduct.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\TaskScheduler.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\ThreadUtil.cpp"
-			>
-		</File>
-		<Filter
-			Name="CnC"
-			>
-			<File
-				RelativePath="..\..\..\scheduler\CnC\CnCTaskScheduler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scheduler\CnC\CnCTaskScheduler.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Serial"
-			>
-			<File
-				RelativePath="..\..\..\scheduler\Serial\SerialTaskScheduler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\scheduler\Serial\SerialTaskScheduler.h"
-				>
-			</File>
-		</Filter>
-		<File
-			RelativePath="..\..\..\Task.h"
-			>
-		</File>
-		<File
 			RelativePath="..\..\..\TaskGraph.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TaskProduct.cpp"
 			>
 		</File>
 		<File
@@ -208,11 +204,19 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\TaskScheduler.cpp"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\TaskScheduler.h"
 			>
 		</File>
 		<File
 			RelativePath="..\..\..\TaskTypes.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ThreadUtil.cpp"
 			>
 		</File>
 		<File
