@@ -29,16 +29,16 @@ THE SOFTWARE.
 
 #include "ResourceManager.h"
 #include "ResourceFactory.h"
-#include "Serialization/include/ResourceDeserializer.h"
+#include "Serialization/ResourceDeserializer.h"
 #include "Resource.h"
-#include "Memory/include/Memory.h"
-#include "Memory/include/Allocators.h"
-#include "Util/include/Hash.h"
-#include "Util/include/Logger.h"
-#include "Util/include/FileSystemWatcher.h"
-#include "Util/include/StringUtil.h"
-#include "Util/include/Environment.h"
-#include "Stream/include/FileStream.h"
+#include "Memory/Memory.h"
+#include "Memory/Allocators.h"
+#include "Util/Hash.h"
+#include "Util/Logger.h"
+#include "Util/FileSystemWatcher.h"
+#include "Util/StringUtil.h"
+#include "Util/Environment.h"
+#include "Stream/FileStream.h"
 #include <string>
 #include <assert.h>
 #include <windows.h>

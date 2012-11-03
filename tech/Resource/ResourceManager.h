@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(RESOURCEMANAGER_INCLUDED)
 #define RESOURCEMANAGER_INCLUDED
 
-#include "Resource/include/ResourceHandle.h"
-#include "Util/include/FourCC.h"
-#include "Memory/include/Allocators.h"
+#include "Resource/ResourceHandle.h"
+#include "Util/FourCC.h"
+#include "Memory/Allocators.h"
 #include <list>
 #include <map>
 
