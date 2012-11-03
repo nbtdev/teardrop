@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(ALLOCATORS_INCLUDED)
 #define ALLOCATORS_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

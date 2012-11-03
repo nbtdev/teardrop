@@ -145,6 +145,6 @@ void operator delete[](void* pMem);
 
 COS_DECLARE_MEMORY_REGION(DEFAULT); // define this in the main.cpp for your program
 
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 #endif // MEMORY_INCLUDED

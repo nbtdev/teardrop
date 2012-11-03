@@ -31,8 +31,8 @@ THE SOFTWARE.
 #include "Memory.h"
 #include "AllocationTracker.h"
 #include "MemoryRegion.h"
-#include "Serialization/include/SerialUtil.h"
-#include "Stream/include/Stream.h"
+#include "Serialization/SerialUtil.h"
+#include "Stream/Stream.h"
 #include <sstream>
 
 #define WIN32_LEAN_AND_MEAN

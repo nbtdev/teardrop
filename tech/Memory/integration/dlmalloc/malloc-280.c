@@ -593,7 +593,7 @@ DEFAULT_MMAP_THRESHOLD       default: 256K
   This version of malloc supports the standard SVID/XPG mallinfo
   routine that returns a struct containing usage properties and
   statistics. It should work on any system that has a
-  /usr/include/malloc.h defining struct mallinfo.  The main
+  /usr/malloc.h defining struct mallinfo.  The main
   declaration needed is the mallinfo struct that is returned (by-copy)
   by mallinfo().  The malloinfo struct contains a bunch of fields that
   are not even meaningful in this version of malloc.  These fields are
@@ -601,7 +601,7 @@ DEFAULT_MMAP_THRESHOLD       default: 256K
   interest.
 
   HAVE_USR_INCLUDE_MALLOC_H should be set if you have a
-  /usr/include/malloc.h file that includes a declaration of struct
+  /usr/malloc.h file that includes a declaration of struct
   mallinfo.  If so, it is included; else a compliant version is
   declared below.  These must be precisely the same for mallinfo() to
   work.  The original SVID version of this struct, defined on most
@@ -614,7 +614,7 @@ DEFAULT_MMAP_THRESHOLD       default: 256K
 /* #define HAVE_USR_INCLUDE_MALLOC_H */
 
 #ifdef HAVE_USR_INCLUDE_MALLOC_H
-#include "/usr/include/malloc.h"
+#include "/usr/malloc.h"
 #else /* HAVE_USR_INCLUDE_MALLOC_H */
 
 struct mallinfo {

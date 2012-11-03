@@ -27,8 +27,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description=""
-				
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -45,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../../integration/dlmalloc;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -95,8 +93,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description=""
-				
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -113,7 +109,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../../integration/dlmalloc;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				BufferSecurityCheck="false"
 				OpenMP="true"
@@ -156,77 +152,59 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="Integration"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\src\AllocationTracker.cpp"
+			<Filter
+				Name="dlmalloc"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Allocators.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\malloc-280.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
+				<File
+					RelativePath="..\..\..\integration\dlmalloc\malloc-280.c"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
+				</File>
+				<File
+					RelativePath="..\..\..\integration\dlmalloc\malloc-280.h"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Memory.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\MemoryRegion.cpp"
-				>
-			</File>
+				</File>
+			</Filter>
 		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		<File
+			RelativePath="..\..\..\AllocationTracker.cpp"
 			>
-			<File
-				RelativePath="..\..\..\include\AllocationTracker.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Allocators.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\malloc-280.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Memory.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\MemoryRegion.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Pool.h"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath="..\..\..\AllocationTracker.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Allocators.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Allocators.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Memory.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Memory.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\MemoryRegion.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\MemoryRegion.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Pool.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

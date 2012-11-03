@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(MEMORYPOOL_INCLUDED)
 #define MEMORYPOOL_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 #include <vector>
 #include <stack>
 
