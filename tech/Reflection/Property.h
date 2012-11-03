@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined (PROPERTY_INCLUDED)
 #define PROPERTY_INCLUDED
 
-#include "Util/include/StringUtil.h"
-#include "Util/include/_String.h"
+#include "Util/StringUtil.h"
+#include "Util/_String.h"
 #include <vector>
 #include <assert.h>
 

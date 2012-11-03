@@ -28,7 +28,7 @@ THE SOFTWARE.
 */
 
 #include "PropertyDef.h"
-#include "Util/include/_String.h"
+#include "Util/_String.h"
 
 using namespace CoS;
 using namespace Reflection;

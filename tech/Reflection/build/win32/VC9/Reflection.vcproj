@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\include;..\..\..\.."
+				AdditionalIncludeDirectories="..\..\..\.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -107,7 +107,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\include;..\..\..\.."
+				AdditionalIncludeDirectories="..\..\..\.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				BufferSecurityCheck="false"
 				EnableFunctionLevelLinking="true"
@@ -149,46 +149,34 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+		<File
+			RelativePath="..\..\..\ClassDef.cpp"
 			>
-			<File
-				RelativePath="..\..\..\src\ClassDef.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\PropertyDef.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Reflection.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		</File>
+		<File
+			RelativePath="..\..\..\PropertyDef.cpp"
 			>
-			<File
-				RelativePath="..\..\..\include\ClassDef.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Property.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\PropertyDef.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Reflection.h"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath="..\..\..\Reflection.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ClassDef.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Property.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\PropertyDef.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Reflection.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

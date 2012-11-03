@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(REFLECTION_INCLUDED)
 #define REFLECTION_INCLUDED
 
-#include "Memory/include/Memory.h"
-#include "Serialization/include/Serialization.h"
-#include "Util/include/_String.h"
+#include "Memory/Memory.h"
+#include "Serialization/Serialization.h"
+#include "Util/_String.h"
 #include "FastDelegate.h"
 
 namespace CoS
@@ -316,9 +316,9 @@ namespace CoS
 	public: \
 		t##propName##Type& get##propName() { return ___##propName; } \
 
-#include "Reflection/include/ClassDef.h"
-#include "Reflection/include/PropertyDef.h"
-//#include "Reflection/include/Enum.h"
+#include "Reflection/ClassDef.h"
+#include "Reflection/PropertyDef.h"
+//#include "Reflection/Enum.h"
 namespace CoS
 {
 	typedef int Int32;

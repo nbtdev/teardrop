@@ -29,8 +29,8 @@ THE SOFTWARE.
 
 #include "ClassDef.h"
 #include "PropertyDef.h"
-#include "Memory/include/Memory.h"
-#include "Util/include/Hash.h"
+#include "Memory/Memory.h"
+#include "Util/Hash.h"
 #include <string.h>
 
 using namespace CoS;

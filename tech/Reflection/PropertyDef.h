@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined (PROPERTYDEF_INCLUDED)
 #define PROPERTYDEF_INCLUDED
 
-#include "Reflection/include/Property.h"
+#include "Reflection/Property.h"
 
 namespace CoS
 {
