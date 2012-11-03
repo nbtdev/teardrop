@@ -30,9 +30,9 @@ THE SOFTWARE.
 #include "Config.h"
 #include "ResourceLibrary.h"
 #include "ResourceHeader.h"
-#include "Stream/include/Stream.h"
-#include "Memory/include/Memory.h"
-#include "Memory/include/Allocators.h"
+#include "Stream/Stream.h"
+#include "Memory/Memory.h"
+#include "Memory/Allocators.h"
 #include <assert.h>
 
 using namespace CoS;

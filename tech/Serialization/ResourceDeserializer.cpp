@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include "ResourceRelocEntry.h"
 #include "ResourceDeserializer.h"
 #include "SerialPointer.h"
-#include "Stream/include/Stream.h"
+#include "Stream/Stream.h"
 #include <assert.h>
 #include <string.h>
 #include <new.h>

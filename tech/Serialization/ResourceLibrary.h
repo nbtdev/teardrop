@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(RESOURCELIBRARY_INCLUDED)
 #define RESOURCELIBRARY_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 #include <list>
 #include <map>
 

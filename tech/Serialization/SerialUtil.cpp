@@ -29,8 +29,8 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "SerialUtil.h"
-#include "Stream/include/Stream.h"
-#include "Util/include/_String.h"
+#include "Stream/Stream.h"
+#include "Util/_String.h"
 #include <string>
 #include <stdio.h>
 #include <string.h>

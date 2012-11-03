@@ -27,34 +27,44 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(RESOURCEDESERIALIZER_INCLUDED)
-#define RESOURCEDESERIALIZER_INCLUDED
+#if !defined(RESOURCERELOCENTRY_INCLUDED)
+#define RESOURCERELOCENTRY_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {
-	class Stream;
-
-	class ResourceDeserializer
+	struct ResourceRelocEntry
 	{
-	public:
-		ResourceDeserializer();
-		~ResourceDeserializer();
+		enum Type
+		{
+			INVALID=0,
+			INTERNAL,
+			EXTERNAL,
+			VTABLE,
 
-		//! get a pointer to the start of the image
-		void* get(void* pMem);
-		//! fix up an in-memory resource image
-		void fix(void* pMem);
-		//! fix up an external dependency in the image
-		void fix(void* pMem, size_t index, void* pTarget);
-		//! dump this resource's dependencies
-		void dumpDependencies(void* pMem, Stream& strm);
-		//! dump this resource's dependencies
-		const char* getDependencies(void* pMem);
+			TYPE_FORCE_32_BIT=0xFFFFFFFF,
+		};
+
+		ResourceRelocEntry()
+		{
+			at = 0;
+			to = 0;
+			id = 0;
+			type = INVALID;
+			reserved[0] = 0;
+			reserved[1] = 0;
+			reserved[2] = 0;
+		}
+
+		unsigned __int64 id; // classId for vtable types, resource ID for external types
+		unsigned int at;
+		unsigned int to;
+		Type type; 
+		unsigned int reserved[3];
 
 		COS_DECLARE_ALLOCATOR();
 	};
 }
 
-#endif // RESOURCEDESERIALIZER_INCLUDED
+#endif // RESOURCERELOCENTRY_INCLUDED

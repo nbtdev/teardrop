@@ -27,11 +27,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "Config.h"
-#include "SerialBase.h"
-#include "Stream/include/Stream.h"
-#include <string.h>
-#include <assert.h>
+#if !defined(SERIALPOINTERLIST_INCLUDED)
+#define SERIALPOINTERLIST_INCLUDED
 
-using namespace CoS;
-//---------------------------------------------------------------------------
+#include "Serialization/SerialPointer.h"
+
+namespace CoS
+{
+	template<typename T>
+	struct SerialPointerListElem
+	{
+		SerialPointer<T> pThis;
+		SerialPointer<T> pNext;
+
+		COS_DECLARE_ALLOCATOR();
+	};
+}
+
+#endif // SERIALPOINTERLIST_INCLUDED

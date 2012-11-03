@@ -27,49 +27,73 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(SERIALPOINTER_INCLUDED)
-#define SERIALPOINTER_INCLUDED
+#if !defined(SERIALPOINTERARRAY_INCLUDED)
+#define SERIALPOINTERARRAY_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Serialization/SerialPointer.h"
 
 namespace CoS
 {
-	struct SerialPointerBase
+	struct SerialPointerArrayBase
 	{
-		union u
-		{
-			unsigned __int64 i64;
-			void* pC;
-		};
-		u _u;
+		__int64 sz;
+		SerialPointer< SerialPointer<void> > first;
+		void _init() { sz=0; first=0; } // use only if you know what you are doing and why
 
 		COS_DECLARE_ALLOCATOR();
 	};
 
-	// define 8-byte pointer for all platform word sizes, used for serialization 
-	template <typename T>
-	struct SerialPointer : SerialPointerBase
+	template<typename T>
+	struct SerialPointerArray : SerialPointerArrayBase
 	{
-		SerialPointer() { _u.i64 = 0; }
-		explicit SerialPointer(T* t) { _u.i64 = 0; _u.pC = t; }
-		explicit SerialPointer(const SerialPointer& other) { *this = other; }
-		template<typename Y> explicit SerialPointer(SerialPointer<Y>& other) { *this = other; }
-		SerialPointer& operator=(const SerialPointer& other) { _u = other._u; return *this; }
-		template<typename Y> SerialPointer& operator=(SerialPointer<Y>& other) { _u.pC = (T*)other._u.pC; return *this; }
-		template<typename Y> SerialPointer& operator=(Y* other) { _u.pC = (T*)other; return *this; }
-		//SerialPointer& operator=(size_t i) { _u.i64 = i; return *this; }
-		//SerialPointer& operator=(unsigned __int64 i) { _u.i64 = i; return *this; }
-		SerialPointer& operator=(T* t) { _u.pC = t; return *this; }
-		operator T*() { return (T*)_u.pC; }
-		T* operator ->() { return (T*)_u.pC; }
-//		operator T() { return *_u.pC; }
-		operator const T*() const { return (const T*)_u.pC; }
-		bool operator!() const { return _u.pC == 0; }
-		bool operator==(T* t) const { return _u.pC == t; }
-		bool operator!=(T* t) const { return _u.pC != t; }
+		SerialPointerArray() { _init(); }
+		~SerialPointerArray() { delete [] first; }
+		bool operator!() { return sz == 0; }
+		SerialPointerArray<T>& operator=(const SerialPointerArray<T>& rhs) { first=rhs.first; sz=rhs.sz; return *this; }
+		SerialPointer<T>& operator[](size_t i) const 
+		{ 
+			if (i >= sz)
+			{
+				return (SerialPointer<T>&)first[sz-1];
+			}
+
+			return (SerialPointer<T>&)first[i]; 
+		}
+
+		size_t size() const { return (size_t)sz; }
+		void clear() { delete [] first; _init(); }
+
+		void resize(size_t size)
+		{
+			SerialPointer< SerialPointer<void> > p(first);
+			first = COS_NEW SerialPointer<T>[size];
+			size_t i=0;
+			for (; i<sz && i<size; ++i)
+			{
+				first[i] = p[i];
+			}
+
+			sz = size;
+			delete [] p;
+		}
+
+		SerialPointer<T>& push_back(T* t)
+		{
+			SerialPointer< SerialPointer<void> > p(first);
+			first = COS_NEW SerialPointer<T>[(size_t)sz+1];
+			size_t i=0;
+			for (; i<sz; ++i)
+			{
+				first[i] = p[i];
+			}
+			first[i] = t;
+			++sz;
+			delete [] p;
+			return (SerialPointer<T>&)first[sz-1];
+		}
 
 		COS_DECLARE_ALLOCATOR();
 	};
 }
 
-#endif // SERIALPOINTER_INCLUDED
+#endif // SERIALPOINTERARRAY_INCLUDED

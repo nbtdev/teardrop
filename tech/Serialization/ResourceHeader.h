@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(RESOURCEHEADER_INCLUDED)
 #define RESOURCEHEADER_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {

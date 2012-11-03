@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "Config.h"
 #include "ResourceSerializer.h"
 #include "SerialUtil.h"
-#include "Stream/include/Stream.h"
+#include "Stream/Stream.h"
 #include <string.h>
 #include <assert.h>
 

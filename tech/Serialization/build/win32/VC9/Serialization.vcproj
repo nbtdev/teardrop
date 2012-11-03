@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../..;../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -108,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../..;../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				BufferSecurityCheck="false"
 				OpenMP="true"
@@ -150,86 +150,74 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+		<File
+			RelativePath="..\..\..\ResourceDeserializer.cpp"
 			>
-			<File
-				RelativePath="..\..\..\src\ResourceDeserializer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\ResourceLibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\ResourceSerializer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\SerialBase.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Serialization.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\SerialUtil.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		</File>
+		<File
+			RelativePath="..\..\..\ResourceLibrary.cpp"
 			>
-			<File
-				RelativePath="..\..\..\include\ResourceDeserializer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ResourceHeader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ResourceLibrary.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ResourceRelocEntry.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ResourceSerializer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\SerialBase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Serialization.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\SerialPointer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\SerialPointerArray.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\SerialPointerList.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\SerialUtil.h"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath="..\..\..\ResourceSerializer.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SerialBase.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Serialization.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SerialUtil.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ResourceDeserializer.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ResourceHeader.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ResourceLibrary.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ResourceRelocEntry.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ResourceSerializer.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SerialBase.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Serialization.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SerialPointer.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SerialPointerArray.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SerialPointerList.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SerialUtil.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

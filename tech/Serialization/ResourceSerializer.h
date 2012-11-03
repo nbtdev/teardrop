@@ -30,13 +30,13 @@ THE SOFTWARE.
 #if !defined(RESOURCESERIALIZER_INCLUDED)
 #define RESOURCESERIALIZER_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 #include <map>
 #include <list>
 #include <vector>
-#include "Serialization/include/SerialPointerArray.h"
-#include "Serialization/include/ResourceHeader.h"
-#include "Serialization/include/ResourceRelocEntry.h"
+#include "Serialization/SerialPointerArray.h"
+#include "Serialization/ResourceHeader.h"
+#include "Serialization/ResourceRelocEntry.h"
 
 namespace CoS
 {

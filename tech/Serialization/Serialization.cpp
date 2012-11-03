@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "Serialization.h"
-#include "Util/include/Hash.h"
+#include "Util/Hash.h"
 #include <assert.h>
 #include <string.h>
 
