@@ -27,57 +27,66 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(RAGDOLLCONTROLLER_INCLUDED)
-#define RAGDOLLCONTROLLER_INCLUDED
+#if !defined(RAGDOLL_INCLUDED)
+#define RAGDOLL_INCLUDED
 
-#include "Resource/include/ResourceHandle.h"
-#include "Memory/include/Memory.h"
-
-#include "Math/include/Vector4.h"
-#include <vector>
-#include <list>
+#include "Resource/Resource.h"
+#include "Serialization/SerialPointer.h"
+#include "Serialization/Serialization.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {
+	class Stream;
+	class ResourceSerializer;
+	struct FourCC;
 	class AnimationBlender;
-	class Transform;
-	class World;
 
-	class RagdollController
+	class Ragdoll: public Resource
 	{
+		DECLARE_SERIALIZABLE_VTABLE();
+		DECLARE_SERIALIZABLE(Ragdoll);
+
 	public:
+		static const FourCC& RESOURCE_TYPE;
+
 		//! normal c'tor (cannot fail)
-		RagdollController();
+		Ragdoll();
+		//! placement c'tor (cannot fail)
+		Ragdoll(int);
 		//! d'tor (cannot fail)
-		virtual ~RagdollController();
+		virtual ~Ragdoll();
 
-		virtual bool initialize(HResource hRagdoll);
-		virtual bool destroy();
-		virtual bool drive(float timeStep, AnimationBlender* pBlender, const Transform& world);
-		virtual bool addToWorld(World* pWorld);
-		virtual bool removeFromWorld(World* pWorld);
+		virtual bool initialize(
+			void* pData,
+			unsigned int dataLen
+			);
 
-		// debug view of the ragdoll's shapes
-		typedef std::vector<Vector4> DisplayGeometry;
-		typedef std::list<DisplayGeometry> DisplayGeometries;
-		// will return a list of lines (start end start end ...) that describe 
-		// the debug view of the ragdoll's geometries
-		virtual bool getDisplayGeometry(DisplayGeometries& geom) = 0;
+		virtual bool initialize();
 
-		static RagdollController* createController();
-		static void destroyController(RagdollController*);
+		virtual bool update(float deltaT, AnimationBlender* pAnimBlender);
 
-		virtual void setUserData(void*);
+		//! loads body data from stream; owns the data once loaded
+		bool load(Stream& stream);
+		//! release the resource when done with it
+		bool release();
+		bool destroy();
+
+		// make a copy of this object with unique ragdoll
+		virtual Ragdoll* clone();
+
+		/**
+			Serialization
+		*/
+		//! package for storage
+		virtual bool serialize(ResourceSerializer& serializer);
 
 		COS_DECLARE_ALLOCATOR();
 
 	protected:
-		HResource m_hRagdoll;
-
-	private:
-		RagdollController(const RagdollController& other);
-		RagdollController& operator=(const RagdollController& other);
+		SerialPointer<void> m_pData;
+		unsigned int m_dataLen;
 	};
 }
 
-#endif // RAGDOLLCONTROLLER_INCLUDED
+#endif // RAGDOLL_INCLUDED

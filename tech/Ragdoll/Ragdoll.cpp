@@ -29,12 +29,12 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "Ragdoll.h"
-#include "Physics/include/Physics.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Memory/include/Allocators.h"
-#include "Stream/include/Stream.h"
-#include "Util/include/FourCC.h"
+#include "Physics/Physics.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Memory/Allocators.h"
+#include "Stream/Stream.h"
+#include "Util/FourCC.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

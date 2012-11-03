@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -107,7 +107,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -148,81 +148,73 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Integration"
 			>
-			<File
-				RelativePath="..\..\..\src\Ragdoll.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\RagdollController.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\stdafx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\targetver.h"
-				>
-			</File>
 			<Filter
 				Name="Havok"
 				>
 				<File
-					RelativePath="..\..\..\src\Havok\RagdollControllerHavok.cpp"
+					RelativePath="..\..\..\integration\Havok\RagdollControllerHavok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\RagdollControllerHavok.h"
+					RelativePath="..\..\..\integration\Havok\RagdollControllerHavok.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\RagdollHavok.cpp"
+					RelativePath="..\..\..\integration\Havok\RagdollHavok.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Havok\RagdollHavok.h"
+					RelativePath="..\..\..\integration\Havok\RagdollHavok.h"
 					>
 				</File>
 			</Filter>
 		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		<File
+			RelativePath="..\..\..\Ragdoll.cpp"
 			>
-			<File
-				RelativePath="..\..\..\include\Ragdoll.h"
+		</File>
+		<File
+			RelativePath="..\..\..\Ragdoll.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\RagdollController.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\RagdollController.h"
+			>
+		</File>
+		<File
+			RelativePath="..\stdafx.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\RagdollController.h"
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
 				>
-			</File>
-		</Filter>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath="..\targetver.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

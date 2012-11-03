@@ -50,7 +50,7 @@
 #include "Physics/Utilities/Serialize/hkpPhysicsData.h"
 
 
-#include "Memory/include/Memory.h"
-#include "Memory/include/MemoryRegion.h"
-#include "Stream/include/FileStream.h"
-#include "Util/include/Hash.h"
+#include "Memory/Memory.h"
+#include "Memory/MemoryRegion.h"
+#include "Stream/FileStream.h"
+#include "Util/Hash.h"
