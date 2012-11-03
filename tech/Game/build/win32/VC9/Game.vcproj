@@ -156,122 +156,122 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\ComponentHost.cpp"
+				RelativePath="..\..\..\ComponentHost.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\CountdownTrigger.cpp"
+				RelativePath="..\..\..\CountdownTrigger.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\DirectionalLight.cpp"
+				RelativePath="..\..\..\DirectionalLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\DynamicLight.cpp"
+				RelativePath="..\..\..\DynamicLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\GameState.cpp"
+				RelativePath="..\..\..\GameState.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\GameStateManager.cpp"
+				RelativePath="..\..\..\GameStateManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Input.cpp"
+				RelativePath="..\..\..\Input.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\InputFilter.cpp"
+				RelativePath="..\..\..\InputFilter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\IPlayer.cpp"
+				RelativePath="..\..\..\IPlayer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Manifest.cpp"
+				RelativePath="..\..\..\Manifest.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Mountable.cpp"
+				RelativePath="..\..\..\Mountable.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\ObjectLibrary.cpp"
+				RelativePath="..\..\..\ObjectLibrary.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Overlay.cpp"
+				RelativePath="..\..\..\Overlay.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\PointLight.cpp"
+				RelativePath="..\..\..\PointLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\RenderStep.cpp"
+				RelativePath="..\..\..\RenderStep.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Scene.cpp"
+				RelativePath="..\..\..\Scene.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\SceneRenderer.cpp"
+				RelativePath="..\..\..\SceneRenderer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\SceneUtil.cpp"
+				RelativePath="..\..\..\SceneUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\SpawnPoint.cpp"
+				RelativePath="..\..\..\SpawnPoint.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\SpotLight.cpp"
+				RelativePath="..\..\..\SpotLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\TerrainPatch.cpp"
+				RelativePath="..\..\..\TerrainPatch.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\TerrainZone.cpp"
+				RelativePath="..\..\..\TerrainZone.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Trigger.cpp"
+				RelativePath="..\..\..\Trigger.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Zone.cpp"
+				RelativePath="..\..\..\Zone.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\ZoneObject.cpp"
+				RelativePath="..\..\..\ZoneObject.cpp"
 				>
 			</File>
 			<Filter
 				Name="Octree"
 				>
 				<File
-					RelativePath="..\..\..\src\Octree\Octree.cpp"
+					RelativePath="..\..\..\Octree\Octree.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Octree\Octree.h"
+					RelativePath="..\..\..\Octree\Octree.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Octree\OctreeNode.cpp"
+					RelativePath="..\..\..\Octree\OctreeNode.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\Octree\OctreeNode.h"
+					RelativePath="..\..\..\Octree\OctreeNode.h"
 					>
 				</File>
 			</Filter>
@@ -282,135 +282,135 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\include\Command.h"
+				RelativePath="..\..\..\Command.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\ComponentHost.h"
+				RelativePath="..\..\..\ComponentHost.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\CountdownTrigger.h"
+				RelativePath="..\..\..\CountdownTrigger.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\DirectionalLight.h"
+				RelativePath="..\..\..\DirectionalLight.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\DynamicLight.h"
+				RelativePath="..\..\..\DynamicLight.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\GameState.h"
+				RelativePath="..\..\..\GameState.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\GameStateManager.h"
+				RelativePath="..\..\..\GameStateManager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\IFF.h"
+				RelativePath="..\..\..\IFF.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Input.h"
+				RelativePath="..\..\..\Input.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\InputEvent.h"
+				RelativePath="..\..\..\InputEvent.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\InputFilter.h"
+				RelativePath="..\..\..\InputFilter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\IPlayer.h"
+				RelativePath="..\..\..\IPlayer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\IPlayerControlled.h"
+				RelativePath="..\..\..\IPlayerControlled.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Kinematic.h"
+				RelativePath="..\..\..\Kinematic.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\LoadListener.h"
+				RelativePath="..\..\..\LoadListener.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Manifest.h"
+				RelativePath="..\..\..\Manifest.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Mountable.h"
+				RelativePath="..\..\..\Mountable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\ObjectLibrary.h"
+				RelativePath="..\..\..\ObjectLibrary.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Overlay.h"
+				RelativePath="..\..\..\Overlay.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\PointLight.h"
+				RelativePath="..\..\..\PointLight.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\RenderStep.h"
+				RelativePath="..\..\..\RenderStep.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Scene.h"
+				RelativePath="..\..\..\Scene.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\SceneRenderer.h"
+				RelativePath="..\..\..\SceneRenderer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\SceneUtil.h"
+				RelativePath="..\..\..\SceneUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\SpatialPartitioning.h"
+				RelativePath="..\..\..\SpatialPartitioning.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\SpawnPoint.h"
+				RelativePath="..\..\..\SpawnPoint.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\SpotLight.h"
+				RelativePath="..\..\..\SpotLight.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\TerrainPatch.h"
+				RelativePath="..\..\..\TerrainPatch.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\TerrainZone.h"
+				RelativePath="..\..\..\TerrainZone.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Trigger.h"
+				RelativePath="..\..\..\Trigger.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Zone.h"
+				RelativePath="..\..\..\Zone.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\ZoneObject.h"
+				RelativePath="..\..\..\ZoneObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\ZoneObjects.h"
+				RelativePath="..\..\..\ZoneObjects.h"
 				>
 			</File>
 		</Filter>
@@ -418,83 +418,83 @@
 			Name="Components"
 			>
 			<File
-				RelativePath="..\..\..\src\Component.cpp"
+				RelativePath="..\..\..\Component.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component.h"
+				RelativePath="..\..\..\Component.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_Animation.cpp"
+				RelativePath="..\..\..\Component_Animation.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_Animation.h"
+				RelativePath="..\..\..\Component_Animation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_Audio.cpp"
+				RelativePath="..\..\..\Component_Audio.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_Audio.h"
+				RelativePath="..\..\..\Component_Audio.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_BasicPhysics.cpp"
+				RelativePath="..\..\..\Component_BasicPhysics.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_BasicPhysics.h"
+				RelativePath="..\..\..\Component_BasicPhysics.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_CameraInterface.cpp"
+				RelativePath="..\..\..\Component_CameraInterface.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_CameraInterface.h"
+				RelativePath="..\..\..\Component_CameraInterface.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_CharacterPhysics.cpp"
+				RelativePath="..\..\..\Component_CharacterPhysics.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_CharacterPhysics.h"
+				RelativePath="..\..\..\Component_CharacterPhysics.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_EquipmentSlot.cpp"
+				RelativePath="..\..\..\Component_EquipmentSlot.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_EquipmentSlot.h"
+				RelativePath="..\..\..\Component_EquipmentSlot.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_Interpolator.cpp"
+				RelativePath="..\..\..\Component_Interpolator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_Interpolator.h"
+				RelativePath="..\..\..\Component_Interpolator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_Physics.cpp"
+				RelativePath="..\..\..\Component_Physics.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_Physics.h"
+				RelativePath="..\..\..\Component_Physics.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Component_Render.cpp"
+				RelativePath="..\..\..\Component_Render.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Component_Render.h"
+				RelativePath="..\..\..\Component_Render.h"
 				>
 			</File>
 		</Filter>
@@ -502,43 +502,43 @@
 			Name="Camera"
 			>
 			<File
-				RelativePath="..\..\..\src\CameraController.cpp"
+				RelativePath="..\..\..\CameraController.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\CameraController.h"
+				RelativePath="..\..\..\CameraController.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\ChaseCamController.cpp"
+				RelativePath="..\..\..\ChaseCamController.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\ChaseCamController.h"
+				RelativePath="..\..\..\ChaseCamController.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\FirstPersonCamController.cpp"
+				RelativePath="..\..\..\FirstPersonCamController.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\FirstPersonCamController.h"
+				RelativePath="..\..\..\FirstPersonCamController.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\FreeCamController.cpp"
+				RelativePath="..\..\..\FreeCamController.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\FreeCamController.h"
+				RelativePath="..\..\..\FreeCamController.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\OrbitCamController.cpp"
+				RelativePath="..\..\..\OrbitCamController.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\OrbitCamController.h"
+				RelativePath="..\..\..\OrbitCamController.h"
 				>
 			</File>
 		</Filter>
@@ -546,27 +546,27 @@
 			Name="Entities"
 			>
 			<File
-				RelativePath="..\..\..\src\Avatar.cpp"
+				RelativePath="..\..\..\Avatar.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Avatar.h"
+				RelativePath="..\..\..\Avatar.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\MACRO.cpp"
+				RelativePath="..\..\..\MACRO.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\MACRO.h"
+				RelativePath="..\..\..\MACRO.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Prop.cpp"
+				RelativePath="..\..\..\Prop.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Prop.h"
+				RelativePath="..\..\..\Prop.h"
 				>
 			</File>
 		</Filter>
@@ -574,35 +574,35 @@
 			Name="Render Steps"
 			>
 			<File
-				RelativePath="..\..\..\src\DebugMeshRenderStep.cpp"
+				RelativePath="..\..\..\DebugMeshRenderStep.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\DebugMeshRenderStep.h"
+				RelativePath="..\..\..\DebugMeshRenderStep.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\DepthOnlyRenderStep.cpp"
+				RelativePath="..\..\..\DepthOnlyRenderStep.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\DepthOnlyRenderStep.h"
+				RelativePath="..\..\..\DepthOnlyRenderStep.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\SceneRenderStep.cpp"
+				RelativePath="..\..\..\SceneRenderStep.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\SceneRenderStep.h"
+				RelativePath="..\..\..\SceneRenderStep.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\ShadowRenderStep.cpp"
+				RelativePath="..\..\..\ShadowRenderStep.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\ShadowRenderStep.h"
+				RelativePath="..\..\..\ShadowRenderStep.h"
 				>
 			</File>
 		</Filter>
@@ -610,7 +610,7 @@
 			Name="Weapons"
 			>
 			<File
-				RelativePath="..\..\..\src\BeamWeapon.cpp"
+				RelativePath="..\..\..\BeamWeapon.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -622,15 +622,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\include\BeamWeapon.h"
+				RelativePath="..\..\..\BeamWeapon.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Weapon.cpp"
+				RelativePath="..\..\..\Weapon.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Weapon.h"
+				RelativePath="..\..\..\Weapon.h"
 				>
 			</File>
 		</Filter>
