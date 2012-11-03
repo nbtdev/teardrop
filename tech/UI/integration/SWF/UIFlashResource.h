@@ -27,50 +27,40 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
-#include "UIRenderer.h"
-#include "UIElement.h"
-#include "Gfx/include/GfxRenderer.h"
-#include "Gfx/include/GfxViewport.h"
-#include <assert.h>
+#if !defined(UIFLASHRESOURCE_INCLUDED)
+#define UIFLASHRESOURCE_INCLUDED
 
-using namespace CoS;
-using namespace UI;
-//---------------------------------------------------------------------------
-Renderer::Renderer()
-{
-	m_pRenderer = 0;
-	m_pViewport = 0;
-}
-//---------------------------------------------------------------------------
-Renderer::~Renderer()
-{
-}
-//---------------------------------------------------------------------------
-bool Renderer::initialize(GfxRenderer* pRenderer)
-{
-	m_pRenderer = pRenderer;
-	return true;
-}
-//---------------------------------------------------------------------------
-bool Renderer::destroy()
-{
-	return true;
-}
-//---------------------------------------------------------------------------
-void Renderer::setViewport(GfxViewport* pVP)
-{
-	//assert(m_pRenderer);
-	//if (!m_pRenderer)
-	//	return;
+#include "Resource/Resource.h"
+#include "Memory/Memory.h"
 
-	//m_pViewport = pVP;
-
-	//// set the render target to this viewport's RT
-	//m_pRenderer->setRenderTarget(pVP->getRenderTarget());
-}
-//---------------------------------------------------------------------------
-bool Renderer::render(Element* pElement)
+namespace CoS
 {
-	return true;
-}
+	struct FourCC;
+
+	namespace UI
+	{
+		/*
+		*/
+
+		class FlashResource : public Resource
+		{
+		public:
+			const static FourCC& RESOURCE_TYPE;
+
+			FlashResource();
+			~FlashResource();
+
+			//! Resource implementation
+			bool destroy();
+			bool release();
+
+			COS_DECLARE_ALLOCATOR();
+
+		private:
+			FlashResource(const FlashResource&); // not implemented
+			FlashResource& operator=(const FlashResource&); // not implemented
+		};
+	} // namespace UI
+} // namespace CoS
+
+#endif // UIFLASHRESOURCE_INCLUDED

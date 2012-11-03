@@ -27,40 +27,30 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(UIFLASHRESOURCE_INCLUDED)
-#define UIFLASHRESOURCE_INCLUDED
+#if !defined(UILAYOUTTARGET_INCLUDED)
+#define UILAYOUTTARGET_INCLUDED
 
-#include "Resource/include/Resource.h"
-#include "Memory/include/Memory.h"
+#include "UI/UIDefs.h"
 
 namespace CoS
 {
-	struct FourCC;
+	class String;
 
 	namespace UI
 	{
 		/*
 		*/
 
-		class FlashResource : public Resource
+		class LayoutTarget
 		{
 		public:
-			const static FourCC& RESOURCE_TYPE;
+			//! callback when a new layer is encountered
+			virtual void addLayer(int zOrder=-1) = 0;
 
-			FlashResource();
-			~FlashResource();
-
-			//! Resource implementation
-			bool destroy();
-			bool release();
-
-			COS_DECLARE_ALLOCATOR();
-
-		private:
-			FlashResource(const FlashResource&); // not implemented
-			FlashResource& operator=(const FlashResource&); // not implemented
+			//! callback when a new element is encountered
+			virtual void addElement(const ElementParams& params) = 0;
 		};
 	} // namespace UI
 } // namespace CoS
 
-#endif // UIFLASHRESOURCE_INCLUDED
+#endif // UILAYOUTTARGET_INCLUDED

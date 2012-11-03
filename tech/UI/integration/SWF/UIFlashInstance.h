@@ -31,8 +31,8 @@ THE SOFTWARE.
 #define UIFLASHINSTANCE_INCLUDED
 
 #include "UIFlashInterfaces.h"
-#include "Memory/include/Memory.h"
-#include "Resource/include/ResourceHandle.h"
+#include "Memory/Memory.h"
+#include "Resource/ResourceHandle.h"
 
 struct IOleObject;
 struct IOleInPlaceObjectWindowless;

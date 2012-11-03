@@ -27,36 +27,46 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
-#include "UIFlashRenderer.h"
-#include "UIFlashElement.h"
-#include "Gfx/include/GfxRenderer.h"
-#include "Gfx/include/GfxViewport.h"
-#include <assert.h>
+#if !defined(UIRENDERER_INCLUDED)
+#define UIRENDERER_INCLUDED
 
-using namespace CoS;
-using namespace UI;
-//---------------------------------------------------------------------------
-FlashRenderer::FlashRenderer()
+#include "Memory/Memory.h"
+
+namespace CoS
 {
-}
-//---------------------------------------------------------------------------
-FlashRenderer::~FlashRenderer()
-{
-}
-//---------------------------------------------------------------------------
-bool FlashRenderer::initialize(GfxRenderer* pRenderer)
-{
-	return Renderer::initialize(pRenderer);
-}
-//---------------------------------------------------------------------------
-bool FlashRenderer::destroy()
-{
-	return Renderer::destroy();
-}
-//---------------------------------------------------------------------------
-bool FlashRenderer::render(Element* pElement)
-{
-	m_pRenderer->queueForRendering(pElement->getMeshInstance());
-	return true;
-}
+	class GfxRenderer;
+	class GfxViewport;
+
+	namespace UI
+	{
+		/*
+			The UI Renderer is a convenience class used by Composers to render
+			the layers and elements that they contain. The UI Renderer typically
+			is responsible for altering the view and projection settings and
+			rendering them into a graphics viewport.
+		*/
+
+		class Element;
+
+		class Renderer
+		{
+		public:
+			Renderer();
+			~Renderer();
+
+			virtual bool initialize(GfxRenderer* pRenderer);
+			virtual bool destroy();
+
+			virtual void setViewport(GfxViewport* pVP);
+			virtual bool render(Element* pElement);
+
+			COS_DECLARE_ALLOCATOR();
+
+		protected:
+			GfxViewport* m_pViewport;
+			GfxRenderer* m_pRenderer;
+		};
+	} // namespace UI
+} // namespace CoS
+
+#endif // UIRENDERER_INCLUDED

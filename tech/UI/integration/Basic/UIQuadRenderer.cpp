@@ -27,30 +27,35 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(UILAYOUTTARGET_INCLUDED)
-#define UILAYOUTTARGET_INCLUDED
+#include "stdafx.h"
+#include "UIQuadRenderer.h"
+#include "UIQuadElement.h"
+#include "Gfx/GfxRenderer.h"
+#include "Gfx/GfxViewport.h"
+#include <assert.h>
 
-#include "UI/include/UIDefs.h"
-
-namespace CoS
+using namespace CoS;
+using namespace UI;
+//---------------------------------------------------------------------------
+QuadRenderer::QuadRenderer()
 {
-	class String;
-
-	namespace UI
-	{
-		/*
-		*/
-
-		class LayoutTarget
-		{
-		public:
-			//! callback when a new layer is encountered
-			virtual void addLayer(int zOrder=-1) = 0;
-
-			//! callback when a new element is encountered
-			virtual void addElement(const ElementParams& params) = 0;
-		};
-	} // namespace UI
-} // namespace CoS
-
-#endif // UILAYOUTTARGET_INCLUDED
+}
+//---------------------------------------------------------------------------
+QuadRenderer::~QuadRenderer()
+{
+}
+//---------------------------------------------------------------------------
+bool QuadRenderer::initialize(GfxRenderer* pRenderer)
+{
+	return Renderer::initialize(pRenderer);
+}
+//---------------------------------------------------------------------------
+bool QuadRenderer::destroy()
+{
+	return Renderer::destroy();
+}
+//---------------------------------------------------------------------------
+bool QuadRenderer::render(Element* pElement)
+{
+	return true;
+}

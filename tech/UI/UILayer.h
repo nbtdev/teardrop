@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(UILAYER_INCLUDED)
 #define UILAYER_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 #include <map>
 
 namespace CoS

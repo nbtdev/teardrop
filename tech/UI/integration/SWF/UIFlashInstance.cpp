@@ -32,11 +32,11 @@ THE SOFTWARE.
 #include "UIFlashResource.h"
 #include "UIFlashSite.h"
 #include "UIFlashEvents.h"
-#include "Resource/include/ResourceManager.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Util/include/StringUtil.h"
-#include "Util/include/_String.h"
+#include "Resource/ResourceManager.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Util/StringUtil.h"
+#include "Util/_String.h"
 #include <assert.h>
 
 using namespace CoS;

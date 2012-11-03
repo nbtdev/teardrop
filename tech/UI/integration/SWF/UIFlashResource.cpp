@@ -28,34 +28,31 @@ THE SOFTWARE.
 */
 
 #include "stdafx.h"
-#include "UIQuadRenderer.h"
-#include "UIQuadElement.h"
-#include "Gfx/include/GfxRenderer.h"
-#include "Gfx/include/GfxViewport.h"
+#include "UIFlashResource.h"
+#include "Resource/ResourceManager.h"
+#include "Util/Environment.h"
+#include "Util/FourCC.h"
 #include <assert.h>
 
 using namespace CoS;
 using namespace UI;
 //---------------------------------------------------------------------------
-QuadRenderer::QuadRenderer()
+const FourCC& FlashResource::RESOURCE_TYPE = FourCC('S','W','F','R');
+//---------------------------------------------------------------------------
+FlashResource::FlashResource()
 {
 }
 //---------------------------------------------------------------------------
-QuadRenderer::~QuadRenderer()
+FlashResource::~FlashResource()
 {
 }
 //---------------------------------------------------------------------------
-bool QuadRenderer::initialize(GfxRenderer* pRenderer)
+bool FlashResource::destroy()
 {
-	return Renderer::initialize(pRenderer);
+	return true;
 }
 //---------------------------------------------------------------------------
-bool QuadRenderer::destroy()
-{
-	return Renderer::destroy();
-}
-//---------------------------------------------------------------------------
-bool QuadRenderer::render(Element* pElement)
+bool FlashResource::release()
 {
 	return true;
 }

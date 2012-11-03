@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "UIElement.h"
-#include "Math/include/MathUtil.h"
+#include "Math/MathUtil.h"
 
 using namespace CoS;
 using namespace UI;

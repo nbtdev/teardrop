@@ -28,31 +28,35 @@ THE SOFTWARE.
 */
 
 #include "stdafx.h"
-#include "UIFlashResource.h"
-#include "Resource/include/ResourceManager.h"
-#include "Util/include/Environment.h"
-#include "Util/include/FourCC.h"
+#include "UIFlashRenderer.h"
+#include "UIFlashElement.h"
+#include "Gfx/GfxRenderer.h"
+#include "Gfx/GfxViewport.h"
 #include <assert.h>
 
 using namespace CoS;
 using namespace UI;
 //---------------------------------------------------------------------------
-const FourCC& FlashResource::RESOURCE_TYPE = FourCC('S','W','F','R');
-//---------------------------------------------------------------------------
-FlashResource::FlashResource()
+FlashRenderer::FlashRenderer()
 {
 }
 //---------------------------------------------------------------------------
-FlashResource::~FlashResource()
+FlashRenderer::~FlashRenderer()
 {
 }
 //---------------------------------------------------------------------------
-bool FlashResource::destroy()
+bool FlashRenderer::initialize(GfxRenderer* pRenderer)
 {
-	return true;
+	return Renderer::initialize(pRenderer);
 }
 //---------------------------------------------------------------------------
-bool FlashResource::release()
+bool FlashRenderer::destroy()
 {
+	return Renderer::destroy();
+}
+//---------------------------------------------------------------------------
+bool FlashRenderer::render(Element* pElement)
+{
+	m_pRenderer->queueForRendering(pElement->getMeshInstance());
 	return true;
 }

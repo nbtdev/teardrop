@@ -27,46 +27,50 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(UIRENDERER_INCLUDED)
-#define UIRENDERER_INCLUDED
+#include "stdafx.h"
+#include "UIRenderer.h"
+#include "UIElement.h"
+#include "Gfx/GfxRenderer.h"
+#include "Gfx/GfxViewport.h"
+#include <assert.h>
 
-#include "Memory/include/Memory.h"
-
-namespace CoS
+using namespace CoS;
+using namespace UI;
+//---------------------------------------------------------------------------
+Renderer::Renderer()
 {
-	class GfxRenderer;
-	class GfxViewport;
+	m_pRenderer = 0;
+	m_pViewport = 0;
+}
+//---------------------------------------------------------------------------
+Renderer::~Renderer()
+{
+}
+//---------------------------------------------------------------------------
+bool Renderer::initialize(GfxRenderer* pRenderer)
+{
+	m_pRenderer = pRenderer;
+	return true;
+}
+//---------------------------------------------------------------------------
+bool Renderer::destroy()
+{
+	return true;
+}
+//---------------------------------------------------------------------------
+void Renderer::setViewport(GfxViewport* pVP)
+{
+	//assert(m_pRenderer);
+	//if (!m_pRenderer)
+	//	return;
 
-	namespace UI
-	{
-		/*
-			The UI Renderer is a convenience class used by Composers to render
-			the layers and elements that they contain. The UI Renderer typically
-			is responsible for altering the view and projection settings and
-			rendering them into a graphics viewport.
-		*/
+	//m_pViewport = pVP;
 
-		class Element;
-
-		class Renderer
-		{
-		public:
-			Renderer();
-			~Renderer();
-
-			virtual bool initialize(GfxRenderer* pRenderer);
-			virtual bool destroy();
-
-			virtual void setViewport(GfxViewport* pVP);
-			virtual bool render(Element* pElement);
-
-			COS_DECLARE_ALLOCATOR();
-
-		protected:
-			GfxViewport* m_pViewport;
-			GfxRenderer* m_pRenderer;
-		};
-	} // namespace UI
-} // namespace CoS
-
-#endif // UIRENDERER_INCLUDED
+	//// set the render target to this viewport's RT
+	//m_pRenderer->setRenderTarget(pVP->getRenderTarget());
+}
+//---------------------------------------------------------------------------
+bool Renderer::render(Element* pElement)
+{
+	return true;
+}

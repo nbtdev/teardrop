@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(UIFLASHSITE_INCLUDED)
 #define UIFLASHSITE_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

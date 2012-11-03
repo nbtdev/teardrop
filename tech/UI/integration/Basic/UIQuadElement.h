@@ -32,7 +32,7 @@ THE SOFTWARE.
 
 #include "UIElement.h"
 #include "UIDefs.h"
-#include "Resource/include/ResourceHandle.h"
+#include "Resource/ResourceHandle.h"
 
 namespace CoS
 {

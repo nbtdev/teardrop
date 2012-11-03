@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(UIFLASHEVENTS_INCLUDED)
 #define UIFLASHEVENTS_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

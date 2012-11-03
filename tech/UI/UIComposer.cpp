@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "UIComposer.h"
 #include "UILayer.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 using namespace CoS;
 using namespace UI;

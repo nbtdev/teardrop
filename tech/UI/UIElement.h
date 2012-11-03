@@ -30,10 +30,10 @@ THE SOFTWARE.
 #if !defined(UIELEMENT_INCLUDED)
 #define UIELEMENT_INCLUDED
 
-#include "UI/include/UIDefs.h"
-#include "Math/include/Vector2.h"
-#include "Gfx/include/GfxMeshInstance.h"
-#include "Util/include/RefCounted.h"
+#include "UI/UIDefs.h"
+#include "Math/Vector2.h"
+#include "Gfx/GfxMeshInstance.h"
+#include "Util/RefCounted.h"
 
 namespace CoS
 {

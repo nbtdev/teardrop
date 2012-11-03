@@ -27,65 +27,56 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(UICOMPOSER_INCLUDED)
-#define UICOMPOSER_INCLUDED
+#if !defined(UIFLASHELEMENT_INCLUDED)
+#define UIFLASHELEMENT_INCLUDED
 
-#include "Memory/include/Memory.h"
-#include <map>
+#include "UIElement.h"
+#include "UIFlashInterfaces.h"
+#include "Resource/ResourceHandle.h"
 
 namespace CoS
 {
+	class GfxMaterial;
+
 	namespace UI
 	{
 		/*
-			Composer is an ordered group of Layer instances, managing 
-			the Z-order of the layers in controls. Composer controls the 
-			lifetime of the Layer instances within. By default, Layers are
-			rendered bottom-to-top, but (in the future) the caller can 
-			override this behavior for more fine-grained control.
+			Implements a Flash (SWF) UI element; this element lives
+			in a normal on-screen quad, but its data comes from a Flash
+			SWF that is updated and rendered off-screen and copied
+			to a texture resource.
 		*/
 
-		class Layer;
-		class Renderer;
+		class FlashInstance;
 
-		class Composer
+		class FlashElement 
+			: public Element,
+			public IFlashEventListener
 		{
+			GfxMaterial* m_pMtl;
+			FlashInstance* m_pFlash;
+			void* m_pData;
+
 		public:
-			Composer();
-			virtual ~Composer();
+			FlashElement();
+			~FlashElement();
 
-			enum LayerRenderOrder
-			{
-				LRO_BOTTOMTOTOP=0, // default
-				LRO_TOPTOBOTTOM,
-			};
+			bool initialize(
+				const char* resourceName,
+				HResource hTexture, 
+				const ElementParams& params);
 
-			/*! add a new layer to the composer; zOrder defaults to "on top of all others".
-			*/
-			Layer* addLayer(int zOrder = -1);
+			void destroy();
 
-			/*! remove (and delete) a layer from the composer; decrements refcount on
-				Elements within the layer, so if you otherwise need an Element to live
-				after this Layer is destroyed, you need to have another reference on
-				the Element prior to calling this method.
-			*/
-			void removeLayer(Layer* pLayer);
-			
-			//! remove all layers (clears the composer)
-			void clear();
+			bool render(Renderer* pRenderer);
+			bool update(float deltaT);
 
-			//! get the render ordering for layers in this composer
-			LayerRenderOrder getRenderOrder() const;
+			// invoke a method in the swf
+			void call(const char* function, const _variant_t* argv=0, int argc=0);
 
-			//! set the render ordering for layers in this composer
-			void setRenderOrder(LayerRenderOrder order);
-
-			//! update the composer
-			virtual bool update(float deltaT);
-			//! render the composer
-			virtual bool render(Renderer* pRenderer);
-			//! absolute (pixel) dimensions
-			void resize(float width, float height);
+			//! IFlashEventListener implementation
+			void onFSCommand(const char* cmd, const char* args);
+			void onFlashCall(const char* cmd);
 
 			/*
 				User input
@@ -99,16 +90,11 @@ namespace CoS
 
 			COS_DECLARE_ALLOCATOR();
 
-		protected:
-			typedef std::multimap<size_t, Layer*> Layers;
-			Layers m_layers;
-			LayerRenderOrder m_renderOrder;
-
 		private:
-			Composer(const Composer&); // not implemented
-			Composer& operator=(const Composer&); // not implemented
+			FlashElement(const FlashElement&); // not implemented
+			FlashElement& operator=(const FlashElement&); // not implemented
 		};
 	} // namespace UI
 } // namespace CoS
 
-#endif // UICOMPOSER_INCLUDED
+#endif // UIFLASHELEMENT_INCLUDED
