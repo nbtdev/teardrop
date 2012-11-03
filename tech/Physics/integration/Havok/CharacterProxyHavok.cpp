@@ -32,9 +32,9 @@ THE SOFTWARE.
 #include "ShapeHavok.h"
 #include "WorldHavok.h"
 #include "CollisionFilter.h"
-#include "Math/include/Transform.h"
-#include "Math/include/Quaternion.h"
-#include "Math/include/Vector4.h"
+#include "Math/Transform.h"
+#include "Math/Quaternion.h"
+#include "Math/Vector4.h"
 #include <Physics/Utilities/CharacterControl/CharacterProxy/hkpCharacterProxy.h>
 #include <Physics/Dynamics/Phantom/hkpCachingShapePhantom.h>
 #include <Physics/Dynamics/Phantom/hkpSimpleShapePhantom.h>

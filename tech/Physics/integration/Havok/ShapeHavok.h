@@ -27,37 +27,33 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
-#include "Capsule.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
+#if !defined(SHAPEHAVOK_INCLUDED)
+#define SHAPEHAVOK_INCLUDED
 
-using namespace CoS;
-//---------------------------------------------------------------------------
-Capsule::Capsule()
+#include "Memory/Allocators.h"
+#include "Shape.h"
+
+class hkpShape;
+
+namespace CoS
 {
-}
-//---------------------------------------------------------------------------
-Capsule::~Capsule()
-{
-}
-//---------------------------------------------------------------------------
-bool Capsule::initialize(
-	const Vector4& p0,
-	const Vector4& p1,
-	float radius)
-{
-	if (!ShapeHavok::initialize())
+	class ShapeHavok : public Shape
 	{
-		return false;
-	}
+	public:
+		ShapeHavok();
+		~ShapeHavok();
 
-	// make a hkpCapsuleShape
-	m_pShape = new hkpCapsuleShape(
-			(hkVector4&)p0,
-			(hkVector4&)p1,
-			radius
-		);
+		bool initialize();
+		bool release();
+		bool update(float deltaT);
 
-	return true;
+		hkpShape* getHavokShape();
+
+		COS_DECLARE_ALLOCATOR();
+
+	protected:
+		hkpShape* m_pShape;
+	};
 }
+
+#endif // SHAPEHAVOK_INCLUDED

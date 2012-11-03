@@ -27,32 +27,61 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
-#include "Shape.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
+#if !defined(CHARACTERPROXYHAVOK_INCLUDED)
+#define CHARACTERPROXYHAVOK_INCLUDED
 
-using namespace CoS;
-//---------------------------------------------------------------------------
-Shape::Shape()
+#include "Memory/Allocators.h"
+#include "CharacterProxy.h"
+
+class hkpCharacterProxy;
+class hkpShapePhantom;
+
+namespace CoS
 {
+	class World;
+
+	class CharacterProxyHavok 
+		: public CharacterProxy
+	{
+		hkpCharacterProxy* m_pProxy;
+		hkpShapePhantom* m_pPhantom;
+		hkpWorld* m_pWorld;
+		size_t m_materialId;
+		void* m_pUserData;
+
+	public:
+		CharacterProxyHavok();
+		~CharacterProxyHavok();
+
+		bool initialize(
+			Shape* pShape,
+			const Vector4& worldPos,
+			float mass,
+			float maxSlopeInRadians,
+			float friction,
+			size_t materialId);
+		bool release();
+		bool update(float deltaT);
+
+		void getWorldTransform(Transform& xform) const;
+		void getLinearVelocity(Vector4& vel) const;
+		void getAngularVelocity(Vector4& vel) const;
+
+		void setWorldTransform(const Transform& xform);
+		void setLinearVelocity(const Vector4& vel);
+		void setAngularVelocity(const Vector4& vel);
+
+		void addToWorld(World* pWorld);
+		void removeFromWorld(World* pWorld);
+		bool isSupported() const;
+
+		void setUserData(void* pData);
+		void* getUserData();
+
+		bool getDisplayGeometry(DisplayGeometries& geom);
+
+		COS_DECLARE_ALLOCATOR();
+	};
 }
-//---------------------------------------------------------------------------
-Shape::~Shape()
-{
-}
-//---------------------------------------------------------------------------
-bool Shape::initialize()
-{
-	return true;
-}
-//---------------------------------------------------------------------------
-bool Shape::release()
-{
-	return true;
-}
-//---------------------------------------------------------------------------
-bool Shape::update(float deltaT)
-{
-	return true;
-}
+
+#endif // CHARACTERPROXYHAVOK_INCLUDED

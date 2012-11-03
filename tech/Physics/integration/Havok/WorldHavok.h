@@ -27,33 +27,53 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(SHAPEHAVOK_INCLUDED)
-#define SHAPEHAVOK_INCLUDED
+#if !defined(WORLDHAVOK_INCLUDED)
+#define WORLDHAVOK_INCLUDED
 
-#include "Memory/include/Allocators.h"
-#include "Shape.h"
-
-class hkpShape;
+#include "Memory/Allocators.h"
+#include "Physics/World.h"
+class hkpWorld;
+class hkJobThreadPool;
+class hkJobQueue;
+struct WorldBorderMonitor;
 
 namespace CoS
 {
-	class ShapeHavok : public Shape
+	class WorldHavok : public World
 	{
-	public:
-		ShapeHavok();
-		~ShapeHavok();
+		hkpWorld* m_pWorld;
+		hkpWorldCinfo& m_ci;
+		WorldBorderMonitor* m_pMon;
+		hkJobThreadPool* m_pThreadPool;
+		hkJobQueue* m_pJobQueue;
 
-		bool initialize();
+	public:
+		WorldHavok(hkpWorldCinfo& ci);
+		~WorldHavok();
+
+		bool initialize(const AABB& aabb);
 		bool release();
 		bool update(float deltaT);
+		void clear();
 
-		hkpShape* getHavokShape();
+		bool lock();
+		bool unlock();
+
+		bool add(Body* pBody);
+		bool add(Phantom* pPhantom);
+		bool remove(Body* pBody);
+		bool remove(Phantom* pPhantom);
+
+		hkpWorld* getHavokWorld();
+		bool castRay(/*in*/const Ray& ray, /*out*/Vector4* pPoints, /*inout*/size_t& pointCount);
+		bool castRay(/*in*/const Ray& ray, /*out*/void* pCollidable[], /*inout*/size_t& count);
 
 		COS_DECLARE_ALLOCATOR();
 
 	protected:
-		hkpShape* m_pShape;
+		void _applyCollisionFilter();
+		CollisionFilter* _getOrCreateCollisionFilter();
 	};
 }
 
-#endif // SHAPEHAVOK_INCLUDED
+#endif // WORLDHAVOK_INCLUDED

@@ -30,12 +30,12 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "BodyHavok.h"
 #include "ShapeHavok.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Math/include/Transform.h"
-#include "Math/include/Vector4.h"
-#include "Memory/include/Memory.h"
-#include "Serialization/include/ResourceSerializer.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Math/Transform.h"
+#include "Math/Vector4.h"
+#include "Memory/Memory.h"
+#include "Serialization/ResourceSerializer.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

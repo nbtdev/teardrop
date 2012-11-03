@@ -14,7 +14,7 @@
 
 
 // TODO: reference additional headers your program requires here
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 #include <Common/Base/hkBase.h>
 #include <Common/Base/System/hkBaseSystem.h>

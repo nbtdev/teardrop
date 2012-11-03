@@ -29,8 +29,8 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "World.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

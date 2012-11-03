@@ -27,37 +27,59 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
-#include "Physics.h"
-#include "PhysicsMemory.h"
-#include "Memory/include/Allocators.h"
-#include <new.h>
+#if !defined(WORLD_INCLUDED)
+#define WORLD_INCLUDED
 
-using namespace CoS;
-//---------------------------------------------------------------------------
-PhysicsMemory::PhysicsMemory()
+#include "Memory/Allocators.h"
+#include "Math/AABB.h"
+#include "Math/Vector4.h"
+
+namespace CoS
 {
+	class Body;
+	class Phantom;
+	class Ray;
+	class Vector4;
+	class CollisionFilter;
+
+	class World
+	{
+	public:
+		World();
+		virtual ~World();
+
+		virtual bool initialize(const AABB& aabb);
+		virtual bool release();
+		virtual bool update(float deltaT);
+		virtual void clear();
+
+		virtual bool lock();
+		virtual bool unlock();
+
+		virtual bool add(Body* pBody);
+		virtual bool add(Phantom* pPhantom);
+		virtual bool remove(Body* pBody);
+		virtual bool remove(Phantom* pPhantom);
+
+		void setGravity(const Vector4& gravity);
+		void getGravity(Vector4& gravity) const;
+
+		virtual void applyCollisionFilter();
+		virtual CollisionFilter* getOrCreateCollisionFilter();
+
+		virtual bool castRay(/*in*/const Ray& ray, /*out*/Vector4* pPoints, /*inout*/size_t& pointCount);
+		virtual bool castRay(/*in*/const Ray& ray, /*out*/void* pCollidables[], /*inout*/size_t& count);
+
+		COS_DECLARE_ALLOCATOR();
+
+	protected:
+		AABB m_aabb;
+		Vector4 m_gravity;
+		CollisionFilter* m_pFilter;
+
+		virtual void _applyCollisionFilter() = 0;
+		virtual CollisionFilter* _getOrCreateCollisionFilter() = 0;
+	};
 }
-//---------------------------------------------------------------------------
-PhysicsMemory::~PhysicsMemory()
-{
-}
-//---------------------------------------------------------------------------
-void* PhysicsMemory::blockAlloc(int numBytes)
-{
-	return Physics::getAllocator()->AllocateAligned(numBytes, 16 COS_ALLOC_SITE);
-}
-//---------------------------------------------------------------------------
-void PhysicsMemory::blockFree(void* p, int numBytes)
-{
-	Physics::getAllocator()->DeallocateAligned(p);
-}
-//---------------------------------------------------------------------------
-void PhysicsMemory::getMemoryStatistics(MemoryStatistics& u)
-{
-}
-//---------------------------------------------------------------------------
-int PhysicsMemory::getAllocatedSize(const void* obj, int nbytes)
-{
-	return nbytes;
-}
+
+#endif // WORLD_INCLUDED

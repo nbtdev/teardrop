@@ -35,10 +35,10 @@ THE SOFTWARE.
 #include "HeightfieldShapeHavok.h"
 #include "Capsule.h"
 #include "CharacterProxyHavok.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Math/include/MathUtil.h"
-#include "Memory/include/Memory.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Math/MathUtil.h"
+#include "Memory/Memory.h"
 #include <iostream>
 
 using namespace CoS;

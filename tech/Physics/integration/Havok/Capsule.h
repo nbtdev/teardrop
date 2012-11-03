@@ -27,76 +27,30 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(BODYHAVOK_INCLUDED)
-#define BODYHAVOK_INCLUDED
+#if !defined(CAPSULE_INCLUDED)
+#define CAPSULE_INCLUDED
 
-#include "Memory/include/Allocators.h"
-#include "Physics/include/Body.h"
-
-class hkpRigidBody;
-class hkResource;
+#include "Memory/Allocators.h"
+#include "ShapeHavok.h"
 
 namespace CoS
 {
-	class BodyHavok : public Body
+	class Vector4;
+
+	class Capsule : public ShapeHavok
 	{
-		DECLARE_SERIALIZABLE(BodyHavok);
-
 	public:
-		//! normal c'tor (cannot fail)
-		BodyHavok();
-		//! placement c'tor (cannot fail)
-		BodyHavok(int);
-		//! d'tor (cannot fail)
-		~BodyHavok();
+		Capsule();
+		~Capsule();
 
 		bool initialize(
-			void* pData,
-			unsigned int dataLen
+			const Vector4& p0,
+			const Vector4& p1,
+			float radius
 			);
-
-		bool initialize(
-			Shape* pShape,
-			MotionType motionType,
-			const Vector4& origin = Vector4::ZERO,
-			const Vector4& inertia = Vector4::UNIT_SCALE
-			);
-
-		bool release();
-		bool update(float deltaT);
-		void changeMotionType(MotionType type);
-
-		hkpRigidBody* getHavokBody();
-
-		void getLinearVelocity(Vector4& vel);
-		void getAngularVelocity(Vector4& vel);
-		void getWorldTransform(Transform& xform);
-		void* getUserData();
-
-		void setLinearVelocity(const Vector4& vel);
-		void setAngularVelocity(const Vector4& vel);
-		void setWorldTransform(const Transform& xform);
-		void setUserData(void* pData);
-
-		Body* clone();
-
-		bool getDisplayGeometry(DisplayGeometries& geom);
-
-		/**
-			Serialization
-		*/
-		//! package for storage
-		bool serialize(ResourceSerializer& serializer);
 
 		COS_DECLARE_ALLOCATOR();
-
-	protected:
-		SerialPointer<hkResource> m_pResource;
-		SerialPointer<hkpRigidBody> m_pBody;
-
-	private:
-		void delayInit();
 	};
 }
 
-#endif // BODYHAVOK_INCLUDED
+#endif // CAPSULE_INCLUDED

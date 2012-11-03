@@ -31,11 +31,11 @@ THE SOFTWARE.
 #include "WorldHavok.h"
 #include "BodyHavok.h"
 #include "CollisionFilterHavok.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Math/include/Ray.h"
-#include "Math/include/Vector4.h"
-#include "Math/include/MathUtil.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Math/Ray.h"
+#include "Math/Vector4.h"
+#include "Math/MathUtil.h"
 
 #include <Physics/Collide/Shape/Convex/Box/hkpBoxShape.h>
 #include <Physics/Dynamics/World/hkpWorld.h>

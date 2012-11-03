@@ -28,69 +28,31 @@ THE SOFTWARE.
 */
 
 #include "stdafx.h"
-#include "Physics.h"
-#include "HeightfieldShapeHavok.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Math/include/MathUtil.h"
-#include "Memory/include/Allocators.h"
-#include "stdio.h"
+#include "Shape.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------
-HeightfieldShapeHavok::HeightfieldShapeHavok(const hkpSampledHeightFieldBaseCinfo& ci)
-: hkpSampledHeightFieldShape(ci)
-{
-	m_pData = 0;
-	m_bpp = 1;
-	m_ooy = 1;
-}
-//---------------------------------------------------------------------------
-HeightfieldShapeHavok::HeightfieldShapeHavok()
-: hkpSampledHeightFieldShape()
-{
-	m_pData = 0;
-	m_bpp = 1;
-	m_ooy = 1;
-}
-//---------------------------------------------------------------------------
-HeightfieldShapeHavok::~HeightfieldShapeHavok()
+Shape::Shape()
 {
 }
 //---------------------------------------------------------------------------
-bool HeightfieldShapeHavok::initialize()
+Shape::~Shape()
 {
-	release();
-
-	if (!m_userData)
-	{
-		return false;
-	}
-
-	m_width = m_xRes;
-	m_height = m_zRes;
-	m_ooy = m_intToFloatScale(1) / (float)(m_bpp==1?256:65536);
-	m_pShape = this;
-
-	size_t bufSize = m_width * m_height * m_bpp;
-	m_pData = Physics::getAllocator()->AllocateAligned(bufSize, 16 COS_ALLOC_SITE);
-	memcpy(m_pData, (void*)m_userData, bufSize);
-
+}
+//---------------------------------------------------------------------------
+bool Shape::initialize()
+{
 	return true;
 }
 //---------------------------------------------------------------------------
-bool HeightfieldShapeHavok::release()
+bool Shape::release()
 {
-	if (m_pData)	
-	{
-		Physics::getAllocator()->DeallocateAligned(m_pData);
-		m_pData = 0;
-	}
-
 	return true;
 }
 //---------------------------------------------------------------------------
-bool HeightfieldShapeHavok::update(float deltaT)
+bool Shape::update(float deltaT)
 {
 	return true;
 }

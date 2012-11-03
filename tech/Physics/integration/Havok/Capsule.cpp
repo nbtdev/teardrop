@@ -27,53 +27,37 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(WORLDHAVOK_INCLUDED)
-#define WORLDHAVOK_INCLUDED
+#include "stdafx.h"
+#include "Capsule.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 
-#include "Memory/include/Allocators.h"
-#include "Physics/include/World.h"
-class hkpWorld;
-class hkJobThreadPool;
-class hkJobQueue;
-struct WorldBorderMonitor;
-
-namespace CoS
+using namespace CoS;
+//---------------------------------------------------------------------------
+Capsule::Capsule()
 {
-	class WorldHavok : public World
-	{
-		hkpWorld* m_pWorld;
-		hkpWorldCinfo& m_ci;
-		WorldBorderMonitor* m_pMon;
-		hkJobThreadPool* m_pThreadPool;
-		hkJobQueue* m_pJobQueue;
-
-	public:
-		WorldHavok(hkpWorldCinfo& ci);
-		~WorldHavok();
-
-		bool initialize(const AABB& aabb);
-		bool release();
-		bool update(float deltaT);
-		void clear();
-
-		bool lock();
-		bool unlock();
-
-		bool add(Body* pBody);
-		bool add(Phantom* pPhantom);
-		bool remove(Body* pBody);
-		bool remove(Phantom* pPhantom);
-
-		hkpWorld* getHavokWorld();
-		bool castRay(/*in*/const Ray& ray, /*out*/Vector4* pPoints, /*inout*/size_t& pointCount);
-		bool castRay(/*in*/const Ray& ray, /*out*/void* pCollidable[], /*inout*/size_t& count);
-
-		COS_DECLARE_ALLOCATOR();
-
-	protected:
-		void _applyCollisionFilter();
-		CollisionFilter* _getOrCreateCollisionFilter();
-	};
 }
+//---------------------------------------------------------------------------
+Capsule::~Capsule()
+{
+}
+//---------------------------------------------------------------------------
+bool Capsule::initialize(
+	const Vector4& p0,
+	const Vector4& p1,
+	float radius)
+{
+	if (!ShapeHavok::initialize())
+	{
+		return false;
+	}
 
-#endif // WORLDHAVOK_INCLUDED
+	// make a hkpCapsuleShape
+	m_pShape = new hkpCapsuleShape(
+			(hkVector4&)p0,
+			(hkVector4&)p1,
+			radius
+		);
+
+	return true;
+}

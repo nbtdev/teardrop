@@ -30,11 +30,11 @@ THE SOFTWARE.
 #if !defined(BODY_INCLUDED)
 #define BODY_INCLUDED
 
-#include "Math/include/Vector4.h"
-#include "Resource/include/Resource.h"
-#include "Serialization/include/SerialPointer.h"
-#include "Serialization/include/Serialization.h"
-#include "Memory/include/Allocators.h"
+#include "Math/Vector4.h"
+#include "Resource/Resource.h"
+#include "Serialization/SerialPointer.h"
+#include "Serialization/Serialization.h"
+#include "Memory/Allocators.h"
 #include <vector>
 #include <list>
 

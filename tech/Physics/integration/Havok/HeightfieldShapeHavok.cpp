@@ -28,44 +28,69 @@ THE SOFTWARE.
 */
 
 #include "stdafx.h"
-#include "ShapeHavok.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
+#include "Physics.h"
+#include "HeightfieldShapeHavok.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Math/MathUtil.h"
+#include "Memory/Allocators.h"
+#include "stdio.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------
-ShapeHavok::ShapeHavok()
+HeightfieldShapeHavok::HeightfieldShapeHavok(const hkpSampledHeightFieldBaseCinfo& ci)
+: hkpSampledHeightFieldShape(ci)
 {
-	m_pShape = 0;
+	m_pData = 0;
+	m_bpp = 1;
+	m_ooy = 1;
 }
 //---------------------------------------------------------------------------
-ShapeHavok::~ShapeHavok()
+HeightfieldShapeHavok::HeightfieldShapeHavok()
+: hkpSampledHeightFieldShape()
+{
+	m_pData = 0;
+	m_bpp = 1;
+	m_ooy = 1;
+}
+//---------------------------------------------------------------------------
+HeightfieldShapeHavok::~HeightfieldShapeHavok()
 {
 }
 //---------------------------------------------------------------------------
-bool ShapeHavok::initialize()
+bool HeightfieldShapeHavok::initialize()
 {
 	release();
-	return Shape::initialize();
-}
-//---------------------------------------------------------------------------
-bool ShapeHavok::release()
-{
-	if (m_pShape)
+
+	if (!m_userData)
 	{
-		m_pShape->removeReference();
-		m_pShape = 0;
+		return false;
 	}
 
-	return Shape::release();
+	m_width = m_xRes;
+	m_height = m_zRes;
+	m_ooy = m_intToFloatScale(1) / (float)(m_bpp==1?256:65536);
+	m_pShape = this;
+
+	size_t bufSize = m_width * m_height * m_bpp;
+	m_pData = Physics::getAllocator()->AllocateAligned(bufSize, 16 COS_ALLOC_SITE);
+	memcpy(m_pData, (void*)m_userData, bufSize);
+
+	return true;
 }
 //---------------------------------------------------------------------------
-bool ShapeHavok::update(float deltaT)
+bool HeightfieldShapeHavok::release()
 {
-	return Shape::update(deltaT);
+	if (m_pData)	
+	{
+		Physics::getAllocator()->DeallocateAligned(m_pData);
+		m_pData = 0;
+	}
+
+	return true;
 }
 //---------------------------------------------------------------------------
-hkpShape* ShapeHavok::getHavokShape()
+bool HeightfieldShapeHavok::update(float deltaT)
 {
-	return m_pShape;
+	return true;
 }

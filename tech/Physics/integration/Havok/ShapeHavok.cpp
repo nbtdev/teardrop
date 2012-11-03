@@ -27,59 +27,45 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(WORLD_INCLUDED)
-#define WORLD_INCLUDED
+#include "stdafx.h"
+#include "ShapeHavok.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 
-#include "Memory/include/Allocators.h"
-#include "Math/include/AABB.h"
-#include "Math/include/Vector4.h"
-
-namespace CoS
+using namespace CoS;
+//---------------------------------------------------------------------------
+ShapeHavok::ShapeHavok()
 {
-	class Body;
-	class Phantom;
-	class Ray;
-	class Vector4;
-	class CollisionFilter;
-
-	class World
-	{
-	public:
-		World();
-		virtual ~World();
-
-		virtual bool initialize(const AABB& aabb);
-		virtual bool release();
-		virtual bool update(float deltaT);
-		virtual void clear();
-
-		virtual bool lock();
-		virtual bool unlock();
-
-		virtual bool add(Body* pBody);
-		virtual bool add(Phantom* pPhantom);
-		virtual bool remove(Body* pBody);
-		virtual bool remove(Phantom* pPhantom);
-
-		void setGravity(const Vector4& gravity);
-		void getGravity(Vector4& gravity) const;
-
-		virtual void applyCollisionFilter();
-		virtual CollisionFilter* getOrCreateCollisionFilter();
-
-		virtual bool castRay(/*in*/const Ray& ray, /*out*/Vector4* pPoints, /*inout*/size_t& pointCount);
-		virtual bool castRay(/*in*/const Ray& ray, /*out*/void* pCollidables[], /*inout*/size_t& count);
-
-		COS_DECLARE_ALLOCATOR();
-
-	protected:
-		AABB m_aabb;
-		Vector4 m_gravity;
-		CollisionFilter* m_pFilter;
-
-		virtual void _applyCollisionFilter() = 0;
-		virtual CollisionFilter* _getOrCreateCollisionFilter() = 0;
-	};
+	m_pShape = 0;
 }
+//---------------------------------------------------------------------------
+ShapeHavok::~ShapeHavok()
+{
+}
+//---------------------------------------------------------------------------
+bool ShapeHavok::initialize()
+{
+	release();
+	return Shape::initialize();
+}
+//---------------------------------------------------------------------------
+bool ShapeHavok::release()
+{
+	if (m_pShape)
+	{
+		m_pShape->removeReference();
+		m_pShape = 0;
+	}
 
-#endif // WORLD_INCLUDED
+	return Shape::release();
+}
+//---------------------------------------------------------------------------
+bool ShapeHavok::update(float deltaT)
+{
+	return Shape::update(deltaT);
+}
+//---------------------------------------------------------------------------
+hkpShape* ShapeHavok::getHavokShape()
+{
+	return m_pShape;
+}

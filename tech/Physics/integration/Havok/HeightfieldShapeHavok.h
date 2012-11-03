@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(HEIGHTFIELDSHAPEHAVOK_INCLUDED)
 #define HEIGHTFIELDSHAPEHAVOK_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 #include "ShapeHavok.h"
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
 #include <Physics/Collide/Shape/HeightField/SampledHeightField/hkpSampledHeightFieldShape.h>
 #include <Physics/Collide/Shape/HeightField/SampledHeightField/hkpSampledHeightFieldBaseCinfo.h>
 

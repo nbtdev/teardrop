@@ -27,30 +27,27 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(CAPSULE_INCLUDED)
-#define CAPSULE_INCLUDED
+#if !defined(SHAPE_INCLUDED)
+#define SHAPE_INCLUDED
 
-#include "Memory/include/Allocators.h"
-#include "ShapeHavok.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {
-	class Vector4;
-
-	class Capsule : public ShapeHavok
+	class Shape
 	{
 	public:
-		Capsule();
-		~Capsule();
+		Shape();
+		virtual ~Shape();
 
-		bool initialize(
-			const Vector4& p0,
-			const Vector4& p1,
-			float radius
-			);
+		virtual bool initialize();
+		virtual bool release();
+		virtual bool update(float deltaT);
 
 		COS_DECLARE_ALLOCATOR();
+
+	protected:
 	};
 }
 
-#endif // CAPSULE_INCLUDED
+#endif // SHAPE_INCLUDED
