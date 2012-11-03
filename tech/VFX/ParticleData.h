@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(PARTICLEDATA_INCLUDED)
 #define PARTICLEDATA_INCLUDED
 
-#include "Math/include/Vector4.h"
-#include "Memory/include/Allocators.h"
-#include "Memory/include/Pool.h"
+#include "Math/Vector4.h"
+#include "Memory/Allocators.h"
+#include "Memory/Pool.h"
 #include <list>
 
 namespace CoS

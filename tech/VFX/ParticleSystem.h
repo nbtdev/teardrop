@@ -27,37 +27,50 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(AFFECTOR_INCLUDED)
-#define AFFECTOR_INCLUDED
+#if !defined(PARTICLESYSTEM_INCLUDED)
+#define PARTICLESYSTEM_INCLUDED
 
-#include "VFX/include/ParticleData.h"
-#include "Game/include/Component.h"
-#include "Math/include/Vector4.h"
-#include "Memory/include/Allocators.h"
+#include "VFX/ParticleData.h"
+#include "Game/ZoneObject.h"
+#include <vector>
 
 namespace CoS
 {
-	class Affector : public Component
-	{
-	public:
-		COS_CLASS(Affector, Component);
+	class GfxMesh;
+	class GfxVertexFormat;
+	class GfxVertexData;
+	class ScriptVM;
+	class Emitter;
+	class Affector;
 
-		Affector();
-		~Affector();
+	class ParticleSystem : public ZoneObject
+	{
+		// all of the particles in this system
+		ParticleDataPool m_particles;
+
+		// script VM instance, if Script property is set
+		ScriptVM* m_pScript;
+
+	public:
+		COS_CLASS(ParticleSystem, ZoneObject);
+		COS_CLASS_CREATABLE();
+		COS_PROPERTY(Script, "Name of script that defines this particle system", String, "(undefined)", 0);
+		COS_PROPERTY(SystemQuota, "Max number of particles supported by this system instance", int, 100, 0);
+
+		ParticleSystem();
+		~ParticleSystem();
 
 		// Object overrides
 		bool initialize();
 		bool destroy();
+		// ZoneObject overrides
+		bool update(float deltaT);
 
-		virtual bool update(float deltaT);
+		// inform us of the camera's world-space position
+		void setCameraParameters(const Vector4& camPos, const Quaternion& camRot);
 
 		COS_DECLARE_ALLOCATOR();
-
-	protected:
-
-	private:
-		void onInstanceCreated();
 	};
 }
 
-#endif // AFFECTOR_INCLUDED
+#endif // PARTICLESYSTEM_INCLUDED

@@ -30,10 +30,10 @@ THE SOFTWARE.
 #if !defined(EMITTER_INCLUDED)
 #define EMITTER_INCLUDED
 
-#include "VFX/include/ParticleData.h"
-#include "Game/include/Component.h"
-#include "Math/include/Vector4.h"
-#include "Memory/include/Allocators.h"
+#include "VFX/ParticleData.h"
+#include "Game/Component.h"
+#include "Math/Vector4.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {

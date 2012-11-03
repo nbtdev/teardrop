@@ -31,8 +31,8 @@ THE SOFTWARE.
 #include "ParticleSystemRenderer.h"
 #include "Affector.h"
 #include "Emitters/RandomPointEmitter.h"
-#include "Game/include/Component_Render.h"
-#include "Util/include/Environment.h"
+#include "Game/Component_Render.h"
+#include "Util/Environment.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

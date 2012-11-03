@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -107,7 +107,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../include;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -147,78 +147,66 @@
 	<References>
 	</References>
 	<Files>
+		<File
+			RelativePath="..\..\..\Affector.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Emitter.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ParticleSystem.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ParticleSystemRenderer.cpp"
+			>
+		</File>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Emitters"
 			>
 			<File
-				RelativePath="..\..\..\src\Affector.cpp"
+				RelativePath="..\..\..\Emitters\PointEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Emitter.cpp"
+				RelativePath="..\..\..\Emitters\PointEmitter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\ParticleSystem.cpp"
+				RelativePath="..\..\..\Emitters\RandomPointEmitter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\ParticleSystemRenderer.cpp"
-				>
-			</File>
-			<Filter
-				Name="Emitters"
-				>
-				<File
-					RelativePath="..\..\..\src\Emitters\PointEmitter.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Emitters\PointEmitter.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Emitters\RandomPointEmitter.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\Emitters\RandomPointEmitter.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Affectors"
-				>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\..\..\include\Affector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Emitter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ParticleData.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ParticleSystem.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\ParticleSystemRenderer.h"
+				RelativePath="..\..\..\Emitters\RandomPointEmitter.h"
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Affectors"
+			>
+		</Filter>
+		<File
+			RelativePath="..\..\..\Affector.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Emitter.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ParticleData.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ParticleSystem.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ParticleSystemRenderer.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

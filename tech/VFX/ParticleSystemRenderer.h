@@ -30,12 +30,12 @@ THE SOFTWARE.
 #if !defined(PARTICLERENDERER_INCLUDED)
 #define PARTICLERENDERER_INCLUDED
 
-#include "Game/include/Component.h"
-#include "VFX/include/ParticleData.h"
-#include "Gfx/include/GfxMeshInstance.h"
-#include "Math/include/Vector2.h"
-#include "Math/include/Vector4.h"
-#include "Math/include/Quaternion.h"
+#include "Game/Component.h"
+#include "VFX/ParticleData.h"
+#include "Gfx/GfxMeshInstance.h"
+#include "Math/Vector2.h"
+#include "Math/Vector4.h"
+#include "Math/Quaternion.h"
 
 namespace CoS
 {

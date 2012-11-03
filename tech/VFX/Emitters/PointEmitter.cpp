@@ -28,7 +28,7 @@ THE SOFTWARE.
 */
 
 #include "PointEmitter.h"
-#include "Math/include/MathUtil.h"
+#include "Math/MathUtil.h"
 #include <limits>
 
 using namespace CoS;

@@ -28,8 +28,8 @@ THE SOFTWARE.
 */
 
 #include "RandomPointEmitter.h"
-#include "Math/include/MathUtil.h"
-#include "Math/include/Quaternion.h"
+#include "Math/MathUtil.h"
+#include "Math/Quaternion.h"
 #include <limits>
 
 using namespace CoS;
