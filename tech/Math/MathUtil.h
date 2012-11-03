@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(COSMATHUTIL_INCLUDED)
 #define COSMATHUTIL_INCLUDED
 
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
 
 #if defined(min)
 #undef min

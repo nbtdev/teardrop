@@ -27,38 +27,27 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(COSTRANSFORM_INCLUDED)
-#define COSTRANSFORM_INCLUDED
+#if !defined(RAY_INCLUDED)
+#define RAY_INCLUDED
 
-#include "Math/include/Vector4.h"
-#include "Math/include/Quaternion.h"
+#include "Math/Vector4.h"
 
 namespace CoS
 {
-	class Transform
+	class Ray
 	{
 	public:
-		Vector4 trans;
-		Quaternion rot;
-		Vector4 scale;
+		Vector4 end;	// ray endpoint
+		Vector4 dir;	// ray direction
 
-		Transform();
-		Transform(const Transform& other);
-		Transform(const Vector4& pos, const Quaternion& rot, const Vector4& scale);
-		~Transform();
-		Transform& operator=(const Transform& other);
+		Ray();
+		Ray(const Ray& other);
+		Ray(const Vector4& end, const Vector4& dir);
+		~Ray();
 
-		static const Transform& IDENTITY;
+		Ray& operator=(const Ray& other);
+		void fromEndpointDirection(const Vector4& end, const Vector4& dir);
 	};
-
-	inline Transform::Transform()
-	{
-	}
-
-	inline Transform::Transform(const Transform& other)
-	{
-		*this = other;
-	}
 }
 
-#endif // COSTRANSFORM_INCLUDED
+#endif // RAY_INCLUDED

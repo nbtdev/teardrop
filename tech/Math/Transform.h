@@ -27,33 +27,38 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(COSAABB_INCLUDED)
-#define COSAABB_INCLUDED
+#if !defined(COSTRANSFORM_INCLUDED)
+#define COSTRANSFORM_INCLUDED
 
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
+#include "Math/Quaternion.h"
 
 namespace CoS
 {
-	class AABB
+	class Transform
 	{
 	public:
-		Vector4 center;
-		Vector4 extents;
+		Vector4 trans;
+		Quaternion rot;
+		Vector4 scale;
 
-		AABB();
-		AABB(const AABB& other);
-		AABB(const Vector4& center, const Vector4& extents);
-		~AABB();
+		Transform();
+		Transform(const Transform& other);
+		Transform(const Vector4& pos, const Quaternion& rot, const Vector4& scale);
+		~Transform();
+		Transform& operator=(const Transform& other);
 
-		AABB& operator=(const AABB& other);
-
-		void fromCorners(const Vector4& minCorner, const Vector4& maxCorner);
-		void toCorners(Vector4& minCorner, Vector4& maxCorner) const;
-		void getCorners(Vector4* corners);
-		void merge(const AABB& other);
-		float getRadius() const;
-		float getRadius2() const; // squared
+		static const Transform& IDENTITY;
 	};
+
+	inline Transform::Transform()
+	{
+	}
+
+	inline Transform::Transform(const Transform& other)
+	{
+		*this = other;
+	}
 }
 
-#endif // COSAABB_INCLUDED
+#endif // COSTRANSFORM_INCLUDED

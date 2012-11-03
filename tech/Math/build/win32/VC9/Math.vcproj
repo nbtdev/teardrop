@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include;../../../;../../../.."
+				AdditionalIncludeDirectories="../../../;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -108,7 +108,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../../include;../../../;../../../.."
+				AdditionalIncludeDirectories="../../../;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				BufferSecurityCheck="false"
 				OpenMP="true"
@@ -156,55 +156,55 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\AABB.cpp"
+				RelativePath="..\..\..\AABB.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\MathUtil.cpp"
+				RelativePath="..\..\..\MathUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Matrix44.cpp"
+				RelativePath="..\..\..\Matrix44.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\MT.cpp"
+				RelativePath="..\..\..\MT.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Plane.cpp"
+				RelativePath="..\..\..\Plane.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Quaternion.cpp"
+				RelativePath="..\..\..\Quaternion.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Query.cpp"
+				RelativePath="..\..\..\Query.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Ray.cpp"
+				RelativePath="..\..\..\Ray.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Sphere.cpp"
+				RelativePath="..\..\..\Sphere.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Transform.cpp"
+				RelativePath="..\..\..\Transform.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Triangle.cpp"
+				RelativePath="..\..\..\Triangle.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Vector2.cpp"
+				RelativePath="..\..\..\Vector2.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\Vector4.cpp"
+				RelativePath="..\..\..\Vector4.cpp"
 				>
 			</File>
 		</Filter>
@@ -214,55 +214,55 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\include\AABB.h"
+				RelativePath="..\..\..\AABB.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Intersection.h"
+				RelativePath="..\..\..\Intersection.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\MathUtil.h"
+				RelativePath="..\..\..\MathUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Matrix44.h"
+				RelativePath="..\..\..\Matrix44.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Plane.h"
+				RelativePath="..\..\..\Plane.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Quaternion.h"
+				RelativePath="..\..\..\Quaternion.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Query.h"
+				RelativePath="..\..\..\Query.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Ray.h"
+				RelativePath="..\..\..\Ray.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Sphere.h"
+				RelativePath="..\..\..\Sphere.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Transform.h"
+				RelativePath="..\..\..\Transform.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Triangle.h"
+				RelativePath="..\..\..\Triangle.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Vector2.h"
+				RelativePath="..\..\..\Vector2.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\Vector4.h"
+				RelativePath="..\..\..\Vector4.h"
 				>
 			</File>
 		</Filter>

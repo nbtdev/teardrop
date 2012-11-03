@@ -27,27 +27,29 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(RAY_INCLUDED)
-#define RAY_INCLUDED
+#if !defined(COSPLANE_INCLUDED)
+#define COSPLANE_INCLUDED
 
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace CoS
 {
-	class Ray
+	class Plane
 	{
 	public:
-		Vector4 end;	// ray endpoint
-		Vector4 dir;	// ray direction
+		Vector4 n;	// plane normal
+		float d;	// d = N dot P, for P on the plane
 
-		Ray();
-		Ray(const Ray& other);
-		Ray(const Vector4& end, const Vector4& dir);
-		~Ray();
+		Plane();
+		Plane(const Plane& other);
+		Plane(const Vector4& origin, const Vector4& normal);
+		~Plane();
 
-		Ray& operator=(const Ray& other);
-		void fromEndpointDirection(const Vector4& end, const Vector4& dir);
+		Plane& operator=(const Plane& other);
+		//! CCW order
+		void fromTriangle(const Vector4& v1, const Vector4& v2, const Vector4& v3);
+		void fromPointNormal(const Vector4& origin, const Vector4& normal);
 	};
 }
 
-#endif // RAY_INCLUDED
+#endif // COSPLANE_INCLUDED

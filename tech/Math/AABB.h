@@ -27,29 +27,33 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(COSPLANE_INCLUDED)
-#define COSPLANE_INCLUDED
+#if !defined(COSAABB_INCLUDED)
+#define COSAABB_INCLUDED
 
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace CoS
 {
-	class Plane
+	class AABB
 	{
 	public:
-		Vector4 n;	// plane normal
-		float d;	// d = N dot P, for P on the plane
+		Vector4 center;
+		Vector4 extents;
 
-		Plane();
-		Plane(const Plane& other);
-		Plane(const Vector4& origin, const Vector4& normal);
-		~Plane();
+		AABB();
+		AABB(const AABB& other);
+		AABB(const Vector4& center, const Vector4& extents);
+		~AABB();
 
-		Plane& operator=(const Plane& other);
-		//! CCW order
-		void fromTriangle(const Vector4& v1, const Vector4& v2, const Vector4& v3);
-		void fromPointNormal(const Vector4& origin, const Vector4& normal);
+		AABB& operator=(const AABB& other);
+
+		void fromCorners(const Vector4& minCorner, const Vector4& maxCorner);
+		void toCorners(Vector4& minCorner, Vector4& maxCorner) const;
+		void getCorners(Vector4* corners);
+		void merge(const AABB& other);
+		float getRadius() const;
+		float getRadius2() const; // squared
 	};
 }
 
-#endif // COSPLANE_INCLUDED
+#endif // COSAABB_INCLUDED

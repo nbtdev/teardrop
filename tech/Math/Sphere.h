@@ -27,26 +27,27 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(TRIANGLE_INCLUDED)
-#define TRIANGLE_INCLUDED
+#if !defined(SPHERE_INCLUDED)
+#define SPHERE_INCLUDED
 
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace CoS
 {
-	class Triangle
+	class Sphere
 	{
 	public:
-		Vector4 p[3];	// triangle points, in CCW order
+		Vector4 m_center;
+		float m_radius;
 
-		Triangle();
-		Triangle(const Triangle& other);
-		Triangle(const Vector4& p0, const Vector4& p1, const Vector4& p2);
-		~Triangle();
+		Sphere();
+		Sphere(const Sphere& other);
+		Sphere(const Vector4& center, float radius);
+		~Sphere();
+		Sphere& operator=(const Sphere& other);
 
-		Triangle& operator=(const Triangle& other);
-		void fromPoints(const Vector4& p0, const Vector4& p1, const Vector4& p2);
+		Sphere& fromCenterRadius(const Vector4& center, float radius);
 	};
 }
 
-#endif // TRIANGLE_INCLUDED
+#endif // SPHERE_INCLUDED
