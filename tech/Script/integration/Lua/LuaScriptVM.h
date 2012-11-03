@@ -31,8 +31,8 @@ THE SOFTWARE.
 #define LUASCRIPTVM_INCLUDED
 
 #include "ScriptVM.h"
-#include "Util/include/_String.h"
-#include "Memory/include/Memory.h"
+#include "Util/_String.h"
+#include "Memory/Memory.h"
 #include <map>
 
 struct lua_State;

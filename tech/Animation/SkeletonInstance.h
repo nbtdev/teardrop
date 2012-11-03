@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #if !defined(SKELETONINSTANCE_INCLUDED)
 #define SKELETONINSTANCE_INCLUDED
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

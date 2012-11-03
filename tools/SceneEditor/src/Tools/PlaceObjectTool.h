@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define PLACEOBJECTTOOL_INCLUDED
 
 #include "Tool.h"
-#include "Gfx/include/GfxMeshInstance.h"
+#include "Gfx/GfxMeshInstance.h"
 #include <vector>
 
 /*

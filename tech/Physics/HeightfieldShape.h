@@ -27,7 +27,7 @@ info@clashofsteel.net for commercial licensing terms and information.
 #if !defined(HEIGHTFIELDSHAPE_INCLUDED)
 #define HEIGHTFIELDSHAPE_INCLUDED
 
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace CoS
 {

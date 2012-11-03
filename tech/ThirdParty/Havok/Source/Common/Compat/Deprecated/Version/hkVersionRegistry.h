@@ -144,13 +144,13 @@ class hkVersionRegistry : public hkReferencedObject, public hkSingleton<hkVersio
 
 			/// List of updaters available at compile time - SEE DETAILS BELOW.
 			/// NB Link errors (e.g. LNK2001 under .NET) for this array probably mean you 
-			/// have not yet registered the updaters via eg sdk/include/common/Common/Compat/hkCompatVersions.h using the HK_COMPAT_FILE macro -
+			/// have not yet registered the updaters via eg sdk/common/Common/Compat/hkCompatVersions.h using the HK_COMPAT_FILE macro -
 			/// See the demo/demos/*Classes.cpp files for examples, (e.g. demo/demos/PhysicsClasses.cpp for Physics-Only customers).
 		static const Updater* StaticLinkedUpdaters[];
 
 			/// List of versions and corresponding classes available at compile time - SEE DETAILS BELOW.
 			/// NB Link errors (e.g. LNK2001 under .NET) for this array probably mean you 
-			/// have not yet registered the classes via eg sdk/include/common/Common/Compat/hkCompatVersions.h using the HK_COMPAT_FILE macro -
+			/// have not yet registered the classes via eg sdk/common/Common/Compat/hkCompatVersions.h using the HK_COMPAT_FILE macro -
 			/// See the demo/demos/*Classes.cpp files for examples, (e.g. demo/demos/PhysicsClasses.cpp for Physics-Only customers).
 		static const hkStaticClassNameRegistry* StaticLinkedClassRegistries[];
 

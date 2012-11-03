@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define ENTITYDATA_INCLUDED
 
 #include "SceneData.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

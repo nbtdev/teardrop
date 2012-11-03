@@ -31,10 +31,10 @@ THE SOFTWARE.
 #include "Animation.h"
 #include "Rig.h"
 #include "SkeletonInstance.h"
-#include "Math/include/Matrix44.h"
-#include "Util/include/Environment.h"
-#include "Resource/include/ResourceManager.h"
-#include "Memory/include/Allocators.h"
+#include "Math/Matrix44.h"
+#include "Util/Environment.h"
+#include "Resource/ResourceManager.h"
+#include "Memory/Allocators.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

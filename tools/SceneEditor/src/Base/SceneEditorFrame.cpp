@@ -42,7 +42,7 @@ THE SOFTWARE.
 #include "Forms/SceneChooser.h"
 #include "Forms/EntityChooser.h"
 #include "Forms/MaterialForm.h"
-#include "Game/include/Prop.h"
+#include "Game/Prop.h"
 #include <assert.h>
 
 using namespace CoS;

@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "SampleXAudio2.h"
-#include "Math/include/MathUtil.h"
+#include "Math/MathUtil.h"
 
 using namespace CoS;
 using namespace Audio;

@@ -33,8 +33,8 @@ THE SOFTWARE.
 #include "SkeletonInstanceHavok.h"
 #include "Animation/Animation/Rig/hkaSkeleton.h"
 #include "Animation/Animation/Rig/hkaBone.h"
-#include "Serialization/include/ResourceSerializer.h"
-#include "Memory/include/Memory.h"
+#include "Serialization/ResourceSerializer.h"
+#include "Memory/Memory.h"
 #include <assert.h>
 
 using namespace CoS;

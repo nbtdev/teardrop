@@ -30,9 +30,9 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "Animation.h"
 #include "Rig.h"
-#include "Stream/include/Stream.h"
-#include "Memory/include/Allocators.h"
-#include "Util/include/FourCC.h"
+#include "Stream/Stream.h"
+#include "Memory/Allocators.h"
+#include "Util/FourCC.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

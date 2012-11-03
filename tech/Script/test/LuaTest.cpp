@@ -3,9 +3,9 @@
 
 #include "ScriptVM.h"
 #include "Variant.h"
-#include "Util/include/_String.h"
-#include "Memory/include/Memory.h"
-#include "Memory/include/MemoryRegion.h"
+#include "Util/_String.h"
+#include "Memory/Memory.h"
+#include "Memory/MemoryRegion.h"
 #include <assert.h>
 
 using namespace CoS;

@@ -32,8 +32,8 @@ THE SOFTWARE.
 #include "SampleXAudio2.h"
 #include "StreamXAudio2.h"
 #include "EmitterXAudio2.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 
 using namespace CoS;
 using namespace Audio;

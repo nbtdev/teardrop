@@ -34,10 +34,10 @@ THE SOFTWARE.
 #include "UI/UserInterface.h"
 #include "SceneData.h"
 #include "EntityData.h"
-#include "Util/include/_String.h"
+#include "Util/_String.h"
 
 #if defined(COS_OPTION_MEMPROFILE)
-#include "Memory/include/AllocationTracker.h"
+#include "Memory/AllocationTracker.h"
 #endif
 
 using namespace CoS;

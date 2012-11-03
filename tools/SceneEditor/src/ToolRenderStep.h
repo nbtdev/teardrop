@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(TOOLRENDERSTEP_INCLUDED)
 #define TOOLRENDERSTEP_INCLUDED
 
-#include "Game/include/RenderStep.h"
+#include "Game/RenderStep.h"
 
 namespace CoS
 {

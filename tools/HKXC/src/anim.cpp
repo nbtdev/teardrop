@@ -29,9 +29,9 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "ToolLib/include/HkxAnimTool.h"
-#include "Animation/src/Havok/AnimationHavok.h"
-#include "Serialization/include/ResourceSerializer.h"
-#include "Stream/include/FileStream.h"
+#include "Animation/integration/Havok/AnimationHavok.h"
+#include "Serialization/ResourceSerializer.h"
+#include "Stream/FileStream.h"
 #include "hkxc.h"
 
 using namespace CoS;

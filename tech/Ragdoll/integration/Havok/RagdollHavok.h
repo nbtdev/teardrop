@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(RAGDOLLHAVOK_INCLUDED)
 #define RAGDOLLHAVOK_INCLUDED
 
-#include "Memory/include/Allocators.h"
-#include "Ragdoll/include/Ragdoll.h"
+#include "Memory/Allocators.h"
+#include "Ragdoll/Ragdoll.h"
 
 class hkpPhysicsSystem;
 class hkResource;

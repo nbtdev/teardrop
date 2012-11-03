@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define ROTATEOBJECTTOOL_INCLUDED
 
 #include "Tool.h"
-#include "Math/include/Quaternion.h"
+#include "Math/Quaternion.h"
 
 namespace CoS
 {

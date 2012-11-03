@@ -26,7 +26,7 @@ info@clashofsteel.net for commercial licensing terms and information.
 
 #include "Config.h"
 #include "ResourceSerializer.h"
-#include "Stream/include/Stream.h"
+#include "Stream/Stream.h"
 #include <string.h>
 #include <assert.h>
 

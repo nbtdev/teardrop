@@ -28,10 +28,10 @@ THE SOFTWARE.
 */
 #include "stdafx.h"
 #include "TextureTool.h"
-#include "Gfx/include/GfxRenderer.h"
-#include "Gfx/include/GfxTexture.h"
-#include "Util/include/Environment.h"
-#include "Stream/include/Stream.h"
+#include "Gfx/GfxRenderer.h"
+#include "Gfx/GfxTexture.h"
+#include "Util/Environment.h"
+#include "Stream/Stream.h"
 #include "Config.h"
 
 using namespace CoS;

@@ -66,7 +66,7 @@ endif
 # Include paths
 #****************************************************************************
 
-#INCS := -I/usr/include/g++-2 -I/usr/local/include
+#INCS := -I/usr/g++-2 -I/usr/local/include
 INCS :=
 
 

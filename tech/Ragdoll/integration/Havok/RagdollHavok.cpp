@@ -29,10 +29,10 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "RagdollHavok.h"
-#include "Serialization/include/ResourceSerializer.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Util/include/_String.h"
+#include "Serialization/ResourceSerializer.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Util/_String.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

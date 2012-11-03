@@ -28,9 +28,9 @@ THE SOFTWARE.
 */
 #include "stdafx.h"
 #include "HkxRigidBodyTool.h"
-#include "Physics/include/Body.h"
-#include "Util/include/Environment.h"
-#include "Stream/include/Stream.h"
+#include "Physics/Body.h"
+#include "Util/Environment.h"
+#include "Stream/Stream.h"
 #include "Config.h"
 
 using namespace CoS;

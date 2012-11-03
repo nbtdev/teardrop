@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "AnimationHavok.h"
-#include "Serialization/include/ResourceSerializer.h"
+#include "Serialization/ResourceSerializer.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

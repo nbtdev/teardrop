@@ -30,10 +30,10 @@ THE SOFTWARE.
 #if !defined(ANIMATION_INCLUDED)
 #define ANIMATION_INCLUDED
 
-#include "Serialization/include/Serialization.h"
-#include "Serialization/include/SerialPointer.h"
-#include "Resource/include/Resource.h"
-#include "Memory/include/Memory.h"
+#include "Serialization/Serialization.h"
+#include "Serialization/SerialPointer.h"
+#include "Resource/Resource.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

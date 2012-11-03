@@ -32,7 +32,7 @@ THE SOFTWARE.
 
 #include "wx/panel.h"
 #include "View.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

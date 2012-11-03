@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(ATTRIBUTE_INCLUDED)
 #define ATTRIBUTE_INCLUDED
 
-#include "Util/include/_String.h"
-#include "Memory/include/Memory.h"
+#include "Util/_String.h"
+#include "Memory/Memory.h"
 
 /*
 	class Attribute

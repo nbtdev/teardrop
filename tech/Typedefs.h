@@ -31,8 +31,8 @@ THE SOFTWARE.
 #define TYPEDEFS_INCLUDED
 
 #include <queue>
-#include "Network/include/Message.h"
-#include "Game/include/Command.h"
+#include "Network/Message.h"
+#include "Game/Command.h"
 
 typedef std::queue<CoS::Net::MessagePtr> Mailslot;
 

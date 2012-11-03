@@ -34,8 +34,8 @@ THE SOFTWARE.
 #pragma once
 #endif
 
-#include "Resource/include/ResourceHandle.h"
-#include "Gfx/include/GfxMeshInstance.h"
+#include "Resource/ResourceHandle.h"
+#include "Gfx/GfxMeshInstance.h"
 
 struct Vert;
 namespace CoS

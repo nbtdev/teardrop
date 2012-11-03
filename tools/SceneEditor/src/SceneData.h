@@ -31,8 +31,8 @@ THE SOFTWARE.
 #define SCENEDATA_INCLUDED
 
 #include "Data.h"
-#include "Game/include/LoadListener.h"
-#include "Memory/include/Memory.h"
+#include "Game/LoadListener.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

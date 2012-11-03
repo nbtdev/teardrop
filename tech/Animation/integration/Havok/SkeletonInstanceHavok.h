@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(SKELETONINSTANCEHAVOK_INCLUDED)
 #define SKELETONINSTANCEHAVOK_INCLUDED
 
-#include "Animation/include/SkeletonInstance.h"
+#include "Animation/SkeletonInstance.h"
 class hkaAnimatedSkeleton;
 
 namespace CoS

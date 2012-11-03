@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define TERRAINMODE_INCLUDED
 
 #include "Mode.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 /*
 	class TerrainMode

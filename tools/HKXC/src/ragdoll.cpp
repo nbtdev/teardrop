@@ -29,9 +29,9 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "ToolLib/include/HkxRagdollTool.h"
-#include "Ragdoll/src/Havok/RagdollHavok.h"
-#include "Serialization/include/ResourceSerializer.h"
-#include "Stream/include/FileStream.h"
+#include "Ragdoll/integration/Havok/RagdollHavok.h"
+#include "Serialization/ResourceSerializer.h"
+#include "Stream/FileStream.h"
 #include "hkxc.h"
 
 using namespace CoS;

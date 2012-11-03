@@ -13,8 +13,8 @@
 
 
 // TODO: reference additional headers your program requires here
-#include "Reflection/include/Reflection.h"
-#include "Reflection/include/ClassDef.h"
-#include "Reflection/include/PropertyDef.h"
-#include "Reflection/include/Property.h"
-#include "Memory/include/MemoryRegion.h"
+#include "Reflection/Reflection.h"
+#include "Reflection/ClassDef.h"
+#include "Reflection/PropertyDef.h"
+#include "Reflection/Property.h"
+#include "Memory/MemoryRegion.h"

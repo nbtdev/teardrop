@@ -29,8 +29,8 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "ToolLib/include/HkxMeshTool.h"
-#include "Gfx/include/GfxMesh.h"
-#include "Serialization/include/ResourceSerializer.h"
+#include "Gfx/GfxMesh.h"
+#include "Serialization/ResourceSerializer.h"
 #include "hkxc.h"
 
 using namespace CoS;

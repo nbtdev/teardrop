@@ -33,10 +33,10 @@ THE SOFTWARE.
 #include "RigHavok.h"
 #include "AnimationHavok.h"
 #include "SkeletonInstanceHavok.h"
-#include "Memory/include/Memory.h"
-#include "Resource/include/ResourceManager.h"
-#include "Util/include/Environment.h"
-#include "Math/include/Matrix44.h"
+#include "Memory/Memory.h"
+#include "Resource/ResourceManager.h"
+#include "Util/Environment.h"
+#include "Math/Matrix44.h"
 #include <assert.h>
 
 using namespace CoS;

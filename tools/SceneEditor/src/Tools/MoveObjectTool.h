@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define MOVEOBJECTTOOL_INCLUDED
 
 #include "Tool.h"
-#include "Math/include/Vector4.h"
+#include "Math/Vector4.h"
 
 namespace CoS
 {

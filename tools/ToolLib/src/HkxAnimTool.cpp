@@ -28,9 +28,9 @@ THE SOFTWARE.
 */
 #include "stdafx.h"
 #include "HkxAnimTool.h"
-#include "Animation/include/Animation.h"
-#include "Util/include/Environment.h"
-#include "Stream/include/Stream.h"
+#include "Animation/Animation.h"
+#include "Util/Environment.h"
+#include "Stream/Stream.h"
 #include "Config.h"
 
 using namespace CoS;

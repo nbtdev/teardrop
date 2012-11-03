@@ -31,8 +31,8 @@ THE SOFTWARE.
 #define AUDIO_RENDERER_XAUDIO2_INCLUDED
 
 #include "Renderer.h"
-#include "Util/include/_String.h"
-#include "Memory/include/Allocators.h"
+#include "Util/_String.h"
+#include "Memory/Allocators.h"
 #include <vector>
 #include <map>
 #include <list>

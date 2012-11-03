@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define AUDIO_SAMPLE_XAUDIO2_INCLUDED
 
 #include "Sample.h"
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {

@@ -29,9 +29,9 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "ToolLib/include/HkxRigidBodyTool.h"
-#include "Physics/src/Havok/BodyHavok.h"
-#include "Serialization/include/ResourceSerializer.h"
-#include "Stream/include/FileStream.h"
+#include "Physics/integration/Havok/BodyHavok.h"
+#include "Serialization/ResourceSerializer.h"
+#include "Stream/FileStream.h"
 #include "hkxc.h"
 
 using namespace CoS;

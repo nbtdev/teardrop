@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(RAGDOLLCONTROLLERHAVOK_INCLUDED)
 #define RAGDOLLCONTROLLERHAVOK_INCLUDED
 
-#include "Ragdoll/include/RagdollController.h"
+#include "Ragdoll/RagdollController.h"
 
 class hkaRagdollRigidBodyController;
 

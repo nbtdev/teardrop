@@ -40,8 +40,8 @@ THE SOFTWARE.
 #include "ViewManager.h"
 #include "Modes/ModeManager.h"
 #include "Camera/CameraControllerManager.h"
-#include "Game/include/Input.h"
-#include "Game/include/InputEvent.h"
+#include "Game/Input.h"
+#include "Game/InputEvent.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

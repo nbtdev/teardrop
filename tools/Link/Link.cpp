@@ -29,12 +29,12 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "Link.h"
-#include "Serialization/include/ResourceLibrary.h"
-#include "Stream/include/FileStream.h"
-#include "Stream/include/TextReader.h"
-#include "Memory/include/Memory.h"
-#include "Memory/include/MemoryRegion.h"
-#include "Toollib/include/Logger.h"
+#include "Serialization/ResourceLibrary.h"
+#include "Stream/FileStream.h"
+#include "Stream/TextReader.h"
+#include "Memory/Memory.h"
+#include "Memory/MemoryRegion.h"
+#include "ToolLib/include/Logger.h"
 #include <string>
 #include <sstream>
 

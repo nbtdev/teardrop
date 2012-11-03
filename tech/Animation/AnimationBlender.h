@@ -30,10 +30,10 @@ THE SOFTWARE.
 #if !defined(ANIMATIONBLENDER_INCLUDED)
 #define ANIMATIONBLENDER_INCLUDED
 
-#include "Resource/include/ResourceHandle.h"
-#include "Math/include/Matrix44.h"
-#include "Util/include/_String.h"
-#include "Memory/include/Memory.h"
+#include "Resource/ResourceHandle.h"
+#include "Math/Matrix44.h"
+#include "Util/_String.h"
+#include "Memory/Memory.h"
 #include <vector>
 
 namespace CoS

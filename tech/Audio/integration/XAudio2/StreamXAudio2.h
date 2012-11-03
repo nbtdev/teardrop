@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define AUDIO_STREAM_XAUDIO2_INCLUDED
 
 #include "Stream.h"
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {

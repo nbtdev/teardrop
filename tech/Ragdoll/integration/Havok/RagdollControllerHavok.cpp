@@ -30,13 +30,13 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "RagdollControllerHavok.h"
 #include "RagdollHavok.h"
-#include "Physics/src/Havok/WorldHavok.h"
-#include "Physics/include/CollisionFilter.h"
-#include "Animation/include/AnimationBlender.h"
-#include "Animation/src/Havok/SkeletonInstanceHavok.h"
-#include "Resource/include/ResourceManager.h"
-#include "Math/include/Transform.h"
-#include "Util/include/Environment.h"
+#include "Physics/integration/Havok/WorldHavok.h"
+#include "Physics/CollisionFilter.h"
+#include "Animation/AnimationBlender.h"
+#include "Animation/integration/Havok/SkeletonInstanceHavok.h"
+#include "Resource/ResourceManager.h"
+#include "Math/Transform.h"
+#include "Util/Environment.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

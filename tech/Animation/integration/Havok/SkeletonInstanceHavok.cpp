@@ -30,8 +30,8 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "RigHavok.h"
 #include "SkeletonInstanceHavok.h"
-#include "Util/include/_String.h"
-#include "Memory/include/Memory.h"
+#include "Util/_String.h"
+#include "Memory/Memory.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

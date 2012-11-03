@@ -25,15 +25,15 @@ info@clashofsteel.net for commercial licensing terms and information.
 */
 
 #include "ZoneObject.h"
-#include "Stream/include/Stream.h"
-#include "Memory/include/Memory.h"
-#include "Gfx/include/GfxMeshInstance.h"
-#include "Gfx/include/GfxCommand.h"
-#include "Gfx/include/GfxCommandBuffer.h"
-#include "Util/include/Environment.h"
-#include "Math/include/Transform.h"
-#include "Math/include/Quaternion.h"
-#include "Math/include/Vector4.h"
+#include "Stream/Stream.h"
+#include "Memory/Memory.h"
+#include "Gfx/GfxMeshInstance.h"
+#include "Gfx/GfxCommand.h"
+#include "Gfx/GfxCommandBuffer.h"
+#include "Util/Environment.h"
+#include "Math/Transform.h"
+#include "Math/Quaternion.h"
+#include "Math/Vector4.h"
 #include "tinyxml/tinyxml.h"
 
 using namespace CoS;

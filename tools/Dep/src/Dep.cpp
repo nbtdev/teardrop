@@ -27,9 +27,9 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "Serialization/include/ResourceDeserializer.h"
-#include "Stream/include/FileStream.h"
-#include "Memory/include/MemoryRegion.h"
+#include "Serialization/ResourceDeserializer.h"
+#include "Stream/FileStream.h"
+#include "Memory/MemoryRegion.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

@@ -30,8 +30,8 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "AnimationBlender.h"
 #include "Rig.h"
-#include "Resource/include/ResourceManager.h"
-#include "Util/include/Environment.h"
+#include "Resource/ResourceManager.h"
+#include "Util/Environment.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "InputFilter.h"
-#include "Game/include/InputEvent.h"
+#include "Game/InputEvent.h"
 #define DIRECTINPUT_VERSION 0x0800
 #include <DInput.h>
 

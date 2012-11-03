@@ -133,7 +133,7 @@ bool GfxRenderer::swap(GfxRenderStats& stats)
 }
 //---------------------------------------------------------------------------
 // todo: implement better way to do this
-#include "src/Direct3D9/GfxRendererD3D9.h"
+#include "integration/Direct3D9/GfxRendererD3D9.h"
 //---------------------------------------------------------------------------
 GfxRenderer* GfxRenderer::allocate(Environment& env, Allocator* pAlloc) 
 {

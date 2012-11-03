@@ -29,8 +29,8 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "CCMState_Transition_NewTarget.h"
-#include "Math/include/AABB.h"
-#include "Util/include/Hash.h"
+#include "Math/AABB.h"
+#include "Util/Hash.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

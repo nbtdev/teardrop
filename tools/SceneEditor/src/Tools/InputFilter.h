@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(EDITING_INPUTFILTER_INCLUDED)
 #define EDITING_INPUTFILTER_INCLUDED
 
-#include "Game/include/InputFilter.h"
+#include "Game/InputFilter.h"
 #include <list>
 
 class InputFilter : public CoS::InputFilter

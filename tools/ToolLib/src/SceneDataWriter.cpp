@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "SceneDataWriter.h"
 #include "tinyxml.h"
-#include "Util/include/StringUtil.h"
+#include "Util/StringUtil.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

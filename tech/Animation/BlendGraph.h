@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(BLENDGRAPH_INCLUDED)
 #define BLENDGRAPH_INCLUDED
 
-#include "Resource/include/ResourceHandle.h"
-#include "Util/include/_String.h"
-#include "Memory/include/Memory.h"
+#include "Resource/ResourceHandle.h"
+#include "Util/_String.h"
+#include "Memory/Memory.h"
 #include <vector>
 
 namespace CoS

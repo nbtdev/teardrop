@@ -29,8 +29,8 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "CCMState_OrbitCam.h"
-#include "Math/include/MathUtil.h"
-#include "Util/include/Hash.h"
+#include "Math/MathUtil.h"
+#include "Util/Hash.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

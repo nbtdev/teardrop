@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define CONTROLLER_INCLUDED
 
 #include "MessageBus.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

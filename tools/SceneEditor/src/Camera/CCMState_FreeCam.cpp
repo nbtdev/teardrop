@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "CCMState_FreeCam.h"
-#include "Util/include/Hash.h"
+#include "Util/Hash.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

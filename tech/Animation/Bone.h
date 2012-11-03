@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(BONE_INCLUDED)
 #define BONE_INCLUDED
 
-#include "Serialization/include/Serialization.h"
-#include "Memory/include/Memory.h"
+#include "Serialization/Serialization.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

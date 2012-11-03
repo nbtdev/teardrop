@@ -26,9 +26,9 @@ info@clashofsteel.net for commercial licensing terms and information.
 
 #include "stdafx.h"
 #include "HeightfieldShape.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Memory/include/Allocators.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Memory/Allocators.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

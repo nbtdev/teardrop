@@ -29,9 +29,9 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "HkxRigTool.h"
-#include "Animation/include/Rig.h"
-#include "Util/include/Environment.h"
-#include "Stream/include/Stream.h"
+#include "Animation/Rig.h"
+#include "Util/Environment.h"
+#include "Stream/Stream.h"
 #include "Config.h"
 
 using namespace CoS;

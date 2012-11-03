@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(MODEMANAGER_INCLUDED)
 #define MODEMANAGER_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 #include <vector>
 
 namespace CoS

@@ -30,9 +30,9 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "SceneData.h"
 #include "MessageBus.h"
-#include "Game/include/SceneUtil.h"
-#include "Game/include/Scene.h"
-#include "Util/include/Hash.h"
+#include "Game/SceneUtil.h"
+#include "Game/Scene.h"
+#include "Util/Hash.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

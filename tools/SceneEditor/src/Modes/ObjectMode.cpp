@@ -39,8 +39,8 @@ THE SOFTWARE.
 #include "Tools/RotateObjectTool.h"
 #include "Tools/PlaceObjectTool.h"
 #include "Tools/TransformGizmo.h"
-#include "Game/include/InputEvent.h"
-#include "Util/include/_String.h"
+#include "Game/InputEvent.h"
+#include "Util/_String.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

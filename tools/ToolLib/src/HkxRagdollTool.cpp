@@ -28,9 +28,9 @@ THE SOFTWARE.
 */
 #include "stdafx.h"
 #include "HkxRagdollTool.h"
-#include "Ragdoll/include/Ragdoll.h"
-#include "Util/include/Environment.h"
-#include "Stream/include/Stream.h"
+#include "Ragdoll/Ragdoll.h"
+#include "Util/Environment.h"
+#include "Stream/Stream.h"
 #include "Config.h"
 
 using namespace CoS;

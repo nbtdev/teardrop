@@ -39,8 +39,8 @@ THE SOFTWARE.
 #if !defined(OBJECTMANIP_INCLUDED)
 #define OBJECTMANIP_INCLUDED
 
-#include "Math/include/Quaternion.h"
-#include "Math/include/Vector4.h"
+#include "Math/Quaternion.h"
+#include "Math/Vector4.h"
 
 namespace CoS
 {

@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "Tools/Tool.h"
 #include "TerrainMode.h"
-#include "Game/include/InputEvent.h"
+#include "Game/InputEvent.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

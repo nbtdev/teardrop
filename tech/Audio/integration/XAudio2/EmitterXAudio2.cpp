@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "stdafx.h"
 #include "EmitterXAudio2.h"
-#include "Math/include/Transform.h"
+#include "Math/Transform.h"
 
 using namespace CoS;
 using namespace Audio;

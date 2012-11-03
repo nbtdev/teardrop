@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include <string>
 
-#include "Stream/include/FileStream.h"
-#include "Stream/include/MemoryStream.h"
-#include "Stream/include/TextReader.h"
+#include "Stream/FileStream.h"
+#include "Stream/MemoryStream.h"
+#include "Stream/TextReader.h"
 
 using namespace CoS;
 

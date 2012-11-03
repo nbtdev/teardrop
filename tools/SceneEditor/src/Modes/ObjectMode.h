@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define OBJECTMODE_INCLUDED
 
 #include "Mode.h"
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 #include <vector>
 
 namespace CoS
