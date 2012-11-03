@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)../bin"
-			IntermediateDirectory="$(ProjectDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)sdk\tdcp"
+			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
@@ -93,8 +93,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)../bin"
-			IntermediateDirectory="$(ProjectDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)sdk\tdcp"
+			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"

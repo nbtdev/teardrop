@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\..\..\vsprops\DirectX_Debug.vsprops"
@@ -26,6 +26,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName)..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)\..\..\include\* $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -82,7 +84,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\..\..\vsprops\DirectX_Release.vsprops"
@@ -91,6 +93,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName)..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)\..\..\include\* $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -187,7 +191,15 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\stdafx.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\Stream.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\targetver.h"
 				>
 			</File>
 			<Filter
@@ -245,15 +257,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stdafx.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\include\Stream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\targetver.h"
 				>
 			</File>
 		</Filter>

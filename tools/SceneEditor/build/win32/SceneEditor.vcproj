@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)bin"
+			OutputDirectory="$(SolutionDir)sdk\bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\..\..\..\tech\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\tech\vsprops\TBB_Debug.vsprops;..\..\..\..\tech\vsprops\Havok_Debug.vsprops;..\..\..\..\tech\vsprops\DirectX_Debug.vsprops;..\..\..\..\tech\vsprops\TinyXML_Debug.vsprops"
@@ -63,6 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="wxmsw28d.lib wxcode_msw28d_propgrid.lib wxscintillad.lib comsuppwd.lib comctl32.lib rpcrt4.lib uuid.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_Debug.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\lib\wxScintilla\lib;..\..\lib"
 				GenerateDebugInformation="true"
@@ -94,7 +95,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)bin"
+			OutputDirectory="$(SolutionDir)sdk\bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\..\..\..\tech\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\tech\vsprops\TBB_Release.vsprops;..\..\..\..\tech\vsprops\Havok_Release.vsprops;..\..\..\..\tech\vsprops\DirectX_Release.vsprops;..\..\..\..\tech\vsprops\TinyXML_Release.vsprops"
