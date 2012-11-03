@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(ANIMATIONHAVOK_INCLUDED)
 #define ANIMATIONHAVOK_INCLUDED
 
-#include "Serialization/include/SerialPointerArray.h"
-#include "Animation/include/Animation.h"
+#include "Serialization/SerialPointerArray.h"
+#include "Animation/Animation.h"
 
 class hkaAnimation;
 class hkaAnimationBinding;

@@ -27,41 +27,34 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(AUDIO_EMITTER_XAUDIO2_INCLUDED)
-#define AUDIO_EMITTER_XAUDIO2_INCLUDED
+#include "stdafx.h"
+#include "Renderer.h"
+#include "integration/XAudio2/RendererXAudio2.h"
 
-#include "Emitter.h"
-#include "Memory/include/Allocators.h"
-
-namespace CoS
+using namespace CoS;
+using namespace Audio;
+//---------------------------------------------------------------------------
+Renderer::Renderer()
 {
-	namespace Audio
-	{
-		/*
-			XAudio2 implementation of Emitter 
-		*/
-		class EmitterXAudio2
-			: public Emitter
-		{
-			X3DAUDIO_EMITTER m_x3dEmitter;
-
-		public:
-			EmitterXAudio2();
-			~EmitterXAudio2();
-
-			//! 'source' is reference to Stream or Sample
-			void initialize();
-			void destroy();
-			void setTransformWS(const Transform& transform);
-
-			// called by RendererXAudio2 when the underlying audio data is going away
-			void release();
-			// get rad/write reference to the contained X3DAUDIO_EMITTER structure 
-			X3DAUDIO_EMITTER& getX3DAudioEmitter() { return m_x3dEmitter; }
-
-			COS_DECLARE_ALLOCATOR();
-		};
-	}
 }
+//---------------------------------------------------------------------------
+Renderer::~Renderer()
+{
+}
+//---------------------------------------------------------------------------
+Renderer* Renderer::createInstance()
+{
+	RendererXAudio2* pRend = COS_NEW RendererXAudio2();
+	if (pRend->initialize())
+		return pRend;
 
-#endif // AUDIO_EMITTER_XAUDIO2_INCLUDED
+	return 0;
+}
+//---------------------------------------------------------------------------
+void Renderer::destroyInstance(Renderer* pRenderer)
+{
+	if (pRenderer)
+		pRenderer->destroy();
+
+	delete pRenderer;
+}

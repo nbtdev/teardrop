@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(AUDIO_RENDERER_INCLUDED)
 #define AUDIO_RENDERER_INCLUDED
 
-#include "Memory/include/Memory.h"
+#include "Memory/Memory.h"
 
 namespace CoS
 {

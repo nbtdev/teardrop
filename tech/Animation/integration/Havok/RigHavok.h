@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(RIGHAVOK_INCLUDED)
 #define RIGHAVOK_INCLUDED
 
-#include "Animation/include/Rig.h"
-#include "Serialization/include/SerialPointerArray.h"
+#include "Animation/Rig.h"
+#include "Serialization/SerialPointerArray.h"
 
 class hkaSkeleton;
 class hkaAnimatedSkeleton;

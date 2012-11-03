@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(BONEHAVOK_INCLUDED)
 #define BONEHAVOK_INCLUDED
 
-#include "Animation/include/Bone.h"
+#include "Animation/Bone.h"
 
 class hkaBone;
 class hkaSkeleton;

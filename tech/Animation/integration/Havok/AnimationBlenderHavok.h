@@ -30,12 +30,12 @@ THE SOFTWARE.
 #if !defined(ANIMATIONBLENDERHAVOK_INCLUDED)
 #define ANIMATIONBLENDERHAVOK_INCLUDED
 
-#include "Animation/include/AnimationBlender.h"
+#include "Animation/AnimationBlender.h"
 #include "RigHavok.h"
 #include "AnimationHavok.h"
-#include "Math/include/Quaternion.h"
-#include "Math/include/Matrix44.h"
-#include "Util/include/_String.h"
+#include "Math/Quaternion.h"
+#include "Math/Matrix44.h"
+#include "Util/_String.h"
 #include <list>
 #include <vector>
 #include <map>

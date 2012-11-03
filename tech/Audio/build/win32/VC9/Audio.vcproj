@@ -26,7 +26,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -92,7 +91,6 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -152,113 +150,107 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="Integration"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\src\Emitter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Renderer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Sample.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\stdafx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\Stream.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\targetver.h"
-				>
-			</File>
 			<Filter
 				Name="XAudio2"
 				>
 				<File
-					RelativePath="..\..\..\src\XAudio2\EmitterXAudio2.cpp"
+					RelativePath="..\..\..\integration\XAudio2\EmitterXAudio2.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\XAudio2\EmitterXAudio2.h"
+					RelativePath="..\..\..\integration\XAudio2\EmitterXAudio2.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\XAudio2\RendererXAudio2.cpp"
+					RelativePath="..\..\..\integration\XAudio2\RendererXAudio2.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\XAudio2\RendererXAudio2.h"
+					RelativePath="..\..\..\integration\XAudio2\RendererXAudio2.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\XAudio2\SampleXAudio2.cpp"
+					RelativePath="..\..\..\integration\XAudio2\SampleXAudio2.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\XAudio2\SampleXAudio2.h"
+					RelativePath="..\..\..\integration\XAudio2\SampleXAudio2.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\XAudio2\StreamXAudio2.cpp"
+					RelativePath="..\..\..\integration\XAudio2\StreamXAudio2.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\XAudio2\StreamXAudio2.h"
+					RelativePath="..\..\..\integration\XAudio2\StreamXAudio2.h"
 					>
 				</File>
 			</Filter>
 		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		<File
+			RelativePath="..\..\..\Emitter.cpp"
 			>
-			<File
-				RelativePath="..\..\..\include\Emitter.h"
+		</File>
+		<File
+			RelativePath="..\..\..\Emitter.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Renderer.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Renderer.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Sample.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Sample.h"
+			>
+		</File>
+		<File
+			RelativePath="..\stdafx.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Renderer.h"
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Sample.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\include\Stream.h"
-				>
-			</File>
-		</Filter>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Stream.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Stream.h"
+			>
+		</File>
+		<File
+			RelativePath="..\targetver.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
