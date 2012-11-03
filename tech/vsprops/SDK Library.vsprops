@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="SDK Library"
+	>
+	<Tool
+		Name="VCPreBuildEventTool"
+		Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName)..."
+		CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\include\* $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
+	/>
+</VisualStudioPropertySheet>
