@@ -148,24 +148,28 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Lua"
+			Name="Integration"
 			>
-			<File
-				RelativePath="..\..\..\integration\Lua\LuaScriptVM.cpp"
+			<Filter
+				Name="Lua"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\integration\Lua\LuaScriptVM.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\integration\Lua\ScriptHelper.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\integration\Lua\ScriptHelper.h"
-				>
-			</File>
+				<File
+					RelativePath="..\..\..\integration\Lua\LuaScriptVM.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Lua\LuaScriptVM.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Lua\ScriptHelper.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Lua\ScriptHelper.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath="..\..\..\ScriptVM.cpp"
