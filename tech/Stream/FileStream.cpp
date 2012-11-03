@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "FileStream.h"
-#include "Util/include/Logger.h"
+#include "Util/Logger.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>

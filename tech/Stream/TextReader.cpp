@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "TextReader.h"
-#include "Stream/include/Stream.h"
+#include "Stream/Stream.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------

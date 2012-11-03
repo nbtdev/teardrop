@@ -29,8 +29,8 @@ THE SOFTWARE.
 
 #include "Config.h"
 #include "Stream.h"
-#include "Util/include/StringUtil.h"
-#include "Util/include/_String.h"
+#include "Util/StringUtil.h"
+#include "Util/_String.h"
 #include <string.h>
 
 using namespace CoS;

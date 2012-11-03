@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(TEXTREADER_INCLUDED)
 #define TEXTREADER_INCLUDED
 
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {

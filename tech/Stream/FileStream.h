@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define COSFILESTREAM_INCLUDED
 
 #include "Stream.h"
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {

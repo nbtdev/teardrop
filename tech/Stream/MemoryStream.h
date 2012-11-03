@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define COSMEMORYSTREAM_INCLUDED
 
 #include "Stream.h"
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 
 namespace CoS
 {
