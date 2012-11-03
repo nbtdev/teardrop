@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(PLAYERCOMMAND_INCLUDED)
 #define PLAYERCOMMAND_INCLUDED
 
-#include "Network/include/ProxyMessage.h"
+#include "Network/ProxyMessage.h"
 
 namespace CoS
 {

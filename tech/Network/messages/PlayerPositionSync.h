@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(PLAYERPOSITIONSYNC_INCLUDED)
 #define PLAYERPOSITIONSYNC_INCLUDED
 
-#include "Network/include/ProxyMessage.h"
-#include "Math/include/Vector4.h"
-#include "Math/include/Quaternion.h"
+#include "Network/ProxyMessage.h"
+#include "Math/Vector4.h"
+#include "Math/Quaternion.h"
 
 namespace CoS
 {

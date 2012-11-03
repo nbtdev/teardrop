@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(CONNECTION_REQUEST_ACCEPTED_INCLUDED)
 #define CONNECTION_REQUEST_ACCEPTED_INCLUDED
 
-#include "Network/include/Message.h"
+#include "Network/Message.h"
 
 namespace CoS
 {

@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(PINGRESPONSE_INCLUDED)
 #define PINGRESPONSE_INCLUDED
 
-#include "Network/include/Message.h"
+#include "Network/Message.h"
 typedef unsigned long long int uint64_t;
 
 namespace CoS

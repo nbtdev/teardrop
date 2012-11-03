@@ -35,10 +35,10 @@ THE SOFTWARE.
 #include "messages/ConnectionRequestAccepted.h"
 #include "messages/ConnectionLost.h"
 #include "messages/InterrogateServer.h"
-#include "Util/include/_String.h"
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
-#include "Util/include/Hash.h"
+#include "Util/_String.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include "Util/Hash.h"
 #include "PacketLogger.h"
 class MyLogger : public PacketLogger
 {

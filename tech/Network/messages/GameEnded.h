@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(GAMEENDED_INCLUDED)
 #define GAMEENDED_INCLUDED
 
-#include "Memory/include/Memory.h"
-#include "Network/include/Message.h"
+#include "Memory/Memory.h"
+#include "Network/Message.h"
 
 namespace CoS
 {

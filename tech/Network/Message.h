@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(NETMESSAGE_INCLUDED)
 #define NETMESSAGE_INCLUDED
 
-#include "Memory/include/Memory.h"
-#include "Network/include/Network.h"
-#include "Util/include/SharedPointer.h"
+#include "Memory/Memory.h"
+#include "Network/Network.h"
+#include "Util/SharedPointer.h"
 
 struct Packet;
 namespace RakNet

@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(UPDATEPLAYERSTATE_INCLUDED)
 #define UPDATEPLAYERSTATE_INCLUDED
 
-#include "Memory/include/Memory.h"
-#include "Network/include/Message.h"
-#include "Util/include/_String.h"
+#include "Memory/Memory.h"
+#include "Network/Message.h"
+#include "Util/_String.h"
 
 namespace CoS
 {

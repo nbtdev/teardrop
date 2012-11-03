@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(PLAYERVARIANTCHANGED_INCLUDED)
 #define PLAYERVARIANTCHANGED_INCLUDED
 
-#include "Network/include/Message.h"
-#include "Util/include/_String.h"
+#include "Network/Message.h"
+#include "Util/_String.h"
 #include <list>
 
 namespace CoS

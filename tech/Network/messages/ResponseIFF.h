@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(RESPONSE_IFF_INCLUDED)
 #define RESPONSE_IFF_INCLUDED
 
-#include "Network/include/Message.h"
+#include "Network/Message.h"
 #include <vector>
 
 namespace CoS

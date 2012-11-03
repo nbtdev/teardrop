@@ -28,7 +28,7 @@ THE SOFTWARE.
 */
 #include "stdafx.h"
 #include "PlayerLeaveServer.h"
-#include "Util/include/Hash.h"
+#include "Util/Hash.h"
 
 using namespace CoS;
 using namespace Net;

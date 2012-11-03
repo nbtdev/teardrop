@@ -27,37 +27,59 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(PROXYMESSAGE_INCLUDED)
-#define PROXYMESSAGE_INCLUDED
+#if !defined(NETPEER_INCLUDED)
+#define NETPEER_INCLUDED
 
-#include "Network/include/Message.h"
+#include "Memory/Memory.h"
+#include "Network/Message.h"
+
+class RakPeerInterface;
 
 namespace CoS
 {
+	class String;
+
 	namespace Net
 	{
-		class ProxyMessage
-			: public Message
+		class Message;
+		class RemotePeer;
+
+		class Peer
 		{
 		public:
-			unsigned int m_playerId;
-			const static unsigned int MASK = 0x40000000;
+			Peer();
+			~Peer();
 
-			ProxyMessage(const Packet& packet);
-			virtual ~ProxyMessage();
+			unsigned int getId();
 
-			// these are virtual for overriding by Raknet message classes
-			void deserialize(RakNet::BitStream& bs);
-			void serialize(RakNet::BitStream& bs);
+			bool startup(size_t maxIncomingConnections, unsigned short port);
+			void shutdown();
+
+			bool connect(const String& address, unsigned short port);
+			RemotePeer* createRemotePeer(Message* pMsg); // should be ConnectionRequestAccepted message
+			void disconnect(RemotePeer* pPeer=0);
+			void disconnect(unsigned int addr, unsigned short port=0);
+			void ping(const char* address, unsigned short port);
+			void requestServerInfo(const char* address);
+			void setDisconnectedPingResponse(const char *data, unsigned int dataSize);
+			unsigned int getLocalIpV4();
+
+			MessagePtr getNextMessage();
+			void send(Message* pMsg, unsigned int* guid=0 /*0=broadcast*/);
+			void send(Message* pMsg, const String& addr, size_t port=size_t(-1));
+
+			bool isLocalOrigination(Message* pMsg);
 
 			COS_DECLARE_ALLOCATOR();
 
 		protected:
-			ProxyMessage();
-			virtual void _deserialize(RakNet::BitStream& bs) = 0;
-			virtual void _serialize(RakNet::BitStream& bs) = 0;
+			RakPeerInterface* m_pPeer;
+			unsigned int g[4];
+			unsigned int a;
+			unsigned short p;
+			unsigned short pad;
 		};
 	}
 }
 
-#endif // PROXYMESSAGE_INCLUDED
+#endif // NETPEER_INCLUDED

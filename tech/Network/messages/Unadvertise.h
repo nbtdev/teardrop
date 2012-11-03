@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(UNADVERTISE_INCLUDED)
 #define UNADVERTISE_INCLUDED
 
-#include "Network/include/Message.h"
-#include "Util/include/_String.h"
+#include "Network/Message.h"
+#include "Util/_String.h"
 
 namespace CoS
 {

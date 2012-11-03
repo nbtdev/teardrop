@@ -32,8 +32,8 @@ THE SOFTWARE.
 #include "Network.h"
 
 //#if defined(_DEBUG)
-#include "Util/include/Environment.h"
-#include "Util/include/Logger.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 //#endif
 
 using namespace CoS;

@@ -26,29 +26,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "stdafx.h"
-#include "RemotePeer.h"
-#include "Util/include/_String.h"
-#include "Util/include/Environment.h"
 
-using namespace CoS;
-using namespace Net;
-using namespace RakNet;
-//---------------------------------------------------------------------------
-RemotePeer::RemotePeer()
+#if !defined(PROXYMESSAGE_INCLUDED)
+#define PROXYMESSAGE_INCLUDED
+
+#include "Network/Message.h"
+
+namespace CoS
 {
+	namespace Net
+	{
+		class ProxyMessage
+			: public Message
+		{
+		public:
+			unsigned int m_playerId;
+			const static unsigned int MASK = 0x40000000;
+
+			ProxyMessage(const Packet& packet);
+			virtual ~ProxyMessage();
+
+			// these are virtual for overriding by Raknet message classes
+			void deserialize(RakNet::BitStream& bs);
+			void serialize(RakNet::BitStream& bs);
+
+			COS_DECLARE_ALLOCATOR();
+
+		protected:
+			ProxyMessage();
+			virtual void _deserialize(RakNet::BitStream& bs) = 0;
+			virtual void _serialize(RakNet::BitStream& bs) = 0;
+		};
+	}
 }
-//---------------------------------------------------------------------------
-RemotePeer::~RemotePeer()
-{
-}
-//---------------------------------------------------------------------------
-void RemotePeer::send(Message* pMsg)
-{
-	Peer::send(pMsg, g);
-}
-//---------------------------------------------------------------------------
-void RemotePeer::disconnect()
-{
-	Peer::disconnect(this);
-}
+
+#endif // PROXYMESSAGE_INCLUDED

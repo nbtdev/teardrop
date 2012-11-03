@@ -28,7 +28,7 @@ THE SOFTWARE.
 */
 #include "stdafx.h"
 #include "UpdateServerState.h"
-#include "Util/include/Environment.h"
+#include "Util/Environment.h"
 
 using namespace CoS;
 using namespace Net;

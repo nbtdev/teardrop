@@ -26,36 +26,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include "stdafx.h"
+#include "RemotePeer.h"
+#include "Util/_String.h"
+#include "Util/Environment.h"
 
-#if !defined(REMOTEPEER_INCLUDED)
-#define REMOTEPEER_INCLUDED
-
-#include "Network/include/Peer.h"
-
-namespace CoS
+using namespace CoS;
+using namespace Net;
+using namespace RakNet;
+//---------------------------------------------------------------------------
+RemotePeer::RemotePeer()
 {
-	namespace Net
-	{
-		/*
-			A sort of convenience class for connections made to
-			an endpoint through the Peer::Connect method.
-		*/
-
-		class RemotePeer
-			: public Peer
-		{
-			friend class Peer;
-
-		public:
-			RemotePeer();
-			~RemotePeer();
-
-			void send(Message* pMsg);
-			void disconnect();
-
-			COS_DECLARE_ALLOCATOR();
-		};
-	}
 }
-
-#endif // REMOTEPEER_INCLUDED
+//---------------------------------------------------------------------------
+RemotePeer::~RemotePeer()
+{
+}
+//---------------------------------------------------------------------------
+void RemotePeer::send(Message* pMsg)
+{
+	Peer::send(pMsg, g);
+}
+//---------------------------------------------------------------------------
+void RemotePeer::disconnect()
+{
+	Peer::disconnect(this);
+}

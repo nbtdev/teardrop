@@ -30,8 +30,8 @@ THE SOFTWARE.
 #if !defined(CHATMESSAGE_INCLUDED)
 #define CHATMESSAGE_INCLUDED
 
-#include "Network/include/Message.h"
-#include "Util/include/_String.h"
+#include "Network/Message.h"
+#include "Util/_String.h"
 
 namespace CoS
 {

@@ -30,9 +30,9 @@ THE SOFTWARE.
 #if !defined(PLAYERLEAVEGAME_INCLUDED)
 #define PLAYERLEAVEGAME_INCLUDED
 
-#include "Memory/include/Memory.h"
-#include "Network/include/Message.h"
-#include "Util/include/_String.h"
+#include "Memory/Memory.h"
+#include "Network/Message.h"
+#include "Util/_String.h"
 
 namespace CoS
 {

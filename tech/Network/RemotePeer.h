@@ -27,59 +27,35 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(NETPEER_INCLUDED)
-#define NETPEER_INCLUDED
+#if !defined(REMOTEPEER_INCLUDED)
+#define REMOTEPEER_INCLUDED
 
-#include "Memory/include/Memory.h"
-#include "Network/include/Message.h"
-
-class RakPeerInterface;
+#include "Network/Peer.h"
 
 namespace CoS
 {
-	class String;
-
 	namespace Net
 	{
-		class Message;
-		class RemotePeer;
+		/*
+			A sort of convenience class for connections made to
+			an endpoint through the Peer::Connect method.
+		*/
 
-		class Peer
+		class RemotePeer
+			: public Peer
 		{
+			friend class Peer;
+
 		public:
-			Peer();
-			~Peer();
+			RemotePeer();
+			~RemotePeer();
 
-			unsigned int getId();
-
-			bool startup(size_t maxIncomingConnections, unsigned short port);
-			void shutdown();
-
-			bool connect(const String& address, unsigned short port);
-			RemotePeer* createRemotePeer(Message* pMsg); // should be ConnectionRequestAccepted message
-			void disconnect(RemotePeer* pPeer=0);
-			void disconnect(unsigned int addr, unsigned short port=0);
-			void ping(const char* address, unsigned short port);
-			void requestServerInfo(const char* address);
-			void setDisconnectedPingResponse(const char *data, unsigned int dataSize);
-			unsigned int getLocalIpV4();
-
-			MessagePtr getNextMessage();
-			void send(Message* pMsg, unsigned int* guid=0 /*0=broadcast*/);
-			void send(Message* pMsg, const String& addr, size_t port=size_t(-1));
-
-			bool isLocalOrigination(Message* pMsg);
+			void send(Message* pMsg);
+			void disconnect();
 
 			COS_DECLARE_ALLOCATOR();
-
-		protected:
-			RakPeerInterface* m_pPeer;
-			unsigned int g[4];
-			unsigned int a;
-			unsigned short p;
-			unsigned short pad;
 		};
 	}
 }
 
-#endif // NETPEER_INCLUDED
+#endif // REMOTEPEER_INCLUDED

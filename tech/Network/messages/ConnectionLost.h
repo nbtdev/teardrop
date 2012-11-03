@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(CONNECTIONLOST_INCLUDED)
 #define CONNECTIONLOST_INCLUDED
 
-#include "Network/include/Message.h"
+#include "Network/Message.h"
 
 namespace CoS
 {

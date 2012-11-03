@@ -30,7 +30,7 @@ THE SOFTWARE.
 #if !defined(INTERROGATE_SERVER_INCLUDED)
 #define INTERROGATE_SERVER_INCLUDED
 
-#include "Network/include/Message.h"
+#include "Network/Message.h"
 
 namespace CoS
 {

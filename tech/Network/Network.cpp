@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "Network.h"
 #include "Peer.h"
-#include "Memory/include/Allocators.h"
+#include "Memory/Allocators.h"
 #include "RakMemoryOverride.h"
 
 using namespace CoS;
