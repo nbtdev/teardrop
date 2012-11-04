@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(TEARDROP_SDK)\vsprops\VC9\Teardrop SDK (Debug).vsprops;..\Havok_Debug.vsprops"
+			InheritedPropertySheets="$(TEARDROP_SDK)\vsprops\VC9\Teardrop SDK (Debug).vsprops;..\..\..\..\vsprops\Havok_Debug.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -83,7 +83,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Havok_Release.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\Havok_Release.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
