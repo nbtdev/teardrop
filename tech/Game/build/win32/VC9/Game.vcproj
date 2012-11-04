@@ -27,6 +27,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -93,6 +95,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
