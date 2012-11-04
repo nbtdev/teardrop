@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "Animation.h"
 #include "Rig.h"
 #include "SkeletonInstance.h"
@@ -68,7 +67,7 @@ size_t SkeletonInstance::getBoneCount() const
 	return m_boneCount;
 }
 //---------------------------------------------------------------------------
-size_t SkeletonInstance::getBoneIndexByName(const String& name) const
+size_t SkeletonInstance::getBoneIndexByName(const String& /*name*/) const
 {
 	return size_t(-1);
 }

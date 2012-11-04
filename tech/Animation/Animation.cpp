@@ -27,61 +27,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "Animation.h"
 #include "Stream/Stream.h"
 #include "Memory/Allocators.h"
 #include "Util/FourCC.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
-
-#include "Havok/RigHavok.h"
-#include "Havok/AnimationHavok.h"
-#include "Havok/AnimationBlenderHavok.h"
+#include "Util/System.h"
+#include "Util/SystemManager.h"
 #include <assert.h>
 
 using namespace CoS;
 //---------------------------------------------------------------------------
-Allocator* Animation::s_pAllocator = 0; // USER MUST SET THIS
-//---------------------------------------------------------------------------
 const FourCC& Animation::RESOURCE_TYPE = FourCC('A','N','I','M');
 //---------------------------------------------------------------------------
 DEFINE_SERIALIZABLE(Animation);
-//---------------------------------------------------------------------------
-void Animation::setAllocator(Allocator* pAlloc)
-{
-	assert(pAlloc);
-	s_pAllocator = pAlloc;
-}
-//---------------------------------------------------------------------------
-Allocator* Animation::getAllocator()
-{
-	return s_pAllocator;
-}
-//---------------------------------------------------------------------------
-bool Animation::initialize()
-{
-	// currently there really isn't anything to init for the animation
-	// system, but as a hack to prevent stripping of the animation 
-	// implementation classes, I need to mention them by name here...
-	RigHavok cRig;
-	AnimationHavok cAnim;
-	cRig.destroy();
-	cAnim.destroy();
-
-	return true;
-}
-//---------------------------------------------------------------------------
-bool Animation::shutdown()
-{
-	return true;
-}
-//---------------------------------------------------------------------------
-AnimationBlender* Animation::createBlender()
-{
-	// make one of the Havok variety...
-	return COS_NEW AnimationBlenderHavok;
-}
 //---------------------------------------------------------------------------
 Animation::Animation()
 {
@@ -103,7 +63,10 @@ bool Animation::initialize(void* pData, unsigned int dataLen)
 //---------------------------------------------------------------------------
 bool Animation::destroy()
 {
-	s_pAllocator->Deallocate(m_pData);
+	Teardrop::System* pAnimSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
+
+	pAnimSys->getAllocator()->Deallocate(m_pData);
 	m_pData = 0;
 
 	return true;
@@ -116,20 +79,23 @@ bool Animation::release()
 //---------------------------------------------------------------------------
 bool Animation::load(Stream& strm)
 {
+	Teardrop::System* pAnimSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
+
 	// load the whole stream and own the data once loaded
 	if (m_pData)
 	{
-		s_pAllocator->Deallocate(m_pData);
+		pAnimSys->getAllocator()->Deallocate(m_pData);
 	}
 
 	unsigned int len = (unsigned int)strm.length();
-	m_pData = getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
+	m_pData = pAnimSys->getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
 	strm.read(m_pData, len);
 
 	return initialize(m_pData, len);
 }
 //---------------------------------------------------------------------------
-bool Animation::serialize(ResourceSerializer& ser)
+bool Animation::serialize(ResourceSerializer& /*ser*/)
 {
 	// implemented by derived classes
 	return false;

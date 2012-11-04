@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "BlendGraph.h"
 #include "Util/StringUtil.h"
 #include "tinyxml.h"

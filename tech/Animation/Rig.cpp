@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "Animation.h"
 #include "Rig.h"
 #include "Stream/Stream.h"
@@ -81,7 +80,7 @@ bool Rig::release()
 	return true;
 }
 //---------------------------------------------------------------------------
-Bone* Rig::getBone(const char* name)
+Bone* Rig::getBone(const char* /*name*/)
 {
 	return 0;
 }
@@ -91,7 +90,7 @@ size_t Rig::getBoneCount()
 	return 0;
 }
 //---------------------------------------------------------------------------
-Bone* Rig::getBone(size_t index)
+Bone* Rig::getBone(size_t /*index*/)
 {
 	return 0;
 }
@@ -111,7 +110,7 @@ bool Rig::load(Stream& strm)
 	return initialize(m_pData, len);
 }
 //---------------------------------------------------------------------------
-bool Rig::serialize(ResourceSerializer& ser)
+bool Rig::serialize(ResourceSerializer& /*ser*/)
 {
 	// implemented by derived classes
 	return false;

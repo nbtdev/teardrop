@@ -3,10 +3,10 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="Animation"
-	ProjectGUID="{DF1C047C-31A1-48A2-987D-F190C66A3DFD}"
+	ProjectGUID="{2069D83B-5B3C-48A8-82AF-9B3CE47A1933}"
 	RootNamespace="Animation"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,12 +18,11 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\Havok_Debug.vsprops;..\..\..\..\vsprops\TinyXML_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="$(TEARDROP_SDK)\vsprops\VC9\Teardrop SDK (Debug).vsprops;..\Havok_Debug.vsprops"
 			CharacterSet="2"
-			ManagedExtensions="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -43,14 +42,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../..;../../../integration;../../..;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				UsePrecompiledHeader="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -83,12 +80,11 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\Havok_Release.vsprops;..\..\..\..\vsprops\TinyXML_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\Havok_Release.vsprops"
 			CharacterSet="2"
-			ManagedExtensions="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -108,14 +104,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../..;../../../integration;../../..;../../../.."
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				BufferSecurityCheck="false"
-				OpenMP="true"
-				UsePrecompiledHeader="0"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -151,51 +146,75 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\Animation.cpp"
+			RelativePath="..\..\..\AnimationBlenderHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Animation.h"
+			RelativePath="..\..\..\AnimationBlenderHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\AnimationBlender.cpp"
+			RelativePath="..\..\..\AnimationHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\AnimationBlender.h"
+			RelativePath="..\..\..\AnimationHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\BlendGraph.cpp"
+			RelativePath="..\..\..\AnimationSystem.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\BlendGraph.h"
+			RelativePath="..\..\..\AnimationSystem.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Bone.cpp"
+			RelativePath="..\..\..\BoneHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Bone.h"
+			RelativePath="..\..\..\BoneHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Rig.cpp"
+			RelativePath="..\..\..\RigHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Rig.h"
+			RelativePath="..\..\..\RigHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\SkeletonInstance.cpp"
+			RelativePath="..\..\..\SkeletonInstanceHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\SkeletonInstance.h"
+			RelativePath="..\..\..\SkeletonInstanceHavok.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\stdafx.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\..\..\stdafx.h"
 			>
 		</File>
 	</Files>

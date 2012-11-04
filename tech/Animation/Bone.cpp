@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "Bone.h"
 
 using namespace CoS;
@@ -55,7 +54,7 @@ const char* Bone::getName() const
 	return 0;
 }
 //---------------------------------------------------------------------------
-Bone* Bone::getParent(const char* name) const
+Bone* Bone::getParent(const char* /*name*/) const
 {
 	return 0;
 }
@@ -65,12 +64,12 @@ size_t Bone::getNumChildren() const
 	return 0;
 }
 //---------------------------------------------------------------------------
-const Bone* Bone::getChild(size_t index) const
+const Bone* Bone::getChild(size_t /*index*/) const
 {
 	return 0;
 }
 //---------------------------------------------------------------------------
-Bone* Bone::getChild(size_t index)
+Bone* Bone::getChild(size_t /*index*/)
 {
 	return 0;
 }

@@ -46,7 +46,6 @@ namespace CoS
 
 	class Animation : public Resource
 	{
-		static Allocator* s_pAllocator;
 		DECLARE_SERIALIZABLE(Animation);
 		DECLARE_SERIALIZABLE_VTABLE
 

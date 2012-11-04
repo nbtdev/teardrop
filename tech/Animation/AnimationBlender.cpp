@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "AnimationBlender.h"
 #include "Rig.h"
 #include "Resource/ResourceManager.h"
@@ -44,7 +43,7 @@ AnimationBlender::~AnimationBlender()
 {
 }
 //---------------------------------------------------------------------------
-bool AnimationBlender::initialize(HResource hRig, const BlendGraph& graph)
+bool AnimationBlender::initialize(HResource hRig, const BlendGraph& /*graph*/)
 {
 	m_hRig = hRig;
 	return true;
@@ -55,12 +54,12 @@ bool AnimationBlender::destroy()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool AnimationBlender::advance(float timeStep)
+bool AnimationBlender::advance(float /*timeStep*/)
 {
 	return false;
 }
 //---------------------------------------------------------------------------
-bool AnimationBlender::transitionToState(const String& stateName)
+bool AnimationBlender::transitionToState(const String& /*stateName*/)
 {
 	return false;
 }
@@ -75,7 +74,7 @@ SkeletonInstance* AnimationBlender::getSkeletonInstance()
 }
 //---------------------------------------------------------------------------
 void AnimationBlender::setAdditionalRotation(
-	size_t boneIndex, const Quaternion& rot)
+	size_t /*boneIndex*/, const Quaternion& /*rot*/)
 {
 }
 //---------------------------------------------------------------------------
@@ -85,7 +84,7 @@ size_t AnimationBlender::getNumMountPoints()
 }
 //---------------------------------------------------------------------------
 const AnimationBlender::MountPointData* 
-AnimationBlender::getMountPoint(size_t idx)
+AnimationBlender::getMountPoint(size_t /*idx*/)
 {
 	return 0;
 }
