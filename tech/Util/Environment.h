@@ -45,6 +45,7 @@ namespace CoS
 	class Input;
 	class GameStateManager;
 	class ResourceManager;
+	class SystemManager;
 	class Timer;
 	class Manifest;
 
@@ -71,6 +72,7 @@ namespace CoS
 		Timer*				pMasterClock;
 		ResourceManager*	pResourceMgr;
 		Manifest*			pManifest;
+		SystemManager*		pSystemMgr;
 
 		Environment();
 		static Environment& get();

@@ -269,6 +269,18 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\System.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SystemManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\SystemManager.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\Timer.h"
 			>
 		</File>
