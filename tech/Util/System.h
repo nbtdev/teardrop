@@ -8,6 +8,11 @@ is prohibited.
 #if !defined(SYSTEM_H_INCLUDED)
 #define SYSTEM_H_INCLUDED
 
+namespace CoS
+{
+	class Allocator;
+}
+
 namespace Teardrop
 {
 	class System
@@ -37,6 +42,10 @@ namespace Teardrop
 		    in the Type array in typeCount, returns number of elements in the populated array
 		**/
 		virtual void getTypes(/*out*/ Type* typeArray, /*inout*/ int& typeCount) = 0;
+
+		// for custom memory management
+		virtual void setAllocator(CoS::Allocator* pAllocator) = 0;
+		virtual CoS::Allocator* getAllocator() = 0;
 	};
 }
 
