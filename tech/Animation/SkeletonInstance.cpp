@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include "SkeletonInstance.h"
 #include "Math/Matrix44.h"
 #include "Util/Environment.h"
+#include "Util/SystemManager.h"
 #include "Resource/ResourceManager.h"
 #include "Memory/Allocators.h"
 
@@ -39,9 +40,12 @@ using namespace CoS;
 //---------------------------------------------------------------------------
 SkeletonInstance::SkeletonInstance(Rig* pRig)
 {
+	Teardrop::System* pAnimSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
+
 	m_boneCount = pRig->getBoneCount();
 	m_pBoneCache = static_cast<Matrix44*>(
-		Animation::getAllocator()->AllocateAligned(
+		pAnimSys->getAllocator()->AllocateAligned(
 			sizeof(Matrix44) * m_boneCount,
 			16 COS_ALLOC_SITE)
 	);
@@ -49,7 +53,10 @@ SkeletonInstance::SkeletonInstance(Rig* pRig)
 //---------------------------------------------------------------------------
 SkeletonInstance::~SkeletonInstance()
 {
-	Animation::getAllocator()->DeallocateAligned(m_pBoneCache);
+	Teardrop::System* pAnimSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
+
+	pAnimSys->getAllocator()->DeallocateAligned(m_pBoneCache);
 }
 //---------------------------------------------------------------------------
 const Matrix44* SkeletonInstance::getBoneCache() const

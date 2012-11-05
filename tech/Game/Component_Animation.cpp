@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include "Util/Hash.h"
 #include "Util/FourCC.h"
 #include "Util/Environment.h"
+#include "Util/SystemManager.h"
 #include "Resource/ResourceManager.h"
 #include "Animation/Rig.h"
 #include "Animation/Animation.h"
@@ -93,7 +94,9 @@ bool AnimationComponent::initialize()
 	}
 #endif
 
-	m_pBlender = Animation::createBlender();
+	AnimationSystem* pAnimSys = 
+		static_cast<AnimationSystem*>(Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION));
+	m_pBlender = pAnimSys->createBlender();
 
 	// load the blend graph definition
 	BlendGraph graph;

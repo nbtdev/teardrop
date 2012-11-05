@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include "Serialization/SerialPointer.h"
 #include "Resource/Resource.h"
 #include "Memory/Memory.h"
+#include "Util/System.h"
 
 namespace CoS
 {
@@ -42,7 +43,6 @@ namespace CoS
 	class AnimationBlender;
 	class SkeletonInstance;
 	struct FourCC;
-	class Allocator;
 
 	class Animation : public Resource
 	{
@@ -52,25 +52,12 @@ namespace CoS
 	public:
 		static const FourCC& RESOURCE_TYPE;
 
-		// set/get the current allocator for this system
-		static void setAllocator(Allocator* pAlloc);
-		static Allocator* getAllocator();
-
 		//! normal c'tor (cannot fail)
 		Animation();
 		//! placement c'tor (cannot fail)
 		Animation(int);
 		//! d'tor (cannot fail)
 		virtual ~Animation();
-
-		//! initialize the physics/collision simulation engine
-		static bool initialize();
-
-		//! shutdown the physics/collision simulation engine
-		static bool shutdown();
-
-		//! create an animation blender
-		static AnimationBlender* createBlender();
 
 		virtual bool initialize(
 			void* pData,
@@ -95,6 +82,13 @@ namespace CoS
 	protected:
 		SerialPointer<void> m_pData;
 		unsigned int m_dataLen;
+	};
+
+	class AnimationSystem : public Teardrop::System
+	{
+	public:
+		//! create an animation blender
+		virtual AnimationBlender* createBlender() = 0;
 	};
 }
 

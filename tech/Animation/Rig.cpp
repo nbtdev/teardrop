@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include "Stream/Stream.h"
 #include "Memory/Allocators.h"
 #include "Util/FourCC.h"
+#include "Util/Environment.h"
+#include "Util/SystemManager.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------
@@ -59,7 +61,10 @@ bool Rig::initialize(void* pData, unsigned int dataLen)
 //---------------------------------------------------------------------------
 bool Rig::destroy()
 {
-	Animation::getAllocator()->Deallocate(m_pData);
+	Teardrop::System* pAnimSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
+
+	pAnimSys->getAllocator()->Deallocate(m_pData);
 	m_pData = 0;
 
 	return true;
@@ -97,14 +102,17 @@ Bone* Rig::getBone(size_t /*index*/)
 //---------------------------------------------------------------------------
 bool Rig::load(Stream& strm)
 {
+	Teardrop::System* pAnimSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
+
 	// load the whole stream and own the data once loaded
 	if (m_pData)
 	{
-		Animation::getAllocator()->Deallocate(m_pData);
+		pAnimSys->getAllocator()->Deallocate(m_pData);
 	}
 
 	unsigned int len = (unsigned int)strm.length();
-	m_pData = Animation::getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
+	m_pData = pAnimSys->getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
 	strm.read(m_pData, len);
 
 	return initialize(m_pData, len);
