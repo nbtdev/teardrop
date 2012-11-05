@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "World.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
@@ -55,7 +54,7 @@ bool World::release()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool World::update(float deltaT)
+bool World::update(float /*deltaT*/)
 {
 	return true;
 }
@@ -64,22 +63,22 @@ void World::clear()
 {
 }
 //---------------------------------------------------------------------------
-bool World::add(Body* pBody)
+bool World::add(Body* /*pBody*/)
 {
 	return true;
 }
 //---------------------------------------------------------------------------
-bool World::add(Phantom* pPhantom)
+bool World::add(Phantom* /*pPhantom*/)
 {
 	return true;
 }
 //---------------------------------------------------------------------------
-bool World::remove(Body* pBody)
+bool World::remove(Body* /*pBody*/)
 {
 	return true;
 }
 //---------------------------------------------------------------------------
-bool World::remove(Phantom* pPhantom)
+bool World::remove(Phantom* /*pPhantom*/)
 {
 	return true;
 }
@@ -104,12 +103,12 @@ void World::getGravity(Vector4& gravity) const
 	gravity = m_gravity;
 }
 //---------------------------------------------------------------------------
-bool World::castRay(const Ray& ray, Vector4* pPoints, size_t& pointCount)
+bool World::castRay(const Ray& /*ray*/, Vector4* /*pPoints*/, size_t& /*pointCount*/)
 {
 	return false;
 }
 //---------------------------------------------------------------------------
-bool World::castRay(const Ray& ray, void** pC, size_t& count)
+bool World::castRay(const Ray& /*ray*/, void** /*pC*/, size_t& /*count*/)
 {
 	return false;
 }

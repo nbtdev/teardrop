@@ -28,22 +28,22 @@ THE SOFTWARE.
 */
 
 #include "stdafx.h"
-#include "Physics.h"
-#include "PhysicsMemory.h"
+#include "PhysicsSystem.h"
 #include "WorldHavok.h"
 #include "BodyHavok.h"
 #include "HeightfieldShapeHavok.h"
 #include "Capsule.h"
 #include "CharacterProxyHavok.h"
+#include "PhysicsMemory.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
 #include "Math/MathUtil.h"
 #include "Memory/Memory.h"
 #include <iostream>
 
+using namespace Teardrop::Integration::Havok::Physics;
 using namespace CoS;
 //---------------------------------------------------------------------------
-Allocator* Physics::m_pAllocator = 0; // USER MUST SET THIS
 static const int PHYSICS_STACK_SIZE = 4 * 1024 * 1024;
 static char s_stack[PHYSICS_STACK_SIZE];
 
@@ -54,23 +54,24 @@ static hkVisualDebugger* s_pDebugger = 0;
 static void errorFn(const char* pMessage, void* pObj)
 {
 	Environment::get().pLogger->logMessage(pMessage);
-}//---------------------------------------------------------------------------
+}
+//---------------------------------------------------------------------------
 static void errorFnStdOut(const char* pMessage, void* pObj)
 {
 	std::cout << pMessage << std::endl;
 }
 //---------------------------------------------------------------------------
-void Physics::setAllocator(Allocator* pAlloc)
+void System::setAllocator(Allocator* pAlloc)
 {
 	m_pAllocator = pAlloc;
 }
 //---------------------------------------------------------------------------
-Allocator* Physics::getAllocator()
+CoS::Allocator* System::getAllocator()
 {
 	return m_pAllocator;
 }
 //---------------------------------------------------------------------------
-bool Physics::initialize(bool bEnableLogging, bool bEnableVDB)
+void System::initialize()
 {
 	// static-init hackery
 	BodyHavok cBodyHavok;
@@ -79,12 +80,14 @@ bool Physics::initialize(bool bEnableLogging, bool bEnableVDB)
 	PhysicsMemory* s_physAlloc = new PhysicsMemory;
 	hkMemoryRouter* memRouter = hkMemoryInitUtil::initDefault(s_physAlloc);
 
-	void (*errFn)(const char*, void*) = bEnableLogging ? errorFn : errorFnStdOut;
-	if (HK_SUCCESS != hkBaseSystem::init(memRouter, errFn))
-		return false;
+	//void (*errFn)(const char*, void*) = bEnableLogging ? errorFn : errorFnStdOut;
+	//if (HK_SUCCESS != hkBaseSystem::init(memRouter, errFn))
+	if (HK_SUCCESS != hkBaseSystem::init(memRouter, errorFn))
+		return;
 
 	hkSerializeDeprecated::initDeprecated();
 
+#if 0 // VDB support will be in an external helper class
 	if (bEnableVDB)
 	{
 		// fire up the visual debug server
@@ -95,14 +98,13 @@ bool Physics::initialize(bool bEnableLogging, bool bEnableVDB)
 		contexts.pushBack(s_pPhysicsContext);
 		s_pDebugger = new hkVisualDebugger(contexts);
 		s_pDebugger->serve();
-
 	}
-
-	return true;
+#endif // 0
 }
 //---------------------------------------------------------------------------
-bool Physics::shutdown()
+void System::shutdown()
 {
+#if 0 // VDB support to go in external class
 	if (s_pDebugger)
 	{
 		s_pDebugger->shutdown();
@@ -111,14 +113,14 @@ bool Physics::shutdown()
 		s_pDebugger = 0;
 		s_pPhysicsContext = 0;
 	}
+#endif // 0
 
 	hkBaseSystem::quit();
 	hkMemoryInitUtil::quit();
-
-	return true;
 }
 //---------------------------------------------------------------------------
-void Physics::addWorldToDebugger(World* pWorld)
+#if 0 // VDB support to external class
+void System::addWorldToDebugger(World* pWorld)
 {
 	if (s_pDebugger)
 	{
@@ -141,8 +143,9 @@ void Physics::advanceDebugger(float deltaT)
 	if (s_pDebugger)
 		s_pDebugger->step(deltaT * 1000);
 }
+#endif // 0
 //---------------------------------------------------------------------------
-void Physics::destroyShape(Shape* pShape)
+void System::destroyShape(Shape* pShape)
 {
 	if (pShape)
 		pShape->release();
@@ -150,7 +153,7 @@ void Physics::destroyShape(Shape* pShape)
 	delete pShape;
 }
 //---------------------------------------------------------------------------
-Shape* Physics::createHeightfieldShape(
+Shape* System::createHeightfieldShape(
 	void* pData,
 	size_t resX,
 	size_t resZ,
@@ -180,7 +183,7 @@ Shape* Physics::createHeightfieldShape(
 	return pRtn;
 }
 //---------------------------------------------------------------------------
-World* Physics::createWorld(const AABB& aabb, float cdTolerance)
+World* System::createWorld(const AABB& aabb, float cdTolerance)
 {
 	// we need to hide this because Havok wants this info in the c'tor
 	hkpWorldCinfo ci;
@@ -198,12 +201,12 @@ World* Physics::createWorld(const AABB& aabb, float cdTolerance)
 	return pRtn;
 }
 //---------------------------------------------------------------------------
-Body* Physics::createBody()
+Body* System::createBody()
 {
 	return COS_NEW BodyHavok;
 }
 //---------------------------------------------------------------------------
-void Physics::destroyBody(Body* pBody)
+void System::destroyBody(Body* pBody)
 {
 	if (pBody)
 		pBody->release();
@@ -211,7 +214,7 @@ void Physics::destroyBody(Body* pBody)
 	delete pBody;
 }
 //---------------------------------------------------------------------------
-Shape* Physics::createCapsule(
+Shape* System::createCapsule(
 	const Vector4& p0,
 	const Vector4& p1,
 	float radius)
@@ -221,7 +224,7 @@ Shape* Physics::createCapsule(
 	return pCapsule;
 }
 //---------------------------------------------------------------------------
-void Physics::destroyCharacterProxy(CharacterProxy* pProxy)
+void System::destroyCharacterProxy(CharacterProxy* pProxy)
 {
 	if (pProxy)
 		pProxy->release();
@@ -229,7 +232,7 @@ void Physics::destroyCharacterProxy(CharacterProxy* pProxy)
 	delete pProxy;
 }
 //---------------------------------------------------------------------------
-CharacterProxy* Physics::createCharacterProxy(
+CharacterProxy* System::createCharacterProxy(
 	Shape* pShape,
 	const Vector4& worldPos,
 	float mass,

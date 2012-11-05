@@ -27,33 +27,45 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(COLLISIONFILTERHAVOK_INCLUDED)
-#define COLLISIONFILTERHAVOK_INCLUDED
+#include "stdafx.h"
+#include "Util/System.h"
+#include "Util/SystemManager.h"
+#include "Util/Environment.h"
+#include "PhysicsMemory.h"
+#include "Memory/Allocators.h"
+#include <new.h>
 
-#include "CollisionFilter.h"
-
-class hkpGroupFilter;
-
-namespace CoS
+using namespace CoS;
+//---------------------------------------------------------------------------
+PhysicsMemory::PhysicsMemory()
 {
-	class CollisionFilterHavok
-		: public CollisionFilter
-	{
-		hkpGroupFilter* m_pFilter;
-
-	public:
-		CollisionFilterHavok();
-		~CollisionFilterHavok();
-
-		void enableCollisionBetween(CollisionGroup group1, CollisionGroup group2);
-		void enableCollisionBetween(CollisionLayer layer1, CollisionLayer layer2);
-		void disableCollisionBetween(CollisionGroup group1, CollisionGroup group2);
-		void disableCollisionBetween(CollisionLayer layer1, CollisionLayer layer2);
-
-		hkpGroupFilter* getGroupFilter() const { return m_pFilter; }
-
-		COS_DECLARE_ALLOCATOR();
-	};
 }
+//---------------------------------------------------------------------------
+PhysicsMemory::~PhysicsMemory()
+{
+}
+//---------------------------------------------------------------------------
+void* PhysicsMemory::blockAlloc(int numBytes)
+{
+	Teardrop::System* pSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_PHYSICS);
 
-#endif // COLLISIONFILTERHAVOK_INCLUDED
+	return pSys->getAllocator()->AllocateAligned(numBytes, 16 COS_ALLOC_SITE);
+}
+//---------------------------------------------------------------------------
+void PhysicsMemory::blockFree(void* p, int numBytes)
+{
+	Teardrop::System* pSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_PHYSICS);
+
+	pSys->getAllocator()->DeallocateAligned(p);
+}
+//---------------------------------------------------------------------------
+void PhysicsMemory::getMemoryStatistics(MemoryStatistics& u)
+{
+}
+//---------------------------------------------------------------------------
+int PhysicsMemory::getAllocatedSize(const void* obj, int nbytes)
+{
+	return nbytes;
+}

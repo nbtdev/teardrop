@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define SHAPEHAVOK_INCLUDED
 
 #include "Memory/Allocators.h"
-#include "Shape.h"
+#include "Physics/Shape.h"
 
 class hkpShape;
 

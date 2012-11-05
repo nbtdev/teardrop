@@ -6,6 +6,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Animation", "Animation\buil
 		SolutionIsControlled = True
 	EndGlobalSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Physics\build\win32\VC9\Physics.vcproj", "{87508D8E-9747-4297-9FE0-B54DE5F2299B}"
+	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+	EndGlobalSection
+EndProject
 Global
 	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
 		SolutionIsControlled = True
@@ -19,6 +24,10 @@ Global
 		{2069D83B-5B3C-48A8-82AF-9B3CE47A1933}.Debug|Win32.Build.0 = Debug|Win32
 		{2069D83B-5B3C-48A8-82AF-9B3CE47A1933}.Release|Win32.ActiveCfg = Release|Win32
 		{2069D83B-5B3C-48A8-82AF-9B3CE47A1933}.Release|Win32.Build.0 = Release|Win32
+		{87508D8E-9747-4297-9FE0-B54DE5F2299B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{87508D8E-9747-4297-9FE0-B54DE5F2299B}.Debug|Win32.Build.0 = Debug|Win32
+		{87508D8E-9747-4297-9FE0-B54DE5F2299B}.Release|Win32.ActiveCfg = Release|Win32
+		{87508D8E-9747-4297-9FE0-B54DE5F2299B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

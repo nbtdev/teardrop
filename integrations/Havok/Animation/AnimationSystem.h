@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(HAVOK_ANIMATION_SYSTEM_H)
 #define HAVOK_ANIMATION_SYSTEM_H
 
-#include "Util/System.h"
+#include "Animation/Animation.h"
 
 namespace CoS
 {
@@ -21,23 +21,27 @@ namespace Teardrop
 	{
 		namespace Havok
 		{
-			class System : public Teardrop::System
+			namespace Animation
 			{
-				CoS::Allocator* m_pAllocator;
+				class System : public CoS::AnimationSystem
+				{
+					CoS::Allocator* m_pAllocator;
 
-			public:
-				System();
-				~System();
+				public:
+					System();
+					~System();
 
-				// Teardrop::System implementation
-				void initialize();
-				void shutdown();
-				void getTypes(Type* typeArray, int& typeCount);
-				void setAllocator(CoS::Allocator* pAllocator);
-				CoS::Allocator* getAllocator();
+					// Teardrop::System implementation
+					void initialize();
+					void shutdown();
+					void getTypes(Type* typeArray, int& typeCount);
+					void setAllocator(CoS::Allocator* pAllocator);
+					CoS::Allocator* getAllocator();
 
-				CoS::AnimationBlender* createBlender();
-			};
+					// CoS::AnimationSystem implementation
+					CoS::AnimationBlender* createBlender();
+				};
+			}
 		}
 	}
 }

@@ -31,7 +31,7 @@ THE SOFTWARE.
 #define CHARACTERPROXYHAVOK_INCLUDED
 
 #include "Memory/Allocators.h"
-#include "CharacterProxy.h"
+#include "Physics/CharacterProxy.h"
 
 class hkpCharacterProxy;
 class hkpShapePhantom;

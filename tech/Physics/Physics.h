@@ -27,8 +27,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#if !defined(PHYSICS_INCLUDED)
-#define PHYSICS_INCLUDED
+#if !defined(PHYSICS_SYSTEM_INCLUDED)
+#define PHYSICS_SYSTEM_INCLUDED
+
+#include "Util/System.h"
 
 namespace CoS
 {
@@ -37,33 +39,14 @@ namespace CoS
 	class Body;
 	class Vector4;
 	class CharacterProxy;
+	class Allocator;
 	class AABB;
 
-	class Physics
+	class PhysicsSystem : public Teardrop::System
 	{
-		static Allocator* m_pAllocator;
-
 	public:
-		//! override memory allocator
-		static Allocator* getAllocator();
-		static void setAllocator(Allocator* pAllocator);
-
-		//! initialize the physics/collision simulation engine
-		static bool initialize(bool bEnableLogging = true, bool bEnableVDB = true);
-
-		//! shutdown the physics/collision simulation engine
-		static bool shutdown();
-
-		//! add a physics world to the debugger
-		static void addWorldToDebugger(World* pWorld);
-
-		//! remove a world from the debugger
-		static void removeWorldFromDebugger(World* pWorld);
-
-		//! advance the debugger
-		static void advanceDebugger(float deltaT);
-
-		static void destroyShape(Shape*);
+		//! destroy any previously-created shape instance
+		virtual void destroyShape(Shape*) = 0;
 
 		/* 
 			"factory" methods -- these call initialize() on the
@@ -71,36 +54,37 @@ namespace CoS
 			and then delete on them (you own the object this method
 			returns, in other words)
 		*/
-		static Shape* createHeightfieldShape(
+		virtual Shape* createHeightfieldShape(
 			void* pData,
 			size_t resX,
 			size_t resZ,
 			size_t bytesPerSample,
-			const Vector4& scale);
+			const Vector4& scale) = 0;
 
 		//! aabb is the world aabb
 		//! cdTolerance is the distance between objects before they are considered colliding
-		static World* createWorld(const AABB& aabb, float cdTolerance=0.1f);
+		virtual World* createWorld(const AABB& aabb, float cdTolerance=0.1f) = 0;
 
 		//! create/delete a body
-		static Body* createBody();
-		static void destroyBody(Body*);
+		virtual Body* createBody() = 0;
+		virtual void destroyBody(Body*) = 0;
 
 		//! create a capsule, oriented along the axis provided
-		static Shape* createCapsule(
+		virtual Shape* createCapsule(
 			const Vector4& p0,
 			const Vector4& p1,
-			float radius);
+			float radius) = 0;
 
+		//! destroy a previously-created character proxy
+		virtual void destroyCharacterProxy(CharacterProxy*) = 0;
 		//! create a character proxy, using the supplied shape
-		static void destroyCharacterProxy(CharacterProxy*);
-		static CharacterProxy* createCharacterProxy(
+		virtual CharacterProxy* createCharacterProxy(
 			Shape* pShape,
 			const Vector4& worldPos,
 			float mass,
 			float maxSlopeInRadians,
-			size_t materialId);
+			size_t materialId) = 0;
 	};
 }
 
-#endif // PHYSICS_INCLUDED
+#endif // PHYSICS_SYSTEM_INCLUDED

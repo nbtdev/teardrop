@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include "CharacterProxyHavok.h"
 #include "ShapeHavok.h"
 #include "WorldHavok.h"
-#include "CollisionFilter.h"
+#include "Physics/CollisionFilter.h"
 #include "Math/Transform.h"
 #include "Math/Quaternion.h"
 #include "Math/Vector4.h"

@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "CharacterProxy.h"
 
 using namespace CoS;

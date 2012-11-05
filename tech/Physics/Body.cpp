@@ -27,11 +27,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "Physics.h"
 #include "Body.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
+#include "Util/SystemManager.h"
+#include "Util/System.h"
 #include "Memory/Allocators.h"
 #include "Stream/Stream.h"
 #include "Util/FourCC.h"
@@ -49,9 +50,8 @@ Body::Body()
 	m_dataLen = 0;
 }
 //---------------------------------------------------------------------------
-Body::Body(int i)
+Body::Body(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
 	m_pShape = 0;
 }
 //---------------------------------------------------------------------------
@@ -71,9 +71,9 @@ bool Body::initialize(
 //---------------------------------------------------------------------------
 bool Body::initialize(
 	Shape* pShape, 
-	MotionType motionType,
-	const Vector4& origin, 
-	const Vector4& inertia)
+	MotionType /*motionType*/,
+	const Vector4& /*origin*/, 
+	const Vector4& /*inertia*/)
 {
 	m_pShape = pShape;
 	return true;
@@ -89,7 +89,7 @@ bool Body::release()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool Body::update(float deltaT)
+bool Body::update(float /*deltaT*/)
 {
 	return true;
 }
@@ -105,50 +105,53 @@ Body* Body::clone()
 	return 0;
 }
 //---------------------------------------------------------------------------
-void Body::changeMotionType(MotionType type)
+void Body::changeMotionType(MotionType /*type*/)
 {
 }
 //---------------------------------------------------------------------------
-void Body::getLinearVelocity(Vector4& vel)
+void Body::getLinearVelocity(Vector4& /*vel*/)
 {
 }
 //---------------------------------------------------------------------------
-void Body::getAngularVelocity(Vector4& vel)
+void Body::getAngularVelocity(Vector4& /*vel*/)
 {
 }
 //---------------------------------------------------------------------------
-void Body::getWorldTransform(Transform& xform)
+void Body::getWorldTransform(Transform& /*xform*/)
 {
 }
 //---------------------------------------------------------------------------
-void Body::setLinearVelocity(const Vector4& vel)
+void Body::setLinearVelocity(const Vector4& /*vel*/)
 {
 }
 //---------------------------------------------------------------------------
-void Body::setAngularVelocity(const Vector4& vel)
+void Body::setAngularVelocity(const Vector4& /*vel*/)
 {
 }
 //---------------------------------------------------------------------------
-void Body::setWorldTransform(const Transform& xform)
+void Body::setWorldTransform(const Transform& /*xform*/)
 {
 }
 //---------------------------------------------------------------------------
 bool Body::load(Stream& strm)
 {
+	Teardrop::System* pSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_PHYSICS);
+
 	// load the whole stream and own the data once loaded
 	if (m_pData)
 	{
-		Physics::getAllocator()->Deallocate(m_pData);
+		pSys->getAllocator()->Deallocate(m_pData);
 	}
 
 	unsigned int len = (unsigned int)strm.length();
-	m_pData = Physics::getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
+	m_pData = pSys->getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
 	strm.read(m_pData, len);
 
 	return initialize(m_pData, len);
 }
 //---------------------------------------------------------------------------
-bool Body::serialize(ResourceSerializer& ser)
+bool Body::serialize(ResourceSerializer& /*ser*/)
 {
 	return false;
 }
@@ -158,11 +161,11 @@ void* Body::getUserData()
 	return 0;
 }
 //---------------------------------------------------------------------------
-void Body::setUserData(void* pData)
+void Body::setUserData(void* /*pData*/)
 {
 }
 //---------------------------------------------------------------------------
-bool Body::getDisplayGeometry(DisplayGeometries& geom)
+bool Body::getDisplayGeometry(DisplayGeometries& /*geom*/)
 {
 	// implemented by derived classes
 	return false;

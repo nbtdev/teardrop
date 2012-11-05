@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "Shape.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
@@ -52,7 +51,7 @@ bool Shape::release()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool Shape::update(float deltaT)
+bool Shape::update(float /*deltaT*/)
 {
 	return true;
 }

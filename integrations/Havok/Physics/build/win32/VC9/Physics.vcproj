@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Animation"
-	ProjectGUID="{2069D83B-5B3C-48A8-82AF-9B3CE47A1933}"
-	RootNamespace="Animation"
+	Name="Physics"
+	ProjectGUID="{87508D8E-9747-4297-9FE0-B54DE5F2299B}"
+	RootNamespace="Physics"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -26,8 +26,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying AnimationSystem.h to $(SolutionDir)Havok\include ..."
-				CommandLine="if not exist $(SolutionDir)Havok\include mkdir $(SolutionDir)Havok\include&#x0D;&#x0A;copy $(ProjectDir)..\..\..\AnimationSystem.h $(SolutionDir)Havok\include &gt; NUL&#x0D;&#x0A;"
+				Description="Copying PhysicsSystem.h to $(SolutionDir)Havok\include ..."
+				CommandLine="if not exist $(SolutionDir)Havok\include mkdir $(SolutionDir)Havok\include&#x0D;&#x0A;copy $(ProjectDir)..\..\..\PhysicsSystem.h $(SolutionDir)Havok\include &gt; NUL"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -44,6 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\..\.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -92,8 +93,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying AnimationSystem.h to $(SolutionDir)Havok\include ..."
-				CommandLine="if not exist $(SolutionDir)Havok\include mkdir $(SolutionDir)Havok\include&#x0D;&#x0A;copy $(ProjectDir)..\..\..\AnimationSystem.h $(SolutionDir)Havok\include &gt; NUL&#x0D;&#x0A;"
+				Description="Copying PhysicsSystem.h to $(SolutionDir)Havok\include ..."
+				CommandLine="if not exist $(SolutionDir)Havok\include mkdir $(SolutionDir)Havok\include&#x0D;&#x0A;copy $(ProjectDir)..\..\..\PhysicsSystem.h $(SolutionDir)Havok\include &gt; NUL"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -111,6 +112,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\..\.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -152,51 +154,67 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\AnimationBlenderHavok.cpp"
+			RelativePath="..\..\..\BodyHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\AnimationBlenderHavok.h"
+			RelativePath="..\..\..\BodyHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\AnimationHavok.cpp"
+			RelativePath="..\..\..\Capsule.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\AnimationHavok.h"
+			RelativePath="..\..\..\Capsule.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\AnimationSystem.cpp"
+			RelativePath="..\..\..\CharacterProxyHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\AnimationSystem.h"
+			RelativePath="..\..\..\CharacterProxyHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\BoneHavok.cpp"
+			RelativePath="..\..\..\CollisionFilterHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\BoneHavok.h"
+			RelativePath="..\..\..\CollisionFilterHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RigHavok.cpp"
+			RelativePath="..\..\..\HeightfieldShapeHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RigHavok.h"
+			RelativePath="..\..\..\HeightfieldShapeHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\SkeletonInstanceHavok.cpp"
+			RelativePath="..\..\..\Physics.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\SkeletonInstanceHavok.h"
+			RelativePath="..\..\..\PhysicsMemory.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\PhysicsMemory.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\PhysicsSystem.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ShapeHavok.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ShapeHavok.h"
 			>
 		</File>
 		<File
@@ -221,6 +239,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\WorldHavok.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\WorldHavok.h"
 			>
 		</File>
 	</Files>

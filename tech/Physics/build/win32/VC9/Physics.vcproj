@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\Havok_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
 			CharacterSet="2"
 			ManagedExtensions="0"
 			>
@@ -47,7 +47,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
@@ -86,7 +86,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\Havok_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
 			CharacterSet="2"
 			ManagedExtensions="0"
 			WholeProgramOptimization="1"
@@ -112,7 +112,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				BufferSecurityCheck="false"
 				OpenMP="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
@@ -150,86 +150,6 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Integration"
-			>
-			<Filter
-				Name="Havok"
-				>
-				<File
-					RelativePath="..\..\..\integration\Havok\BodyHavok.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\BodyHavok.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\CharacterProxyHavok.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\CharacterProxyHavok.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\CollisionFilterHavok.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\CollisionFilterHavok.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\HeightfieldShapeHavok.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\HeightfieldShapeHavok.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\Physics.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\PhysicsMemory.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\PhysicsMemory.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\ShapeHavok.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\ShapeHavok.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\WorldHavok.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\Havok\WorldHavok.h"
-					>
-				</File>
-				<Filter
-					Name="Shapes"
-					>
-					<File
-						RelativePath="..\..\..\integration\Havok\Capsule.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\..\integration\Havok\Capsule.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-		</Filter>
 		<File
 			RelativePath="..\..\..\Body.cpp"
 			>
@@ -264,30 +184,6 @@
 		</File>
 		<File
 			RelativePath="..\..\..\Shape.h"
-			>
-		</File>
-		<File
-			RelativePath="..\stdafx.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\stdafx.h"
 			>
 		</File>
 		<File

@@ -27,7 +27,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "CollisionFilter.h"
 
 using namespace CoS;

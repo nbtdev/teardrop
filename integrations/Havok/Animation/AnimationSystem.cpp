@@ -13,7 +13,7 @@ is prohibited.
 #include "AnimationHavok.h"
 #include "AnimationBlenderHavok.h"
 
-using namespace Teardrop::Integration::Havok;
+using namespace Teardrop::Integration::Havok::Animation;
 
 void System::setAllocator(CoS::Allocator* pAlloc)
 {
