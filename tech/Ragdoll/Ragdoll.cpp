@@ -27,11 +27,12 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "stdafx.h"
 #include "Ragdoll.h"
+#include "RagdollSystem.h"
 #include "Physics/Physics.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
+#include "Util/SystemManager.h"
 #include "Memory/Allocators.h"
 #include "Stream/Stream.h"
 #include "Util/FourCC.h"
@@ -48,9 +49,8 @@ Ragdoll::Ragdoll()
 	m_dataLen = 0;
 }
 //---------------------------------------------------------------------------
-Ragdoll::Ragdoll(int i)
+Ragdoll::Ragdoll(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
 }
 //---------------------------------------------------------------------------
 Ragdoll::~Ragdoll()
@@ -82,7 +82,7 @@ bool Ragdoll::release()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool Ragdoll::update(float deltaT, AnimationBlender* pAnimBlender)
+bool Ragdoll::update(float /*deltaT*/, AnimationBlender* /*pAnimBlender*/)
 {
 	return true;
 }
@@ -95,20 +95,23 @@ Ragdoll* Ragdoll::clone()
 //---------------------------------------------------------------------------
 bool Ragdoll::load(Stream& strm)
 {
+	Teardrop::System* pSys = 
+		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_RAGDOLL);
+
 	// load the whole stream and own the data once loaded
 	if (m_pData)
 	{
-		Physics::getAllocator()->Deallocate(m_pData);
+		pSys->getAllocator()->Deallocate(m_pData);
 	}
 
 	unsigned int len = (unsigned int)strm.length();
-	m_pData = Physics::getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
+	m_pData = pSys->getAllocator()->AllocateAligned(len, 16 COS_ALLOC_SITE);
 	strm.read(m_pData, len);
 
 	return initialize(m_pData, len);
 }
 //---------------------------------------------------------------------------
-bool Ragdoll::serialize(ResourceSerializer& ser)
+bool Ragdoll::serialize(ResourceSerializer& /*ser*/)
 {
 	return false;
 }

@@ -27,46 +27,21 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
-#include "RagdollController.h"
+#if !defined(RAGDOLL_SYSTEM_INCLUDED)
+#define RAGDOLL_SYSTEM_INCLUDED
 
-using namespace CoS;
-//---------------------------------------------------------------------------
-RagdollController::RagdollController()
+#include "Util/System.h"
+
+namespace CoS
 {
-	m_hRagdoll = INVALID_RESOURCE_HANDLE;
+	class RagdollController;
+
+	class RagdollSystem: public Teardrop::System
+	{
+	public:
+		virtual RagdollController* createController() = 0;
+		virtual void destroyController(RagdollController*) = 0;
+	};
 }
-//---------------------------------------------------------------------------
-RagdollController::~RagdollController()
-{
-}
-//---------------------------------------------------------------------------
-bool RagdollController::initialize(HResource hRagdoll)
-{
-	m_hRagdoll = hRagdoll;
-	return true;
-}
-//---------------------------------------------------------------------------
-bool RagdollController::destroy()
-{
-	return true;
-}
-//---------------------------------------------------------------------------
-bool RagdollController::drive(
-	  float timeStep, AnimationBlender* pBlender, const Transform& world)
-{
-	return false;
-}
-//---------------------------------------------------------------------------
-bool RagdollController::addToWorld(World* pWorld)
-{
-	return false;
-}
-//---------------------------------------------------------------------------
-bool RagdollController::removeFromWorld(World* pWorld)
-{
-	return false;
-}
-//---------------------------------------------------------------------------
-void RagdollController::setUserData(void*)
-{
-}
+
+#endif // RAGDOLL_SYSTEM_INCLUDED

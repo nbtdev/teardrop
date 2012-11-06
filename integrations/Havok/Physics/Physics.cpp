@@ -71,6 +71,18 @@ CoS::Allocator* System::getAllocator()
 	return m_pAllocator;
 }
 //---------------------------------------------------------------------------
+void System::getTypes(Teardrop::System::Type* typeArray, int& typeCount)
+{
+	if (typeCount < 1)
+	{
+		typeCount = 0;
+		return; // TODO: throw?
+	}
+
+	typeArray[0] = System::SYSTEM_PHYSICS;
+	typeCount = 1;
+}
+//---------------------------------------------------------------------------
 void System::initialize()
 {
 	// static-init hackery

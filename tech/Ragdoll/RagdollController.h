@@ -64,9 +64,6 @@ namespace CoS
 		// the debug view of the ragdoll's geometries
 		virtual bool getDisplayGeometry(DisplayGeometries& geom) = 0;
 
-		static RagdollController* createController();
-		static void destroyController(RagdollController*);
-
 		virtual void setUserData(void*);
 
 		COS_DECLARE_ALLOCATOR();

@@ -30,13 +30,14 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "RagdollControllerHavok.h"
 #include "RagdollHavok.h"
-#include "Physics/integration/Havok/WorldHavok.h"
 #include "Physics/CollisionFilter.h"
 #include "Animation/AnimationBlender.h"
-#include "Animation/integration/Havok/SkeletonInstanceHavok.h"
 #include "Resource/ResourceManager.h"
 #include "Math/Transform.h"
 #include "Util/Environment.h"
+
+#include "Physics/WorldHavok.h"
+#include "Animation/SkeletonInstanceHavok.h"
 
 using namespace CoS;
 //---------------------------------------------------------------------------
@@ -157,16 +158,6 @@ bool RagdollControllerHavok::drive(
 		);
 
 	return true;
-}
-//---------------------------------------------------------------------------
-RagdollController* RagdollController::createController()
-{
-	return COS_NEW RagdollControllerHavok;
-}
-//---------------------------------------------------------------------------
-void RagdollController::destroyController(RagdollController* pController)
-{
-	delete pController;
 }
 //---------------------------------------------------------------------------
 bool RagdollControllerHavok::addToWorld(World* pWorld)

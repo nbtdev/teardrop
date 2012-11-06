@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="Ragdoll"
-	ProjectGUID="{43966C59-ED53-4999-ACCE-B0C728FFABD3}"
+	ProjectGUID="{FBF41CE2-74AC-49F0-B18E-ECDDA9E5F657}"
 	RootNamespace="Ragdoll"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
@@ -18,14 +18,16 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)Havok\lib\vc9\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)\obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Havok_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="$(TEARDROP_SDK)\vsprops\VC9\Teardrop SDK (Debug).vsprops;..\..\..\..\vsprops\Havok_Debug.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying RagdollSystem.h to $(SolutionDir)Havok\include ..."
+				CommandLine="if not exist $(SolutionDir)Havok\include mkdir $(SolutionDir)Havok\include&#x0D;&#x0A;copy $(ProjectDir)..\..\..\System.h $(SolutionDir)Havok\include\RagdollSystem.h &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -42,12 +44,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../..;../../../.."
+				AdditionalIncludeDirectories="..\..\..;..;&quot;$(SolutionDir)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -81,15 +83,17 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)Havok\lib\vc9\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)\obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Havok_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="$(TEARDROP_SDK)\vsprops\VC9\Teardrop SDK (Release).vsprops;..\..\..\..\vsprops\Havok_Release.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying RagdollSystem.h to $(SolutionDir)Havok\include ..."
+				CommandLine="if not exist $(SolutionDir)Havok\include mkdir $(SolutionDir)Havok\include&#x0D;&#x0A;copy $(ProjectDir)..\..\..\System.h $(SolutionDir)Havok\include\RagdollSystem.h &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -107,11 +111,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../..;../../../.."
+				AdditionalIncludeDirectories="..\..\..;..;&quot;$(SolutionDir)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -148,23 +152,55 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\Ragdoll.cpp"
+			RelativePath="..\..\..\RagdollControllerHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Ragdoll.h"
+			RelativePath="..\..\..\RagdollControllerHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RagdollController.cpp"
+			RelativePath="..\..\..\RagdollHavok.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RagdollController.h"
+			RelativePath="..\..\..\RagdollHavok.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RagdollSystem.h"
+			RelativePath="..\stdafx.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath="..\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\System.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\System.h"
+			>
+		</File>
+		<File
+			RelativePath="..\targetver.h"
 			>
 		</File>
 	</Files>
