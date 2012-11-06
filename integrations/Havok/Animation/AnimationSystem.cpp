@@ -15,13 +15,13 @@ is prohibited.
 
 using namespace Teardrop::Integration::Havok::Animation;
 
-void System::setAllocator(CoS::Allocator* pAlloc)
+void System::setAllocator(Teardrop::Allocator* pAlloc)
 {
 	assert(pAlloc);
 	m_pAllocator = pAlloc;
 }
 
-CoS::Allocator* System::getAllocator()
+Teardrop::Allocator* System::getAllocator()
 {
 	return m_pAllocator;
 }
@@ -43,8 +43,8 @@ void System::initialize()
 	// currently there really isn't anything to init for the animation
 	// system, but as a hack to prevent stripping of the animation 
 	// implementation classes, I need to mention them by name here...
-	CoS::RigHavok cRig;
-	CoS::AnimationHavok cAnim;
+	Teardrop::RigHavok cRig;
+	Teardrop::AnimationHavok cAnim;
 	cRig.destroy();
 	cAnim.destroy();
 }
@@ -53,8 +53,8 @@ void System::shutdown()
 {
 }
 
-CoS::AnimationBlender* System::createBlender()
+Teardrop::AnimationBlender* System::createBlender()
 {
 	// make one of the Havok variety...
-	return COS_NEW CoS::AnimationBlenderHavok;
+	return TD_NEW Teardrop::AnimationBlenderHavok;
 }

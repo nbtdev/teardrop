@@ -10,20 +10,20 @@ is prohibited.
 #include "RagdollHavok.h"
 #include "RagdollControllerHavok.h"
 
-using namespace Teardrop::Integration::Havok::Ragdoll;
-using namespace CoS;
+using namespace Teardrop::Integration;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-void System::setAllocator(Allocator* pAlloc)
+void Havok::Ragdoll::System::setAllocator(Allocator* pAlloc)
 {
 	m_pAllocator = pAlloc;
 }
 //---------------------------------------------------------------------------
-CoS::Allocator* System::getAllocator()
+Allocator* Havok::Ragdoll::System::getAllocator()
 {
 	return m_pAllocator;
 }
 //---------------------------------------------------------------------------
-void System::getTypes(Teardrop::System::Type* typeArray, int& typeCount)
+void Havok::Ragdoll::System::getTypes(System::Type* typeArray, int& typeCount)
 {
 	if (typeCount < 1)
 	{
@@ -35,7 +35,7 @@ void System::getTypes(Teardrop::System::Type* typeArray, int& typeCount)
 	typeCount = 1;
 }
 //---------------------------------------------------------------------------
-void System::initialize()
+void Havok::Ragdoll::System::initialize()
 {
 	// static-init hackery
 	RagdollHavok cRagdollHavok;
@@ -44,16 +44,16 @@ void System::initialize()
 	cRagdollControllerHavok.destroy();
 }
 //---------------------------------------------------------------------------
-void System::shutdown()
+void Havok::Ragdoll::System::shutdown()
 {
 }
 //---------------------------------------------------------------------------
-CoS::RagdollController* System::createController()
+RagdollController* Havok::Ragdoll::System::createController()
 {
-	return COS_NEW RagdollControllerHavok;
+	return TD_NEW RagdollControllerHavok;
 }
 //---------------------------------------------------------------------------
-void System::destroyController(CoS::RagdollController* pController)
+void Havok::Ragdoll::System::destroyController(RagdollController* pController)
 {
 	delete pController;
 }

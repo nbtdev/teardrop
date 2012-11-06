@@ -10,7 +10,7 @@ is prohibited.
 
 #include "Ragdoll/RagdollSystem.h"
 
-namespace CoS
+namespace Teardrop
 {
 	class Allocator;
 }
@@ -23,9 +23,9 @@ namespace Teardrop
 		{
 			namespace Ragdoll
 			{
-				class System : public CoS::RagdollSystem
+				class System : public Teardrop::RagdollSystem
 				{
-					CoS::Allocator* m_pAllocator;
+					Teardrop::Allocator* m_pAllocator;
 
 				public:
 					System();
@@ -35,12 +35,12 @@ namespace Teardrop
 					void initialize();
 					void shutdown();
 					void getTypes(Type* typeArray, int& typeCount);
-					void setAllocator(CoS::Allocator* pAllocator);
-					CoS::Allocator* getAllocator();
+					void setAllocator(Teardrop::Allocator* pAllocator);
+					Teardrop::Allocator* getAllocator();
 
-					// CoS::RagdollSystem implementation
-					CoS::RagdollController* createController();
-					void destroyController(CoS::RagdollController*);
+					// Teardrop::RagdollSystem implementation
+					Teardrop::RagdollController* createController();
+					void destroyController(Teardrop::RagdollController*);
 				};
 			}
 		}

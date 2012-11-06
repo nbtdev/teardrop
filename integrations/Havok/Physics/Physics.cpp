@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "PhysicsSystem.h"
@@ -41,8 +19,8 @@ THE SOFTWARE.
 #include "Memory/Memory.h"
 #include <iostream>
 
-using namespace Teardrop::Integration::Havok::Physics;
-using namespace CoS;
+using namespace Teardrop;
+using namespace Teardrop::Integration::Havok;
 //---------------------------------------------------------------------------
 static const int PHYSICS_STACK_SIZE = 4 * 1024 * 1024;
 static char s_stack[PHYSICS_STACK_SIZE];
@@ -61,17 +39,17 @@ static void errorFnStdOut(const char* pMessage, void* pObj)
 	std::cout << pMessage << std::endl;
 }
 //---------------------------------------------------------------------------
-void System::setAllocator(Allocator* pAlloc)
+void Physics::System::setAllocator(Allocator* pAlloc)
 {
 	m_pAllocator = pAlloc;
 }
 //---------------------------------------------------------------------------
-CoS::Allocator* System::getAllocator()
+Allocator* Physics::System::getAllocator()
 {
 	return m_pAllocator;
 }
 //---------------------------------------------------------------------------
-void System::getTypes(Teardrop::System::Type* typeArray, int& typeCount)
+void Physics::System::getTypes(System::Type* typeArray, int& typeCount)
 {
 	if (typeCount < 1)
 	{
@@ -83,7 +61,7 @@ void System::getTypes(Teardrop::System::Type* typeArray, int& typeCount)
 	typeCount = 1;
 }
 //---------------------------------------------------------------------------
-void System::initialize()
+void Physics::System::initialize()
 {
 	// static-init hackery
 	BodyHavok cBodyHavok;
@@ -114,7 +92,7 @@ void System::initialize()
 #endif // 0
 }
 //---------------------------------------------------------------------------
-void System::shutdown()
+void Physics::System::shutdown()
 {
 #if 0 // VDB support to go in external class
 	if (s_pDebugger)
@@ -157,7 +135,7 @@ void Physics::advanceDebugger(float deltaT)
 }
 #endif // 0
 //---------------------------------------------------------------------------
-void System::destroyShape(Shape* pShape)
+void Physics::System::destroyShape(Shape* pShape)
 {
 	if (pShape)
 		pShape->release();
@@ -165,7 +143,7 @@ void System::destroyShape(Shape* pShape)
 	delete pShape;
 }
 //---------------------------------------------------------------------------
-Shape* System::createHeightfieldShape(
+Shape* Physics::System::createHeightfieldShape(
 	void* pData,
 	size_t resX,
 	size_t resZ,
@@ -183,7 +161,7 @@ Shape* System::createHeightfieldShape(
 		scale.z / (float)resZ,
 		0);
 	ci.m_scale = _scale;
-	HeightfieldShapeHavok* pRtn = COS_NEW HeightfieldShapeHavok(ci);
+	HeightfieldShapeHavok* pRtn = TD_NEW HeightfieldShapeHavok(ci);
 	pRtn->setUserData((hkUlong)pData);
 	if (!pRtn->initialize())
 	{
@@ -195,7 +173,7 @@ Shape* System::createHeightfieldShape(
 	return pRtn;
 }
 //---------------------------------------------------------------------------
-World* System::createWorld(const AABB& aabb, float cdTolerance)
+World* Physics::System::createWorld(const AABB& aabb, float cdTolerance)
 {
 	// we need to hide this because Havok wants this info in the c'tor
 	hkpWorldCinfo ci;
@@ -204,7 +182,7 @@ World* System::createWorld(const AABB& aabb, float cdTolerance)
 	float worldSize = MathUtil::max(ext2.x, MathUtil::max(ext2.y, ext2.z));
 	ci.setBroadPhaseWorldSize(worldSize);
 	ci.m_collisionTolerance = cdTolerance;
-	WorldHavok* pRtn = COS_NEW WorldHavok(ci);
+	WorldHavok* pRtn = TD_NEW WorldHavok(ci);
 	if (!pRtn->initialize(aabb))
 	{
 		return 0;
@@ -213,12 +191,12 @@ World* System::createWorld(const AABB& aabb, float cdTolerance)
 	return pRtn;
 }
 //---------------------------------------------------------------------------
-Body* System::createBody()
+Body* Physics::System::createBody()
 {
-	return COS_NEW BodyHavok;
+	return TD_NEW BodyHavok;
 }
 //---------------------------------------------------------------------------
-void System::destroyBody(Body* pBody)
+void Physics::System::destroyBody(Body* pBody)
 {
 	if (pBody)
 		pBody->release();
@@ -226,17 +204,17 @@ void System::destroyBody(Body* pBody)
 	delete pBody;
 }
 //---------------------------------------------------------------------------
-Shape* System::createCapsule(
+Shape* Physics::System::createCapsule(
 	const Vector4& p0,
 	const Vector4& p1,
 	float radius)
 {
-	Capsule* pCapsule = COS_NEW Capsule;
+	Capsule* pCapsule = TD_NEW Capsule;
 	pCapsule->initialize(p0, p1, radius);
 	return pCapsule;
 }
 //---------------------------------------------------------------------------
-void System::destroyCharacterProxy(CharacterProxy* pProxy)
+void Physics::System::destroyCharacterProxy(CharacterProxy* pProxy)
 {
 	if (pProxy)
 		pProxy->release();
@@ -244,14 +222,14 @@ void System::destroyCharacterProxy(CharacterProxy* pProxy)
 	delete pProxy;
 }
 //---------------------------------------------------------------------------
-CharacterProxy* System::createCharacterProxy(
+CharacterProxy* Physics::System::createCharacterProxy(
 	Shape* pShape,
 	const Vector4& worldPos,
 	float mass,
 	float maxSlopeInRadians,
 	size_t materialId)
 {
-	CharacterProxy* p = COS_NEW CharacterProxyHavok;
+	CharacterProxy* p = TD_NEW CharacterProxyHavok;
 	p->initialize(
 		pShape,
 		worldPos,

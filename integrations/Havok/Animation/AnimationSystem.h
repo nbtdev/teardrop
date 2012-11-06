@@ -10,7 +10,7 @@ is prohibited.
 
 #include "Animation/Animation.h"
 
-namespace CoS
+namespace Teardrop
 {
 	class AnimationBlender;
 }
@@ -23,9 +23,9 @@ namespace Teardrop
 		{
 			namespace Animation
 			{
-				class System : public CoS::AnimationSystem
+				class System : public Teardrop::AnimationSystem
 				{
-					CoS::Allocator* m_pAllocator;
+					Teardrop::Allocator* m_pAllocator;
 
 				public:
 					System();
@@ -35,11 +35,11 @@ namespace Teardrop
 					void initialize();
 					void shutdown();
 					void getTypes(Type* typeArray, int& typeCount);
-					void setAllocator(CoS::Allocator* pAllocator);
-					CoS::Allocator* getAllocator();
+					void setAllocator(Teardrop::Allocator* pAllocator);
+					Teardrop::Allocator* getAllocator();
 
-					// CoS::AnimationSystem implementation
-					CoS::AnimationBlender* createBlender();
+					// Teardrop::AnimationSystem implementation
+					Teardrop::AnimationBlender* createBlender();
 				};
 			}
 		}

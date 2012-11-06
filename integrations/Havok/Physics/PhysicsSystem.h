@@ -10,7 +10,7 @@ is prohibited.
 
 #include "Physics/Physics.h"
 
-namespace CoS
+namespace Teardrop
 {
 	class Allocator;
 }
@@ -23,45 +23,45 @@ namespace Teardrop
 		{
 			namespace Physics
 			{
-				class System : public CoS::PhysicsSystem
+				class System : public Teardrop::PhysicsSystem
 				{
-					CoS::Allocator* m_pAllocator;
+					Teardrop::Allocator* m_pAllocator;
 
 				public:
 					System();
 					~System();
 
 					// methods for managing the VDB
-					void addWorldToDebugger(CoS::World* pWorld);
-					void removeWorldFromDebugger(CoS::World* pWorld);
+					void addWorldToDebugger(Teardrop::World* pWorld);
+					void removeWorldFromDebugger(Teardrop::World* pWorld);
 					void advanceDebugger(float deltaT);
 
 					// Teardrop::System implementation
 					void initialize();
 					void shutdown();
 					void getTypes(Type* typeArray, int& typeCount);
-					void setAllocator(CoS::Allocator* pAllocator);
-					CoS::Allocator* getAllocator();
+					void setAllocator(Teardrop::Allocator* pAllocator);
+					Teardrop::Allocator* getAllocator();
 
-					// CoS::PhysicsSystem implementation
-					void destroyShape(CoS::Shape*);
-					CoS::Shape* createHeightfieldShape(
+					// Teardrop::PhysicsSystem implementation
+					void destroyShape(Teardrop::Shape*);
+					Teardrop::Shape* createHeightfieldShape(
 						void* pData,
 						size_t resX,
 						size_t resZ,
 						size_t bytesPerSample,
-						const CoS::Vector4& scale);
-					CoS::World* createWorld(const CoS::AABB& aabb, float cdTolerance=0.1f);
-					CoS::Body* createBody();
-					void destroyBody(CoS::Body*);
-					CoS::Shape* createCapsule(
-						const CoS::Vector4& p0,
-						const CoS::Vector4& p1,
+						const Teardrop::Vector4& scale);
+					Teardrop::World* createWorld(const Teardrop::AABB& aabb, float cdTolerance=0.1f);
+					Teardrop::Body* createBody();
+					void destroyBody(Teardrop::Body*);
+					Teardrop::Shape* createCapsule(
+						const Teardrop::Vector4& p0,
+						const Teardrop::Vector4& p1,
 						float radius);
-					void destroyCharacterProxy(CoS::CharacterProxy*);
-					CoS::CharacterProxy* createCharacterProxy(
-						CoS::Shape* pShape,
-						const CoS::Vector4& worldPos,
+					void destroyCharacterProxy(Teardrop::CharacterProxy*);
+					Teardrop::CharacterProxy* createCharacterProxy(
+						Teardrop::Shape* pShape,
+						const Teardrop::Vector4& worldPos,
 						float mass,
 						float maxSlopeInRadians,
 						size_t materialId);
