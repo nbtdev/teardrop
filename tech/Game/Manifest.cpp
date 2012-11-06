@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "Manifest.h"
 #include "Component.h"
@@ -38,7 +16,7 @@ THE SOFTWARE.
 #include "Util/StringUtil.h"
 #include "tinyxml.h"
 
-using namespace CoS;
+using namespace Teardrop;
 using namespace Reflection;
 //---------------------------------------------------------------------------
 Manifest::Manifest()
@@ -304,7 +282,7 @@ void Manifest::deserializeComponentHost(TiXmlElement* pElem, const String& asset
 
 	// otherwise, we're good to go
 	ComponentHostTable::iterator it = m_compHostDefs.insert(
-		ComponentHostTable::value_type(pClassDef, COS_NEW ComponentHost));
+		ComponentHostTable::value_type(pClassDef, TD_NEW ComponentHost));
 	it->second->m_pClassDef = pClassDef;
 
 	if (pCategory)
@@ -474,14 +452,14 @@ static void populateProperties(
 	}
 }
 //---------------------------------------------------------------------------
-CoS::ComponentHost* Manifest::createInstance(
+Teardrop::ComponentHost* Manifest::createInstance(
 	const Manifest::ComponentHost* pDef)
 {
 	if (!pDef)
 		return 0;
 
 	Reflection::Object* pObject = pDef->m_pClassDef->createInstance(0);
-	CoS::ComponentHost* pHost = dynamic_cast<CoS::ComponentHost*>(pObject);
+	Teardrop::ComponentHost* pHost = dynamic_cast<Teardrop::ComponentHost*>(pObject);
 
 	if (pObject && pHost)
 	{
@@ -494,7 +472,7 @@ CoS::ComponentHost* Manifest::createInstance(
 		// then do the components
 		for (size_t i=0; i<pDef->m_components.size(); ++i)
 		{
-			CoS::Component* pComp = static_cast<CoS::Component*>(
+			Teardrop::Component* pComp = static_cast<Teardrop::Component*>(
 				pDef->m_components[i].m_pClassDef->createInstance(0));
 
 			if(!pComp->getServerComponent() && Environment::get().isServer)

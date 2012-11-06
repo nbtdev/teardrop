@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Options.cs" />
     <Compile Include="OptionsControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="OptionsControl.Designer.cs">
       <DependentUpon>OptionsControl.cs</DependentUpon>

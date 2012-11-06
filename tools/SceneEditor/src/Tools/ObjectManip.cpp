@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "ObjectManip.h"
@@ -49,12 +27,12 @@ THE SOFTWARE.
 #include "Memory/Memory.h"
 #include <list>
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
 struct ObjectManip::_Listeners 
 	: public std::list<ObjectManip::Listener*> 
 {
-	COS_DECLARE_ALLOCATOR();
+	TD_DECLARE_ALLOCATOR();
 };
 //---------------------------------------------------------------------------
 static ::InputFilter s_inputFilter;
@@ -73,7 +51,7 @@ ObjectManip::ObjectManip()
 	m_transScaleStart = Vector4::NEGATIVE_INFINITY;
 	m_transOriginal = Vector4::ZERO;
 
-	m_pListeners = COS_NEW _Listeners;
+	m_pListeners = TD_NEW _Listeners;
 }
 //---------------------------------------------------------------------------
 ObjectManip::~ObjectManip()
@@ -90,7 +68,7 @@ struct Vert
 bool ObjectManip::initialize()
 {
 	// create gizmo
-	m_pGizmo = COS_NEW TransformGizmo();
+	m_pGizmo = TD_NEW TransformGizmo();
 	m_pGizmo->initialize();
 	//m_pGizmo->show();
 	s_inputFilter.disable();
@@ -185,7 +163,7 @@ void ObjectManip::removeListener(Listener* pN)
 	}
 }
 //---------------------------------------------------------------------------
-CoS::InputFilter& ObjectManip::getInputFilter()
+Teardrop::InputFilter& ObjectManip::getInputFilter()
 {
 	return s_inputFilter;
 }

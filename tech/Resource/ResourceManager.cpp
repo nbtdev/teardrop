@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "ResourceManager.h"
 #include "ResourceFactory.h"
@@ -43,7 +21,7 @@ THE SOFTWARE.
 #include <assert.h>
 #include <windows.h>
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
 const int RESOURCE_ARRAY_SIZE = 32 * 1024;
 //---------------------------------------------------------------------------
@@ -75,7 +53,7 @@ ResourceManager::~ResourceManager()
 bool ResourceManager::initialize()
 {
 	// create enough resource containers for our needs
-	m_pResources = COS_NEW ResourceEntry[RESOURCE_ARRAY_SIZE];
+	m_pResources = TD_NEW ResourceEntry[RESOURCE_ARRAY_SIZE];
 
 	// fill in the freelist with the addresses of these entries
 	for (size_t i=0; i<RESOURCE_ARRAY_SIZE; ++i)
@@ -250,14 +228,14 @@ Resource* ResourceManager::deref(HResource handle)
 }
 //---------------------------------------------------------------------------
 void ResourceManager::registerFactory(
-	ResourceFactory* pFactory, const CoS::FourCC& fourCC)
+	ResourceFactory* pFactory, const Teardrop::FourCC& fourCC)
 {
 	// replace any existing entry for this type
 	m_factories[fourCC] = pFactory;
 }
 //---------------------------------------------------------------------------
 void ResourceManager::unregisterFactory(
-	ResourceFactory* /*pFactory*/, const CoS::FourCC& fourCC)
+	ResourceFactory* /*pFactory*/, const Teardrop::FourCC& fourCC)
 {
 	FactoryMap::iterator it = m_factories.find(fourCC);
 	if (it != m_factories.end())
@@ -279,7 +257,7 @@ public:
 
     AsyncLoad(const FourCC& fcc) : fourCC(fcc)  {}
 
-	COS_DECLARE_ALLOCATOR();
+	TD_DECLARE_ALLOCATOR();
 
 private:
 	AsyncLoad& operator=(const AsyncLoad& other);
@@ -449,7 +427,7 @@ void ResourceManager::initiateLoad(
 		pCB->resourceLoadStarted(name);
 	}
 
-	AsyncLoad* pLoad = COS_NEW AsyncLoad(fourCC);
+	AsyncLoad* pLoad = TD_NEW AsyncLoad(fourCC);
 	if (!pLoad->fs.open(name, READ|BINARY))
 	{
 		sprintf_s(buf, 1024, "Could not find resource %s...", name);
@@ -484,7 +462,7 @@ void ResourceManager::initiateLoad(
 
 	ent->isDynamic = false;
 	ent->pCreator = 0;
-	ent->pData = ent->pAlloc->AllocateAligned(pLoad->fs.length(), 16 COS_ALLOC_SITE);
+	ent->pData = ent->pAlloc->AllocateAligned(pLoad->fs.length(), 16 TD_ALLOC_SITE);
 	ent->pResource = 0;
 
 	if (!pLoad->fs.read(ent->pData, pLoad->fs.length(), true))

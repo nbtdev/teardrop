@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "MessageBus.h"
@@ -38,7 +16,7 @@ THE SOFTWARE.
 #include "Properties/BoolProperty.h"
 #include "Properties/StringProperty.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
 // TODO: this is all a temp hack for now, so that we can get notification about
 // property changes, in the absence of the message system in-game
@@ -116,7 +94,7 @@ void PropertyGridControl::selectedObjectChanged(
 	setSelectedObject(pObj);
 }
 //---------------------------------------------------------------------------
-void PropertyGridControl::setSelectedObject(CoS::Reflection::Object* pObj)
+void PropertyGridControl::setSelectedObject(Teardrop::Reflection::Object* pObj)
 {
 	if (m_pSelected == pObj)
 		return;
@@ -125,7 +103,7 @@ void PropertyGridControl::setSelectedObject(CoS::Reflection::Object* pObj)
 	resetProperties();
 }
 //---------------------------------------------------------------------------
-CoS::Reflection::Object* PropertyGridControl::getSelectedObject()
+Teardrop::Reflection::Object* PropertyGridControl::getSelectedObject()
 {
 	return m_pSelected;
 }
@@ -229,7 +207,7 @@ void PropertyGridControl::resetProperties()
 
 	if (m_pSelected)
 	{
-		CoS::Reflection::ClassDef* pClassDef = m_pSelected->getDerivedClassDef();
+		Teardrop::Reflection::ClassDef* pClassDef = m_pSelected->getDerivedClassDef();
 
 		if (m_pSelected->getDerivedClassDef()->isA(ZoneObject::getClassDef()))
 		{
@@ -242,7 +220,7 @@ void PropertyGridControl::resetProperties()
 			{
 				Component* pComp = it->second;
 				m_pPage->Append(new wxPropertyCategory(pComp->getDerivedClassDef()->getName()));
-				const CoS::Reflection::PropertyDef* pProp = 
+				const Teardrop::Reflection::PropertyDef* pProp = 
 					pComp->getDerivedClassDef()->getProps();
 
 				// append component properties
@@ -260,7 +238,7 @@ void PropertyGridControl::resetProperties()
 			m_pPage->Append(new wxPropertyCategory(pClassDef->getName()));
 
 			// then figure out what properties we want to display
-			const CoS::Reflection::PropertyDef* pProp = pClassDef->getProps();
+			const Teardrop::Reflection::PropertyDef* pProp = pClassDef->getProps();
 
 			while (pProp)
 			{
@@ -271,7 +249,7 @@ void PropertyGridControl::resetProperties()
 			const char* baseName = pClassDef->getBaseClassName();
 			if (baseName)
 			{
-				pClassDef = CoS::Reflection::ClassDef::findClassDef(baseName);
+				pClassDef = Teardrop::Reflection::ClassDef::findClassDef(baseName);
 			}
 		}
 	}

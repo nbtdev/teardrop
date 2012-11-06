@@ -1,49 +1,27 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "Matrix44.h"
 #include "Vector4.h"
 #include "MathUtil.h"
 #include <assert.h>
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-const CoS::Matrix44& CoS::Matrix44::IDENTITY = 
-	CoS::Matrix44(
+const Teardrop::Matrix44& Teardrop::Matrix44::IDENTITY = 
+	Teardrop::Matrix44(
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1
 	);
 //---------------------------------------------------------------------------
-const CoS::Matrix44& CoS::Matrix44::ZERO = 
-	CoS::Matrix44(
+const Teardrop::Matrix44& Teardrop::Matrix44::ZERO = 
+	Teardrop::Matrix44(
 		0, 0, 0, 0,
 		0, 0, 0, 0,
 		0, 0, 0, 0,
@@ -77,7 +55,7 @@ Matrix44& Matrix44::operator=(const Matrix44& other)
 	return *this;
 }
 //---------------------------------------------------------------------------
-void CoS::mul(Matrix44& out, const Matrix44& a, const Matrix44& b)
+void Teardrop::mul(Matrix44& out, const Matrix44& a, const Matrix44& b)
 {
 	Matrix44 tmp;
 	for (int i=0; i<4; ++i)
@@ -95,7 +73,7 @@ void CoS::mul(Matrix44& out, const Matrix44& a, const Matrix44& b)
 	out = tmp;
 }
 //---------------------------------------------------------------------------
-void CoS::mul3(Matrix44& out, const Matrix44& a, const Matrix44& b)
+void Teardrop::mul3(Matrix44& out, const Matrix44& a, const Matrix44& b)
 {
 	for (int i=0; i<3; ++i)
 	{
@@ -421,7 +399,7 @@ void Matrix44::setRow(size_t row, const Vector4& v)
 	}
 }
 //---------------------------------------------------------------------------
-Matrix44 CoS::operator-(const Matrix44& mat)
+Matrix44 Teardrop::operator-(const Matrix44& mat)
 {
 	Matrix44 rtn;
 	
@@ -436,7 +414,7 @@ Matrix44 CoS::operator-(const Matrix44& mat)
 	return rtn;
 }
 //---------------------------------------------------------------------------
-void CoS::mul(/*out*/Vector4& out, /*in*/const Matrix44& l, /*in*/const Vector4& r)
+void Teardrop::mul(/*out*/Vector4& out, /*in*/const Matrix44& l, /*in*/const Vector4& r)
 {
 	out.x = l.m[0][0]*r.x + l.m[0][1]*r.y + l.m[0][2]*r.z + l.m[0][3]*r.w;
 	out.y = l.m[1][0]*r.x + l.m[1][1]*r.y + l.m[1][2]*r.z + l.m[1][3]*r.w;
@@ -444,7 +422,7 @@ void CoS::mul(/*out*/Vector4& out, /*in*/const Matrix44& l, /*in*/const Vector4&
 	out.w = l.m[3][0]*r.x + l.m[3][1]*r.y + l.m[3][2]*r.z + l.m[3][3]*r.w;
 }
 //---------------------------------------------------------------------------
-void CoS::mul3(/*out*/Vector4& out, /*in*/const Matrix44& l, /*in*/const Vector4& r)
+void Teardrop::mul3(/*out*/Vector4& out, /*in*/const Matrix44& l, /*in*/const Vector4& r)
 {
 	out.x = l.m[0][0]*r.x + l.m[0][1]*r.y + l.m[0][2]*r.z;
 	out.y = l.m[1][0]*r.x + l.m[1][1]*r.y + l.m[1][2]*r.z;
@@ -452,14 +430,14 @@ void CoS::mul3(/*out*/Vector4& out, /*in*/const Matrix44& l, /*in*/const Vector4
 	out.w = 0;
 }
 //---------------------------------------------------------------------------
-Matrix44 CoS::operator*(const Matrix44& l, /*in*/const Matrix44& r)
+Matrix44 Teardrop::operator*(const Matrix44& l, /*in*/const Matrix44& r)
 {
 	Matrix44 out;
 	mul(out, l, r);
 	return out;
 }
 //---------------------------------------------------------------------------
-void CoS::add(/*out*/Matrix44& out, /*in*/const Matrix44& l, /*in*/const Matrix44& r)
+void Teardrop::add(/*out*/Matrix44& out, /*in*/const Matrix44& l, /*in*/const Matrix44& r)
 {
 	for(size_t i=0; i<4; ++i)
 	{
@@ -470,14 +448,14 @@ void CoS::add(/*out*/Matrix44& out, /*in*/const Matrix44& l, /*in*/const Matrix4
 	}
 }
 //---------------------------------------------------------------------------
-Matrix44 CoS::operator+(/*in*/const Matrix44& l, /*in*/const Matrix44& r)
+Matrix44 Teardrop::operator+(/*in*/const Matrix44& l, /*in*/const Matrix44& r)
 {
 	Matrix44 out;
 	add(out, l, r);
 	return out;
 }
 //---------------------------------------------------------------------------
-void CoS::diff(/*out*/Matrix44& out, /*in*/const Matrix44& l, /*in*/const Matrix44& r)
+void Teardrop::diff(/*out*/Matrix44& out, /*in*/const Matrix44& l, /*in*/const Matrix44& r)
 {
 	for(size_t i=0; i<4; ++i)
 	{
@@ -488,7 +466,7 @@ void CoS::diff(/*out*/Matrix44& out, /*in*/const Matrix44& l, /*in*/const Matrix
 	}
 }
 //---------------------------------------------------------------------------
-Matrix44 CoS::operator-(/*in*/const Matrix44& l, /*in*/const Matrix44& r)
+Matrix44 Teardrop::operator-(/*in*/const Matrix44& l, /*in*/const Matrix44& r)
 {
 	Matrix44 out;
 	diff(out, l, r);

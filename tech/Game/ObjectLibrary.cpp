@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "ObjectLibrary.h"
 #include "Component.h"
@@ -47,7 +25,7 @@ THE SOFTWARE.
 
 #include "TerrainZone.h"
 
-using namespace CoS;
+using namespace Teardrop;
 using namespace Reflection;
 //---------------------------------------------------------------------------
 ObjectLibrary* ObjectLibrary::instance()
@@ -132,15 +110,15 @@ bool ObjectLibrary::initialize()
 	}
 
 	// hacky for static-init registration of these types
-	CoS::MACRO _macro;
-	CoS::Prop _prop;
-	CoS::SpawnPoint _spawnPoint;
-	CoS::PointLight _pointLight;
-	CoS::SpotLight _spotLight;
-	CoS::DirectionalLight _dirLight;
-	CoS::TerrainZone _tzone;
-	CoS::ParticleSystem _pSys;
-	CoS::BeamWeapon _pBeamWeapon;
+	Teardrop::MACRO _macro;
+	Teardrop::Prop _prop;
+	Teardrop::SpawnPoint _spawnPoint;
+	Teardrop::PointLight _pointLight;
+	Teardrop::SpotLight _spotLight;
+	Teardrop::DirectionalLight _dirLight;
+	Teardrop::TerrainZone _tzone;
+	Teardrop::ParticleSystem _pSys;
+	Teardrop::BeamWeapon _pBeamWeapon;
 
 	return true;
 }
@@ -323,14 +301,14 @@ ZoneObject* ObjectLibrary::create(
 	const char* path)
 {
 	// and if not, then create a new one (and cache it to be cloned later)
-	char* buf = (char*)COS_ALLOCATE(DEFAULT, strm.length() + 1);
+	char* buf = (char*)TD_ALLOCATE(DEFAULT, strm.length() + 1);
 	strm.read(buf, strm.length());
 	buf[strm.length()] = 0;
 
 	TiXmlDocument doc;
 	doc.Parse(buf);
 
-	COS_DEALLOCATE(DEFAULT, buf);
+	TD_DEALLOCATE(DEFAULT, buf);
 
 	if (doc.Error())
 		return 0;
@@ -352,7 +330,7 @@ ZoneObject* ObjectLibrary::create(
 	if (!pClassDef->isA(ZoneObject::getClassDef()))
 		return 0;
 
-	// this won't fail at this point -- createInstance() basically calls COS_NEW
+	// this won't fail at this point -- createInstance() basically calls TD_NEW
 	Reflection::Object* pObject = pClassDef->createInstance(0);
 
 	// read in the object properties

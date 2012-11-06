@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #if !defined(REFLECTION_INCLUDED)
 #define REFLECTION_INCLUDED
@@ -35,7 +13,7 @@ THE SOFTWARE.
 #include "Util/_String.h"
 #include "FastDelegate.h"
 
-namespace CoS
+namespace Teardrop
 {
 	namespace Reflection
 	{
@@ -104,7 +82,7 @@ namespace CoS
 			
 			static Object* clone(const Object& other);
 
-			COS_DECLARE_ALLOCATOR();
+			TD_DECLARE_ALLOCATOR();
 
 			/*
 				This sort of hacky way to do this, is here so that we do not have to couple 
@@ -149,11 +127,11 @@ namespace CoS
 	These macros simplify the declaration of reflection properties, as well
 	as declare the class members
 */
-#define COS_CLASS(c, b) \
+#define TD_CLASS(c, b) \
 	DECLARE_SERIALIZABLE(c) \
 	typedef c tClass; \
 	typedef b tBaseClass; \
-	static CoS::Reflection::Object* createInstance(unsigned int instanceId) \
+	static Teardrop::Reflection::Object* createInstance(unsigned int instanceId) \
 	{ \
 		return getClassDef()->createInstance(instanceId); \
 	} \
@@ -166,20 +144,20 @@ namespace CoS
 		} \
 	} s_classDefInit; \
 	public: \
-	virtual CoS::Reflection::ClassDef* getDerivedClassDef() const \
+	virtual Teardrop::Reflection::ClassDef* getDerivedClassDef() const \
 	{ \
 		return getClassDef(); \
 	} \
-	static CoS::Reflection::ClassDef* getClassDef()\
+	static Teardrop::Reflection::ClassDef* getClassDef()\
 	{ \
-		/*static CoS::Reflection::ConcreteClassDef<c> s_classDef(#c, ##b::getClassDef());*/ \
-		static CoS::Reflection::ConcreteClassDef<c> s_classDef(#c, #b); \
+		/*static Teardrop::Reflection::ConcreteClassDef<c> s_classDef(#c, ##b::getClassDef());*/ \
+		static Teardrop::Reflection::ConcreteClassDef<c> s_classDef(#c, #b); \
 		return &s_classDef; \
 	} \
 	static unsigned __int64 Class; \
 	virtual unsigned __int64 getClassId(); \
 
-#define COS_CLASS_CREATABLE() \
+#define TD_CLASS_CREATABLE() \
 	private: \
 		class CreatableFlag \
 		{ \
@@ -188,9 +166,9 @@ namespace CoS
 		CreatableFlag __CreatableFlag; \
 	public: \
 
-#define COS_CLASS_IMPL(c) \
+#define TD_CLASS_IMPL(c) \
 	c::ClassDefInitializer c::s_classDefInit; \
-	namespace CoS { unsigned __int64 hashString64(const char* strVal); } \
+	namespace Teardrop { unsigned __int64 hashString64(const char* strVal); } \
 	unsigned __int64 c::Class = hashString64(#c); \
 	unsigned __int64 c::getClassId() \
 	{ \
@@ -200,7 +178,7 @@ namespace CoS
 	DEFINE_SERIALIZABLE(c) \
 
 
-#define COS_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
+#define TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
 	protected: \
 		static Reflection::Property<propType>* get##propName##Def() \
 		{ \
@@ -218,7 +196,7 @@ namespace CoS
 				getClassDef()->addProperty(sProp); \
 			} \
 		}; \
-		struct t##propName##Type : public CoS::Reflection::PropertyDefImpl< propType > \
+		struct t##propName##Type : public Teardrop::Reflection::PropertyDefImpl< propType > \
 		{ \
 			t##propName##Type() \
 			{ \
@@ -228,7 +206,7 @@ namespace CoS
 		}; \
 		t##propName##Type ___##propName; \
 
-#define COS_COMPLEX_TYPE_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
+#define TD_COMPLEX_TYPE_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
 	protected: \
 		static Reflection::Property<propType>* get##propName##Def() \
 		{ \
@@ -256,7 +234,7 @@ namespace CoS
 		}; \
 		t##propName##Type ___##propName; \
 
-#define COS_VECTOR_PROPERTY_BASE(propName, propDesc, baseType, propType, propDef, propEditor) \
+#define TD_VECTOR_PROPERTY_BASE(propName, propDesc, baseType, propType, propDef, propEditor) \
 	protected: \
 		struct t##propName##Initializer \
 		{ \
@@ -283,43 +261,43 @@ namespace CoS
 		}; \
 		t##propName##Type ___##propName; \
 
-#define COS_PROPERTY(propName, propDesc, propType, propDef, propEditor) \
-	COS_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
+#define TD_PROPERTY(propName, propDesc, propType, propDef, propEditor) \
+	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
 	public: \
 		propType& get##propName() { return ___##propName.get(); } \
 		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
 
-#define COS_COMPLEX_PROPERTY(propName, propDesc, propType, propDef, propEditor) \
-	COS_COMPLEX_TYPE_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
+#define TD_COMPLEX_PROPERTY(propName, propDesc, propType, propDef, propEditor) \
+	TD_COMPLEX_TYPE_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
 	public: \
 		propType& get##propName() { return ___##propName.get(); } \
 		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
 
-#define COS_POINTER_PROPERTY(propName, propDesc, propType) \
-	COS_SCALAR_PROPERTY_BASE(propName, propDesc, PointerPropertyType<propType>, 0, ObjectBrowser) \
+#define TD_POINTER_PROPERTY(propName, propDesc, propType) \
+	TD_SCALAR_PROPERTY_BASE(propName, propDesc, PointerPropertyType<propType>, 0, ObjectBrowser) \
 	public: \
 		propType* get##propName() { return ___##propName.get(); } \
 		void set##propName(propType* __val) { ___##propName.set(__val); }
 
-//#define COS_COLLECTION(propName, propDesc, containedType) \
-//	COS_VECTOR_PROPERTY_BASE(propName, propDesc, CollectionPropertyType<containedType>, , 0) \
+//#define TD_COLLECTION(propName, propDesc, containedType) \
+//	TD_VECTOR_PROPERTY_BASE(propName, propDesc, CollectionPropertyType<containedType>, , 0) \
 
-#define COS_COLLECTION(propName, propDesc, containedType) \
-	COS_VECTOR_PROPERTY_BASE(propName, propDesc, Reflection::CollectionPropertyType, containedType, , 0) \
+#define TD_COLLECTION(propName, propDesc, containedType) \
+	TD_VECTOR_PROPERTY_BASE(propName, propDesc, Reflection::CollectionPropertyType, containedType, , 0) \
 	public: \
 		t##propName##Type& get##propName() { return ___##propName; } \
 		bool get##propName##At(int index, /*out*/##containedType& lval) { return ___##propName.getAt(index, lval); } \
 		void set##propName##At(int index, /*in*/##containedType& rval) { ___##propName.setAt(index, rval); } \
 
-#define COS_POINTER_COLLECTION(propName, propDesc, pointerType) \
-	COS_VECTOR_PROPERTY_BASE(propName, propDesc, Reflection::PointerCollectionPropertyType, pointerType, , ObjectCollectionBrowser) \
+#define TD_POINTER_COLLECTION(propName, propDesc, pointerType) \
+	TD_VECTOR_PROPERTY_BASE(propName, propDesc, Reflection::PointerCollectionPropertyType, pointerType, , ObjectCollectionBrowser) \
 	public: \
 		t##propName##Type& get##propName() { return ___##propName; } \
 
 #include "Reflection/ClassDef.h"
 #include "Reflection/PropertyDef.h"
 //#include "Reflection/Enum.h"
-namespace CoS
+namespace Teardrop
 {
 	typedef int Int32;
 	typedef __int64 Int64;

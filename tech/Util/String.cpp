@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "_String.h"
@@ -33,7 +11,7 @@ THE SOFTWARE.
 #include "Stream/Stream.h"
 #include "Memory/Memory.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
 const String& String::EMPTY = String();
 //---------------------------------------------------------------------------
@@ -106,7 +84,7 @@ String& String::operator=(const String& other)
 			size_t newLen = otherLen + 1;
 			// round up to next 4 byte length, but only if needed
 			newLen = ((newLen + 3) & ~0x03);
-			m_pBuf = s_pAllocator->AllocateAligned(newLen, 8 COS_ALLOC_SITE);
+			m_pBuf = s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
 		}
 	}
 
@@ -136,7 +114,7 @@ String& String::operator=(const char* other)
 			size_t newLen = otherLen + 1;
 			// round up to next 4 byte length, but only if needed
 			newLen = ((newLen + 3) & ~0x03);
-			m_pBuf = s_pAllocator->AllocateAligned(newLen, 8 COS_ALLOC_SITE);
+			m_pBuf = s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
 		}
 	}
 
@@ -298,7 +276,7 @@ size_t String::_resize(size_t otherLen)
 		{
 			// round up to next 4 byte length, but only if needed
 			newLen = ((newLen + 3) & ~0x03);
-			char* newBuf = (char*)s_pAllocator->AllocateAligned(newLen, 8 COS_ALLOC_SITE);
+			char* newBuf = (char*)s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
 			strcpy_s(newBuf, newLen, m_pBuf);
 			*m_pBuf = 0;
 

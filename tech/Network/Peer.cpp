@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 #include "stdafx.h"
 #include "Peer.h"
 #include "RemotePeer.h"
@@ -46,13 +24,13 @@ public:
 	void WriteLog(const char* msg)
 	{
 #if defined(_DEBUG)
-		CoS::Environment::get().pLogger->logMessage(msg);
+		Teardrop::Environment::get().pLogger->logMessage(msg);
 #endif
 	}
 };
 MyLogger s_logger;
 
-using namespace CoS;
+using namespace Teardrop;
 using namespace Net;
 using namespace RakNet;
 //---------------------------------------------------------------------------
@@ -70,13 +48,13 @@ MessagePtr Peer::getNextMessage()
 	MessagePtr pMsg;
 	Packet* pPacket = m_pPeer->Receive();
 
-	// we only want to deal with CoS messages here -- system/API messages
+	// we only want to deal with TD messages here -- system/API messages
 	// should be dealt with in a different path
 	if (pPacket)
 	{
 #if defined(_DEBUG)
 		char buf[64];
-		sprintf_s(buf, 64, "[COS] Incoming packet: id=%d, len=%d", pPacket->data[0], pPacket->length);
+		sprintf_s(buf, 64, "[TD] Incoming packet: id=%d, len=%d", pPacket->data[0], pPacket->length);
 		Environment::get().pLogger->logMessage(buf);
 #endif
 		BitStream bs(pPacket->data, pPacket->length, false);
@@ -94,18 +72,18 @@ MessagePtr Peer::getNextMessage()
 			break;
 
 		case ID_PONG:
-			pMsg = COS_NEW PingResponse(*pPacket);
+			pMsg = TD_NEW PingResponse(*pPacket);
 			pMsg->deserialize(bs);
 			break;
 
 		case ID_CONNECTION_REQUEST_ACCEPTED:
-			pMsg = COS_NEW ConnectionRequestAccepted(*pPacket);
+			pMsg = TD_NEW ConnectionRequestAccepted(*pPacket);
 			pMsg->deserialize(bs);
 			break;
 
 		case ID_CONNECTION_LOST:
 		case ID_DISCONNECTION_NOTIFICATION:
-			pMsg = COS_NEW ConnectionLost(*pPacket);
+			pMsg = TD_NEW ConnectionLost(*pPacket);
 			pMsg->deserialize(bs);
 			break;
 		}
@@ -152,7 +130,7 @@ RemotePeer* Peer::createRemotePeer(Message* pMsg)
 	ConnectionRequestAccepted* pCRA = 
 		static_cast<ConnectionRequestAccepted*>(pMsg);
 
-	RemotePeer* pRemote = COS_NEW RemotePeer;
+	RemotePeer* pRemote = TD_NEW RemotePeer;
 	((SystemAddress&)pRemote->a) = ((SystemAddress&)pCRA->a);
 	((RakNetGUID&)*pRemote->g) = ((RakNetGUID&)*pCRA->g);
 	pRemote->m_pPeer = m_pPeer;
@@ -195,7 +173,7 @@ void Peer::send(Message* pMsg, unsigned int* guid)
 
 #if defined(_DEBUG)
 	char buf[64];
-	sprintf_s(buf, 64, "[COS] Outgoing packet: id=%s, len=%d", 
+	sprintf_s(buf, 64, "[TD] Outgoing packet: id=%s, len=%d", 
 		Network::getMessageString(pMsg->getId()), bs.GetWriteOffset());
 	Environment::get().pLogger->logMessage(buf);
 #endif

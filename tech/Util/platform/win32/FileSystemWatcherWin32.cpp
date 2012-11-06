@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "FileSystemWatcherWin32.h"
@@ -33,7 +11,7 @@ THE SOFTWARE.
 #include "Environment.h"
 #include "Timer.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
 FileSystemWatcherWin32::FileSystemWatcherWin32(
 	const String& watchPath, bool bRecursive, float timeout)
@@ -58,7 +36,7 @@ FileSystemWatcherWin32::FileSystemWatcherWin32(
 		m_hDir = 0;
 	else
 	{
-		m_pData = (char*)COS_ALLOCATE(DEFAULT, BUFFER_SIZE);
+		m_pData = (char*)TD_ALLOCATE(DEFAULT, BUFFER_SIZE);
 		if (!ReadDirectoryChangesW(
 			m_hDir,
 			m_pData,
@@ -85,7 +63,7 @@ FileSystemWatcherWin32::FileSystemWatcherWin32(
 			Environment::get().pLogger->logMessage((char*)lpMsgBuf);
 			LocalFree(lpMsgBuf);
 
-			COS_DEALLOCATE(DEFAULT, m_pData);
+			TD_DEALLOCATE(DEFAULT, m_pData);
 			m_pData = 0;
 			CloseHandle(m_hDir);
 			m_hDir = 0;
@@ -108,7 +86,7 @@ FileSystemWatcherWin32::~FileSystemWatcherWin32()
 	if (m_hIOCP)
 		CloseHandle(m_hIOCP);
 	if (m_pData)
-		COS_DEALLOCATE(DEFAULT, m_pData);
+		TD_DEALLOCATE(DEFAULT, m_pData);
 }
 //---------------------------------------------------------------------------
 void FileSystemWatcherWin32::update(FileSystemChanges& changed)

@@ -39,7 +39,7 @@
 #define LUA_USE_READLINE	/* needs some extra libraries */
 #endif
 
-#if defined(LUA_USE_MACOSX)
+#if defined(LUA_USE_MATDX)
 #define LUA_USE_POSIX
 #define LUA_DL_DYLD		/* does not need extra library */
 #endif

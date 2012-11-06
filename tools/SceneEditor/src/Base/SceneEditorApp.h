@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #if !defined(SCENEEDITORAPP_INCLUDED)
 #define SCENEEDITORAPP_INCLUDED
@@ -35,7 +13,7 @@ class Controller;
 class Data;
 class UserInterface;
 
-namespace CoS
+namespace Teardrop
 {
 	class SceneObject;
 	class ZoneData;
@@ -60,7 +38,7 @@ public:
 	void OnUnhandledException();
 
 	bool DoFileOpen(wxString filename);
-	bool DoEntityOpen(const CoS::String& filename);
+	bool DoEntityOpen(const Teardrop::String& filename);
 	bool DoFileSave(wxString filename);
 
 private:
@@ -69,13 +47,13 @@ private:
 	void OnEndSession(wxCloseEvent& evt);
 	//void onAppActivate(wxActivateEvent& evt);
 
-	CoS::GfxRenderer* m_pRend;
-	CoS::FileStream m_logStrm;
-	CoS::Logger m_logger;
-	CoS::Timer m_timer;
-	CoS::ResourceManager m_resMgr;
-	CoS::Input m_input;
-	CoS::Manifest m_manifest;
+	Teardrop::GfxRenderer* m_pRend;
+	Teardrop::FileStream m_logStrm;
+	Teardrop::Logger m_logger;
+	Teardrop::Timer m_timer;
+	Teardrop::ResourceManager m_resMgr;
+	Teardrop::Input m_input;
+	Teardrop::Manifest m_manifest;
 };
 
 DECLARE_APP(SceneEditorApp);

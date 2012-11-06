@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "TerrainZone.h"
 #include "TerrainPatch.h"
@@ -42,6 +20,7 @@ THE SOFTWARE.
 #include "Math/Transform.h"
 #include "Math/MathUtil.h"
 #include "Util/Environment.h"
+#include "Util/SystemManager.h"
 #include "Resource/ResourceManager.h"
 #include "Memory/Memory.h"
 #include "Physics/Physics.h"
@@ -50,10 +29,10 @@ THE SOFTWARE.
 #include "Physics/World.h"
 #include "Reflection/PropertyDef.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-COS_CLASS_IMPL(TerrainZone);
-static const char* ZONE_TYPE = "terrain"; // TODO: put this in COS_CLASS?
+TD_CLASS_IMPL(TerrainZone);
+static const char* ZONE_TYPE = "terrain"; // TODO: put this in TD_CLASS?
 //---------------------------------------------------------------------------
 TerrainZone::TerrainZone()
 {
@@ -111,7 +90,7 @@ bool TerrainZone::initialize(World* pWorld)
 		detailMap += "/";
 		detailMap += getDetailMap();
 
-		m_pTerrainMtl = COS_NEW GfxMaterial;
+		m_pTerrainMtl = TD_NEW GfxMaterial;
 		m_pTerrainMtl->initialize();
 		m_pTerrainMtl->setDiffuse(0xFFFFFFFF); // white, for modulating against
 		m_pTerrainMtl->setCustomShader(GfxMaterial::SHADER_TERRAIN);
@@ -136,7 +115,7 @@ bool TerrainZone::initialize(World* pWorld)
 			for (x=0; x < chunksX; ++x)
 			{
 				// this gets owned and destroyed by the scene
-				TerrainPatch* pPatch = COS_NEW TerrainPatch();
+				TerrainPatch* pPatch = TD_NEW TerrainPatch();
 				pPatch->initialize();
 				if (!pPatch->create(this, bmap, x, y))
 				{
@@ -148,14 +127,16 @@ bool TerrainZone::initialize(World* pWorld)
 	}
 
 	// create the heightfield in the collision world
-	m_pHeightfieldShape = Physics::createHeightfieldShape(
+	PhysicsSystem* pSys = static_cast<PhysicsSystem*>(
+		Environment::get().pSystemMgr->getActiveSystem(System::SYSTEM_PHYSICS));
+	m_pHeightfieldShape = pSys->createHeightfieldShape(
 		bmap.getData(),
 		bmap.getWidth(),
 		bmap.getHeight(),
 		bmap.getDepth(),
 		size);
 
-	m_pHeightfieldBody = Physics::createBody();
+	m_pHeightfieldBody = pSys->createBody();
 	m_pHeightfieldBody->initialize(
 		m_pHeightfieldShape, Body::STATIC, Vector4(-size.x/2, 0, -size.z/2, 0));
 	m_pWorld->add(m_pHeightfieldBody);
@@ -168,8 +149,11 @@ bool TerrainZone::destroy()
 	if (m_pHeightfieldBody && m_pWorld)
 	{
 		m_pWorld->remove(m_pHeightfieldBody);
-		Physics::destroyBody(m_pHeightfieldBody);
-		Physics::destroyShape(m_pHeightfieldShape);
+
+		PhysicsSystem* pSys = static_cast<PhysicsSystem*>(
+			Environment::get().pSystemMgr->getActiveSystem(System::SYSTEM_PHYSICS));
+		pSys->destroyBody(m_pHeightfieldBody);
+		pSys->destroyShape(m_pHeightfieldShape);
 	}
 
 	if (m_pTerrainMtl)

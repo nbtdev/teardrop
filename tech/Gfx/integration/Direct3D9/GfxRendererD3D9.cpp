@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "GfxRendererD3D9.h"
@@ -66,9 +44,9 @@ THE SOFTWARE.
 #include <list>
 #include <algorithm>
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-struct CoS::_RenderTargets : public std::list<GfxRenderTarget*> 
+struct Teardrop::_RenderTargets : public std::list<GfxRenderTarget*> 
 {
 	DECLARE_GFX_ALLOCATOR();
 };
@@ -99,7 +77,7 @@ GfxRendererD3D9::GfxRendererD3D9(Environment& env)
 	pShaderLib = 0;
 	m_pAABBMesh = 0;
 
-	m_pRenderTargets = COS_NEW _RenderTargets;
+	m_pRenderTargets = TD_NEW _RenderTargets;
 }
 //---------------------------------------------------------------------------
 GfxRendererD3D9::~GfxRendererD3D9()
@@ -119,7 +97,7 @@ bool GfxRendererD3D9::initialize(
 		createRenderTarget(m_cfg, FMT_R8G8B8, RT_WINDOW); // inits m_pMainWindow
 
 	// create shader library
-	pShaderLib = COS_NEW GfxShaderLib(m_env);
+	pShaderLib = TD_NEW GfxShaderLib(m_env);
 	pShaderLib->initialize();
 
 	// initialize utility meshes (AABB, etc)
@@ -168,7 +146,7 @@ bool GfxRendererD3D9::destroy()
 //---------------------------------------------------------------------------
 GfxVertexData* GfxRendererD3D9::createVertexData()
 {
-	GfxVertexDataD3D9* p = COS_NEW GfxVertexDataD3D9;
+	GfxVertexDataD3D9* p = TD_NEW GfxVertexDataD3D9;
 	return p;
 }
 //---------------------------------------------------------------------------
@@ -187,7 +165,7 @@ void GfxRendererD3D9::trackVertexData(GfxVertexDataD3D9* pData, bool track)
 //---------------------------------------------------------------------------
 GfxIndexData* GfxRendererD3D9::createIndexData()
 {
-	GfxIndexDataD3D9* p = COS_NEW GfxIndexDataD3D9;
+	GfxIndexDataD3D9* p = TD_NEW GfxIndexDataD3D9;
 	return p;
 }
 //---------------------------------------------------------------------------
@@ -206,7 +184,7 @@ void GfxRendererD3D9::trackIndexData(GfxIndexDataD3D9* pData, bool track)
 //---------------------------------------------------------------------------
 GfxTexture* GfxRendererD3D9::createTexture()
 {
-	GfxTextureD3D9* p = COS_NEW GfxTextureD3D9;
+	GfxTextureD3D9* p = TD_NEW GfxTextureD3D9;
 	return p;
 }
 //---------------------------------------------------------------------------
@@ -1221,7 +1199,7 @@ GfxRenderTarget* GfxRendererD3D9::createRenderTarget(
 {
 	if (type == RT_WINDOW)
 	{
-		GfxRenderWindowD3D9* pWin = COS_NEW GfxRenderWindowD3D9;
+		GfxRenderWindowD3D9* pWin = TD_NEW GfxRenderWindowD3D9;
 
 		if (!pWin->initialize(cfg, fmt))
 		{
@@ -1242,7 +1220,7 @@ GfxRenderTarget* GfxRendererD3D9::createRenderTarget(
 
 	if (type == RT_TEXTURE)
 	{
-		GfxRenderTextureD3D9* pTex = COS_NEW GfxRenderTextureD3D9;
+		GfxRenderTextureD3D9* pTex = TD_NEW GfxRenderTextureD3D9;
 
 		if (!pTex->initialize(cfg, fmt))
 		{

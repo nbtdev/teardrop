@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #if !defined(ROTATEOBJECTTOOL_INCLUDED)
 #define ROTATEOBJECTTOOL_INCLUDED
@@ -33,7 +11,7 @@ THE SOFTWARE.
 #include "Tool.h"
 #include "Math/Quaternion.h"
 
-namespace CoS
+namespace Teardrop
 {
 	class TransformGizmo;
 }
@@ -48,28 +26,28 @@ namespace CoS
 class RotateObjectTool
 	: public Tool
 {
-	CoS::TransformGizmo& m_gizmo;
-	CoS::Quaternion m_rotateStart;
+	Teardrop::TransformGizmo& m_gizmo;
+	Teardrop::Quaternion m_rotateStart;
 	float m_rotateStartAngle;
 	bool m_bLMB;
 	bool m_bRotating;
 
 public:
-	RotateObjectTool(CoS::TransformGizmo& pGizmo);
+	RotateObjectTool(Teardrop::TransformGizmo& pGizmo);
 	virtual ~RotateObjectTool();
 
 	bool update(float deltaT, Data* pData);
-	bool handleInputEvent(const CoS::InputEvent& event, Data* pData);
+	bool handleInputEvent(const Teardrop::InputEvent& event, Data* pData);
 	size_t getNumRenderables();
-	bool getRenderable(/*out*/CoS::GfxMeshInstance& inst, /*in*/size_t index);
+	bool getRenderable(/*out*/Teardrop::GfxMeshInstance& inst, /*in*/size_t index);
 	void activate();
 	void deactivate();
 
-	COS_DECLARE_ALLOCATOR();
+	TD_DECLARE_ALLOCATOR();
 
 protected:
 	void _onViewChanged();
-	void selectedObjectChanged(void* sender, CoS::Reflection::Object* pObj);
+	void selectedObjectChanged(void* sender, Teardrop::Reflection::Object* pObj);
 	void rotate(int rx, int ry);
 };
 

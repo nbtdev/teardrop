@@ -1,39 +1,17 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "Config.h"
 #include "Hash.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-size_t CoS::hashString(const char* strVal)
+size_t Teardrop::hashString(const char* strVal)
 {
 	if (!strVal)
 		return 0;
@@ -49,7 +27,7 @@ size_t CoS::hashString(const char* strVal)
 	return rtn;
 }
 //---------------------------------------------------------------------------
-size_t CoS::hashData(void* pData, size_t len)
+size_t Teardrop::hashData(void* pData, size_t len)
 {
 	if (!pData)
 		return 0;
@@ -68,7 +46,7 @@ size_t CoS::hashData(void* pData, size_t len)
 	return rtn;
 }
 //---------------------------------------------------------------------------
-unsigned __int64 CoS::hashString64(const char* strVal)
+unsigned __int64 Teardrop::hashString64(const char* strVal)
 {
 	if (!strVal)
 		return 0;
@@ -84,7 +62,7 @@ unsigned __int64 CoS::hashString64(const char* strVal)
 	return rtn;
 }
 //---------------------------------------------------------------------------
-unsigned __int64 CoS::hashData64(void* pData, size_t len)
+unsigned __int64 Teardrop::hashData64(void* pData, size_t len)
 {
 	if (!pData)
 		return 0;

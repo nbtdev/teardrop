@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(SYSTEM_H_INCLUDED)
 #define SYSTEM_H_INCLUDED
 
-namespace CoS
+namespace Teardrop
 {
 	class Allocator;
 }
@@ -44,8 +44,8 @@ namespace Teardrop
 		virtual void getTypes(/*out*/ Type* typeArray, /*inout*/ int& typeCount) = 0;
 
 		// for custom memory management
-		virtual void setAllocator(CoS::Allocator* pAllocator) = 0;
-		virtual CoS::Allocator* getAllocator() = 0;
+		virtual void setAllocator(Teardrop::Allocator* pAllocator) = 0;
+		virtual Teardrop::Allocator* getAllocator() = 0;
 	};
 }
 

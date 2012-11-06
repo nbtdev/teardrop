@@ -1,36 +1,14 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #if !defined(NETWORK_INCLUDED)
 #define NETWORK_INCLUDED
 
-#if defined(COS_TARGET_FINAL)
+#if defined(TD_TARGET_FINAL)
 #define MASTER_SERVER_LOCATOR_HOST ("http://www.clashofsteel.net")
 #else
 // define your local test master server here
@@ -53,7 +31,7 @@ enum ProtocolVersion
 
 struct Packet;
 
-namespace CoS
+namespace Teardrop
 {
 	class Allocator;
 
@@ -290,8 +268,8 @@ namespace CoS
 }
 //
 //// handy defines for use in message definitions
-//#define COS_NETMESSAGE(c) \
-//	static CoS::Net::Message* __create(const Packet*); \
+//#define TD_NETMESSAGE(c) \
+//	static Teardrop::Net::Message* __create(const Packet*); \
 //	static const size_t ID; \
 //	size_t getId() { return ID; } \
 //	c() : Message() {} \
@@ -300,19 +278,19 @@ namespace CoS
 //		MessageInitializer(size_t id) \
 //		{ \
 //			c _c; \
-//			CoS::Net::Network::s_factory[id] = __create; \
+//			Teardrop::Net::Network::s_factory[id] = __create; \
 //		} \
 //	} s_messageInit; \
 
 
-//#define COS_NETMESSAGE_IMPL(c, id) \
+//#define TD_NETMESSAGE_IMPL(c, id) \
 //	const size_t c::ID = id; \
-//	CoS::Net::Message* CoS::Net::c::__create(const Packet* packet) { return COS_NEW c(*packet); } \
-//	CoS::Net::c::MessageInitializer CoS::Net::c::s_messageInit(id); \
+//	Teardrop::Net::Message* Teardrop::Net::c::__create(const Packet* packet) { return TD_NEW c(*packet); } \
+//	Teardrop::Net::c::MessageInitializer Teardrop::Net::c::s_messageInit(id); \
 
 // handy defines for use in message definitions
-#define COS_NETMESSAGE(c, id) \
-	static CoS::Net::Message* __create(const Packet*); \
+#define TD_NETMESSAGE(c, id) \
+	static Teardrop::Net::Message* __create(const Packet*); \
 	static const size_t ID = id; \
 	size_t getId() { return ID; } \
 	c() : Message() {} \
@@ -321,16 +299,16 @@ namespace CoS
 		MessageInitializer() \
 		{ \
 			c _c; \
-			CoS::Net::Network::s_factory[id] = __create; \
+			Teardrop::Net::Network::s_factory[id] = __create; \
 		} \
 	} s_messageInit; \
 
-#define COS_NETMESSAGE_IMPL(c) \
-	CoS::Net::Message* CoS::Net::c::__create(const Packet* packet) { return COS_NEW c(*packet); } \
-	CoS::Net::c::MessageInitializer CoS::Net::c::s_messageInit; \
+#define TD_NETMESSAGE_IMPL(c) \
+	Teardrop::Net::Message* Teardrop::Net::c::__create(const Packet* packet) { return TD_NEW c(*packet); } \
+	Teardrop::Net::c::MessageInitializer Teardrop::Net::c::s_messageInit; \
 
-#define COS_PROXYMESSAGE(c, id) \
-	static CoS::Net::Message* __create(const Packet*); \
+#define TD_PROXYMESSAGE(c, id) \
+	static Teardrop::Net::Message* __create(const Packet*); \
 	static const size_t ID = id; \
 	size_t getId() { return ID; } \
 	c() : ProxyMessage() {} \
@@ -339,13 +317,13 @@ namespace CoS
 		MessageInitializer() \
 		{ \
 			c _c; \
-			CoS::Net::Network::s_factory[id] = __create; \
+			Teardrop::Net::Network::s_factory[id] = __create; \
 		} \
 	} s_messageInit; \
 
-#define COS_PROXYMESSAGE_IMPL(c) \
-	CoS::Net::Message* CoS::Net::c::__create(const Packet* packet) { return COS_NEW c(*packet); } \
-	CoS::Net::c::MessageInitializer CoS::Net::c::s_messageInit; \
+#define TD_PROXYMESSAGE_IMPL(c) \
+	Teardrop::Net::Message* Teardrop::Net::c::__create(const Packet* packet) { return TD_NEW c(*packet); } \
+	Teardrop::Net::c::MessageInitializer Teardrop::Net::c::s_messageInit; \
 
 
 #endif // NETWORK_INCLUDED

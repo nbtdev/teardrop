@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "BeamWeapon.h"
 #include "Component_Render.h"
@@ -44,9 +22,9 @@ THE SOFTWARE.
 #include "Math/MathUtil.h"
 #include "Util/Environment.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-COS_CLASS_IMPL(BeamWeapon);
+TD_CLASS_IMPL(BeamWeapon);
 //---------------------------------------------------------------------------
 BeamWeapon::BeamWeapon()
 {
@@ -65,7 +43,7 @@ bool BeamWeapon::_initialize()
 	if (Environment::get().isServer)
 		return true;
 
-	m_inst.m_pProceduralMesh = COS_NEW GfxMesh;
+	m_inst.m_pProceduralMesh = TD_NEW GfxMesh;
 	m_inst.m_pProceduralMesh->initialize();
 
 	GfxSubMesh* pSubmesh = m_inst.m_pProceduralMesh->createSubMesh();
@@ -87,7 +65,7 @@ bool BeamWeapon::_initialize()
 
 	// beam is in the shape of a cylinder, 18 quads (36 tris) total in a
 	// tristrip, for a total of 38 verts
-	m_pVertexData = COS_NEW Vertex[38];
+	m_pVertexData = TD_NEW Vertex[38];
 	Vertex* pData = m_pVertexData;
 	// organize the vertex data into a cylinder, around the Z axis,
 	// 18 faces (so step around a circle by 20 degrees). Cylinder is
@@ -133,7 +111,7 @@ bool BeamWeapon::_initialize()
 	pSubmesh->setVertexFormat(Environment::get(), fmt);
 
 	// make a basic material for this mesh
-	GfxMaterial* pMtl = COS_NEW GfxMaterial;
+	GfxMaterial* pMtl = TD_NEW GfxMaterial;
 	pMtl->initialize();
 	pSubmesh->setMaterial(pMtl, true);
 	pMtl->setEmissive(GfxUtil::makePackedColor(0,1,0,1));

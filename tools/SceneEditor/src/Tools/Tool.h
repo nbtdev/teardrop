@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #if !defined(TOOL_INCLUDED)
 #define TOOL_INCLUDED
@@ -33,7 +11,7 @@ THE SOFTWARE.
 #include "Base/AttributeContainer.h"
 #include <list>
 
-namespace CoS
+namespace Teardrop
 {
 	namespace Reflection
 	{
@@ -69,23 +47,23 @@ public:
 	virtual ~Tool();
 
 	virtual bool update(float deltaT, Data* pData) = 0;
-	virtual bool handleInputEvent(const CoS::InputEvent& event, Data* pData) = 0;
+	virtual bool handleInputEvent(const Teardrop::InputEvent& event, Data* pData) = 0;
 	virtual size_t getNumRenderables() = 0;
-	virtual bool getRenderable(/*out*/CoS::GfxMeshInstance& inst, /*in*/size_t index) = 0;
+	virtual bool getRenderable(/*out*/Teardrop::GfxMeshInstance& inst, /*in*/size_t index) = 0;
 	virtual void activate();
 	virtual void deactivate();
 	
 	void setActiveView(View*);
-	void setSelectedObject(CoS::Reflection::Object* pObj);
+	void setSelectedObject(Teardrop::Reflection::Object* pObj);
 
 protected:
 	View* m_pView;
 
-	typedef std::list<CoS::Reflection::Object*> SelectedObjects;
+	typedef std::list<Teardrop::Reflection::Object*> SelectedObjects;
 	SelectedObjects m_selectedObjects;
 
 	virtual void _onViewChanged();
-	virtual void selectedObjectChanged(void* sender, CoS::Reflection::Object* pObj);
+	virtual void selectedObjectChanged(void* sender, Teardrop::Reflection::Object* pObj);
 };
 
 #endif // TOOL_INCLUDED

@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "RenderWindow.h"
@@ -56,7 +34,7 @@ THE SOFTWARE.
 #include "Math/Ray.h"
 #include "Math/Plane.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
 BEGIN_EVENT_TABLE(RenderWindow, wxPanel)
 	EVT_SIZE(RenderWindow::OnSize)
@@ -145,26 +123,26 @@ void RenderWindow::createWindow(int w, int h)
 	cfg.vsync = false;
 	m_pWin = pRend->createRenderTarget(cfg, FMT_R8G8B8, GfxRenderer::RT_WINDOW);
 	m_pVP = m_pWin->addViewport(0, 0, 1, 1);
-	m_pCam = COS_NEW GfxCamera;
+	m_pCam = TD_NEW GfxCamera;
 	m_pCam->setFarClip(5000);
 	m_pCam->setNearClip(0.5f);
 	m_pCam->setFovY(MathUtil::HALF_PI/2);
 	m_pCam->setPosition(Vector4::UNIT_SCALE * 100);
 	m_pCam->setLookAt(Vector4::ZERO);
 
-	m_pCamMgr = COS_NEW CameraControllerManager(m_pCam);
+	m_pCamMgr = TD_NEW CameraControllerManager(m_pCam);
 	m_pCamMgr->changeController(CameraControllerManager::CCM_ORBIT);
 
-	m_pSceneRenderer = COS_NEW SceneRenderer;
-	m_pSceneRenderer->addStep(COS_NEW ShadowRenderStep);
+	m_pSceneRenderer = TD_NEW SceneRenderer;
+	m_pSceneRenderer->addStep(TD_NEW ShadowRenderStep);
 	
-	SceneRenderStep* pSceneStep = COS_NEW SceneRenderStep;
+	SceneRenderStep* pSceneStep = TD_NEW SceneRenderStep;
 	pSceneStep->setCamera(m_pCam);
 	pSceneStep->setViewport(m_pVP);
 	pSceneStep->setRenderTarget(m_pWin);
 	m_pSceneRenderer->addStep(pSceneStep);
 
-	m_pToolRenderStep = COS_NEW ToolRenderStep;
+	m_pToolRenderStep = TD_NEW ToolRenderStep;
 	m_pSceneRenderer->addStep(m_pToolRenderStep);
 }
 //---------------------------------------------------------------------------

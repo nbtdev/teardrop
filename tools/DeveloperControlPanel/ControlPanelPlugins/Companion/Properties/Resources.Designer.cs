@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CoS.Properties {
+namespace Teardrop.Properties {
     using System;
     
     

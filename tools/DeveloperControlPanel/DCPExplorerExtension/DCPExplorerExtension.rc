@@ -61,7 +61,7 @@ IDR_DCPEXPLOREREXTENSION REGISTRY                "DCPExplorerExtension.rgs"
 
 STRINGTABLE 
 BEGIN
-    IDS_DROPDOWNMENULABEL   "Clash Of Steel"
+    IDS_DROPDOWNMENULABEL   "Teardrop"
     IDS_DCP_BUILD           "Build"
     IDS_DCP_BUILD_DESC      "Build file(s) in Developer Control Panel"
 END

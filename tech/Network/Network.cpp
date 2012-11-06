@@ -1,38 +1,16 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 #include "stdafx.h"
 #include "Network.h"
 #include "Peer.h"
 #include "Memory/Allocators.h"
 #include "RakMemoryOverride.h"
 
-using namespace CoS;
+using namespace Teardrop;
 using namespace Net;
 using namespace RakNet;
 //---------------------------------------------------------------------------
@@ -74,14 +52,14 @@ const char* Network::getMessageString(unsigned int id)
 	return s_pMessageStrings[id];
 }
 //---------------------------------------------------------------------------
-Allocator* Network::s_pAllocator = COS_GET_ALLOCATOR(DEFAULT);
+Allocator* Network::s_pAllocator = TD_GET_ALLOCATOR(DEFAULT);
 void* Network::malloc(size_t sz) 
 { 
-	return s_pAllocator->Allocate(sz COS_ALLOC_SITE); 
+	return s_pAllocator->Allocate(sz TD_ALLOC_SITE); 
 }
 void* Network::realloc(void* pMem, size_t sz) 
 { 
-	return s_pAllocator->Reallocate(pMem, sz COS_ALLOC_SITE); 
+	return s_pAllocator->Reallocate(pMem, sz TD_ALLOC_SITE); 
 }
 void Network::free(void* pMem) 
 { 
@@ -98,7 +76,7 @@ void Network::setAllocator(Allocator* pAlloc)
 //---------------------------------------------------------------------------
 Message* Network::createMessage(const Packet* packet)
 {
-	// for now, the CoS msg ID is still an unsigned char (tho this
+	// for now, the TD msg ID is still an unsigned char (tho this
 	// is likely to change once we get lots of messages)
 	if (s_factory[packet->data[1]])
 		return s_factory[packet->data[1]](packet);
@@ -108,7 +86,7 @@ Message* Network::createMessage(const Packet* packet)
 //---------------------------------------------------------------------------
 Peer* Network::createPeer()
 {
-	return COS_NEW Peer;
+	return TD_NEW Peer;
 }
 //---------------------------------------------------------------------------
 void Network::destroyPeer(Peer* pPeer)

@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "SceneEditorApp.h"
@@ -36,15 +14,15 @@ THE SOFTWARE.
 #include "EntityData.h"
 #include "Util/_String.h"
 
-#if defined(COS_OPTION_MEMPROFILE)
+#if defined(TD_OPTION_MEMPROFILE)
 #include "Memory/AllocationTracker.h"
 #endif
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-COS_DEFINE_MEMORY_REGION(DEFAULT, 0, 1024);
-COS_ALLOCATOR_IMPL(DEFAULT, DefaultAllocator, DEFAULT, size_t(-1), size_t(-1))
-COS_ALLOCATOR_IMPL(CRT, CrtAllocator, DEFAULT, size_t(-1), size_t(-1))
+TD_DEFINE_MEMORY_REGION(DEFAULT, 0, 1024);
+TD_ALLOCATOR_IMPL(DEFAULT, DefaultAllocator, DEFAULT, size_t(-1), size_t(-1))
+TD_ALLOCATOR_IMPL(CRT, CrtAllocator, DEFAULT, size_t(-1), size_t(-1))
 //---------------------------------------------------------------------------
 IMPLEMENT_APP(SceneEditorApp)
 BEGIN_EVENT_TABLE(SceneEditorApp, wxApp)
@@ -145,8 +123,8 @@ bool SceneEditorApp::OnInit()
 		return false;
 	}
 
-	m_pUI = COS_NEW UserInterface(m_pFrame);
-	m_pController = COS_NEW Controller(
+	m_pUI = TD_NEW UserInterface(m_pFrame);
+	m_pController = TD_NEW Controller(
 		env.pInput, m_pFrame->getMainView(), m_pUI);
 	m_pFrame->setMessageBus(m_pController);
 
@@ -173,7 +151,7 @@ int SceneEditorApp::OnExit()
 	Physics::shutdown();
 	ObjectLibrary::instance()->destroy();
 
-#if defined(COS_OPTION_MEMPROFILE)
+#if defined(TD_OPTION_MEMPROFILE)
 	AllocationTracker::getInstance()->PrintUsageByFile(m_logStrm);
 #endif
 
@@ -209,7 +187,7 @@ bool SceneEditorApp::DoFileOpen(wxString filename)
 		m_pData = 0;
 	}
 
-	m_pData = COS_NEW SceneData(m_pController);
+	m_pData = TD_NEW SceneData(m_pController);
 	if (!m_pData->load(filename))
 	{
 		delete m_pData;
@@ -231,7 +209,7 @@ bool SceneEditorApp::DoEntityOpen(const String& entityName)
 		m_pData = 0;
 	}
 
-	m_pData = COS_NEW EntityData(m_pController);
+	m_pData = TD_NEW EntityData(m_pController);
 	if (!m_pData->load(entityName))
 	{
 		delete m_pData;

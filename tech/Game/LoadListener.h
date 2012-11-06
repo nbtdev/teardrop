@@ -1,36 +1,14 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #if !defined(LOADLISTENER_INCLUDED)
 #define LOADLISTENER_INCLUDED
 
-namespace CoS
+namespace Teardrop
 {
 	class Scene;
 	class Zone;
@@ -39,11 +17,11 @@ namespace CoS
 	class LoadListener
 	{
 	public:
-		virtual void onSceneLoadBegin(CoS::Scene* pScene) = 0;
-		virtual void onZoneCreated(CoS::Zone* pZone) = 0;
-		virtual void onZoneObjectCreated(CoS::ZoneObject* pObject) = 0;
-		virtual void onZoneObjectAdded(CoS::Zone* pZone, CoS::ZoneObject* pObject) = 0;
-		virtual void onSceneLoadEnd(CoS::Scene* pScene) = 0;
+		virtual void onSceneLoadBegin(Teardrop::Scene* pScene) = 0;
+		virtual void onZoneCreated(Teardrop::Zone* pZone) = 0;
+		virtual void onZoneObjectCreated(Teardrop::ZoneObject* pObject) = 0;
+		virtual void onZoneObjectAdded(Teardrop::Zone* pZone, Teardrop::ZoneObject* pObject) = 0;
+		virtual void onSceneLoadEnd(Teardrop::Scene* pScene) = 0;
 	};
 }
 

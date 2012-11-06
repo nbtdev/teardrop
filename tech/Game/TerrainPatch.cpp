@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "TerrainPatch.h"
 #include "TerrainZone.h"
@@ -51,26 +29,26 @@ THE SOFTWARE.
 #include "Resource/ResourceManager.h"
 #include "Memory/Memory.h"
 
-using namespace CoS;
+using namespace Teardrop;
 //---------------------------------------------------------------------------
-COS_CLASS_IMPL(TerrainPatch);
+TD_CLASS_IMPL(TerrainPatch);
 //---------------------------------------------------------------------------
 const FourCC& TerrainPatch::FOURCC = FourCC('T', 'R', 'N', 'P');
 //---------------------------------------------------------------------------
-struct CoS::TerrainVertex
+struct Teardrop::TerrainVertex
 {
 	float x, y, z;
 	//float u1, v1; // diffuse map
 	//float u2, v2; // detail map
 
-	COS_DECLARE_ALLOCATOR();
+	TD_DECLARE_ALLOCATOR();
 };
 //! normals used only for lit terrain
-struct CoS::TerrainNormal
+struct Teardrop::TerrainNormal
 {
 	float nx, ny, nz;
 
-	COS_DECLARE_ALLOCATOR();
+	TD_DECLARE_ALLOCATOR();
 };
 //---------------------------------------------------------------------------
 TerrainPatch::TerrainPatch()
@@ -156,9 +134,9 @@ bool TerrainPatch::create(
 
 	// create the vertex data buffer and format
 	size_t numVerts = patchWidth * patchHeight;
-	m_pVertexBuffer = COS_NEW TerrainVertex[numVerts];
+	m_pVertexBuffer = TD_NEW TerrainVertex[numVerts];
 	memset(m_pVertexBuffer, 0, sizeof(TerrainVertex) * numVerts);
-	m_pNormalBuffer = COS_NEW TerrainNormal[numVerts];
+	m_pNormalBuffer = TD_NEW TerrainNormal[numVerts];
 	memset(m_pNormalBuffer, 0, sizeof(TerrainNormal) * numVerts);
 
 	GfxVertexFormat vertFmt;
@@ -177,7 +155,7 @@ bool TerrainPatch::create(
 	vertFmt.addElement(elem);
 
 	size_t numIndices = (patchHeight-1) * (patchWidth-1) * 6;
-	m_pIndexBuffer = (short*)GetDEFAULTAllocator()->AllocateAligned(sizeof(short) * numIndices, 16 COS_ALLOC_SITE);
+	m_pIndexBuffer = (short*)GetDEFAULTAllocator()->AllocateAligned(sizeof(short) * numIndices, 16 TD_ALLOC_SITE);
 	float minY = 0, maxY = 0;
 
 	for (size_t py = 0; py < patchHeight; ++py)
@@ -272,7 +250,7 @@ bool TerrainPatch::create(
 
 	pOwner->addObject(this);
 
-	RenderComponent* pRend = COS_NEW RenderComponent();
+	RenderComponent* pRend = TD_NEW RenderComponent();
 	pRend->setShaderName("TerrainShader/Main");
 	pRend->setHost(this);
 	pRend->setShadowCaster(pOwner->getCastShadows());

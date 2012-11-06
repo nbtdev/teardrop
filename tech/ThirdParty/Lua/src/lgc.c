@@ -25,8 +25,8 @@
 
 #define GCSTEPSIZE	1024u
 #define GCSWEEPMAX	40
-#define GCSWEEPCOST	10
-#define GCFINALIZECOST	100
+#define GCSWEEPTDT	10
+#define GCFINALIZETDT	100
 
 
 #define maskmarks	cast_byte(~(bitmask(BLACKBIT)|WHITEBITS))
@@ -576,7 +576,7 @@ static l_mem singlestep (lua_State *L) {
         g->gcstate = GCSsweep;  /* end sweep-string phase */
       lua_assert(old >= g->totalbytes);
       g->estimate -= old - g->totalbytes;
-      return GCSWEEPCOST;
+      return GCSWEEPTDT;
     }
     case GCSsweep: {
       lu_mem old = g->totalbytes;
@@ -587,14 +587,14 @@ static l_mem singlestep (lua_State *L) {
       }
       lua_assert(old >= g->totalbytes);
       g->estimate -= old - g->totalbytes;
-      return GCSWEEPMAX*GCSWEEPCOST;
+      return GCSWEEPMAX*GCSWEEPTDT;
     }
     case GCSfinalize: {
       if (g->tmudata) {
         GCTM(L);
-        if (g->estimate > GCFINALIZECOST)
-          g->estimate -= GCFINALIZECOST;
-        return GCFINALIZECOST;
+        if (g->estimate > GCFINALIZETDT)
+          g->estimate -= GCFINALIZETDT;
+        return GCFINALIZETDT;
       }
       else {
         g->gcstate = GCSpause;  /* end collection */

@@ -1,34 +1,12 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
-
-#if !defined(COSZONEOBJECT_INCLUDED)
-#define COSZONEOBJECT_INCLUDED
+#if !defined(TDZONEOBJECT_INCLUDED)
+#define TDZONEOBJECT_INCLUDED
 
 #include "Game/ComponentHost.h"
 #include "Math/AABB.h"
@@ -36,7 +14,7 @@ THE SOFTWARE.
 #include "Memory/Allocators.h"
 #include "Reflection/Reflection.h"
 
-namespace CoS
+namespace Teardrop
 {
 	class Stream;
 	struct Environment;
@@ -51,9 +29,9 @@ namespace CoS
 		friend class ObjectLibrary;
 
 	public:
-		COS_CLASS(ZoneObject, Object);
-		COS_PROPERTY(Name, "Name of this object", String, "(undefined)", 0);
-		COS_COMPLEX_PROPERTY(Transform, "Object's 3D transform in world space", Transform, "[(0,0,0),(1,0,0,0),(1,1,1)]", 0);
+		TD_CLASS(ZoneObject, Object);
+		TD_PROPERTY(Name, "Name of this object", String, "(undefined)", 0);
+		TD_COMPLEX_PROPERTY(Transform, "Object's 3D transform in world space", Transform, "[(0,0,0),(1,0,0,0),(1,1,1)]", 0);
 		
 		ZoneObject();
 		~ZoneObject();
@@ -103,7 +81,7 @@ namespace CoS
 		virtual void addedToZone(Zone* pZone);
 		virtual void removeFromZone(Zone* pZone);
 
-		COS_DECLARE_ALLOCATOR();
+		TD_DECLARE_ALLOCATOR();
 
 		void notifyPropertyChangedLocal(const Reflection::PropertyDef*);
 
@@ -125,4 +103,4 @@ namespace CoS
 	};
 }
 
-#endif // COSZONEOBJECT_INCLUDED
+#endif // TDZONEOBJECT_INCLUDED

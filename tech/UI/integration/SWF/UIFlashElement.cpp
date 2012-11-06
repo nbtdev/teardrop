@@ -1,31 +1,9 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #include "stdafx.h"
 #include "UIFlashElement.h"
@@ -44,7 +22,7 @@ THE SOFTWARE.
 #include "Memory/Allocators.h"
 #include <assert.h>
 
-using namespace CoS;
+using namespace Teardrop;
 using namespace UI;
 //---------------------------------------------------------------------------
 FlashElement::FlashElement()
@@ -83,7 +61,7 @@ bool FlashElement::initialize(
 	unsigned int height = (unsigned int)m_size.y;
 
 	// get an instance of a Flash player interface object
-	m_pFlash = COS_NEW FlashInstance;
+	m_pFlash = TD_NEW FlashInstance;
 	m_pFlash->setSize(width, height);
 	m_pFlash->initialize(params.resourceName, this);
 
@@ -129,7 +107,7 @@ bool FlashElement::initialize(
 	pSM->setPrimitiveType(TRISTRIP);
 
 	// create the material that goes along with this thing
-	m_pMtl = COS_NEW GfxMaterial;
+	m_pMtl = TD_NEW GfxMaterial;
 	m_pMtl->initialize();
 	m_pMtl->setDiffuse(0xffffffff);
 	m_pMtl->setDepthWrite(false);
@@ -155,7 +133,7 @@ bool FlashElement::initialize(
 	// lifetime will be owned by the GfxTexture; we are creating it 
 	// here to have access to the data without having to lock the texture
 	// every time the Flash movie updates something
-	m_pData = COS_ALLOCATE_ALIGNED(DEFAULT, buflen, 16);
+	m_pData = TD_ALLOCATE_ALIGNED(DEFAULT, buflen, 16);
 
 	pTex->initialize(
 		width, 

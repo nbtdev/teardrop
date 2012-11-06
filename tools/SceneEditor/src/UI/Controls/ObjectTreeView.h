@@ -1,36 +1,14 @@
-/*
------------------------------------------------------------------------------
-This source file is part of the Clash Of Steel Project
-
-For the latest info, see http://www.clashofsteel.net/
-
-Copyright (c) The Clash Of Steel Team
-Also see acknowledgments in Readme.txt
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
------------------------------------------------------------------------------
-*/
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
 
 #if !defined(OBJECTTREEVIEW_INCLUDED)
 #define OBJECTTREEVIEW_INCLUDED
 
-namespace CoS
+namespace Teardrop
 {
 	class Scene;
 	class Zone;
@@ -55,7 +33,7 @@ class ObjectTreeView : public wxTreeCtrl
 	typedef std::map<std::string, wxTreeItemId> CategoryLUT;
 	CategoryLUT m_catLut;
 
-	typedef std::map<CoS::Reflection::Object*, wxTreeItemId> ObjectLUT;
+	typedef std::map<Teardrop::Reflection::Object*, wxTreeItemId> ObjectLUT;
 	ObjectLUT m_objLut;
 
 public:
@@ -72,7 +50,7 @@ public:
 		subtree for objects in this zone. Categories (below) must
 		be unique only within a zone.
 	*/
-	ObjectTreeNode* addZone(CoS::Zone* pZone);
+	ObjectTreeNode* addZone(Teardrop::Zone* pZone);
 
 	/*
 		Add a category to a zone -- this will produce a new
@@ -88,23 +66,23 @@ public:
 	*/
 	ObjectTreeNode* addObject(
 		ObjectTreeNode* pParentNode, 
-		CoS::ZoneObject* pObj, 
+		Teardrop::ZoneObject* pObj, 
 		const char* category=0);
 
 	/*
 		Select the indicated object in the tree.
 	*/
-	void selectObject(CoS::Reflection::Object* pObj);
+	void selectObject(Teardrop::Reflection::Object* pObj);
 
 	/*
 		Remove the indicated object from the treeview
 	*/
-	void removeObject(CoS::ZoneObject* pObj);
+	void removeObject(Teardrop::ZoneObject* pObj);
 
 	/*
 		Update the node for the supplied object (if exists)
 	*/
-	void UpdateNodeForObject(CoS::Reflection::Object* pObj);
+	void UpdateNodeForObject(Teardrop::Reflection::Object* pObj);
 
 	/*
 		Get the treeview's root node
@@ -119,11 +97,11 @@ public:
 
 private:
 	void onSelectionChanged(wxTreeEvent& evt);
-	void selectedObjectChanged(void* sender, CoS::Reflection::Object* pObj);
-	void onSceneLoadBegin(CoS::Scene* pScene);
-	void onSceneLoadEnd(CoS::Scene* pScene);
-	void onZoneCreated(CoS::Zone* pZone);
-	void onZoneObjectAdded(CoS::Zone* pZone, CoS::ZoneObject* pObj);
+	void selectedObjectChanged(void* sender, Teardrop::Reflection::Object* pObj);
+	void onSceneLoadBegin(Teardrop::Scene* pScene);
+	void onSceneLoadEnd(Teardrop::Scene* pScene);
+	void onZoneCreated(Teardrop::Zone* pZone);
+	void onZoneObjectAdded(Teardrop::Zone* pZone, Teardrop::ZoneObject* pObj);
 
 	MessageBus* m_pMsgBus;
 };
