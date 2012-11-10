@@ -8,8 +8,10 @@ is prohibited.
 #if !defined(PLAYERJOINGAME_INCLUDED)
 #define PLAYERJOINGAME_INCLUDED
 
-#include "Memory/Memory.h"
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 #include "Util/_String.h"
 
 namespace Teardrop
@@ -26,12 +28,12 @@ namespace Teardrop
 			String m_avatarClass;		// class of the avatar
 			String m_playerName;		// player's display name
 
-			PlayerJoinGame(const Packet& packet);
+			PlayerJoinGame();
 			virtual ~PlayerJoinGame();
 
 			//! Message implementation
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
 		};

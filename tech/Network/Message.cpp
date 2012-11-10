@@ -4,10 +4,9 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "Message.h"
-#include "Peer.h"
 #include "Network.h"
+#include "Stream.h"
 
 //#if defined(_DEBUG)
 #include "Util/Environment.h"
@@ -16,64 +15,53 @@ is prohibited.
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
-//---------------------------------------------------------------------------
-Message::Message(const Packet& packet)
-{
-	g[0] = 0;
-	g[1] = 0;
-	g[2] = 0;
-	g[3] = 0;
-
-	// extract the routing information
-	(RakNetGUID&)g = packet.guid;
-	(SystemAddress&)a = packet.systemAddress;
-	m_priority = MEDIUM_PRIORITY;
-	m_reliability = RELIABLE;
-	m_channel = 0;
-}
 //---------------------------------------------------------------------------
 Message::Message()
 {
-	m_priority = MEDIUM_PRIORITY;
-	m_reliability = RELIABLE;
+	m_priority = PRIORITY_MEDIUM;
+	m_reliability = RELIABILITY_RELIABLE;
+	m_class = MESSAGE_USER;
 	m_channel = 0;
+	m_pPeer = 0;
 }
 //---------------------------------------------------------------------------
 Message::~Message()
 {
+	delete m_pPeer;
 }
+#if 0
 //---------------------------------------------------------------------------
-void Message::deserialize(BitStream& bs)
+void Message::deserialize(Net::Stream& s)
 {
 	// handled entirely in a derived method (we already know the message
 	// ID because of the subclass that was created for this message)
 	unsigned char id, msgId;
-	bs.Read(id);
-	bs.Read(msgId);
-	_deserialize(bs);
+	s.read(id);
+	s.read(msgId);
+	deserialize(s);
 
 //#if defined(_DEBUG) // and "dump packet log"?
 	char buf[128];
 	sprintf_s(buf, 128, "[TD Message] id: %d (%s)", 
-		msgId, Network::getMessageString(msgId));
+		msgId, NetworkSystem::getMessageString(msgId));
 	Environment::get().pLogger->logMessage(buf);
 //#endif
 }
 //---------------------------------------------------------------------------
-void Message::serialize(BitStream& bs)
+void Message::serialize(Net::Stream& s)
 {
 	// all TD messages use this RakNet message ID
-	bs.Write(unsigned char(ID_USER_PACKET_ENUM+1));
-	bs.Write(unsigned char(getId()));
+	s.write(unsigned char(ID_USER_PACKET_ENUM+1));
+	s.write(unsigned char(getId()));
 
 	// the rest of the message is handled in a derived method
-	_serialize(bs);
+	serialize(s);
 
 //#if defined(_DEBUG) // and "dump packet log"?
 	char buf[128];
 	sprintf_s(buf, 128, "[TD Message] id: %d (%s)", 
-		getId(), Network::getMessageString(getId()));
+		getId(), NetworkSystem::getMessageString(getId()));
 	Environment::get().pLogger->logMessage(buf);
 //#endif
 }
+#endif // 0

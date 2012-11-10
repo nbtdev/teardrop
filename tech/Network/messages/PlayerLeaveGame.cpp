@@ -4,16 +4,16 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "PlayerLeaveGame.h"
+#include "Stream.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
 TD_NETMESSAGE_IMPL(PlayerLeaveGame);
 //---------------------------------------------------------------------------
-PlayerLeaveGame::PlayerLeaveGame(const Packet& packet) : Message(packet)
+PlayerLeaveGame::PlayerLeaveGame()
 {
 }
 //---------------------------------------------------------------------------
@@ -21,18 +21,14 @@ PlayerLeaveGame::~PlayerLeaveGame()
 {
 }
 //---------------------------------------------------------------------------
-void PlayerLeaveGame::_deserialize(RakNet::BitStream& bs)
+void PlayerLeaveGame::deserialize(Net::Stream& bs)
 {
-	bs.Read(m_playerId);
-
-	RakString str;
-	bs.Read(str);
-
-	m_additionalInfo = str;
+	bs.read(m_playerId);
+	bs.read(m_additionalInfo);
 }
 //---------------------------------------------------------------------------
-void PlayerLeaveGame::_serialize(BitStream& bs)
+void PlayerLeaveGame::serialize(Net::Stream& bs)
 {
-	bs.Write(m_playerId);
-	bs.Write(RakString(m_additionalInfo));
+	bs.write(m_playerId);
+	bs.write(m_additionalInfo);
 }

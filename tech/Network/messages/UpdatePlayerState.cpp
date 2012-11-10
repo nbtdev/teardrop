@@ -4,16 +4,16 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "UpdatePlayerState.h"
+#include "Stream.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
 TD_NETMESSAGE_IMPL(UpdatePlayerState);
 //---------------------------------------------------------------------------
-UpdatePlayerState::UpdatePlayerState(const Packet& packet) : Message(packet)
+UpdatePlayerState::UpdatePlayerState()
 {
 }
 //---------------------------------------------------------------------------
@@ -21,27 +21,24 @@ UpdatePlayerState::~UpdatePlayerState()
 {
 }
 //---------------------------------------------------------------------------
-void UpdatePlayerState::_deserialize(RakNet::BitStream& bs)
+void UpdatePlayerState::deserialize(Net::Stream& bs)
 {
-	bs.Read(m_id);
-	bs.Read(m_playerTeam);
-	RakString str;
-	bs.Read(str);
-	m_playerName = str;
-	bs.Read(str);
-	m_playerCharClass = str;
-	bs.Read(m_playerEntityVariant);
-	bs.Read(m_playerChar);
-	bs.Read(m_bReady);
+	bs.read(m_id);
+	bs.read(m_playerTeam);
+	bs.read(m_playerName);
+	bs.read(m_playerCharClass);
+	bs.read(m_playerEntityVariant);
+	bs.read(m_playerChar);
+	bs.read(m_bReady);
 }
 //---------------------------------------------------------------------------
-void UpdatePlayerState::_serialize(BitStream& bs)
+void UpdatePlayerState::serialize(Net::Stream& bs)
 {
-	bs.Write(m_id);
-	bs.Write(m_playerTeam);
-	bs.Write(RakString(m_playerName));
-	bs.Write(RakString(m_playerCharClass));
-	bs.Write(m_playerEntityVariant);
-	bs.Write(m_playerChar);
-	bs.Write(m_bReady);
+	bs.write(m_id);
+	bs.write(m_playerTeam);
+	bs.write(m_playerName);
+	bs.write(m_playerCharClass);
+	bs.write(m_playerEntityVariant);
+	bs.write(m_playerChar);
+	bs.write(m_bReady);
 }

@@ -4,16 +4,16 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "QueryIFF.h"
+#include "Stream.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
 TD_NETMESSAGE_IMPL(QueryIFF);
 //---------------------------------------------------------------------------
-QueryIFF::QueryIFF(const Packet& packet) : Message(packet)
+QueryIFF::QueryIFF()
 {
 }
 //---------------------------------------------------------------------------
@@ -21,21 +21,21 @@ QueryIFF::~QueryIFF()
 {
 }
 //---------------------------------------------------------------------------
-void QueryIFF::_deserialize(RakNet::BitStream& bs)
+void QueryIFF::deserialize(Net::Stream& bs)
 {
-	bs.Read(m_selfId);
-	size_t sz;
-	bs.Read(sz);
+	bs.read(m_selfId);
+	unsigned int sz;
+	bs.read(sz);
 	m_targetIds.resize(sz);
 	for (size_t i=0; i<sz; ++i)
-		bs.Read(m_targetIds[i]);
+		bs.read(m_targetIds[i]);
 }
 //---------------------------------------------------------------------------
-void QueryIFF::_serialize(BitStream& bs)
+void QueryIFF::serialize(Net::Stream& bs)
 {
-	bs.Write(m_selfId);
-	size_t sz = m_targetIds.size();
-	bs.Write(sz);
+	bs.write(m_selfId);
+	unsigned int sz = m_targetIds.size();
+	bs.write(sz);
 	for (size_t i=0; i<sz; ++i)
-		bs.Write(m_targetIds[i]);
+		bs.write(m_targetIds[i]);
 }

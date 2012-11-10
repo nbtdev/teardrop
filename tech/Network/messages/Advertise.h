@@ -9,7 +9,10 @@ is prohibited.
 #define ADVERTISE_INCLUDED
 
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
 #include "Util/_String.h"
+#include "Memory/Memory.h"
 
 namespace Teardrop
 {
@@ -23,12 +26,12 @@ namespace Teardrop
 			String m_serverName;
 			String m_mapName;
 
-			Advertise(const Packet& packet);
+			Advertise();
 			virtual ~Advertise();
 
 			//! Message implementation
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
 		};

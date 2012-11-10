@@ -4,17 +4,16 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "PlayerCommand.h"
+#include "Stream.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
 TD_PROXYMESSAGE_IMPL(PlayerCommand);
 //---------------------------------------------------------------------------
-PlayerCommand::PlayerCommand(const Packet& packet) 
-: ProxyMessage(packet)
+PlayerCommand::PlayerCommand()
 {
 	m_channel = 2;
 }
@@ -23,20 +22,20 @@ PlayerCommand::~PlayerCommand()
 {
 }
 //---------------------------------------------------------------------------
-void PlayerCommand::_deserialize(RakNet::BitStream& bs)
+void PlayerCommand::deserialize(Net::Stream& bs)
 {
-	bs.Read(extra[0]);
-	bs.Read(extra[1]);
-	bs.Read(extra[2]);
-	bs.Read(extra[3]);
-	bs.Read(verb);
+	bs.read(extra[0]);
+	bs.read(extra[1]);
+	bs.read(extra[2]);
+	bs.read(extra[3]);
+	bs.read(verb);
 }
 //---------------------------------------------------------------------------
-void PlayerCommand::_serialize(BitStream& bs)
+void PlayerCommand::serialize(Net::Stream& bs)
 {
-	bs.Write(extra[0]);
-	bs.Write(extra[1]);
-	bs.Write(extra[2]);
-	bs.Write(extra[3]);
-	bs.Write(verb);
+	bs.write(extra[0]);
+	bs.write(extra[1]);
+	bs.write(extra[2]);
+	bs.write(extra[3]);
+	bs.write(verb);
 }

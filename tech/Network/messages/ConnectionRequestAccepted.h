@@ -9,6 +9,7 @@ is prohibited.
 #define CONNECTION_REQUEST_ACCEPTED_INCLUDED
 
 #include "Network/Message.h"
+#include "Memory/Memory.h"
 
 namespace Teardrop
 {
@@ -20,19 +21,15 @@ namespace Teardrop
 		public:
 			static const unsigned int ID = (0x80000000 | 14); // ID_CONNECTION_REQUEST_ACCEPTED -- fix this hack someday
 
-			ConnectionRequestAccepted(const Packet& packet);
+			ConnectionRequestAccepted();
 			virtual ~ConnectionRequestAccepted();
 			size_t getId() { return ID; }
 
 			//! Message implementation
-			void deserialize(RakNet::BitStream& bs);
-			void serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
-
-		private:
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
 		};
 	}
 }

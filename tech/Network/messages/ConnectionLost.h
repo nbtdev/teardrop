@@ -9,6 +9,7 @@ is prohibited.
 #define CONNECTIONLOST_INCLUDED
 
 #include "Network/Message.h"
+#include "Memory/Memory.h"
 
 namespace Teardrop
 {
@@ -21,19 +22,15 @@ namespace Teardrop
 			static const unsigned int ID = (0x80000000 | 20); // ID_CONNECTION_LOST -- fix this hack someday
 			unsigned int m_playerId;
 
-			ConnectionLost(const Packet& packet);
+			ConnectionLost();
 			virtual ~ConnectionLost();
 			size_t getId() { return ID; }
 
 			//! Message implementation
-			void deserialize(RakNet::BitStream& bs);
-			void serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
-
-		private:
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
 		};
 	}
 }

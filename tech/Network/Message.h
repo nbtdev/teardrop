@@ -5,53 +5,69 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(NETMESSAGE_INCLUDED)
-#define NETMESSAGE_INCLUDED
+#if !defined(NET_MESSAGE_INCLUDED)
+#define NET_MESSAGE_INCLUDED
 
-#include "Memory/Memory.h"
-#include "Network/Network.h"
-#include "Util/SharedPointer.h"
-
-struct Packet;
-namespace RakNet
-{
-	class BitStream;
-}
+#include "MessageFwd.h"
 
 namespace Teardrop
 {
 	namespace Net
 	{
+		class Stream;
+		class Peer;
+
+		enum MessagePriority
+		{
+			PRIORITY_SYSTEM,
+			PRIORITY_HIGH,
+			PRIORITY_MEDIUM,
+			PRIORITY_LOW,
+
+			PRIORITY_TYPE_COUNT
+		};
+
+		enum MessageReliability
+		{
+			RELIABILITY_UNRELIABLE,
+			RELIABILITY_UNRELIABLE_SEQUENCED,
+			RELIABILITY_RELIABLE,
+			RELIABILITY_ORDERED,
+			RELIABILITY_RELIABILE_SEQUENCED,
+
+			RELIABILITY_TYPE_COUNT
+		};
+
+		enum MessageClass
+		{
+			MESSAGE_SYSTEM,
+			MESSAGE_USER,
+			MESSAGE_OOB,
+
+			MESSAGE_TYPE_COUNT
+		};
+
 		class Message
 		{
 		public:
-			int m_priority;
-			int m_reliability;
-			int m_channel;
-			unsigned int g[4]; // guid
-			unsigned int a;    // IPv4 address
-			unsigned short p;
-			unsigned short pad;
+			// used only for incoming messages
+			Peer* m_pPeer; 
 
-			Message(const Packet& packet);
+			int m_channel;
+			MessagePriority m_priority;
+			MessageReliability m_reliability;
+			MessageClass m_class;
+
+			Message();
 			virtual ~Message();
 
 			virtual size_t getId() = 0;
 
-			// these are virtual for overriding by Raknet message classes
-			virtual void deserialize(RakNet::BitStream& bs);
-			virtual void serialize(RakNet::BitStream& bs);
-
-			TD_DECLARE_ALLOCATOR();
-
-		protected:
-			Message();
-			virtual void _deserialize(RakNet::BitStream& bs) = 0;
-			virtual void _serialize(RakNet::BitStream& bs) = 0;
+			// these are virtual for overriding by subclasses
+			virtual void deserialize(Stream& s) = 0;
+			virtual void serialize(Stream& s) = 0;
 		};
-
-		typedef SharedPointer<Message> MessagePtr;
 	}
 }
 
-#endif // NETMESSAGE_INCLUDED
+#endif // NET_MESSAGE_INCLUDED

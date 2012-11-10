@@ -9,6 +9,9 @@ is prohibited.
 #define QUERY_IFF_INCLUDED
 
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 #include <vector>
 
 namespace Teardrop
@@ -23,12 +26,12 @@ namespace Teardrop
 			unsigned int m_selfId;
 			std::vector<unsigned int> m_targetIds;
 
-			QueryIFF(const Packet& packet);
+			QueryIFF();
 			virtual ~QueryIFF();
 
 			//! Message implementation
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
 		};

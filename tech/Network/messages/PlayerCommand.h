@@ -9,6 +9,9 @@ is prohibited.
 #define PLAYERCOMMAND_INCLUDED
 
 #include "Network/ProxyMessage.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 
 namespace Teardrop
 {
@@ -22,14 +25,14 @@ namespace Teardrop
 			float extra[4]; // float and uint are both 32-bit
 			unsigned char verb;
 
-			PlayerCommand(const Packet& packet);
+			PlayerCommand();
 			virtual ~PlayerCommand();
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 		};
 	}
 }

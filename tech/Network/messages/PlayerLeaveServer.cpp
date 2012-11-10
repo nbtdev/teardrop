@@ -4,31 +4,32 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "PlayerLeaveServer.h"
+#include "Stream.h"
+#include "Peer.h"
 #include "Util/Hash.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
 TD_NETMESSAGE_IMPL(PlayerLeaveServer);
 //---------------------------------------------------------------------------
-PlayerLeaveServer::PlayerLeaveServer(const Packet& packet) : Message(packet)
+PlayerLeaveServer::PlayerLeaveServer()
 {
-	m_id = hashData(g, sizeof(g));
+	m_id = m_pPeer->getPlayerId();
 }
 //---------------------------------------------------------------------------
 PlayerLeaveServer::~PlayerLeaveServer()
 {
 }
 //---------------------------------------------------------------------------
-void PlayerLeaveServer::_deserialize(RakNet::BitStream& bs)
+void PlayerLeaveServer::deserialize(Net::Stream& bs)
 {
-	bs.Read(m_id);
+	bs.read(m_id);
 }
 //---------------------------------------------------------------------------
-void PlayerLeaveServer::_serialize(BitStream& bs)
+void PlayerLeaveServer::serialize(Net::Stream& bs)
 {
-	bs.Write(m_id);
+	bs.write(m_id);
 }

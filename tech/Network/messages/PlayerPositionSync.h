@@ -9,6 +9,9 @@ is prohibited.
 #define PLAYERPOSITIONSYNC_INCLUDED
 
 #include "Network/ProxyMessage.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 #include "Math/Vector4.h"
 #include "Math/Quaternion.h"
 
@@ -25,14 +28,14 @@ namespace Teardrop
 			Teardrop::Quaternion m_orientation;
 			float m_twistAngle;
 
-			PlayerPositionSync(const Packet& packet);
+			PlayerPositionSync();
 			virtual ~PlayerPositionSync();
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 		};
 	}
 }

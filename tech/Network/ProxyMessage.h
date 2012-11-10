@@ -21,19 +21,14 @@ namespace Teardrop
 			unsigned int m_playerId;
 			const static unsigned int MASK = 0x40000000;
 
-			ProxyMessage(const Packet& packet);
+			ProxyMessage();
 			virtual ~ProxyMessage();
 
 			// these are virtual for overriding by Raknet message classes
-			void deserialize(RakNet::BitStream& bs);
-			void serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
-
-		protected:
-			ProxyMessage();
-			virtual void _deserialize(RakNet::BitStream& bs) = 0;
-			virtual void _serialize(RakNet::BitStream& bs) = 0;
 		};
 	}
 }

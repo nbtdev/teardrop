@@ -48,7 +48,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -113,7 +113,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -163,6 +163,15 @@
 			<File
 				RelativePath="..\..\..\messages\ChatMessage.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						GeneratePreprocessedFile="0"
+						ShowIncludes="false"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\messages\ChatMessage.h"
@@ -322,6 +331,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\MessageFwd.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\Network.cpp"
 			>
 		</File>
@@ -330,11 +343,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Peer.cpp"
+			RelativePath="..\..\..\Peer.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Peer.h"
+			RelativePath="..\..\..\Protocol.h"
 			>
 		</File>
 		<File
@@ -346,39 +359,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RemotePeer.cpp"
+			RelativePath="..\..\..\Stream.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RemotePeer.h"
-			>
-		</File>
-		<File
-			RelativePath="..\stdafx.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\stdafx.h"
-			>
-		</File>
-		<File
-			RelativePath="..\targetver.h"
+			RelativePath="..\..\..\Types.h"
 			>
 		</File>
 	</Files>

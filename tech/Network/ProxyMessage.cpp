@@ -4,19 +4,12 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "ProxyMessage.h"
+#include "Stream.h"
 #include "Network.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
-//---------------------------------------------------------------------------
-ProxyMessage::ProxyMessage(const Packet& packet)
-: Message(packet)
-{
-	m_playerId = 0;
-}
 //---------------------------------------------------------------------------
 ProxyMessage::ProxyMessage()
 {
@@ -27,14 +20,14 @@ ProxyMessage::~ProxyMessage()
 {
 }
 //---------------------------------------------------------------------------
-void ProxyMessage::deserialize(BitStream& bs)
+void ProxyMessage::deserialize(Net::Stream& bs)
 {
 	Message::deserialize(bs);
-	bs.Read(m_playerId);
+	bs.read(m_playerId);
 }
 //---------------------------------------------------------------------------
-void ProxyMessage::serialize(BitStream& bs)
+void ProxyMessage::serialize(Net::Stream& bs)
 {
 	Message::serialize(bs);
-	bs.Write(m_playerId);
+	bs.write(m_playerId);
 }

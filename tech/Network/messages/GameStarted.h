@@ -8,8 +8,10 @@ is prohibited.
 #if !defined(GAMESTARTED_INCLUDED)
 #define GAMESTARTED_INCLUDED
 
-#include "Memory/Memory.h"
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 
 namespace Teardrop
 {
@@ -22,12 +24,12 @@ namespace Teardrop
 			TD_NETMESSAGE(GameStarted, MSGID_GAME_STARTED);
 			unsigned int m_worldId;
 
-			GameStarted(const Packet& packet);
+			GameStarted();
 			virtual ~GameStarted();
 
 			//! Message implementation
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
 		};

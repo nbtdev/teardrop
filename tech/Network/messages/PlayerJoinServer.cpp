@@ -4,17 +4,17 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "PlayerJoinServer.h"
+#include "Stream.h"
 #include "Util/Hash.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
 TD_NETMESSAGE_IMPL(PlayerJoinServer);
 //---------------------------------------------------------------------------
-PlayerJoinServer::PlayerJoinServer(const Packet& packet) : Message(packet)
+PlayerJoinServer::PlayerJoinServer()
 {
 	m_id = 0;
 	m_playerChar = 0;
@@ -24,24 +24,20 @@ PlayerJoinServer::~PlayerJoinServer()
 {
 }
 //---------------------------------------------------------------------------
-void PlayerJoinServer::_deserialize(RakNet::BitStream& bs)
+void PlayerJoinServer::deserialize(Net::Stream& bs)
 {
-	bs.Read(m_id);
-
-	RakString str;
-	bs.Read(str);
-	m_playerName = str;
-	bs.Read(str);
-	m_playerCharClass = str;
-	bs.Read(m_playerChar);
-	bs.Read(m_playerEntityVariant);
+	bs.read(m_id);
+	bs.read(m_playerName);
+	bs.read(m_playerCharClass);
+	bs.read(m_playerChar);
+	bs.read(m_playerEntityVariant);
 }
 //---------------------------------------------------------------------------
-void PlayerJoinServer::_serialize(BitStream& bs)
+void PlayerJoinServer::serialize(Net::Stream& bs)
 {
-	bs.Write(m_id);
-	bs.Write(RakString(m_playerName));
-	bs.Write(RakString(m_playerCharClass));
-	bs.Write(m_playerChar);
-	bs.Write(m_playerEntityVariant);
+	bs.write(m_id);
+	bs.write(m_playerName);
+	bs.write(m_playerCharClass);
+	bs.write(m_playerChar);
+	bs.write(m_playerEntityVariant);
 }

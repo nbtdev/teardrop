@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Raknet_Release"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(RAKNET_SDK_DIR)\Source"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="RakNetLibStatic.lib ws2_32.lib"
+		AdditionalLibraryDirectories="$(RAKNET_SDK_DIR)\Lib"
+	/>
+</VisualStudioPropertySheet>

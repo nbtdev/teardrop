@@ -9,6 +9,9 @@ is prohibited.
 #define CHATMESSAGE_INCLUDED
 
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 #include "Util/_String.h"
 
 namespace Teardrop
@@ -29,12 +32,12 @@ namespace Teardrop
 			// message source
 			int m_source;
 
-			ChatMessage(const Packet& packet);
+			ChatMessage();
 			virtual ~ChatMessage();
 
 			//! Message implementation
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
 		};

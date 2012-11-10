@@ -4,16 +4,15 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "Advertise.h"
+#include "Stream.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
 //---------------------------------------------------------------------------
 TD_NETMESSAGE_IMPL(Advertise);
 //---------------------------------------------------------------------------
-Advertise::Advertise(const Packet& packet) : Message(packet)
+Advertise::Advertise()
 {
 }
 //---------------------------------------------------------------------------
@@ -21,17 +20,14 @@ Advertise::~Advertise()
 {
 }
 //---------------------------------------------------------------------------
-void Advertise::_deserialize(RakNet::BitStream& bs)
+void Advertise::deserialize(Net::Stream& bs)
 {
-	RakString name;
-	bs.Read(name);
-	m_serverName = name;
-	bs.Read(name);
-	m_mapName = name;
+	bs.read(m_serverName);
+	bs.read(m_mapName);
 }
 //---------------------------------------------------------------------------
-void Advertise::_serialize(BitStream& bs)
+void Advertise::serialize(Net::Stream& bs)
 {
-	bs.Write(RakString(m_serverName));
-	bs.Write(RakString(m_mapName));
+	bs.write(m_serverName);
+	bs.write(m_mapName);
 }

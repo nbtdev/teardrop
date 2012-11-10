@@ -8,8 +8,10 @@ is prohibited.
 #if !defined(UPDATEPLAYERSTATE_INCLUDED)
 #define UPDATEPLAYERSTATE_INCLUDED
 
-#include "Memory/Memory.h"
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 #include "Util/_String.h"
 
 namespace Teardrop
@@ -29,12 +31,12 @@ namespace Teardrop
 			unsigned short m_playerChar;
 			bool m_bReady;
 
-			UpdatePlayerState(const Packet& packet);
+			UpdatePlayerState();
 			virtual ~UpdatePlayerState();
 
 			//! Message implementation
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
 		};

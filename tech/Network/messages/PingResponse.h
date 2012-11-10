@@ -9,7 +9,8 @@ is prohibited.
 #define PINGRESPONSE_INCLUDED
 
 #include "Network/Message.h"
-typedef unsigned long long int uint64_t;
+#include "Network/Types.h"
+#include "Memory/Memory.h"
 
 namespace Teardrop
 {
@@ -23,19 +24,15 @@ namespace Teardrop
 			uint64_t m_time;
 			DiscoveryData m_data;
 
-			PingResponse(const Packet& packet);
+			PingResponse();
 			virtual ~PingResponse();
 			size_t getId() { return ID; }
 
 			//! Message implementation
-			void deserialize(RakNet::BitStream& bs);
-			void serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
-
-		private:
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
 		};
 	}
 }

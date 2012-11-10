@@ -4,15 +4,18 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "PingResponse.h"
-#include "GetTime.h"
+#include "Stream.h"
+#include "Network.h"
+#include "Util/Environment.h"
+#include "Util/SystemManager.h"
+#include <string.h> // for memset
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
-PingResponse::PingResponse(const Packet& packet) : Message(packet)
+PingResponse::PingResponse()
 {
 	// need to zero out the m_data member, because ping responses from a 
 	// server before the server has set up its discovery data, will return
@@ -25,29 +28,24 @@ PingResponse::~PingResponse()
 {
 }
 //---------------------------------------------------------------------------
-void PingResponse::deserialize(RakNet::BitStream& bs)
+void PingResponse::deserialize(Net::Stream& bs)
 {
 	unsigned char id;
-	bs.Read(id); // ID_PONG
+	bs.read(id); // ID_PONG
 
-	RakNetTime time;
-	bs.Read(time); // system time from remote response
+	uint64_t time;
+	bs.read(time); // system time from remote response
 
 	// read the offline ping response data, if any
-	bs.Read((char*)&m_data, sizeof(m_data));
+	bs.read((char*)&m_data, sizeof(m_data));
 
-	m_time = RakNet::GetTime() - time;
+	NetworkSystem* pSys = static_cast<NetworkSystem*>(
+		Environment::get().pSystemMgr->getActiveSystem(System::SYSTEM_NETWORK));
+
+	m_time = pSys->getTime() - time;
 }
 //---------------------------------------------------------------------------
-void PingResponse::serialize(BitStream& bs)
+void PingResponse::serialize(Net::Stream& bs)
 {
 	// nothing to serialize -- this is never sent from inside the app
-}
-//---------------------------------------------------------------------------
-void PingResponse::_deserialize(RakNet::BitStream& bs)
-{
-}
-//---------------------------------------------------------------------------
-void PingResponse::_serialize(BitStream& bs)
-{
 }

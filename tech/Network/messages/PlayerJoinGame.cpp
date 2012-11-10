@@ -4,16 +4,16 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "PlayerJoinGame.h"
+#include "Stream.h"
 
 using namespace Teardrop;
 using namespace Net;
-using namespace RakNet;
+
 //---------------------------------------------------------------------------
 TD_NETMESSAGE_IMPL(PlayerJoinGame);
 //---------------------------------------------------------------------------
-PlayerJoinGame::PlayerJoinGame(const Packet& packet) : Message(packet)
+PlayerJoinGame::PlayerJoinGame()
 {
 }
 //---------------------------------------------------------------------------
@@ -21,23 +21,18 @@ PlayerJoinGame::~PlayerJoinGame()
 {
 }
 //---------------------------------------------------------------------------
-void PlayerJoinGame::_deserialize(RakNet::BitStream& bs)
+void PlayerJoinGame::deserialize(Net::Stream& bs)
 {
-	bs.Read(m_id);
-	bs.Read(m_avatarId);
-
-	RakString str;
-	bs.Read(str);
-	m_avatarClass = str;
-	bs.Read(str);
-	m_playerName = str;
+	bs.read(m_id);
+	bs.read(m_avatarId);
+	bs.read(m_avatarClass);
+	bs.read(m_playerName);
 }
 //---------------------------------------------------------------------------
-void PlayerJoinGame::_serialize(BitStream& bs)
+void PlayerJoinGame::serialize(Net::Stream& bs)
 {
-	bs.Write(m_id);
-	bs.Write(m_avatarId);
-
-	bs.Write(RakString(m_avatarClass));
-	bs.Write(RakString(m_playerName));
+	bs.write(m_id);
+	bs.write(m_avatarId);
+	bs.write(m_avatarClass);
+	bs.write(m_playerName);
 }

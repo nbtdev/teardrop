@@ -9,6 +9,9 @@ is prohibited.
 #define PLAYERVARIANTCHANGED_INCLUDED
 
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 #include "Util/_String.h"
 #include <list>
 
@@ -34,14 +37,14 @@ namespace Teardrop
 			typedef std::list<SlotConfig> SlotData;
 			SlotData m_slotData;
 
-			PlayerVariantChanged(const Packet& packet);
+			PlayerVariantChanged();
 			virtual ~PlayerVariantChanged();
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 		};
 	}
 }

@@ -9,6 +9,9 @@ is prohibited.
 #define UPDATESERVERSTATE_INCLUDED
 
 #include "Network/Message.h"
+#include "Network/Network.h"
+#include "Network/Protocol.h"
+#include "Memory/Memory.h"
 #include "Util/_String.h"
 
 namespace Teardrop
@@ -30,12 +33,12 @@ namespace Teardrop
 			unsigned char m_updateOrRemove; // 0 for update, 1 for remove
 			bool m_bInProgress;
 
-			UpdateServerState(const Packet& packet);
+			UpdateServerState();
 			virtual ~UpdateServerState();
 
 			//! Message implementation
-			void _deserialize(RakNet::BitStream& bs);
-			void _serialize(RakNet::BitStream& bs);
+			void deserialize(Net::Stream& bs);
+			void serialize(Net::Stream& bs);
 
 			TD_DECLARE_ALLOCATOR();
 		};
