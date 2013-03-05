@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Raknet_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\SDK Library.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -85,7 +85,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Raknet_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\SDK Library.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
