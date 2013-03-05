@@ -30,6 +30,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying $(ProjectName) headers to $(SolutionDir)\sdk\include\TinyXML..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\TinyXML mkdir $(SolutionDir)sdk\include\TinyXML&#x0D;&#x0A;copy $(ProjectDir)..\..\..\*.h $(SolutionDir)\sdk\include\TinyXML  &gt; NUL"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -185,6 +187,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying $(ProjectName) headers to $(SolutionDir)\sdk\include\TinyXML..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\TinyXML mkdir $(SolutionDir)sdk\include\TinyXML&#x0D;&#x0A;copy $(ProjectDir)..\..\..\*.h $(SolutionDir)\sdk\include\TinyXML  &gt; NUL"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
