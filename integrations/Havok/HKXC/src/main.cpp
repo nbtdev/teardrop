@@ -15,12 +15,12 @@ is prohibited.
 #include <algorithm>
 
 #include "Config.h"
-#include "ToolLib/include/HkxMeshTool.h"
+#include "HkxMeshTool.h"
 #include "Stream/FileStream.h"
 #include "Util/Hash.h"
 #include "Gfx/GfxCommon.h"
-#include "Physics/Physics.h"
-#include "Animation/Animation.h"
+#include "Physics/PhysicsSystem.h"
+#include "Animation/AnimationSystem.h"
 #include "Util/_String.h"
 #include "Util/Logger.h"
 
@@ -133,9 +133,7 @@ static OutputType validateOutputFilename(const std::string& filename)
 int main(int argc, char* argv[])
 {
 	Environment::get().isOffline = 1;
-	Teardrop::setGfxAllocator(GetCRTAllocator());
-	Teardrop::Physics::setAllocator(GetCRTAllocator());
-	Teardrop::Animation::setAllocator(GetCRTAllocator());
+	//Teardrop::setGfxAllocator(GetCRTAllocator());
 	Teardrop::String::setAllocator(GetCRTAllocator());
 
 	if (argc < 3)
@@ -143,6 +141,11 @@ int main(int argc, char* argv[])
 		usage();
 		return 1;
 	}
+
+	Teardrop::Integration::Havok::Physics::System physics;
+	Teardrop::Integration::Havok::Animation::System animation;
+	physics.setAllocator(GetCRTAllocator());
+	animation.setAllocator(GetCRTAllocator());
 
 	std::string files[2];
 
@@ -184,10 +187,7 @@ int main(int argc, char* argv[])
 	RCParams params;
 	params.bVerbose = (s_flagsLUT.find("-v") != s_flagsLUT.end());
 
-	if (!Physics::initialize(false, false))
-	{
-		return 1;
-	}
+	physics.initialize();
 
 	{
 		hkLoader loader;
@@ -286,6 +286,6 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	Physics::shutdown();
+	physics.shutdown();
 	return 0;
 }

@@ -13,20 +13,31 @@ is prohibited.
 #include "AnimationHavok.h"
 #include "AnimationBlenderHavok.h"
 
-using namespace Teardrop::Integration::Havok::Animation;
+using namespace Teardrop::Integration;
+using namespace Teardrop;
 
-void System::setAllocator(Teardrop::Allocator* pAlloc)
+Havok::Animation::System::System()
+{
+
+}
+
+Havok::Animation::System::~System()
+{
+
+}
+
+void Havok::Animation::System::setAllocator(Allocator* pAlloc)
 {
 	assert(pAlloc);
 	m_pAllocator = pAlloc;
 }
 
-Teardrop::Allocator* System::getAllocator()
+Allocator* Havok::Animation::System::getAllocator()
 {
 	return m_pAllocator;
 }
 
-void System::getTypes(Teardrop::System::Type* typeArray, int& typeCount)
+void Havok::Animation::System::getTypes(System::Type* typeArray, int& typeCount)
 {
 	if (typeCount < 1)
 	{
@@ -38,23 +49,23 @@ void System::getTypes(Teardrop::System::Type* typeArray, int& typeCount)
 	typeCount = 1;
 }
 
-void System::initialize()
+void Havok::Animation::System::initialize()
 {
 	// currently there really isn't anything to init for the animation
 	// system, but as a hack to prevent stripping of the animation 
 	// implementation classes, I need to mention them by name here...
-	Teardrop::RigHavok cRig;
-	Teardrop::AnimationHavok cAnim;
+	RigHavok cRig;
+	AnimationHavok cAnim;
 	cRig.destroy();
 	cAnim.destroy();
 }
 
-void System::shutdown()
+void Havok::Animation::System::shutdown()
 {
 }
 
-Teardrop::AnimationBlender* System::createBlender()
+AnimationBlender* Havok::Animation::System::createBlender()
 {
 	// make one of the Havok variety...
-	return TD_NEW Teardrop::AnimationBlenderHavok;
+	return TD_NEW AnimationBlenderHavok;
 }

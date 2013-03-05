@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Teardrop-Havok (Debug VC9)"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(TEARDROP_HAVOK_INTEGRATION)\include;$(HAVOK_SDK_DIR)\Source"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="Havok_Animation.lib Havok_Physics.lib Havok_Ragdoll.lib hkBase.lib hkSerialize.lib hkSceneData.lib hkCompat.lib hkaInternal.lib hkaRagdoll.lib hkpInternal.lib hkaAnimation.lib hkpVehicle.lib hkpDynamics.lib hkpUtilities.lib hkpConstraintSolver.lib hkpCollide.lib hkVisualize.lib hkGeometryUtilities.lib hkInternal.lib"
+		AdditionalLibraryDirectories="$(TEARDROP_HAVOK_INTEGRATION)\lib\vc9\Debug;$(HAVOK_SDK_DIR)\Lib\win32_net_9-0\release_multithreaded_dll"
+	/>
+</VisualStudioPropertySheet>

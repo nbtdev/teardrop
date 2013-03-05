@@ -4,7 +4,6 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "HkxAnimTool.h"
 #include "Animation/Animation.h"
 #include "Util/Environment.h"

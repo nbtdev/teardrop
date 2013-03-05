@@ -4,7 +4,6 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-#include "stdafx.h"
 #include "HkxRigidBodyTool.h"
 #include "Physics/Body.h"
 #include "Util/Environment.h"

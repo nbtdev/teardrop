@@ -4,10 +4,8 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-
-#include "stdafx.h"
-#include "HkxRigTool.h"
-#include "Animation/Rig.h"
+#include "HkxRagdollTool.h"
+#include "Ragdoll/Ragdoll.h"
 #include "Util/Environment.h"
 #include "Stream/Stream.h"
 #include "Config.h"
@@ -15,33 +13,33 @@ is prohibited.
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 static char s_buf[8192];
-static const char* ToolName = "HkxRigTool";
+static const char* ToolName = "HkxRagdollTool";
 static Environment s_env;
 //---------------------------------------------------------------------------
-HkxRigTool::HkxRigTool(const HkxRigToolParams& params)
+HkxRagdollTool::HkxRagdollTool(const HkxRagdollToolParams& params)
 : m_params(params)
 {
 }
 //---------------------------------------------------------------------------
-HkxRigTool::~HkxRigTool()
+HkxRagdollTool::~HkxRagdollTool()
 {
 }
 //---------------------------------------------------------------------------
-bool HkxRigTool::initialize()
-{
-	return true;
-}
-//---------------------------------------------------------------------------
-bool HkxRigTool::destroy()
+bool HkxRagdollTool::initialize()
 {
 	return true;
 }
 //---------------------------------------------------------------------------
-bool HkxRigTool::process(
-	Rig& rig, Stream& src)
+bool HkxRagdollTool::destroy()
+{
+	return true;
+}
+//---------------------------------------------------------------------------
+bool HkxRagdollTool::process(
+	Ragdoll& ragdoll, Stream& src)
 {
 	// right now, we just pack whatever is in the src stream into the 
 	// resource -- typically should always be DDS texture file data
-	rig.load(src);
+	ragdoll.load(src);
 	return true;
 }

@@ -6,8 +6,8 @@ is prohibited.
 ****************************************************************************/
 
 #include "Config.h"
-#include "ToolLib/include/HkxRagdollTool.h"
-#include "Ragdoll/integration/Havok/RagdollHavok.h"
+#include "HkxAnimTool.h"
+#include "Animation/AnimationHavok.h"
 #include "Serialization/ResourceSerializer.h"
 #include "Stream/FileStream.h"
 #include "hkxc.h"
@@ -15,17 +15,17 @@ is prohibited.
 using namespace Teardrop;
 
 //---------------------------------------------------------------------------
-bool doRagdoll(
+bool doAnim(
 	const char* inputFilename, 
 	const RCParams& params, 
 	const StringSet& options,
 	Stream& outStrm)
 {
-	HkxRagdollToolParams ragdollParams;
-	ragdollParams.bVerbose = params.bVerbose;
+	HkxAnimToolParams animParams;
+	animParams.bVerbose = params.bVerbose;
 
-	HkxRagdollTool ragdollTool(ragdollParams);
-	ragdollTool.initialize();
+	HkxAnimTool animTool(animParams);
+	animTool.initialize();
 
 	FileStream fs;
 	if (!fs.open(inputFilename, READ|BINARY))
@@ -34,17 +34,17 @@ bool doRagdoll(
 		return false;
 	}
 
-	RagdollHavok ragdoll;
-	if (ragdollTool.process(ragdoll, fs))
+	AnimationHavok anim;
+	if (animTool.process(anim, fs))
 	{
 		// save out the mesh file
 		ResourceSerializer ser(outStrm);
 		unsigned __int64 id = params.resid;
 		ser.setId(id);
-		ragdoll.serialize(ser);
+		anim.serialize(ser);
 	}
-	ragdoll.destroy();
-	ragdollTool.destroy();
+	anim.destroy();
+	animTool.destroy();
 
 	return true;
 }

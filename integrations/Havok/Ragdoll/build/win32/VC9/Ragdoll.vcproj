@@ -64,6 +64,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\Havok_$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -130,6 +131,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\Havok_$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

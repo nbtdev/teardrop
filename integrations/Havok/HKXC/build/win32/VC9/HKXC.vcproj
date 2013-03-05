@@ -18,10 +18,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)sdk\bin"
+			OutputDirectory="$(SolutionDir)Havok\bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\..\tech\vsprops\Debug C Runtime Library Type.vsprops;..\..\tech\vsprops\Havok_Debug.vsprops;..\..\tech\vsprops\DirectX_Debug.vsprops"
+			InheritedPropertySheets="$(TEARDROP_SDK)\vsprops\VC9\Teardrop SDK (Debug).vsprops;$(TEARDROP_SDK)\vsprops\VC9\TinyXML_Debug.vsprops;$(TEARDROP_SDK)\vsprops\VC9\Debug C Runtime Library Type.vsprops;$(TEARDROP_SDK)\vsprops\VC9\DirectX_Debug.vsprops;..\..\..\..\vsprops\Havok_Debug.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;..;..\..\tech"
+				AdditionalIncludeDirectories="..\..\..\include;..\..\..\.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0501"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -95,10 +95,10 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)sdk\bin"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)Havok\bin"
+			IntermediateDirectory="$(SolutionDir)\obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\..\tech\vsprops\Release C Runtime Library Type.vsprops;..\..\tech\vsprops\Havok_Release.vsprops;..\..\tech\vsprops\DirectX_Release.vsprops"
+			InheritedPropertySheets="$(TEARDROP_SDK)\vsprops\VC9\Teardrop SDK (Release).vsprops;$(TEARDROP_SDK)\vsprops\VC9\TinyXML_Debug.vsprops;$(TEARDROP_SDK)\vsprops\VC9\Release C Runtime Library Type.vsprops;$(TEARDROP_SDK)\vsprops\VC9\DirectX_Release.vsprops;..\..\..\..\vsprops\Havok_Release.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
@@ -119,7 +119,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="include;..;..\..\tech"
+				AdditionalIncludeDirectories="..\..\..\include;..\..\..\.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_WIN32_WINNT=0x0501"
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="0"
@@ -180,31 +180,67 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\anim.cpp"
+				RelativePath="..\..\..\src\anim.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\main.cpp"
+				RelativePath="..\..\..\src\HkxAnimTool.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\mesh.cpp"
+				RelativePath="..\..\..\src\HkxMeshTool.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\ragdoll.cpp"
+				RelativePath="..\..\..\src\HkxPrune.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\rig.cpp"
+				RelativePath="..\..\..\src\HkxRagdollTool.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\rigidBody.cpp"
+				RelativePath="..\..\..\src\HkxRigidBodyTool.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\scene.cpp"
+				RelativePath="..\..\..\src\HkxRigTool.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\HkxSceneTool.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\Logger.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\mesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\ragdoll.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\rig.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\rigidBody.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\scene.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\SceneDataWriter.cpp"
 				>
 			</File>
 		</Filter>
@@ -214,7 +250,43 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\hkxc.h"
+				RelativePath="..\..\..\include\HkxAnimTool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\hkxc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\HkxMeshTool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\HkxPrune.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\HkxRagdollTool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\HkxRigidBodyTool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\HkxRigTool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\HkxSceneTool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\Logger.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\SceneDataWriter.h"
 				>
 			</File>
 		</Filter>

@@ -4,11 +4,28 @@ Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
-
-#include "stdafx.h"
-#include "HkxSceneTool.h"
-
+#include "HkxMeshTool.h"
 #include "Gfx/GfxRenderer.h"
+#include "Config.h"
+
+#include "Common/Base/hkBase.h"
+#include "Common/Serialize/Util/hkRootLevelContainer.h"
+#include "Common/SceneData/Scene/hkxScene.h"
+#include "Common/SceneData/Material/hkxMaterial.h"
+#include "Common/SceneData/Material/hkxTextureFile.h"
+#include "Common/SceneData/Mesh/hkxMesh.h"
+#include "Animation/Animation/Deform/Skinning/hkaMeshBinding.h"
+#include "Animation/Animation/hkaAnimationContainer.h"
+#include "Common/SceneData/Mesh/hkxVertexBuffer.h"
+#include "Common/SceneData/Mesh/hkxVertexDescription.h"
+#include "Common/SceneData/Mesh/hkxIndexBuffer.h"
+#include "Common/SceneData/Mesh/hkxMeshSection.h"
+#include "Common/SceneData/Skin/hkxSkinBinding.h"
+#include "Common/SceneData/Attributes/hkxAttributeHolder.h"
+#include "Common/SceneData/Attributes/hkxAttributeGroup.h"
+#include "Common/SceneData/Environment/hkxEnvironment.h"
+#include "Physics/Utilities/Serialize/hkpPhysicsData.h"
+
 #include "Gfx/GfxMesh.h"
 #include "Gfx/GfxMaterial.h"
 #include "Gfx/GfxSubMesh.h"
@@ -18,47 +35,50 @@ is prohibited.
 #include "Gfx/GfxUtil.h"
 #include "Gfx/GfxTextureStage.h"
 #include "Util/Environment.h"
-#include "Util/Hash.h"
 #include "Util/StringUtil.h"
-#include "Stream/FileStream.h"
-#include "Serialization/ResourceSerializer.h"
-#include "tinyxml.h"
-#include "Logger.h"
-#include "SceneDataWriter.h"
+#include "Util/Hash.h"
+#include "Math/MathUtil.h"
+#include "Math/Matrix44.h"
 
-#include "Common/Base/hkBase.h"
-#include "Common/Serialize/Util/hkRootLevelContainer.h"
-#include "Common/SceneData/Scene/hkxScene.h"
-#include "Common/SceneData/Graph/hkxNode.h"
-#include "Common/SceneData/Material/hkxMaterial.h"
-#include "Common/SceneData/Material/hkxTextureFile.h"
-#include "Common/SceneData/Mesh/hkxMesh.h"
-#include "Common/SceneData/Mesh/hkxVertexBuffer.h"
-#include "Common/SceneData/Mesh/hkxVertexDescription.h"
-#include "Common/SceneData/Mesh/hkxIndexBuffer.h"
-#include "Common/SceneData/Mesh/hkxMeshSection.h"
-#include "Common/SceneData/Skin/hkxSkinBinding.h"
-#include "Common/SceneData/Environment/hkxEnvironment.h"
-#include "Common/SceneData/Attributes/hkxAttributeHolder.h"
-#include "Common/SceneData/Attributes/hkxAttributeGroup.h"
-#include "Physics/Utilities/Serialize/hkpPhysicsData.h"
+#include "Logger.h"
+#include "TinyXML/tinyxml.h"
 
 #include <assert.h>
 #include <stdio.h>
 #include <map>
 #include <list>
 #include <string>
-#include <sstream>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 static char s_buf[8192];
 static char strings[64 * 1024];
 static char* s_pCurrentString = strings;
-static const char* ToolName = "HkxSceneTool";
+static const char* ToolName = "HkxMeshTool";
 static Environment s_env;
-typedef std::multimap<hkxMaterial*, hkxMeshSection*> MaterialToMeshLUT;
-typedef std::list<hkxMeshSection*> MeshSections;
+class Pair
+{
+public:
+	hkxMesh* pMesh;
+	hkaMeshBinding* pBinding;
+	Pair(hkxMesh* m) { pMesh =m; pBinding =0; }
+	Pair(hkaMeshBinding* b) { pMesh =0; pBinding =b; }
+private:
+	Pair();
+};
+class Pair2
+{
+public:
+	hkxMeshSection* pSect;
+	hkaMeshBinding* pBinding;
+	Pair2(hkxMeshSection* m) { pSect =m; pBinding =0; }
+	Pair2(hkaMeshBinding* b) { pSect =0; pBinding =b; }
+	Pair2(hkxMeshSection* m, hkaMeshBinding* b) { pSect =m; pBinding =b; }
+private:
+	Pair2();
+};
+typedef std::multimap<hkxMaterial*, Pair2> MaterialToMeshLUT;
+typedef std::list<Pair2> MeshSections;
 //---------------------------------------------------------------------------
 //HKX_DT_NONE = 0,
 //HKX_DT_UINT8, // only used for four contiguous hkUint8s, hkUint8[4]
@@ -76,7 +96,7 @@ static size_t hkxSizeLut[] =
 	sizeof(hkUint32),
 	sizeof(float),
 	sizeof(float) * 2,
-	sizeof(float) * 3,
+	sizeof(float) * 4,
 	sizeof(hkVector4),
 };
 
@@ -88,11 +108,11 @@ static Teardrop::VertexElementType elemTypeLut[] =
 	BYTE4,
 	Teardrop::FLOAT,
 	FLOAT2,
-	FLOAT3,
+	FLOAT4,
 	FLOAT4,
 };
 //---------------------------------------------------------------------------
-HkxSceneTool::HkxSceneTool(const HkxSceneToolParams& params)
+HkxMeshTool::HkxMeshTool(const HkxMeshToolParams& params)
 : m_params(params)
 {
 	m_pHkx = 0;
@@ -103,11 +123,11 @@ HkxSceneTool::HkxSceneTool(const HkxSceneToolParams& params)
 	s_env.pRenderer = 0;
 }
 //---------------------------------------------------------------------------
-HkxSceneTool::~HkxSceneTool()
+HkxMeshTool::~HkxMeshTool()
 {
 }
 //---------------------------------------------------------------------------
-bool HkxSceneTool::initialize(hkRootLevelContainer* pHkx)
+bool HkxMeshTool::initialize(hkRootLevelContainer* pHkx)
 {
 	m_pHkx = pHkx;
 	m_pGfx = GfxRenderer::allocate(s_env);
@@ -117,7 +137,7 @@ bool HkxSceneTool::initialize(hkRootLevelContainer* pHkx)
 	return true;
 }
 //---------------------------------------------------------------------------
-bool HkxSceneTool::destroy()
+bool HkxMeshTool::destroy()
 {
 	if (m_pGfx)
 	{
@@ -134,7 +154,8 @@ bool HkxSceneTool::destroy()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool HkxSceneTool::process()
+bool HkxMeshTool::process(
+	GfxMesh& destMesh, hkRootLevelContainer& destContainer)
 {
 	if (!m_pHkx)
 	{
@@ -159,14 +180,7 @@ bool HkxSceneTool::process()
 			"found scene root, beginning processing");
 	}
 
-	if (!m_params.outDir)
-	{
-		Logger::logMessage(Logger::ERR, ToolName, 
-			"no output directory provided, aborting");
-		return false;
-	}
-
-	processScene(*pScene);
+	_process(destMesh);
 
 	if (m_params.bVerbose)
 	{
@@ -177,7 +191,37 @@ bool HkxSceneTool::process()
 	return true;
 }
 //---------------------------------------------------------------------------
-static void assembleVertexFormat(const hkxVertexDescription& rFmt, GfxVertexFormat& fmt)
+bool HkxMeshTool::process(GfxMesh& destMesh)
+{
+	if (!m_pHkx)
+	{
+		Logger::logMessage(Logger::ERR, ToolName, 
+			"found null container, expected valid container");
+		return false;
+	}
+
+	hkxScene* pScene = static_cast<hkxScene*>(m_pHkx->findObjectByType(
+		hkxSceneClass.getName(), 0));
+
+	if (!pScene)
+	{
+		Logger::logMessage(Logger::ERR, ToolName, 
+			"no root scene node found, aborting");
+		return false;
+	}
+
+	if (m_params.bVerbose)
+	{
+		Logger::logMessage(Logger::INFO, ToolName, 
+			"found scene root, beginning processing");
+	}
+
+	_process(destMesh);
+
+	return true;
+}
+//---------------------------------------------------------------------------
+void assembleVertexFormat(const hkxVertexDescription& rFmt, GfxVertexFormat& fmt)
 {
 	size_t offset = 0;
 	size_t texUsage = 0, colorUsage = 0;
@@ -303,8 +347,6 @@ static void assembleVertexFormat(const hkxVertexDescription& rFmt, GfxVertexForm
 			break;
 		}
 	}
-
-	fmt.alignSize(16);
 }
 //---------------------------------------------------------------------------
 static void addTextureStage(GfxMaterial* pMtl, TiXmlElement* pTex)
@@ -470,7 +512,7 @@ static void createMaterialFromXml(GfxMaterial* pMtl, const char* pXML)
 		pMtl->setSpecular(GfxUtil::makePackedColor(col));
 	}
 
-	pMtl->setNumLights(1); // todo: get this from somewhere?
+	pMtl->setNumLights(4); // todo: get this from somewhere?
 	//if (std::string("lambert") == pShader->Value())
 	//	pMtl->setShadingModel(GfxMaterial::LAMBERT);
 	//else if (std::string("phong") == pShader->Value())
@@ -502,89 +544,98 @@ static void createMaterialFromXml(GfxMaterial* pMtl, const char* pXML)
 		addTextureStage(pMtl, pTex);
 		pTex = pTex->NextSiblingElement("texture");
 	}
+
+	// TODO: force use of custom shader for anything exported? Hmm...
+	pMtl->setCustomShader(GfxMaterial::SHADER_FORCE_SHORT);
+
 }
 //---------------------------------------------------------------------------
 static GfxMaterial* makeMaterial(const hkxMaterial* pMtl)
 {
-	void* pMem = GFX_ALLOCATE(sizeof(GfxMaterial));
-	memset(pMem, 0, sizeof(GfxMaterial));
-	GfxMaterial* pMaterial = ::new(pMem) GfxMaterial(0);
+	GfxMaterial* pMaterial = TD_NEW GfxMaterial;
 	pMaterial->initialize();
 
 	void* pArcMtl = 
-		pMtl->findAttributeObjectByName("ArcadiaMaterial");
-	hkxSparselyAnimatedString* pXmlAttr = 
-		static_cast<hkxSparselyAnimatedString*>(pArcMtl);
-	const char* pXML = pXmlAttr->m_strings[0];
-	if (pXML)
+		pMtl->findAttributeObjectByName("CoSMaterial");
+	if (pArcMtl) 
 	{
-		createMaterialFromXml(pMaterial, pXML);
-	}
+		hkxSparselyAnimatedString* pXmlAttr = 
+			static_cast<hkxSparselyAnimatedString*>(pArcMtl);
+		const char* pXML = pXmlAttr->m_strings[0];
 
-#if 0
-	// set material properties from the hkx material
-	pMaterial->setDiffuse(GfxUtil::makePackedColor(
-		(Vector4&)pMtl->m_diffuseColor));
-	pMaterial->setAmbient(GfxUtil::makePackedColor(
-		(Vector4&)pMtl->m_ambientColor));
-	pMaterial->setSpecular(GfxUtil::makePackedColor(
-		pMtl->m_specularColor(0),
-		pMtl->m_specularColor(1),
-		pMtl->m_specularColor(2),
-		0)); // w is specular power
-	pMaterial->setEmissive(GfxUtil::makePackedColor(
-		(Vector4&)pMtl->m_emissiveColor));
-
-	for (int i=0; i<pMtl->m_numStages; ++i)
-	{
-		hkxMaterial::TextureStage& pStage = pMtl->m_stages[i];
-		if (pStage.m_texture.m_class->getName() == "hkxTextureFile")
+		if (pXML)
 		{
-			hkxTextureFile* pTexFile = 
-				static_cast<hkxTextureFile*>(pStage.m_texture.m_object);
-
-			GfxTextureStage* pGfxStage = pMaterial->addTextureStage();
-			pGfxStage->setEnabled(true);
-			pGfxStage->setTexCoordSet(pStage.m_tcoordChannel);
-			pGfxStage->setTextureName(pTexFile->m_filename);
-
-			// set map hint
-			GfxTextureStage::MapHint hint = GfxTextureStage::MAP_UNKNOWN;
-			switch(pStage.m_usageHint)
-			{
-			case hkxMaterial::TEX_DIFFUSE:
-				hint = GfxTextureStage::MAP_DIFFUSE;
-				break;
-
-			case hkxMaterial::TEX_REFLECTION:
-				hint = GfxTextureStage::MAP_ENVIRONMENT;
-				break;
-
-			case hkxMaterial::TEX_BUMP:
-				hint = GfxTextureStage::MAP_NORMAL;
-				break;
-
-			case hkxMaterial::TEX_NORMAL:
-				hint = GfxTextureStage::MAP_NORMAL;
-				break;
-
-			case hkxMaterial::TEX_DISPLACEMENT:
-				hint = GfxTextureStage::MAP_DISPLACEMENT;
-				break;
-
-				// todo: if we figure out how to insert custom
-				// map hints, extract them here
-			}
-
-			pGfxStage->setMapHint(hint);
+			createMaterialFromXml(pMaterial, pXML);
 		}
 	}
-#endif
+	else
+	{
+		// set material properties from the hkx material
+		pMaterial->setDiffuse(GfxUtil::makePackedColor(
+			(Vector4&)pMtl->m_diffuseColor));
+		pMaterial->setAmbient(GfxUtil::makePackedColor(
+			(Vector4&)pMtl->m_ambientColor));
+		pMaterial->setSpecular(GfxUtil::makePackedColor(
+			pMtl->m_specularColor(0),
+			pMtl->m_specularColor(1),
+			pMtl->m_specularColor(2),
+			0)); // w is specular power
+		pMaterial->setEmissive(GfxUtil::makePackedColor(
+			(Vector4&)pMtl->m_emissiveColor));
+
+		for (int i=0; i<pMtl->m_stages.getSize(); ++i)
+		{
+			const hkxMaterial::TextureStage& pStage = pMtl->m_stages[i];
+			if (pStage.m_texture.getClass()->getName() == "hkxTextureFile")
+			{
+				hkxTextureFile& texFile = 
+					static_cast<hkxTextureFile&>(*(pStage.m_texture));
+
+				GfxTextureStage* pGfxStage = pMaterial->addTextureStage();
+				pGfxStage->setEnabled(true);
+				pGfxStage->setTexCoordSet(pStage.m_tcoordChannel);
+				pGfxStage->setTextureName(texFile.m_filename);
+
+				// set map hint
+				GfxTextureStage::MapHint hint = GfxTextureStage::MAP_UNKNOWN;
+				switch(pStage.m_usageHint)
+				{
+				case hkxMaterial::TEX_DIFFUSE:
+					hint = GfxTextureStage::MAP_DIFFUSE;
+					break;
+
+				case hkxMaterial::TEX_REFLECTION:
+					hint = GfxTextureStage::MAP_ENVIRONMENT;
+					break;
+
+				case hkxMaterial::TEX_BUMP:
+					hint = GfxTextureStage::MAP_NORMAL;
+					break;
+
+				case hkxMaterial::TEX_NORMAL:
+					hint = GfxTextureStage::MAP_NORMAL;
+					break;
+
+				case hkxMaterial::TEX_DISPLACEMENT:
+					hint = GfxTextureStage::MAP_DISPLACEMENT;
+					break;
+
+					// todo: if we figure out how to insert custom
+					// map hints, extract them here
+				}
+
+				pGfxStage->setMapHint(hint);
+			}
+		}
+
+		// TODO: force use of custom shader for anything exported? Hmm...
+		pMaterial->setCustomShader(GfxMaterial::SHADER_FORCE_SHORT);
+	}
 
 	return pMaterial;
 }
 //---------------------------------------------------------------------------
-static void makeSubMeshes(
+static void makeSubMesh(
 	const MeshSections& sections, 
 	GfxMesh& destMesh
 )
@@ -592,18 +643,19 @@ static void makeSubMeshes(
 	if (!sections.size())
 	{
 		Logger::logMessage(Logger::WARNING, ToolName,
-			"mesh with no source mesh sections found, ignoring");
+			"submesh with no source mesh sections found, ignoring");
 		return;
 	}
 
 	// find out how many total verts
 	size_t vertCount = 0;
 	size_t indexCount = 0;
-	MeshSections filtered;
-	for (std::list<hkxMeshSection*>::const_iterator it = sections.begin();
+	int boneCount = 0;
+	for (MeshSections::const_iterator it = sections.begin();
 		it != sections.end(); ++it)
 	{
-		hkxMeshSection* pSect = *it;
+		hkxMeshSection* pSect = it->pSect;
+		hkaMeshBinding* pBinding = it->pBinding;
 
 		if (pSect->m_indexBuffers.getSize() > 1)
 		{
@@ -620,237 +672,289 @@ static void makeSubMeshes(
 			continue;
 		}
 
-		filtered.push_back(*it);
-
 		vertCount += pSect->m_vertexBuffer->getNumVertices();
 		indexCount += pIB->m_indices16.getSize();
+
+		if (pBinding)
+			boneCount = MathUtil::max(boneCount, pBinding->m_boneFromSkinMeshTransforms.getSize());
 	}
 
-	for (MeshSections::iterator it = filtered.begin(); it != filtered.end(); ++it)
+
+	// figure out the vertex format
+	GfxVertexFormat fmt;
+	size_t bonesPerVertex = 0;
+	size_t numTextures = 0;
+
+	const hkxMeshSection* pFirst = sections.begin()->pSect;
+	hkxVertexBuffer* pHkVB = pFirst->m_vertexBuffer;
+	const hkxVertexDescription& rFmt = pHkVB->getVertexDesc();
+	assembleVertexFormat(rFmt, fmt);
+
+	// create a new submesh for these sections
+	GfxSubMesh* pSubMesh = destMesh.createSubMesh();
+	pSubMesh->setVertexFormat(s_env, fmt);
+
+	// init some storage for all of the bind pose information for this submesh
+	pSubMesh->getBindPoses().resize(boneCount);
+
+	// make a vertex data block with enough room for all section verts
+	size_t streamIdx;
+	const hkxVertexDescription::ElementDecl* posDecl = 
+		rFmt.getElementDecl(hkxVertexDescription::HKX_DU_POSITION, 0);
+	GfxVertexData* pVertData = pSubMesh->createVertexData(
+		streamIdx,
+		s_env,
+		fmt.getVertexSize(),
+		vertCount,
+		GfxVertexData::CreationFlags(GfxVertexData::STATIC | GfxVertexData::WRITE_ONLY));
+	pSubMesh->setPrimitiveType(TRILIST);
+	void* pVertBuf = pVertData->getBuffer();
+
+	// likewise for index data
+	GfxIndexData* pIndexData = pSubMesh->createIndexData(
+		s_env,
+		sizeof(short), 
+		indexCount);
+
+	void* pIndexBuf = pIndexData->getBuffer();
+
+	// gather up all vert and index data into the new buffers
+	char* pcV = (char*)pVertBuf;
+	short* pcI = (short*)pIndexBuf;
+	int offset = 0;
+
+	hkaMeshBinding* pMasterBinding = 0;
+	for (MeshSections::const_iterator it = sections.begin();
+		it != sections.end(); ++it)
 	{
-		// figure out the vertex format
-		GfxVertexFormat fmt;
-		size_t bonesPerVertex = 0;
-		size_t numTextures = 0;
+		hkxMeshSection* pSect = it->pSect;
+		hkaMeshBinding* pBinding = it->pBinding;
+		if (!pMasterBinding)
+		{
+			pMasterBinding = pBinding;
+		}
 
-		const hkxMeshSection* pSect = *it;
-		const hkxVertexDescription& rFmt = pSect->m_vertexBuffer->getVertexDesc();
-		assembleVertexFormat(rFmt, fmt);
-
-		// create a new submesh for these sections
-		GfxSubMesh* pSubMesh = destMesh.createSubMesh();
-		pSubMesh->setVertexFormat(s_env, fmt);
-
-		// make a vertex data block with enough room for all section verts
-		size_t streamIdx;
-		const hkxVertexDescription::ElementDecl* posDecl = 
-			rFmt.getElementDecl(hkxVertexDescription::HKX_DU_POSITION, 0);
-		GfxVertexData* pVertData = pSubMesh->createVertexData(
-			streamIdx,
-			s_env,
-			//fmt.getVertexSize(),
-			posDecl->m_byteStride,
-			pSect->m_vertexBuffer->getNumVertices());
-		pSubMesh->setPrimitiveType(TRILIST);
-		void* pVertBuf = pVertData->getBuffer();
-
-		// likewise for index data
-		GfxIndexData* pIndexData = pSubMesh->createIndexData(
-			s_env,
-			sizeof(short), 
-			pSect->m_indexBuffers[0]->m_indices16.getSize());
-
-		void* pIndexBuf = pIndexData->getBuffer();
-
-		// gather up all vert and index data into the new buffers
-		char* pcV = (char*)pVertBuf;
-		char* pcI = (char*)pIndexBuf;
+		if (pSect->m_indexBuffers.getSize() > 1)
+		{
+			continue;
+		}
 
 		hkxIndexBuffer* pIB = pSect->m_indexBuffers[0];
+		if (pIB->m_indices32.getSize())
+		{
+			continue;
+		}
+
 		hkxVertexBuffer* pVB = pSect->m_vertexBuffer;
 
-		if (posDecl->m_byteStride != fmt.getVertexSize())
+		// so as of HK 7.x, we can no longer just copy vertex data directly,
+		// we basically have to parse it out of their new data layout (which 
+		// is stored by type, i.e. they have an array of hkVector4, an array
+		// of float, an array of uint8 and so on). We want to copy this out in
+		// an order that matches the vertex declaration we've set up for
+		// our GfxMesh vertex buffers, so since we created our vert decl based
+		// on theirs (in the same order), we can use theirs as the master for
+		// this operation. 
+
+		for (int vert=0; vert<pVB->getNumVertices(); ++vert)
 		{
-			// throw up a warning here?
-			break;
-		}
-
-		memcpy(pcV, pVB->getVertexDataPtr(*posDecl), 
-			posDecl->m_byteStride * pVB->getNumVertices());
-		memcpy(pcI, pIB->m_indices16.begin(), pIB->m_indices16.getSize() * sizeof(short));
-
-		// need to set all of the .w values to 1 (Havok sets them to zero which is bad for graphics)
-		for (hkUint32 i=0; i<(hkUint32)pVB->getNumVertices(); ++i)
-		{
-			hkVector4* posVals = (hkVector4*)(pcV + i * posDecl->m_byteStride);
-			(*posVals)(3) = 1;
-		}
-
-
-		pcV += pVB->getNumVertices() * posDecl->m_byteStride;
-		pcI += pIB->m_indices16.getSize() * 2;
-
-		//m_numVerts += pVB->getNumVertices();
-		//m_numTris += (pIB->m_numIndices16 / 3);
-
-		pIndexData->unlock();
-		pVertData->unlock();
-
-		// create material for this submesh
-		pSubMesh->setMaterial(makeMaterial(pSect->m_material));
-
-		//++m_numSubMeshes;
-		//++m_numMaterials;
-	}
-}
-//---------------------------------------------------------------------------
-void HkxSceneTool::processScene(const hkxScene& pScene)
-{
-	size_t numNodes = pScene.m_rootNode->m_children.getSize();
-	SceneEntries sceneEntries;
-
-	std::string stem(m_params.outFile);
-	stem = stem.substr(0, stem.find_last_of("\\/")+1);
-
-	for (size_t i=0; i < numNodes; ++i)
-	{
-		s_pCurrentString = strings;
-		GfxMesh destMesh;
-		destMesh.initialize();
-
-		hkxNode* pNode = pScene.m_rootNode->m_children[i];
-
-		hkVariant v = pNode->m_object;
-		hkxMesh* pMesh = 0;
-		if (v.m_object)
-		{
-			if (v.m_class == &hkxMeshClass)
+			for (int i=0; i<rFmt.m_decls.getSize(); ++i)
 			{
-				pMesh = static_cast<hkxMesh*>(v.m_object);
+				const hkxVertexDescription::ElementDecl& rDecl = rFmt.m_decls[i];
+				int elemSize = hkxSizeLut[rDecl.m_type];
+				char* srcPtr = (char*)pVB->getVertexDataPtr(rDecl);
+				int stride = rDecl.m_byteStride;
+
+				// copy the bytes into the current "cursor" position...
+				memcpy(pcV, srcPtr + stride*vert, elemSize);
+
+				// and still to this day we need to fix Havok's vertex position
+				// .w component...
+				if (rDecl.m_usage == hkxVertexDescription::HKX_DU_POSITION)
+				{
+					Vector4* pVec = (Vector4*)pcV;
+					pVec->w = 1;
+				}
+
+				// and then advance our "cursor"
+				pcV += elemSize;
 			}
 		}
 
-		if (pMesh)
+		// indices have to be copied piecewise because they have to take
+		// into account the additional offsets of the verts they index
+		for (int i=0; i<pIB->m_indices16.getSize(); ++i)
 		{
-			// group the meshes by the material they use
-			MeshSections sections;
+			*(pcI++) = pIB->m_indices16[i] + offset;
+		}
+
+		offset += pVB->getNumVertices();
+	}
+
+	// and then, copy over the bind pose data for skinning (if any)
+	if (pMasterBinding && pMasterBinding->m_boneFromSkinMeshTransforms.getSize())
+	{
+		for (int i=0; i<pMasterBinding->m_boneFromSkinMeshTransforms.getSize(); ++i)
+		{
+			pSubMesh->getBindPoses()[i] = 
+				&((Matrix44&)pMasterBinding->m_boneFromSkinMeshTransforms[i]);
+		}
+	}
+
+	// create material for this submesh
+	pSubMesh->setMaterial(makeMaterial(pFirst->m_material));
+}
+//---------------------------------------------------------------------------
+void mergeMeshes(const MaterialToMeshLUT& lut, GfxMesh& destMesh)
+{
+	// go through each group (multimap "first" values) and make a single 
+	// (potentially skinned) mesh of each
+	hkxMaterial* pPrevMtl = 0;
+	MeshSections sectionList;
+	MaterialToMeshLUT::const_iterator it = lut.begin();
+	size_t idx = 0;
+
+	for (; it != lut.end(); ++it) 
+	{
+		hkxMaterial* pMtl = it->first;
+		if (!pMtl)
+		{
+			Logger::logMessage(Logger::WARNING, ToolName,
+				"mesh with null material found, ignoring");
+			continue;
+		}
+
+		if (pMtl != pPrevMtl)
+		{
+			// merge these into a single SubMesh in the dest GfxMesh
+			if (sectionList.size())
+			{
+				makeSubMesh(sectionList, destMesh);
+			}
+
+			pPrevMtl = pMtl;
+			sectionList.clear();
+		}
+
+		sectionList.push_back(Pair2(it->second.pSect, it->second.pBinding));
+	}
+
+	makeSubMesh(sectionList, destMesh);
+}
+//---------------------------------------------------------------------------
+void HkxMeshTool::_process(GfxMesh& destMesh)
+{
+	/**
+		The point is to go through the top-level of the scene and find 
+		meshes -- we check for skins first because we only want to grab the
+		meshes that are animated if the object is animated, and if it is not
+		animated, then we grab all static meshes. We then have a set of meshes
+		that need to be grouped together by material, at which point they will
+		be merged into one-mesh-per-material groups. 
+	*/
+
+	hkxScene* pScene = reinterpret_cast<hkxScene*>(
+		m_pHkx->findObjectByType(hkxSceneClass.getName()));
+
+	size_t numSkins = pScene->m_skinBindings.getSize();
+	size_t numMeshes = pScene->m_meshes.getSize();
+	std::list<Pair> meshList;
+
+	if (numSkins)
+	{
+		hkaAnimationContainer* ac = reinterpret_cast<hkaAnimationContainer*>(
+			m_pHkx->findObjectByType(hkaAnimationContainerClass.getName()));
+
+		m_params.bVerbose ? Logger::logMessage(Logger::INFO, ToolName, 
+			"found skins, meshes will be treated as animated") : 0;
+
+		for (size_t i=0; i < numSkins; ++i)
+		{
+			hkaMeshBinding* pBinding = ac->m_skins[i];
+			meshList.push_back(Pair(pBinding));
+		}
+	}
+	else
+	{
+		m_params.bVerbose ? Logger::logMessage(Logger::INFO, ToolName, 
+			"no skins found, meshes will be treated as static") : 0;
+
+		for (size_t i=0; i < numMeshes; ++i)
+		{
+			meshList.push_back(Pair(pScene->m_meshes[i]));
+		}
+	}
+
+	if (m_params.bMergeMeshesByMaterial)
+	{
+		// group the meshes by the material they use
+		MaterialToMeshLUT materialMeshLUT;
+		for (std::list<Pair>::iterator it = meshList.begin(); 
+			it != meshList.end(); ++it)
+		{
+			hkxMesh* pMesh;
+			if (it->pMesh)
+			{
+				pMesh = it->pMesh;
+			}
+			else
+			{
+				pMesh = it->pBinding->m_mesh;
+			}
+
 			size_t sects = pMesh->m_sections.getSize();
 			for (size_t i=0; i<sects; ++i)
 			{
 				hkxMeshSection* pSection = pMesh->m_sections[i];
-				sections.push_back(pSection);
+				MaterialToMeshLUT::value_type val(
+					pSection->m_material, 
+					Pair2(pMesh->m_sections[i], it->pBinding));
+
+				materialMeshLUT.insert(val);
 			}
+		}
 
-			makeSubMeshes(sections, destMesh);
-
-			// remove any offending characters from the name (Havok/Maya like to put : in the node names)
-			char name[1024];
-			char* p = name;
-			strcpy_s(name, 1024, pNode->m_name);
-			while (*p)
+		mergeMeshes(materialMeshLUT, destMesh);
+	}
+	else
+	{
+		// do them each individually, as they appear in the export
+		for (std::list<Pair>::iterator it = meshList.begin(); 
+			it != meshList.end(); ++it)
+		{
+			hkxMesh* pMesh;
+			if (it->pMesh)
 			{
-				if (*p == ':' || *p == '/' || *p == '\\' || *p == '|')
-				{
-					*p = '_';
-				}
-
-				++p;
-			}
-
-			// open the output file for this mesh
-			std::string outName(m_params.outDir);
-			outName += "\\";
-			outName += name;
-			outName += ".msh";
-
-			FileStream fs;
-			if (!fs.open((stem+outName).c_str(), WRITE|BINARY|TRUNCATE))
-			{
-				std::stringstream ss;
-				ss << "Could not open output file " << outName;
-				Logger::logMessage(Logger::INFO, ToolName, ss.str().c_str());
-				continue;
-			}
-
-			ResourceSerializer ser(fs);
-			destMesh.serialize(ser);
-			fs.close();
-			destMesh.destroy();
-
-			// gather up the node info for generating the scene file
-			if (!pNode->m_keyFrames.getSize())
-			{
-				std::stringstream ss;
-				ss << "Node " << pNode->m_name << " has no transform!";
-				Logger::logMessage(Logger::INFO, ToolName, ss.str().c_str());
-				continue;
-			}
-
-			SceneEntry ent;
-			destMesh.getAABB((Vector4&)ent.minCorner, (Vector4&)ent.maxCorner);
-
-			hkMatrix4& mat = pNode->m_keyFrames[0];
-			hkTransform xform;
-			mat.get(xform);
-			hkRotation& rot = xform.getRotation();
-			if (!rot.isOrthonormal())
-			{
-				ent.angle = 0;
-				ent.axis[0] =
-				ent.axis[1] =
-				ent.axis[2] = 0;
+				pMesh = it->pMesh;
 			}
 			else
 			{
-				hkQuaternion q(rot);
-				ent.angle = q.getAngle();
-				if (q.hasValidAxis())
-				{
-					q.getAxis((hkVector4&)ent.axis);
-				}
-				else
-				{
-					ent.axis[0] = 
-					ent.axis[1] = 
-					ent.axis[2] = 0;
-				}
+				pMesh = it->pBinding->m_mesh;
 			}
 
-			(hkVector4&)ent.trans = xform.getTranslation();
-			(hkVector4&)ent.scale = hkVector4(1, 1, 1);
-			ent.name = outName;
+			size_t sects = pMesh->m_sections.getSize();
+			for (size_t i=0; i<sects; ++i)
+			{
+				MeshSections sections;
+				hkxMeshSection* pSection = pMesh->m_sections[i];
+				if (!pSection->m_material)
+				{
+					Logger::logMessage(Logger::WARNING, ToolName,
+						"mesh with null material found, ignoring");
+					continue;
+				}
 
-			sceneEntries.push_back(ent);
+				sections.push_back(Pair2(pSection, it->pBinding));
+				makeSubMesh(sections, destMesh);
+			}
 		}
 	}
-
-	// generate a scene document, if there was anything exported
-	SceneDataWriter writer;
-	writer.write(sceneEntries, m_params.outFile);
-
-	//else
-	//{
-		//// do them each individually, as they appear in the export
-		//for (std::list<hkxMesh*>::iterator it = meshList.begin(); 
-		//	it != meshList.end(); ++it)
-		//{
-		//	hkxMesh* pMesh = *it;
-		//	size_t sects = pMesh->m_numSections;
-		//	for (size_t i=0; i<sects; ++i)
-		//	{
-		//		MeshSections sections;
-		//		hkxMeshSection* pSection = pMesh->m_sections[i];
-		//		sections.push_back(pSection);
-		//		makeSubMesh(sections, destMesh);
-		//	}
-		//}
-	//}
 }
 //---------------------------------------------------------------------------
-const char* HkxSceneTool::getStats()
+const char* HkxMeshTool::getStats()
 {
 	sprintf_s(s_buf, 
-		"\n\tVertices:        %d\n"
+		"\tVertices:        %d\n"
 		"\tTris:            %d\n"
 		"\tMaterials:       %d\n"
 		"\tSubmeshes:       %d\n",

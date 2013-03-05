@@ -6,39 +6,45 @@ is prohibited.
 ****************************************************************************/
 
 #include "Config.h"
-#include "ToolLib/include/HkxMeshTool.h"
-#include "Gfx/GfxMesh.h"
+#include "HkxRigTool.h"
+#include "Animation//RigHavok.h"
 #include "Serialization/ResourceSerializer.h"
+#include "Stream/FileStream.h"
 #include "hkxc.h"
 
 using namespace Teardrop;
 
 //---------------------------------------------------------------------------
-bool doMesh(
-	hkRootLevelContainer* container, 
+bool doRig(
+	const char* inputFilename, 
 	const RCParams& params, 
 	const StringSet& options,
 	Stream& outStrm)
 {
-	HkxMeshToolParams meshParams;
-	meshParams.bVerbose = params.bVerbose;
-	meshParams.bMergeMeshesByMaterial = (options.find("--merge") != options.end());
+	HkxRigToolParams rigParams;
+	rigParams.bVerbose = params.bVerbose;
 
-	HkxMeshTool meshTool(meshParams);
-	meshTool.initialize(container);
+	HkxRigTool rigTool(rigParams);
+	rigTool.initialize();
 
-	GfxMesh mesh;
-	mesh.initialize();
-	if (meshTool.process(mesh))
+	FileStream fs;
+	if (!fs.open(inputFilename, READ|BINARY))
+	{
+		// TODO: log it?
+		return false;
+	}
+
+	RigHavok rig;
+	if (rigTool.process(rig, fs))
 	{
 		// save out the mesh file
 		ResourceSerializer ser(outStrm);
 		unsigned __int64 id = params.resid;
 		ser.setId(id);
-		mesh.serialize(ser);
+		rig.serialize(ser);
 	}
-	mesh.destroy();
-	meshTool.destroy();
+	rig.destroy();
+	rigTool.destroy();
 
 	return true;
 }

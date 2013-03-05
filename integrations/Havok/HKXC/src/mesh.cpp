@@ -6,45 +6,39 @@ is prohibited.
 ****************************************************************************/
 
 #include "Config.h"
-#include "ToolLib/include/HkxRigidBodyTool.h"
-#include "Physics/integration/Havok/BodyHavok.h"
+#include "HkxMeshTool.h"
+#include "Gfx/GfxMesh.h"
 #include "Serialization/ResourceSerializer.h"
-#include "Stream/FileStream.h"
 #include "hkxc.h"
 
 using namespace Teardrop;
 
 //---------------------------------------------------------------------------
-bool doRigidBody(
-	const char* inputFilename, 
+bool doMesh(
+	hkRootLevelContainer* container, 
 	const RCParams& params, 
 	const StringSet& options,
 	Stream& outStrm)
 {
-	HkxRigidBodyToolParams bodyParams;
-	bodyParams.bVerbose = params.bVerbose;
+	HkxMeshToolParams meshParams;
+	meshParams.bVerbose = params.bVerbose;
+	meshParams.bMergeMeshesByMaterial = (options.find("--merge") != options.end());
 
-	HkxRigidBodyTool bodyTool(bodyParams);
-	bodyTool.initialize();
+	HkxMeshTool meshTool(meshParams);
+	meshTool.initialize(container);
 
-	FileStream fs;
-	if (!fs.open(inputFilename, READ|BINARY))
-	{
-		// TODO: log it?
-		return false;
-	}
-
-	BodyHavok body;
-	if (bodyTool.process(body, fs))
+	GfxMesh mesh;
+	mesh.initialize();
+	if (meshTool.process(mesh))
 	{
 		// save out the mesh file
 		ResourceSerializer ser(outStrm);
 		unsigned __int64 id = params.resid;
 		ser.setId(id);
-		body.serialize(ser);
+		mesh.serialize(ser);
 	}
-	body.destroy();
-	bodyTool.destroy();
+	mesh.destroy();
+	meshTool.destroy();
 
 	return true;
 }

@@ -6,8 +6,8 @@ is prohibited.
 ****************************************************************************/
 
 #include "Config.h"
-#include "ToolLib/include/HkxAnimTool.h"
-#include "Animation/integration/Havok/AnimationHavok.h"
+#include "HkxRigidBodyTool.h"
+#include "Physics/BodyHavok.h"
 #include "Serialization/ResourceSerializer.h"
 #include "Stream/FileStream.h"
 #include "hkxc.h"
@@ -15,17 +15,17 @@ is prohibited.
 using namespace Teardrop;
 
 //---------------------------------------------------------------------------
-bool doAnim(
+bool doRigidBody(
 	const char* inputFilename, 
 	const RCParams& params, 
 	const StringSet& options,
 	Stream& outStrm)
 {
-	HkxAnimToolParams animParams;
-	animParams.bVerbose = params.bVerbose;
+	HkxRigidBodyToolParams bodyParams;
+	bodyParams.bVerbose = params.bVerbose;
 
-	HkxAnimTool animTool(animParams);
-	animTool.initialize();
+	HkxRigidBodyTool bodyTool(bodyParams);
+	bodyTool.initialize();
 
 	FileStream fs;
 	if (!fs.open(inputFilename, READ|BINARY))
@@ -34,17 +34,17 @@ bool doAnim(
 		return false;
 	}
 
-	AnimationHavok anim;
-	if (animTool.process(anim, fs))
+	BodyHavok body;
+	if (bodyTool.process(body, fs))
 	{
 		// save out the mesh file
 		ResourceSerializer ser(outStrm);
 		unsigned __int64 id = params.resid;
 		ser.setId(id);
-		anim.serialize(ser);
+		body.serialize(ser);
 	}
-	anim.destroy();
-	animTool.destroy();
+	body.destroy();
+	bodyTool.destroy();
 
 	return true;
 }

@@ -39,6 +39,14 @@ static void errorFnStdOut(const char* pMessage, void* pObj)
 	std::cout << pMessage << std::endl;
 }
 //---------------------------------------------------------------------------
+Physics::System::System()
+{
+}
+//---------------------------------------------------------------------------
+Physics::System::~System()
+{
+}
+//---------------------------------------------------------------------------
 void Physics::System::setAllocator(Allocator* pAlloc)
 {
 	m_pAllocator = pAlloc;

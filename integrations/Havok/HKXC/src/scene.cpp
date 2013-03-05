@@ -6,7 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Config.h"
-#include "ToolLib/include/HkxSceneTool.h"
+#include "HkxSceneTool.h"
 #include "hkxc.h"
 #include "direct.h"
 
