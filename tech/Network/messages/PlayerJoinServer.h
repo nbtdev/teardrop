@@ -23,7 +23,6 @@ namespace Teardrop
 		{
 		public:
 			TD_NETMESSAGE(PlayerJoinServer, MSGID_PLAYER_JOIN_SERVER);
-			unsigned int m_id;
 			String m_playerName;
 			String m_playerCharClass;
 			unsigned short m_playerChar;

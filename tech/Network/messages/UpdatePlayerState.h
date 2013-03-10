@@ -23,7 +23,6 @@ namespace Teardrop
 		{
 		public:
 			TD_NETMESSAGE(UpdatePlayerState, MSGID_PLAYER_UPDATE_STATE);
-			unsigned int m_id;
 			int m_playerTeam;
 			String m_playerName;
 			String m_playerCharClass;

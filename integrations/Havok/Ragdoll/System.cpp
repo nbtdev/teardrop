@@ -13,6 +13,14 @@ is prohibited.
 using namespace Teardrop::Integration;
 using namespace Teardrop;
 //---------------------------------------------------------------------------
+Havok::Ragdoll::System::System()
+{
+}
+//---------------------------------------------------------------------------
+Havok::Ragdoll::System::~System()
+{
+}
+//---------------------------------------------------------------------------
 void Havok::Ragdoll::System::setAllocator(Allocator* pAlloc)
 {
 	m_pAllocator = pAlloc;

@@ -12,6 +12,7 @@ is prohibited.
 #include "Memory/Allocators.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
+#include "Util/_String.h"
 #include "Network/Messages/ConnectionRequestAccepted.h"
 #include "Network/Messages/PingResponse.h"
 #include "Network/Messages/ConnectionLost.h"
@@ -20,6 +21,8 @@ using namespace Teardrop;
 using namespace Integration;
 
 Raknet::System::System(int maxIncomingConnections, short listenPort)
+: mMe(0)
+, mGuid(0)
 {
 	mMaxIncomingConnections = maxIncomingConnections;
 	mListenPort = listenPort;
@@ -80,9 +83,25 @@ Net::Message* Raknet::System::createMessage(unsigned char msgId)
 	return 0;
 }
 
-Net::uint64_t Raknet::System::getTime()
+unsigned long long Raknet::System::getTime()
 {
 	return RakNet::GetTime();
+}
+
+bool Raknet::System::connect(const String& address, unsigned short port)
+{
+	return mMe->Connect(address, port, 0, 0);
+}
+
+Teardrop::Net::Peer* Raknet::System::createPeer(Net::Message& msg)
+{
+	Raknet::Peer* pPeer = static_cast<Raknet::Peer*>(msg.m_pPeer);
+	return new Raknet::Peer(pPeer->mGuid);
+}
+
+void Raknet::System::destroyPeer(Teardrop::Net::Peer* pPeer)
+{
+	delete pPeer;
 }
 
 Net::MessagePtr Raknet::System::getNextMessage()
@@ -103,8 +122,6 @@ Net::MessagePtr Raknet::System::getNextMessage()
 
 		// connected messages need to have their remote endpoint information set up
 		bool bIsConnected = false;
-		pMsg->m_pPeer = 0;
-
 		switch (pPacket->data[0])
 		{
 		// disconnected connection request, no guid or systemaddr available
@@ -149,10 +166,7 @@ Net::MessagePtr Raknet::System::getNextMessage()
 
 		if (bIsConnected)
 		{
-			Raknet::Peer* pPeer = TD_NEW Raknet::Peer;
-			pMsg->m_pPeer = pPeer;
-			pPeer->mGuid = pPacket->guid;
-			pPeer->mAddr = pPacket->systemAddress;
+			pMsg->m_pPeer = TD_NEW Raknet::Peer(pPacket->guid, pPacket->systemAddress);
 		}
 	}
 
@@ -317,11 +331,15 @@ void Raknet::System::initialize()
 	}
 
 	// set our guid and address members
-	mGuid = mMe->GetGuidFromSystemAddress(UNASSIGNED_SYSTEM_ADDRESS);
+	mGuid = new RakNetGUID;
+	*mGuid = mMe->GetGuidFromSystemAddress(UNASSIGNED_SYSTEM_ADDRESS);
 }
 
 void Raknet::System::shutdown()
 {
+	delete mGuid;
+	mGuid = 0;
+
 	mMe->Shutdown(300);
 	RakNetworkFactory::DestroyRakPeerInterface(mMe);
 	mMe = 0;

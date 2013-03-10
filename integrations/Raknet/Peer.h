@@ -20,6 +20,9 @@ namespace Teardrop
 			class Peer : public Net::Peer
 			{
 			public:
+				Peer(RakNetGUID& guid);
+				Peer(RakNetGUID& guid, SystemAddress& addr);
+
 				RakNetGUID mGuid;
 				SystemAddress mAddr;
 

@@ -11,7 +11,7 @@ using namespace Teardrop;
 using namespace Net;
 
 //---------------------------------------------------------------------------
-TD_PROXYMESSAGE_IMPL(PlayerCommand);
+TD_NETMESSAGE_IMPL(PlayerCommand);
 //---------------------------------------------------------------------------
 PlayerCommand::PlayerCommand()
 {
@@ -24,6 +24,8 @@ PlayerCommand::~PlayerCommand()
 //---------------------------------------------------------------------------
 void PlayerCommand::deserialize(Net::Stream& bs)
 {
+	bs.read(mPlayerId);
+
 	bs.read(extra[0]);
 	bs.read(extra[1]);
 	bs.read(extra[2]);
@@ -33,6 +35,8 @@ void PlayerCommand::deserialize(Net::Stream& bs)
 //---------------------------------------------------------------------------
 void PlayerCommand::serialize(Net::Stream& bs)
 {
+	bs.write(mPlayerId);
+
 	bs.write(extra[0]);
 	bs.write(extra[1]);
 	bs.write(extra[2]);

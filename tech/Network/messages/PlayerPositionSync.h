@@ -23,7 +23,7 @@ namespace Teardrop
 			: public ProxyMessage
 		{
 		public:
-			TD_PROXYMESSAGE(PlayerPositionSync, MSGID_PLAYER_POSITION_SYNC);
+			TD_NETMESSAGE(PlayerPositionSync, MSGID_PLAYER_POSITION_SYNC);
 			Teardrop::Vector4 m_position;
 			Teardrop::Quaternion m_orientation;
 			float m_twistAngle;

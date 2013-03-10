@@ -10,6 +10,9 @@ is prohibited.
 
 #include "Network/Network.h"
 
+class RakPeerInterface;
+struct RakNetGUID;
+
 namespace Teardrop
 {
 	class String;
@@ -21,7 +24,7 @@ namespace Teardrop
 			class System : public Teardrop::Net::NetworkSystem
 			{
 				RakPeerInterface* mMe;
-				RakNetGUID mGuid;
+				RakNetGUID* mGuid;
 				int mMaxIncomingConnections;
 				short mListenPort;
 
@@ -53,7 +56,9 @@ namespace Teardrop
 				void setDisconnectedPingResponse(const char *data, unsigned int dataSize);
 				unsigned int getLocalIpV4();
 				bool isLocalOrigination(Net::Message* pMsg);
-				uint64_t getTime();
+				unsigned long long getTime();
+				Teardrop::Net::Peer* createPeer(Net::Message& msg);
+				void destroyPeer(Teardrop::Net::Peer* pPeer);
 
 			private:
 				Net::Message* createMessage(unsigned char msgId);

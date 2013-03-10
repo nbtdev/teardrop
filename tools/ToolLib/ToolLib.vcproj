@@ -151,42 +151,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\HkxAnimTool.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HkxMeshTool.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HkxPrune.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HkxRagdollTool.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HkxRigidBodyTool.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HkxRigTool.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HkxSceneTool.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ShowIncludes="false"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\src\Logger.cpp"
 				>
 			</File>
@@ -224,34 +188,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\include\HkxAnimTool.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\HkxMeshTool.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\HkxPrune.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\HkxRagdollTool.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\HkxRigidBodyTool.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\HkxRigTool.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\HkxSceneTool.h"
-				>
-			</File>
 			<File
 				RelativePath=".\include\Logger.h"
 				>

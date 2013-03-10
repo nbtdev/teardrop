@@ -33,7 +33,7 @@ void SystemManager::registerSystem(System* pSystem)
 
 	for (int i=0; i<typeCount; ++i)
 	{
-		m_systems[i].registeredSystems.insert(RegisteredSystems::value_type(pSystem));
+		m_systems[types[i]].registeredSystems.insert(RegisteredSystems::value_type(pSystem));
 	}
 }
 

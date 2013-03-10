@@ -91,7 +91,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName)\Messages mkdir $(SolutionDir)sdk\include\$(ProjectName)\Messages&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\messages\*.h $(SolutionDir)sdk\include\$(ProjectName)\Messages &gt; NUL&#x0D;&#x0A;"
+				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;if not exist $(SolutionDir)sdk\include\$(ProjectName)\Messages mkdir $(SolutionDir)sdk\include\$(ProjectName)\Messages&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\messages\*.h $(SolutionDir)sdk\include\$(ProjectName)\Messages &gt; NUL&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -340,6 +340,10 @@
 		</File>
 		<File
 			RelativePath="..\..\..\Network.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Peer.cpp"
 			>
 		</File>
 		<File

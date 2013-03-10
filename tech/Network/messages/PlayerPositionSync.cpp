@@ -11,7 +11,7 @@ using namespace Teardrop;
 using namespace Net;
 
 //---------------------------------------------------------------------------
-TD_PROXYMESSAGE_IMPL(PlayerPositionSync);
+TD_NETMESSAGE_IMPL(PlayerPositionSync);
 //---------------------------------------------------------------------------
 PlayerPositionSync::PlayerPositionSync()
 {
@@ -24,6 +24,8 @@ PlayerPositionSync::~PlayerPositionSync()
 //---------------------------------------------------------------------------
 void PlayerPositionSync::deserialize(Net::Stream& bs)
 {
+	bs.read(mPlayerId);
+
 	// for now, for dev, we'll just transfer the whole XYZ and quat
 	bs.read(m_position.x);
 	bs.read(m_position.y);
@@ -40,6 +42,8 @@ void PlayerPositionSync::deserialize(Net::Stream& bs)
 //---------------------------------------------------------------------------
 void PlayerPositionSync::serialize(Net::Stream& bs)
 {
+	bs.write(mPlayerId);
+
 	// for now, for dev, we'll just transfer the whole XYZ and quat
 	bs.write(m_position.x);
 	bs.write(m_position.y);

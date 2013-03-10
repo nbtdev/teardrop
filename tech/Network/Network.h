@@ -35,7 +35,7 @@ namespace Teardrop
 		public:
 			virtual bool connect(const String& address, unsigned short port) = 0;
 			virtual Teardrop::Net::MessagePtr getNextMessage() = 0;
-			virtual void send(Message& pMsg) = 0;
+			virtual void send(Message& msg) = 0;
 			virtual void disconnect(Peer* pPeer=0) = 0;
 			//void disconnect(unsigned int addr, unsigned short port=0);
 			virtual void ping(const char* address, unsigned short port) = 0;
@@ -43,7 +43,9 @@ namespace Teardrop
 			virtual void setDisconnectedPingResponse(const char *data, unsigned int dataSize) = 0;
 			virtual unsigned int getLocalIpV4() = 0;
 			virtual bool isLocalOrigination(Message* pMsg) = 0;
-			virtual uint64_t getTime() = 0;
+			virtual unsigned long long getTime() = 0;
+			virtual Peer* createPeer(Message& msg) = 0;
+			virtual void destroyPeer(Peer* pPeer) = 0;
 			typedef Message* (*MessageCreateFn)();
 			static MessageCreateFn s_factory[];
 

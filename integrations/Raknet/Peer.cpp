@@ -10,6 +10,17 @@ is prohibited.
 
 using namespace Teardrop::Integration;
 
+Raknet::Peer::Peer(RakNetGUID& guid)
+: mGuid(guid)
+{
+}
+
+Raknet::Peer::Peer(RakNetGUID& guid, SystemAddress& addr)
+: mGuid(guid)
+, mAddr(addr)
+{
+}
+
 unsigned int Raknet::Peer::getPlayerId()
 {
 	return hashData(&mGuid, sizeof(mGuid));

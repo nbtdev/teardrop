@@ -47,6 +47,11 @@ void Raknet::Stream::write(long long c)
 	mBS.Write(c);
 }
 
+void Raknet::Stream::write(long c)
+{
+	mBS.Write(c);
+}
+
 void Raknet::Stream::write(unsigned char c)
 {
 	mBS.Write(c);
@@ -104,6 +109,11 @@ void Raknet::Stream::read(int& c)
 }
 
 void Raknet::Stream::read(long long& c)
+{
+	mBS.Read(c);
+}
+
+void Raknet::Stream::read(long& c)
 {
 	mBS.Read(c);
 }

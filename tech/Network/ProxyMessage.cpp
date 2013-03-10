@@ -13,21 +13,14 @@ using namespace Net;
 //---------------------------------------------------------------------------
 ProxyMessage::ProxyMessage()
 {
-	m_playerId = 0;
+	mPlayerId = 0;
 }
 //---------------------------------------------------------------------------
 ProxyMessage::~ProxyMessage()
 {
 }
-//---------------------------------------------------------------------------
-void ProxyMessage::deserialize(Net::Stream& bs)
+
+bool ProxyMessage::isProxyMessage()
 {
-	Message::deserialize(bs);
-	bs.read(m_playerId);
-}
-//---------------------------------------------------------------------------
-void ProxyMessage::serialize(Net::Stream& bs)
-{
-	Message::serialize(bs);
-	bs.write(m_playerId);
+	return true;
 }

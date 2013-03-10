@@ -62,6 +62,7 @@ namespace Teardrop
 			virtual ~Message();
 
 			virtual size_t getId() = 0;
+			virtual bool isProxyMessage();
 
 			// these are virtual for overriding by subclasses
 			virtual void deserialize(Stream& s) = 0;

@@ -21,7 +21,7 @@ namespace Teardrop
 			: public ProxyMessage
 		{
 		public:
-			TD_PROXYMESSAGE(PlayerCommand, MSGID_PLAYER_COMMAND);
+			TD_NETMESSAGE(PlayerCommand, MSGID_PLAYER_COMMAND);
 			float extra[4]; // float and uint are both 32-bit
 			unsigned char verb;
 

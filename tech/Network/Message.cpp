@@ -7,6 +7,7 @@ is prohibited.
 #include "Message.h"
 #include "Network.h"
 #include "Stream.h"
+#include "Peer.h"
 
 //#if defined(_DEBUG)
 #include "Util/Environment.h"
@@ -29,39 +30,8 @@ Message::~Message()
 {
 	delete m_pPeer;
 }
-#if 0
-//---------------------------------------------------------------------------
-void Message::deserialize(Net::Stream& s)
+
+bool Message::isProxyMessage()
 {
-	// handled entirely in a derived method (we already know the message
-	// ID because of the subclass that was created for this message)
-	unsigned char id, msgId;
-	s.read(id);
-	s.read(msgId);
-	deserialize(s);
-
-//#if defined(_DEBUG) // and "dump packet log"?
-	char buf[128];
-	sprintf_s(buf, 128, "[TD Message] id: %d (%s)", 
-		msgId, NetworkSystem::getMessageString(msgId));
-	Environment::get().pLogger->logMessage(buf);
-//#endif
+	return false;
 }
-//---------------------------------------------------------------------------
-void Message::serialize(Net::Stream& s)
-{
-	// all TD messages use this RakNet message ID
-	s.write(unsigned char(ID_USER_PACKET_ENUM+1));
-	s.write(unsigned char(getId()));
-
-	// the rest of the message is handled in a derived method
-	serialize(s);
-
-//#if defined(_DEBUG) // and "dump packet log"?
-	char buf[128];
-	sprintf_s(buf, 128, "[TD Message] id: %d (%s)", 
-		getId(), NetworkSystem::getMessageString(getId()));
-	Environment::get().pLogger->logMessage(buf);
-//#endif
-}
-#endif // 0

@@ -58,3 +58,8 @@ NetworkSystem::NetworkSystem()
 {
 	m_pAllocator = TD_GET_ALLOCATOR(DEFAULT);
 }
+
+NetworkSystem::~NetworkSystem()
+{
+
+}

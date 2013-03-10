@@ -17,7 +17,6 @@ TD_NETMESSAGE_IMPL(PlayerLeaveServer);
 //---------------------------------------------------------------------------
 PlayerLeaveServer::PlayerLeaveServer()
 {
-	m_id = m_pPeer->getPlayerId();
 }
 //---------------------------------------------------------------------------
 PlayerLeaveServer::~PlayerLeaveServer()
@@ -26,10 +25,8 @@ PlayerLeaveServer::~PlayerLeaveServer()
 //---------------------------------------------------------------------------
 void PlayerLeaveServer::deserialize(Net::Stream& bs)
 {
-	bs.read(m_id);
 }
 //---------------------------------------------------------------------------
 void PlayerLeaveServer::serialize(Net::Stream& bs)
 {
-	bs.write(m_id);
 }

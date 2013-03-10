@@ -162,11 +162,6 @@ namespace Teardrop
 			*/
 			MSGID_CHAT_MESSAGE,
 
-			//***************************************************************
-			// ONLY PROXYMESSAGE DERIVED MESSAGES CAN GO BEYOND HERE
-			//***************************************************************
-			MSGID_PROXY_MESSAGE_FLAG,
-
 			/*
 				Server --> Client(s): Authoritative position/orientation sync
 			*/

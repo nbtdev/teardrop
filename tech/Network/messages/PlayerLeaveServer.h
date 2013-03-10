@@ -23,7 +23,6 @@ namespace Teardrop
 		{
 		public:
 			TD_NETMESSAGE(PlayerLeaveServer, MSGID_PLAYER_LEAVE_SERVER);
-			unsigned int m_id;
 
 			PlayerLeaveServer();
 			virtual ~PlayerLeaveServer();
