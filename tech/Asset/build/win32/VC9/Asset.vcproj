@@ -153,6 +153,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Package.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Package.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\TextureAsset.cpp"
 			>
 		</File>

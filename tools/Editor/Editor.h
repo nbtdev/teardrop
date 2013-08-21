@@ -11,11 +11,14 @@ is prohibited.
 #include <QtGui/QMainWindow>
 #include "ui_Editor.h"
 
+class QTreeWidgetItem;
+
 namespace Teardrop
 {
 	namespace Tools
 	{
 		class QtPropertyGrid;
+		class QtPackageExplorer;
 
 		class Editor : public QMainWindow
 		{
@@ -25,9 +28,13 @@ namespace Teardrop
 			Editor(QWidget *parent = 0, Qt::WFlags flags = 0);
 			~Editor();
 
+		protected slots:
+			void onPackageExplorerItemClicked(QTreeWidgetItem*,int);
+
 		private:
 			Ui::EditorClass ui;
 			QtPropertyGrid* mPropGrid;
+			QtPackageExplorer* mPkgExp;
 		};
 	}
 }
