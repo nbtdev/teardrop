@@ -11,6 +11,9 @@ is prohibited.
 #include "QtPackageExplorer/FolderItem.h"
 #include "QtPackageExplorer/ObjectItem.h"
 #include "Asset/Package.h"
+#include <QDockWidget>
+#include <QVBoxLayout>
+#include <QToolBox>
 
 // temp for test
 #include "Game/MACRO.h"
@@ -25,21 +28,58 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 	, mPropGrid(0)
 	, mPkgExp(0)
+	, m3DView(0)
 {
 	ui.setupUi(this);
-	mPropGrid = new QtPropertyGrid(ui.dockWidgetContents);
+
+	m3DView = new QWidget(ui.centralWidget);
+	ui.horizontalLayout->addWidget(m3DView);
+
+	QDockWidget* dock = new QDockWidget(this);
+	QWidget* dockContents = new QWidget();
+	QVBoxLayout* vertLayout = new QVBoxLayout(dockContents);
+
+	mPkgExp = new QtPackageExplorer(dockContents);
+	mPkgExp->setHeaderHidden(true);
+	mPkgExp->setRootIsDecorated(true);
+	vertLayout->addWidget(mPkgExp);
+	dock->setWidget(dockContents);
+
+	dock->setWindowTitle("Package Explorer");
+	addDockWidget(Qt::RightDockWidgetArea, dock);
+
+	dock = new QDockWidget(this);
+	dockContents = new QWidget();
+	vertLayout = new QVBoxLayout(dockContents);
+
+	mPropGrid = new QtPropertyGrid(dockContents);
 	mPropGrid->setResizeMode(QtTreePropertyBrowser::Interactive);
 	mPropGrid->setRootIsDecorated(true);
 	mPropGrid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	mPropGrid->clear();
 
-	mPkgExp = new QtPackageExplorer(ui.dockWidgetContents);
-	mPkgExp->setHeaderHidden(true);
-	mPkgExp->setRootIsDecorated(true);
+	vertLayout->addWidget(mPropGrid);
+	dock->setWidget(dockContents);
 
-	ui.mPackageExplorerLayout->addWidget(mPkgExp);
-	ui.mPackageExplorerLayout->addWidget(mPropGrid);
+	dock->setWindowTitle("Properties");
+	addDockWidget(Qt::RightDockWidgetArea, dock);
 
+	// object class list toolbox
+	dock = new QDockWidget(this);
+	dockContents = new QWidget();
+	vertLayout = new QVBoxLayout(dockContents);
+	mClasses = new QToolBox(dockContents);
+	QWidget* page = new QWidget();
+	mClasses->addItem(page, "Assets");
+	page = new QWidget();
+	mClasses->addItem(page, "Zone Objects");
+	
+	vertLayout->addWidget(mClasses);
+	dock->setWidget(dockContents);
+	dock->setWindowTitle("Classes");
+	addDockWidget(Qt::RightDockWidgetArea, dock);
+
+	// create some test data
 	Package* pkg = new Package("Test");
 
 	MACRO* macro = TD_NEW MACRO;

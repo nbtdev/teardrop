@@ -139,42 +139,30 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Header Files"
-			Filter="h"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+		<File
+			RelativePath="..\..\..\FolderItem.cpp"
 			>
-			<File
-				RelativePath="..\..\..\FolderItem.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ObjectItem.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\PackageItem.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;cxx;c;def"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+		</File>
+		<File
+			RelativePath="..\..\..\FolderItem.h"
 			>
-			<File
-				RelativePath="..\..\..\FolderItem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\ObjectItem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\PackageItem.cpp"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath="..\..\..\ObjectItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ObjectItem.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\PackageItem.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\PackageItem.h"
+			>
+		</File>
 		<File
 			RelativePath="..\..\..\QtPackageExplorer.cpp"
 			>
