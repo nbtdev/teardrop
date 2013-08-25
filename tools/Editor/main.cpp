@@ -15,9 +15,12 @@ is prohibited.
 
 #include "Memory/Allocators.h"
 #include "Memory/MemoryRegion.h"
+#include "Util/_String.h"
 
 int main(int argc, char *argv[])
 {
+	Teardrop::String::setAllocator(GetCRTAllocator());
+
 	QApplication a(argc, argv);
 	//QPalette palette;
 	//palette.setColor(QPalette::Dark, QColor(Qt::darkBlue));

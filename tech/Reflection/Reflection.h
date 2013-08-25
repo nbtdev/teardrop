@@ -80,7 +80,7 @@ namespace Teardrop
 
 			void setupPropertyDefaults();
 			
-			static Object* clone(const Object& other);
+			virtual Object* clone() const;
 
 			TD_DECLARE_ALLOCATOR();
 

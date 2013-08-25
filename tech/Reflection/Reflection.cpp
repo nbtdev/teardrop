@@ -121,13 +121,13 @@ String Object::toString() const
 	return rtn;
 }
 //---------------------------------------------------------------------------
-Object* Object::clone(const Object& other)
+Object* Object::clone() const
 {
 	// we can handle single-level component definitions; all we are doing is
 	// making a new one of whatever it is, and filling in its first-level
 	// properties, and sending it on its way. Any components that have 
 	// deeper cloning needs should override this method
-	ClassDef* pClassDef = other.getDerivedClassDef();
+	ClassDef* pClassDef = getDerivedClassDef();
 	Object* pRtn = pClassDef->createInstance(0);
 
 	while (pClassDef)
@@ -136,7 +136,7 @@ Object* Object::clone(const Object& other)
 		const PropertyDef* pOtherProp = pClassDef->getProps();
 		while (pOtherProp)
 		{
-			pOtherProp->copyTo(pRtn, &other);
+			pOtherProp->copyTo(pRtn, this);
 			pOtherProp = pOtherProp->m_pNext;
 		}
 

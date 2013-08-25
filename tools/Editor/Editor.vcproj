@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)tools\bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Release.vsprops"
+			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Release.vsprops;..\vsprops\FreeImage_Release.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -57,7 +57,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib rpcrt4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="false"
@@ -90,7 +90,7 @@
 			OutputDirectory="$(SolutionDir)tools\bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Debug.vsprops"
+			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Debug.vsprops;..\vsprops\FreeImage_Debug.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -127,7 +127,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib rpcrt4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="true"

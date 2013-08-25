@@ -15,12 +15,6 @@ is prohibited.
 #include <QVBoxLayout>
 #include <QToolBox>
 
-// temp for test
-#include "Game/MACRO.h"
-#include "Game/Component_CameraInterface.h"
-#include "Game/Component_Render.h"
-#include "Game/Component_Audio.h"
-
 using namespace Teardrop;
 using namespace Tools;
 
@@ -79,27 +73,6 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	dock->setWindowTitle("Classes");
 	addDockWidget(Qt::RightDockWidgetArea, dock);
 
-	// create some test data
-	Package* pkg = new Package("Test");
-
-	MACRO* macro = TD_NEW MACRO;
-	macro->initialize();
-	Folder* folder = pkg->root().newFolder("MACROs");
-	folder->add(macro);
-
-	Component* comp = TD_NEW RenderComponent;
-	comp->initialize();
-	macro->addComponent(comp);
-	comp = TD_NEW AudioComponent;
-	comp->initialize();
-	macro->addComponent(comp);
-	comp = TD_NEW CameraInterfaceComponent;
-	comp->initialize();
-	macro->addComponent(comp);
-
-	mPropGrid->setObject(0);
-	mPkgExp->addPackage(pkg);
-
 	connect(mPkgExp, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(onPackageExplorerItemClicked(QTreeWidgetItem*,int)));
 }
 
@@ -110,12 +83,17 @@ Editor::~Editor()
 
 void Editor::onPackageExplorerItemClicked(QTreeWidgetItem* item, int column)
 {
-	// hack -- dyncast for now
-	ObjectItem* oitem = dynamic_cast<ObjectItem*>(item);
-	if (oitem) {
-		mPropGrid->setObject(oitem->object());
+	PackageExplorerItem* pkgItem = static_cast<PackageExplorerItem*>(item);
+	if (pkgItem->itemType() == PackageExplorerItem::TYPE_OBJECT) {
+		ObjectItem* objItem = static_cast<ObjectItem*>(item);
+		mPropGrid->setObject(objItem->object());
 	}
 	else {
 		mPropGrid->setObject(0);
 	}
+}
+
+void Editor::onContextMenu(const QPoint& pt)
+{
+
 }

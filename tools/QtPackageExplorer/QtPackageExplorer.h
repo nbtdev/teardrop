@@ -13,24 +13,32 @@ is prohibited.
 
 namespace Teardrop
 {
-	class Package;
-
 	namespace Tools
 	{
-		class PackageItem;
+		class PackageManager;
 
 		class QtPackageExplorer : public QTreeWidget
 		{
+			Q_OBJECT
+
 		public:
 			QtPackageExplorer(QWidget* parent=0);
 			~QtPackageExplorer();
 
-			void addPackage(Package* package);
-			void removePackage(Package* package);
+			void addPackage(PackageManager* packageMgr, bool setEditing=false);
+			void removePackage(PackageManager* packageMgr);
+
+		protected slots:
+			void onContextMenu(const QPoint&);
 
 		protected:
-			typedef std::list<PackageItem*> PackageItems;
-			PackageItems mRootItems;
+			void dragEnterEvent(QDragEnterEvent* event);
+			void dragMoveEvent(QDragMoveEvent* event);
+			void dragLeaveEvent(QDragLeaveEvent* event);
+			void dropEvent(QDropEvent* event);
+
+			typedef std::list<PackageManager*> PackageManagers;
+			PackageManagers mPackages;
 		};
 	}
 }

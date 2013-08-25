@@ -142,9 +142,8 @@ const PropertyDef* ClassDef::findProperty(const char* pPropName, bool deep)
 
 				pProp = pProp->m_pNext;
 			}
-			pClass = pClass->m_pNext;
-			if (!pClass)
-				pClass = pClass->m_pNext = findClassDef(pClass->getBaseClassName());
+
+			pClass = pClass->getBaseClass();
 		}
 	}
 
@@ -168,12 +167,12 @@ const PropertyDef* ClassDef::findPropertyById(int propId) const
 	return 0;
 }
 //-----------------------------------------------------------------------------
-bool ClassDef::isA(const ClassDef* pClass) const
+bool ClassDef::isA(const ClassDef* pClass)
 {
-	const ClassDef* pTest = this;
+	ClassDef* pTest = this;
 	while (pTest && pTest != pClass)
 	{
-		pTest = findClassDef(pTest->getBaseClassName());
+		pTest = pTest->getBaseClass();
 		if (pTest == pClass)
 			return true;
 	}

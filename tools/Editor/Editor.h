@@ -12,6 +12,8 @@ is prohibited.
 #include "ui_Editor.h"
 
 class QTreeWidgetItem;
+class QWidget;
+class QToolBox;
 
 namespace Teardrop
 {
@@ -19,6 +21,10 @@ namespace Teardrop
 	{
 		class QtPropertyGrid;
 		class QtPackageExplorer;
+
+		// temp
+		class PackageManager;
+		class Package;
 
 		class Editor : public QMainWindow
 		{
@@ -30,11 +36,16 @@ namespace Teardrop
 
 		protected slots:
 			void onPackageExplorerItemClicked(QTreeWidgetItem*,int);
+			void onContextMenu(const QPoint&);
 
 		private:
 			Ui::EditorClass ui;
 			QtPropertyGrid* mPropGrid;
 			QtPackageExplorer* mPkgExp;
+			PackageManager* mPkg;
+			PackageManager* mPkgMgr;
+			QWidget* m3DView;
+			QToolBox* mClasses;
 		};
 	}
 }
