@@ -14,9 +14,10 @@ is prohibited.
 using namespace Teardrop;
 using namespace Tools;
 
-ObjectItem::ObjectItem(FolderItem* parent, Reflection::Object* object)
+ObjectItem::ObjectItem(FolderItem* parent, Reflection::Object* object, const String& id)
 	: mParent(parent)
 	, mObject(object)
+	, mObjId(id)
 {
 	const Reflection::PropertyDef* prop = object->getDerivedClassDef()->findProperty("Name", true);
 	if (prop) {
@@ -39,4 +40,14 @@ FolderItem* ObjectItem::parent()
 Reflection::Object* ObjectItem::object()
 {
 	return mObject;
+}
+
+const String& ObjectItem::id()
+{
+	return mObjId;
+}
+
+PackageExplorerItem::Type ObjectItem::itemType()
+{
+	return TYPE_OBJECT;
 }

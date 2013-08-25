@@ -5,32 +5,26 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "PackageItem.h"
-#include "FolderItem.h"
-#include "Asset/Package.h"
+#include "Uuid.h"
 
 using namespace Teardrop;
 using namespace Tools;
 
-PackageItem::PackageItem(Package* package)
-	: mPackage(package)
-{
-	mRoot = new FolderItem(this, &package->root());
-	//addChild(mRoot);
-	setText(0, (const char*)package->name());
-}
+#include "Util/_String.h"
 
-PackageItem::~PackageItem()
-{
-	delete mRoot;
-}
+#if defined(_WIN32) || defined(_WIN64)
+#include <rpc.h>
 
-FolderItem* PackageItem::root()
+void Teardrop::Tools::UuidGen(String& uuid) 
 {
-	return mRoot;
-}
+	uuid.clear();
 
-Package* PackageItem::package()
-{
-	return mPackage;
+	UUID uuidGen;
+	if (RPC_S_OK == UuidCreate(&uuidGen)) {
+		RPC_CSTR str;
+		if (RPC_S_OK == UuidToString(&uuidGen, &str)) {
+			uuid = (const char*)str;
+		}
+	}
 }
+#endif // Windows

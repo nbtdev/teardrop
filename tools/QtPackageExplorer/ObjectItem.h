@@ -8,7 +8,8 @@ is prohibited.
 #if !defined(OBJECTITEM_INCLUDED)
 #define OBJECTITEM_INCLUDED
 
-#include <QTreeWidgetItem>
+#include "QtPackageExplorer/PackageExplorerItem.h"
+#include "Util/_String.h"
 
 namespace Teardrop
 {
@@ -21,18 +22,23 @@ namespace Teardrop
 	{
 		class FolderItem;
 
-		class ObjectItem : public QTreeWidgetItem
+		class ObjectItem : public PackageExplorerItem
 		{
 		public:
-			ObjectItem(FolderItem* parent, Reflection::Object* object);
+			ObjectItem(FolderItem* parent, Reflection::Object* object, const String& objId);
 			~ObjectItem();
+
+			// PackageExplorerItemType implementation
+			PackageExplorerItem::Type itemType();
 
 			FolderItem* parent();
 			Reflection::Object* object();
+			const String& id();
 
 		protected:
 			FolderItem* mParent;
 			Reflection::Object* mObject;
+			String mObjId;
 		};
 	}
 }

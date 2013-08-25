@@ -5,33 +5,27 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(PACKAGEITEM_INCLUDED)
-#define PACKAGEITEM_INCLUDED
+#if !defined(PACKAGEEXPLORERITEM_INCLUDED)
+#define PACKAGEEXPLORERITEM_INCLUDED
 
 #include <QTreeWidgetItem>
 
 namespace Teardrop
 {
-	class Package;
-
 	namespace Tools
 	{
-		class FolderItem;
-
-		class PackageItem : public QTreeWidgetItem
+		class PackageExplorerItem : public QTreeWidgetItem
 		{
 		public:
-			PackageItem(Package* package);
-			~PackageItem();
+			enum Type
+			{
+				TYPE_FOLDER,
+				TYPE_OBJECT,
+			};
 
-			Package* package();
-			FolderItem* root();
-
-		protected:
-			FolderItem* mRoot;
-			Package* mPackage;
+			virtual Type itemType() = 0;
 		};
 	}
 }
 
-#endif // PACKAGEITEM_INCLUDED
+#endif // PACKAGEEXPLORERITEM_INCLUDED

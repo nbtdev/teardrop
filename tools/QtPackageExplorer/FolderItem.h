@@ -8,39 +8,51 @@ is prohibited.
 #if !defined(FOLDERITEM_INCLUDED)
 #define FOLDERITEM_INCLUDED
 
-#include <QTreeWidgetItem>
+#include "QtPackageExplorer/PackageExplorerItem.h"
 #include <list>
 
 namespace Teardrop
 {
-	class Folder;
+	class String;
+
+	namespace Reflection
+	{
+		class Object;
+	}
 
 	namespace Tools
 	{
-		class PackageItem;
+		class Folder;
 		class FolderItem;
 		class ObjectItem;
+		class PackageManager;
 
-		class FolderItem : public QTreeWidgetItem
+		class FolderItem : public PackageExplorerItem
 		{
 		public:
-			FolderItem(PackageItem* owner, Folder* folder);
-			FolderItem(FolderItem* parent, Folder* folder);
+			FolderItem(FolderItem* parent, Folder* folder, PackageManager* pkgMgr);
 			~FolderItem();
+
+			// PackageExplorerItemType implementation
+			PackageExplorerItem::Type itemType();
 
 			int numFolders() const;
 			FolderItem* folder(int idx);
-			void addFolder(FolderItem* folder);
+			FolderItem* addFolder(Folder* folder);
 			void removeFolder(FolderItem* folder);
 
 			int numObjects() const;
 			ObjectItem* object(int idx);
-			void addObject(ObjectItem* object);
+			void addObject(Reflection::Object* object);
 			void removeObject(ObjectItem* object);
 
 			FolderItem* parent();
-			PackageItem* owner();
 			Folder* folder();
+
+			PackageManager* packageManager();
+
+			// Folder callback
+			void onNameChanged(const char* newName);
 
 		protected:
 			typedef std::list<FolderItem*> FolderItems;
@@ -50,8 +62,9 @@ namespace Teardrop
 			ObjectItems mObjects;
 
 			FolderItem* mParent;
-			PackageItem* mOwner;
 			Folder* mFolder;
+
+			PackageManager* mPkgMgr;
 		};
 	}
 }
