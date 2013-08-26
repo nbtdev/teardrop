@@ -10,8 +10,6 @@ is prohibited.
 using namespace Teardrop;
 using namespace Reflection;
 //-----------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(Object);
-//-----------------------------------------------------------------------------
 Object::BroadcastPropertyChanged Object::s_propChangedFn = 0;
 //-----------------------------------------------------------------------------
 void Object::setBroadcastPropertyChangedFn(BroadcastPropertyChanged fn)

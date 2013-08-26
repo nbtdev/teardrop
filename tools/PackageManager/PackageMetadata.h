@@ -8,8 +8,7 @@ is prohibited.
 #if !defined(PACKAGEMETADATA_INCLUDED)
 #define PACKAGEMETADATA_INCLUDED
 
-#include "Memory/Memory.h"
-#include "Util/_String.h"
+#include "PackageManager/Metadata.h"
 #include <map>
 
 namespace Teardrop 
@@ -25,18 +24,20 @@ namespace Teardrop
 	namespace Tools
 	{
 		class Folder;
+		class Metadata;
 
-		class PackageMetadata
+		class PackageMetadata : public Metadata
 		{
 		public:
+			TD_CLASS(PackageMetadata, Metadata);
+
+			PackageMetadata();
 			PackageMetadata(Package* package);
 			~PackageMetadata();
 
 			Folder* rootFolder();
-			const String& packageName();
-			void renamePackage(const String& name);
 
-			void add(/*out*/String& uuid, /*in*/Folder* parent, /*in*/Asset* asset, /*in*/const char* assetSourcePath);
+			Metadata* add(/*out*/String& uuid, /*in*/Folder* parent, /*in*/Asset* asset, /*in*/const char* assetSourcePath);
 			void add(/*out*/String& uuid, /*in*/Folder* parent, /*in*/Reflection::Object* object);
 			void remove(Reflection::Object* object);
 			void remove(const String& objectId);
@@ -45,36 +46,28 @@ namespace Teardrop
 			Folder* deleteFolder(Folder* folder);
 			void renameFolder(Folder* folder, const String& name);
 
-			const String& findAssetSourcePath(Asset* asset);
-			const String& findAssetSourcePath(const String& assetId);
-			const String& findId(Reflection::Object* object);
+			Metadata* findObjectMetadata(Reflection::Object* object);
+			Reflection::Object* findObject(const String& id);
+
+			TD_DECLARE_ALLOCATOR();
 
 		protected:
 			Folder* mRoot;
 			Package* mPackage;
 
-			// the package itself doesn't need a name, but we do, so store it here
-			String mPackageName;
-
 			// maps object ID to object instance
 			typedef std::map<String /*id*/, Reflection::Object* /*instance*/> ObjectIdToObjectMap;
 			ObjectIdToObjectMap mObjectIdToObjectMap;
 
-			// maps object instance to object ID
-			typedef std::map<Reflection::Object* /*instance*/, String /*id*/> ObjectToObjectIdMap;
-			ObjectToObjectIdMap mObjectToObjectIdMap;
-
-			// maps asset ID to source path
-			typedef std::map<String /*id*/, String /*path*/> AssetIdToPathMap;
-			AssetIdToPathMap mAssetIdToPathMap;
-
-			// maps asset instance (pointer) to source path
-			typedef std::map<Asset* /*instance*/, String /*path*/> AssetToPathMap;
-			AssetToPathMap mAssetToPathMap;
+			// maps object instance to object metadata
+			typedef std::map<Reflection::Object* /*instance*/, Metadata* /*metadata*/> ObjectToMetadataMap;
+			ObjectToMetadataMap mObjectToMetadataMap;
 
 			// maps object instance to Folder instance
 			typedef std::map<Reflection::Object* /*instance*/, Folder* /*folder*/> ObjectToFolderMap;
 			ObjectToFolderMap mObjectToFolderMap;
+
+			void onPropertyChanged(const Reflection::PropertyDef* prop);
 		};
 	}
 }

@@ -42,10 +42,11 @@ namespace Teardrop
 			~QtPropertyGrid();
 
 			// PropertyGrid implementation
-			void setObject(Reflection::Object* object);
+			void setObject(Reflection::Object* object, Reflection::Object* metadata = 0);
 
 		protected:
 			Reflection::Object* mObject;
+			Reflection::Object* mMetadata;
 
 			QtStringPropertyManager* mStringPropMgr;
 			QtDoublePropertyManager* mDoublePropMgr;

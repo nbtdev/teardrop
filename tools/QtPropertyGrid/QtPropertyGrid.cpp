@@ -23,6 +23,7 @@ using namespace Tools;
 QtPropertyGrid::QtPropertyGrid(QWidget* parent)
 	: QtTreePropertyBrowser(parent)
 	, mObject(0)
+	, mMetadata(0)
 	, mStringPropMgr(0)
 	, mDoublePropMgr(0)
 	, mIntPropMgr(0)
@@ -119,11 +120,12 @@ void QtPropertyGrid::addProperty(QtProperty* parent, Reflection::Object* obj, co
 	}
 }
 
-void QtPropertyGrid::setObject(Reflection::Object* object)
+void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* metadata)
 {
 	clear();
 	clearHelpers();
 	mObject = object;
+	mMetadata = 0;
 
 	// calling with NULL means clear the editor (unsets the current object)
 	if (!mObject)
@@ -174,6 +176,31 @@ void QtPropertyGrid::setObject(Reflection::Object* object)
 			while (prop) {
 				addProperty(compName, comp, prop);
 				prop = prop->m_pNext;
+			}
+		}
+	}
+
+	// finally, all properties on the metadata object (if any)
+	if (metadata) {
+		mMetadata = metadata;
+
+		Reflection::ClassDef* classDef = mMetadata->getDerivedClassDef();
+		populate(classes, classDef);
+
+		if (classes.size()) {
+			QtProperty* superclass = mGroupPropMgr->addProperty("Metadata");
+			header->addSubProperty(superclass);
+
+			while (!classes.empty()) {
+				Reflection::ClassDef* classDef = classes.top();
+				classes.pop();
+
+				// properties
+				const Reflection::PropertyDef* prop = classDef->getProps();
+				while (prop) {
+					addProperty(superclass, mMetadata, prop);
+					prop = prop->m_pNext;
+				}
 			}
 		}
 	}

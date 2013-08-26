@@ -10,6 +10,7 @@ is prohibited.
 #include "QtPackageExplorer/QtPackageExplorer.h"
 #include "QtPackageExplorer/FolderItem.h"
 #include "QtPackageExplorer/ObjectItem.h"
+#include "PackageManager/Metadata.h"
 #include "Asset/Package.h"
 #include <QDockWidget>
 #include <QVBoxLayout>
@@ -86,10 +87,10 @@ void Editor::onPackageExplorerItemClicked(QTreeWidgetItem* item, int column)
 	PackageExplorerItem* pkgItem = static_cast<PackageExplorerItem*>(item);
 	if (pkgItem->itemType() == PackageExplorerItem::TYPE_OBJECT) {
 		ObjectItem* objItem = static_cast<ObjectItem*>(item);
-		mPropGrid->setObject(objItem->object());
+		mPropGrid->setObject(objItem->object(), objItem->metadata());
 	}
 	else {
-		mPropGrid->setObject(0);
+		mPropGrid->setObject(0, 0);
 	}
 }
 

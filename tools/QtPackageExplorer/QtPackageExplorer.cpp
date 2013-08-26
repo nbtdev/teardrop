@@ -159,7 +159,7 @@ void QtPackageExplorer::onContextMenu(const QPoint& pt)
 		case ACTION_CREATE_PACKAGE:
 			{
 				PackageManager* pkgMgr = new PackageManager;
-				pkgMgr->metadata()->renamePackage("Untitled Package");
+				pkgMgr->metadata()->setName("Untitled Package");
 				mPackages.push_back(pkgMgr);
 				addPackage(pkgMgr, true);
 			}

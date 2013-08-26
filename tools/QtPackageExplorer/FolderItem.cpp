@@ -22,8 +22,6 @@ FolderItem::FolderItem(FolderItem* parent, Folder* folder, PackageManager* pkgMg
 {
 	const Objects& objs = folder->objects();
 	for (Objects::const_iterator it = objs.begin(); it != objs.end(); ++it) {
-		const String& id = pkgMgr->metadata()->findId(*it);
-		assert(id.length());
 		addObject(*it);
 	}
 
@@ -101,8 +99,8 @@ ObjectItem* FolderItem::object(int idx)
 
 void FolderItem::addObject(Reflection::Object* object)
 {
-	const String& objectId = mPkgMgr->metadata()->findId(object);
-	ObjectItem* objItem = new ObjectItem(this, object, objectId);
+	Metadata* meta = mPkgMgr->metadata()->findObjectMetadata(object);
+	ObjectItem* objItem = new ObjectItem(this, object, meta->getID());
 	mObjects.push_back(objItem);
 	addChild(objItem);
 }

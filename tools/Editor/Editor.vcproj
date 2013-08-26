@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)tools\bin"
-			IntermediateDirectory="$(SolutionDir)obj\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Release.vsprops;..\vsprops\FreeImage_Release.vsprops"
 			>
@@ -88,7 +88,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)tools\bin"
-			IntermediateDirectory="$(SolutionDir)obj\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Debug.vsprops;..\vsprops\FreeImage_Debug.vsprops"
 			>
@@ -112,7 +112,9 @@
 				Optimization="0"
 				AdditionalIncludeDirectories=".\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB"
+				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
+				EnableEnhancedInstructionSet="0"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
 			/>

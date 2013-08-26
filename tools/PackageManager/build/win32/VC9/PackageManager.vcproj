@@ -156,6 +156,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Metadata.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Metadata.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\PackageManager.cpp"
 			>
 		</File>
@@ -169,6 +177,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\PackageMetadata.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TextureAssetMetadata.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TextureAssetMetadata.h"
 			>
 		</File>
 		<File

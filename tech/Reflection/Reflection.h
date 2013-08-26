@@ -25,9 +25,6 @@ namespace Teardrop
 		*/
 		class Object
 		{
-			DECLARE_SERIALIZABLE(Object);
-			DECLARE_SERIALIZABLE_VTABLE();
-
 			unsigned __int64 m_objId;
 
 		public:
@@ -128,7 +125,6 @@ namespace Teardrop
 	as declare the class members
 */
 #define TD_CLASS(c, b) \
-	DECLARE_SERIALIZABLE(c) \
 	typedef c tClass; \
 	typedef b tBaseClass; \
 	static Teardrop::Reflection::Object* createInstance(unsigned int instanceId) \
@@ -175,7 +171,6 @@ namespace Teardrop
 		static c _c; \
 		return _c.getClassDef()->getId(); \
 	} \
-	DEFINE_SERIALIZABLE(c) \
 
 
 #define TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \

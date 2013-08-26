@@ -6,18 +6,29 @@ is prohibited.
 ****************************************************************************/
 
 #include "PackageMetadata.h"
+#include "TextureAssetMetadata.h"
 #include "Folder.h"
 #include "Uuid.h"
 #include "Asset/Package.h"
-#include "Asset/Asset.h"
+#include "Asset/TextureAsset.h"
 
 using namespace Teardrop;
 using namespace Tools;
 
-PackageMetadata::PackageMetadata(Package* package)
-	: mPackage(package)
+TD_CLASS_IMPL(PackageMetadata)
+
+PackageMetadata::PackageMetadata()
+	: mRoot(0)
+	, mPackage(0)
 {
-	mRoot = new Folder(mPackageName, 0);
+}
+
+PackageMetadata::PackageMetadata(Package* package)
+	: mRoot(0)
+	, mPackage(package)
+{
+	PropertyChanged.bind(this, &PackageMetadata::onPropertyChanged);
+	mRoot = new Folder(getName(), 0);
 }
 
 PackageMetadata::~PackageMetadata()
@@ -30,19 +41,28 @@ Folder* PackageMetadata::rootFolder()
 	return mRoot;
 }
 
-void PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const char* assetSourcePath)
+Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const char* assetSourcePath)
 {
 	// call the general object insert handler first...
 	add(uuid, parent, asset);
 
-	// this is the only special treatment that assets get...
-	if (assetSourcePath) {
-		mAssetIdToPathMap[uuid] = String(assetSourcePath);
-		mAssetToPathMap[asset] = String(assetSourcePath);
+	Metadata* rtn = 0;
+
+	// make new metadata for the asset
+	// TODO: should this be one level higher in the call stack?
+	if (asset->getDerivedClassDef() == TextureAsset::getClassDef()) {
+		TextureAssetMetadata* meta = new TextureAssetMetadata(static_cast<TextureAsset*>(asset));
+		meta->setSourcePath(assetSourcePath);
+		meta->setID(uuid);
+
+		mObjectToMetadataMap[asset] = meta;
+		rtn = meta;
 	}
 
 	// and actually add it to the folder
 	parent->add(asset);
+
+	return rtn;
 }
 
 void PackageMetadata::add(String& uuid, Folder* parent, Reflection::Object* object)
@@ -51,17 +71,13 @@ void PackageMetadata::add(String& uuid, Folder* parent, Reflection::Object* obje
 
 	// map "object <--> ID"
 	mObjectIdToObjectMap[uuid] = object;
-	mObjectToObjectIdMap[object] = uuid;
 
-	const_cast<Folder*>(parent)->add(object);
+	parent->add(object);
 	mObjectToFolderMap[object] = parent;
 }
 
 void PackageMetadata::remove(const String& objectId)
 {
-	// remove from "asset ID --> asset path" map
-	mAssetIdToPathMap.erase(objectId);
-
 	// and then the others
 	ObjectIdToObjectMap::iterator it = mObjectIdToObjectMap.find(objectId);
 	if (it != mObjectIdToObjectMap.end()) {
@@ -70,41 +86,26 @@ void PackageMetadata::remove(const String& objectId)
 		// remove from this map 
 		mObjectIdToObjectMap.erase(it);
 
-		// and the "object --> object ID" map
-		mObjectToObjectIdMap.erase(obj);
-
-		// and, if exists, the "asset --> path" map
-		if (obj->getDerivedClassDef()->isA(Asset::getClassDef())) {
-			mAssetToPathMap.erase(static_cast<Asset*>(obj));
-		}
-
 		// "object --> folder" map...
 		mObjectToFolderMap.erase(obj);
+
+		// object --> metadata map
+		mObjectToMetadataMap.erase(obj);
 	}
 }
 
 void PackageMetadata::remove(Reflection::Object* object)
 {
-	// and "asset --> path" map
-	if (object->getDerivedClassDef()->isA(Asset::getClassDef())) {
-		mAssetToPathMap.erase(static_cast<Asset*>(object));
-	}
-
 	// "object --> folder" map...
 	mObjectToFolderMap.erase(object);
 
-	ObjectToObjectIdMap::iterator it = mObjectToObjectIdMap.find(object);
-	if (it != mObjectToObjectIdMap.end()) {
-		String id(it->second);
-
-		// remove me from this map
-		mObjectToObjectIdMap.erase(it);
-
-		// and the "asset ID --> path" map
-		mAssetIdToPathMap.erase(id);
-
+	ObjectToMetadataMap::iterator it = mObjectToMetadataMap.find(object);
+	if (it != mObjectToMetadataMap.end()) {
 		// and the "object ID --> object" map
-		mObjectIdToObjectMap.erase(id);
+		mObjectIdToObjectMap.erase(it->second->getID());
+
+		// and the metadata
+		mObjectToMetadataMap.erase(it);
 	}
 }
 
@@ -118,24 +119,6 @@ void PackageMetadata::move(Reflection::Object* object, Folder* oldParent, Folder
 
 	// then update the object-->folder table
 	mObjectToFolderMap[object] = newParent;
-}
-
-const String& PackageMetadata::findAssetSourcePath(const String& assetId)
-{
-	AssetIdToPathMap::iterator it = mAssetIdToPathMap.find(assetId);
-	if (it == mAssetIdToPathMap.end())
-		return String::EMPTY;
-
-	return it->second;
-}
-
-const String& PackageMetadata::findAssetSourcePath(Asset* asset)
-{
-	AssetToPathMap::iterator it = mAssetToPathMap.find(asset);
-	if (it == mAssetToPathMap.end())
-		return String::EMPTY;
-
-	return it->second;
 }
 
 Folder* PackageMetadata::newFolder(const String& name, Folder* parent)
@@ -156,24 +139,28 @@ void PackageMetadata::renameFolder(Folder* folder, const String& name)
 	folder->setName(name);
 }
 
-const String& PackageMetadata::packageName() 
+void PackageMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)
 {
-	return mPackageName;
+	if (String("Name") == prop->getName()) {
+		// have to rename the root folder too
+		mRoot->setName(getName());
+	}
 }
 
-void PackageMetadata::renamePackage(const String& name)
+Metadata* PackageMetadata::findObjectMetadata(Reflection::Object* object)
 {
-	mPackageName = name;
-
-	// have to rename the root folder too
-	mRoot->setName(name);
-}
-
-const String& PackageMetadata::findId(Reflection::Object* object)
-{
-	ObjectToObjectIdMap::iterator it = mObjectToObjectIdMap.find(object);
-	if (it != mObjectToObjectIdMap.end())
+	ObjectToMetadataMap::iterator it = mObjectToMetadataMap.find(object);
+	if (it != mObjectToMetadataMap.end())
 		return it->second;
 
-	return String::EMPTY;
+	return 0;
+}
+
+Reflection::Object* PackageMetadata::findObject(const String& id)
+{
+	ObjectIdToObjectMap::iterator it = mObjectIdToObjectMap.find(id);
+	if (it != mObjectIdToObjectMap.end())
+		return it->second;
+
+	return 0;
 }

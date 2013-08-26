@@ -21,6 +21,8 @@ namespace Teardrop
 	namespace Tools
 	{
 		class FolderItem;
+		class Metadata;
+		class PackageManager;
 
 		class ObjectItem : public PackageExplorerItem
 		{
@@ -33,11 +35,14 @@ namespace Teardrop
 
 			FolderItem* parent();
 			Reflection::Object* object();
+			Metadata* metadata();
 			const String& id();
 
 		protected:
 			FolderItem* mParent;
 			Reflection::Object* mObject;
+			Metadata* mMetadata;
+			PackageManager* mPkgMgr;
 			String mObjId;
 		};
 	}

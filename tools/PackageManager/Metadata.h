@@ -5,26 +5,29 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(ASSET_INCLUDED)
-#define ASSET_INCLUDED
+#if !defined(METADATA_INCLUDED)
+#define METADATA_INCLUDED
 
 #include "Reflection/Reflection.h"
 #include "Memory/Memory.h"
 
 namespace Teardrop
 {
-	class Asset : public Reflection::Object
+	namespace Tools
 	{
-	public:
-		TD_CLASS(Asset, Object);
+		class Metadata : public Reflection::Object
+		{
+		public:
+			TD_CLASS(Metadata, Object);
+			TD_PROPERTY(Name, "Object Name", String, "(undefined)", 0);
+			TD_PROPERTY(ID, "Object ID", String, "(undefined)", "ReadOnly");
 
-		Asset();
-		virtual ~Asset();
+			Metadata();
+			~Metadata();
 
-		TD_DECLARE_ALLOCATOR();
+			TD_DECLARE_ALLOCATOR();
+		};
+	}
+}
 
-	protected:
-	};
-} // namespace Teardrop
-
-#endif // ASSET_INCLUDED
+#endif // METADATA_INCLUDED

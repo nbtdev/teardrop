@@ -5,31 +5,19 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "Package.h"
-#include <algorithm>
+#include "Metadata.h"
 
 using namespace Teardrop;
+using namespace Tools;
 
-Package::Package()
+TD_CLASS_IMPL(Metadata);
+
+Metadata::Metadata()
 {
+
 }
 
-Package::~Package()
+Metadata::~Metadata()
 {
-}
 
-void Package::add(Reflection::Object* object)
-{
-	mObjects.push_back(object);
-}
-
-void Package::remove(Reflection::Object* object)
-{
-	Objects::iterator it = std::find(mObjects.begin(), mObjects.end(), object);
-	mObjects.erase(it);
-}
-
-const Objects& Package::objects() const
-{
-	return mObjects;
 }

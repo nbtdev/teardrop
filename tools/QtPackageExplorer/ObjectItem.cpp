@@ -6,10 +6,15 @@ is prohibited.
 ****************************************************************************/
 
 #include "ObjectItem.h"
+#include "FolderItem.h"
+#include "PackageManager/PackageManager.h"
+#include "PackageManager/PackageMetadata.h"
+#include "PackageManager/Metadata.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/PropertyDef.h"
 #include "Reflection/ClassDef.h"
 #include "Util/_String.h"
+#include <assert.h>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -19,11 +24,17 @@ ObjectItem::ObjectItem(FolderItem* parent, Reflection::Object* object, const Str
 	, mObject(object)
 	, mObjId(id)
 {
-	const Reflection::PropertyDef* prop = object->getDerivedClassDef()->findProperty("Name", true);
-	if (prop) {
-		String val;
-		prop->getDataAsString(object, val);
-		setText(0, (const char*)val);
+	mPkgMgr = parent->packageManager();
+	assert(mPkgMgr);
+
+	if (mPkgMgr) {
+		mMetadata = mPkgMgr->metadata()->findObjectMetadata(object);
+		assert(mMetadata);
+
+		if (mMetadata) {
+			// get a name
+			setText(0, (const char*)mMetadata->getName());
+		}
 	}
 }
 
@@ -40,6 +51,11 @@ FolderItem* ObjectItem::parent()
 Reflection::Object* ObjectItem::object()
 {
 	return mObject;
+}
+
+Metadata* ObjectItem::metadata()
+{
+	return mMetadata;
 }
 
 const String& ObjectItem::id()

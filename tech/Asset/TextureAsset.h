@@ -15,8 +15,7 @@ namespace Teardrop
 	class TextureAsset : public Asset
 	{
 	public:
-		TD_CLASS(TextureAsset, Object);
-		TD_PROPERTY(SourcePath, "Filesystem path to source data", String, "(undefined)", "TextureViewer");
+		TD_CLASS(TextureAsset, Asset);
 
 		TextureAsset();
 		virtual ~TextureAsset();
