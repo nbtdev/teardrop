@@ -21,7 +21,7 @@ namespace Teardrop
 		{
 		public:
 			TD_CLASS(TextureAssetMetadata, Metadata);
-			TD_PROPERTY(SourcePath, "Filesystem path to texture asset source data", String, "(undefined)", "FilePath|ReadOnly");
+			TD_PROPERTY(SourcePath, "Filesystem path to texture asset source data", String, "(undefined)", "FileChooser|ReadOnly");
 			TD_PROPERTY(GenerateMipmaps, "Generate mipmaps for texture asset", bool, false, 0);
 
 			TextureAssetMetadata();

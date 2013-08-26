@@ -15,6 +15,7 @@ is prohibited.
 #include <QDockWidget>
 #include <QVBoxLayout>
 #include <QToolBox>
+#include <QLabel>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -24,6 +25,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	, mPropGrid(0)
 	, mPkgExp(0)
 	, m3DView(0)
+	, mPropGridDesc(0)
 {
 	ui.setupUi(this);
 

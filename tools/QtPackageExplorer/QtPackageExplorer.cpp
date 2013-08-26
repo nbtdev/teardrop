@@ -64,13 +64,13 @@ void QtPackageExplorer::dragMoveEvent(QDragMoveEvent* event)
 		setCurrentItem(item);
 
 		PackageExplorerItem* pei = static_cast<PackageExplorerItem*>(item);
-		if (pei->itemType() != PackageExplorerItem::TYPE_FOLDER) {
-			event->ignore();
+		if (pei->itemType() == PackageExplorerItem::TYPE_FOLDER) {
+			event->acceptProposedAction();
 			return;
 		}
 	}
 
-	event->acceptProposedAction();
+	event->ignore();
 }
 
 void QtPackageExplorer::dragLeaveEvent(QDragLeaveEvent* event)

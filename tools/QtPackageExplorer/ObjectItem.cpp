@@ -34,6 +34,7 @@ ObjectItem::ObjectItem(FolderItem* parent, Reflection::Object* object, const Str
 		if (mMetadata) {
 			// get a name
 			setText(0, (const char*)mMetadata->getName());
+			mMetadata->NameChanged.bind(this, &ObjectItem::onNameChanged);
 		}
 	}
 }
@@ -66,4 +67,9 @@ const String& ObjectItem::id()
 PackageExplorerItem::Type ObjectItem::itemType()
 {
 	return TYPE_OBJECT;
+}
+
+void ObjectItem::onNameChanged(const char* newName)
+{
+	setText(0, newName);
 }

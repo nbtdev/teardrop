@@ -38,6 +38,9 @@ namespace Teardrop
 			Metadata* metadata();
 			const String& id();
 
+			// Object callback
+			void onNameChanged(const char* newName);
+
 		protected:
 			FolderItem* mParent;
 			Reflection::Object* mObject;

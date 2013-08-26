@@ -10,6 +10,7 @@ is prohibited.
 
 #include "Reflection/Reflection.h"
 #include "Memory/Memory.h"
+#include "FastDelegate.h"
 
 namespace Teardrop
 {
@@ -25,7 +26,12 @@ namespace Teardrop
 			Metadata();
 			~Metadata();
 
+			fastdelegate::FastDelegate1<const char*> NameChanged;
+
 			TD_DECLARE_ALLOCATOR();
+
+		protected:
+			void notifyPropertyChangedLocal(const Reflection::PropertyDef* prop);
 		};
 	}
 }

@@ -10,6 +10,7 @@ is prohibited.
 #include "FloatPropertyHelper.h"
 #include "IntPropertyHelper.h"
 #include "BoolPropertyHelper.h"
+#include "FileChooserFactory.h"
 #include "Reflection/Reflection.h"
 #include "Game/ComponentHost.h"
 #include "Game/Component.h"
@@ -25,16 +26,19 @@ QtPropertyGrid::QtPropertyGrid(QWidget* parent)
 	, mObject(0)
 	, mMetadata(0)
 	, mStringPropMgr(0)
+	, mPathPropMgr(0)
 	, mDoublePropMgr(0)
 	, mIntPropMgr(0)
 	, mBoolPropMgr(0)
 	, mGroupPropMgr(0)
 	, mLineEditFactory(0)
 	, mDoubleSpinBoxFactory(0)
+	, mFileChooserFactory(0)
 {
 	//setHeaderVisible(false);
 
 	mStringPropMgr = new QtStringPropertyManager;
+	mPathPropMgr = new QtStringPropertyManager;
 	mDoublePropMgr = new QtDoublePropertyManager;
 	mIntPropMgr = new QtIntPropertyManager;
 	mBoolPropMgr = new QtBoolPropertyManager;
@@ -43,10 +47,12 @@ QtPropertyGrid::QtPropertyGrid(QWidget* parent)
 	mLineEditFactory = new QtLineEditFactory;
 	mDoubleSpinBoxFactory = new QtDoubleSpinBoxFactory;
 	mCheckBoxFactory = new QtCheckBoxFactory;
+	mFileChooserFactory = new FileChooserFactory;
 
 	setFactoryForManager(mStringPropMgr, mLineEditFactory);
 	setFactoryForManager(mDoublePropMgr, mDoubleSpinBoxFactory);
 	setFactoryForManager(mBoolPropMgr, mCheckBoxFactory);
+	setFactoryForManager(mPathPropMgr, mFileChooserFactory);
 }
 
 QtPropertyGrid::~QtPropertyGrid()
@@ -86,10 +92,27 @@ void QtPropertyGrid::addProperty(QtProperty* parent, Reflection::Object* obj, co
 	if (String("String") == propDef->getTypeName() && !propDef->isCollection()) {
 		String val;
 		propDef->getDataAsString(obj, val);
-		QtProperty* subProp = mStringPropMgr->addProperty(propDef->getName());
-		mStringPropMgr->setValue(subProp, (const char*)val);
-		mHelpers.push_back(new StringPropertyHelper(mStringPropMgr, subProp, obj, propDef));
-		parent->addSubProperty(subProp);
+
+		QtProperty* subProp = 0;
+		
+		if (String(propDef->getEditor()).contains("FileChooser")) {
+			subProp = mPathPropMgr->addProperty(propDef->getName());
+			mPathPropMgr->setValue(subProp, (const char*)val);
+			mHelpers.push_back(new StringPropertyHelper(mPathPropMgr, subProp, obj, propDef));
+		}
+		else {
+			subProp = mStringPropMgr->addProperty(propDef->getName());
+
+			if (String(propDef->getEditor()).contains("ReadOnly"))
+				subProp->setEnabled(false);
+
+			mStringPropMgr->setValue(subProp, (const char*)val);
+			mHelpers.push_back(new StringPropertyHelper(mStringPropMgr, subProp, obj, propDef));
+		}
+
+		if (subProp) {
+			parent->addSubProperty(subProp);
+		}
 	}
 
 	if (String("float") == propDef->getTypeName() && !propDef->isCollection()) {
@@ -125,7 +148,7 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 	clear();
 	clearHelpers();
 	mObject = object;
-	mMetadata = 0;
+	mMetadata = metadata;
 
 	// calling with NULL means clear the editor (unsets the current object)
 	if (!mObject)
@@ -144,14 +167,18 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 		Reflection::ClassDef* classDef = classes.top();
 		classes.pop();
 
-		QtProperty* superclass = mGroupPropMgr->addProperty(classDef->getName());
-		header->addSubProperty(superclass);
-
 		// properties
 		const Reflection::PropertyDef* prop = classDef->getProps();
-		while (prop) {
-			addProperty(superclass, mObject, prop);
-			prop = prop->m_pNext;
+
+		// don't put in a grouping for classes in the hierarchy with no properties; it's just confusing
+		if (prop) {
+			QtProperty* superclass = mGroupPropMgr->addProperty(classDef->getName());
+			header->addSubProperty(superclass);
+
+			while (prop) {
+				addProperty(superclass, mObject, prop);
+				prop = prop->m_pNext;
+			}
 		}
 	}
 
@@ -188,8 +215,8 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 		populate(classes, classDef);
 
 		if (classes.size()) {
-			QtProperty* superclass = mGroupPropMgr->addProperty("Metadata");
-			header->addSubProperty(superclass);
+			QtProperty* metadata = mGroupPropMgr->addProperty("Metadata");
+			QtTreePropertyBrowser::addProperty(metadata);
 
 			while (!classes.empty()) {
 				Reflection::ClassDef* classDef = classes.top();
@@ -198,7 +225,7 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 				// properties
 				const Reflection::PropertyDef* prop = classDef->getProps();
 				while (prop) {
-					addProperty(superclass, mMetadata, prop);
+					addProperty(metadata, mMetadata, prop);
 					prop = prop->m_pNext;
 				}
 			}

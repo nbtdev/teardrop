@@ -14,6 +14,7 @@ is prohibited.
 class QTreeWidgetItem;
 class QWidget;
 class QToolBox;
+class QLabel;
 
 namespace Teardrop
 {
@@ -46,6 +47,7 @@ namespace Teardrop
 			PackageManager* mPkgMgr;
 			QWidget* m3DView;
 			QToolBox* mClasses;
+			QLabel* mPropGridDesc;
 		};
 	}
 }

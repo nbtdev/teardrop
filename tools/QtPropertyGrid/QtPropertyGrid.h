@@ -31,6 +31,7 @@ namespace Teardrop
 	namespace Tools
 	{
 		class PropertyHelper;
+		class FileChooserFactory;
 
 		class QtPropertyGrid 
 			: public QtTreePropertyBrowser
@@ -49,6 +50,7 @@ namespace Teardrop
 			Reflection::Object* mMetadata;
 
 			QtStringPropertyManager* mStringPropMgr;
+			QtStringPropertyManager* mPathPropMgr;
 			QtDoublePropertyManager* mDoublePropMgr;
 			QtIntPropertyManager* mIntPropMgr;
 			QtBoolPropertyManager* mBoolPropMgr;
@@ -57,6 +59,7 @@ namespace Teardrop
 			QtLineEditFactory* mLineEditFactory;
 			QtDoubleSpinBoxFactory* mDoubleSpinBoxFactory;
 			QtCheckBoxFactory* mCheckBoxFactory;
+			FileChooserFactory* mFileChooserFactory;
 
 		private:
 			void clearHelpers();

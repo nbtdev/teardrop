@@ -6,6 +6,8 @@ is prohibited.
 ****************************************************************************/
 
 #include "Metadata.h"
+#include "Reflection/PropertyDef.h"
+#include "Util/_String.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -20,4 +22,13 @@ Metadata::Metadata()
 Metadata::~Metadata()
 {
 
+}
+
+void Metadata::notifyPropertyChangedLocal(const Reflection::PropertyDef* prop)
+{
+	if (String("Name") == prop->getName()) {
+		if (NameChanged) {
+			NameChanged((const char*)getName());
+		}
+	}
 }
