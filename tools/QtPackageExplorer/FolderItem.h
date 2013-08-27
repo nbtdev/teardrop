@@ -53,6 +53,7 @@ namespace Teardrop
 
 			// Folder callback
 			void onNameChanged(const char* newName);
+			void labelChanged(const String& newLabel);
 
 		protected:
 			typedef std::list<FolderItem*> FolderItems;
@@ -65,6 +66,8 @@ namespace Teardrop
 			Folder* mFolder;
 
 			PackageManager* mPkgMgr;
+
+			bool mChangingName;
 		};
 	}
 }

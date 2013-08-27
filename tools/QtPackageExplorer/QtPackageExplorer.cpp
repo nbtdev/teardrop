@@ -30,6 +30,7 @@ QtPackageExplorer::QtPackageExplorer(QWidget* parent)
 	setContextMenuPolicy(Qt::CustomContextMenu);
 
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onContextMenu(const QPoint&)));
+	connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(onItemChanged(QTreeWidgetItem*, int)));
 }
 
 QtPackageExplorer::~QtPackageExplorer()
@@ -46,14 +47,20 @@ void QtPackageExplorer::addPackage(PackageManager* packageMgr, bool setEditing)
 	if (setEditing) {
 		editItem(folderItem);
 	}
+
+	if (PackageAdded)
+		PackageAdded(packageMgr);
 }
 
 void QtPackageExplorer::removePackage(PackageManager* packageMgr)
 {
+	if (PackageRemoved)
+		PackageRemoved(packageMgr);
 }
 
 void QtPackageExplorer::dragEnterEvent(QDragEnterEvent* event)
 {
+	QTreeWidget::dragEnterEvent(event);
 	event->acceptProposedAction();
 }
 
@@ -78,11 +85,17 @@ void QtPackageExplorer::dragLeaveEvent(QDragLeaveEvent* event)
 	event->accept();
 }
 
+bool QtPackageExplorer::dropMimeData(QTreeWidgetItem * newParentPtr, int index, const QMimeData * data, Qt::DropAction action)
+{
+	return QTreeWidget::dropMimeData(newParentPtr, index, data, action);
+}
+
 void QtPackageExplorer::dropEvent(QDropEvent* event)
 {
 	const QMimeData* mime = event->mimeData();
 
 	if (mime->hasUrls()) {
+		// dragging a file off of the filesystem
 		QList<QUrl> urls = mime->urls();
 		if (urls.length()) {
 			QString str = urls.at(0).toLocalFile();
@@ -101,11 +114,17 @@ void QtPackageExplorer::dropEvent(QDropEvent* event)
 				Asset* asset = pkgMgr->importAsset(folderItem->folder(), str.toLatin1().constData(), chooser.chosenClass());
 				if (asset) {
 					folderItem->addObject(asset);
+					event->accept();
+					return;
 				}
 			}
 		}
 	}
-	event->accept();
+	else {
+		// moving a node to another parent in the tree
+	}
+
+	event->ignore();
 }
 
 void QtPackageExplorer::onContextMenu(const QPoint& pt)
@@ -167,4 +186,9 @@ void QtPackageExplorer::onContextMenu(const QPoint& pt)
 			}
 		}
 	}
+}
+
+void QtPackageExplorer::onItemChanged(QTreeWidgetItem *item, int column) {
+	PackageExplorerItem* pei = static_cast<PackageExplorerItem*>(item);
+	pei->labelChanged(String(item->text(0).toLatin1().data()));
 }

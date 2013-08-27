@@ -320,3 +320,14 @@ char& String::operator [](size_t idx)
 
 	return m_pBuf[idx];
 }
+
+void String::replaceAll(char find, char with)
+{
+	char* p = m_pBuf;
+	while (*p) {
+		if (*p == find)
+			*p = with;
+
+		++p;
+	}
+}

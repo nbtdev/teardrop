@@ -10,6 +10,7 @@ is prohibited.
 
 #include <QTreeWidget>
 #include <list>
+#include "FastDelegate.h"
 
 namespace Teardrop
 {
@@ -28,14 +29,19 @@ namespace Teardrop
 			void addPackage(PackageManager* packageMgr, bool setEditing=false);
 			void removePackage(PackageManager* packageMgr);
 
+			fastdelegate::FastDelegate1<PackageManager*> PackageAdded;
+			fastdelegate::FastDelegate1<PackageManager*> PackageRemoved;
+
 		protected slots:
 			void onContextMenu(const QPoint&);
+			void onItemChanged(QTreeWidgetItem *item, int column);
 
 		protected:
 			void dragEnterEvent(QDragEnterEvent* event);
 			void dragMoveEvent(QDragMoveEvent* event);
 			void dragLeaveEvent(QDragLeaveEvent* event);
 			void dropEvent(QDropEvent* event);
+			bool dropMimeData(QTreeWidgetItem * newParentPtr, int index, const QMimeData * data, Qt::DropAction action);
 
 			typedef std::list<PackageManager*> PackageManagers;
 			PackageManagers mPackages;

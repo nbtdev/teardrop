@@ -23,6 +23,7 @@ ObjectItem::ObjectItem(FolderItem* parent, Reflection::Object* object, const Str
 	: mParent(parent)
 	, mObject(object)
 	, mObjId(id)
+	, mChangingName(false)
 {
 	mPkgMgr = parent->packageManager();
 	assert(mPkgMgr);
@@ -71,5 +72,18 @@ PackageExplorerItem::Type ObjectItem::itemType()
 
 void ObjectItem::onNameChanged(const char* newName)
 {
-	setText(0, newName);
+	if (!mChangingName) {
+		mChangingName = true;
+		setText(0, newName);
+		mChangingName = false;
+	}
+}
+
+void ObjectItem::labelChanged(const String& newLabel)
+{
+	if (!mChangingName) {
+		mChangingName = true;
+		mMetadata->setName(newLabel);
+		mChangingName = false;
+	}
 }

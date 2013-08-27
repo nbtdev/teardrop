@@ -137,6 +137,8 @@ Folder* PackageMetadata::deleteFolder(Folder* folder)
 void PackageMetadata::renameFolder(Folder* folder, const String& name)
 {
 	folder->setName(name);
+	if (folder == mRoot)
+		setName(name); // rename the package too
 }
 
 void PackageMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)

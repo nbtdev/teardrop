@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Editor.h"
+#include "Project.h"
 #include "QtPropertyGrid/QtPropertyGrid.h"
 #include "QtPackageExplorer/QtPackageExplorer.h"
 #include "QtPackageExplorer/FolderItem.h"
@@ -16,6 +17,9 @@ is prohibited.
 #include <QVBoxLayout>
 #include <QToolBox>
 #include <QLabel>
+#include <QFileDialog>
+#include <QFile>
+#include <QFileInfo>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -26,6 +30,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	, mPkgExp(0)
 	, m3DView(0)
 	, mPropGridDesc(0)
+	, mProject(0)
 {
 	ui.setupUi(this);
 
@@ -77,11 +82,16 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	addDockWidget(Qt::RightDockWidgetArea, dock);
 
 	connect(mPkgExp, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(onPackageExplorerItemClicked(QTreeWidgetItem*,int)));
+	connect(ui.mCmdSave, SIGNAL(triggered()), this, SLOT(onSave()));
+
+	mProject = new Project;
+	mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
+	mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
 }
 
 Editor::~Editor()
 {
-
+	delete mProject;
 }
 
 void Editor::onPackageExplorerItemClicked(QTreeWidgetItem* item, int column)
@@ -99,4 +109,56 @@ void Editor::onPackageExplorerItemClicked(QTreeWidgetItem* item, int column)
 void Editor::onContextMenu(const QPoint& pt)
 {
 
+}
+
+void Editor::onNew()
+{
+
+}
+
+void Editor::onOpen()
+{
+
+}
+
+void Editor::onSave()
+{
+	// if project file exists, save it; if not, ask to save a new one
+	if (!mProject)
+		return;
+	
+	if (!mProject->name().length() || !mProject->path().length())
+		onSaveAs();
+	else {
+		if (!mProject->write()) {
+			// do something
+		}
+	}
+}
+
+void Editor::onSaveAs()
+{
+	// ask for filename and then do a normal save
+	QFileDialog dlg;
+	dlg.setFileMode(QFileDialog::AnyFile);
+	dlg.setNameFilter(tr("Project Files (*.project)"));
+
+	QStringList files;
+	if (dlg.exec()) {
+		files = dlg.selectedFiles();
+		QString file = files.at(0);
+
+		QFile f(files[0]);
+		QFileInfo fi(f);
+		QString path = fi.absolutePath();
+		QString name = fi.baseName();
+		QString ext = fi.suffix();
+
+		// do the regular save
+		mProject->rename(name.toLatin1().data());
+		mProject->setPath(path.toLatin1().data());
+		if (!mProject->write()) {
+			// do something
+		}
+	}
 }

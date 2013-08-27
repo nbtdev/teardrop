@@ -12,6 +12,8 @@ is prohibited.
 
 namespace Teardrop
 {
+	class String;
+
 	namespace Tools
 	{
 		class PackageExplorerItem : public QTreeWidgetItem
@@ -24,6 +26,7 @@ namespace Teardrop
 			};
 
 			virtual Type itemType() = 0;
+			virtual void labelChanged(const String& newLabel) = 0;
 		};
 	}
 }

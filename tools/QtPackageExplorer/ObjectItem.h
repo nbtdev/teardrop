@@ -38,8 +38,10 @@ namespace Teardrop
 			Metadata* metadata();
 			const String& id();
 
-			// Object callback
+			// Object callback - for when the underlying object's "Name" property was changed in code
 			void onNameChanged(const char* newName);
+			// PackageExplorerItem callback - for when the user changes the item's label in the explorer
+			void labelChanged(const String& newLabel);
 
 		protected:
 			FolderItem* mParent;
@@ -47,6 +49,7 @@ namespace Teardrop
 			Metadata* mMetadata;
 			PackageManager* mPkgMgr;
 			String mObjId;
+			bool mChangingName;
 		};
 	}
 }

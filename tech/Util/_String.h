@@ -69,6 +69,7 @@ namespace Teardrop
 		size_t length() const;
 		void truncate(size_t len);
 		void clear();
+		void replaceAll(char find, char with);
 
 		/* NOTE: THESE RETURN COPIES */
 		String substr(size_t begin=0, size_t end=INVALID) const;

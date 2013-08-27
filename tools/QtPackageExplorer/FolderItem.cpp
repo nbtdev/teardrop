@@ -19,6 +19,7 @@ FolderItem::FolderItem(FolderItem* parent, Folder* folder, PackageManager* pkgMg
 	: mParent(parent)
 	, mFolder(folder)
 	, mPkgMgr(pkgMgr)
+	, mChangingName(false)
 {
 	const Objects& objs = folder->objects();
 	for (Objects::const_iterator it = objs.begin(); it != objs.end(); ++it) {
@@ -130,12 +131,25 @@ PackageExplorerItem::Type FolderItem::itemType()
 	return TYPE_FOLDER;
 }
 
-void FolderItem::onNameChanged(const char* newName)
-{
-	setText(0, newName);
-}
-
 PackageManager* FolderItem::packageManager()
 {
 	return mPkgMgr;
+}
+
+void FolderItem::onNameChanged(const char* newName)
+{
+	if (!mChangingName) {
+		mChangingName = true;
+		setText(0, newName);
+		mChangingName = false;
+	}
+}
+
+void FolderItem::labelChanged(const String& newLabel)
+{
+	if (!mChangingName) {
+		mChangingName = true;
+		mPkgMgr->metadata()->renameFolder(mFolder, newLabel);
+		mChangingName = false;
+	}
 }
