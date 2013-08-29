@@ -11,6 +11,7 @@ is prohibited.
 #include "Memory/Memory.h"
 #include "Serialization/Serialization.h"
 #include "Util/_String.h"
+#include "Util/UUID.h"
 #include "FastDelegate.h"
 
 namespace Teardrop
@@ -25,7 +26,7 @@ namespace Teardrop
 		*/
 		class Object
 		{
-			unsigned __int64 m_objId;
+			UUID mId;
 
 		public:
 			Object();
@@ -56,8 +57,9 @@ namespace Teardrop
 				mutator from derived or client code -- the object serialization 
 				framework is the only thing that should be calling the mutator.
 			*/
-			unsigned __int64 getObjectId();
-			void setObjectId(unsigned __int64 objectId);
+			const UUID& getObjectId();
+			void setObjectId(const UUID& objectId);
+			void setObjectId(const String& objectId);
 
 			/*
 				These are provided as hooks into derived classes, but without the
@@ -127,9 +129,9 @@ namespace Teardrop
 #define TD_CLASS(c, b) \
 	typedef c tClass; \
 	typedef b tBaseClass; \
-	static Teardrop::Reflection::Object* createInstance(unsigned int instanceId) \
+	static Teardrop::Reflection::Object* createInstance() \
 	{ \
-		return getClassDef()->createInstance(instanceId); \
+		return getClassDef()->createInstance(); \
 	} \
 	static struct ClassDefInitializer \
 	{ \

@@ -12,7 +12,8 @@ is prohibited.
 #include "QtPackageExplorer/FolderItem.h"
 #include "QtPackageExplorer/ObjectItem.h"
 #include "PackageManager/Metadata.h"
-#include "Asset/Package.h"
+#include "Package/Package.h"
+#include "Util/FileSystem.h"
 #include <QDockWidget>
 #include <QVBoxLayout>
 #include <QToolBox>
@@ -157,8 +158,15 @@ void Editor::onSaveAs()
 		// do the regular save
 		mProject->rename(name.toLatin1().data());
 		mProject->setPath(path.toLatin1().data());
-		if (!mProject->write()) {
-			// do something
+
+		String pkgPath(mProject->path());
+		pkgPath += "/packages";
+
+		// make sure packages subdirectory is available
+		if (FileSystem::createDirectory(pkgPath)) {
+			if (!mProject->write()) {
+				// do something
+			}
 		}
 	}
 }

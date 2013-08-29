@@ -35,7 +35,7 @@ namespace Teardrop
 			virtual ~ClassDef();
 			void setCreatable();
 			void addProperty(PropertyDef* pProp);
-			virtual Object* createInstance(unsigned int instanceId) const = 0;
+			virtual Object* createInstance() const = 0;
 
 			bool isCreatable() const { return m_bCreatable; }
 			unsigned __int64 getId() const { return m_classId; }
@@ -58,11 +58,10 @@ namespace Teardrop
 			//ConcreteClassDef(const char* pName, ClassDef* pBaseClassDef) : ClassDef(pName, pBaseClassDef) {}
 			ConcreteClassDef(const char* pName, const char* pBaseClassName) : ClassDef(pName, pBaseClassName) {}
 
-			Object* createInstance(unsigned int instanceId) const
+			Object* createInstance() const
 			{
 				Object* pObj = TD_NEW _T;
 				pObj->setupPropertyDefaults();
-				pObj->setObjectId(instanceId);
 				pObj->onInstanceCreated();
 				return pObj;
 			}

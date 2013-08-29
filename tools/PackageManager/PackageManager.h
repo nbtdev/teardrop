@@ -54,6 +54,11 @@ namespace Teardrop
 			// remove object from our package
 			void remove(Reflection::Object* object);
 
+			// load/save the package
+			bool save(const String& path);
+			bool load(const String& path);
+			String packageFilename();
+
 			PackageMetadata* metadata();
 
 		protected:

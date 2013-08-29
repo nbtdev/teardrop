@@ -8,8 +8,8 @@ is prohibited.
 #include "PackageMetadata.h"
 #include "TextureAssetMetadata.h"
 #include "Folder.h"
-#include "Uuid.h"
-#include "Asset/Package.h"
+#include "Util/UUID.h"
+#include "Package/Package.h"
 #include "Asset/TextureAsset.h"
 
 using namespace Teardrop;
@@ -67,7 +67,10 @@ Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const
 
 void PackageMetadata::add(String& uuid, Folder* parent, Reflection::Object* object)
 {
-	UuidGen(uuid);
+	UUID newUUID;
+	newUUID.generate();
+	newUUID.toString(uuid);
+	object->setObjectId(newUUID);
 
 	// map "object <--> ID"
 	mObjectIdToObjectMap[uuid] = object;

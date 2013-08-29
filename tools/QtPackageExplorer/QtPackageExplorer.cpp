@@ -11,7 +11,7 @@ is prohibited.
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/Folder.h"
-#include "Asset/Package.h"
+#include "Package/Package.h"
 #include "Asset/TextureAsset.h"
 #include "Reflection/Reflection.h"
 #include <QDragEnterEvent>

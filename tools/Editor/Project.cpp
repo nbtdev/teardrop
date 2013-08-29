@@ -6,7 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Project.h"
-#include "Asset/Package.h"
+#include "Package/Package.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "tinyxml/tinyxml.h"
@@ -88,18 +88,23 @@ bool Project::write()
 	ss << mVersion;
 	project.SetAttribute("version", ss.str().c_str());
 
+	String packagePath(mPath);
+	packagePath += "/packages/";
+
 	for (PackageManagers::iterator it = mPackageManagers.begin(); it != mPackageManagers.end(); ++it) {
 		PackageManager* pkgMgr = *it;
 
 		TiXmlElement package("package");
-		String packageName(pkgMgr->metadata()->getName());
-		package.SetAttribute("name", packageName);
+		String name(pkgMgr->metadata()->getName());
+		package.SetAttribute("name", name);
 
-		packageName.replaceAll(' ', '_');
-		packageName += ".package";
-		package.SetAttribute("filename", packageName);
+		name = pkgMgr->packageFilename();
+		package.SetAttribute("filename", name);
 
 		project.InsertEndChild(package);
+
+		// write out the actual package file
+		pkgMgr->save(packagePath);
 	}
 
 	doc.InsertEndChild(project);

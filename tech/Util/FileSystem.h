@@ -25,6 +25,9 @@ namespace Teardrop
 
 		// get the path to the "appdata" directoy
 		static void getAppDataPath(/*out*/String& path);
+
+		// make path, creating intermediate directories if they don't exist; returns false if creation failed
+		static bool createDirectory(const String& dirPath);
 	};
 }
 

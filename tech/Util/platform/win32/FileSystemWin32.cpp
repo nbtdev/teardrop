@@ -139,3 +139,8 @@ void FileSystem::getAppDataPath(String& path)
 	path += "\\";
 	path += "Teardrop";
 }
+
+bool FileSystem::createDirectory(const String& dirPath)
+{
+	return (ERROR_SUCCESS == SHCreateDirectoryEx(NULL, dirPath, NULL));
+}

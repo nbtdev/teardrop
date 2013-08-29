@@ -12,9 +12,41 @@ using namespace Teardrop;
 TD_CLASS_IMPL(Asset);
 
 Asset::Asset()
+	: mData(0)
+	, mLength(0)
+	, mDynamicData(0)
 {
 }
 
 Asset::~Asset()
 {
+	delete [] mDynamicData;
+}
+
+const void* Asset::data()
+{
+	return mData;
+}
+
+int Asset::length()
+{
+	return mLength;
+}
+
+void Asset::setData(void* data, int len)
+{
+	delete [] mDynamicData;
+	mDynamicData = 0;
+
+	mData = data;
+	mLength = len;
+}
+
+void* Asset::createData(int len)
+{
+	delete [] mDynamicData;
+	mDynamicData = new unsigned char[len];
+	mData = mDynamicData;
+	mLength = len;
+	return mData;
 }

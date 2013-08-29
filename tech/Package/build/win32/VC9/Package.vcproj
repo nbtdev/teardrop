@@ -2,9 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Asset"
-	ProjectGUID="{4453688A-6B15-4A9F-BA5A-0D33111B0D65}"
-	RootNamespace="Asset"
+	Name="Package"
+	ProjectGUID="{B5A1C027-5488-488A-8158-420F90E3745C}"
+	RootNamespace="Package"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -42,10 +43,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../..;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../..;../../../../ThirdParty"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -106,9 +109,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../..;../../../.."
+				AdditionalIncludeDirectories="../../..;../../../..;../../../../ThirdParty"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -145,19 +150,19 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\Asset.cpp"
+			RelativePath="..\..\..\Package.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Asset.h"
+			RelativePath="..\..\..\Package.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\TextureAsset.cpp"
+			RelativePath="..\..\..\PackageSerializer.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\TextureAsset.h"
+			RelativePath="..\..\..\PackageSerializer.h"
 			>
 		</File>
 	</Files>

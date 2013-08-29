@@ -8,8 +8,10 @@ is prohibited.
 #include "PackageManager.h"
 #include "PackageMetadata.h"
 #include "Folder.h"
-#include "Asset/Package.h"
+#include "Package/Package.h"
+#include "Package/PackageSerializer.h"
 #include "Asset/TextureAsset.h"
+#include "Stream/FileStream.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -50,4 +52,30 @@ Asset* PackageManager::importAsset(Folder* folder, const char* filepath, const R
 PackageMetadata* PackageManager::metadata()
 {
 	return mMetadata;
+}
+
+String PackageManager::packageFilename()
+{
+	String name(metadata()->getName());
+	name.replaceAll(' ', '_');
+	name += ".package";
+	return name;
+}
+
+bool PackageManager::save(const String& path)
+{
+	String packagePathName(path);
+	packagePathName += packageFilename();
+
+	FileStream strm;
+	if (!strm.open(packagePathName, WRITE|TRUNCATE))
+		return false;
+
+	PackageSerializer ser(mPackage);
+	return ser.serialize(strm);
+}
+
+bool PackageManager::load(const String& path)
+{
+	return false;
 }

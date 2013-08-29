@@ -21,9 +21,26 @@ namespace Teardrop
 		Asset();
 		virtual ~Asset();
 
+		// return pointer to data blob
+		const void* data();
+		// return length of data blob in bytes
+		int length();
+		// we don't own this data blob
+		void setData(void* data, int len);
+		// we own this data blob
+		void* createData(int len);
+
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
+		// this always points to real data
+		void* mData;
+		// this contains the length of the data blob in bytes
+		int mLength;
+		// if the data is on the heap and owned by us, this and 
+		// mData will be the same and we should delete this in 
+		// dtor; otherwise, this is zero
+		unsigned char* mDynamicData;
 	};
 } // namespace Teardrop
 

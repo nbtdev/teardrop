@@ -19,7 +19,6 @@ void Object::setBroadcastPropertyChangedFn(BroadcastPropertyChanged fn)
 //-----------------------------------------------------------------------------
 Object::Object()
 {
-	m_objId = 0;
 }
 //-----------------------------------------------------------------------------
 Object::~Object()
@@ -71,14 +70,19 @@ bool Object::destroy()
 	return true;
 }
 //-----------------------------------------------------------------------------
-unsigned __int64 Object::getObjectId()
+const UUID& Object::getObjectId()
 {
-	return m_objId;
+	return mId;
 }
 //-----------------------------------------------------------------------------
-void Object::setObjectId(unsigned __int64 id)
+void Object::setObjectId(const UUID& id)
 {
-	m_objId = id;
+	mId = id;
+}
+//-----------------------------------------------------------------------------
+void Object::setObjectId(const String& id)
+{
+	mId.fromString(id);
 }
 //-----------------------------------------------------------------------------
 void Object::notifyPropertyChanged(const PropertyDef* pPropDef)
@@ -126,7 +130,7 @@ Object* Object::clone() const
 	// properties, and sending it on its way. Any components that have 
 	// deeper cloning needs should override this method
 	ClassDef* pClassDef = getDerivedClassDef();
-	Object* pRtn = pClassDef->createInstance(0);
+	Object* pRtn = pClassDef->createInstance();
 
 	while (pClassDef)
 	{

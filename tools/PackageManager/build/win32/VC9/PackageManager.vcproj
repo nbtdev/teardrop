@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Debug.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Debug.vsprops;..\..\..\..\vsprops\Squish_Debug.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -84,7 +84,7 @@
 			OutputDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Release.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Release.vsprops;..\..\..\..\vsprops\Squish_Release.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
@@ -189,14 +189,6 @@
 		</File>
 		<File
 			RelativePath="..\..\..\TextureImport.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Uuid.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Uuid.h"
 			>
 		</File>
 	</Files>
