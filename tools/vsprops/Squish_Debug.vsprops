@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Squish_Debug"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(SQUISH_DIR)"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="squishd.lib"
+		AdditionalLibraryDirectories="$(SQUISH_DIR)\lib\vs9"
+	/>
+</VisualStudioPropertySheet>
