@@ -8,6 +8,7 @@ is prohibited.
 #include "PackageManager.h"
 #include "Asset/TextureAsset.h"
 #include "FreeImage.h"
+#include "squish.h"
 
 namespace Teardrop {
 namespace Tools {
@@ -20,7 +21,13 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 
 	FIBITMAP* fibm = FreeImage_Load(FreeImage_GetFileType(filepath), filepath);
 	if (fibm) {
+		BITMAPINFO* bmi = FreeImage_GetInfo(fibm);
 		asset = new TextureAsset;
+		int w = bmi->bmiHeader.biWidth;
+		int h = bmi->bmiHeader.biHeight;
+		int sz = squish::GetStorageRequirements(w, h, squish::kDxt3);
+		void* data = asset->createData(sz);
+		squish::CompressImage((squish::u8*)fibm->data, w, h, data, squish::kDxt3);
 	}
 
 	FreeImage_DeInitialise();
