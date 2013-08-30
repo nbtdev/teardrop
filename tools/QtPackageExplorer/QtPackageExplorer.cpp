@@ -17,6 +17,7 @@ is prohibited.
 #include <QDragEnterEvent>
 #include <QUrl>
 #include <QMenu>
+#include <QMessageBox>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -37,7 +38,7 @@ QtPackageExplorer::~QtPackageExplorer()
 {
 }
 
-void QtPackageExplorer::addPackage(PackageManager* packageMgr, bool setEditing)
+void QtPackageExplorer::_addPackage(PackageManager* packageMgr, bool setEditing)
 {
 	PackageMetadata* meta = packageMgr->metadata();
 	FolderItem* folderItem = new FolderItem(0, meta->rootFolder(), packageMgr);
@@ -47,6 +48,11 @@ void QtPackageExplorer::addPackage(PackageManager* packageMgr, bool setEditing)
 	if (setEditing) {
 		editItem(folderItem);
 	}
+}
+
+void QtPackageExplorer::addPackage(PackageManager* packageMgr, bool setEditing)
+{
+	_addPackage(packageMgr, setEditing);
 
 	if (PackageAdded)
 		PackageAdded(packageMgr);
@@ -56,6 +62,11 @@ void QtPackageExplorer::removePackage(PackageManager* packageMgr)
 {
 	if (PackageRemoved)
 		PackageRemoved(packageMgr);
+}
+
+void QtPackageExplorer::clearAllPackages()
+{
+	clear();
 }
 
 void QtPackageExplorer::dragEnterEvent(QDragEnterEvent* event)
@@ -116,6 +127,11 @@ void QtPackageExplorer::dropEvent(QDropEvent* event)
 					folderItem->addObject(asset);
 					event->accept();
 					return;
+				}
+				else {
+					QMessageBox mb;
+					mb.setText(QString("Could not import texture from file ") + str);
+					mb.exec();
 				}
 			}
 		}

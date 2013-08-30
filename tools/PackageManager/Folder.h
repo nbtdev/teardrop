@@ -50,6 +50,8 @@ namespace Teardrop
 			Folder* createSubfolder(const String& name);
 			// if this returns non-null, it will be the "folder" passed in and indicates that removal succeeded; otherwise, failure to remove indicated by null return value
 			Folder* deleteSubfolder(Folder* folder);
+			// add subfolder
+			void add(Folder* folder);
 			// add object to this folder (does not take ownership)
 			void add(Reflection::Object* obj);
 			// remove object from this folder

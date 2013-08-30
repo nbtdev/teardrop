@@ -10,9 +10,13 @@ is prohibited.
 
 #include "Memory/Memory.h"
 #include <list>
+#include <map>
 
 namespace Teardrop
 {
+	class String;
+	struct UUID;
+
 	namespace Reflection
 	{
 		class Object;
@@ -30,10 +34,21 @@ namespace Teardrop
 		void remove(Reflection::Object* object);
 		const Objects& objects() const;
 
+		// I hate this...these must *only* be used during package linking...
+		Reflection::Object* findById(const String& id);
+		Reflection::Object* findById(const UUID& id);
+
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
+		friend class PackageSerializer;
+		void* createDataStorage(int len);
+		void addSymTabEntry(Reflection::Object* obj);
+
 		Objects mObjects;
+		unsigned char* mData;
+		typedef std::map<UUID, Reflection::Object*> SymbolTable;
+		SymbolTable mSymTab;
 	};
 } // namespace Teardrop
 

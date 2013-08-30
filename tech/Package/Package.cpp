@@ -6,16 +6,20 @@ is prohibited.
 ****************************************************************************/
 
 #include "Package.h"
+#include "Reflection/Reflection.h"
+#include "Util/UUID.h"
 #include <algorithm>
 
 using namespace Teardrop;
 
 Package::Package()
+	: mData(0)
 {
 }
 
 Package::~Package()
 {
+	delete [] mData;
 }
 
 void Package::add(Reflection::Object* object)
@@ -32,4 +36,32 @@ void Package::remove(Reflection::Object* object)
 const Objects& Package::objects() const
 {
 	return mObjects;
+}
+
+void* Package::createDataStorage(int len)
+{
+	delete [] mData;
+	mData = new unsigned char[len];
+	return mData;
+}
+
+void Package::addSymTabEntry(Reflection::Object* obj)
+{
+	mSymTab[obj->getObjectId()] = obj;
+}
+
+Reflection::Object* Package::findById(const UUID& id)
+{
+	SymbolTable::iterator it = mSymTab.find(id);
+	if (it != mSymTab.end())
+		return it->second;
+
+	return 0;
+}
+
+Reflection::Object* Package::findById(const String& id)
+{
+	UUID uuid;
+	uuid.fromString(id);
+	return findById(uuid);
 }

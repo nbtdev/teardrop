@@ -25,6 +25,8 @@ namespace Teardrop
 		int mReserved[2];
 	};
 
+	class PackageMetadataSerializer;
+
 	class PackageSerializer
 	{
 	public:
@@ -33,8 +35,8 @@ namespace Teardrop
 
 		static const int PACKAGE_VERSION;
 
-		bool serialize(Stream& stream);
-		bool deserialize(Stream& stream);
+		bool serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
+		bool deserialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
 
 	protected:
 		Package* mPkg;

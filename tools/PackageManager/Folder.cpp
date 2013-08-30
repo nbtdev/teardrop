@@ -61,10 +61,15 @@ Folder* Folder::parent() const
 	return mParent;
 }
 
+void Folder::add(Folder* subFolder)
+{
+	mFolders.push_back(subFolder);
+}
+
 Folder* Folder::createSubfolder(const String& name)
 {
 	Folder* newFolder = new Folder(name, this);
-	mFolders.push_back(newFolder);
+	add(newFolder);
 	return newFolder;
 }
 

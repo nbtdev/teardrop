@@ -27,7 +27,10 @@ namespace Teardrop
 			~QtPackageExplorer();
 
 			void addPackage(PackageManager* packageMgr, bool setEditing=false);
+			// hack - avoid callback loop
+			void _addPackage(PackageManager* packageMgr, bool setEditing=false);
 			void removePackage(PackageManager* packageMgr);
+			void clearAllPackages();
 
 			fastdelegate::FastDelegate1<PackageManager*> PackageAdded;
 			fastdelegate::FastDelegate1<PackageManager*> PackageRemoved;

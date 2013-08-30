@@ -61,6 +61,11 @@ const String& Project::path()
 	return mPath;
 }
 
+const Project::PackageManagers& Project::packages()
+{
+	return mPackageManagers;
+}
+
 void Project::setPath(const String& path)
 {
 	mPath = path;
@@ -130,6 +135,24 @@ bool Project::read()
 
 	// otherwise, read project file
 	TiXmlElement* root = doc.RootElement();
+	TiXmlElement* package = root->FirstChildElement("package");
+	while (package) {
+		const char* name = package->Attribute("name");
+		const char* filename = package->Attribute("filename");
+
+		if (name && filename) {
+			PackageManager* pkgMgr = new PackageManager();
+			pkgMgr->metadata()->setName(name);
+
+			String path(mPath);
+			path += "/packages/";
+			pkgMgr->load(path);
+
+			mPackageManagers.push_back(pkgMgr);
+		}
+
+		package = package->NextSiblingElement("package");
+	}
 
 	return true;
 }

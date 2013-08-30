@@ -22,6 +22,10 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 	FIBITMAP* fibm = FreeImage_Load(FreeImage_GetFileType(filepath), filepath);
 	if (fibm) {
 		BITMAPINFO* bmi = FreeImage_GetInfo(fibm);
+
+		if (bmi->bmiHeader.biBitCount != 32)
+			fibm = FreeImage_ConvertTo32Bits(fibm);
+
 		asset = new TextureAsset;
 		int w = bmi->bmiHeader.biWidth;
 		int h = bmi->bmiHeader.biHeight;

@@ -72,7 +72,7 @@ bool MemoryStream::read(void* data, size_t len, bool /*async*/)
 bool MemoryStream::write(const void* data, size_t len, bool /*async*/)
 {
 	int l = int(len);
-	while ((l+mLen) < mCapacity) 
+	while ((l+mLen) > mCapacity) 
 		expand();
 
 	unsigned char* p = mData;
@@ -128,4 +128,9 @@ bool MemoryStream::isEnd()
 	// if we are at the end, then the byte index will be 
 	// one past the end of the valid data range
 	return mPos == mLen;
+}
+
+void* MemoryStream::data()
+{
+	return mData;
 }

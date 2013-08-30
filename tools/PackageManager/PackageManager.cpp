@@ -72,10 +72,18 @@ bool PackageManager::save(const String& path)
 		return false;
 
 	PackageSerializer ser(mPackage);
-	return ser.serialize(strm);
+	return ser.serialize(strm, mMetadata);
 }
 
 bool PackageManager::load(const String& path)
 {
-	return false;
+	String packagePathName(path);
+	packagePathName += packageFilename();
+
+	FileStream strm;
+	if (!strm.open(packagePathName, READ))
+		return false;
+
+	PackageSerializer ser(mPackage);
+	return ser.deserialize(strm, mMetadata);
 }

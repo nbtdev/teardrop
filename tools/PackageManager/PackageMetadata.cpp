@@ -8,9 +8,11 @@ is prohibited.
 #include "PackageMetadata.h"
 #include "TextureAssetMetadata.h"
 #include "Folder.h"
+#include "Stream/Stream.h"
 #include "Util/UUID.h"
 #include "Package/Package.h"
 #include "Asset/TextureAsset.h"
+#include "tinyxml/tinyxml.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -58,9 +60,6 @@ Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const
 		mObjectToMetadataMap[asset] = meta;
 		rtn = meta;
 	}
-
-	// and actually add it to the folder
-	parent->add(asset);
 
 	return rtn;
 }
@@ -168,4 +167,159 @@ Reflection::Object* PackageMetadata::findObject(const String& id)
 		return it->second;
 
 	return 0;
+}
+
+static void addMetadata(TiXmlElement& objElem, Metadata* meta)
+{
+	Reflection::ClassDef* classDef = meta->getDerivedClassDef();
+	TiXmlElement metadata("metadata");
+	metadata.SetAttribute("class", classDef->getName());
+
+	bool bHasMetadata = false;
+
+	while (classDef) {
+		const Reflection::PropertyDef* prop = classDef->getProps();
+		while (prop) {
+			TiXmlElement property("property");
+			property.SetAttribute("name", prop->getName());
+
+			String sVal;
+			prop->getDataAsString(meta, sVal);
+			property.SetAttribute("value", sVal);
+
+			metadata.InsertEndChild(property);
+			bHasMetadata = true;
+			prop = prop->m_pNext;
+		}
+		classDef = classDef->getBaseClass();
+	}
+
+	if (bHasMetadata)
+		objElem.InsertEndChild(metadata);
+}
+
+static void addFolders(TiXmlElement& parentElem, PackageMetadata* meta, Folder* folder)
+{
+	TiXmlElement folderElem("folder");
+
+	const Folders& folders = folder->folders();
+	for (Folders::const_iterator it = folders.begin(); it != folders.end(); ++it) {
+		addFolders(folderElem, meta, *it);
+	}
+
+	folderElem.SetAttribute("name", folder->name());
+
+	// then add the objects in this folder -- simple, just use IDs
+	const Tools::Objects& objs = folder->objects();
+	for (Tools::Objects::const_iterator it = objs.begin(); it != objs.end(); ++it) {
+		Reflection::Object* obj = *it;
+		String objId;
+		obj->getObjectId().toString(objId);
+		TiXmlElement objElem("object");
+		objElem.SetAttribute("id", objId);
+
+		Metadata* metadata = meta->findObjectMetadata(obj);
+		if (metadata) {
+			addMetadata(objElem, metadata);
+		}
+
+		folderElem.InsertEndChild(objElem);
+	}
+
+	parentElem.InsertEndChild(folderElem);
+}
+
+void PackageMetadata::serialize(Package* pkg, Stream& strm)
+{
+	// serialize folder structure to XML
+	TiXmlDocument doc;
+	TiXmlElement folders("folders");
+	addFolders(folders, this, mRoot);
+	TiXmlPrinter printer;
+	doc.InsertEndChild(folders);
+	doc.Accept(&printer);
+	String xml(printer.CStr());
+
+	int len = xml.length()+1;
+	strm.write(&len, sizeof(len));
+	strm.write((const char*)xml, len);
+}
+
+void PackageMetadata::loadFolders(TiXmlElement* elem, Folder* parent, Package* pkg)
+{
+	TiXmlElement* folder = elem->FirstChildElement("folder");
+	while (folder) {
+		const char* folderName = folder->Attribute("name");
+		Folder* subFolder = parent->createSubfolder(folderName);
+		loadFolders(folder, subFolder, pkg);
+		folder = folder->NextSiblingElement("folder");
+	}
+
+	TiXmlElement* object = elem->FirstChildElement("object");
+	while (object) {
+		const char* id = object->Attribute("id");
+		
+		Reflection::Object* obj = 0;
+		if (id)
+			obj = pkg->findById(id);
+
+		TiXmlElement* metaElem = object->FirstChildElement("metadata");
+		if (metaElem) {
+			const char* className = metaElem->Attribute("class");
+
+			if (className) {
+				// create a metadata object of the specified type, and populate its properties
+				Reflection::ClassDef* classDef = Reflection::ClassDef::findClassDef(className);
+				if (classDef) {
+					Reflection::Object* metadata = classDef->createInstance();
+					if (metadata) {
+						metadata->setupPropertyDefaults();
+
+						TiXmlElement* propElem = metaElem->FirstChildElement("property");
+						while (propElem) {
+							const char* name = propElem->Attribute("name");
+							const char* value = propElem->Attribute("value");
+
+							if (name && value) {
+								const Reflection::PropertyDef* prop = classDef->findProperty(name, true);
+								if (prop && obj) {
+									prop->setDataFromString(metadata, value);
+								}
+							}
+
+							propElem = propElem->NextSiblingElement("property");
+						}
+
+						mObjectToMetadataMap[obj] = static_cast<Metadata*>(metadata);
+					}
+				}
+			}
+		}
+
+		mObjectToFolderMap[obj] = parent;
+		parent->add(obj);
+
+		String objId;
+		obj->getObjectId().toString(objId);
+		mObjectIdToObjectMap[objId] = obj;
+
+		object = object->NextSiblingElement("object");
+	}
+}
+
+void PackageMetadata::deserialize(Package* pkg, Stream& strm)
+{
+	int len;
+	strm.read(&len, sizeof(len));
+	char* buf = new char[len];
+	strm.read(buf, len);
+
+	TiXmlDocument doc;
+	doc.Parse(buf);
+	if (doc.Error())
+		return;
+
+	TiXmlElement* root = doc.RootElement();
+	mRoot = new Folder(getName(), 0);
+	loadFolders(root, mRoot, pkg);
 }

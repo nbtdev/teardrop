@@ -9,7 +9,10 @@ is prohibited.
 #define PACKAGEMETADATA_INCLUDED
 
 #include "PackageManager/Metadata.h"
+#include "Package/PackageMetadataSerializer.h"
 #include <map>
+
+class TiXmlElement;
 
 namespace Teardrop 
 {
@@ -26,7 +29,7 @@ namespace Teardrop
 		class Folder;
 		class Metadata;
 
-		class PackageMetadata : public Metadata
+		class PackageMetadata : public Metadata, public PackageMetadataSerializer
 		{
 		public:
 			TD_CLASS(PackageMetadata, Metadata);
@@ -34,6 +37,10 @@ namespace Teardrop
 			PackageMetadata();
 			PackageMetadata(Package* package);
 			~PackageMetadata();
+
+			// PackageMetadataSerializer implementation
+			void serialize(Package* pkg, Stream& strm);
+			void deserialize(Package* pkg, Stream& strm);
 
 			Folder* rootFolder();
 
@@ -68,6 +75,9 @@ namespace Teardrop
 			ObjectToFolderMap mObjectToFolderMap;
 
 			void onPropertyChanged(const Reflection::PropertyDef* prop);
+
+			// this is here for the metadata deserializer
+			void loadFolders(TiXmlElement* elem, Folder* parent, Package* pkg);
 		};
 	}
 }

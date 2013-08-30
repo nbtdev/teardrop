@@ -83,7 +83,9 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	addDockWidget(Qt::RightDockWidgetArea, dock);
 
 	connect(mPkgExp, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(onPackageExplorerItemClicked(QTreeWidgetItem*,int)));
+	connect(ui.mCmdOpen, SIGNAL(triggered()), this, SLOT(onOpen()));
 	connect(ui.mCmdSave, SIGNAL(triggered()), this, SLOT(onSave()));
+	connect(ui.mCmdSaveAs, SIGNAL(triggered()), this, SLOT(onSaveAs()));
 
 	mProject = new Project;
 	mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
@@ -119,7 +121,41 @@ void Editor::onNew()
 
 void Editor::onOpen()
 {
+	// ask for filename and then do a normal save
+	QFileDialog dlg;
+	dlg.setFileMode(QFileDialog::AnyFile);
+	dlg.setNameFilter(tr("Project Files (*.project)"));
 
+	QStringList files;
+	if (dlg.exec()) {
+		files = dlg.selectedFiles();
+		QString file = files.at(0);
+
+		QFile f(files[0]);
+		QFileInfo fi(f);
+		QString path = fi.absolutePath();
+		QString name = fi.baseName();
+		QString ext = fi.suffix();
+
+		// open the project
+		Project* newProject = new Project;
+		newProject->rename(name.toLatin1().data());
+		newProject->setPath(path.toLatin1().data());
+
+		if (!newProject->read()) {
+			// do something
+			delete newProject;
+		}
+		else {
+			delete mProject;
+			mProject = newProject;
+			mPkgExp->clearAllPackages();
+			const Project::PackageManagers& pkgMgrs = mProject->packages();
+			for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
+				mPkgExp->_addPackage(*it);
+			}
+		}
+	}
 }
 
 void Editor::onSave()

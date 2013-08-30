@@ -158,6 +158,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\PackageMetadataSerializer.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\PackageMetadataSerializer.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\PackageSerializer.cpp"
 			>
 		</File>
