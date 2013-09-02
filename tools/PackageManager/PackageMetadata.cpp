@@ -200,14 +200,13 @@ static void addMetadata(TiXmlElement& objElem, Metadata* meta)
 
 static void addFolders(TiXmlElement& parentElem, PackageMetadata* meta, Folder* folder)
 {
-	TiXmlElement folderElem("folder");
-
 	const Folders& folders = folder->folders();
 	for (Folders::const_iterator it = folders.begin(); it != folders.end(); ++it) {
+		TiXmlElement folderElem("folder");
+		folderElem.SetAttribute("name", (*it)->name());
 		addFolders(folderElem, meta, *it);
+		parentElem.InsertEndChild(folderElem);
 	}
-
-	folderElem.SetAttribute("name", folder->name());
 
 	// then add the objects in this folder -- simple, just use IDs
 	const Tools::Objects& objs = folder->objects();
@@ -223,10 +222,8 @@ static void addFolders(TiXmlElement& parentElem, PackageMetadata* meta, Folder* 
 			addMetadata(objElem, metadata);
 		}
 
-		folderElem.InsertEndChild(objElem);
+		parentElem.InsertEndChild(objElem);
 	}
-
-	parentElem.InsertEndChild(folderElem);
 }
 
 void PackageMetadata::serialize(Package* pkg, Stream& strm)

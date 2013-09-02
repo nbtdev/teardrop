@@ -155,6 +155,10 @@ void Editor::onOpen()
 			mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
 			mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
 
+			String windowTitle("Teardrop Editor - ");
+			windowTitle += mProject->name();
+			setWindowTitle((const char*)windowTitle);
+
 			mPkgExp->clearAllPackages();
 			const Project::PackageManagers& pkgMgrs = mProject->packages();
 			for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
