@@ -84,6 +84,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	addDockWidget(Qt::RightDockWidgetArea, dock);
 
 	connect(mPkgExp, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(onPackageExplorerItemClicked(QTreeWidgetItem*,int)));
+	connect(ui.mCmdNew, SIGNAL(triggered()), this, SLOT(onNew()));
 	connect(ui.mCmdOpen, SIGNAL(triggered()), this, SLOT(onOpen()));
 	connect(ui.mCmdSave, SIGNAL(triggered()), this, SLOT(onSave()));
 	connect(ui.mCmdSaveAs, SIGNAL(triggered()), this, SLOT(onSaveAs()));
@@ -94,7 +95,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
 	mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
 
-	setWindowTitle("Teardrop Editor - Untitled Project");
+	setEditorTitle();
 }
 
 Editor::~Editor()
@@ -119,9 +120,20 @@ void Editor::onContextMenu(const QPoint& pt)
 
 }
 
+void Editor::setEditorTitle()
+{
+	String title("Teardrop Editor - ");
+	title += mProject->name();
+	setWindowTitle((const char*)title);
+}
+
 void Editor::onNew()
 {
-
+	// need to delete the current project and clear all packages from the pkg explorer widget
+	delete mProject;
+	mPkgExp->clearAllPackages();
+	mProject = new Project;
+	setEditorTitle();
 }
 
 void Editor::onOpen()
@@ -157,9 +169,7 @@ void Editor::onOpen()
 			mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
 			mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
 
-			String windowTitle("Teardrop Editor - ");
-			windowTitle += mProject->name();
-			setWindowTitle((const char*)windowTitle);
+			setEditorTitle();
 
 			mPkgExp->clearAllPackages();
 			const Project::PackageManagers& pkgMgrs = mProject->packages();
@@ -217,9 +227,7 @@ void Editor::onSaveAs()
 			}
 		}
 
-		String windowTitle("Teardrop Editor - ");
-		windowTitle += mProject->name();
-		setWindowTitle((const char*)windowTitle);
+		setEditorTitle();
 	}
 }
 

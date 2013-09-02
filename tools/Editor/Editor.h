@@ -60,6 +60,8 @@ namespace Teardrop
 			Project* mProject;
 
 			QCursor mCursor;
+
+			void setEditorTitle();
 		};
 	}
 }

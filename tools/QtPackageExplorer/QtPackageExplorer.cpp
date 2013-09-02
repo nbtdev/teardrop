@@ -199,6 +199,8 @@ void QtPackageExplorer::onContextMenu(const QPoint& pt)
 			switch(action->data().toInt()) {
 		case ACTION_CREATE_PACKAGE:
 			{
+				// TODO: this can't happen here, packages belong to the Project class, we need to
+				// emit a signal to have the project create the class and add it to the package explorer
 				PackageManager* pkgMgr = new PackageManager;
 				pkgMgr->metadata()->setName("Untitled Package");
 				mPackages.push_back(pkgMgr);

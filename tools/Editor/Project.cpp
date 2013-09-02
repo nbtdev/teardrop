@@ -20,12 +20,14 @@ const int Project::CURRENT_VERSION = 1;
 Project::Project()
 	: mVersion(CURRENT_VERSION)
 {
-
+	mName = "Untitled";
 }
 
 Project::~Project()
 {
-
+	for (PackageManagers::iterator it = mPackageManagers.begin(); it != mPackageManagers.end(); ++it) {
+		delete *it;
+	}
 }
 
 const String& Project::name()
