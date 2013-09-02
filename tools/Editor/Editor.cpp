@@ -93,6 +93,8 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mProject = new Project;
 	mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
 	mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
+
+	setWindowTitle("Teardrop Editor - Untitled Project");
 }
 
 Editor::~Editor()
@@ -214,6 +216,10 @@ void Editor::onSaveAs()
 				// do something
 			}
 		}
+
+		String windowTitle("Teardrop Editor - ");
+		windowTitle += mProject->name();
+		setWindowTitle((const char*)windowTitle);
 	}
 }
 

@@ -142,5 +142,6 @@ void FileSystem::getAppDataPath(String& path)
 
 bool FileSystem::createDirectory(const String& dirPath)
 {
-	return (ERROR_SUCCESS == SHCreateDirectoryEx(NULL, dirPath, NULL));
+	int err = SHCreateDirectoryEx(NULL, dirPath, NULL);
+	return (ERROR_SUCCESS == err || ERROR_ALREADY_EXISTS == err);
 }
