@@ -94,9 +94,9 @@ static void serializeObjectToXml(Reflection::Object* obj, String& xml, int offse
 	object.SetAttribute("class", classDef->getName());
 
 	if (offset >= 0) {
-		String strOffset;
-		StringUtil::toString(offset, strOffset);
-		object.SetAttribute("data", strOffset);
+		String strOrdinal;
+		StringUtil::toString(offset, strOrdinal);
+		object.SetAttribute("data", strOrdinal);
 	}
 
 	// get all props from all superclasses as well
@@ -171,7 +171,7 @@ bool PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* met
 		}
 
 		ObjectSectionEntry ent;
-		serializeObjectToXml(obj, ent.mXml, dataOffset);
+		serializeObjectToXml(obj, ent.mXml, objectOrdinal);
 		ent.mLen = ent.mXml.length() + 1; // include null terminator
 		ent.mOffset = objectSectionSize;
 		ent.mOrdinal = objectOrdinal++;

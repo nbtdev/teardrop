@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(TEARDROP_QTPROPERTYGRID_INCLUDED)
 #define TEARDROP_QTPROPERTYGRID_INCLUDED
 
-#include "ThirdParty/Qt4/QtTreePropertyBrowser/qttreepropertybrowser.h"
+#include "QtPropertyBrowser/qttreepropertybrowser.h"
 #include <list>
 
 class QtStringPropertyManager;

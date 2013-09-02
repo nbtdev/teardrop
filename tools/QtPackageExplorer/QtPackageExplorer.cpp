@@ -109,8 +109,6 @@ void QtPackageExplorer::dropEvent(QDropEvent* event)
 		// dragging a file off of the filesystem
 		QList<QUrl> urls = mime->urls();
 		if (urls.length()) {
-			QString str = urls.at(0).toLocalFile();
-
 			QTreeWidgetItem* item = itemAt(event->pos());
 
 			// if we are allowed to drop here, it's a folder
@@ -122,17 +120,25 @@ void QtPackageExplorer::dropEvent(QDropEvent* event)
 
 			if (code == QDialog::Accepted) {
 				PackageManager* pkgMgr = folderItem->packageManager();
-				Asset* asset = pkgMgr->importAsset(folderItem->folder(), str.toLatin1().constData(), chooser.chosenClass());
-				if (asset) {
-					folderItem->addObject(asset);
-					event->accept();
-					return;
+				emit beginLongOperation();
+
+				for (int i=0; i<urls.size(); ++i) {
+					QString str = urls.at(i).toLocalFile();
+
+					Asset* asset = pkgMgr->importAsset(folderItem->folder(), str.toLatin1().constData(), chooser.chosenClass());
+					if (asset) {
+						folderItem->addObject(asset);
+					}
+					else {
+						QMessageBox mb;
+						mb.setText(QString("Could not import texture from file ") + str);
+						mb.exec();
+					}
 				}
-				else {
-					QMessageBox mb;
-					mb.setText(QString("Could not import texture from file ") + str);
-					mb.exec();
-				}
+
+				emit endLongOperation();
+				event->accept();
+				return;
 			}
 		}
 	}

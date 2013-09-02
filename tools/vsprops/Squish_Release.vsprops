@@ -11,6 +11,6 @@
 	<Tool
 		Name="VCLinkerTool"
 		AdditionalDependencies="squish.lib"
-		AdditionalLibraryDirectories="$(SQUISH_DIR\lib\vs9"
+		AdditionalLibraryDirectories="$(SQUISH_DIR)\lib\vs9"
 	/>
 </VisualStudioPropertySheet>

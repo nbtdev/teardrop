@@ -44,6 +44,9 @@ namespace Teardrop
 			void onOpen();
 			void onNew();
 
+			void onBeginLongOperation();
+			void onEndLongOperation();
+
 		private:
 			Ui::EditorClass ui;
 			QtPropertyGrid* mPropGrid;
@@ -55,6 +58,8 @@ namespace Teardrop
 			QLabel* mPropGridDesc;
 
 			Project* mProject;
+
+			QCursor mCursor;
 		};
 	}
 }

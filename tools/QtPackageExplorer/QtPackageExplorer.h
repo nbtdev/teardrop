@@ -35,6 +35,10 @@ namespace Teardrop
 			fastdelegate::FastDelegate1<PackageManager*> PackageAdded;
 			fastdelegate::FastDelegate1<PackageManager*> PackageRemoved;
 
+		signals:
+			void beginLongOperation();
+			void endLongOperation();
+
 		protected slots:
 			void onContextMenu(const QPoint&);
 			void onItemChanged(QTreeWidgetItem *item, int column);

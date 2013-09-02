@@ -39,7 +39,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech&quot;"
+				AdditionalIncludeDirectories=".\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\tools\shared\QtPropertyBrowser&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_DLL;QT_NO_DEBUG,NDEBUG;QT_CORE_LIB;QTPROPERTYGRID_LIB"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="false"
@@ -99,7 +99,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech&quot;"
+				AdditionalIncludeDirectories=".\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\tools\shared\QtPropertyBrowser&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QTPROPERTYGRID_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -153,7 +153,7 @@
 					RelativePath=".\GeneratedFiles\Release\moc_BoolPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|Win32"
+						Name="Release|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -165,7 +165,7 @@
 					RelativePath=".\GeneratedFiles\Release\moc_FileChooserFactory.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|Win32"
+						Name="Release|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -177,7 +177,7 @@
 					RelativePath=".\GeneratedFiles\Release\moc_FloatPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|Win32"
+						Name="Release|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -189,7 +189,7 @@
 					RelativePath=".\GeneratedFiles\Release\moc_IntPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|Win32"
+						Name="Release|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -201,7 +201,7 @@
 					RelativePath=".\GeneratedFiles\Release\moc_PropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|Win32"
+						Name="Release|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -213,7 +213,7 @@
 					RelativePath=".\GeneratedFiles\Release\moc_QtPropertyGrid.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|Win32"
+						Name="Release|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -225,7 +225,7 @@
 					RelativePath=".\GeneratedFiles\Release\moc_StringPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Debug|Win32"
+						Name="Release|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -243,7 +243,7 @@
 					RelativePath=".\GeneratedFiles\Debug\moc_BoolPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
+						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -255,7 +255,7 @@
 					RelativePath=".\GeneratedFiles\Debug\moc_FileChooserFactory.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
+						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -267,7 +267,7 @@
 					RelativePath=".\GeneratedFiles\Debug\moc_FloatPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
+						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -279,7 +279,7 @@
 					RelativePath=".\GeneratedFiles\Debug\moc_IntPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
+						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -291,7 +291,7 @@
 					RelativePath=".\GeneratedFiles\Debug\moc_PropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
+						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -303,7 +303,7 @@
 					RelativePath=".\GeneratedFiles\Debug\moc_QtPropertyGrid.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
+						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -315,7 +315,7 @@
 					RelativePath=".\GeneratedFiles\Debug\moc_StringPropertyHelper.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
+						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool

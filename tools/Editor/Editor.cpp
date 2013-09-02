@@ -34,6 +34,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	, mProject(0)
 {
 	ui.setupUi(this);
+	mCursor = cursor();
 
 	m3DView = new QWidget(ui.centralWidget);
 	ui.horizontalLayout->addWidget(m3DView);
@@ -86,6 +87,8 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	connect(ui.mCmdOpen, SIGNAL(triggered()), this, SLOT(onOpen()));
 	connect(ui.mCmdSave, SIGNAL(triggered()), this, SLOT(onSave()));
 	connect(ui.mCmdSaveAs, SIGNAL(triggered()), this, SLOT(onSaveAs()));
+	connect(mPkgExp, SIGNAL(beginLongOperation()), this, SLOT(onBeginLongOperation()));
+	connect(mPkgExp, SIGNAL(endLongOperation()), this, SLOT(onEndLongOperation()));
 
 	mProject = new Project;
 	mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
@@ -149,6 +152,9 @@ void Editor::onOpen()
 		else {
 			delete mProject;
 			mProject = newProject;
+			mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
+			mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
+
 			mPkgExp->clearAllPackages();
 			const Project::PackageManagers& pkgMgrs = mProject->packages();
 			for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
@@ -205,4 +211,15 @@ void Editor::onSaveAs()
 			}
 		}
 	}
+}
+
+void Editor::onBeginLongOperation()
+{
+	setCursor(Qt::WaitCursor);
+	QApplication::processEvents();
+}
+
+void Editor::onEndLongOperation()
+{
+	setCursor(mCursor);
 }

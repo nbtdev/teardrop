@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(FILECHOOSER_FACTORY_INCLUDED)
 #define FILECHOOSER_FACTORY_INCLUDED
 
-#include "ThirdParty/Qt4/QtTreePropertyBrowser/qteditorfactory.h"
+#include "QtPropertyBrowser/qteditorfactory.h"
 #include <list>
 
 class QLabel;

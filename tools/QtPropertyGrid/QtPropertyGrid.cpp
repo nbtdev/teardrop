@@ -14,8 +14,8 @@ is prohibited.
 #include "Reflection/Reflection.h"
 #include "Game/ComponentHost.h"
 #include "Game/Component.h"
-#include "ThirdParty/Qt4/QtTreePropertyBrowser/qteditorfactory.h"
-#include "ThirdParty/Qt4/QtTreePropertyBrowser/qtpropertymanager.h"
+#include "QtPropertyBrowser/qteditorfactory.h"
+#include "QtPropertyBrowser/qtpropertymanager.h"
 #include <stack>
 
 using namespace Teardrop;
@@ -189,7 +189,7 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 		QtTreePropertyBrowser::addProperty(header);
 
 		Component* comps[256];
-		int nComps = compHost->getComponents(comps, 256);
+		int nComps = 0;//compHost->getComponents(comps, 256);
 
 		for (int i=0; i<nComps; ++i) {
 			Component* comp = comps[i];

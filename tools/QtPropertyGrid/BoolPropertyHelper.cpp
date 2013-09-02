@@ -8,7 +8,7 @@ is prohibited.
 #include "BoolPropertyHelper.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/PropertyDef.h"
-#include "ThirdParty/Qt4/QtTreePropertyBrowser/qtpropertymanager.h"
+#include "QtPropertyBrowser/qtpropertymanager.h"
 
 using namespace Teardrop;
 using namespace Reflection;

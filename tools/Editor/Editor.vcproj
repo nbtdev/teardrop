@@ -348,6 +348,10 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
+		<File
 			RelativePath=".\Editor.rc"
 			>
 		</File>
