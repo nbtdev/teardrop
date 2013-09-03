@@ -271,10 +271,16 @@ namespace Teardrop
 		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
 
 #define TD_POINTER_PROPERTY(propName, propDesc, propType) \
-	TD_SCALAR_PROPERTY_BASE(propName, propDesc, PointerPropertyType<propType>, 0, ObjectBrowser) \
+	TD_SCALAR_PROPERTY_BASE(propName, propDesc, Reflection::PointerPropertyType<propType>, 0, ObjectBrowser) \
 	public: \
 		propType* get##propName() { return ___##propName.get(); } \
 		void set##propName(propType* __val) { ___##propName.set(__val); }
+
+//#define TD_POINTER_PROPERTY(propName, propDesc, propType) \
+//	TD_SCALAR_PROPERTY_BASE(propName, propDesc, Reflection::Object*, 0, ObjectBrowser) \
+//	public: \
+//		propType* get##propName() { return static_cast<propType*>(___##propName.get()); } \
+//		void set##propName(propType* __val) { ___##propName.set(__val); }
 
 //#define TD_COLLECTION(propName, propDesc, containedType) \
 //	TD_VECTOR_PROPERTY_BASE(propName, propDesc, CollectionPropertyType<containedType>, , 0) \

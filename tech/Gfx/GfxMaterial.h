@@ -8,6 +8,9 @@ is prohibited.
 #if !defined(TDGFXMATERIAL_INCLUDED)
 #define TDGFXMATERIAL_INCLUDED
 
+#include "Reflection/Reflection.h"
+#include "Math/Vector4.h"
+
 namespace Teardrop
 {
 	struct GfxMaterialImpl;
@@ -16,12 +19,22 @@ namespace Teardrop
 	class GfxTexture;
 	struct Environment;
 	class ResourceSerializer;
+	class TextureAsset;
 
-	class GfxMaterial
+	class GfxMaterial : public Reflection::Object
 	{
-		DECLARE_SERIALIZABLE(GfxMaterial);
-
 	public:
+		TD_CLASS(GfxMaterial, Object);
+		TD_CLASS_CREATABLE();
+		TD_COMPLEX_PROPERTY(Diffuse, "Material Diffuse Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
+		TD_COMPLEX_PROPERTY(Ambient, "Material Ambient Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
+		TD_COMPLEX_PROPERTY(Specular, "Material Specular Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
+		TD_COMPLEX_PROPERTY(Emissive, "Material Emissive Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
+		TD_POINTER_PROPERTY(DiffuseMap, "Diffuse Map Asset", TextureAsset);
+		TD_POINTER_PROPERTY(AmbientOcclusionMap, "Ambient Occlusion Map Asset", TextureAsset);
+		TD_POINTER_PROPERTY(NormalMap, "Normal Map Asset", TextureAsset);
+		TD_POINTER_PROPERTY(SpecularMap, "Specular Map Asset", TextureAsset);
+
 		//! normal c'tor (cannot fail)
 		GfxMaterial();
 		//! placement c'tor (cannot fail)
@@ -66,10 +79,10 @@ namespace Teardrop
 		
 		/** accessors
 		*/
-		unsigned int getDiffuse() const;
-		unsigned int getAmbient() const;
-		unsigned int getSpecular() const;
-		unsigned int getEmissive() const;
+		//unsigned int getDiffuse() const;
+		//unsigned int getAmbient() const;
+		//unsigned int getSpecular() const;
+		//unsigned int getEmissive() const;
 
 		bool getColorWrite() const;
 		bool getDepthCheck() const;
@@ -94,10 +107,10 @@ namespace Teardrop
 
 		/** mutators
 		*/
-		void setDiffuse(unsigned int c);
-		void setAmbient(unsigned int c);
-		void setSpecular(unsigned int c);
-		void setEmissive(unsigned int c);
+		//void setDiffuse(unsigned int c);
+		//void setAmbient(unsigned int c);
+		//void setSpecular(unsigned int c);
+		//void setEmissive(unsigned int c);
 
 		void setColorWrite(bool bEnabled);
 		void setDepthCheck(bool bEnabled);

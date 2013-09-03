@@ -45,7 +45,7 @@ namespace Teardrop
 			Folder* rootFolder();
 
 			Metadata* add(/*out*/String& uuid, /*in*/Folder* parent, /*in*/Asset* asset, /*in*/const char* assetSourcePath);
-			void add(/*out*/String& uuid, /*in*/Folder* parent, /*in*/Reflection::Object* object);
+			Metadata* add(/*out*/String& uuid, /*in*/Folder* parent, /*in*/Reflection::Object* object);
 			void remove(Reflection::Object* object);
 			void remove(const String& objectId);
 			void move(Reflection::Object* object, Folder* oldParent, Folder* newParent);

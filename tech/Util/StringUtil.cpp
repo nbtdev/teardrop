@@ -378,3 +378,11 @@ void StringUtil::toUNIXPath(String& s)
 		if (s[i] == '\\')
 			s[i] = '/';
 }
+
+void StringUtil::fromString(const String& /*in*/, Reflection::PointerPropertyBase& /*out*/)
+{
+}
+
+void StringUtil::toString(const Reflection::PointerPropertyBase& /*in*/, String& /*out*/)
+{
+}

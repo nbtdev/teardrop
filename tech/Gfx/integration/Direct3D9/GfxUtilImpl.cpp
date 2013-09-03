@@ -136,7 +136,8 @@ GfxMesh* GfxUtil::createAABBTemplateMesh(GfxRenderer* /*pRend*/)
 	// the mesh is destroyed
 	GfxMaterial* pMtl = TD_NEW GfxMaterial;
 	pMtl->initialize();
-	pMtl->setDiffuse(0xFFFFFFFF);
+	//pMtl->setDiffuse(0xFFFFFFFF);
+	pMtl->setDiffuse(Vector4::UNIT_SCALE);
 	pMtl->setNumLights(0);
 	pMtl->setVertexColors(false);
 

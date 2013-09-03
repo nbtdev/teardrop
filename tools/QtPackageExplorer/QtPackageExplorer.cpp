@@ -7,6 +7,7 @@ is prohibited.
 
 #include "QtPackageExplorer.h"
 #include "FolderItem.h"
+#include "ObjectItem.h"
 #include "QtUtils/TypeChooser.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
@@ -165,19 +166,37 @@ void QtPackageExplorer::onContextMenu(const QPoint& pt)
 			QAction* action = menu.addAction("Add Subfolder");
 			action->setData(QVariant(1));
 
+			// add all available ("creatable") object types
+			QMenu* addObject = menu.addMenu("Add Object");
+			for (Reflection::ClassDef* classDef = Reflection::ClassDef::getClasses(); classDef; classDef = classDef->m_pNext) {
+				if (classDef->isCreatable() && !classDef->isA(Asset::getClassDef())) {
+					action = addObject->addAction(classDef->getName());
+					action->setData(qVariantFromValue((void*)classDef));
+				}
+			}
+
 			action = menu.exec(globalPt);
 
 			if (action) {
+				PackageManager* pkgMgr = folderItem->packageManager();
 				switch(action->data().toInt()) {
-			case 1:
+				case 1:
 				{
-					PackageManager* pkgMgr = folderItem->packageManager();
 					Folder* newFolder = pkgMgr->metadata()->newFolder("Untitled Folder", folderItem->folder());
 					FolderItem* newItem = folderItem->addFolder(newFolder);
 					expandItem(folderItem);
 					editItem(newItem);
 				}
-				break;
+					break;
+				default: // it's a create-object-instance commmand, the menu item data is the ClassDef*
+				{
+					Reflection::ClassDef* classDef = (Reflection::ClassDef*)action->data().value<void*>();
+					Reflection::Object* obj = pkgMgr->createObject(folderItem->folder(), classDef);
+					ObjectItem* objItem = folderItem->addObject(obj);
+					expandItem(folderItem);
+					editItem(objItem);
+				}
+					break;
 				}
 			}
 		}

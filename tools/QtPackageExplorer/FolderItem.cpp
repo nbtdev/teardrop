@@ -98,12 +98,13 @@ ObjectItem* FolderItem::object(int idx)
 	return 0;
 }
 
-void FolderItem::addObject(Reflection::Object* object)
+ObjectItem* FolderItem::addObject(Reflection::Object* object)
 {
 	Metadata* meta = mPkgMgr->metadata()->findObjectMetadata(object);
 	ObjectItem* objItem = new ObjectItem(this, object, meta->getID());
 	mObjects.push_back(objItem);
 	addChild(objItem);
+	return objItem;
 }
 
 void FolderItem::removeObject(ObjectItem* object)

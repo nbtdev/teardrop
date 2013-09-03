@@ -43,6 +43,8 @@ namespace Teardrop
 
 			// create new assets/objects from filesystem data
 			Asset* importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass);
+			// create/return new object instance from ClassDef
+			Reflection::Object* createObject(Folder* folder, const Reflection::ClassDef* classDef);
 
 			// add/remove existing assets/objects
 			// add object that comes from another package

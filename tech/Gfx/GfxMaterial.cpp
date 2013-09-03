@@ -19,13 +19,13 @@ is prohibited.
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxMaterial);
+TD_CLASS_IMPL(GfxMaterial);
 //---------------------------------------------------------------------------
 const size_t MAX_TEXTURE_STAGES = 8;
 //---------------------------------------------------------------------------
 GfxMaterial::GfxMaterial()
 {
-	memset(this, 0, sizeof(GfxMaterial));
+//	memset(this, 0, sizeof(GfxMaterial));
 	m_cullMode = CULL_CCW;
 	m_fillMode = FILLMODE_SOLID;
 	m_bDepthCheck = true;
@@ -176,26 +176,26 @@ bool GfxMaterial::setTextureStage(size_t index, bool bEnabled)
 	recalcHashCode();
 	return true;
 }
-//---------------------------------------------------------------------------
-unsigned int GfxMaterial::getDiffuse() const
-{
-	return m_diffuse;
-}
-//---------------------------------------------------------------------------
-unsigned int GfxMaterial::getAmbient() const
-{
-	return m_ambient;
-}
-//---------------------------------------------------------------------------
-unsigned int GfxMaterial::getSpecular() const
-{
-	return m_specular;
-}
-//---------------------------------------------------------------------------
-unsigned int GfxMaterial::getEmissive() const
-{
-	return m_emissive;
-}
+////---------------------------------------------------------------------------
+//unsigned int GfxMaterial::getDiffuse() const
+//{
+//	return m_diffuse;
+//}
+////---------------------------------------------------------------------------
+//unsigned int GfxMaterial::getAmbient() const
+//{
+//	return m_ambient;
+//}
+////---------------------------------------------------------------------------
+//unsigned int GfxMaterial::getSpecular() const
+//{
+//	return m_specular;
+//}
+////---------------------------------------------------------------------------
+//unsigned int GfxMaterial::getEmissive() const
+//{
+//	return m_emissive;
+//}
 //---------------------------------------------------------------------------
 bool GfxMaterial::isAlphaBlended() const
 {
@@ -256,26 +256,26 @@ bool GfxMaterial::isTransparent() const
 {
 	return (m_bDepthCheck && !m_bDepthWrite || m_bAlphaBlend);
 }
-//---------------------------------------------------------------------------
-void GfxMaterial::setDiffuse(unsigned int c)
-{
-	m_diffuse = c;
-}
-//---------------------------------------------------------------------------
-void GfxMaterial::setAmbient(unsigned int c)
-{
-	m_ambient = c;
-}
-//---------------------------------------------------------------------------
-void GfxMaterial::setSpecular(unsigned int c)
-{
-	m_specular = c;
-}
-//---------------------------------------------------------------------------
-void GfxMaterial::setEmissive(unsigned int c)
-{
-	m_emissive = c;
-}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setDiffuse(unsigned int c)
+//{
+//	m_diffuse = c;
+//}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setAmbient(unsigned int c)
+//{
+//	m_ambient = c;
+//}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setSpecular(unsigned int c)
+//{
+//	m_specular = c;
+//}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setEmissive(unsigned int c)
+//{
+//	m_emissive = c;
+//}
 //---------------------------------------------------------------------------
 void GfxMaterial::setAlphaBlended(bool bBlend)
 {

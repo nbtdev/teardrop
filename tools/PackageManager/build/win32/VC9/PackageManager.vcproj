@@ -164,6 +164,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\ObjectMetadata.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ObjectMetadata.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\PackageManager.cpp"
 			>
 		</File>

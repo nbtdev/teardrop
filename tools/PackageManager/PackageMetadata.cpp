@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "PackageMetadata.h"
+#include "ObjectMetadata.h"
 #include "TextureAssetMetadata.h"
 #include "Folder.h"
 #include "Stream/Stream.h"
@@ -64,7 +65,7 @@ Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const
 	return rtn;
 }
 
-void PackageMetadata::add(String& uuid, Folder* parent, Reflection::Object* object)
+Metadata* PackageMetadata::add(String& uuid, Folder* parent, Reflection::Object* object)
 {
 	UUID newUUID;
 	newUUID.generate();
@@ -76,6 +77,14 @@ void PackageMetadata::add(String& uuid, Folder* parent, Reflection::Object* obje
 
 	parent->add(object);
 	mObjectToFolderMap[object] = parent;
+
+	ObjectMetadata* meta = new ObjectMetadata(object);
+	String id;
+	object->getObjectId().toString(id);
+	meta->setID(id);
+
+	mObjectToMetadataMap[object] = meta;
+	return meta;
 }
 
 void PackageMetadata::remove(const String& objectId)
@@ -259,6 +268,8 @@ void PackageMetadata::loadFolders(TiXmlElement* elem, Folder* parent, Package* p
 		Reflection::Object* obj = 0;
 		if (id)
 			obj = pkg->findById(id);
+
+		assert(obj);
 
 		TiXmlElement* metaElem = object->FirstChildElement("metadata");
 		if (metaElem) {

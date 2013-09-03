@@ -16,6 +16,11 @@ namespace Teardrop
 	class Vector2;
 	class Quaternion;
 
+	namespace Reflection
+	{
+		class PointerPropertyBase;
+	}
+
 	struct StringUtil
 	{
 		static void toString(float c, String& str);
@@ -78,6 +83,8 @@ namespace Teardrop
 		static void toString(const Vector2& in, String& out);
 		static void fromString(const String& in, Quaternion& out);
 		static void toString(const Quaternion& in, String& out);
+		static void fromString(const String& in, Reflection::PointerPropertyBase& out);
+		static void toString(const Reflection::PointerPropertyBase& in, String& out);
 
 		// convert from DOS (\) to UNIX (/) path separators
 		static void toUNIXPath(/*inout*/ String& s);

@@ -17,9 +17,16 @@ is prohibited.
 #include "Memory/MemoryRegion.h"
 #include "Util/_String.h"
 
+// temp
+#include "Gfx/GfxCommon.h"
+
 int main(int argc, char *argv[])
 {
 	Teardrop::String::setAllocator(GetCRTAllocator());
+	Teardrop::setGfxAllocator(GetDEFAULTAllocator());
+
+	// temp
+	Teardrop::GfxInit();
 
 	QApplication a(argc, argv);
 	//QPalette palette;

@@ -7,6 +7,7 @@ is prohibited.
 
 #include "PropertyDef.h"
 #include "Util/_String.h"
+#include <string.h>
 
 using namespace Teardrop;
 using namespace Reflection;
@@ -38,10 +39,8 @@ void PropertyDef::setDefault(const char* def)
 //-----------------------------------------------------------------------------
 void PropertyDef::setMetaFlags()
 {
-	String typeName(m_pTypeName);
-
 	// check for pointer type
-	if (typeName.contains("PointerPropertyType"))
+	if (strstr(m_pTypeName, "PointerPropertyType"))
 	{
 		m_bPointer = true;
 
@@ -55,7 +54,7 @@ void PropertyDef::setMetaFlags()
 	}
 
 	// check for collection type
-	if (typeName.contains("CollectionPropertyType"))
+	if (strstr(m_pTypeName, "CollectionPropertyType"))
 	{
 		m_bCollection = true;
 

@@ -53,7 +53,7 @@ namespace Teardrop
 			bool operator==(const _T& other) const { return m_val == other; }
 			bool operator!=(_T& other) { return !(*this == other); }
 			bool operator!=(const _T& other) const { return !(*this == other); }
-			_T& operator=(_T& other) { m_val = other; return *this; }
+			_T& operator=(_T& other) { m_val = other.m_val; return m_val; }
 			_T& get() { return m_val; }
 			void set(_T val) { m_val = val; }
 
@@ -67,8 +67,15 @@ namespace Teardrop
 			pointer field is declared inside the containing class (via the PROPERTY family
 			of macros). 
 		*/
+
+		class PointerPropertyBase
+		{
+		public:
+			virtual bool isNull() = 0;
+		};
+
 		template<class T>
-		class PointerPropertyType
+		class PointerPropertyType : public PointerPropertyBase
 		{
 			T* m_p;
 

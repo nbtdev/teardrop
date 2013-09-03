@@ -16,6 +16,7 @@ namespace Teardrop
 	{
 	public:
 		TD_CLASS(TextureAsset, Asset);
+		TD_CLASS_CREATABLE();
 
 		TextureAsset();
 		virtual ~TextureAsset();

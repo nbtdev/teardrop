@@ -1163,10 +1163,14 @@ bool GfxRendererD3D9::setupShader(GfxSubMesh& rSubMesh, GfxMaterial& mtl)
 
 	// FF material -- for testing
 	Vector4 dc, ac, sc, ec;
-	GfxUtil::unpackColor(mtl.getDiffuse(), dc);
-	GfxUtil::unpackColor(mtl.getAmbient(), ac);
-	GfxUtil::unpackColor(mtl.getSpecular(), sc);
-	GfxUtil::unpackColor(mtl.getEmissive(), ec);
+	//GfxUtil::unpackColor(mtl.getDiffuse(), dc);
+	//GfxUtil::unpackColor(mtl.getAmbient(), ac);
+	//GfxUtil::unpackColor(mtl.getSpecular(), sc);
+	//GfxUtil::unpackColor(mtl.getEmissive(), ec);
+	dc = mtl.getDiffuse();
+	ac = mtl.getAmbient();
+	sc = mtl.getSpecular();
+	ec = mtl.getEmissive();
 
 	// update the local state
 	state.setMaterialDiffuse(dc);

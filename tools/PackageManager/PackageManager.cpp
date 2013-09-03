@@ -49,6 +49,16 @@ Asset* PackageManager::importAsset(Folder* folder, const char* filepath, const R
 	return 0;
 }
 
+Reflection::Object* PackageManager::createObject(Folder* folder, const Reflection::ClassDef* classDef)
+{
+	// create the object
+	Reflection::Object* obj = classDef->createInstance();
+	mPackage->add(obj);
+	String uuid;
+	mMetadata->add(uuid, folder, obj);
+	return obj;
+}
+
 PackageMetadata* PackageManager::metadata()
 {
 	return mMetadata;

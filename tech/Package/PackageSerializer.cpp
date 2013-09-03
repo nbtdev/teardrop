@@ -81,7 +81,7 @@ PackageSerializer::~PackageSerializer()
 
 }
 
-static void serializeObjectToXml(Reflection::Object* obj, String& xml, int offset=-1)
+static void serializeObjectToXml(Reflection::Object* obj, String& xml, int ordinal=-1)
 {
 	Reflection::ClassDef* classDef = obj->getDerivedClassDef();
 	
@@ -93,9 +93,9 @@ static void serializeObjectToXml(Reflection::Object* obj, String& xml, int offse
 	object.SetAttribute("id", objectId);
 	object.SetAttribute("class", classDef->getName());
 
-	if (offset >= 0) {
+	if (ordinal >= 0) {
 		String strOrdinal;
-		StringUtil::toString(offset, strOrdinal);
+		StringUtil::toString(ordinal, strOrdinal);
 		object.SetAttribute("data", strOrdinal);
 	}
 
@@ -153,7 +153,7 @@ bool PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* met
 	for (Objects::const_iterator it = objs.begin(); it != objs.end(); ++it) {
 		Reflection::Object* obj = *it;
 
-		int dataOffset = -1;
+		int thisOrdinal = -1;
 		if (obj->getDerivedClassDef()->isA(Asset::getClassDef())) {
 			// then it probably has a data blob associated with it
 			Asset* asset = static_cast<Asset*>(obj);
@@ -167,11 +167,11 @@ bool PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* met
 
 			dataEntries.push_back(ent);
 			dataById[obj->getObjectId()] = ent;
-			dataOffset = ent.mOffset;
+			thisOrdinal = ent.mOrdinal;
 		}
 
 		ObjectSectionEntry ent;
-		serializeObjectToXml(obj, ent.mXml, objectOrdinal);
+		serializeObjectToXml(obj, ent.mXml, thisOrdinal);
 		ent.mLen = ent.mXml.length() + 1; // include null terminator
 		ent.mOffset = objectSectionSize;
 		ent.mOrdinal = objectOrdinal++;

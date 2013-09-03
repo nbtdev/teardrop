@@ -10,6 +10,9 @@ is prohibited.
 #include "Memory/Allocators.h"
 #include <assert.h>
 
+// temp
+#include "GfxMaterial.h"
+
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 static Allocator* s_pAllocator = 0;//GetCRTAllocator();
@@ -53,3 +56,8 @@ void* Teardrop::GfxAllocateAligned(size_t size, size_t align)
 	return s_pAllocator->AllocateAligned(size, align);
 }
 #endif //TD_OPTION_MEMPROFILE
+
+void Teardrop::GfxInit()
+{
+	GfxMaterial _mat;
+}

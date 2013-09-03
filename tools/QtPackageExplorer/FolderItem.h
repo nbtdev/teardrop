@@ -43,7 +43,7 @@ namespace Teardrop
 
 			int numObjects() const;
 			ObjectItem* object(int idx);
-			void addObject(Reflection::Object* object);
+			ObjectItem* addObject(Reflection::Object* object);
 			void removeObject(ObjectItem* object);
 
 			FolderItem* parent();

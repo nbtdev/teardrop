@@ -73,6 +73,10 @@ namespace Teardrop
 	// put all graphics allocations on 16-byte boundaries
 	const size_t DEFAULT_GFX_ALIGNMENT = 16;
 
+	// hack to prevent linker from DCE, we need to provide actual references to TD_CLASS objects
+	// in this library (this is temp while the editor is not actually using any graphics)
+	void GfxInit();
+
 	// de-allocator is the same whether profiling or not
 	void GfxFree(void*);
 	#define GFX_FREE(mem) (GfxFree(mem))
