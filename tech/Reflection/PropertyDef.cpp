@@ -39,20 +39,6 @@ void PropertyDef::setDefault(const char* def)
 //-----------------------------------------------------------------------------
 void PropertyDef::setMetaFlags()
 {
-	// check for pointer type
-	if (strstr(m_pTypeName, "PointerPropertyType"))
-	{
-		m_bPointer = true;
-
-		// need to strip off the PointerPropertyType<> parts
-		//m_pTargetType = strchr(m_pTypeName, '<')+1;
-		//char* pEnd = strchr((char*)m_pTargetType, '>');
-		//if (pEnd)
-		//{
-		//	*pEnd = 0;
-		//}
-	}
-
 	// check for collection type
 	if (strstr(m_pTypeName, "CollectionPropertyType"))
 	{

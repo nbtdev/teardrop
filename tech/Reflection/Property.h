@@ -67,30 +67,23 @@ namespace Teardrop
 			pointer field is declared inside the containing class (via the PROPERTY family
 			of macros). 
 		*/
-
-		class PointerPropertyBase
-		{
-		public:
-			virtual bool isNull() = 0;
-		};
-
 		template<class T>
-		class PointerPropertyType : public PointerPropertyBase
+		class PointerPropertyDefImpl
 		{
 			T* m_p;
 
 		public:
-			PointerPropertyType()
+			PointerPropertyDefImpl()
 			{
 				m_p = 0;
 			}
 
-			PointerPropertyType(T* pP)
+			PointerPropertyDefImpl(T* pP)
 			{
 				m_p = pP;
 			}
 
-			PointerPropertyType(const PointerPropertyType<T>& other)
+			PointerPropertyDefImpl(const PointerPropertyDefImpl<T>& other)
 			{
 				*this = other;
 			}
@@ -131,6 +124,16 @@ namespace Teardrop
 			{
 				assert(m_p);
 				return *m_p;
+			}
+
+			T* get()
+			{
+				return m_p;
+			}
+
+			void set(T* p)
+			{
+				m_p = p;
 			}
 		};
 

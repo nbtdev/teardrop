@@ -12,7 +12,7 @@ is prohibited.
 #include "Serialization/Serialization.h"
 #include "Util/_String.h"
 #include "Util/UUID.h"
-#include "FastDelegate.h"
+#include "Util/Event.h"
 
 namespace Teardrop
 {
@@ -114,8 +114,10 @@ namespace Teardrop
 			virtual void notifyPropertyChangedLocal(const PropertyDef* pPropDef);
 			static BroadcastPropertyChanged s_propChangedFn;
 
+		public:
 			// the preferred way to get notifications about property changes
-			fastdelegate::FastDelegate1<const PropertyDef*> PropertyChanged;
+			//fastdelegate::FastDelegate1<const PropertyDef*> PropertyChanged;
+			Event1<const PropertyDef*> PropertyChanged;
 
 		private:
 		};
@@ -175,25 +177,25 @@ namespace Teardrop
 	} \
 
 
-#define TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
+#define TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor, __PROPERTY_TYPE) \
 	protected: \
-		static Reflection::Property<propType>* get##propName##Def() \
+		static Reflection::__PROPERTY_TYPE<propType>* get##propName##Def() \
 		{ \
-			static Reflection::Property<propType> sProp(#propName, #propType, (unsigned int)offsetof(tClass, ___##propName)); \
+			static Reflection::__PROPERTY_TYPE<propType> sProp(#propName, #propType, (unsigned int)offsetof(tClass, ___##propName)); \
 			return &sProp; \
 		} \
 		struct t##propName##Initializer \
 		{ \
 			t##propName##Initializer(const char* desc, const char* defaultVal, const char* pEditor) \
 			{ \
-				Reflection::Property<propType>* sProp = get##propName##Def(); \
+				Reflection::__PROPERTY_TYPE<propType>* sProp = get##propName##Def(); \
 				sProp->setDefault(defaultVal); \
 				sProp->setDescription(desc); \
 				if (pEditor) sProp->setEditor(pEditor); \
 				getClassDef()->addProperty(sProp); \
 			} \
 		}; \
-		struct t##propName##Type : public Teardrop::Reflection::PropertyDefImpl< propType > \
+		struct t##propName##Type : public Teardrop::Reflection::##__PROPERTY_TYPE##DefImpl< propType > \
 		{ \
 			t##propName##Type() \
 			{ \
@@ -259,7 +261,7 @@ namespace Teardrop
 		t##propName##Type ___##propName; \
 
 #define TD_PROPERTY(propName, propDesc, propType, propDef, propEditor) \
-	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
+	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor, Property) \
 	public: \
 		propType& get##propName() { return ___##propName.get(); } \
 		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
@@ -271,7 +273,7 @@ namespace Teardrop
 		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
 
 #define TD_POINTER_PROPERTY(propName, propDesc, propType) \
-	TD_SCALAR_PROPERTY_BASE(propName, propDesc, Reflection::PointerPropertyType<propType>, 0, ObjectBrowser) \
+	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, ObjectBrowser, PointerProperty) \
 	public: \
 		propType* get##propName() { return ___##propName.get(); } \
 		void set##propName(propType* __val) { ___##propName.set(__val); }

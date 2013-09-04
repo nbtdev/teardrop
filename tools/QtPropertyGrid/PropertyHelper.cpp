@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "PropertyHelper.h"
+#include "Reflection/Reflection.h"
 
 using namespace Teardrop;
 using namespace Reflection;
@@ -16,8 +17,20 @@ PropertyHelper::PropertyHelper(Reflection::Object* obj, const Reflection::Proper
 	, mPropDef(propDef)
 	, mMyProp(prop)
 {
+	obj->PropertyChanged.bind(fastdelegate::MakeDelegate(this, &PropertyHelper::propValueChanged));
 }
 
 PropertyHelper::~PropertyHelper()
 {
+	mObject->PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &PropertyHelper::propValueChanged));
 }
+
+void PropertyHelper::propValueChanged(const Reflection::PropertyDef* propDef)
+{
+	onValueChanged(propDef);
+}
+
+void PropertyHelper::onValueChanged(const Reflection::PropertyDef* propDef)
+{
+}
+

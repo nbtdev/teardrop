@@ -20,12 +20,12 @@ ObjectMetadata::ObjectMetadata()
 ObjectMetadata::ObjectMetadata(Reflection::Object* obj)
 	: mObject(obj)
 {
-	PropertyChanged.bind(this, &ObjectMetadata::onPropertyChanged);
+	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &ObjectMetadata::onPropertyChanged));
 }
 
 ObjectMetadata::~ObjectMetadata()
 {
-
+	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &ObjectMetadata::onPropertyChanged));
 }
 
 void ObjectMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)

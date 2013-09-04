@@ -20,12 +20,12 @@ TextureAssetMetadata::TextureAssetMetadata()
 TextureAssetMetadata::TextureAssetMetadata(TextureAsset* asset)
 	: mTexAsset(asset)
 {
-	PropertyChanged.bind(this, &TextureAssetMetadata::onPropertyChanged);
+	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &TextureAssetMetadata::onPropertyChanged));
 }
 
 TextureAssetMetadata::~TextureAssetMetadata()
 {
-
+	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &TextureAssetMetadata::onPropertyChanged));
 }
 
 void TextureAssetMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)

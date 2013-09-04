@@ -5,7 +5,7 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "StringPropertyHelper.h"
+#include "ReferencePropertyHelper.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/PropertyDef.h"
 #include "QtPropertyBrowser/qtpropertymanager.h"
@@ -14,29 +14,34 @@ using namespace Teardrop;
 using namespace Reflection;
 using namespace Tools;
 
-StringPropertyHelper::StringPropertyHelper(QtStringPropertyManager* propMgr, QtProperty* prop, Reflection::Object* obj, const Reflection::PropertyDef* propDef)
-	: mPropMgr(propMgr)
-	, PropertyHelper(obj, propDef, prop)
-{
-	connect(mPropMgr, SIGNAL(valueChanged(QtProperty*, const QString&)), this, SLOT(onValueChanged(QtProperty*, const QString&)));
-}
-
-StringPropertyHelper::~StringPropertyHelper()
+ReferencePropertyHelper::ReferencePropertyHelper(QtStringPropertyManager* propMgr, QtProperty* prop, Reflection::Object* obj, const Reflection::PropertyDef* propDef)
+: mPropMgr(propMgr)
+, PropertyHelper(obj, propDef, prop)
 {
 }
 
-void StringPropertyHelper::onValueChanged(QtProperty* prop, const QString& val)
+ReferencePropertyHelper::~ReferencePropertyHelper()
 {
-	if (prop == mMyProp)
-		mPropDef->setDataFromString(mObject, val.toLatin1().data());
 }
 
-void StringPropertyHelper::onValueChanged(const Reflection::PropertyDef* propDef)
+void ReferencePropertyHelper::onValueChanged(QtProperty* prop, const QString& val)
 {
+	// no implementation, user cannot set the reference value directly
+}
+
+void ReferencePropertyHelper::onValueChanged(const Reflection::PropertyDef* propDef)
+{
+	// user has done something that changed the reference in the object's properties
 	if (propDef == mPropDef) {
 		// get data from object in string form and set the Qt property value as such
+		Reflection::Object* obj = 0;
+		mPropDef->getData(mObject, &obj);
+
 		String sVal;
-		mPropDef->getDataAsString(mObject, sVal);
+		if (obj) {
+			obj->getObjectId().toString(sVal);
+		}
+
 		mPropMgr->setValue(mMyProp, (const char*)sVal);
 	}
 }

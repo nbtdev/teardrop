@@ -30,13 +30,13 @@ PackageMetadata::PackageMetadata(Package* package)
 	: mRoot(0)
 	, mPackage(package)
 {
-	PropertyChanged.bind(this, &PackageMetadata::onPropertyChanged);
+	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &PackageMetadata::onPropertyChanged));
 	mRoot = new Folder(getName(), 0);
 }
 
 PackageMetadata::~PackageMetadata()
 {
-
+	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &PackageMetadata::onPropertyChanged));
 }
 
 Folder* PackageMetadata::rootFolder()

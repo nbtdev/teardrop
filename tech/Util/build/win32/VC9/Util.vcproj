@@ -189,6 +189,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Event.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\FileSystem.h"
 			>
 		</File>

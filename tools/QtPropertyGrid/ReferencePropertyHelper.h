@@ -5,8 +5,8 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(STRINGPROPERTYHELPER_INCLUDED)
-#define STRINGPROPERTYHELPER_INCLUDED
+#if !defined(REFERENCEPROPERTYHELPER_INCLUDED)
+#define REFERENCEPROPERTYHELPER_INCLUDED
 
 #include "PropertyHelper.h"
 
@@ -18,24 +18,22 @@ namespace Teardrop
 {
 	namespace Tools
 	{
-		class StringPropertyHelper : public PropertyHelper
+		class ReferencePropertyHelper : public PropertyHelper
 		{
 			Q_OBJECT
 
 		public:
-			StringPropertyHelper(QtStringPropertyManager* propMgr, QtProperty* prop, Reflection::Object* obj, const Reflection::PropertyDef* propDef);
-			~StringPropertyHelper();
+			ReferencePropertyHelper(QtStringPropertyManager* propMgr, QtProperty* prop, Reflection::Object* obj, const Reflection::PropertyDef* propDef);
+			~ReferencePropertyHelper();
 
-		protected slots:
-			// this is for when the user changes the value in a property editor
-			void onValueChanged(QtProperty* prop, const QString& val);
+			protected slots:
+				void onValueChanged(QtProperty* prop, const QString& val);
 
 		protected:
-			// this is for when the user does something that changes the object property value itself 
 			void onValueChanged(const Reflection::PropertyDef* propDef);
 			QtStringPropertyManager* mPropMgr;
 		};
 	}
 }
 
-#endif // STRINGPROPERTYHELPER_INCLUDED
+#endif // REFERENCEPROPERTYHELPER_INCLUDED

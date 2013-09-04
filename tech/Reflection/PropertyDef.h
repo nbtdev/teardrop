@@ -9,6 +9,7 @@ is prohibited.
 #define PROPERTYDEF_INCLUDED
 
 #include "Reflection/Property.h"
+#include "Reflection/Reflection.h"
 
 namespace Teardrop
 {
@@ -82,6 +83,7 @@ namespace Teardrop
 				m_pTypeName = pTypeName;
 				m_pName = pPropName;
 				m_offset = offset;
+				m_bPointer = false;
 				setMetaFlags();
 			}
 
@@ -142,6 +144,60 @@ namespace Teardrop
 					PropertyDefImpl<_T>* pOtherProp = (PropertyDefImpl<_T>*)((unsigned long)pDest + m_offset);
 					*pOtherProp = *pProp;
 				}
+			}
+		};
+
+
+		template<class _T>
+		class PointerProperty : public PropertyDef
+		{
+		public:
+			PointerProperty(const char* pPropName, const char* pTypeName, unsigned int offset)
+				: PropertyDef()
+			{
+				m_pTypeName = pTypeName;
+				m_pName = pPropName;
+				m_offset = offset;
+				m_bPointer = true;
+				setMetaFlags();
+			}
+
+			void setDataFromString(Object* /*pObj*/, const String& /*pVal*/, int /*index=-1*/) const
+			{
+			}
+
+			void setData(Object* pObj, const void* v) const
+			{
+				PointerPropertyDefImpl<_T>* pProp = (PointerPropertyDefImpl<_T>*)((unsigned long)pObj + m_offset);
+				_T* val = (_T*)v;
+				(*pProp) = val;
+				pObj->notifyPropertyChanged(this);
+			}
+
+			void getData(const Object* pObj, const void* v) const
+			{
+				PointerPropertyDefImpl<_T>& prop = *((PointerPropertyDefImpl<_T>*)((unsigned long)pObj + m_offset));
+				_T** val = (_T**)v;
+				*val = prop;
+			}
+
+			const void* getDataPointer(const Object* pObj) const
+			{
+				return (const void*)((unsigned long)pObj + m_offset);
+			}
+
+			void getDataAsString(const Object* pObj, String& sVal) const
+			{
+				PointerPropertyDefImpl<_T>& prop = *((PointerPropertyDefImpl<_T>*)((unsigned long)pObj + m_offset));
+				Reflection::Object* obj = (Reflection::Object*)(_T*)prop;
+				obj->getObjectId().toString(sVal);
+			}
+
+			void copyTo(Object* pDest, const Object* pSrc) const
+			{
+				PointerPropertyDefImpl<_T>* pProp = (PointerPropertyDefImpl<_T>*)((unsigned long)pSrc + m_offset);
+				PointerPropertyDefImpl<_T>* pOtherProp = (PointerPropertyDefImpl<_T>*)((unsigned long)pDest + m_offset);
+				*pOtherProp = *pProp;
 			}
 		};
 	} // namespace Reflection

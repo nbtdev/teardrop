@@ -7,6 +7,7 @@ is prohibited.
 
 #include "QtPropertyGrid.h"
 #include "StringPropertyHelper.h"
+#include "ReferencePropertyHelper.h"
 #include "FloatPropertyHelper.h"
 #include "IntPropertyHelper.h"
 #include "BoolPropertyHelper.h"
@@ -113,6 +114,29 @@ void QtPropertyGrid::addProperty(QtProperty* parent, Reflection::Object* obj, co
 		if (subProp) {
 			parent->addSubProperty(subProp);
 		}
+	}
+
+	if (propDef->isPointer()) {
+		Reflection::Object* pO;
+		propDef->getData(obj, &pO);
+
+		QtProperty* subProp = mStringPropMgr->addProperty(propDef->getName());
+		subProp->setEnabled(false);
+
+		String sVal;
+		if (pO) {
+			pO->getObjectId().toString(sVal);
+		}
+
+		mStringPropMgr->setValue(subProp, (const char*)sVal);
+		mHelpers.push_back(new ReferencePropertyHelper(mStringPropMgr, subProp, obj, propDef));
+
+		if (subProp) {
+			parent->addSubProperty(subProp);
+		}
+	}
+
+	if (String("Vector4") == propDef->getTypeName() && !propDef->isCollection()) {
 	}
 
 	if (String("float") == propDef->getTypeName() && !propDef->isCollection()) {

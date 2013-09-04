@@ -93,8 +93,9 @@ void Object::notifyPropertyChanged(const PropertyDef* pPropDef)
 		s_propChangedFn(this, pPropDef);
 
 	// preferred way to set up notifications
-	if (!PropertyChanged.empty())
-		PropertyChanged(pPropDef);
+	//if (!PropertyChanged.empty())
+	//	PropertyChanged(pPropDef);
+	PropertyChanged.raise(pPropDef);
 }
 //-----------------------------------------------------------------------------
 void Object::notifyPropertyChangedLocal(const PropertyDef* /*pPropDef*/)

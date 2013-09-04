@@ -29,7 +29,12 @@ namespace Teardrop
 			PropertyHelper(Reflection::Object* obj, const Reflection::PropertyDef* propDef, QtProperty* prop);
 			virtual ~PropertyHelper();
 
+			// callback when property value in Reflection::Object instance changes
+			void propValueChanged(const Reflection::PropertyDef* propDef);
+
 		protected:
+			virtual void onValueChanged(const Reflection::PropertyDef* propDef);
+
 			Reflection::Object* mObject;
 			const Reflection::PropertyDef* mPropDef;
 			QtProperty* mMyProp;
