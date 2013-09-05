@@ -9,6 +9,7 @@ is prohibited.
 #include "FolderItem.h"
 #include "ObjectItem.h"
 #include "QtUtils/TypeChooser.h"
+#include "QtUtils/ObjectDragDropData.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/Folder.h"
@@ -25,6 +26,7 @@ using namespace Tools;
 
 QtPackageExplorer::QtPackageExplorer(QWidget* parent)
 	: QTreeWidget(parent)
+	, mIsDragging(false)
 {
 	setAcceptDrops(true);
 	setDragEnabled(true);
@@ -234,4 +236,52 @@ void QtPackageExplorer::onContextMenu(const QPoint& pt)
 void QtPackageExplorer::onItemChanged(QTreeWidgetItem *item, int column) {
 	PackageExplorerItem* pei = static_cast<PackageExplorerItem*>(item);
 	pei->labelChanged(String(item->text(0).toLatin1().data()));
+}
+
+void QtPackageExplorer::mouseMoveEvent(QMouseEvent* event)
+{
+	QTreeWidget::mouseMoveEvent(event);
+
+	if (!(event->buttons() & Qt::LeftButton)) {
+		if (mIsDragging) {
+			mIsDragging = false;
+			return;
+		}
+	}
+	else {
+		if (mIsDragging) {
+			if ((event->pos() - mMouseDown).manhattanLength() < 4/*QApplication::startDragDistance()*/)
+				return;
+		}
+		else {
+			mMouseDown = event->pos();
+			mIsDragging = true;
+		}
+	}
+
+	// get thing that we are dragging (it will be where the mouse drag started)
+	PackageExplorerItem* pei = static_cast<PackageExplorerItem*>(itemAt(mMouseDown.x(), mMouseDown.y()));
+
+	if (pei) {
+		if (pei->itemType() == PackageExplorerItem::TYPE_OBJECT) {
+			ObjectItem* oi = static_cast<ObjectItem*>(pei);
+			ObjectDragDropData* oddd = new ObjectDragDropData(oi->object(), "(path)", 0);
+			onDragStart(oddd);
+			mIsDragging = false;
+			// todo: delete when done?
+		}
+	}
+}
+
+void QtPackageExplorer::onDragStart(DragDropData* ddd)
+{
+	QDrag* drag = new QDrag(this);
+
+	// because Qt insists that everything has to have a MIME type...
+	QMimeData* mimeData = new QMimeData;
+	mimeData->setData("text/plain", "DRAG");
+	mimeData->setUserData(0, ddd);
+	drag->setMimeData(mimeData);
+
+	drag->exec(Qt::CopyAction);
 }

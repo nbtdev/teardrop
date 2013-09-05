@@ -5,6 +5,44 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
+#if !defined(USE_QTTREEPROPERTYBROWSER)
+#include "QtPropertyGrid.h"
+#include "QtPropertyGridDelegate.h"
+#include "QtPropertyGridModel.h"
+#include "QtUtils/ObjectDragDropData.h"
+#include "Reflection/Reflection.h"
+#include "Game/ComponentHost.h"
+#include "Game/Component.h"
+
+using namespace Teardrop;
+using namespace Tools;
+
+QtPropertyGrid::QtPropertyGrid(QWidget* parent)
+	: QTreeView(parent)
+	, mModel(0)
+	, mObject(0)
+	, mMetadata(0)
+{
+	mDelegate = new QtPropertyGridDelegate;
+	setItemDelegate(mDelegate);
+	setHeaderHidden(true);
+	setAcceptDrops(true);
+}
+
+QtPropertyGrid::~QtPropertyGrid()
+{
+	delete mModel;
+	delete mDelegate;
+}
+
+void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* metadata /* = 0 */)
+{
+	delete mModel;
+	mModel = new QtPropertyGridModel(object);
+	setModel(mModel);
+}
+
+#else // USE_QTTREEPROPERTYBROWSER
 #include "QtPropertyGrid.h"
 #include "StringPropertyHelper.h"
 #include "ReferencePropertyHelper.h"
@@ -12,11 +50,13 @@ is prohibited.
 #include "IntPropertyHelper.h"
 #include "BoolPropertyHelper.h"
 #include "FileChooserFactory.h"
+#include "QtUtils/ObjectDragDropData.h"
 #include "Reflection/Reflection.h"
 #include "Game/ComponentHost.h"
 #include "Game/Component.h"
 #include "QtPropertyBrowser/qteditorfactory.h"
 #include "QtPropertyBrowser/qtpropertymanager.h"
+#include <QDragEnterEvent>
 #include <stack>
 
 using namespace Teardrop;
@@ -54,6 +94,8 @@ QtPropertyGrid::QtPropertyGrid(QWidget* parent)
 	setFactoryForManager(mDoublePropMgr, mDoubleSpinBoxFactory);
 	setFactoryForManager(mBoolPropMgr, mCheckBoxFactory);
 	setFactoryForManager(mPathPropMgr, mFileChooserFactory);
+
+	setAcceptDrops(true);
 }
 
 QtPropertyGrid::~QtPropertyGrid()
@@ -256,3 +298,53 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 		}
 	}
 }
+
+void QtPropertyGrid::dragEnterEvent(QDragEnterEvent* event)
+{
+	event->acceptProposedAction();
+}
+
+void QtPropertyGrid::dragMoveEvent(QDragMoveEvent* event)
+{
+	//QTreeWidgetItem* item = itemAt(event->pos());
+	//if (item) {
+	//	setCurrentItem(item);
+
+	//	PackageExplorerItem* pei = static_cast<PackageExplorerItem*>(item);
+	//	if (pei->itemType() == PackageExplorerItem::TYPE_FOLDER) {
+			event->acceptProposedAction();
+	//		return;
+	//	}
+	//}
+
+	//event->ignore();
+}
+
+void QtPropertyGrid::dragLeaveEvent(QDragLeaveEvent* event)
+{
+	event->accept();
+}
+
+void QtPropertyGrid::dropEvent(QDropEvent* event)
+{
+	QWidget::dropEvent(event);
+#if 0
+	DragDropData* ddd = (DragDropData*)event->mimeData()->userData(0);
+	if (ddd->type() == DragDropData::DDD_OBJECT) {
+		ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
+		Reflection::Object* obj = oddd->object();
+		String id;
+		obj->getObjectId().toString(id);
+		QWidget* w = childAt(event->pos());
+		while (w && w != this) {
+			if (dynamic_cast<QtPropertyEditorView*>(w))
+				break;
+
+			w = w->parentWidget();
+		}
+	}
+
+	event->ignore();
+#endif
+}
+#endif // USE_QTTREEPROPERTYBROWSER

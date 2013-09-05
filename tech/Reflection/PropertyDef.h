@@ -190,7 +190,8 @@ namespace Teardrop
 			{
 				PointerPropertyDefImpl<_T>& prop = *((PointerPropertyDefImpl<_T>*)((unsigned long)pObj + m_offset));
 				Reflection::Object* obj = (Reflection::Object*)(_T*)prop;
-				obj->getObjectId().toString(sVal);
+				if (obj)
+					obj->getObjectId().toString(sVal);
 			}
 
 			void copyTo(Object* pDest, const Object* pSrc) const

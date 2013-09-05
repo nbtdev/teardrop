@@ -57,10 +57,10 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	vertLayout = new QVBoxLayout(dockContents);
 
 	mPropGrid = new QtPropertyGrid(dockContents);
-	mPropGrid->setResizeMode(QtTreePropertyBrowser::Interactive);
+	//mPropGrid->setResizeMode(QtTreePropertyBrowser::Interactive);
 	mPropGrid->setRootIsDecorated(true);
 	mPropGrid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	mPropGrid->clear();
+	//mPropGrid->clear();
 
 	vertLayout->addWidget(mPropGrid);
 	dock->setWidget(dockContents);

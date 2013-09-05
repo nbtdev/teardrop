@@ -17,6 +17,7 @@ namespace Teardrop
 	namespace Tools
 	{
 		class PackageManager;
+		class DragDropData;
 
 		class QtPackageExplorer : public QTreeWidget
 		{
@@ -52,6 +53,12 @@ namespace Teardrop
 
 			typedef std::list<PackageManager*> PackageManagers;
 			PackageManagers mPackages;
+
+			// for triggering onDragStart (which ought already to be part of the Qt API...)
+			void mouseMoveEvent(QMouseEvent* event);
+			virtual void onDragStart(DragDropData* ddd);
+			QPoint mMouseDown;
+			bool mIsDragging;
 		};
 	}
 }
