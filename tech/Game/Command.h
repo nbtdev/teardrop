@@ -36,10 +36,10 @@ namespace Teardrop
 
 		void setExtra(float val, size_t idx) { f[idx] = val; }
 		void setExtra(int val, size_t idx) { i[idx] = val; }
-		void getExtra(float& val, size_t idx) { val = f[idx]; }
-		void getExtra(int& val, size_t idx) { val = i[idx]; }
+		void getExtra(float& val, size_t idx) const { val = f[idx]; }
+		void getExtra(int& val, size_t idx) const { val = i[idx]; }
 		void setVerb(Verb verb) { m_verb = verb; }
-		Verb getVerb() { return m_verb; }
+		Verb getVerb() const { return m_verb; }
 
 		TD_DECLARE_ALLOCATOR();
 

@@ -68,6 +68,39 @@ bool ZoneObject::destroy()
 	return true;
 }
 //---------------------------------------------------------------------------
+Reflection::Object* ZoneObject::clone() const
+{
+	// Reflection::Object handles cloning the base properties
+	Reflection::Object* obj = Reflection::Object::clone();
+	ComponentHost* pHost = dynamic_cast<ComponentHost*>(obj);
+
+	if (pHost) {
+		// since we are also a component host, we need to clone our components
+		// as well as the base properties
+		int nComps = getComponents(0, 0);
+		std::vector<Component*> compvec(nComps);
+		Component** comps = &compvec[0];
+
+		nComps = getComponents(comps, nComps);
+
+		for (int i=0; i<nComps; ++i)
+		{
+			Component* pComp = comps[i];
+			if(!pComp->getServerComponent() && Environment::get().isServer)
+				continue;
+
+			Component* pNewComp = static_cast<Component*>(pComp->clone());
+
+			if (pNewComp)
+			{
+				pHost->addComponent(pNewComp);
+			}
+		}
+	}
+
+	return obj;
+}
+//---------------------------------------------------------------------------
 void ZoneObject::setDynamic(bool isDynamic)
 {
 	m_bDynamic = isDynamic;

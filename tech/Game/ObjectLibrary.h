@@ -18,7 +18,6 @@ namespace Teardrop
 {
 	struct Environment;
 	class ZoneObject;
-	class IPlayerControlled;
 	class Stream;
 	class Zone;
 
@@ -58,8 +57,7 @@ namespace Teardrop
 		//! create and initialize an instance of the specified type and name
 		ZoneObject* create(
 			const String& objectClass,
-			const String& objectTypeName,
-			IPlayerControlled** ppPC=0);
+			const String& objectTypeName);
 
 		TD_DECLARE_ALLOCATOR();
 

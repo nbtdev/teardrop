@@ -160,6 +160,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\..\CommandTarget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\ComponentHost.cpp"
 				>
 			</File>
@@ -189,10 +193,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\InputFilter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\IPlayer.cpp"
 				>
 			</File>
 			<File
@@ -290,6 +290,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\CommandTarget.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\ComponentHost.h"
 				>
 			</File>
@@ -330,14 +334,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\IPlayer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\IPlayerControlled.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Kinematic.h"
 				>
 			</File>
@@ -359,6 +355,22 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Overlay.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Player.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Player.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\PlayerController.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\PlayerInput.h"
 				>
 			</File>
 			<File
@@ -571,6 +583,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Prop.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Variant.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Variant.h"
 				>
 			</File>
 		</Filter>

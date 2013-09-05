@@ -20,7 +20,7 @@ namespace Teardrop
 		{
 		public: 
 			static const unsigned int ID = (0x80000000 | 20); // ID_CONNECTION_LOST -- fix this hack someday
-			unsigned int m_playerId;
+			unsigned int mPlayerId;
 
 			ConnectionLost();
 			virtual ~ConnectionLost();

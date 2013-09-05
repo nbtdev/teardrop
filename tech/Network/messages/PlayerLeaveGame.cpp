@@ -23,12 +23,12 @@ PlayerLeaveGame::~PlayerLeaveGame()
 //---------------------------------------------------------------------------
 void PlayerLeaveGame::deserialize(Net::Stream& bs)
 {
-	bs.read(m_playerId);
+	bs.read(mPlayerId);
 	bs.read(m_additionalInfo);
 }
 //---------------------------------------------------------------------------
 void PlayerLeaveGame::serialize(Net::Stream& bs)
 {
-	bs.write(m_playerId);
+	bs.write(mPlayerId);
 	bs.write(m_additionalInfo);
 }

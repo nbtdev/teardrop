@@ -129,9 +129,7 @@ Zone* Scene::createZone(const char* type, LoadListener* pCB)
 	if (!pClassDef)
 		return 0;
 
-	// todo: remove the bitwise ID hack
-	node.pZone = static_cast<Zone*>(
-		pClassDef->createInstance(m_zones.size() | 0x80000000));
+	node.pZone = static_cast<Zone*>(pClassDef->createInstance());
 
 #if 0
 	if (!_stricmp("terrain", type))

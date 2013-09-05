@@ -48,7 +48,12 @@ namespace Teardrop
 				//! Net::System implementation
 				bool connect(const String& address, unsigned short port);
 				Net::MessagePtr getNextMessage();
-				void send(Net::Message& pMsg);
+				// broadcast
+				void send(Net::Message& msg);
+				// send to single peer
+				void send(Net::Message& msg, Net::Peer* mPeer);
+				// send to list of peers
+				void send(Net::Message& msg, Net::Peer** mPeers, int peerCount);
 				void disconnect(Net::Peer* pPeer=0);
 				void disconnect(unsigned int addr, unsigned short port=0);
 				void ping(const char* address, unsigned short port);

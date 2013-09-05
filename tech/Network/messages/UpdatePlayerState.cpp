@@ -23,6 +23,7 @@ UpdatePlayerState::~UpdatePlayerState()
 //---------------------------------------------------------------------------
 void UpdatePlayerState::deserialize(Net::Stream& bs)
 {
+	bs.read(mPlayerId);
 	bs.read(m_playerTeam);
 	bs.read(m_playerName);
 	bs.read(m_playerCharClass);
@@ -33,6 +34,7 @@ void UpdatePlayerState::deserialize(Net::Stream& bs)
 //---------------------------------------------------------------------------
 void UpdatePlayerState::serialize(Net::Stream& bs)
 {
+	bs.write(mPlayerId);
 	bs.write(m_playerTeam);
 	bs.write(m_playerName);
 	bs.write(m_playerCharClass);

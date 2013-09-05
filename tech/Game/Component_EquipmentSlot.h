@@ -27,6 +27,7 @@ namespace Teardrop
 		TD_PROPERTY(ID, "Unique ID (on this avatar) of this slot", int, -1, 0);
 		TD_PROPERTY(MountPoint, "Mount point associated with this equipment slot", String, "", 0);
 		TD_PROPERTY(Size, "Maximum equipment capacity of this slot", int, 1, 0);
+		TD_PROPERTY(Type, "Type of equipment allowed in this equipment slot (Ballistic, Missile, Beam, Omni)", String, "", 0);
 
 		EquipmentSlotComponent();
 		~EquipmentSlotComponent();

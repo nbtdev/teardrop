@@ -29,8 +29,11 @@ namespace Teardrop
 		Component();
 		~Component();
 
-		virtual bool initialize();
-		virtual bool destroy();
+		// Reflection::Object overrides
+		bool initialize();
+		bool destroy();
+		Reflection::Object* clone() const;
+
 		virtual bool update(float deltaT);
 		virtual void setHost(ComponentHost* pHost);
 		virtual ComponentHost* getHost() const;

@@ -271,7 +271,7 @@ void CharacterPhysicsComponent::initializeDebugMesh()
 
 		GfxMaterial* pMtl = TD_NEW GfxMaterial;
 		pMtl->setDepthBias(1);
-		pMtl->setDiffuse(0xffffffff);
+		//pMtl->setDiffuse(0xffffffff);
 		pSubMesh->setMaterial(pMtl, true);
 	}
 

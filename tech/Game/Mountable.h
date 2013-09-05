@@ -35,6 +35,7 @@ namespace Teardrop
 	{
 	public:
 		TD_CLASS(Mountable, Object);
+		TD_PROPERTY(Name, "Mountable Equipment Name", String, "", 0);
 
 		Mountable();
 		virtual ~Mountable();
@@ -43,6 +44,7 @@ namespace Teardrop
 		//! or implement the protected methods below
 		bool initialize();
 		bool destroy();
+		Reflection::Object* clone() const;
 
 		//! IComponentHost implementation; derived classes do not
 		//! need to override these

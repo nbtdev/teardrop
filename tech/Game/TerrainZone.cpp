@@ -92,7 +92,7 @@ bool TerrainZone::initialize(World* pWorld)
 
 		m_pTerrainMtl = TD_NEW GfxMaterial;
 		m_pTerrainMtl->initialize();
-		m_pTerrainMtl->setDiffuse(0xFFFFFFFF); // white, for modulating against
+		//m_pTerrainMtl->setDiffuse(0xFFFFFFFF); // white, for modulating against
 		m_pTerrainMtl->setCustomShader(GfxMaterial::SHADER_TERRAIN);
 		GfxTextureStage* pStage = m_pTerrainMtl->addTextureStage();
 		pStage->setTexture(0, 

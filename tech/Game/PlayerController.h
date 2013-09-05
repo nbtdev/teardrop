@@ -5,10 +5,19 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "IPlayer.h"
+#if !defined(PLAYERCONTROLLER_INCLUDED)
+#define PLAYERCONTROLLER_INCLUDED
 
-using namespace Teardrop;
-//---------------------------------------------------------------------------
-IPlayer::~IPlayer()
+namespace Teardrop
 {
+	// abstract interface defining the entry points for player controller implementations
+	class PlayerController
+	{
+	public:
+		virtual ~PlayerController();
+
+		virtual void update(float deltaT) = 0;
+	};
 }
+
+#endif // PLAYERCONTROLLER_INCLUDED

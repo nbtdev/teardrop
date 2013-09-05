@@ -23,7 +23,7 @@ namespace Teardrop
 		{
 		public:
 			TD_NETMESSAGE(PlayerJoinGame, MSGID_PLAYER_JOIN_GAME);
-			unsigned int m_id;			// player global unique ID
+			unsigned int mPlayerId;		// player global unique ID
 			unsigned int m_avatarId;	// ID of this avatar in its class
 			String m_avatarClass;		// class of the avatar
 			String m_playerName;		// player's display name

@@ -23,7 +23,6 @@ namespace Teardrop
 	{
 	public:
 		TD_CLASS(Weapon, Mountable);
-		TD_PROPERTY(Name, "Weapon Name", String, "", 0);
 		TD_PROPERTY(Range, "Weapon Range (units)", int, -1, 0);
 		TD_PROPERTY(Heat, "Weapon Heat", int, -1, 0);
 		TD_PROPERTY(AnimationTime, "Weapon Animation Time (seconds)", float, -1, 0);
@@ -33,6 +32,7 @@ namespace Teardrop
 		TD_PROPERTY(FireSfx_External, "Weapon SFX - heard outside an avatar", int, 0, 0);
 		TD_PROPERTY(RecycleSfx, "Weapon SFX - heard while or after a weapons recycles", int, 0, 0);
 		TD_PROPERTY(HitSfx, "Weapon SFX - heard when weapon fire hits a target", int, 0, 0);
+		TD_PROPERTY(Size, "Size of weapon in slot (0 or greater)", int, 0, 0);
 
 		Weapon();
 		~Weapon();

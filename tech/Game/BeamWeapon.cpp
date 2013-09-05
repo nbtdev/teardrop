@@ -114,7 +114,8 @@ bool BeamWeapon::_initialize()
 	GfxMaterial* pMtl = TD_NEW GfxMaterial;
 	pMtl->initialize();
 	pSubmesh->setMaterial(pMtl, true);
-	pMtl->setEmissive(GfxUtil::makePackedColor(0,1,0,1));
+	//pMtl->setEmissive(GfxUtil::makePackedColor(0,1,0,1));
+	pMtl->setEmissive(Vector4(0,1,0,1));
 
 	// set up shader constant(s) on the RenderComponent
 	RenderComponent* pComp;

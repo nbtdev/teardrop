@@ -38,13 +38,15 @@ bool CameraInterfaceComponent::initialize()
 
 	// we don't want to put this in the c'tor since it will fire when the 
 	// camera controller property is set
-	PropertyChanged.bind(this, &CameraInterfaceComponent::onPropertyChanged);
+	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &CameraInterfaceComponent::onPropertyChanged));
 
 	return rtn;
 }
 //---------------------------------------------------------------------------
 bool CameraInterfaceComponent::destroy()
 {
+	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &CameraInterfaceComponent::onPropertyChanged));
+
 	if (m_pCamControl)
 		m_pCamControl->destroy();
 	
@@ -145,7 +147,7 @@ bool CameraInterfaceComponent::changeCameraController()
 	
 	CameraController* pCamControl = 0;
 	if (pClassDef)
-		pCamControl = static_cast<CameraController*>(pClassDef->createInstance(0));
+		pCamControl = static_cast<CameraController*>(pClassDef->createInstance());
 
 	if (!pCamControl)
 		return false;

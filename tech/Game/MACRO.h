@@ -69,13 +69,15 @@ namespace Teardrop
 		bool _initialize();
 		bool _destroy();
 		bool _update(float deltaT);
-		void _issueCommand(Command& command);
+		void _handleCommand(const Command& command);
 
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
 		void pitch(float value); // value is in range [-1..1]
 		void updateAnimations(float deltaT);
+
+		// very temporary, this should be handled in animation?
 		size_t m_spineBoneIndex;
 		float m_pitch;
 	};

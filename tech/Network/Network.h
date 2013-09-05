@@ -35,7 +35,12 @@ namespace Teardrop
 		public:
 			virtual bool connect(const String& address, unsigned short port) = 0;
 			virtual Teardrop::Net::MessagePtr getNextMessage() = 0;
+			// broadcast
 			virtual void send(Message& msg) = 0;
+			// send to single peer
+			virtual void send(Message& msg, Peer* mPeer) = 0;
+			// send to list of peers
+			virtual void send(Message& msg, Peer** mPeers, int peerCount) = 0;
 			virtual void disconnect(Peer* pPeer=0) = 0;
 			//void disconnect(unsigned int addr, unsigned short port=0);
 			virtual void ping(const char* address, unsigned short port) = 0;

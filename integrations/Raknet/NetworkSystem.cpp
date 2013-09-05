@@ -173,16 +173,46 @@ Net::MessagePtr Raknet::System::getNextMessage()
 	return pMsg;
 }
 
+// broadcast to all peers
 void Raknet::System::send(Net::Message& msg)
 {
-	Raknet::Peer* pPeer = static_cast<Raknet::Peer*>(msg.m_pPeer);
 	SystemAddress dest;
-	if (pPeer)
-		dest = mMe->GetSystemAddressFromGuid(pPeer->mGuid);
-	bool bBroadcast = (pPeer == 0);
 
 	Raknet::Stream bs;
 	msg.serialize(bs);
+
+#if defined(_DEBUG)
+	char buf[64];
+	sprintf_s(buf, 64, "[TD] Outgoing packet (broadcast): id=%s", NetworkSystem::getMessageString(msg.getId()));
+	Environment::get().pLogger->logMessage(buf);
+#endif
+	mMe->Send(
+		&bs.mBS,
+		(PacketPriority)msg.m_priority,
+		(PacketReliability)msg.m_reliability,
+		char(msg.m_channel),
+		dest, 
+		true);
+}
+
+// send to single peer
+void Raknet::System::send(Net::Message& msg, Teardrop::Net::Peer* pRecipient)
+{
+	Raknet::Stream bs;
+	msg.serialize(bs);
+
+	Raknet::Peer* pPeer = static_cast<Raknet::Peer*>(pRecipient);
+	SystemAddress dest;
+	if (pPeer)
+		dest = mMe->GetSystemAddressFromGuid(pPeer->mGuid);
+	else {
+#if defined(_DEBUG)
+		char buf[64];
+		sprintf_s(buf, 64, "[TD] Failed to send outgoing packet (null recipient): id=%s", NetworkSystem::getMessageString(msg.getId()));
+		Environment::get().pLogger->logMessage(buf);
+#endif
+		return;
+	}
 
 #if defined(_DEBUG)
 	char buf[64];
@@ -193,9 +223,44 @@ void Raknet::System::send(Net::Message& msg)
 		&bs.mBS,
 		(PacketPriority)msg.m_priority,
 		(PacketReliability)msg.m_reliability,
-		0,//char(pMsg->m_channel),
+		char(msg.m_channel),
 		dest, 
-		bBroadcast);
+		false);
+}
+
+// send to multiple peers
+void Raknet::System::send(Net::Message& msg, Teardrop::Net::Peer** pRecipients, int nRecipients)
+{
+	Raknet::Stream bs;
+	msg.serialize(bs);
+
+	for (int i=0; i<nRecipients; ++i) {
+		Raknet::Peer* pPeer = static_cast<Raknet::Peer*>(pRecipients[i]);
+		SystemAddress dest;
+		if (pPeer)
+			dest = mMe->GetSystemAddressFromGuid(pPeer->mGuid);
+		else {
+	#if defined(_DEBUG)
+			char buf[64];
+			sprintf_s(buf, 64, "[TD] Failed to send outgoing packet (null recipient): id=%s", NetworkSystem::getMessageString(msg.getId()));
+			Environment::get().pLogger->logMessage(buf);
+	#endif
+			return;
+		}
+
+	#if defined(_DEBUG)
+		char buf[64];
+		sprintf_s(buf, 64, "[TD] Outgoing packet: id=%s", NetworkSystem::getMessageString(msg.getId()));
+		Environment::get().pLogger->logMessage(buf);
+	#endif
+		mMe->Send(
+			&bs.mBS,
+			(PacketPriority)msg.m_priority,
+			(PacketReliability)msg.m_reliability,
+			char(msg.m_channel),
+			dest, 
+			false);
+	}
 }
 
 void Raknet::System::disconnect(Net::Peer* pPeer)

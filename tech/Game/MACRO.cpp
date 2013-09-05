@@ -236,7 +236,7 @@ bool MACRO::_update(float deltaT)
 	return true;
 }
 //---------------------------------------------------------------------------
-void MACRO::_issueCommand(Command& cmd)
+void MACRO::_handleCommand(const Command& cmd)
 {
 	float extra;
 	int iExtra;

@@ -9,7 +9,7 @@ is prohibited.
 #define AVATAR_INCLUDED
 
 #include "Game/ZoneObject.h"
-#include "Game/IPlayerControlled.h"
+#include "Game/CommandTarget.h"
 #include "Math/Matrix44.h"
 
 /*
@@ -21,10 +21,12 @@ namespace Teardrop
 {
 	class Mountable;
 	class EquipmentSlotComponent;
+	class Command;
+	class Variant;
 
 	class Avatar 
 		: public ZoneObject
-		, public IPlayerControlled
+		, public CommandTarget
 	{
 	public:
 		TD_CLASS(Avatar, ZoneObject);
@@ -38,14 +40,10 @@ namespace Teardrop
 		bool update(float deltaT);
 
 		//! add all of a variant's equipment to the avatar
-		bool equip(unsigned int variantId);
-		//! add a variant's equipment to the avatar, piecewise (this is 
-		//! used mostly by the server); returns false if a piece of equipment
-		//! cannot be found or does not fit in the indicated slot
-		bool equip(unsigned int slot, const String& equipmentName);
+		bool equip(const Variant* pVariant);
 
-		//! IPlayerControlled implementation
-		void issueCommand(Command& command);
+		// CommandTarget implementation
+		void handle(const Command& command);
 
 		TD_DECLARE_ALLOCATOR();
 
@@ -60,13 +58,13 @@ namespace Teardrop
 		virtual bool _initialize();
 		virtual bool _destroy();
 		virtual bool _update(float deltaT);
-		virtual void _issueCommand(Command& command);
+		virtual void _handleCommand(const Command& command);
 
 		// request all weapons assigned to the indicated weapon group, to fire
 		void fireWeaponGroup(int weapon);
 
 		//! remove all mounted equipment
-		void clearAllSlots();
+		void strip();
 		//! put the Mountable in the indicated slot
 		bool addToSlot(Mountable* pMountable, int slotId);
 
@@ -94,9 +92,6 @@ namespace Teardrop
 		};
 		typedef std::vector<DelayedMount> DelayedMounts;
 		DelayedMounts m_delayedMounts;
-
-		//! internal helper method
-		bool equip(unsigned int slot, const String& equipmentName, Reflection::ClassDef* pClassDef);
 	};
 }
 

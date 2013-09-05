@@ -15,7 +15,7 @@ using namespace Net;
 ConnectionLost::ConnectionLost() 
 {
 	// synthesize a player ID from the guid in the packet
-	m_playerId = m_pPeer->getPlayerId();
+	mPlayerId = m_pPeer->getPlayerId();
 }
 //---------------------------------------------------------------------------
 ConnectionLost::~ConnectionLost()

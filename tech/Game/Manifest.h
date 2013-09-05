@@ -20,6 +20,7 @@ namespace Teardrop
 {
 	struct Environment;
 	class ComponentHost;
+	class Variant;
 
 	typedef std::list<String> StringList;
 
@@ -113,64 +114,9 @@ namespace Teardrop
 		};
 		typedef std::multimap<const Reflection::ClassDef*, ComponentHost*> ComponentHostTable;
 
-		// variants and player/avatar slot data
-		struct Equipment
-		{
-			String m_name;
-			ManifestEntry* m_pEntry;
-
-			Equipment() {}
-			Equipment(const Equipment& other) { *this = other; }
-			Equipment& operator=(const Equipment& other)
-			{
-				m_name = other.m_name;
-				m_pEntry = other.m_pEntry;
-				return *this;
-			}
-
-			TD_DECLARE_ALLOCATOR();
-		};
-		typedef std::vector<Equipment> EquipmentList;
-
-		struct Slot
-		{
-			int m_ordinal;
-			EquipmentList m_equipment;
-
-			Slot() {}
-			Slot(const Slot& other) { *this = other; }
-			Slot& operator=(const Slot& other)
-			{
-				m_ordinal = other.m_ordinal;
-				m_equipment = other.m_equipment;
-				return *this;
-			}
-		};
-		typedef std::vector<Slot> Slots;
-
-		struct Variant
-		{
-			Reflection::ClassDef* m_pClass;
-			String m_name;
-			int m_id;
-			const ComponentHost* m_pTarget;
-			Slots m_slots;
-
-			Variant() {}
-			Variant(const Variant& other) { *this = other; }
-			Variant& operator=(const Variant& other)
-			{
-				m_pClass = other.m_pClass;
-				m_name = other.m_name;
-				m_id = other.m_id;
-				m_pTarget = other.m_pTarget;
-				m_slots = other.m_slots;
-				return *this;
-			}
-		};
 		typedef std::list<const Variant*> Variants;
-		typedef std::multimap<const Reflection::ClassDef*, Variant> VariantTable;
-		typedef std::map<unsigned int, Variant*> VariantIDLookupTable;
+		typedef std::multimap<const Reflection::ClassDef*, const Variant*> VariantTable;
+		typedef std::map<unsigned int, const Variant*> VariantIDLookupTable;
 
 		Manifest();
 		virtual ~Manifest();
@@ -190,7 +136,7 @@ namespace Teardrop
 
 		// ComponentHost database and factory
 		const ComponentHost* findComponentHost(const Reflection::ClassDef* pClassDef, const String& name) const;
-		Teardrop::ComponentHost* createInstance(const Manifest::ComponentHost* pDef);
+		Reflection::Object* createInstance(const Manifest::ComponentHost* pDef);
 
 		TD_DECLARE_ALLOCATOR();
 
@@ -201,6 +147,9 @@ namespace Teardrop
 		VariantTable m_variants;
 		VariantIDLookupTable m_variantIdTable;
 
+		typedef std::map<String, const Reflection::Object*> ObjectTemplatesByName;
+		ObjectTemplatesByName mObjectTemplates;
+
 		void initializeDefinitions();
 		void initializeVariants(const String& path);
 
@@ -209,7 +158,7 @@ namespace Teardrop
 		void deserializeComponents(Components&, TiXmlElement*);
 
 		void deserializeVariant(TiXmlElement*);
-		void deserializeSlots(Slots&, TiXmlElement*);
+		void deserializeSlots(Variant*, TiXmlElement*);
 	};
 }
 

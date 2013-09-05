@@ -8,6 +8,8 @@ is prohibited.
 #include "Manifest.h"
 #include "Component.h"
 #include "ComponentHost.h"
+#include "Variant.h"
+#include "Mountable.h"
 #include "Reflection/Reflection.h"
 #include "Util/Environment.h"
 #include "Util/FileSystem.h"
@@ -160,6 +162,10 @@ bool Manifest::destroy()
 		delete it->second;
 	}
 
+	for (VariantTable::iterator it = m_variants.begin(); it != m_variants.end(); ++it) {
+		delete it->second;
+	}
+
 	return true;
 }
 //---------------------------------------------------------------------------
@@ -198,26 +204,22 @@ void Manifest::deserializeVariant(TiXmlElement* pElem)
 			return;
 
 		// we can add an entry now
+		Variant* v = new Variant(pName, pTarget, pClassDef);
 		VariantTable::iterator it = m_variants.insert(
-			VariantTable::value_type(pClassDef, Variant()));
+			VariantTable::value_type(pClassDef, v));
 
 		String hashStr(pName);
 		hashStr += pTarget;
 		int id = hashString(hashStr);
 
-		it->second.m_pClass = pClassDef;
-		it->second.m_id = id;
-		it->second.m_name = pName;
-		it->second.m_pTarget = pHost;
-
 		// and also put this in the id-to-Variant lookup table
-		m_variantIdTable[id] = &it->second;
+		m_variantIdTable[id] = v;
 
-		deserializeSlots(it->second.m_slots, pElem);
+		deserializeSlots(v, pElem);
 	}
 }
 //---------------------------------------------------------------------------
-void Manifest::deserializeSlots(Slots& slots, TiXmlElement* pElem)
+void Manifest::deserializeSlots(Variant* v, TiXmlElement* pElem)
 {
 	TiXmlElement* pSlot = pElem->FirstChildElement("slot");
 	while (pSlot)
@@ -227,32 +229,20 @@ void Manifest::deserializeSlots(Slots& slots, TiXmlElement* pElem)
 		if (pOrdinal)
 			StringUtil::fromString(pOrdinal, ordinal);
 
-		if (ordinal > 0)
+		if (ordinal >= 0)
 		{
-			// insert the slot into the slots array
-			size_t idx = slots.size();
-			slots.push_back(Slot());
-
-			Slot& slot = slots[idx];
-			slot.m_ordinal = ordinal;
-
 			// get the equipment items off the slot definition
 			TiXmlElement* pEquip = pSlot->FirstChildElement("equipment");
 			while (pEquip)
 			{
 				const char* pName = pEquip->Attribute("name");
-
 				if (pName)
 				{
-					size_t e = slot.m_equipment.size();
-					slot.m_equipment.push_back(Equipment());
-					slot.m_equipment[e].m_name = pName;
-					slot.m_equipment[e].m_pEntry = 0;
-
 					// find the corresponding ManifestEntry
-					NVP::iterator it = m_nvp.find(pName);
-					if (it != m_nvp.end())
-						slot.m_equipment[e].m_pEntry = &it->second;
+					ObjectTemplatesByName::iterator it = mObjectTemplates.find(pName);
+					if (it != mObjectTemplates.end()) {
+						v->addEquipment(ordinal, static_cast<const Mountable*>(it->second));
+					}
 						
 				}
 
@@ -297,6 +287,10 @@ void Manifest::deserializeComponentHost(TiXmlElement* pElem, const String& asset
 	deserializeComponents(it->second->m_components, pElem);
 
 	it->second->m_assetPath = assetPath;
+
+	// stealth...add an instance of this thing to the object template table
+	const Reflection::Object* o = createInstance(it->second);
+	mObjectTemplates[pName] = o;
 }
 //---------------------------------------------------------------------------
 void Manifest::deserializeProperties(Properties& props, TiXmlElement* pElem)
@@ -382,7 +376,7 @@ const Manifest::ComponentHost* Manifest::findComponentHost(
 	return 0;
 }
 //---------------------------------------------------------------------------
-const Manifest::Variant* Manifest::findVariant(
+const Variant* Manifest::findVariant(
 	const Reflection::ClassDef* pClassDef, const String& name) const
 {
 	VariantTable::const_iterator beg = m_variants.lower_bound(pClassDef);
@@ -390,8 +384,8 @@ const Manifest::Variant* Manifest::findVariant(
 
 	while (beg != end)
 	{
-		if (beg->second.m_name == name)
-			return &beg->second;
+		if (beg->second->name() == name)
+			return beg->second;
 
 		++beg;
 	}
@@ -407,12 +401,12 @@ void Manifest::findVariants(
 
 	while (beg != end)
 	{
-		variants.push_back(&beg->second);
+		variants.push_back(beg->second);
 		++beg;
 	}
 }
 //---------------------------------------------------------------------------
-const Manifest::Variant* Manifest::findVariant(unsigned int id) const
+const Variant* Manifest::findVariant(unsigned int id) const
 {
 	VariantIDLookupTable::const_iterator it = m_variantIdTable.find(id);
 	if (it != m_variantIdTable.end())
@@ -452,16 +446,15 @@ static void populateProperties(
 	}
 }
 //---------------------------------------------------------------------------
-Teardrop::ComponentHost* Manifest::createInstance(
+Reflection::Object* Manifest::createInstance(
 	const Manifest::ComponentHost* pDef)
 {
 	if (!pDef)
 		return 0;
 
-	Reflection::Object* pObject = pDef->m_pClassDef->createInstance(0);
-	Teardrop::ComponentHost* pHost = dynamic_cast<Teardrop::ComponentHost*>(pObject);
+	Reflection::Object* pObject = pDef->m_pClassDef->createInstance();
 
-	if (pObject && pHost)
+	if (pObject)
 	{
 		// set object property defaults first
 		pObject->setupPropertyDefaults();
@@ -470,27 +463,30 @@ Teardrop::ComponentHost* Manifest::createInstance(
 		populateProperties(pObject, pDef->m_properties);
 
 		// then do the components
-		for (size_t i=0; i<pDef->m_components.size(); ++i)
-		{
-			Teardrop::Component* pComp = static_cast<Teardrop::Component*>(
-				pDef->m_components[i].m_pClassDef->createInstance(0));
-
-			if(!pComp->getServerComponent() && Environment::get().isServer)
+		Teardrop::ComponentHost* pHost = dynamic_cast<Teardrop::ComponentHost*>(pObject);
+		if (pHost) {
+			for (size_t i=0; i<pDef->m_components.size(); ++i)
 			{
-				delete pComp;
-				pComp = 0;
-			}
+				Teardrop::Component* pComp = static_cast<Teardrop::Component*>(
+					pDef->m_components[i].m_pClassDef->createInstance());
 
-			if (pComp)
-			{
-				pComp->setAssetRootPath(pDef->m_assetPath);
-				pComp->setupPropertyDefaults();
-				populateProperties(pComp, pDef->m_components[i].m_properties);
-				pHost->addComponent(pComp);
+				if(!pComp->getServerComponent() && Environment::get().isServer)
+				{
+					delete pComp;
+					pComp = 0;
+				}
+
+				if (pComp)
+				{
+					pComp->setAssetRootPath(pDef->m_assetPath);
+					pComp->setupPropertyDefaults();
+					populateProperties(pComp, pDef->m_components[i].m_properties);
+					pHost->addComponent(pComp);
+				}
 			}
 		}
 
-		return pHost;
+		return pObject;
 	}
 
 	return 0;

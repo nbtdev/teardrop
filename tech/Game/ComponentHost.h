@@ -36,6 +36,9 @@ namespace Teardrop
 		void removeComponent(Component* pComp); // THIS CAN BE EXPENSIVE
 		// get all components contained within
 		const Components& getComponents() const { return m_components; }
+		// get all components contained within; returns number of components found. To 
+		// get component count, pass zero/null for comps and/or nComps
+		int getComponents(/*out*/ Component** comps, /*in*/ int nComps) const;
 		// find a particular component by class; returns number of components found,
 		// and the Component array in ppComponents, max length of numComponents
 		virtual size_t findComponents(

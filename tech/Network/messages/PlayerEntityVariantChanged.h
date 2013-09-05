@@ -24,7 +24,7 @@ namespace Teardrop
 		{
 		public:
 			TD_NETMESSAGE(PlayerVariantChanged, MSGID_PLAYER_UPDATE_VARIANT);
-			unsigned int m_playerId;
+			unsigned int mPlayerId;
 			unsigned short m_playerEntityId;
 			int m_variantId;
 

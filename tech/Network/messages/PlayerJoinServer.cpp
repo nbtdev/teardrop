@@ -26,6 +26,7 @@ PlayerJoinServer::~PlayerJoinServer()
 //---------------------------------------------------------------------------
 void PlayerJoinServer::deserialize(Net::Stream& bs)
 {
+	bs.read(mPlayerId);
 	bs.read(m_playerName);
 	bs.read(m_playerCharClass);
 	bs.read(m_playerChar);
@@ -34,6 +35,7 @@ void PlayerJoinServer::deserialize(Net::Stream& bs)
 //---------------------------------------------------------------------------
 void PlayerJoinServer::serialize(Net::Stream& bs)
 {
+	bs.write(mPlayerId);
 	bs.write(m_playerName);
 	bs.write(m_playerCharClass);
 	bs.write(m_playerChar);

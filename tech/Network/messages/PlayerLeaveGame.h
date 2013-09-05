@@ -23,7 +23,7 @@ namespace Teardrop
 		{
 		public:
 			TD_NETMESSAGE(PlayerLeaveGame, MSGID_PLAYER_LEAVE_GAME);
-			unsigned int m_playerId;
+			unsigned int mPlayerId;
 			String m_additionalInfo;
 
 			PlayerLeaveGame();

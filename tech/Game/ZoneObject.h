@@ -39,6 +39,7 @@ namespace Teardrop
 		//! Object implementation
 		bool initialize();
 		bool destroy();
+		Reflection::Object* clone() const;
 
 		virtual bool update(float deltaT);
 

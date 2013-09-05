@@ -5,26 +5,21 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(IPLAYERCONTROLLED_INCLUDED)
-#define IPLAYERCONTROLLED_INCLUDED
+#if !defined(COMMANDTARGET_INCLUDED)
+#define COMMANDTARGET_INCLUDED
 
 namespace Teardrop
 {
-	/*
-		IPlayerControlled
-
-		Protocol class for interfacing between Player and objects that
-		the player can control. Control typically involves issuing commands
-		to a controlled object.
-	*/
-
 	class Command;
 
-	class IPlayerControlled
+	// abstract interface defining the entry points for command target implementations
+	class CommandTarget
 	{
 	public:
-		virtual void issueCommand(Command& command) = 0;
+		virtual ~CommandTarget();
+
+		virtual void handle(const Command& command) = 0;
 	};
 }
 
-#endif // IPLAYERCONTROLLED_INCLUDED
+#endif // COMMANDTARGET_INCLUDED

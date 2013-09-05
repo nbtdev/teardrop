@@ -23,7 +23,7 @@ PlayerJoinGame::~PlayerJoinGame()
 //---------------------------------------------------------------------------
 void PlayerJoinGame::deserialize(Net::Stream& bs)
 {
-	bs.read(m_id);
+	bs.read(mPlayerId);
 	bs.read(m_avatarId);
 	bs.read(m_avatarClass);
 	bs.read(m_playerName);
@@ -31,7 +31,7 @@ void PlayerJoinGame::deserialize(Net::Stream& bs)
 //---------------------------------------------------------------------------
 void PlayerJoinGame::serialize(Net::Stream& bs)
 {
-	bs.write(m_id);
+	bs.write(mPlayerId);
 	bs.write(m_avatarId);
 	bs.write(m_avatarClass);
 	bs.write(m_playerName);

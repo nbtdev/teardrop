@@ -23,7 +23,7 @@ PlayerVariantChanged::~PlayerVariantChanged()
 //---------------------------------------------------------------------------
 void PlayerVariantChanged::deserialize(Net::Stream& bs)
 {
-	bs.read(m_playerId);
+	bs.read(mPlayerId);
 	bs.read(m_playerEntityId);
 	bs.read(m_variantId);
 
@@ -54,7 +54,7 @@ void PlayerVariantChanged::deserialize(Net::Stream& bs)
 //---------------------------------------------------------------------------
 void PlayerVariantChanged::serialize(Net::Stream& bs)
 {
-	bs.write(m_playerId);
+	bs.write(mPlayerId);
 	bs.write(m_playerEntityId);
 	bs.write(m_variantId);
 

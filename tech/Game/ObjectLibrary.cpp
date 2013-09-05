@@ -227,7 +227,7 @@ static void loadObjectComponents(
 			if (pClassDef)
 			{
 				Component* pComponent = 
-					static_cast<Component*>(pClassDef->createInstance(0));
+					static_cast<Component*>(pClassDef->createInstance());
 				setObjectProperties(*pComponentNode, *pComponent);
 				pComponent->setAssetRootPath(assetRootPath);
 
@@ -246,7 +246,7 @@ static void loadObjectComponents(
 //---------------------------------------------------------------------------
 ZoneObject* ObjectLibrary::clone(ZoneObject* pTemplate)
 {
-	ZoneObject* pRtn = static_cast<ZoneObject*>(Object::clone(*pTemplate));
+	ZoneObject* pRtn = static_cast<ZoneObject*>(pTemplate->clone());
 	pRtn->setBoundingBox(pTemplate->getBoundingBox());
 	pRtn->setTemplateName(pTemplate->getTemplateName());
 
@@ -256,7 +256,7 @@ ZoneObject* ObjectLibrary::clone(ZoneObject* pTemplate)
 		it != comps.end(); ++it)
 	{
 		Component* pComponent = 
-			static_cast<Component*>(Object::clone(*(it->second)));
+			static_cast<Component*>(it->second->clone());
 		pRtn->addComponent(pComponent);
 		pComponent->setAssetRootPath(it->second->getAssetRootPath());
 	}
@@ -266,8 +266,7 @@ ZoneObject* ObjectLibrary::clone(ZoneObject* pTemplate)
 //---------------------------------------------------------------------------
 ZoneObject* ObjectLibrary::create(
 	const String& objectClass,
-	const String& objectTypeName,
-	IPlayerControlled** ppPC)
+	const String& objectTypeName)
 {
 	// although we most likely have one of these to clone, we should make
 	// sure first...
@@ -288,10 +287,6 @@ ZoneObject* ObjectLibrary::create(
 
 	// finally, we can clone one...
 	ZoneObject* pLive = clone(pTemplate);
-
-	// TODO: this needs moved out of here...
-	if (ppPC)
-		*ppPC = dynamic_cast<IPlayerControlled*>(pLive);
 
 	return pLive;
 }
@@ -331,7 +326,7 @@ ZoneObject* ObjectLibrary::create(
 		return 0;
 
 	// this won't fail at this point -- createInstance() basically calls TD_NEW
-	Reflection::Object* pObject = pClassDef->createInstance(0);
+	Reflection::Object* pObject = pClassDef->createInstance();
 
 	// read in the object properties
 	setObjectProperties(*root, *pObject);

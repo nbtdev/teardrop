@@ -11,8 +11,7 @@ is prohibited.
 #include "Component_CameraInterface.h"
 #include "Component_EquipmentSlot.h"
 #include "Mountable.h"
-#include "Manifest.h"
-#include "ObjectLibrary.h"
+#include "Variant.h"
 #include "Weapon.h"
 #include "Animation/AnimationBlender.h"
 #include "Math/Matrix44.h"
@@ -163,17 +162,17 @@ bool Avatar::update(float deltaT)
 	return false;
 }
 //---------------------------------------------------------------------------
-void Avatar::issueCommand(Command& cmd)
+void Avatar::handle(const Command& cmd)
 {
-	_issueCommand(cmd);
+	_handleCommand(cmd);
 }
 //---------------------------------------------------------------------------
-void Avatar::clearAllSlots()
+void Avatar::strip()
 {
 	RenderComponent* pRend = 0;
 	findComponents(RenderComponent::getClassDef(), (Component**)&pRend);
 
-		// clear all mountables from all slots on all mount points
+	// clear all mountables from all slots on all mount points
 	for (MountPoints::iterator it = m_mountPoints.begin(); 
 		it != m_mountPoints.end(); ++it)
 	{
@@ -244,91 +243,44 @@ bool Avatar::addToSlot(Mountable* pMountable, int slotId)
 	return false;
 }
 //---------------------------------------------------------------------------
-bool Avatar::equip(
-	unsigned int slot, 
-	const String& equipmentName, 
-	Reflection::ClassDef* pClassDef)
+bool Avatar::equip(const Variant* pVariant)
 {
-	Manifest* pManifest = Environment::get().pManifest;
-
-	// first look up the equipment in the database
-	const Manifest::ComponentHost* pCompHost = 
-		pManifest->findComponentHost(
-		pClassDef,
-		equipmentName);
-
-	// if it doesn't exist, error out
-	if (!pCompHost)
-		return false;
-
-	// otherwise, make one
-	Mountable* pObj = dynamic_cast<Mountable*>(
-		pManifest->createInstance(pCompHost));
-
-	// if we made one, and it's the expected type...
-	if (pObj)
-	{
-		// ... initialize it...
-		if (pObj->initialize())
-		{
-			// ...and (try to) add it to our loadout
-			if (addToSlot(pObj, slot))
-				return true;
-
-			// failure usually means "slot full" or "wrong 
-			// type of equipment for this slot". We need to
-			// destroy and delete our equipment instance...
-			pObj->destroy();
-			delete pObj;
-		}
-	}
-
-	// otherwise, return false
-	return false;
-}
-//---------------------------------------------------------------------------
-bool Avatar::equip(unsigned int slot, const String& equipmentName)
-{
-	Manifest* pManifest = Environment::get().pManifest;
-	const Manifest::NVP& nvp = pManifest->getDefinitions();
-	Manifest::NVP::const_iterator it = nvp.find(equipmentName);
-
-	// if we can't find the definition, the equipment doesn't exist
-	if (it == nvp.end())
-		return false;
-
-	return equip(slot, equipmentName, it->second.pClassDef);
-}
-//---------------------------------------------------------------------------
-bool Avatar::equip(unsigned int variantId)
-{
-	Manifest* pManifest = Environment::get().pManifest;
-	const Manifest::Variant* pVariant = pManifest->findVariant(variantId);
-
 	if (!pVariant)
 		return false;
 
 	// first, clear everything we may already have on us
-	clearAllSlots();
+	strip();
 
 	// then give us everything that this variant wants
-	const Manifest::Slots& slots = pVariant->m_slots;
-	for (size_t s=0; s<slots.size(); ++s)
-	{
-		for (size_t e=0; e<slots[s].m_equipment.size(); ++e)
-		{
-			// EquipmentList is really just a list of names; look up each 
-			// name in the manifest to make an instance of one
-			const Manifest::ManifestEntry* pEntry = slots[s].m_equipment[e].m_pEntry;
-			if (pEntry)
-			{
-				if (!equip(
-					slots[s].m_ordinal, 
-					slots[s].m_equipment[e].m_name, 
-					pEntry->pClassDef))
+	int nSlots = pVariant->numSlots();
+	for (int i=0; i<nSlots; ++i) {
+		int nEquipment = pVariant->slotEquipment(i, 0, 0);
+
+		if (nEquipment) {
+			std::vector<const Mountable*> equipListVec(nEquipment);
+			const Mountable** equipList = &equipListVec[0];
+
+			nEquipment = pVariant->slotEquipment(i, equipList, nEquipment);
+
+			for (int e=0; e<nEquipment; ++e) {
+				// make a copy
+				Mountable* pObj = static_cast<Mountable*>(equipList[e]->clone());
+
+				// if we made one, and it's the expected type...
+				if (pObj)
 				{
-					clearAllSlots();
-					return false;
+					// ... initialize it...
+					if (pObj->initialize())
+					{
+						// ...and (try to) add it to our loadout
+						if (!addToSlot(pObj, i)) {
+							// failure usually means "slot full" or "wrong 
+							// type of equipment for this slot". We need to
+							// destroy and delete the cloned instance...
+							pObj->destroy();
+							delete pObj;
+						}
+					}
 				}
 			}
 		}
@@ -352,7 +304,7 @@ bool Avatar::_update(float /*deltaT*/)
 	return true;
 }
 //---------------------------------------------------------------------------
-void Avatar::_issueCommand(Command& /*cmd*/)
+void Avatar::_handleCommand(const Command& /*cmd*/)
 {
 }
 //---------------------------------------------------------------------------

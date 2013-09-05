@@ -403,7 +403,7 @@ static void loadObjectComponents(
 			if (pClassDef)
 			{
 				Component* pComponent = 
-					static_cast<Component*>(pClassDef->createInstance(0));
+					static_cast<Component*>(pClassDef->createInstance());
 				setObjectProperties(*pComponentNode, *pComponent);
 				pComponent->setHost(&object);
 				pComponent->initialize();
@@ -425,12 +425,9 @@ static void loadZoneObjects(
 	{
 		const char* type = pObject->Attribute("type");
 		const char* name = pObject->Attribute("name");
-		const char* id = pObject->Attribute("id");
-		if (type && id)
-		{
-			unsigned int objId;
-			StringUtil::fromString(id, objId);
 
+		if (type)
+		{
 			ZoneObject* pZoneObject = 0;
 			if (name)
 				pZoneObject = ObjectLibrary::instance()->create(type, name);
@@ -442,7 +439,7 @@ static void loadZoneObjects(
 				{
 					// make one fresh; it might not be a cached type
 					pZoneObject = static_cast<ZoneObject*>(
-						pClassDef->createInstance(objId));
+						pClassDef->createInstance());
 				}
 			}
 

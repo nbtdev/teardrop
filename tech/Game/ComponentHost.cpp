@@ -37,6 +37,22 @@ bool ComponentHost::addComponent(Component* pComp)
 	return true;
 }
 //---------------------------------------------------------------------------
+int ComponentHost::getComponents(Component** comps, int nComps) const
+{
+	if (!comps || !nComps) 
+		return int(m_components.size());
+
+	int compsReturned = std::min(int(m_components.size()), nComps);
+	Components::const_iterator it = m_components.begin();
+
+	for (int i=0; i<compsReturned; ++i) {
+		comps[i] = it->second;
+		++it;
+	}
+
+	return compsReturned;
+}
+//---------------------------------------------------------------------------
 void ComponentHost::removeComponent(Component* pComp)
 {
 	Components::iterator it = m_components.find(pComp->getDerivedClassDef());

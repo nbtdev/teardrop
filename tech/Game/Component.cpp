@@ -36,6 +36,18 @@ bool Component::destroy()
 	return true;
 }
 //---------------------------------------------------------------------------
+Reflection::Object* Component::clone() const
+{
+	// utilize the base functionality 
+	Reflection::Object* obj = Reflection::Object::clone();
+	Component* comp = static_cast<Component*>(obj);
+
+	// and we have a couple of extra things to copy
+	comp->setAssetRootPath(m_assetPath);
+
+	return obj;
+}
+//---------------------------------------------------------------------------
 bool Component::update(float /*deltaT*/)
 {
 	return true;

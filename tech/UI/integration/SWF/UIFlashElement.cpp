@@ -109,7 +109,7 @@ bool FlashElement::initialize(
 	// create the material that goes along with this thing
 	m_pMtl = TD_NEW GfxMaterial;
 	m_pMtl->initialize();
-	m_pMtl->setDiffuse(0xffffffff);
+	//m_pMtl->setDiffuse(0xffffffff);
 	m_pMtl->setDepthWrite(false);
 	m_pMtl->setAlphaBlended(true);
 

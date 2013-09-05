@@ -25,8 +25,10 @@ PlayerLeaveServer::~PlayerLeaveServer()
 //---------------------------------------------------------------------------
 void PlayerLeaveServer::deserialize(Net::Stream& bs)
 {
+	bs.read(mPlayerId);
 }
 //---------------------------------------------------------------------------
 void PlayerLeaveServer::serialize(Net::Stream& bs)
 {
+	bs.write(mPlayerId);
 }
