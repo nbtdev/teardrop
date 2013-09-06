@@ -122,10 +122,18 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 	if (!index.isValid())
 		return QVariant();
 
+	QtPropertyGridItem *item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+
+	if (role == Qt::BackgroundColorRole) {
+		if (item) {
+			if (item->isGroup()) {
+				return Qt::gray;
+			}
+		}
+	}
+
 	if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::ToolTipRole)
 		return QVariant();
-
-	QtPropertyGridItem *item = static_cast<QtPropertyGridItem*>(index.internalPointer());
 
 	if (role == Qt::ToolTipRole) {
 		if (index.column() == 0)
@@ -245,4 +253,9 @@ bool QtPropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction act
 	}
 
 	return true;
+}
+
+QVariant QtPropertyGridModel::headerData(int section, Qt::Orientation orientation, int role)
+{
+	return QVariant();
 }

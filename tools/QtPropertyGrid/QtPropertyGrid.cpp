@@ -25,7 +25,7 @@ QtPropertyGrid::QtPropertyGrid(QWidget* parent)
 {
 	mDelegate = new QtPropertyGridDelegate;
 	setItemDelegate(mDelegate);
-	setHeaderHidden(true);
+	//setHeaderHidden(true);
 	setAcceptDrops(true);
 }
 
@@ -40,6 +40,7 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 	delete mModel;
 	mModel = new QtPropertyGridModel(object, metadata);
 	setModel(mModel);
+	expandAll();
 }
 
 void QtPropertyGrid::dragEnterEvent(QDragEnterEvent* event)

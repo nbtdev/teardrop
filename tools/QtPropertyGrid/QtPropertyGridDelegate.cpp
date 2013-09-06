@@ -7,6 +7,7 @@ is prohibited.
 
 #include "QtPropertyGridDelegate.h"
 #include <QLineEdit>
+#include <QPainter>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -45,4 +46,14 @@ void QtPropertyGridDelegate::setModelData(QWidget* editor, QAbstractItemModel* m
 void QtPropertyGridDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
 	editor->setGeometry(option.rect);
+}
+
+void QtPropertyGridDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+	painter->save();
+	painter->setPen(Qt::gray);
+	painter->drawRect(option.rect);
+	painter->restore();
+
+	QItemDelegate::paint(painter, option, index);
 }
