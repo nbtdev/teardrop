@@ -7,6 +7,8 @@ is prohibited.
 
 #include "QtPropertyGridModel.h"
 #include "QtPropertyGridItem.h"
+#include <QMimeData>
+#include "QtUtils/ObjectDragDropData.h"
 #include "Reflection/Reflection.h"
 #include <stack>
 
@@ -21,9 +23,10 @@ static void populate(std::stack<Reflection::ClassDef*>& classes, Reflection::Cla
 	}
 }
 
-QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, QObject* parent)
+QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Object* metadata, QObject* parent)
 	: QAbstractItemModel(parent)
 	, mObject(obj)
+	, mMetadata(metadata)
 	, mRoot(new QtPropertyGridItem("Properties"))
 {
 	// set up model data from Object 
@@ -77,17 +80,15 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, QObject* paren
 				}
 			}
 		}
-
+#endif
 		// finally, all properties on the metadata object (if any)
-		if (metadata) {
-			mMetadata = metadata;
-
+		if (mMetadata) {
 			Reflection::ClassDef* classDef = mMetadata->getDerivedClassDef();
 			populate(classes, classDef);
 
 			if (classes.size()) {
-				QtProperty* metadata = mGroupPropMgr->addProperty("Metadata");
-				QtTreePropertyBrowser::addProperty(metadata);
+				QtPropertyGridItem* meta = new QtPropertyGridItem("Metadata", mRoot);
+				mRoot->append(meta);
 
 				while (!classes.empty()) {
 					Reflection::ClassDef* classDef = classes.top();
@@ -96,13 +97,13 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, QObject* paren
 					// properties
 					const Reflection::PropertyDef* prop = classDef->getProps();
 					while (prop) {
-						addProperty(metadata, mMetadata, prop);
+						QtPropertyGridItem* metaItem = new QtPropertyGridItem(mMetadata, prop, meta);
+						meta->append(metaItem);
 						prop = prop->m_pNext;
 					}
 				}
 			}
 		}
-#endif
 	}
 }
 
@@ -121,15 +122,28 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 	if (!index.isValid())
 		return QVariant();
 
-	if (role != Qt::DisplayRole)
+	if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::ToolTipRole)
 		return QVariant();
 
 	QtPropertyGridItem *item = static_cast<QtPropertyGridItem*>(index.internalPointer());
 
-	if (index.column() == 0)
-		return item->name();
-	else
-		return item->valueAsString();
+	if (role == Qt::ToolTipRole) {
+		if (index.column() == 0)
+			return item->nameTooltip();
+		else
+			return item->valueTooltip();
+	}
+	else {
+		if (index.column() == 0)
+			return item->name();
+		else
+			return item->valueAsString();
+	}
+}
+
+bool QtPropertyGridModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+	return true;
 }
 
 QModelIndex QtPropertyGridModel::index(int row, int column, const QModelIndex& parent) const
@@ -193,5 +207,42 @@ Qt::ItemFlags QtPropertyGridModel::flags(const QModelIndex& index) const
 		f |= Qt::ItemIsDropEnabled;
 	}
 
+	if (item && item->isReadOnly()) {
+		f &= ~(Qt::ItemIsEnabled);
+	}
+
 	return f;
+}
+
+QStringList QtPropertyGridModel::mimeTypes() const
+{
+	QStringList list = QAbstractItemModel::mimeTypes();
+	list.append("text/plain");
+	return list;
+}
+
+Qt::DropActions QtPropertyGridModel::supportedDropActions() const
+{
+	Qt::DropActions actions = QAbstractItemModel::supportedDropActions();
+	return actions;
+}
+
+bool QtPropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent)
+{
+	if (data) {
+		QObjectUserData* od = data->userData(0);
+		if (od) {
+			QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(parent.internalPointer());
+			if (item) {
+				DragDropData* ddd = static_cast<DragDropData*>(od);
+				if (ddd->type() == DragDropData::DDD_OBJECT) {
+					ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
+					item->property()->setData(item->object(), oddd->object());
+					item->setAltValue((const char*)oddd->path());
+				}
+			}
+		}
+	}
+
+	return true;
 }

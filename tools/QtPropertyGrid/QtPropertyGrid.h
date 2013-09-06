@@ -34,6 +34,10 @@ namespace Teardrop
 
 			void setObject(Reflection::Object* object, Reflection::Object* metadata = 0);
 
+			void dragEnterEvent(QDragEnterEvent* event);
+			void dragMoveEvent(QDragMoveEvent* event);
+			void dragLeaveEvent(QDragLeaveEvent* event);
+
 		protected:
 			QtPropertyGridDelegate* mDelegate;
 			QtPropertyGridModel* mModel;

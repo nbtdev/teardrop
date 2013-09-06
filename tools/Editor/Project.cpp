@@ -7,6 +7,7 @@ is prohibited.
 
 #include "Project.h"
 #include "Package/Package.h"
+#include "Package/DeferredResolution.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "tinyxml/tinyxml.h"
@@ -138,6 +139,11 @@ bool Project::read()
 	// otherwise, read project file
 	TiXmlElement* root = doc.RootElement();
 	TiXmlElement* package = root->FirstChildElement("package");
+
+	// for deferred object-reference resolution
+	DeferredObjectResolves deferred;
+	ObjectIdToObject lut;
+
 	while (package) {
 		const char* name = package->Attribute("name");
 		const char* filename = package->Attribute("filename");
@@ -148,12 +154,21 @@ bool Project::read()
 
 			String path(mPath);
 			path += "/packages/";
-			pkgMgr->load(path);
+			pkgMgr->load(path, deferred, lut);
 
 			mPackageManagers.push_back(pkgMgr);
 		}
 
 		package = package->NextSiblingElement("package");
+	}
+
+	// then do Phase 2 load (object reference resolution)
+	for (DeferredObjectResolves::iterator it = deferred.begin(); it != deferred.end(); ++it) {
+		DeferredResolution& d = *it;
+		ObjectIdToObject::iterator o = lut.find(d.mUUID);
+		if (o != lut.end()) {
+			d.mProp->setData(d.mObject, o->second);
+		}
 	}
 
 	return true;

@@ -262,7 +262,7 @@ struct DataEntry
 	int mLen;
 };
 
-static Reflection::Object* deserializeObjectFromXml(const char* xml, const std::vector<DataEntry>& dataEntries)
+static Reflection::Object* deserializeObjectFromXml(const char* xml, const std::vector<DataEntry>& dataEntries, DeferredObjectResolves& deferred)
 {
 	TiXmlDocument doc;
 	doc.Parse(xml);
@@ -298,7 +298,18 @@ static Reflection::Object* deserializeObjectFromXml(const char* xml, const std::
 					const char* value = propElem->Attribute("value");
 					const Reflection::PropertyDef* prop = classDef->findProperty(name, true);
 					if (prop && value) {
-						prop->setDataFromString(obj, value);
+						if (prop->isPointer()) {
+							// pointers have to wait until all objects are loaded so that
+							// they are available for resolution
+							DeferredResolution def;
+							def.mObject = obj;
+							def.mProp = prop;
+							def.mUUID.fromString(value);
+							deferred.push_back(def);
+						}
+						else {
+							prop->setDataFromString(obj, value);
+						}
 					}
 
 					propElem = propElem->NextSiblingElement("property");
@@ -318,7 +329,7 @@ struct SymTabEntry
 	int mOrdinal;
 };
 
-bool PackageSerializer::deserialize(Stream& stream, PackageMetadataSerializer* metadataSerializer)
+bool PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer)
 {
 	// first read the header
 	PackageHeader hdr;
@@ -368,9 +379,12 @@ bool PackageSerializer::deserialize(Stream& stream, PackageMetadataSerializer* m
 
 				char* buf = new char[len];
 				stream.read(buf, len);
-				objects[i] = deserializeObjectFromXml(buf, dataEntries);
+				objects[i] = deserializeObjectFromXml(buf, dataEntries, deferred);
 				delete [] buf;
 				mPkg->add(objects[i]);
+
+				// also add it to the lookup table for deferred resolution
+				lut[objects[i]->getObjectId()] = objects[i];
 			}
 		}
 

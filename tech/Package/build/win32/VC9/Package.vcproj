@@ -150,6 +150,10 @@
 	</References>
 	<Files>
 		<File
+			RelativePath="..\..\..\DeferredResolution.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\Package.cpp"
 			>
 		</File>

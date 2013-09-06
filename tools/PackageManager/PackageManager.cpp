@@ -85,7 +85,7 @@ bool PackageManager::save(const String& path)
 	return ser.serialize(strm, mMetadata);
 }
 
-bool PackageManager::load(const String& path)
+bool PackageManager::load(const String& path, DeferredObjectResolves& deferred, ObjectIdToObject& lut)
 {
 	String packagePathName(path);
 	packagePathName += packageFilename();
@@ -95,5 +95,5 @@ bool PackageManager::load(const String& path)
 		return false;
 
 	PackageSerializer ser(mPackage);
-	return ser.deserialize(strm, mMetadata);
+	return ser.deserialize(strm, deferred, lut, mMetadata);
 }

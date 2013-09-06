@@ -43,6 +43,11 @@ bool QtPropertyGridItem::isPointer() const
 	return mProp!=0 && mProp->isPointer();
 }
 
+bool QtPropertyGridItem::isReadOnly() const
+{
+	return mProp!=0 && strstr(mProp->getEditor(), "ReadOnly")!=0;
+}
+
 QtPropertyGridItem* QtPropertyGridItem::parent() const
 {
 	return mParent;
@@ -84,8 +89,15 @@ const QString& QtPropertyGridItem::name() const
 QString QtPropertyGridItem::valueAsString() const
 {
 	String sVal;
-	if (mObject)
-		mProp->getDataAsString(mObject, sVal);
+	if (mObject) {
+		if (mProp->isPointer() && mAltValue.length()) {
+			// rather than the UUID, display the path
+			sVal = mAltValue.toLatin1().data();
+		}
+		else {
+			mProp->getDataAsString(mObject, sVal);
+		}
+	}
 
 	return QString(sVal);
 }
@@ -93,4 +105,19 @@ QString QtPropertyGridItem::valueAsString() const
 void QtPropertyGridItem::append(QtPropertyGridItem* child)
 {
 	mChildren.append(child);
+}
+
+QString QtPropertyGridItem::nameTooltip() const
+{
+	return name();
+}
+
+QString QtPropertyGridItem::valueTooltip() const
+{
+	return valueAsString();
+}
+
+void QtPropertyGridItem::setAltValue(const QString& altValue)
+{
+	mAltValue = altValue;
 }

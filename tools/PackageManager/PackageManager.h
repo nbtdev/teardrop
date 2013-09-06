@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(PACKAGEMANAGER_INCLUDED)
 #define PACKAGEMANAGER_INCLUDED
 
+#include "Package/DeferredResolution.h"
+
 namespace Teardrop 
 {
 	class Package;
@@ -58,7 +60,7 @@ namespace Teardrop
 
 			// load/save the package
 			bool save(const String& path);
-			bool load(const String& path);
+			bool load(const String& path, DeferredObjectResolves& deferred, ObjectIdToObject& lut);
 			String packageFilename();
 
 			PackageMetadata* metadata();

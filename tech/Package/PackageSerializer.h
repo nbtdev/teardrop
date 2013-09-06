@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(PACKAGESERIALIZER_INCLUDED)
 #define PACKAGESERIALIZER_INCLUDED
 
+#include "Package/DeferredResolution.h"
+
 namespace Teardrop 
 {
 	class Stream;
@@ -36,7 +38,7 @@ namespace Teardrop
 		static const int PACKAGE_VERSION;
 
 		bool serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
-		bool deserialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
+		bool deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer = 0);
 
 	protected:
 		Package* mPkg;

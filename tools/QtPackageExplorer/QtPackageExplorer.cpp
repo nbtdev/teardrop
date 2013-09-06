@@ -20,6 +20,7 @@ is prohibited.
 #include <QUrl>
 #include <QMenu>
 #include <QMessageBox>
+#include <stack>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -238,10 +239,20 @@ void QtPackageExplorer::onItemChanged(QTreeWidgetItem *item, int column) {
 	pei->labelChanged(String(item->text(0).toLatin1().data()));
 }
 
+static void constructPath(FolderItem* fi, String& path)
+{
+	if (fi) {
+		constructPath(fi->parent(), path);
+	
+		if (path.length())
+			path.append("/");
+
+		path.append(fi->folder()->name());
+	}
+}
+
 void QtPackageExplorer::mouseMoveEvent(QMouseEvent* event)
 {
-	QTreeWidget::mouseMoveEvent(event);
-
 	if (!(event->buttons() & Qt::LeftButton)) {
 		if (mIsDragging) {
 			mIsDragging = false;
@@ -265,7 +276,16 @@ void QtPackageExplorer::mouseMoveEvent(QMouseEvent* event)
 	if (pei) {
 		if (pei->itemType() == PackageExplorerItem::TYPE_OBJECT) {
 			ObjectItem* oi = static_cast<ObjectItem*>(pei);
-			ObjectDragDropData* oddd = new ObjectDragDropData(oi->object(), "(path)", 0);
+
+			// construct text "path" to object in folder hierarchy
+			String path;
+			FolderItem* fi = oi->parent();
+			constructPath(fi, path);
+
+			path.append("/");
+			path.append(oi->metadata()->getName());
+
+			ObjectDragDropData* oddd = new ObjectDragDropData(oi->object(), path, 0);
 			onDragStart(oddd);
 			mIsDragging = false;
 			// todo: delete when done?
@@ -279,7 +299,7 @@ void QtPackageExplorer::onDragStart(DragDropData* ddd)
 
 	// because Qt insists that everything has to have a MIME type...
 	QMimeData* mimeData = new QMimeData;
-	mimeData->setData("text/plain", "DRAG");
+	mimeData->setData("application/x-qabstractitemmodeldatalist", "DRAG");
 	mimeData->setUserData(0, ddd);
 	drag->setMimeData(mimeData);
 

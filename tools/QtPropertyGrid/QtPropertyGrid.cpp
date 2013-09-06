@@ -10,6 +10,7 @@ is prohibited.
 #include "QtPropertyGridDelegate.h"
 #include "QtPropertyGridModel.h"
 #include "QtUtils/ObjectDragDropData.h"
+#include <QDragEnterEvent>
 #include "Reflection/Reflection.h"
 #include "Game/ComponentHost.h"
 #include "Game/Component.h"
@@ -38,8 +39,23 @@ QtPropertyGrid::~QtPropertyGrid()
 void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* metadata /* = 0 */)
 {
 	delete mModel;
-	mModel = new QtPropertyGridModel(object);
+	mModel = new QtPropertyGridModel(object, metadata);
 	setModel(mModel);
+}
+
+void QtPropertyGrid::dragEnterEvent(QDragEnterEvent* event)
+{
+	event->acceptProposedAction();
+}
+
+void QtPropertyGrid::dragMoveEvent(QDragMoveEvent* event)
+{
+	event->acceptProposedAction();
+}
+
+void QtPropertyGrid::dragLeaveEvent(QDragLeaveEvent* event)
+{
+	event->accept();
 }
 
 #else // USE_QTTREEPROPERTYBROWSER

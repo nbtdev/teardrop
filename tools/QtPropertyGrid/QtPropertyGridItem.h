@@ -32,16 +32,21 @@ namespace Teardrop {
 			const Reflection::PropertyDef* property() const;
 			const QString& name() const;
 			QString valueAsString() const;
+			QString nameTooltip() const;
+			QString valueTooltip() const;
 			QtPropertyGridItem* child(int row) const;
 			QtPropertyGridItem* parent() const;
 			int row() const;
 			int numChildren() const;
 			void append(QtPropertyGridItem* child);
+			void setAltValue(const QString& altValue);
 
 			// true if this item represents a property group and not an actual property
 			bool isGroup() const;
 			// return true if this property refers to a pointer property (can't edit, should be grayed out)
 			bool isPointer() const;
+			// return whether this property is read-only by definition
+			bool isReadOnly() const;
 
 		private:
 			Reflection::Object* mObject;
@@ -49,6 +54,7 @@ namespace Teardrop {
 			QList<QtPropertyGridItem*> mChildren;
 			QtPropertyGridItem* mParent;
 			QString mName;
+			QString mAltValue;
 		};
 	}
 }

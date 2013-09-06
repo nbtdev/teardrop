@@ -9,6 +9,7 @@ is prohibited.
 #define TEARDROP_QTPROPERTYGRIDMODEL_INCLUDED
 
 #include <QAbstractItemModel>
+#include <QStringList>
 
 namespace Teardrop
 {
@@ -26,19 +27,26 @@ namespace Teardrop
 			Q_OBJECT
 
 		public:
-			QtPropertyGridModel(Reflection::Object* obj = 0, QObject* parent = 0);
+			QtPropertyGridModel(Reflection::Object* obj = 0, Reflection::Object* metadata = 0, QObject* parent = 0);
 			~QtPropertyGridModel();
 
 			// QAbstractItemModel implementation
 			int columnCount(const QModelIndex& parent = QModelIndex() ) const;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+			bool setData(const QModelIndex &index, const QVariant &value, int role /* = Qt::EditRole */);
 			QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
 			QModelIndex parent(const QModelIndex& index) const;
 			int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			Qt::ItemFlags flags(const QModelIndex& index) const;
 
+			// drag and drop support
+			QStringList mimeTypes() const;
+			Qt::DropActions supportedDropActions() const;
+			bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent);
+
 		protected:
 			Reflection::Object* mObject;
+			Reflection::Object* mMetadata;
 			QtPropertyGridItem* mRoot;
 		};
 	}
