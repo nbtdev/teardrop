@@ -51,7 +51,7 @@ void QtPropertyGridDelegate::updateEditorGeometry(QWidget* editor, const QStyleO
 void QtPropertyGridDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	painter->save();
-	painter->setPen(Qt::gray);
+	painter->setPen(Qt::lightGray);
 	painter->drawRect(option.rect);
 	painter->restore();
 

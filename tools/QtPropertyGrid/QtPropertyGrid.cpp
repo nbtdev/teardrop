@@ -8,6 +8,7 @@ is prohibited.
 #include "QtPropertyGrid.h"
 #include "QtPropertyGridDelegate.h"
 #include "QtPropertyGridModel.h"
+#include "QtPropertyGridItem.h"
 #include "QtUtils/ObjectDragDropData.h"
 #include <QDragEnterEvent>
 #include "Reflection/Reflection.h"
@@ -43,14 +44,63 @@ void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* m
 	expandAll();
 }
 
+static bool canDrop(QtPropertyGridItem* item, const QMimeData* data)
+{
+	// have to have a valid item under us
+	if (!item)
+		return false;
+
+	// only pointer property types can be drop targets (for now)
+	if (!item->isPointer())
+		return false;
+
+	// the type of the dragged data has to match the pointer type
+	if (data) {
+		QObjectUserData* od = data->userData(0);
+		if (od) {
+			DragDropData* ddd = static_cast<DragDropData*>(od);
+			if (ddd->type() == DragDropData::DDD_OBJECT) {
+				ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
+				Reflection::Object* obj = oddd->object();
+
+				// TODO: find a way to compare classdef's?
+				if (String(obj->getDerivedClassDef()->getName()) != item->property()->getTypeName())
+					return false;
+			}
+		}
+	}
+
+	return true;
+}
+
 void QtPropertyGrid::dragEnterEvent(QDragEnterEvent* event)
 {
-	event->acceptProposedAction();
+	QModelIndex idx = indexAt(event->pos());
+
+	if (idx.isValid()) {
+		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(idx.internalPointer());
+		if (canDrop(item, event->mimeData())) {
+			event->acceptProposedAction();
+			return;
+		}
+	}
+
+	event->ignore();
 }
 
 void QtPropertyGrid::dragMoveEvent(QDragMoveEvent* event)
 {
-	event->acceptProposedAction();
+	QModelIndex idx = indexAt(event->pos());
+
+	if (idx.isValid()) {
+		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(idx.internalPointer());
+		if (item && item->isPointer()) {
+			event->acceptProposedAction();
+			return;
+		}
+	}
+
+	event->ignore();
 }
 
 void QtPropertyGrid::dragLeaveEvent(QDragLeaveEvent* event)

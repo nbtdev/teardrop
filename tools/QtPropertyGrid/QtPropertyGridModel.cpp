@@ -242,11 +242,14 @@ bool QtPropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction act
 		if (od) {
 			QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(parent.internalPointer());
 			if (item) {
-				DragDropData* ddd = static_cast<DragDropData*>(od);
-				if (ddd->type() == DragDropData::DDD_OBJECT) {
-					ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
-					item->property()->setData(item->object(), oddd->object());
-					item->setAltValue((const char*)oddd->path());
+				// make sure it's a pointer property...
+				if (item->isPointer()) {
+					DragDropData* ddd = static_cast<DragDropData*>(od);
+					if (ddd->type() == DragDropData::DDD_OBJECT) {
+						ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
+						item->property()->setData(item->object(), oddd->object());
+						item->setAltValue((const char*)oddd->path());
+					}
 				}
 			}
 		}
