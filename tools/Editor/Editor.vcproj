@@ -175,6 +175,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Preferences.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Project.cpp"
 				>
 			</File>
@@ -211,6 +215,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Preferences.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Project.h"
 				>
 			</File>
@@ -222,6 +230,32 @@
 			>
 			<File
 				RelativePath=".\Editor.ui"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Preferences.ui"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -308,6 +342,10 @@
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\ui_Editor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\ui_Preferences.h"
 				>
 			</File>
 			<Filter

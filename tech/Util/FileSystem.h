@@ -28,6 +28,9 @@ namespace Teardrop
 
 		// make path, creating intermediate directories if they don't exist; returns false if creation failed
 		static bool createDirectory(const String& dirPath);
+
+		// thanks Microsoft...
+		static const char PATHSEP;
 	};
 }
 

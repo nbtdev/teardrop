@@ -53,6 +53,7 @@ namespace Teardrop
 		bool operator!=(const char* other) const;
 		String& operator+=(const String& other);
 		String& operator+=(const char* other);
+		String& operator+=(char c);
 		bool operator<(const String& other) const; // for maps, etc
 		operator const char*() const { return m_pBuf; }
 		char& operator[](size_t idx);
@@ -62,6 +63,7 @@ namespace Teardrop
 		*/
 		String& append(const String& other);
 		String& append(const char* other);
+		String& append(char c);
 		size_t findFirst(char c) const;
 		size_t findLast(char c) const;
 		bool contains(const String& search) const;

@@ -9,7 +9,9 @@ is prohibited.
 #include "FileSystem.h"
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
+
+const char FileSystem::PATHSEP = '\\';
+
 void FileSystem::glob(
 	const String& dirName, 
 	const String& searchPattern, 
@@ -19,8 +21,7 @@ void FileSystem::glob(
 	files.clear();
 
 	String findSpec(dirName);
-	findSpec += "\\";
-	findSpec += searchPattern;
+	findSpec.append(PATHSEP).append(searchPattern);
 
 	WIN32_FIND_DATA data;
 	HANDLE hFile = FindFirstFile(findSpec, &data);
@@ -82,8 +83,7 @@ void FileSystem::findAll(
 				if (recursive)
 				{
 					String newGlobDir(dirName);
-					newGlobDir += "\\";
-					newGlobDir += globData.cFileName;
+					newGlobDir.append(PATHSEP).append(globData.cFileName);
 					findAll(newGlobDir, fileName, files, recursive);
 				}
 			}
@@ -96,8 +96,7 @@ void FileSystem::findAll(
 
 	// then, look in this directory for our target file
 	String fileSpec(dirName);
-	fileSpec += "\\";
-	fileSpec += fileName;
+	fileSpec.append(PATHSEP).append(fileName);
 	WIN32_FIND_DATA fileData;
 	HANDLE hFile = FindFirstFile(fileSpec, &fileData);
 	if(hFile != INVALID_HANDLE_VALUE)
@@ -136,8 +135,7 @@ void FileSystem::getAppDataPath(String& path)
 					buf);
 
 	path = buf;
-	path += "\\";
-	path += "Teardrop";
+	path.append(PATHSEP).append("Teardrop");
 }
 
 bool FileSystem::createDirectory(const String& dirPath)

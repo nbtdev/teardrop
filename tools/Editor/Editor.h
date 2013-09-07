@@ -10,6 +10,8 @@ is prohibited.
 
 #include <QtGui/QMainWindow>
 #include "ui_Editor.h"
+#include "ui_Preferences.h"
+#include "Preferences.h"
 
 class QTreeWidgetItem;
 class QWidget;
@@ -43,12 +45,16 @@ namespace Teardrop
 			void onSaveAs();
 			void onOpen();
 			void onNew();
+			void onPreferences();
 
 			void onBeginLongOperation();
 			void onEndLongOperation();
 
 		private:
 			Ui::EditorClass ui;
+			Ui::PreferencesDialog mDlgPreferences;
+			Preferences mPreferences;
+
 			QtPropertyGrid* mPropGrid;
 			QtPackageExplorer* mPkgExp;
 			PackageManager* mPkg;
@@ -62,6 +68,7 @@ namespace Teardrop
 			QCursor mCursor;
 
 			void setEditorTitle();
+			void openProject(const QString& pathname);
 		};
 	}
 }

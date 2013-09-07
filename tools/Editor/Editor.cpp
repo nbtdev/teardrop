@@ -88,6 +88,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	connect(ui.mCmdOpen, SIGNAL(triggered()), this, SLOT(onOpen()));
 	connect(ui.mCmdSave, SIGNAL(triggered()), this, SLOT(onSave()));
 	connect(ui.mCmdSaveAs, SIGNAL(triggered()), this, SLOT(onSaveAs()));
+	connect(ui.mCmdPreferences, SIGNAL(triggered()), this, SLOT(onPreferences()));
 	connect(mPkgExp, SIGNAL(beginLongOperation()), this, SLOT(onBeginLongOperation()));
 	connect(mPkgExp, SIGNAL(endLongOperation()), this, SLOT(onEndLongOperation()));
 
@@ -96,10 +97,17 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
 
 	setEditorTitle();
+	mPreferences.load();
+
+	// do we need to load the previous project?
+	const Preferences::ProjectList& projs = mPreferences.projectList();
+	if (mPreferences.general().mLoadLastProject && projs.size())
+		openProject((const char*)projs.front());
 }
 
 Editor::~Editor()
 {
+	mPreferences.save();
 	delete mProject;
 }
 
@@ -136,6 +144,41 @@ void Editor::onNew()
 	setEditorTitle();
 }
 
+void Editor::openProject(const QString& file)
+{
+	QFile f(file);
+	QFileInfo fi(f);
+	QString path = fi.absolutePath();
+	QString name = fi.baseName();
+	QString ext = fi.suffix();
+
+	// open the project
+	Project* newProject = new Project;
+	newProject->rename(name.toLatin1().data());
+	newProject->setPath(path.toLatin1().data());
+
+	if (!newProject->read()) {
+		// do something
+		delete newProject;
+	}
+	else {
+		delete mProject;
+		mProject = newProject;
+		mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
+		mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
+
+		setEditorTitle();
+
+		mPkgExp->clearAllPackages();
+		const Project::PackageManagers& pkgMgrs = mProject->packages();
+		for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
+			mPkgExp->_addPackage(*it);
+		}
+
+		mPreferences.addProject(file.toLatin1().data());
+	}
+}
+
 void Editor::onOpen()
 {
 	// ask for filename and then do a normal save
@@ -147,36 +190,7 @@ void Editor::onOpen()
 	if (dlg.exec()) {
 		files = dlg.selectedFiles();
 		QString file = files.at(0);
-
-		QFile f(files[0]);
-		QFileInfo fi(f);
-		QString path = fi.absolutePath();
-		QString name = fi.baseName();
-		QString ext = fi.suffix();
-
-		// open the project
-		Project* newProject = new Project;
-		newProject->rename(name.toLatin1().data());
-		newProject->setPath(path.toLatin1().data());
-
-		if (!newProject->read()) {
-			// do something
-			delete newProject;
-		}
-		else {
-			delete mProject;
-			mProject = newProject;
-			mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
-			mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
-
-			setEditorTitle();
-
-			mPkgExp->clearAllPackages();
-			const Project::PackageManagers& pkgMgrs = mProject->packages();
-			for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
-				mPkgExp->_addPackage(*it);
-			}
-		}
+		openProject(file);
 	}
 }
 
@@ -240,4 +254,17 @@ void Editor::onBeginLongOperation()
 void Editor::onEndLongOperation()
 {
 	setCursor(mCursor);
+}
+
+void Editor::onPreferences()
+{
+	QDialog dlg(this);
+	mDlgPreferences.setupUi(&dlg);
+	mDlgPreferences.mChkOpenLastProject->setChecked(mPreferences.general().mLoadLastProject);
+
+	if (QDialog::Accepted == dlg.exec()) {
+		mPreferences.general().mLoadLastProject = (mDlgPreferences.mChkOpenLastProject->checkState() != Qt::Unchecked);
+
+		mPreferences.save();
+	}
 }

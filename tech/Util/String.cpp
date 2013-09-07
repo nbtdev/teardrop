@@ -124,6 +124,12 @@ String& String::operator=(const char* other)
 	return *this;
 }
 //---------------------------------------------------------------------------
+String& String::operator+=(char c)
+{
+	char tmp[] = {c,0};
+	return (*this += tmp);
+}
+//---------------------------------------------------------------------------
 String& String::operator+=(const char* other)
 {
 	size_t newLen = _resize(strlen(other));
@@ -187,6 +193,11 @@ String& String::append(const String& other)
 String& String::append(const char* other)
 {
 	return (*this += other);
+}
+//---------------------------------------------------------------------------
+String& String::append(char c)
+{
+	return (*this += c);
 }
 //---------------------------------------------------------------------------
 size_t String::findFirst(char c) const
