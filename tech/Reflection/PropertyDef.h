@@ -36,6 +36,7 @@ namespace Teardrop
 			bool isPointer() const { return (0 != m_bPointer); }
 			bool isCollection() const { return (0 != m_bCollection); }
 			bool isComplex() const { return (0 != m_bComplex); }
+			bool isBoolean() const { return (0 != m_bBoolean); }
 
 			void setName(const char* name) { m_pName = name; }
 			void setTypeName(const char* pTypeName) { m_pTypeName = pTypeName; }
@@ -62,6 +63,7 @@ namespace Teardrop
 			size_t m_bPointer;
 			size_t m_bCollection;
 			size_t m_bComplex;
+			size_t m_bBoolean;
 			const char* m_pName;
 			const char* m_pTypeName;
 			const char* m_pEditor;

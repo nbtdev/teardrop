@@ -26,14 +26,17 @@ namespace Teardrop
 	public:
 		TD_CLASS(GfxMaterial, Object);
 		TD_CLASS_CREATABLE();
-		TD_COMPLEX_PROPERTY(Diffuse, "Material Diffuse Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
-		TD_COMPLEX_PROPERTY(Ambient, "Material Ambient Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
-		TD_COMPLEX_PROPERTY(Specular, "Material Specular Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
-		TD_COMPLEX_PROPERTY(Emissive, "Material Emissive Color", Vector4, "(0.5,0.5,0.5,0.5)", 0);
+		TD_COMPLEX_PROPERTY(Diffuse, "Material Diffuse Color", Vector4, "(0.5,0.5,0.5,0.5)", ColorEditor);
+		TD_COMPLEX_PROPERTY(Ambient, "Material Ambient Color", Vector4, "(0.5,0.5,0.5,0.5)", ColorEditor);
+		TD_COMPLEX_PROPERTY(Specular, "Material Specular Color", Vector4, "(0.5,0.5,0.5,0.5)", ColorEditor);
+		TD_COMPLEX_PROPERTY(Emissive, "Material Emissive Color", Vector4, "(0.5,0.5,0.5,0.5)", ColorEditor);
 		TD_POINTER_PROPERTY(DiffuseMap, "Diffuse Map Asset", TextureAsset);
 		TD_POINTER_PROPERTY(AmbientOcclusionMap, "Ambient Occlusion Map Asset", TextureAsset);
 		TD_POINTER_PROPERTY(NormalMap, "Normal Map Asset", TextureAsset);
 		TD_POINTER_PROPERTY(SpecularMap, "Specular Map Asset", TextureAsset);
+		TD_PROPERTY(ColorWrite, "Enable/disable writing to the color buffer", bool, true, 0);
+		TD_PROPERTY(DepthCheck, "Enable/disable checking against the depth buffer (alpha blending)", bool, true, 0);
+		TD_PROPERTY(DepthWrite, "Enable/disable writing to the depth buffer", bool, true, 0);
 
 		//! normal c'tor (cannot fail)
 		GfxMaterial();
@@ -84,9 +87,9 @@ namespace Teardrop
 		//unsigned int getSpecular() const;
 		//unsigned int getEmissive() const;
 
-		bool getColorWrite() const;
-		bool getDepthCheck() const;
-		bool getDepthWrite() const;
+		//bool getColorWrite() const;
+		//bool getDepthCheck() const;
+		//bool getDepthWrite() const;
 		unsigned char getDepthBias() const;
 		bool getVertexColors() const;
 		bool isLit() const;
@@ -112,9 +115,9 @@ namespace Teardrop
 		//void setSpecular(unsigned int c);
 		//void setEmissive(unsigned int c);
 
-		void setColorWrite(bool bEnabled);
-		void setDepthCheck(bool bEnabled);
-		void setDepthWrite(bool bEnabled);
+		//void setColorWrite(bool bEnabled);
+		//void setDepthCheck(bool bEnabled);
+		//void setDepthWrite(bool bEnabled);
 		void setDepthBias(unsigned char bias);
 		void setAlphaBlended(bool blend);
 		void setVertexColors(bool bEnabled);

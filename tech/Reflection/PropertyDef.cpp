@@ -24,8 +24,9 @@ PropertyDef::PropertyDef()
 	m_offset = 0;
 	m_id = -1;
 	m_pNext = 0;
-	m_bPointer = false;
-	m_bCollection = false;
+	m_bPointer = 0;
+	m_bCollection = 0;
+	m_bBoolean = 0;
 }
 //-----------------------------------------------------------------------------
 PropertyDef::~PropertyDef()
@@ -42,7 +43,7 @@ void PropertyDef::setMetaFlags()
 	// check for collection type
 	if (strstr(m_pTypeName, "CollectionPropertyType"))
 	{
-		m_bCollection = true;
+		m_bCollection = 1;
 
 		// need to strip off the CollectionPropertyType<> parts
 		//m_pTargetType = strchr(m_pTypeName, '<')+1;
@@ -52,4 +53,7 @@ void PropertyDef::setMetaFlags()
 		//	*pEnd = 0;
 		//}
 	}
+
+	if (!strcmp("bool", m_pTypeName) || !strcmp("Boolean", m_pTypeName))
+		m_bBoolean = 1;
 }

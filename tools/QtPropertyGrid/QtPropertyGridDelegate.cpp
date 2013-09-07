@@ -6,8 +6,13 @@ is prohibited.
 ****************************************************************************/
 
 #include "QtPropertyGridDelegate.h"
+#include "QtPropertyGridItem.h"
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QPainter>
+#include <QColorDialog>
+#include "Reflection/Reflection.h"
+#include "Math/Vector4.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -23,24 +28,103 @@ QtPropertyGridDelegate::~QtPropertyGridDelegate()
 
 }
 
+static void toQColor(QColor& qc, const Vector4& color) 
+{
+	qc.setRedF(color.x);
+	qc.setGreenF(color.y);
+	qc.setBlueF(color.z);
+	qc.setAlphaF(color.w);
+}
+
+static void fromQColor(Vector4& color, const QColor& qc) 
+{
+	color.x = qc.redF();
+	color.y = qc.greenF();
+	color.z = qc.blueF();
+	color.w = qc.alphaF();
+}
+
 QWidget* QtPropertyGridDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
+	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	if (item) {
+		if (item->isBoolean())
+			return new QCheckBox(parent);
+
+		const Reflection::PropertyDef* prop = item->property();
+		if (prop) {
+			Reflection::Object* obj = item->object();
+
+			if (obj && String("ColorEditor") == prop->getEditor()) {
+				QColorDialog* dlg = new QColorDialog;
+				return dlg;
+			}
+		}
+	}
+
 	QLineEdit* le = new QLineEdit(parent);
 	return le;
 }
 
 void QtPropertyGridDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-	QString& str = index.model()->data(index, Qt::EditRole).toString();
-	QLineEdit* le = static_cast<QLineEdit*>(editor);
-	le->setText(str);
+	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	if (item) {
+		Reflection::Object* obj = item->object();
+		const Reflection::PropertyDef* prop = item->property();
+
+		if (item->isBoolean()) {
+			if (obj && prop) {
+				bool b;
+				prop->getData(obj, &b);
+				QCheckBox* cb = static_cast<QCheckBox*>(editor);
+				cb->setCheckState(b ? Qt::Checked : Qt::Unchecked);
+			}
+		}
+		else if (String("ColorEditor") == prop->getEditor()) {
+			Vector4 color;
+			QColor qc;
+			prop->getData(obj, &color);
+			toQColor(qc, color);
+
+			QColorDialog* dlg = static_cast<QColorDialog*>(editor);
+			dlg->setCurrentColor(qc);
+		}
+		else {
+			QString& str = index.model()->data(index, Qt::EditRole).toString();
+			QLineEdit* le = static_cast<QLineEdit*>(editor);
+			le->setText(str);
+		}
+	}
 }
 
 void QtPropertyGridDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-	QLineEdit* le = static_cast<QLineEdit*>(editor);
-	QString& str = le->text();
-	model->setData(index, str, Qt::EditRole);
+	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	if (item) {
+		const Reflection::PropertyDef* prop = item->property();
+		Reflection::Object* obj = item->object();
+
+		if (item->isBoolean()) {
+			QCheckBox* cb = static_cast<QCheckBox*>(editor);
+			bool b = cb->checkState() == Qt::Checked;
+			model->setData(index, b, Qt::EditRole);
+		}
+		else if (prop && obj && String("ColorEditor") == prop->getEditor()) {
+			QColor qc;
+			QColorDialog* dlg = static_cast<QColorDialog*>(editor);
+			qc = dlg->currentColor();
+
+			Vector4 color;
+			fromQColor(color, qc);
+			prop->setData(obj, &color);
+		}
+		else {
+			QLineEdit* le = static_cast<QLineEdit*>(editor);
+			QString& str = le->text();
+			model->setData(index, str, Qt::EditRole);
+		}
+	}
 }
 
 void QtPropertyGridDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -51,8 +135,32 @@ void QtPropertyGridDelegate::updateEditorGeometry(QWidget* editor, const QStyleO
 void QtPropertyGridDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	painter->save();
+
+	// only do this for the value cell
+	if (index.column() == 1) {
+		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+		if (item) {
+			const Reflection::PropertyDef* prop = item->property();
+			Reflection::Object* obj = item->object();
+
+			if (obj && prop) {
+				if (String("ColorEditor") == prop->getEditor()) {
+					// make a QColor of the property values
+					Vector4 color;
+					QColor qc;
+					prop->getData(obj, &color);
+					toQColor(qc, color);
+
+					QBrush brush(qc);
+					painter->fillRect(option.rect, brush);
+				}
+			}
+		}
+	}
+
 	painter->setPen(Qt::lightGray);
 	painter->drawRect(option.rect);
+
 	painter->restore();
 
 	QItemDelegate::paint(painter, option, index);

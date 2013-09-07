@@ -201,26 +201,26 @@ bool GfxMaterial::isAlphaBlended() const
 {
 	return m_bAlphaBlend;
 }
-//---------------------------------------------------------------------------
-bool GfxMaterial::getDepthCheck() const
-{
-	return m_bDepthCheck;
-}
-//---------------------------------------------------------------------------
-bool GfxMaterial::getDepthWrite() const
-{
-	return m_bDepthWrite;
-}
+////---------------------------------------------------------------------------
+//bool GfxMaterial::getDepthCheck() const
+//{
+//	return m_bDepthCheck;
+//}
+////---------------------------------------------------------------------------
+//bool GfxMaterial::getDepthWrite() const
+//{
+//	return m_bDepthWrite;
+//}
 //---------------------------------------------------------------------------
 unsigned char GfxMaterial::getDepthBias() const
 {
 	return m_depthBias;
 }
-//---------------------------------------------------------------------------
-bool GfxMaterial::getColorWrite() const
-{
-	return m_bColorWrite;
-}
+////---------------------------------------------------------------------------
+//bool GfxMaterial::getColorWrite() const
+//{
+//	return m_bColorWrite;
+//}
 //---------------------------------------------------------------------------
 bool GfxMaterial::getVertexColors() const
 {
@@ -281,26 +281,26 @@ void GfxMaterial::setAlphaBlended(bool bBlend)
 {
 	m_bAlphaBlend = bBlend;
 }
-//---------------------------------------------------------------------------
-void GfxMaterial::setDepthCheck(bool bEnabled)
-{
-	m_bDepthCheck = bEnabled;
-}
-//---------------------------------------------------------------------------
-void GfxMaterial::setDepthWrite(bool bEnabled)
-{
-	m_bDepthWrite = bEnabled;
-}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setDepthCheck(bool bEnabled)
+//{
+//	m_bDepthCheck = bEnabled;
+//}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setDepthWrite(bool bEnabled)
+//{
+//	m_bDepthWrite = bEnabled;
+//}
 //---------------------------------------------------------------------------
 void GfxMaterial::setDepthBias(unsigned char bias)
 {
 	m_depthBias = bias;
 }
-//---------------------------------------------------------------------------
-void GfxMaterial::setColorWrite(bool bEnabled)
-{
-	m_bColorWrite = bEnabled;
-}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setColorWrite(bool bEnabled)
+//{
+//	m_bColorWrite = bEnabled;
+//}
 //---------------------------------------------------------------------------
 void GfxMaterial::setVertexColors(bool bEnabled)
 {

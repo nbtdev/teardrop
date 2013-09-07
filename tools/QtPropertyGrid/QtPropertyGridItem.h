@@ -45,6 +45,8 @@ namespace Teardrop {
 			bool isGroup() const;
 			// return true if this property refers to a pointer property (can't edit, should be grayed out)
 			bool isPointer() const;
+			// return true if this property refers to a boolean property (should be displayed and edited as a checkbox)
+			bool isBoolean() const;
 			// return whether this property is read-only by definition
 			bool isReadOnly() const;
 

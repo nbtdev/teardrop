@@ -123,6 +123,9 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 		return QVariant();
 
 	QtPropertyGridItem *item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	const Reflection::PropertyDef* prop = 0;
+	if (item)
+		prop = item->property();
 
 	if (role == Qt::BackgroundColorRole) {
 		if (item) {
@@ -132,34 +135,58 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 		}
 	}
 
-	if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::ToolTipRole)
-		return QVariant();
-
 	if (role == Qt::ToolTipRole) {
 		if (index.column() == 0)
 			return item->nameTooltip();
 		else
 			return item->valueTooltip();
 	}
-	else {
+	else if (role == Qt::CheckStateRole) {
+		if (prop && index.column() == 1) {
+			Reflection::Object* obj = item->object();
+			if (obj && item->isBoolean()) {
+				bool b;
+				prop->getData(obj, &b);
+				return int((b ? Qt::Checked : Qt::Unchecked));
+			}
+		}
+	}
+	else if (role == Qt::DisplayRole || role == Qt::EditRole) {
 		if (index.column() == 0)
 			return item->name();
-		else
+		else {
+			if (prop) {
+				if (String("ColorEditor") == prop->getEditor())
+					return QString("");
+			}
+
 			return item->valueAsString();
+		}
 	}
+
+	return QVariant();
 }
 
 bool QtPropertyGridModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-	if (role == Qt::EditRole) {
-		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
-		if (item) {
-			const Reflection::PropertyDef* prop = item->property();
-			Reflection::Object* obj = item->object();
+	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	if (item) {
+		const Reflection::PropertyDef* prop = item->property();
+		Reflection::Object* obj = item->object();
 
-			prop->setDataFromString(obj, value.toString().toLatin1().data());
-			return true;
+		if (prop && obj) {
+			if (role == Qt::EditRole) {
+				prop->setDataFromString(obj, value.toString().toLatin1().data());
+			}
+			else if (role == Qt::CheckStateRole) {
+				if (item->isBoolean()) {
+					bool b = value.toBool();
+					prop->setData(obj, &b);
+				}
+			}
 		}
+
+		return true;
 	}
 
 	return false;
@@ -218,12 +245,20 @@ Qt::ItemFlags QtPropertyGridModel::flags(const QModelIndex& index) const
 	if (index.isValid())
 		item = static_cast<QtPropertyGridItem*>(index.internalPointer());
 
-	if (index.column() == 1 && (item && !item->isPointer()))
-		f |= Qt::ItemIsEditable;
-
-	if (item && item->isPointer()) {
-		f &= ~(Qt::ItemIsEnabled);
-		f |= Qt::ItemIsDropEnabled;
+	if (index.column() == 1) {
+		if (item) {
+			if (item->isPointer()) {
+				f &= ~(Qt::ItemIsEnabled);
+				f |= Qt::ItemIsDropEnabled;
+			}
+			else {
+				f |= Qt::ItemIsEditable;
+			}
+			
+			if (item->isBoolean()) {
+				f |= Qt::ItemIsUserCheckable;
+			}
+		}
 	}
 
 	if (item && item->isReadOnly()) {

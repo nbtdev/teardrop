@@ -38,6 +38,11 @@ bool QtPropertyGridItem::isGroup() const
 	return (mObject==0 && mProp==0);
 }
 
+bool QtPropertyGridItem::isBoolean() const 
+{
+	return mProp!=0 && mProp->isBoolean();
+}
+
 bool QtPropertyGridItem::isPointer() const 
 {
 	return mProp!=0 && mProp->isPointer();
