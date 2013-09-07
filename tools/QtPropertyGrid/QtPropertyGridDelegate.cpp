@@ -57,6 +57,7 @@ QWidget* QtPropertyGridDelegate::createEditor(QWidget* parent, const QStyleOptio
 
 			if (obj && String("ColorEditor") == prop->getEditor()) {
 				QColorDialog* dlg = new QColorDialog;
+				dlg->setOption(QColorDialog::ShowAlphaChannel, true);
 				return dlg;
 			}
 		}
