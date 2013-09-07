@@ -151,7 +151,18 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 
 bool QtPropertyGridModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-	return true;
+	if (role == Qt::EditRole) {
+		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+		if (item) {
+			const Reflection::PropertyDef* prop = item->property();
+			Reflection::Object* obj = item->object();
+
+			prop->setDataFromString(obj, value.toString().toLatin1().data());
+			return true;
+		}
+	}
+
+	return false;
 }
 
 QModelIndex QtPropertyGridModel::index(int row, int column, const QModelIndex& parent) const
