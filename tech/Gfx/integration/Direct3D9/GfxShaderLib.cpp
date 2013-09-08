@@ -323,7 +323,7 @@ static void addVSOutputElements(
 	}
 
 	// then normal and light vector(s), if lit
-	if (pMtl->isLit())
+	if (pMtl->getLit())
 	{
 		const GfxVertexFormat::Element& elem = fmt.getElementBySemantic(NORMAL);
 		if (elem.semantic != UNUSED)
@@ -376,7 +376,7 @@ static bool createVertexShaderSource(
 	source << GfxShaderCode::vs[GfxShaderCode::VS_3_0][GfxShaderCode::VS_NORM_SKINNED];
 	source << GfxShaderCode::vs[GfxShaderCode::VS_3_0][GfxShaderCode::VS_CALC_LIGHT_VEC];
 
-	if (pMaterial->isLit() && 
+	if (pMaterial->getLit() && 
 		pSubMesh->getVertexFormat().getElementBySemantic(NORMAL).semantic != UNUSED)
 	{
 		source << GfxShaderCode::vs[GfxShaderCode::VS_3_0][GfxShaderCode::VS_NORMAL_TRANSFORM];
@@ -419,7 +419,7 @@ static bool createVertexShaderSource(
 	// pass through colors next...
 
 	// and then normals, if any...per-pixel lighting you know...
-	if (pMaterial->isLit())
+	if (pMaterial->getLit())
 	{
 		if (pSubMesh->getVertexFormat().hasBlendindex())
 		{
@@ -619,7 +619,7 @@ static bool createPixelShaderSource(
 	// how they are applied between layers
 	addTextureSampling(pMaterial, source);
 
-	if (pMaterial->isLit())
+	if (pMaterial->getLit())
 	{
 		source << GfxShaderCode::ps[GfxShaderCode::PS_3_0][GfxShaderCode::PS_CALC_BLINN];
 	}

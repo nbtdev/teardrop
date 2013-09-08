@@ -57,7 +57,7 @@ void RenderComponent::recalculateLighting()
 			if (!pMtl)
 				pMtl = pMesh->getSubMesh(i)->getMaterial();
 
-			getLit() |= pMtl->isLit();
+			getLit() |= const_cast<GfxMaterial*>(pMtl)->getLit();
 		}
 	}
 

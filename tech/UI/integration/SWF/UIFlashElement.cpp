@@ -111,7 +111,7 @@ bool FlashElement::initialize(
 	m_pMtl->initialize();
 	//m_pMtl->setDiffuse(0xffffffff);
 	m_pMtl->setDepthWrite(false);
-	m_pMtl->setAlphaBlended(true);
+	m_pMtl->setAlphaBlending(true);
 
 	// we need to create a texture to hold the rendered Flash movie blits
 	GfxTextureStage* pStage = m_pMtl->addTextureStage();

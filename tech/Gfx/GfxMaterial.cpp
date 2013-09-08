@@ -196,11 +196,11 @@ bool GfxMaterial::setTextureStage(size_t index, bool bEnabled)
 //{
 //	return m_emissive;
 //}
-//---------------------------------------------------------------------------
-bool GfxMaterial::isAlphaBlended() const
-{
-	return m_bAlphaBlend;
-}
+////---------------------------------------------------------------------------
+//bool GfxMaterial::isAlphaBlended() const
+//{
+//	return m_bAlphaBlend;
+//}
 ////---------------------------------------------------------------------------
 //bool GfxMaterial::getDepthCheck() const
 //{
@@ -211,26 +211,26 @@ bool GfxMaterial::isAlphaBlended() const
 //{
 //	return m_bDepthWrite;
 //}
-//---------------------------------------------------------------------------
-unsigned char GfxMaterial::getDepthBias() const
-{
-	return m_depthBias;
-}
+////---------------------------------------------------------------------------
+//unsigned char GfxMaterial::getDepthBias() const
+//{
+//	return m_depthBias;
+//}
 ////---------------------------------------------------------------------------
 //bool GfxMaterial::getColorWrite() const
 //{
 //	return m_bColorWrite;
 //}
-//---------------------------------------------------------------------------
-bool GfxMaterial::getVertexColors() const
-{
-	return m_bVertexColors;
-}
-//---------------------------------------------------------------------------
-bool GfxMaterial::isLit() const
-{
-	return (m_numLights > 0);
-}
+////---------------------------------------------------------------------------
+//bool GfxMaterial::getVertexColors() const
+//{
+//	return m_bVertexColors;
+//}
+////---------------------------------------------------------------------------
+//bool GfxMaterial::isLit() const
+//{
+//	return (m_numLights > 0);
+//}
 //---------------------------------------------------------------------------
 size_t GfxMaterial::getNumLights() const
 {
@@ -276,11 +276,11 @@ bool GfxMaterial::isTransparent() const
 //{
 //	m_emissive = c;
 //}
-//---------------------------------------------------------------------------
-void GfxMaterial::setAlphaBlended(bool bBlend)
-{
-	m_bAlphaBlend = bBlend;
-}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setAlphaBlended(bool bBlend)
+//{
+//	m_bAlphaBlend = bBlend;
+//}
 ////---------------------------------------------------------------------------
 //void GfxMaterial::setDepthCheck(bool bEnabled)
 //{
@@ -291,21 +291,21 @@ void GfxMaterial::setAlphaBlended(bool bBlend)
 //{
 //	m_bDepthWrite = bEnabled;
 //}
-//---------------------------------------------------------------------------
-void GfxMaterial::setDepthBias(unsigned char bias)
-{
-	m_depthBias = bias;
-}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setDepthBias(unsigned char bias)
+//{
+//	m_depthBias = bias;
+//}
 ////---------------------------------------------------------------------------
 //void GfxMaterial::setColorWrite(bool bEnabled)
 //{
 //	m_bColorWrite = bEnabled;
 //}
-//---------------------------------------------------------------------------
-void GfxMaterial::setVertexColors(bool bEnabled)
-{
-	m_bVertexColors = bEnabled;
-}
+////---------------------------------------------------------------------------
+//void GfxMaterial::setVertexColors(bool bEnabled)
+//{
+//	m_bVertexColors = bEnabled;
+//}
 //---------------------------------------------------------------------------
 void GfxMaterial::setNumLights(unsigned int numLights)
 {
@@ -400,7 +400,7 @@ void GfxMaterial::recalcHashCode()
 	hash |= (blendOps << 2);
 
 	// lighting
-	if (isLit())
+	if (getLit())
 	{
 		// hash in the number of lights desired
 		hash |= (m_numLights << 14);

@@ -126,7 +126,7 @@ bool ParticleSystemRenderer::initialize()
 	}
 
 	pMtl->setDepthWrite(false);
-	pMtl->setAlphaBlended(true);
+	pMtl->setAlphaBlending(true);
 	pSubmesh->setMaterial(pMtl, true);
 
 	// set up the instanced-rendering data

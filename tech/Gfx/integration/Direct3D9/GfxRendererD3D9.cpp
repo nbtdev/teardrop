@@ -735,7 +735,7 @@ bool GfxRendererD3D9::renderSubMesh(
 		state.setDepthWrite(pMtl->getDepthWrite());
 		state.setFillMode(pMtl->getFillMode());
 		state.setDepthBias(pMtl->getDepthBias());
-		state.enableAlphaBlend(pMtl->isAlphaBlended());
+		state.enableAlphaBlend(pMtl->getAlphaBlending());
 	}
 
 	const Matrix44* pPalette = rInst.m_pMatrixPalette;
@@ -1144,7 +1144,7 @@ bool GfxRendererD3D9::setupShader(GfxSubMesh& rSubMesh, GfxMaterial& mtl)
 	//GfxShaderD3D9* pShader = pShaderLib->createShader(&rSubMesh, &mtl);
 
 	// lighting
-	if (!mtl.isLit())
+	if (!mtl.getLit())
 	{
 		if (state.lighting)
 		{

@@ -37,6 +37,10 @@ namespace Teardrop
 		TD_PROPERTY(ColorWrite, "Enable/disable writing to the color buffer", bool, true, 0);
 		TD_PROPERTY(DepthCheck, "Enable/disable checking against the depth buffer (alpha blending)", bool, true, 0);
 		TD_PROPERTY(DepthWrite, "Enable/disable writing to the depth buffer", bool, true, 0);
+		TD_PROPERTY(DepthBias, "Set depth bias for this material", int, 0, 0);
+		TD_PROPERTY(VertexColors, "Enable/disable blending of mesh vertex colors when rendering with this material", bool, true, 0);
+		TD_PROPERTY(Lit, "Enable/disable dynamic lighting when rendering with this material", bool, true, 0);
+		TD_PROPERTY(AlphaBlending, "Enable/disable alpha blending with target buffer when rendering with this material", bool, true, 0);
 
 		//! normal c'tor (cannot fail)
 		GfxMaterial();
@@ -90,10 +94,10 @@ namespace Teardrop
 		//bool getColorWrite() const;
 		//bool getDepthCheck() const;
 		//bool getDepthWrite() const;
-		unsigned char getDepthBias() const;
-		bool getVertexColors() const;
-		bool isLit() const;
-		bool isAlphaBlended() const;
+		//unsigned char getDepthBias() const;
+		//bool getVertexColors() const;
+		//bool isLit() const;
+		//bool isAlphaBlended() const;
 		size_t getNumLights() const;
 		size_t getMaxNumTextureStages() const;
 		size_t getNumTextureStages() const;
@@ -118,9 +122,9 @@ namespace Teardrop
 		//void setColorWrite(bool bEnabled);
 		//void setDepthCheck(bool bEnabled);
 		//void setDepthWrite(bool bEnabled);
-		void setDepthBias(unsigned char bias);
-		void setAlphaBlended(bool blend);
-		void setVertexColors(bool bEnabled);
+		//void setDepthBias(unsigned char bias);
+		//void setAlphaBlended(bool blend);
+		//void setVertexColors(bool bEnabled);
 		void setNumLights(size_t numLights);
 		bool setTextureStage(size_t index, bool bEnabled);
 		void setCullMode(CullMode culling);
