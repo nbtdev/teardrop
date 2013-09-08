@@ -304,7 +304,7 @@ bool QtPropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction act
 	return true;
 }
 
-QVariant QtPropertyGridModel::headerData(int section, Qt::Orientation orientation, int role)
+QVariant QtPropertyGridModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	return QVariant();
 }

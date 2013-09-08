@@ -38,7 +38,7 @@ namespace Teardrop
 			QModelIndex parent(const QModelIndex& index) const;
 			int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			Qt::ItemFlags flags(const QModelIndex& index) const;
-			QVariant headerData(int section, Qt::Orientation orientation, int role /* = Qt::DisplayRole */);
+			QVariant headerData(int section, Qt::Orientation orientation, int role /* = Qt::DisplayRole */) const;
 
 			// drag and drop support
 			QStringList mimeTypes() const;
