@@ -42,6 +42,22 @@ namespace Teardrop
 		TD_PROPERTY(Lit, "Enable/disable dynamic lighting when rendering with this material", bool, true, 0);
 		TD_PROPERTY(AlphaBlending, "Enable/disable alpha blending with target buffer when rendering with this material", bool, true, 0);
 
+		enum CullMode {
+			CULL_NONE,
+			CULL_CCW,
+			CULL_CW,
+		};
+
+		enum FillMode {
+			FILLMODE_NONE,
+			FILLMODE_POINT,
+			FILLMODE_WIREFRAME,
+			FILLMODE_SOLID,
+		};
+
+		TD_ENUM_PROPERTY(CullMode, "Set culling mode for this material", CullMode, CULL_CCW);
+		TD_ENUM_PROPERTY(FillMode, "Set fill mode for this material", FillMode, FILLMODE_SOLID);
+
 		//! normal c'tor (cannot fail)
 		GfxMaterial();
 		//! placement c'tor (cannot fail)
@@ -53,25 +69,6 @@ namespace Teardrop
 		bool initialize();
 		//! destroy the material
 		bool destroy();
-
-		enum CullMode
-		{
-			CULL_NONE = 0,
-			CULL_CCW, // default
-			CULL_CW,
-
-			CULL_FORCE_BYTE=0xFF,
-		};
-
-		enum FillMode
-		{
-			FILLMODE_NONE = 0,
-			FILLMODE_POINT,
-			FILLMODE_WIREFRAME,
-			FILLMODE_SOLID,
-
-			FILLMODE_FORCE_BYTE=0xFF,
-		};
 
 		enum CustomShader
 		{
@@ -86,18 +83,6 @@ namespace Teardrop
 		
 		/** accessors
 		*/
-		//unsigned int getDiffuse() const;
-		//unsigned int getAmbient() const;
-		//unsigned int getSpecular() const;
-		//unsigned int getEmissive() const;
-
-		//bool getColorWrite() const;
-		//bool getDepthCheck() const;
-		//bool getDepthWrite() const;
-		//unsigned char getDepthBias() const;
-		//bool getVertexColors() const;
-		//bool isLit() const;
-		//bool isAlphaBlended() const;
 		size_t getNumLights() const;
 		size_t getMaxNumTextureStages() const;
 		size_t getNumTextureStages() const;
@@ -105,8 +90,6 @@ namespace Teardrop
 		GfxTextureStage* getTextureStage(size_t index);
 		const GfxTextureStage* getTextureStage(size_t index) const;
 		bool isTextureStageEnabled(size_t index) const;
-		CullMode getCullMode() const;
-		FillMode getFillMode() const;
 		CustomShader getCustomShader() const;
 		unsigned __int64 getHashCode();
 		bool isTransparent() const;
@@ -114,21 +97,8 @@ namespace Teardrop
 
 		/** mutators
 		*/
-		//void setDiffuse(unsigned int c);
-		//void setAmbient(unsigned int c);
-		//void setSpecular(unsigned int c);
-		//void setEmissive(unsigned int c);
-
-		//void setColorWrite(bool bEnabled);
-		//void setDepthCheck(bool bEnabled);
-		//void setDepthWrite(bool bEnabled);
-		//void setDepthBias(unsigned char bias);
-		//void setAlphaBlended(bool blend);
-		//void setVertexColors(bool bEnabled);
 		void setNumLights(size_t numLights);
 		bool setTextureStage(size_t index, bool bEnabled);
-		void setCullMode(CullMode culling);
-		void setFillMode(FillMode fillMode);
 		void setCustomShader(CustomShader shader);
 
 		GfxMaterial& operator=(const GfxMaterial& other);
@@ -145,27 +115,12 @@ namespace Teardrop
 		DECLARE_GFX_ALLOCATOR();
 
 	private:
-		unsigned int m_diffuse;
-		unsigned int m_specular;
-		unsigned int m_ambient;
-		unsigned int m_emissive;
 		__int64 m_hashCode; // used for shader lookups
-		bool m_bColorWrite;
-		bool m_bDepthWrite;
 		bool m_bStencilWrite;
-		bool m_bVertexColors;
-		bool m_bDepthCheck;
 		bool m_bStencilCheck;
-		bool m_bDepthFunc;
 		bool m_bHasAllTextures;
-		bool m_bAlphaBlend;
 		unsigned char m_numLights;
 		unsigned short m_special; // to flag different custom shaders
-		CullMode m_cullMode;
-		FillMode m_fillMode;
-		unsigned char m_depthBias;
-		char m_reserved[1];
-
 		
 		SerialPointerArray<GfxTextureStage> m_pTextureStages;
 

@@ -27,6 +27,7 @@ PropertyDef::PropertyDef()
 	m_bPointer = 0;
 	m_bCollection = 0;
 	m_bBoolean = 0;
+	m_bEnum = 0;
 }
 //-----------------------------------------------------------------------------
 PropertyDef::~PropertyDef()

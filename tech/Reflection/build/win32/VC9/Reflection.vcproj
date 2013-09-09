@@ -154,15 +154,15 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\PropertyDef.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Reflection.cpp"
-			>
-		</File>
-		<File
 			RelativePath="..\..\..\ClassDef.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\EnumDef.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\EnumDef.h"
 			>
 		</File>
 		<File
@@ -170,7 +170,15 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\PropertyDef.cpp"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\PropertyDef.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Reflection.cpp"
 			>
 		</File>
 		<File

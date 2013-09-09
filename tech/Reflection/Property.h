@@ -137,6 +137,53 @@ namespace Teardrop
 			}
 		};
 
+		/*
+			Base templated pointer property definition class. This is where the actual
+			pointer field is declared inside the containing class (via the PROPERTY family
+			of macros). 
+		*/
+		template<typename T>
+		class EnumPropertyDefImpl
+		{
+			T mVal;
+
+		public:
+			EnumPropertyDefImpl()
+			{
+			}
+
+			EnumPropertyDefImpl(T val)
+			{
+				mVal = val;
+			}
+
+			EnumPropertyDefImpl(const EnumPropertyDefImpl<T>& other)
+			{
+				*this = other;
+			}
+
+			EnumPropertyDefImpl<T>& operator=(const EnumPropertyDefImpl<T>& other)
+			{
+				mVal = other.mVal;
+				return *this;
+			}
+
+			operator T()
+			{
+				return mVal;
+			}
+
+			T get()
+			{
+				return mVal;
+			}
+
+			void set(T val)
+			{
+				mVal = val;
+			}
+		};
+
 		class CollectionPropertyBase
 		{
 		public:

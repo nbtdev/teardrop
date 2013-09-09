@@ -53,6 +53,11 @@ bool QtPropertyGridItem::isReadOnly() const
 	return mProp!=0 && strstr(mProp->getEditor(), "ReadOnly")!=0;
 }
 
+bool QtPropertyGridItem::isEnum() const
+{
+	return mProp!=0 && mProp->isEnum();
+}
+
 QtPropertyGridItem* QtPropertyGridItem::parent() const
 {
 	return mParent;
@@ -98,6 +103,19 @@ QString QtPropertyGridItem::valueAsString() const
 		if (mProp->isPointer() && mAltValue.length()) {
 			// rather than the UUID, display the path
 			sVal = mAltValue.toLatin1().data();
+		}
+		else if (isEnum()) {
+			int eVal;
+			mProp->getData(mObject, &eVal);
+
+			Reflection::ClassDef* classDef = mObject->getDerivedClassDef();
+			const Reflection::EnumDef* enumDef = classDef->findEnum(mProp->getTypeName(), true);
+			if (enumDef) {
+				const Reflection::EnumValue* enumVal = enumDef->findByValue(eVal);
+				if (enumVal) {
+					sVal = enumVal->id();
+				}
+			}
 		}
 		else {
 			mProp->getDataAsString(mObject, sVal);

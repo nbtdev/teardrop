@@ -14,6 +14,7 @@ namespace Teardrop
 	{
 		class Object;
 		class PropertyDef;
+		class EnumDef;
 
 		/*
 			Base object in reflective object hierarchy
@@ -22,9 +23,9 @@ namespace Teardrop
 		{
 			const char* m_pName;
 			const char* m_pBaseClassName;
-			//ClassDef* m_pBaseClassDef;
 			unsigned __int64 m_classId;
 			PropertyDef* m_pProps;
+			EnumDef* m_pEnums;
 			ClassDef* m_pBaseClass;
 			unsigned int m_numProps;
 			bool m_bCreatable;
@@ -35,6 +36,7 @@ namespace Teardrop
 			virtual ~ClassDef();
 			void setCreatable();
 			void addProperty(PropertyDef* pProp);
+			void addEnum(EnumDef* pEnum);
 			virtual Object* createInstance() const = 0;
 
 			bool isCreatable() const { return m_bCreatable; }
@@ -46,6 +48,8 @@ namespace Teardrop
 			const PropertyDef* getProps() const { return m_pProps; }
 			const PropertyDef* findProperty(const char* pPropName, bool deep=false);
 			const PropertyDef* findPropertyById(int propId) const;
+			const EnumDef* getEnums() const { return m_pEnums; }
+			const EnumDef* findEnum(const char* pEnumName, bool deep=false);
 
 			static ClassDef* findClassDef(const char* pClassName);
 			static ClassDef* getClasses();

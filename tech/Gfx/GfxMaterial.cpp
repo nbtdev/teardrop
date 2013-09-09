@@ -20,16 +20,20 @@ is prohibited.
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 TD_CLASS_IMPL(GfxMaterial);
+TD_ENUM(GfxMaterial, CullMode, "Set culling mode for objects rendered with this material");
+TD_ENUM_VALUE(GfxMaterial, CullMode, CULL_NONE, "No culling (double-sided rendering)");
+TD_ENUM_VALUE(GfxMaterial, CullMode, CULL_CCW, "Counter-clockwise culling [default]");
+TD_ENUM_VALUE(GfxMaterial, CullMode, CULL_CW, "Clockwise culling");
+TD_ENUM(GfxMaterial, FillMode, "Set polygon fill mode for objects rendered with this material");
+TD_ENUM_VALUE(GfxMaterial, FillMode, FILLMODE_NONE, "No fill");
+TD_ENUM_VALUE(GfxMaterial, FillMode, FILLMODE_POINT, "Render vertices only");
+TD_ENUM_VALUE(GfxMaterial, FillMode, FILLMODE_WIREFRAME, "Render edges only");
+TD_ENUM_VALUE(GfxMaterial, FillMode, FILLMODE_SOLID, "Render solid polygons [default]");
 //---------------------------------------------------------------------------
 const size_t MAX_TEXTURE_STAGES = 8;
 //---------------------------------------------------------------------------
 GfxMaterial::GfxMaterial()
 {
-//	memset(this, 0, sizeof(GfxMaterial));
-	m_cullMode = CULL_CCW;
-	m_fillMode = FILLMODE_SOLID;
-	m_bDepthCheck = true;
-	m_bDepthWrite = true;
 }
 //---------------------------------------------------------------------------
 GfxMaterial::GfxMaterial(int i) 
@@ -177,56 +181,6 @@ bool GfxMaterial::setTextureStage(size_t index, bool bEnabled)
 	return true;
 }
 ////---------------------------------------------------------------------------
-//unsigned int GfxMaterial::getDiffuse() const
-//{
-//	return m_diffuse;
-//}
-////---------------------------------------------------------------------------
-//unsigned int GfxMaterial::getAmbient() const
-//{
-//	return m_ambient;
-//}
-////---------------------------------------------------------------------------
-//unsigned int GfxMaterial::getSpecular() const
-//{
-//	return m_specular;
-//}
-////---------------------------------------------------------------------------
-//unsigned int GfxMaterial::getEmissive() const
-//{
-//	return m_emissive;
-//}
-////---------------------------------------------------------------------------
-//bool GfxMaterial::isAlphaBlended() const
-//{
-//	return m_bAlphaBlend;
-//}
-////---------------------------------------------------------------------------
-//bool GfxMaterial::getDepthCheck() const
-//{
-//	return m_bDepthCheck;
-//}
-////---------------------------------------------------------------------------
-//bool GfxMaterial::getDepthWrite() const
-//{
-//	return m_bDepthWrite;
-//}
-////---------------------------------------------------------------------------
-//unsigned char GfxMaterial::getDepthBias() const
-//{
-//	return m_depthBias;
-//}
-////---------------------------------------------------------------------------
-//bool GfxMaterial::getColorWrite() const
-//{
-//	return m_bColorWrite;
-//}
-////---------------------------------------------------------------------------
-//bool GfxMaterial::getVertexColors() const
-//{
-//	return m_bVertexColors;
-//}
-////---------------------------------------------------------------------------
 //bool GfxMaterial::isLit() const
 //{
 //	return (m_numLights > 0);
@@ -237,16 +191,6 @@ size_t GfxMaterial::getNumLights() const
 	return m_numLights;
 }
 //---------------------------------------------------------------------------
-GfxMaterial::CullMode GfxMaterial::getCullMode() const
-{
-	return m_cullMode;
-}
-//---------------------------------------------------------------------------
-GfxMaterial::FillMode GfxMaterial::getFillMode() const
-{
-	return m_fillMode;
-}
-//---------------------------------------------------------------------------
 GfxMaterial::CustomShader GfxMaterial::getCustomShader() const
 {
 	return (CustomShader)m_special;
@@ -254,72 +198,12 @@ GfxMaterial::CustomShader GfxMaterial::getCustomShader() const
 //---------------------------------------------------------------------------
 bool GfxMaterial::isTransparent() const
 {
-	return (m_bDepthCheck && !m_bDepthWrite || m_bAlphaBlend);
+	return (___DepthCheck && !___DepthWrite || ___AlphaBlending);
 }
-////---------------------------------------------------------------------------
-//void GfxMaterial::setDiffuse(unsigned int c)
-//{
-//	m_diffuse = c;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setAmbient(unsigned int c)
-//{
-//	m_ambient = c;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setSpecular(unsigned int c)
-//{
-//	m_specular = c;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setEmissive(unsigned int c)
-//{
-//	m_emissive = c;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setAlphaBlended(bool bBlend)
-//{
-//	m_bAlphaBlend = bBlend;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setDepthCheck(bool bEnabled)
-//{
-//	m_bDepthCheck = bEnabled;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setDepthWrite(bool bEnabled)
-//{
-//	m_bDepthWrite = bEnabled;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setDepthBias(unsigned char bias)
-//{
-//	m_depthBias = bias;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setColorWrite(bool bEnabled)
-//{
-//	m_bColorWrite = bEnabled;
-//}
-////---------------------------------------------------------------------------
-//void GfxMaterial::setVertexColors(bool bEnabled)
-//{
-//	m_bVertexColors = bEnabled;
-//}
 //---------------------------------------------------------------------------
 void GfxMaterial::setNumLights(unsigned int numLights)
 {
 	m_numLights = unsigned char(numLights);
-}
-//---------------------------------------------------------------------------
-void GfxMaterial::setCullMode(CullMode culling)
-{
-	m_cullMode = culling;
-}
-//---------------------------------------------------------------------------
-void GfxMaterial::setFillMode(FillMode fillMode)
-{
-	m_fillMode = fillMode;
 }
 //---------------------------------------------------------------------------
 void GfxMaterial::setCustomShader(CustomShader shader)
@@ -407,7 +291,7 @@ void GfxMaterial::recalcHashCode()
 	}
 
 	// vertex colors
-	if (m_bVertexColors)
+	if (getVertexColors())
 	{
 		hash |= ((unsigned int)1 << 19);
 	}

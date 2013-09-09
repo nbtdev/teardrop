@@ -9,6 +9,7 @@ is prohibited.
 #include "QtPropertyGridItem.h"
 #include <QLineEdit>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QPainter>
 #include <QColorDialog>
 #include "Reflection/Reflection.h"
@@ -48,13 +49,37 @@ QWidget* QtPropertyGridDelegate::createEditor(QWidget* parent, const QStyleOptio
 {
 	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
 	if (item) {
+		const Reflection::PropertyDef* prop = item->property();
+		Reflection::Object* obj = item->object();
+
 		if (item->isBoolean())
 			return new QCheckBox(parent);
+		else if (item->isEnum()) {
+			int eVal;
+			prop->getData(obj, &eVal);
 
-		const Reflection::PropertyDef* prop = item->property();
+			// make a combo box and fill it with the enum values
+			QComboBox* cb = new QComboBox(parent);
+			Reflection::ClassDef* classDef = obj->getDerivedClassDef();
+			const Reflection::EnumDef* enumDef = classDef->findEnum(prop->getTypeName(), true);
+			const Reflection::EnumValue* enumVal = enumDef->values();
+			
+			int selectedIdx = -1;
+			while (enumVal) {
+				cb->addItem(enumVal->id(), QVariant(enumVal->value()));
+				
+				int idx = cb->count()-1;
+				if (enumVal->value() == eVal)
+					selectedIdx = idx;
+				
+				enumVal = enumVal->next();
+			}
+
+			cb->setCurrentIndex(selectedIdx);
+			return cb;
+		}
+
 		if (prop) {
-			Reflection::Object* obj = item->object();
-
 			if (obj && String("ColorEditor") == prop->getEditor()) {
 				QColorDialog* dlg = new QColorDialog;
 				dlg->setOption(QColorDialog::ShowAlphaChannel, true);
@@ -81,6 +106,9 @@ void QtPropertyGridDelegate::setEditorData(QWidget* editor, const QModelIndex& i
 				QCheckBox* cb = static_cast<QCheckBox*>(editor);
 				cb->setCheckState(b ? Qt::Checked : Qt::Unchecked);
 			}
+		}
+		else if (item->isEnum()) {
+
 		}
 		else if (String("ColorEditor") == prop->getEditor()) {
 			Vector4 color;
@@ -110,6 +138,11 @@ void QtPropertyGridDelegate::setModelData(QWidget* editor, QAbstractItemModel* m
 			QCheckBox* cb = static_cast<QCheckBox*>(editor);
 			bool b = cb->checkState() == Qt::Checked;
 			model->setData(index, b, Qt::EditRole);
+		}
+		else if (item->isEnum()) {
+			QComboBox* cb = static_cast<QComboBox*>(editor);
+			QVariant val = cb->itemData(cb->currentIndex());
+			model->setData(index, val, Qt::EditRole);
 		}
 		else if (prop && obj && String("ColorEditor") == prop->getEditor()) {
 			QColor qc;

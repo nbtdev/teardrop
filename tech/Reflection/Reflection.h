@@ -199,7 +199,7 @@ namespace Teardrop
 		{ \
 			t##propName##Type() \
 			{ \
-			static t##propName##Initializer s_t##propName##Initializer(propDesc, #propDef, #propEditor); \
+				static t##propName##Initializer s_t##propName##Initializer(propDesc, #propDef, #propEditor); \
 				set(propDef); \
 			} \
 		}; \
@@ -299,9 +299,39 @@ namespace Teardrop
 	public: \
 		t##propName##Type& get##propName() { return ___##propName; } \
 
+#define TD_ENUM_PROPERTY(propName, propDesc, propType, propDef) \
+	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor, EnumProperty) \
+	public: \
+		propType get##propName() { return ___##propName.get(); } \
+		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
+
+// this is hacky and ugly and needs to be done right at some point, if even possible...
+#define TD_ENUM(c, enumName, enumDesc) \
+	static Reflection::EnumDef* get##enumName##Def() \
+	{ \
+	static Reflection::EnumDef sEnum(#enumName, #enumDesc); \
+		return &sEnum; \
+	} \
+	static struct __##enumName##EnumInitializer \
+	{ \
+		__##enumName##EnumInitializer() { \
+			Reflection::EnumDef* enumDef = get##enumName##Def(); \
+			c::getClassDef()->addEnum(enumDef); \
+		} \
+	} s__##enumName##EnumInitializer; \
+
+#define TD_ENUM_VALUE(c, enumName, enumValue, enumValueDesc) \
+	static struct c##enumValue##Initializer { \
+		c##enumValue##Initializer() {\
+			static Reflection::EnumValue enumVal(#enumValue, enumValueDesc, c::enumValue); \
+			get##enumName##Def()->addValue(&enumVal); \
+		} \
+	} s_c##enumValue##Initializer;\
+
 #include "Reflection/ClassDef.h"
 #include "Reflection/PropertyDef.h"
-//#include "Reflection/Enum.h"
+#include "Reflection/EnumDef.h"
+
 namespace Teardrop
 {
 	typedef int Int32;

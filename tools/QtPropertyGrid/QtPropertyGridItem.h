@@ -49,6 +49,8 @@ namespace Teardrop {
 			bool isBoolean() const;
 			// return whether this property is read-only by definition
 			bool isReadOnly() const;
+			// return true if this is an enum type
+			bool isEnum() const;
 
 		private:
 			Reflection::Object* mObject;

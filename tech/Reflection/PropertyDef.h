@@ -37,6 +37,7 @@ namespace Teardrop
 			bool isCollection() const { return (0 != m_bCollection); }
 			bool isComplex() const { return (0 != m_bComplex); }
 			bool isBoolean() const { return (0 != m_bBoolean); }
+			bool isEnum() const { return (0 != m_bEnum); }
 
 			void setName(const char* name) { m_pName = name; }
 			void setTypeName(const char* pTypeName) { m_pTypeName = pTypeName; }
@@ -64,6 +65,7 @@ namespace Teardrop
 			size_t m_bCollection;
 			size_t m_bComplex;
 			size_t m_bBoolean;
+			size_t m_bEnum;
 			const char* m_pName;
 			const char* m_pTypeName;
 			const char* m_pEditor;
@@ -149,7 +151,6 @@ namespace Teardrop
 			}
 		};
 
-
 		template<class _T>
 		class PointerProperty : public PropertyDef
 		{
@@ -200,6 +201,86 @@ namespace Teardrop
 			{
 				PointerPropertyDefImpl<_T>* pProp = (PointerPropertyDefImpl<_T>*)((unsigned long)pSrc + m_offset);
 				PointerPropertyDefImpl<_T>* pOtherProp = (PointerPropertyDefImpl<_T>*)((unsigned long)pDest + m_offset);
+				*pOtherProp = *pProp;
+			}
+		};
+
+		template<typename T>
+		class EnumProperty : public PropertyDef
+		{
+		public:
+			EnumProperty(const char* pPropName, const char* pTypeName, unsigned int offset)
+				: PropertyDef()
+			{
+				m_pTypeName = pTypeName;
+				m_pName = pPropName;
+				m_offset = offset;
+				m_bEnum = 1;
+				setMetaFlags();
+			}
+
+			void setDataFromString(Object* pObj, const String& str, int /*index=-1*/) const
+			{
+				// pull value from our list of possible values
+				ClassDef* classDef = pObj->getDerivedClassDef();
+				const EnumDef* enumDef = classDef->findEnum(m_pTypeName);
+				if (enumDef) {
+					const EnumValue* enumVal = enumDef->values();
+					while (enumVal) {
+						if (String(enumVal->id()) == str) {
+							EnumPropertyDefImpl<T>* pProp = (EnumPropertyDefImpl<T>*)((unsigned long)pObj + m_offset);
+							*pProp = (T)enumVal->value();
+							pObj->notifyPropertyChanged(this);
+						}
+
+						enumVal = enumVal->next();
+					}
+				}
+			}
+
+			void setData(Object* pObj, const void* v) const
+			{
+				EnumPropertyDefImpl<T>* pProp = (EnumPropertyDefImpl<T>*)((unsigned long)pObj + m_offset);
+				int val = *((int*)v);
+				*pProp = (T)val;
+				pObj->notifyPropertyChanged(this);
+			}
+
+			void getData(const Object* pObj, const void* v) const
+			{
+				EnumPropertyDefImpl<T>& prop = *((EnumPropertyDefImpl<T>*)((unsigned long)pObj + m_offset));
+				int* val = (int*)v;
+				*val = int(prop);
+			}
+
+			const void* getDataPointer(const Object* pObj) const
+			{
+				return (const void*)((unsigned long)pObj + m_offset);
+			}
+
+			void getDataAsString(const Object* pObj, String& sVal) const
+			{
+				EnumPropertyDefImpl<T>& prop = *((EnumPropertyDefImpl<T>*)((unsigned long)pObj + m_offset));
+				T val = prop;
+
+				ClassDef* classDef = pObj->getDerivedClassDef();
+				const EnumDef* enumDef = classDef->findEnum(m_pTypeName);
+				if (enumDef) {
+					const EnumValue* enumVal = enumDef->values();
+					while (enumVal) {
+						if (enumVal->value() == val) {
+							sVal = enumVal->id();
+						}
+
+						enumVal = enumVal->next();
+					}
+				}
+			}
+
+			void copyTo(Object* pDest, const Object* pSrc) const
+			{
+				EnumPropertyDefImpl<T>* pProp = (EnumPropertyDefImpl<T>*)((unsigned long)pSrc + m_offset);
+				EnumPropertyDefImpl<T>* pOtherProp = (EnumPropertyDefImpl<T>*)((unsigned long)pDest + m_offset);
 				*pOtherProp = *pProp;
 			}
 		};

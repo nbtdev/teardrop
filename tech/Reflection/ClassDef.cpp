@@ -7,6 +7,7 @@ is prohibited.
 
 #include "ClassDef.h"
 #include "PropertyDef.h"
+#include "EnumDef.h"
 #include "Memory/Memory.h"
 #include "Util/Hash.h"
 #include <string.h>
@@ -62,7 +63,6 @@ ClassDef* ClassDef::findClassDef(const char* pClassName)
 	return 0;
 }
 //---------------------------------------------------------------------------
-//ClassDef::ClassDef(const char* pName, ClassDef* pBaseClassDef)
 ClassDef::ClassDef(const char* pName, const char* pBaseClassName)
 {
 	m_pName = pName;
@@ -71,6 +71,7 @@ ClassDef::ClassDef(const char* pName, const char* pBaseClassName)
 	m_bCreatable = false;
 	m_pNext = 0;
 	m_pProps = 0;
+	m_pEnums = 0;
 	m_numProps = 0;
 	m_classId = hashString64(pName);
 	appendClassDef(&s_pRoot, this);
@@ -111,6 +112,14 @@ void ClassDef::addProperty(PropertyDef* pProp)
 	pTmp->m_pNext = pProp;
 	pProp->setId(m_numProps++);
 }
+//---------------------------------------------------------------------------
+void ClassDef::addEnum(EnumDef* pEnum)
+{
+	EnumDef** ppEnum = &m_pEnums;
+
+	while (*ppEnum) ppEnum = &((*ppEnum)->mNext);
+	*ppEnum = pEnum;
+}
 //-----------------------------------------------------------------------------
 const PropertyDef* ClassDef::findProperty(const char* pPropName, bool deep)
 {
@@ -141,6 +150,44 @@ const PropertyDef* ClassDef::findProperty(const char* pPropName, bool deep)
 					return pProp;
 
 				pProp = pProp->m_pNext;
+			}
+
+			pClass = pClass->getBaseClass();
+		}
+	}
+
+	return 0;
+}
+//-----------------------------------------------------------------------------
+const EnumDef* ClassDef::findEnum(const char* pEnumName, bool deep)
+{
+	// walk the list to find the enum
+	EnumDef* pTmp = m_pEnums;
+	while (pTmp)
+	{
+		if (strcmp(pEnumName, pTmp->name()) == 0)
+			return pTmp;
+
+		pTmp = pTmp->mNext;
+	}
+
+	// if deep, search the superclasses too; expensive, is why it defaults to false
+	if (deep)
+	{
+		if (!m_pBaseClass)
+			m_pBaseClass = findClassDef(m_pBaseClassName);
+
+		ClassDef* pClass = m_pBaseClass;
+
+		while (pClass)
+		{
+			const EnumDef* pEnum = pClass->getEnums();
+			while (pEnum)
+			{
+				if (strcmp(pEnumName, pEnum->name()) == 0)
+					return pEnum;
+
+				pEnum = pEnum->mNext;
 			}
 
 			pClass = pClass->getBaseClass();

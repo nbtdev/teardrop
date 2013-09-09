@@ -176,7 +176,13 @@ bool QtPropertyGridModel::setData(const QModelIndex &index, const QVariant &valu
 
 		if (prop && obj) {
 			if (role == Qt::EditRole) {
-				prop->setDataFromString(obj, value.toString().toLatin1().data());
+				if (item->isEnum()) {
+					int val = value.toInt();
+					prop->setData(obj, &val);
+				}
+				else {
+					prop->setDataFromString(obj, value.toString().toLatin1().data());
+				}
 			}
 			else if (role == Qt::CheckStateRole) {
 				if (item->isBoolean()) {
