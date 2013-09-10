@@ -257,7 +257,7 @@ Qt::ItemFlags QtPropertyGridModel::flags(const QModelIndex& index) const
 				f &= ~(Qt::ItemIsEnabled);
 				f |= Qt::ItemIsDropEnabled;
 			}
-			else {
+			else if (!item->isGroup()) {
 				f |= Qt::ItemIsEditable;
 			}
 			
