@@ -98,14 +98,18 @@ bool TerrainZone::initialize(World* pWorld)
 		pStage->setTexture(0, 
 			env.pResourceMgr->acquire(GfxTexture::RESOURCE_TYPE, colorMap));
 		pStage->setEnabled(true);
-		pStage->setLayerBlendMode(GfxTextureStage::MODULATE);
-		pStage->setFilter(GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR);
+		pStage->setBlendMode(GfxTextureStage::BLENDMODE_MODULATE);
+		pStage->setMinFilter(GfxTextureStage::FILTER_BILINEAR);
+		pStage->setMagFilter(GfxTextureStage::FILTER_BILINEAR);
+		pStage->setMipMapFilter(GfxTextureStage::FILTER_BILINEAR);
 		pStage = m_pTerrainMtl->addTextureStage();
 		pStage->setTexture(0, 
 			env.pResourceMgr->acquire(GfxTexture::RESOURCE_TYPE, detailMap));
 		pStage->setEnabled(true);
-		pStage->setLayerBlendMode(GfxTextureStage::MODULATE);
-		pStage->setFilter(GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR);
+		pStage->setBlendMode(GfxTextureStage::BLENDMODE_MODULATE);
+		pStage->setMinFilter(GfxTextureStage::FILTER_BILINEAR);
+		pStage->setMagFilter(GfxTextureStage::FILTER_BILINEAR);
+		pStage->setMipMapFilter(GfxTextureStage::FILTER_BILINEAR);
 
 		// go through the heightfield and create terrain mesh patches
 		size_t x = 0;

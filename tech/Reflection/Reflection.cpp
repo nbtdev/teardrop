@@ -40,7 +40,7 @@ void Object::setupPropertyDefaults()
 	const PropertyDef* pProp = pDef->getProps();
 	while (pProp)
 	{
-		if (!pProp->isCollection())
+		if (!pProp->isCollection() && !pProp->isNested())
 			pProp->setDataFromString(this, String(pProp->getDefault()));
 
 		pProp = pProp->m_pNext;

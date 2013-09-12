@@ -108,9 +108,29 @@ static void serializeObjectToXml(Reflection::Object* obj, String& xml, int ordin
 			TiXmlElement elem("property");
 			elem.SetAttribute("name", prop->getName());
 
-			String sVal;
-			prop->getDataAsString(obj, sVal);
-			elem.SetAttribute("value", sVal);
+			if (prop->isNested()) {
+				// then it's actually an object, so we need to 
+				// get its own classdef and list of properties...
+				Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
+				Reflection::ClassDef* c = o->getDerivedClassDef();
+				const Reflection::PropertyDef* pd = c->getProps();
+				while (pd) {
+					TiXmlElement np("property");
+					np.SetAttribute("name", pd->getName());
+
+					// only support a single level of nesting, for now
+					String sVal;
+					pd->getDataAsString(o, sVal);
+					np.SetAttribute("value", sVal);
+					elem.InsertEndChild(np);
+					pd = pd->m_pNext;
+				}
+			}
+			else {
+				String sVal;
+				prop->getDataAsString(obj, sVal);
+				elem.SetAttribute("value", sVal);
+			}
 
 			object.InsertEndChild(elem);
 			prop = prop->m_pNext;
@@ -297,18 +317,48 @@ static Reflection::Object* deserializeObjectFromXml(const char* xml, const std::
 					const char* name = propElem->Attribute("name");
 					const char* value = propElem->Attribute("value");
 					const Reflection::PropertyDef* prop = classDef->findProperty(name, true);
-					if (prop && value) {
-						if (prop->isPointer()) {
-							// pointers have to wait until all objects are loaded so that
-							// they are available for resolution
-							DeferredResolution def;
-							def.mObject = obj;
-							def.mProp = prop;
-							def.mUUID.fromString(value);
-							deferred.push_back(def);
+					if (prop) {
+						if (value) {
+							if (prop->isPointer()) {
+								// pointers have to wait until all objects are loaded so that
+								// they are available for resolution
+								DeferredResolution def;
+								def.mObject = obj;
+								def.mProp = prop;
+								def.mUUID.fromString(value);
+								deferred.push_back(def);
+							}
+							else {
+								prop->setDataFromString(obj, value);
+							}
 						}
-						else {
-							prop->setDataFromString(obj, value);
+						else if (prop->isNested()) {
+							// then the property object instance already exists, just 
+							// read in the nested object's property values
+							Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
+							Reflection::ClassDef* c = o->getDerivedClassDef();
+
+							TiXmlElement* np = propElem->FirstChildElement("property");
+							while (np) {
+								const char* pname = np->Attribute("name");
+								const char* pval = np->Attribute("value");
+
+								if (pname && pval) {
+									const Reflection::PropertyDef* pd = c->findProperty(pname);
+									if (pd && pd->isPointer()) {
+										DeferredResolution def;
+										def.mObject = o;
+										def.mProp = pd;
+										def.mUUID.fromString(pval);
+										deferred.push_back(def);
+									}
+									else {
+										pd->setDataFromString(o, pval);
+									}
+								}
+
+								np = np->NextSiblingElement("property");
+							}
 						}
 					}
 

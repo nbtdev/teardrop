@@ -51,6 +51,8 @@ namespace Teardrop {
 			bool isReadOnly() const;
 			// return true if this is an enum type
 			bool isEnum() const;
+			// return true if this is a nested property
+			bool isNested() const;
 
 		private:
 			Reflection::Object* mObject;

@@ -463,7 +463,7 @@ static void addSamplers(
 		GfxTextureStage* pStage = pMtl->getTextureStage(i);
 		HResource hTex = pStage->getTextureHandle();
 
-		if (hTex == INVALID_RESOURCE_HANDLE || !pStage->isEnabled())
+		if (hTex == INVALID_RESOURCE_HANDLE || !pStage->getEnabled())
 		{
 			continue;
 		}
@@ -526,7 +526,7 @@ static void addTextureSampling(
 		// otherwise, insert a sampler call
 		GfxTextureStage* pStage = pMtl->getTextureStage(i);
 		HResource hTex = pStage->getTextureHandle();
-		if (hTex == INVALID_RESOURCE_HANDLE || !pStage->isEnabled())
+		if (hTex == INVALID_RESOURCE_HANDLE || !pStage->getEnabled())
 		{
 			continue;
 		}
@@ -547,17 +547,17 @@ static void addTextureSampling(
 		}
 		else
 		{
-			switch(pStage->getLayerBlendMode())
+			switch(pStage->getBlendMode())
 			{
-			case GfxTextureStage::ADD:
+			case GfxTextureStage::BLENDMODE_ADD:
 				source << "+= ";
 				break;
 
-			case GfxTextureStage::MODULATE:
+			case GfxTextureStage::BLENDMODE_MODULATE:
 				source << "*= ";
 				break;
 
-			case GfxTextureStage::REPLACE:
+			case GfxTextureStage::BLENDMODE_REPLACE:
 				source << "= ";
 				break;
 			}

@@ -79,11 +79,11 @@ GfxRenderState::GfxRenderState(Environment& e)
 	{
 		samplers[i].addrU =
 		samplers[i].addrV =
-		samplers[i].addrW = GfxTextureStage::ADDRMODE_FORCE_SIZE;
+		samplers[i].addrW = GfxTextureStage::ADDRMODE_UNSET;
 
 		samplers[i].magFilter = 
 		samplers[i].minFilter = 
-		samplers[i].mipFilter = GfxTextureStage::FILTER_FORCE_SIZE;
+		samplers[i].mipFilter = GfxTextureStage::FILTER_NONE;
 	}
 
 	// set some variables to match the D3D defaults
@@ -732,8 +732,14 @@ void GfxRenderState::setSampler(unsigned int s, GfxTextureStage* pStage)
 	GfxTextureStage::Filter mn, mg, mp;
 	GfxTextureStage::AddressMode u, v, w;
 
-	pStage->getFilter(mn, mg, mp);
-	pStage->getTextureAddressing(u, v, w);
+	//pStage->getFilter(mn, mg, mp);
+	//pStage->getTextureAddressing(u, v, w);
+	mn = pStage->getMinFilter();
+	mg = pStage->getMagFilter();
+	mp = pStage->getMipMapFilter();
+	u = pStage->getAddressModeU();
+	v = pStage->getAddressModeV();
+	w = pStage->getAddressModeW();
 
 	if (sampler.minFilter != unsigned int(mn))
 	{

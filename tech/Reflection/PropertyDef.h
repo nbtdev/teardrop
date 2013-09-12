@@ -38,6 +38,7 @@ namespace Teardrop
 			bool isComplex() const { return (0 != m_bComplex); }
 			bool isBoolean() const { return (0 != m_bBoolean); }
 			bool isEnum() const { return (0 != m_bEnum); }
+			bool isNested() const { return (0 != m_bNested); }
 
 			void setName(const char* name) { m_pName = name; }
 			void setTypeName(const char* pTypeName) { m_pTypeName = pTypeName; }
@@ -66,6 +67,7 @@ namespace Teardrop
 			size_t m_bComplex;
 			size_t m_bBoolean;
 			size_t m_bEnum;
+			size_t m_bNested;
 			const char* m_pName;
 			const char* m_pTypeName;
 			const char* m_pEditor;
@@ -148,6 +150,52 @@ namespace Teardrop
 					PropertyDefImpl<_T>* pOtherProp = (PropertyDefImpl<_T>*)((unsigned long)pDest + m_offset);
 					*pOtherProp = *pProp;
 				}
+			}
+		};
+
+		template<class _T>
+		class NestedObjectProperty : public PropertyDef
+		{
+		public:
+			NestedObjectProperty(const char* pPropName, const char* pTypeName, unsigned int offset)
+				: PropertyDef()
+			{
+				m_pTypeName = pTypeName;
+				m_pName = pPropName;
+				m_offset = offset;
+				m_bPointer = 0;
+				m_bNested = 1;
+				setMetaFlags();
+			}
+
+			void setDataFromString(Object* /*pObj*/, const String& /*pVal*/, int /*index=-1*/) const
+			{
+				// cannot set or get data on a nested property, nor makes copies
+			}
+
+			void setData(Object* /*pObj*/, const void* /*val*/) const
+			{
+				// cannot set or get data on a nested property, nor makes copies
+			}
+
+			void getData(const Object* /*pObj*/, const void* /*val*/) const
+			{
+				// cannot set or get data on a nested property, nor makes copies
+			}
+
+			const void* getDataPointer(const Object* pObj) const
+			{
+				return (const void*)((unsigned long)pObj + m_offset);
+			}
+
+			void getDataAsString(const Object* /*pObj*/, String& /*sVal*/) const
+			{
+				// cannot set or get data on a nested property, nor makes copies
+			}
+
+			void copyTo(Object* /*pDest*/, const Object* /*pSrc*/) const
+			{
+				// cannot set or get data on a nested property, nor makes copies
 			}
 		};
 

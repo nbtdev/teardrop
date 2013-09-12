@@ -115,8 +115,12 @@ bool FlashElement::initialize(
 
 	// we need to create a texture to hold the rendered Flash movie blits
 	GfxTextureStage* pStage = m_pMtl->addTextureStage();
-	pStage->setFilter(GfxTextureStage::NEAREST, GfxTextureStage::NEAREST, GfxTextureStage::NEAREST);
-	pStage->setTextureAddressing(GfxTextureStage::CLAMP, GfxTextureStage::CLAMP, GfxTextureStage::CLAMP);
+	pStage->setMinFilter(GfxTextureStage::FILTER_NEAREST);
+	pStage->setMagFilter(GfxTextureStage::FILTER_NEAREST);
+	pStage->setMipMapFilter(GfxTextureStage::FILTER_NEAREST);
+	pStage->setAddressModeU(GfxTextureStage::ADDRMODE_CLAMP);
+	pStage->setAddressModeV(GfxTextureStage::ADDRMODE_CLAMP);
+	pStage->setAddressModeW(GfxTextureStage::ADDRMODE_CLAMP);
 	pStage->setEnabled(true);
 
 	// create a texture of sufficient size and depth (RGBA)

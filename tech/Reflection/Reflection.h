@@ -233,6 +233,31 @@ namespace Teardrop
 		}; \
 		t##propName##Type ___##propName; \
 
+#define TD_NESTED_PROPERTY_BASE(propName, propDesc, propType) \
+	protected: \
+		static Reflection::NestedObjectProperty<propType>* get##propName##Def() \
+		{ \
+			static Reflection::NestedObjectProperty<propType> sProp(#propName, #propType, (unsigned int)offsetof(tClass, ___##propName)); \
+			return &sProp; \
+		} \
+		struct t##propName##Initializer \
+		{ \
+			t##propName##Initializer(const char* desc) \
+			{ \
+				Reflection::NestedObjectProperty<propType>* sProp = get##propName##Def(); \
+				sProp->setDescription(desc); \
+				getClassDef()->addProperty(sProp); \
+			} \
+		}; \
+		struct t##propName##Type : public Reflection::NestedPropertyDefImpl< propType > \
+		{ \
+			t##propName##Type() \
+			{ \
+				static t##propName##Initializer s_t##propName##Initializer(propDesc); \
+			} \
+		}; \
+		t##propName##Type ___##propName; \
+
 #define TD_VECTOR_PROPERTY_BASE(propName, propDesc, baseType, propType, propDef, propEditor) \
 	protected: \
 		struct t##propName##Initializer \
@@ -270,7 +295,12 @@ namespace Teardrop
 	TD_COMPLEX_TYPE_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
 	public: \
 		propType& get##propName() { return ___##propName.get(); } \
-		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
+		void set##propName(const propType& __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
+
+#define TD_NESTED_PROPERTY(propName, propDesc, propType) \
+	TD_NESTED_PROPERTY_BASE(propName, propDesc, propType) \
+	public: \
+		propType& get##propName() { return ___##propName.get(); } \
 
 #define TD_POINTER_PROPERTY(propName, propDesc, propType) \
 	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, ObjectBrowser, PointerProperty) \

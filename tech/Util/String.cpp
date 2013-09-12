@@ -96,6 +96,11 @@ String& String::operator=(const String& other)
 //---------------------------------------------------------------------------
 String& String::operator=(const char* other)
 {
+	if (other == 0) {
+		clear();
+		return *this;
+	}
+
 	size_t otherLen = strlen(other);
 
 	if (otherLen > m_len)
@@ -167,7 +172,7 @@ bool String::operator==(const String& other) const
 //---------------------------------------------------------------------------
 bool String::operator==(const char* other) const
 {
-	return (0 == strcmp(m_pBuf, other));
+	return (0 != other && 0 == strcmp(m_pBuf, other));
 }
 //---------------------------------------------------------------------------
 bool String::operator!=(const String& other) const

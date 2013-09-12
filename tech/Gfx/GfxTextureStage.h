@@ -8,23 +8,22 @@ is prohibited.
 #if !defined(TDGFXTEXTURESTAGE_INCLUDED)
 #define TDGFXTEXTURESTAGE_INCLUDED
 
+#include "Reflection/Reflection.h"
+
 namespace Teardrop
 {
 	class GfxTexture;
 	class GfxMaterial;
 	struct Environment;
 	class ResourceSerializer;
+	class TextureAsset;
 
-	class GfxTextureStage
+	class GfxTextureStage : public Reflection::Object
 	{
-		DECLARE_SERIALIZABLE(GfxTextureStage);
-
 	public:
-		//! normal c'tor (cannot fail)
+		TD_CLASS(GfxTextureStage, Object);
+
 		GfxTextureStage();
-		//! placement c'tor (cannot fail)
-		GfxTextureStage(int);
-		//! d'tor (cannot fail)
 		~GfxTextureStage();
 
 		//! initialize the texture stage (anything that can fail)
@@ -34,32 +33,26 @@ namespace Teardrop
 
 		enum Filter
 		{
-			NONE=0,
-			NEAREST,
-			BILINEAR,
-			ANISOTROPIC,
-
-			FILTER_FORCE_SIZE=0x000000FF,
+			FILTER_NONE=0,
+			FILTER_NEAREST,
+			FILTER_BILINEAR,
+			FILTER_ANISOTROPIC,
 		};
 
 		enum AddressMode
 		{
-			UNSET=0,
-			WRAP,
-			MIRROR,
-			CLAMP,
-			BORDER,
-
-			ADDRMODE_FORCE_SIZE=0x000000FF,
+			ADDRMODE_UNSET=0,
+			ADDRMODE_WRAP,
+			ADDRMODE_MIRROR,
+			ADDRMODE_CLAMP,
+			ADDRMODE_BORDER,
 		};
 
 		enum BlendMode
 		{
-			REPLACE=0,
-			MODULATE,
-			ADD,
-
-			BLENDMODE_FORCE_SIZE=0x000000FF,
+			BLENDMODE_REPLACE=0,
+			BLENDMODE_MODULATE,
+			BLENDMODE_ADD,
 		};
 
 		// map hints
@@ -74,9 +67,19 @@ namespace Teardrop
 			MAP_IRRADIANCE,
 			MAP_ENVIRONMENT,
 			MAP_DISPLACEMENT,
-
-			HINT_FORCE_SIZE=0x000000FF,
 		};
+
+		TD_POINTER_PROPERTY(TextureAsset, "Reference to texture asset to sample", TextureAsset);
+		TD_PROPERTY(Enabled, "Enable/disable this texture stage", bool, true, 0);
+		TD_PROPERTY(TexCoordSet, "Which texture coordinate set to use on the object rendered with this texture stage", int, 0, 0);
+		TD_ENUM_PROPERTY(MinFilter, "Minimisation filter", Filter, FILTER_NONE);
+		TD_ENUM_PROPERTY(MagFilter, "Magnification filter", Filter, FILTER_NONE);
+		TD_ENUM_PROPERTY(MipMapFilter, "Mipmap filter", Filter, FILTER_NONE);
+		TD_ENUM_PROPERTY(AddressModeU, "U coordinate addressing mode", AddressMode, ADDRMODE_UNSET);
+		TD_ENUM_PROPERTY(AddressModeV, "V coordinate addressing mode", AddressMode, ADDRMODE_UNSET);
+		TD_ENUM_PROPERTY(AddressModeW, "W coordinate addressing mode", AddressMode, ADDRMODE_UNSET);
+		TD_ENUM_PROPERTY(BlendMode, "Layer blending mode", BlendMode, BLENDMODE_REPLACE);
+		TD_ENUM_PROPERTY(MapHint, "Hint as to purpose for this texture stage", MapHint, MAP_UNKNOWN);
 		
 		/** accessors
 		*/
@@ -84,35 +87,11 @@ namespace Teardrop
 		GfxTexture* getTexture();
 		//! return texture
 		HResource getTextureHandle() const;
-		//! return texture filtering settings (minification, magnification, mip)
-		void getFilter(Filter& minFilter, Filter& magFilter, Filter& mipFilter) const;
-		//! return texture addressing modes (U, V, W)
-		void getTextureAddressing(AddressMode& U, AddressMode& V, AddressMode& W) const;
-		//! return layer blend mode
-		BlendMode getLayerBlendMode() const;
-		//! return map usage hint
-		MapHint getMapHint() const;
-		//! check if stage is enabled
-		bool isEnabled() const;
-		//! which texcoord set to use?
-		unsigned int getTexCoordSet() const;
 
 		/** mutators
 		*/
 		//! set stage texture (can be null to disable stage)
 		void setTexture(GfxTexture* pTexture, HResource texHandle);
-		//! set texture filtering (min, mag, mip)
-		void setFilter(Filter minFilter, Filter magFilter, Filter mipFilter);
-		//! set texture addressing modes (U, V, W)
-		void setTextureAddressing(AddressMode U, AddressMode V, AddressMode W);
-		//! set layer blend mode
-		void setLayerBlendMode(BlendMode mode);
-		//! set map usage hint
-		void setMapHint(MapHint hint);
-		//! turn stage on or off
-		void setEnabled(bool bEnabled);
-		//! which texcoord set to use?
-		void setTexCoordSet(unsigned int set);
 
 		/**
 			Serialization

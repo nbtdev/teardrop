@@ -49,8 +49,27 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Ob
 				mRoot->append(group);
 
 				while (prop) {
-					QtPropertyGridItem* propItem = new QtPropertyGridItem(obj, prop, group);
-					group->append(propItem);
+					if (prop->isNested()) {
+						QtPropertyGridItem* nestedProp = new QtPropertyGridItem(obj, prop, group);
+						group->append(nestedProp);
+
+						// add this guy's props
+						Reflection::Object* nestedObj = static_cast<Reflection::Object*>(const_cast<void*>(prop->getDataPointer(obj)));
+						Reflection::ClassDef* nestedClassDef = nestedObj->getDerivedClassDef();
+						const Reflection::PropertyDef* nestedProps = nestedClassDef->getProps();
+
+						// only one level of nesting!
+						while (nestedProps) {
+							QtPropertyGridItem* np = new QtPropertyGridItem(nestedObj, nestedProps, nestedProp);
+							nestedProp->append(np);
+							nestedProps = nestedProps->m_pNext;
+						}
+					} 
+					else {
+						QtPropertyGridItem* propItem = new QtPropertyGridItem(obj, prop, group);
+						group->append(propItem);
+					}
+
 					prop = prop->m_pNext;
 				}
 			}
@@ -129,7 +148,7 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 
 	if (role == Qt::BackgroundColorRole) {
 		if (item) {
-			if (item->isGroup()) {
+			if (item->isGroup() || item->isNested()) {
 				return Qt::gray;
 			}
 		}
@@ -156,8 +175,10 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 			return item->name();
 		else {
 			if (prop) {
-				if (String("ColorEditor") == prop->getEditor())
-					return QString("");
+				if (!prop->isNested()) {
+					if (String("ColorEditor") == prop->getEditor())
+						return QString("");
+				}
 			}
 
 			return item->valueAsString();
@@ -267,7 +288,7 @@ Qt::ItemFlags QtPropertyGridModel::flags(const QModelIndex& index) const
 		}
 	}
 
-	if (item && item->isReadOnly()) {
+	if (item && !item->isNested() && item->isReadOnly()) {
 		f &= ~(Qt::ItemIsEnabled);
 	}
 

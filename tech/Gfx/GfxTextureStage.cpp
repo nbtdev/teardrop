@@ -16,18 +16,35 @@ is prohibited.
 #include <new.h>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxTextureStage);
+TD_CLASS_IMPL(GfxTextureStage);
+TD_ENUM(GfxTextureStage, Filter, "Min/Mag/Mip filter values");
+TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_NONE, "No filtering");
+TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_NEAREST, "Nearest-point filtering");
+TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_BILINEAR, "Bilinear filtering");
+TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_ANISOTROPIC, "Anisotropic filtering");
+TD_ENUM(GfxTextureStage, AddressMode, "Texture addressing modes");
+TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_UNSET, "Not set");
+TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_WRAP, "Wrap addressing");
+TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_MIRROR, "Mirror addressing");
+TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_CLAMP, "Clamp addressing");
+TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_BORDER, "Border addressing");
+TD_ENUM(GfxTextureStage, BlendMode, "Texture layer blending mode");
+TD_ENUM_VALUE(GfxTextureStage, BlendMode, BLENDMODE_REPLACE, "Replace pixels from previous layer");
+TD_ENUM_VALUE(GfxTextureStage, BlendMode, BLENDMODE_MODULATE, "Multiply with pixels in previous layer");
+TD_ENUM_VALUE(GfxTextureStage, BlendMode, BLENDMODE_ADD, "Add to pixels in previous layer");
+TD_ENUM(GfxTextureStage, MapHint, "Hints for how to apply texture map");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_UNKNOWN, "Not set");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_DIFFUSE, "Use map for diffuse colors");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_SPECULAR, "Use texture for specular mapping");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_NORMAL, "Use texture for normal mapping");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_AMBIENT, "Use texture for ambient/occlusion mapping");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_ILLUMINATION, "Use texture for light mapping");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_IRRADIANCE, "Use texture for radiance mapping");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_ENVIRONMENT, "Use texture for environment mapping");
+TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_DISPLACEMENT, "Use texture for displacement mapping");
 //---------------------------------------------------------------------------
 GfxTextureStage::GfxTextureStage()
 {
-	memset(this, 0, sizeof(GfxTextureStage));
-	m_hTexture = INVALID_RESOURCE_HANDLE;
-}
-//---------------------------------------------------------------------------
-GfxTextureStage::GfxTextureStage(int i)
-{
-	UNREFERENCED_PARAMETER(i);
 	m_hTexture = INVALID_RESOURCE_HANDLE;
 }
 //---------------------------------------------------------------------------
@@ -43,7 +60,6 @@ bool GfxTextureStage::initialize()
 //---------------------------------------------------------------------------
 bool GfxTextureStage::destroy()
 {
-	Environment::get().pResourceMgr->release(m_hTexture);
 	return true;
 }
 //---------------------------------------------------------------------------
@@ -66,78 +82,6 @@ void GfxTextureStage::setTexture(GfxTexture* pTexture, HResource texHandle)
 {
 	m_pTexture = pTexture;
 	m_hTexture = texHandle;
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::getFilter(
-	Filter& minFilter, Filter& magFilter, Filter& mipFilter) const
-{
-	minFilter = m_minFilter;
-	magFilter = m_magFilter;
-	mipFilter = m_mipFilter;
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::getTextureAddressing(
-	AddressMode& U, AddressMode& V, AddressMode& W) const
-{
-	U = m_addrU;
-	V = m_addrV;
-	W = m_addrW;
-}
-//---------------------------------------------------------------------------
-unsigned int GfxTextureStage::getTexCoordSet() const
-{
-	return m_texCoordSet;
-}
-//---------------------------------------------------------------------------
-GfxTextureStage::BlendMode GfxTextureStage::getLayerBlendMode() const
-{
-	return m_blendMode;
-}
-//---------------------------------------------------------------------------
-GfxTextureStage::MapHint GfxTextureStage::getMapHint() const
-{
-	return m_mapHint;
-}
-//---------------------------------------------------------------------------
-bool GfxTextureStage::isEnabled() const
-{
-	return (m_enabled == 1);
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::setFilter(
-	Filter minFilter, Filter magFilter, Filter mipFilter)
-{
-	m_minFilter = minFilter;
-	m_magFilter = magFilter;
-	m_mipFilter = mipFilter;
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::setTextureAddressing(
-	AddressMode U, AddressMode V, AddressMode W)
-{
-	m_addrU = U;
-	m_addrV = V;
-	m_addrW = W;
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::setTexCoordSet(unsigned int set)
-{
-	m_texCoordSet = (set == 0xFFFFFFFF) ? 0 : set;
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::setLayerBlendMode(BlendMode mode)
-{
-	m_blendMode = mode;
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::setMapHint(MapHint hint)
-{
-	m_mapHint = hint;
-}
-//---------------------------------------------------------------------------
-void GfxTextureStage::setEnabled(bool bEnabled)
-{
-	m_enabled = bEnabled ? 1 : 0;
 }
 //---------------------------------------------------------------------------
 // we do this because the warning is immaterial -- on all platforms on which 

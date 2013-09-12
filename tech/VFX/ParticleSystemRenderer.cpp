@@ -121,8 +121,10 @@ bool ParticleSystemRenderer::initialize()
 		pStage->setTexture(0, 
 			Environment::get().pResourceMgr->acquire(GfxTexture::RESOURCE_TYPE, texPath));
 		pStage->setEnabled(true);
-		pStage->setLayerBlendMode(GfxTextureStage::MODULATE);
-		pStage->setFilter(GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR, GfxTextureStage::BILINEAR);
+		pStage->setBlendMode(GfxTextureStage::BLENDMODE_MODULATE);
+		pStage->setMinFilter(GfxTextureStage::FILTER_BILINEAR);
+		pStage->setMagFilter(GfxTextureStage::FILTER_BILINEAR);
+		pStage->setMipMapFilter(GfxTextureStage::FILTER_BILINEAR);
 	}
 
 	pMtl->setDepthWrite(false);

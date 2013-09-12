@@ -38,6 +38,11 @@ bool QtPropertyGridItem::isGroup() const
 	return (mObject==0 && mProp==0);
 }
 
+bool QtPropertyGridItem::isNested() const
+{
+	return (mObject!=0 && mProp!=0 && mProp->isNested());
+}
+
 bool QtPropertyGridItem::isBoolean() const 
 {
 	return mProp!=0 && mProp->isBoolean();

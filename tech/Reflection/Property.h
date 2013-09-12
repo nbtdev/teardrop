@@ -61,6 +61,34 @@ namespace Teardrop
 			_T m_val;
 		};
 
+		template <class _T>
+		class NestedPropertyDefImpl
+		{
+		public:
+			NestedPropertyDefImpl()
+			{
+			}
+
+			~NestedPropertyDefImpl()
+			{
+			}
+
+			void toString(String& sVal)
+			{
+			}
+
+			void fromString(const String& sVal)
+			{
+			}
+
+			operator _T& () { return m_val; }
+			operator const _T& () const { return m_val; }
+			_T& get() { return m_val; }
+
+		protected:
+			_T m_val;
+		};
+
 
 		/*
 			Base templated pointer property definition class. This is where the actual

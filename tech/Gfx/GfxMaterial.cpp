@@ -165,7 +165,7 @@ bool GfxMaterial::isTextureStageEnabled(size_t index) const
 		return false;
 	}
 
-	return m_pTextureStages[index]->isEnabled();
+	return m_pTextureStages[index]->getEnabled();
 }
 //---------------------------------------------------------------------------
 bool GfxMaterial::setTextureStage(size_t index, bool bEnabled)
@@ -272,7 +272,7 @@ void GfxMaterial::recalcHashCode()
 	for (size_t i=0; i<m_pTextureStages.size(); ++i)
 	{
 		GfxTextureStage* pStage = m_pTextureStages[i];
-		if (pStage->isEnabled() && pStage->getTexture())
+		if (pStage->getEnabled() && pStage->getTexture())
 		{
 			++numSamplers;
 	
