@@ -149,6 +149,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\FolderDragDropData.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\ObjectDragDropData.cpp"
 				>
 			</File>
@@ -164,6 +168,10 @@
 			>
 			<File
 				RelativePath="..\..\..\DragDropData.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\FolderDragDropData.h"
 				>
 			</File>
 			<File

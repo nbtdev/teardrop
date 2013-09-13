@@ -10,6 +10,7 @@ is prohibited.
 #include "ObjectItem.h"
 #include "QtUtils/TypeChooser.h"
 #include "QtUtils/ObjectDragDropData.h"
+#include "QtUtils/FolderDragDropData.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/Folder.h"
@@ -108,6 +109,10 @@ bool QtPackageExplorer::dropMimeData(QTreeWidgetItem * newParentPtr, int index, 
 void QtPackageExplorer::dropEvent(QDropEvent* event)
 {
 	const QMimeData* mime = event->mimeData();
+	QObjectUserData* od = 0;
+	
+	if (mime)
+		od = mime->userData(0);
 
 	if (mime->hasUrls()) {
 		// dragging a file off of the filesystem
@@ -146,8 +151,16 @@ void QtPackageExplorer::dropEvent(QDropEvent* event)
 			}
 		}
 	}
-	else {
+	else if (od) {
 		// moving a node to another parent in the tree
+		DragDropData* ddd = static_cast<DragDropData*>(od);
+		if (ddd->type() == DragDropData::DDD_OBJECT) {
+			ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
+			oddd->
+		}
+		else if (ddd->type() == DragDropData::DDD_FOLDER) {
+
+		}
 	}
 
 	event->ignore();
@@ -261,8 +274,10 @@ void QtPackageExplorer::mouseMoveEvent(QMouseEvent* event)
 	}
 	else {
 		if (mIsDragging) {
-			if ((event->pos() - mMouseDown).manhattanLength() < 4/*QApplication::startDragDistance()*/)
+			int dist = (event->pos() - mMouseDown).manhattanLength();
+			if (dist < 4/*QApplication::startDragDistance()*/) {
 				return;
+			}
 		}
 		else {
 			mMouseDown = event->pos();
@@ -274,6 +289,8 @@ void QtPackageExplorer::mouseMoveEvent(QMouseEvent* event)
 	PackageExplorerItem* pei = static_cast<PackageExplorerItem*>(itemAt(mMouseDown.x(), mMouseDown.y()));
 
 	if (pei) {
+		DragDropData* ddd = 0;
+
 		if (pei->itemType() == PackageExplorerItem::TYPE_OBJECT) {
 			ObjectItem* oi = static_cast<ObjectItem*>(pei);
 
@@ -285,12 +302,29 @@ void QtPackageExplorer::mouseMoveEvent(QMouseEvent* event)
 			path.append("/");
 			path.append(oi->metadata()->getName());
 
-			ObjectDragDropData* oddd = new ObjectDragDropData(oi->object(), path, 0);
-			onDragStart(oddd);
+			ddd = new ObjectDragDropData(oi->object(), path, 0);
+		}
+		else if (pei->itemType() == PackageExplorerItem::TYPE_FOLDER) {
+			FolderItem* fi = static_cast<FolderItem*>(pei);
+
+			// construct text "path" to folder in hierarchy
+			String path;
+			FolderItem* fip = fi->parent();
+			constructPath(fip, path);
+
+			path.append("/");
+			path.append(fi->folder()->name());
+
+			ddd = new FolderDragDropData(fi->folder(), path, 0);
+		}
+
+		if (ddd) {
+			onDragStart(ddd);
 			mIsDragging = false;
-			// todo: delete when done?
 		}
 	}
+
+	QTreeWidget::mouseMoveEvent(event);
 }
 
 void QtPackageExplorer::onDragStart(DragDropData* ddd)
