@@ -156,10 +156,9 @@ void QtPackageExplorer::dropEvent(QDropEvent* event)
 		DragDropData* ddd = static_cast<DragDropData*>(od);
 		if (ddd->type() == DragDropData::DDD_OBJECT) {
 			ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
-			oddd->
 		}
 		else if (ddd->type() == DragDropData::DDD_FOLDER) {
-
+			FolderDragDropData* oddd = static_cast<FolderDragDropData*>(ddd);
 		}
 	}
 
