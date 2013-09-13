@@ -8,9 +8,7 @@ is prohibited.
 #include "Editor.h"
 #include "Project.h"
 #include "QtPropertyGrid/QtPropertyGrid.h"
-#include "QtPackageExplorer/QtPackageExplorer.h"
-#include "QtPackageExplorer/FolderItem.h"
-#include "QtPackageExplorer/ObjectItem.h"
+#include "QtProjectExplorer/QtProjectExplorer.h"
 #include "PackageManager/Metadata.h"
 #include "Package/Package.h"
 #include "Util/FileSystem.h"
@@ -28,7 +26,7 @@ using namespace Tools;
 Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 	, mPropGrid(0)
-	, mPkgExp(0)
+	, mProjectExp(0)
 	, m3DView(0)
 	, mPropGridDesc(0)
 	, mProject(0)
@@ -43,10 +41,10 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	QWidget* dockContents = new QWidget();
 	QVBoxLayout* vertLayout = new QVBoxLayout(dockContents);
 
-	mPkgExp = new QtPackageExplorer(dockContents);
-	mPkgExp->setHeaderHidden(true);
-	mPkgExp->setRootIsDecorated(true);
-	vertLayout->addWidget(mPkgExp);
+	mProjectExp = new QtProjectExplorer(dockContents);
+	mProjectExp->setHeaderHidden(true);
+	mProjectExp->setRootIsDecorated(true);
+	vertLayout->addWidget(mProjectExp);
 	dock->setWidget(dockContents);
 
 	dock->setWindowTitle("Package Explorer");
@@ -83,18 +81,14 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	dock->setWindowTitle("Classes");
 	addDockWidget(Qt::RightDockWidgetArea, dock);
 
-	connect(mPkgExp, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(onPackageExplorerItemClicked(QTreeWidgetItem*,int)));
 	connect(ui.mCmdNew, SIGNAL(triggered()), this, SLOT(onNew()));
 	connect(ui.mCmdOpen, SIGNAL(triggered()), this, SLOT(onOpen()));
 	connect(ui.mCmdSave, SIGNAL(triggered()), this, SLOT(onSave()));
 	connect(ui.mCmdSaveAs, SIGNAL(triggered()), this, SLOT(onSaveAs()));
 	connect(ui.mCmdPreferences, SIGNAL(triggered()), this, SLOT(onPreferences()));
-	connect(mPkgExp, SIGNAL(beginLongOperation()), this, SLOT(onBeginLongOperation()));
-	connect(mPkgExp, SIGNAL(endLongOperation()), this, SLOT(onEndLongOperation()));
 
 	mProject = new Project;
-	mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
-	mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
+	mProjectExp->setProject(mProject);
 
 	setEditorTitle();
 	mPreferences.load();
@@ -111,18 +105,6 @@ Editor::~Editor()
 	delete mProject;
 }
 
-void Editor::onPackageExplorerItemClicked(QTreeWidgetItem* item, int column)
-{
-	PackageExplorerItem* pkgItem = static_cast<PackageExplorerItem*>(item);
-	if (pkgItem->itemType() == PackageExplorerItem::TYPE_OBJECT) {
-		ObjectItem* objItem = static_cast<ObjectItem*>(item);
-		mPropGrid->setObject(objItem->object(), objItem->metadata());
-	}
-	else {
-		mPropGrid->setObject(0, 0);
-	}
-}
-
 void Editor::onContextMenu(const QPoint& pt)
 {
 
@@ -137,11 +119,10 @@ void Editor::setEditorTitle()
 
 void Editor::onNew()
 {
-	// need to delete the current project and clear all packages from the pkg explorer widget
 	delete mProject;
-	mPkgExp->clearAllPackages();
 	mProject = new Project;
 	setEditorTitle();
+	mProjectExp->setProject(mProject);
 }
 
 void Editor::openProject(const QString& file)
@@ -164,17 +145,8 @@ void Editor::openProject(const QString& file)
 	else {
 		delete mProject;
 		mProject = newProject;
-		mPkgExp->PackageAdded.bind(mProject, &Project::onPackageAdded);
-		mPkgExp->PackageRemoved.bind(mProject, &Project::onPackageRemoved);
-
 		setEditorTitle();
-
-		mPkgExp->clearAllPackages();
-		const Project::PackageManagers& pkgMgrs = mProject->packages();
-		for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
-			mPkgExp->_addPackage(*it);
-		}
-
+		mProjectExp->setProject(mProject);
 		mPreferences.addProject(file.toLatin1().data());
 	}
 }

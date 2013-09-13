@@ -23,7 +23,7 @@ namespace Teardrop
 	namespace Tools
 	{
 		class QtPropertyGrid;
-		class QtPackageExplorer;
+		class QtProjectExplorer;
 		class Project;
 
 		// temp
@@ -39,7 +39,6 @@ namespace Teardrop
 			~Editor();
 
 		protected slots:
-			void onPackageExplorerItemClicked(QTreeWidgetItem*,int);
 			void onContextMenu(const QPoint&);
 			void onSave();
 			void onSaveAs();
@@ -56,7 +55,7 @@ namespace Teardrop
 			Preferences mPreferences;
 
 			QtPropertyGrid* mPropGrid;
-			QtPackageExplorer* mPkgExp;
+			QtProjectExplorer* mProjectExp;
 			PackageManager* mPkg;
 			PackageManager* mPkgMgr;
 			QWidget* m3DView;
