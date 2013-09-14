@@ -33,15 +33,13 @@ namespace Teardrop
 			bool write();
 			bool read();
 			int version();
+			PackageManager* createPackage();
 
 			typedef std::list<PackageManager*> PackageManagers;
 			const PackageManagers& packages();
 
 			fastdelegate::FastDelegate1<const char*> NameChanged;
 			fastdelegate::FastDelegate1<PackageManager*> PackageLoaded;
-
-			void onPackageAdded(PackageManager*);
-			void onPackageRemoved(PackageManager*);
 
 		protected:
 			String mName;

@@ -7,6 +7,10 @@ is prohibited.
 
 #include "QtProjectExplorer.h"
 #include "QtProjectModel.h"
+#include "QtProjectItem.h"
+#include <QDragEnterEvent>
+#include <QMenu>
+#include "Asset/TextureAsset.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -15,7 +19,12 @@ QtProjectExplorer::QtProjectExplorer(QWidget* parent)
 	: QTreeView(parent)
 	, mModel(0)
 {
+	setAcceptDrops(true);
+	setDragEnabled(true);
+	setDropIndicatorShown(true);
+	setContextMenuPolicy(Qt::CustomContextMenu);
 
+	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onContextMenu(const QPoint&)));
 }
 
 QtProjectExplorer::~QtProjectExplorer()
@@ -35,32 +44,90 @@ void QtProjectExplorer::setProject(Project* project)
 	}
 }
 
-void QtProjectExplorer::mouseMoveEvent(QMouseEvent* event)
-{
-
-}
-
-void QtProjectExplorer::dragEnterEvent(QDragEnterEvent* event)
-{
-
-}
-
-void QtProjectExplorer::dragLeaveEvent(QDragLeaveEvent* event)
-{
-
-}
-
 void QtProjectExplorer::dragMoveEvent(QDragMoveEvent* event)
 {
-	
-}
+	QModelIndex idx = indexAt(event->pos());
+	if (idx.isValid()) {
+		QtProjectItem* item = static_cast<QtProjectItem*>(idx.internalPointer());
+		if (!item->isObject()) {
+			event->acceptProposedAction();
+			QTreeView::dragMoveEvent(event);
+			return;
+		}
+	}
 
-void QtProjectExplorer::onDragStart(DragDropData* ddd)
-{
-
+	event->ignore();
+	QTreeView::dragMoveEvent(event);
 }
 
 void QtProjectExplorer::onContextMenu(const QPoint& pt)
 {
+	QtProjectModel* projModel = static_cast<QtProjectModel*>(model());
 
+	// new context menu at location pt
+	QPoint globalPt = mapToGlobal(pt);
+
+	// what is underneath us?
+	QModelIndex index = indexAt(pt);
+	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
+	if (item) {
+		if (item->isFolder() || item->isPackage()) {
+			QMenu menu;
+			QAction* action = menu.addAction("Add Subfolder");
+			action->setData(QVariant(1));
+
+			// add all available ("creatable") object types
+			QMenu* addObject = menu.addMenu("Add Object");
+			for (Reflection::ClassDef* classDef = Reflection::ClassDef::getClasses(); classDef; classDef = classDef->m_pNext) {
+				if (classDef->isCreatable() && !classDef->isA(Asset::getClassDef())) {
+					action = addObject->addAction(classDef->getName());
+					action->setData(qVariantFromValue((void*)classDef));
+				}
+			}
+
+			action = menu.exec(globalPt);
+
+			if (action) {
+				switch(action->data().toInt()) {
+				case 1:
+					projModel->addFolder(index);
+					break;
+				default: // it's a create-object-instance commmand, the menu item data is the ClassDef*
+					projModel->addObject(index, (Reflection::ClassDef*)action->data().value<void*>());
+					break;
+				}
+			}
+		}
+	}
+	else {
+		enum {
+			ACTION_CREATE_PACKAGE,
+		};
+
+		QMenu menu;
+		QMenu* createMenu = menu.addMenu("Create");
+		QAction* action = createMenu->addAction("Package...");
+		action->setData(QVariant(ACTION_CREATE_PACKAGE));
+
+		action = menu.exec(globalPt);
+		if (action) {
+			switch(action->data().toInt()) {
+			case ACTION_CREATE_PACKAGE:
+				projModel->addPackage();
+				break;
+			}
+		}
+	}
+}
+
+void QtProjectExplorer::currentChanged(const QModelIndex &current, const QModelIndex &previous)
+{
+	if (SelectionChanged) {
+		if (!current.isValid())
+			SelectionChanged(0);
+		else {
+			QtProjectItem* item = static_cast<QtProjectItem*>(current.internalPointer());
+			SelectionChanged(item);
+		}
+	}
 }

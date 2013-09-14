@@ -138,9 +138,82 @@ QString QtProjectItem::toString() const
 void QtProjectItem::append(QtProjectItem* child)
 {
 	mChildren.append(child);
+	child->setParent(this);
+}
+
+void QtProjectItem::remove(QtProjectItem* child)
+{
+	mChildren.removeOne(child);
+	child->setParent(0);
+}
+
+const String& QtProjectItem::path() const
+{
+	return mPath;
+}
+
+static void makePath(String& path, Folder* folder)
+{
+	if (folder) {
+		makePath(path, folder->parent());
+
+		path.append("/");
+		path.append(folder->name());
+	}
+}
+
+void QtProjectItem::updatePath()
+{
+	// only bother if it's an object; folder paths aren't displayed
+	if (mObject) {
+		mPath.clear();
+		makePath(mPath, mParent->folder());
+		mPath.append("/");
+		mPath.append(mMetadata->getName());
+	}
+
+	// update the paths of all children (if any)
+	for (int i=0; i<mChildren.size(); ++i) {
+		mChildren[i]->updatePath();
+	}
+}
+
+void QtProjectItem::setParent(QtProjectItem* newParent)
+{
+	mParent = newParent;
+
+	if (mParent) {
+		// update our path
+		updatePath();
+	}
 }
 
 QString QtProjectItem::tooltip() const
 {
 	return toString();
+}
+
+QtProjectItemData::QtProjectItemData(QtProjectItem* item)
+	: mItem(item)
+{
+
+}
+
+QtProjectItemData::~QtProjectItemData()
+{
+
+}
+
+QtProjectItem* QtProjectItemData::item() const
+{
+	return mItem;
+}
+
+void QtProjectItem::rename(const QString& newName)
+{
+	String str(newName.toLatin1().data());
+	if (isFolder())
+		mPackageMgr->metadata()->renameFolder(mFolder, str);
+	else
+		mMetadata->setName(str);
 }

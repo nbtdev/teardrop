@@ -49,14 +49,12 @@ void Project::rename(const String& newName)
 		NameChanged((const char*)mName);
 }
 
-void Project::onPackageAdded(PackageManager* pkgMgr)
+PackageManager* Project::createPackage()
 {
+	PackageManager* pkgMgr = new PackageManager();
+	pkgMgr->metadata()->setName("Untitled Package");
 	mPackageManagers.push_back(pkgMgr);
-}
-
-void Project::onPackageRemoved(PackageManager* pkgMgr)
-{
-	mPackageManagers.remove(pkgMgr);
+	return pkgMgr;
 }
 
 const String& Project::path()

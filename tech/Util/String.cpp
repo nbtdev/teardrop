@@ -42,6 +42,7 @@ void String::clear()
 
 	m_pBuf = m_default;
 	m_pBuf[0] = 0;
+	m_len = 0;
 }
 //---------------------------------------------------------------------------
 size_t String::length() const

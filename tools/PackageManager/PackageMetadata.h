@@ -49,6 +49,7 @@ namespace Teardrop
 			void remove(Reflection::Object* object);
 			void remove(const String& objectId);
 			void move(Reflection::Object* object, Folder* oldParent, Folder* newParent);
+			void move(Folder* folder, Folder* newParent);
 			Folder* newFolder(const String& name, Folder* parent=0);
 			Folder* deleteFolder(Folder* folder);
 			void renameFolder(Folder* folder, const String& name);

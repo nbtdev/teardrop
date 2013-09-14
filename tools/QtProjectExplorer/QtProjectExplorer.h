@@ -19,6 +19,7 @@ namespace Teardrop
 		class QtProjectModel;
 		class Project;
 		class DragDropData;
+		class QtProjectItem;
 
 		class QtProjectExplorer : public QTreeView
 		{
@@ -30,21 +31,16 @@ namespace Teardrop
 
 			void setProject(Project* project);
 
+			fastdelegate::FastDelegate1<QtProjectItem*> SelectionChanged;
+
 		protected slots:
 			void onContextMenu(const QPoint&);
+			void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 
 		protected:
-			void dragEnterEvent(QDragEnterEvent* event);
 			void dragMoveEvent(QDragMoveEvent* event);
-			void dragLeaveEvent(QDragLeaveEvent* event);
 
 			QtProjectModel* mModel;
-
-			// for triggering/managing drag/drop (which ought already to be part of the Qt API...)
-			void mouseMoveEvent(QMouseEvent* event);
-			virtual void onDragStart(DragDropData* ddd);
-			QPoint mMouseDown;
-			bool mIsDragging;
 		};
 	}
 }

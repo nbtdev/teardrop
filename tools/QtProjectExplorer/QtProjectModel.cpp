@@ -11,8 +11,11 @@ is prohibited.
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/Folder.h"
+#include "Asset/TextureAsset.h"
 #include <QMimeData>
-#include "QtUtils/ObjectDragDropData.h"
+#include <QUrl>
+#include <QMessageBox>
+#include "QtUtils/TypeChooser.h"
 #include "Reflection/Reflection.h"
 #include <stack>
 
@@ -84,6 +87,7 @@ bool QtProjectModel::setData(const QModelIndex &index, const QVariant &value, in
 	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
 	if (item) {
 		if (role == Qt::EditRole) {
+			item->rename(value.toString());
 		}
 
 		return true;
@@ -139,15 +143,43 @@ int QtProjectModel::rowCount(const QModelIndex& parent) const
 
 Qt::ItemFlags QtProjectModel::flags(const QModelIndex& index) const
 {
-	Qt::ItemFlags f = (Qt::ItemIsEnabled|Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+	Qt::ItemFlags f = (Qt::ItemIsEnabled|Qt::ItemIsSelectable|Qt::ItemIsEditable);
+
+	if (index.isValid()) {
+		// valid index is an index over an item in the tree, set it draggable
+		QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
+		if (!item->isPackage())
+			f |= Qt::ItemIsDragEnabled;
+
+		if (item->isPackage() || item->isFolder())
+			f |= Qt::ItemIsDropEnabled;
+	}
+	else {
+
+	}
 
 	return f;
+}
+
+QMimeData* QtProjectModel::mimeData(const QModelIndexList &indexes) const
+{
+	assert(indexes.size() <= 1);
+	QtProjectItem* item = static_cast<QtProjectItem*>(indexes.at(0).internalPointer());
+	if (item && !item->isPackage()) {
+		QMimeData* mimeData = new QMimeData;
+		mimeData->setData("application/x-qabstractitemmodeldatalist", "DRAG");
+		mimeData->setUserData(0, new QtProjectItemData(item));
+		return mimeData;
+	}
+
+	return 0;
 }
 
 QStringList QtProjectModel::mimeTypes() const
 {
 	QStringList list = QAbstractItemModel::mimeTypes();
 	list.append("text/plain");
+	list.append("text/uri-list");
 	return list;
 }
 
@@ -159,14 +191,78 @@ Qt::DropActions QtProjectModel::supportedDropActions() const
 
 bool QtProjectModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent)
 {
-	if (data) {
-		QObjectUserData* od = data->userData(0);
-		if (od) {
-			QtProjectItem* item = static_cast<QtProjectItem*>(parent.internalPointer());
-			if (item) {
-				DragDropData* ddd = static_cast<DragDropData*>(od);
-				if (ddd->type() == DragDropData::DDD_OBJECT) {
-					ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
+	// this is the item being dropped upon
+	QtProjectItem* destItem = static_cast<QtProjectItem*>(parent.internalPointer());
+
+	if (data && destItem) {
+		if (data->hasUrls()) {
+			// dropping from filesystem onto "item"
+			QList<QUrl> urls = data->urls();
+			if (urls.length()) {
+				// find out what type the user wants to import
+				TypeChooser chooser(0, Asset::getClassDef());
+				QDialog::DialogCode code = (QDialog::DialogCode)chooser.exec();
+
+				if (code == QDialog::Accepted) {
+					PackageManager* pkgMgr = destItem->packageManager();
+					//emit beginLongOperation();
+
+					for (int i=0; i<urls.size(); ++i) {
+						QString str = urls.at(i).toLocalFile();
+						String pathName(str.toLatin1().constData());
+
+						std::pair<Asset*, Metadata*> assetPr = pkgMgr->importAsset(destItem->folder(), pathName, chooser.chosenClass());
+						Asset* asset = assetPr.first;
+						Metadata* assetMeta = assetPr.second;
+
+						if (asset) {
+							emit layoutAboutToBeChanged();
+							QtProjectItem* assetItem = new QtProjectItem(pkgMgr, asset, assetMeta, destItem);
+							destItem->append(assetItem);
+							emit layoutChanged();
+						}
+						else {
+							QMessageBox mb;
+							mb.setText(QString("Could not import texture from file ") + str);
+							mb.exec();
+						}
+					}
+
+					//emit endLongOperation();
+				}
+			}
+		}
+		else {
+			// dragging/dropping from somewhere in the app; itemData is the item being dragged
+			QtProjectItemData* itemData = static_cast<QtProjectItemData*>(data->userData(0));
+			if (itemData) {
+				QtProjectItem* srcItem = itemData->item();
+
+				// check to see if the package managers are the same; if so, we only have to do an internal
+				// move in the package
+				PackageManager* srcPkgMgr = srcItem->packageManager();
+				PackageManager* destPkgMgr = destItem->packageManager();
+
+				if (srcPkgMgr == destPkgMgr && (destItem->isFolder() || destItem->isPackage())) {
+					// just reparent internally
+					Reflection::Object* obj = srcItem->object();
+					Folder* folder = srcItem->folder();
+					if (obj) {
+						srcPkgMgr->metadata()->move(obj, srcItem->parent()->folder(), destItem->folder());
+					}
+					else if (folder) {
+						srcPkgMgr->metadata()->move(folder, destItem->folder());
+					}
+
+					// and reparent the item itself
+					emit layoutAboutToBeChanged();
+					QtProjectItem* oldParent = srcItem->parent();
+					oldParent->remove(srcItem);
+					destItem->append(srcItem);
+					emit layoutChanged();
+				}
+				else {
+					// the hard way, have to remove from srcPkgMgr first
 				}
 			}
 		}
@@ -178,4 +274,54 @@ bool QtProjectModel::dropMimeData(const QMimeData* data, Qt::DropAction action, 
 QVariant QtProjectModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	return QVariant();
+}
+
+void QtProjectModel::addFolder(const QModelIndex& parent)
+{
+	QtProjectItem* parentItem = static_cast<QtProjectItem*>(parent.internalPointer());
+
+	if (parentItem) {
+		emit layoutAboutToBeChanged();
+		PackageManager* pkgMgr = parentItem->packageManager();
+		PackageMetadata* pkgMeta = pkgMgr->metadata();
+		Folder* parentFolder = parentItem->folder();
+
+		Folder* newFolder = pkgMeta->newFolder("Untitled Folder", parentFolder);
+		QtProjectItem* newItem = new QtProjectItem(pkgMgr, newFolder, parentItem);
+		parentItem->append(newItem);
+		emit layoutChanged();
+	}
+}
+
+void QtProjectModel::addObject(const QModelIndex& parent, Reflection::ClassDef* classDef)
+{
+	QtProjectItem* parentItem = static_cast<QtProjectItem*>(parent.internalPointer());
+
+	if (parentItem) {
+		emit layoutAboutToBeChanged();
+		PackageManager* pkgMgr = parentItem->packageManager();
+		PackageMetadata* pkgMeta = pkgMgr->metadata();
+		Folder* parentFolder = parentItem->folder();
+
+		std::pair<Reflection::Object*, Metadata*> objPr = pkgMgr->createObject(parentFolder, classDef);
+		Reflection::Object* newObj = objPr.first;
+		Metadata* objMeta = objPr.second;
+
+		String newName("Untitled ");
+		newName.append(classDef->getName());
+		objMeta->setName(newName);
+
+		QtProjectItem* newItem = new QtProjectItem(pkgMgr, newObj, objMeta, parentItem);
+		parentItem->append(newItem);
+		emit layoutChanged();
+	}
+}
+
+void QtProjectModel::addPackage()
+{
+	emit layoutAboutToBeChanged();
+	PackageManager* pkgMgr = mProject->createPackage();
+	QtProjectItem* rootItem = new QtProjectItem(pkgMgr, mRoot);
+	mRoot->append(rootItem);
+	emit layoutChanged();
 }

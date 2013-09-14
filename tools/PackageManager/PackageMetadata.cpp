@@ -132,6 +132,23 @@ void PackageMetadata::move(Reflection::Object* object, Folder* oldParent, Folder
 	mObjectToFolderMap[object] = newParent;
 }
 
+void PackageMetadata::move(Folder* folder, Folder* newParent)
+{
+	if (!newParent)
+		newParent = mRoot;
+
+	if (!folder || !newParent)
+		return;
+
+	const Folders& folders = newParent->folders();
+	Folders::const_iterator it = std::find(folders.begin(), folders.end(), folder);
+	if (it != folders.end())
+		return;
+
+	folder->parent()->remove(folder);
+	newParent->add(folder);
+}
+
 Folder* PackageMetadata::newFolder(const String& name, Folder* parent)
 {
 	if (!parent)

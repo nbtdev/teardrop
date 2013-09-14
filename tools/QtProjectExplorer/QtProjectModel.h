@@ -13,6 +13,11 @@ is prohibited.
 
 namespace Teardrop
 {
+	namespace Reflection
+	{
+		class ClassDef;
+	}
+
 	namespace Tools
 	{
 		class Project;
@@ -38,8 +43,14 @@ namespace Teardrop
 
 			// drag and drop support
 			QStringList mimeTypes() const;
+			QMimeData* mimeData(const QModelIndexList &indexes) const;
 			Qt::DropActions supportedDropActions() const;
 			bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent);
+
+			// editing the model 
+			void addFolder(const QModelIndex& parent);
+			void addObject(const QModelIndex& parent, Reflection::ClassDef* classDef);
+			void addPackage();
 
 		protected:
 			Project* mProject;

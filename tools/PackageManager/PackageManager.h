@@ -9,6 +9,7 @@ is prohibited.
 #define PACKAGEMANAGER_INCLUDED
 
 #include "Package/DeferredResolution.h"
+#include <utility>
 
 namespace Teardrop 
 {
@@ -26,6 +27,7 @@ namespace Teardrop
 	namespace Tools
 	{
 		class PackageMetadata;
+		class Metadata;
 		class Folder;
 
 		enum TextureAssetType {
@@ -44,19 +46,9 @@ namespace Teardrop
 			~PackageManager();
 
 			// create new assets/objects from filesystem data
-			Asset* importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass);
+			std::pair<Asset*, Metadata*> importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass);
 			// create/return new object instance from ClassDef
-			Reflection::Object* createObject(Folder* folder, const Reflection::ClassDef* classDef);
-
-			// add/remove existing assets/objects
-			// add object that comes from another package
-			void add(Reflection::Object* object, PackageManager* origin, Folder* newParent);
-			// add unassociated object
-			void add(Reflection::Object* object, Folder* parent);
-			// create/add new folder
-			void add(const String& name, Folder* parent);
-			// remove object from our package
-			void remove(Reflection::Object* object);
+			std::pair<Reflection::Object*, Metadata*> createObject(Folder* folder, const Reflection::ClassDef* classDef);
 
 			// load/save the package
 			bool save(const String& path);

@@ -34,6 +34,12 @@ void Folder::remove(Reflection::Object* obj)
 	mObjects.remove(obj);
 }
 
+void Folder::remove(Folder* folder)
+{
+	// todo: what to do with this folder's children?
+	mFolders.remove(folder);
+}
+
 const Folders& Folder::folders() const
 {
 	return mFolders;

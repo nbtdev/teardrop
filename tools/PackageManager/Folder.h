@@ -56,6 +56,8 @@ namespace Teardrop
 			void add(Reflection::Object* obj);
 			// remove object from this folder
 			void remove(Reflection::Object* obj);
+			// remove subfolder from this folder
+			void remove(Folder* folder);
 			// set this folder's name
 			void setName(const String& name);
 

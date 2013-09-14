@@ -12,6 +12,7 @@ is prohibited.
 #include "Package/PackageSerializer.h"
 #include "Asset/TextureAsset.h"
 #include "Stream/FileStream.h"
+#include <utility>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -30,7 +31,7 @@ PackageManager::~PackageManager()
 	delete mPackage;
 }
 
-Asset* PackageManager::importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass)
+std::pair<Asset*, Metadata*> PackageManager::importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass)
 {
 	// TODO: get these known types from some lookup table?
 	if (assetClass == TextureAsset::getClassDef()) {
@@ -41,22 +42,22 @@ Asset* PackageManager::importAsset(Folder* folder, const char* filepath, const R
 
 			// and add an entry to the package metadata
 			String assetId;
-			mMetadata->add(assetId, folder, texAsset, filepath);
-			return texAsset;
+			Metadata* assetMeta = mMetadata->add(assetId, folder, texAsset, filepath);
+			return std::pair<Asset*, Metadata*>(texAsset, assetMeta);
 		}
 	}
 
-	return 0;
+	return std::pair<Asset*, Metadata*>(0,0);
 }
 
-Reflection::Object* PackageManager::createObject(Folder* folder, const Reflection::ClassDef* classDef)
+std::pair<Reflection::Object*, Metadata*> PackageManager::createObject(Folder* folder, const Reflection::ClassDef* classDef)
 {
 	// create the object
 	Reflection::Object* obj = classDef->createInstance();
 	mPackage->add(obj);
 	String uuid;
-	mMetadata->add(uuid, folder, obj);
-	return obj;
+	Metadata* meta = mMetadata->add(uuid, folder, obj);
+	return std::pair<Reflection::Object*, Metadata*>(obj, meta);
 }
 
 PackageMetadata* PackageManager::metadata()

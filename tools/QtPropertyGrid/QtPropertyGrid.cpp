@@ -9,7 +9,7 @@ is prohibited.
 #include "QtPropertyGridDelegate.h"
 #include "QtPropertyGridModel.h"
 #include "QtPropertyGridItem.h"
-#include "QtUtils/ObjectDragDropData.h"
+#include "QtProjectExplorer/QtProjectItem.h"
 #include <QDragEnterEvent>
 #include "Reflection/Reflection.h"
 #include "Game/ComponentHost.h"
@@ -58,10 +58,10 @@ static bool canDrop(QtPropertyGridItem* item, const QMimeData* data)
 	if (data) {
 		QObjectUserData* od = data->userData(0);
 		if (od) {
-			DragDropData* ddd = static_cast<DragDropData*>(od);
-			if (ddd->type() == DragDropData::DDD_OBJECT) {
-				ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
-				Reflection::Object* obj = oddd->object();
+			QtProjectItemData* projItemData = static_cast<QtProjectItemData*>(od);
+			if (projItemData) {
+				QtProjectItem* projItem = projItemData->item();
+				Reflection::Object* obj = projItem->object();
 
 				// TODO: find a way to compare classdef's?
 				if (String(obj->getDerivedClassDef()->getName()) != item->property()->getTypeName())

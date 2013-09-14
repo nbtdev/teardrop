@@ -9,6 +9,7 @@ is prohibited.
 #include "Project.h"
 #include "QtPropertyGrid/QtPropertyGrid.h"
 #include "QtProjectExplorer/QtProjectExplorer.h"
+#include "QtProjectExplorer/QtProjectItem.h"
 #include "PackageManager/Metadata.h"
 #include "Package/Package.h"
 #include "Util/FileSystem.h"
@@ -89,6 +90,8 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 	mProject = new Project;
 	mProjectExp->setProject(mProject);
+
+	mProjectExp->SelectionChanged.bind(this, &Editor::onProjectExplorerSelectionChanged);
 
 	setEditorTitle();
 	mPreferences.load();
@@ -239,4 +242,12 @@ void Editor::onPreferences()
 
 		mPreferences.save();
 	}
+}
+
+void Editor::onProjectExplorerSelectionChanged(QtProjectItem* item)
+{
+	if (!item)
+		mPropGrid->setObject(0);
+	else
+		mPropGrid->setObject(item->object(), item->metadata());
 }

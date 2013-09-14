@@ -10,6 +10,8 @@ is prohibited.
 
 #include <QString>
 #include <QList>
+#include <QObject>
+#include "Util/_String.h"
 
 namespace Teardrop 
 {
@@ -53,6 +55,9 @@ namespace Teardrop
 			int row() const;
 			int numChildren() const;
 			void append(QtProjectItem* child);
+			void remove(QtProjectItem* child);
+			void rename(const QString& newName);
+			const String& path() const;
 
 			// true if this item is the root item in a model
 			bool isRoot() const;
@@ -63,6 +68,10 @@ namespace Teardrop
 			// return true if this item represents a Reflection::Object
 			bool isObject() const;
 
+		protected:
+			void setParent(QtProjectItem* newParent);
+			void updatePath();
+
 		private:
 			PackageManager* mPackageMgr;
 			Folder* mFolder;
@@ -71,6 +80,19 @@ namespace Teardrop
 
 			QList<QtProjectItem*> mChildren;
 			QtProjectItem* mParent;
+			String mPath;
+		};
+
+		// QObjectUserData wrapper for QtProjectItem
+		class QtProjectItemData : public QObjectUserData
+		{
+		public:
+			QtProjectItemData(QtProjectItem* item);
+			~QtProjectItemData();
+			QtProjectItem* item() const;
+
+		protected:
+			QtProjectItem* mItem;
 		};
 	}
 }

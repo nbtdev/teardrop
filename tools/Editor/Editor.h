@@ -24,11 +24,8 @@ namespace Teardrop
 	{
 		class QtPropertyGrid;
 		class QtProjectExplorer;
+		class QtProjectItem;
 		class Project;
-
-		// temp
-		class PackageManager;
-		class Package;
 
 		class Editor : public QMainWindow
 		{
@@ -56,8 +53,6 @@ namespace Teardrop
 
 			QtPropertyGrid* mPropGrid;
 			QtProjectExplorer* mProjectExp;
-			PackageManager* mPkg;
-			PackageManager* mPkgMgr;
 			QWidget* m3DView;
 			QToolBox* mClasses;
 			QLabel* mPropGridDesc;
@@ -68,6 +63,8 @@ namespace Teardrop
 
 			void setEditorTitle();
 			void openProject(const QString& pathname);
+
+			void onProjectExplorerSelectionChanged(QtProjectItem* item);
 		};
 	}
 }
