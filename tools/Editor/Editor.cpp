@@ -98,6 +98,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mProjectExp->setProject(mProject);
 
 	mProjectExp->SelectionChanged.bind(this, &Editor::onProjectExplorerSelectionChanged);
+	mObjBrowser->ItemClicked.bind(this, &Editor::onProjectExplorerSelectionChanged);
 	mProjectExp->SelectionChanged.bind(mObjBrowser, &QtObjectBrowser::onItemSelected);
 
 	setEditorTitle();
