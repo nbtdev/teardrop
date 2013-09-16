@@ -28,6 +28,7 @@ namespace Teardrop
 	{
 		class PackageMetadata;
 		class Metadata;
+		class Thumbnail;
 		class Folder;
 
 		enum TextureAssetType {

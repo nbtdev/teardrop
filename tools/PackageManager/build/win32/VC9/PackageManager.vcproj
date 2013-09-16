@@ -199,6 +199,14 @@
 			RelativePath="..\..\..\TextureImport.cpp"
 			>
 		</File>
+		<File
+			RelativePath="..\..\..\Thumbnail.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Thumbnail.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

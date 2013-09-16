@@ -130,4 +130,6 @@ void QtProjectExplorer::currentChanged(const QModelIndex &current, const QModelI
 			SelectionChanged(item);
 		}
 	}
+
+	QTreeView::currentChanged(current, previous);
 }

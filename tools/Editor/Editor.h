@@ -13,7 +13,6 @@ is prohibited.
 #include "ui_Preferences.h"
 #include "Preferences.h"
 
-class QTreeWidgetItem;
 class QWidget;
 class QToolBox;
 class QLabel;
@@ -25,6 +24,7 @@ namespace Teardrop
 		class QtPropertyGrid;
 		class QtProjectExplorer;
 		class QtProjectItem;
+		class QtObjectBrowser;
 		class Project;
 
 		class Editor : public QMainWindow
@@ -53,6 +53,7 @@ namespace Teardrop
 
 			QtPropertyGrid* mPropGrid;
 			QtProjectExplorer* mProjectExp;
+			QtObjectBrowser* mObjBrowser;
 			QWidget* m3DView;
 			QToolBox* mClasses;
 			QLabel* mPropGridDesc;

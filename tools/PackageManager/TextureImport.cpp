@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "PackageManager.h"
+#include "Metadata.h"
 #include "Asset/TextureAsset.h"
 #include "FreeImage.h"
 #include "squish.h"
@@ -23,8 +24,10 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 	if (fibm) {
 		BITMAPINFO* bmi = FreeImage_GetInfo(fibm);
 
-		if (bmi->bmiHeader.biBitCount != 32)
+		if (bmi->bmiHeader.biBitCount != 32) {
 			fibm = FreeImage_ConvertTo32Bits(fibm);
+			bmi = FreeImage_GetInfo(fibm);
+		}
 
 		asset = new TextureAsset;
 		int w = bmi->bmiHeader.biWidth;
@@ -32,6 +35,20 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 		int sz = squish::GetStorageRequirements(w, h, squish::kDxt3);
 		void* data = asset->createData(sz);
 		squish::CompressImage((squish::u8*)fibm->data, w, h, data, squish::kDxt3);
+
+		//// make thumbnail
+		//FIBITMAP* thumb = FreeImage_MakeThumbnail(fibm, 128);
+		//BITMAPINFO* thumbInfo = FreeImage_GetInfo(thumb);
+		//if (thumbInfo->bmiHeader.biSizeImage)
+		//	thumbnail->mLen = thumbInfo->bmiHeader.biSizeImage;
+		//else {
+		//	thumbnail->mWidth = thumbInfo->bmiHeader.biWidth;
+		//	thumbnail->mHeight = thumbInfo->bmiHeader.biHeight;
+		//	thumbnail->mLen = thumbnail->mWidth * thumbnail->mHeight * 4;
+		//}
+
+		//thumbnail->mData = new char[thumbnail->mLen];
+		//memcpy(thumbnail->mData, thumb->data, thumbnail->mLen);
 	}
 
 	FreeImage_DeInitialise();

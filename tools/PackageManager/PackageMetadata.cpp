@@ -195,6 +195,7 @@ Reflection::Object* PackageMetadata::findObject(const String& id)
 	return 0;
 }
 
+
 static void addMetadata(TiXmlElement& objElem, Metadata* meta)
 {
 	Reflection::ClassDef* classDef = meta->getDerivedClassDef();
@@ -254,7 +255,7 @@ static void addFolders(TiXmlElement& parentElem, PackageMetadata* meta, Folder* 
 
 void PackageMetadata::serialize(Package* pkg, Stream& strm)
 {
-	// serialize folder structure to XML
+	// then serialize folder structure to XML
 	TiXmlDocument doc;
 	TiXmlElement folders("folders");
 	addFolders(folders, this, mRoot);

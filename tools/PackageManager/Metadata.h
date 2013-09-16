@@ -16,6 +16,8 @@ namespace Teardrop
 {
 	namespace Tools
 	{
+		class Thumbnail;
+
 		class Metadata : public Reflection::Object
 		{
 		public:
@@ -26,12 +28,16 @@ namespace Teardrop
 			Metadata();
 			~Metadata();
 
+			void setThumbnail(const Thumbnail* thumb);
+			const Thumbnail* thumbnail();
+
 			fastdelegate::FastDelegate1<const char*> NameChanged;
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
 			void notifyPropertyChangedLocal(const Reflection::PropertyDef* prop);
+			const Thumbnail* mThumb;
 		};
 	}
 }

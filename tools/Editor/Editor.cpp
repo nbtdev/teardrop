@@ -10,6 +10,7 @@ is prohibited.
 #include "QtPropertyGrid/QtPropertyGrid.h"
 #include "QtProjectExplorer/QtProjectExplorer.h"
 #include "QtProjectExplorer/QtProjectItem.h"
+#include "QtObjectBrowser/QtObjectBrowser.h"
 #include "PackageManager/Metadata.h"
 #include "Package/Package.h"
 #include "Util/FileSystem.h"
@@ -28,6 +29,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 	, mPropGrid(0)
 	, mProjectExp(0)
+	, mObjBrowser(0)
 	, m3DView(0)
 	, mPropGridDesc(0)
 	, mProject(0)
@@ -35,8 +37,12 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	mCursor = cursor();
 
-	m3DView = new QWidget(ui.centralWidget);
-	ui.horizontalLayout->addWidget(m3DView);
+	//m3DView = new QWidget(ui.centralWidget);
+	//ui.horizontalLayout->addWidget(m3DView);
+	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
+
+	mObjBrowser = new QtObjectBrowser(ui.centralWidget);
+	ui.horizontalLayout->addWidget(mObjBrowser);
 
 	QDockWidget* dock = new QDockWidget(this);
 	QWidget* dockContents = new QWidget();
@@ -65,7 +71,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	dock->setWidget(dockContents);
 
 	dock->setWindowTitle("Properties");
-	addDockWidget(Qt::RightDockWidgetArea, dock);
+	addDockWidget(Qt::BottomDockWidgetArea, dock);
 
 	// object class list toolbox
 	dock = new QDockWidget(this);
@@ -92,6 +98,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mProjectExp->setProject(mProject);
 
 	mProjectExp->SelectionChanged.bind(this, &Editor::onProjectExplorerSelectionChanged);
+	mProjectExp->SelectionChanged.bind(mObjBrowser, &QtObjectBrowser::onItemSelected);
 
 	setEditorTitle();
 	mPreferences.load();
