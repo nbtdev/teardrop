@@ -14,6 +14,8 @@ namespace Teardrop
 {
 	namespace Tools
 	{
+		// a Thumbnail is by definition a PNG image
+
 		class Thumbnail
 		{
 		public:
@@ -25,6 +27,10 @@ namespace Teardrop
 			int length() const;
 			int width() const;
 			int height() const;
+			bool isValid() const;
+
+			void resize(int w, int h, int nBytes);
+			int setData(void* data, int nBytes);
 
 		protected:
 			char* mData;

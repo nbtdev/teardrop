@@ -15,14 +15,12 @@ using namespace Tools;
 TD_CLASS_IMPL(Metadata);
 
 Metadata::Metadata()
-	: mThumb(0)
 {
 
 }
 
 Metadata::~Metadata()
 {
-
 }
 
 void Metadata::notifyPropertyChangedLocal(const Reflection::PropertyDef* prop)
@@ -34,12 +32,11 @@ void Metadata::notifyPropertyChangedLocal(const Reflection::PropertyDef* prop)
 	}
 }
 
-void Metadata::setThumbnail(const Thumbnail* thumb)
+void Metadata::generateThumbnail()
 {
-	mThumb = thumb;
 }
 
-const Thumbnail* Metadata::thumbnail()
+const Thumbnail& Metadata::thumbnail()
 {
 	return mThumb;
 }

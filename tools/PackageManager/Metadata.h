@@ -8,6 +8,7 @@ is prohibited.
 #if !defined(METADATA_INCLUDED)
 #define METADATA_INCLUDED
 
+#include "PackageManager/Thumbnail.h"
 #include "Reflection/Reflection.h"
 #include "Memory/Memory.h"
 #include "FastDelegate.h"
@@ -28,8 +29,9 @@ namespace Teardrop
 			Metadata();
 			~Metadata();
 
-			void setThumbnail(const Thumbnail* thumb);
-			const Thumbnail* thumbnail();
+			// default implementation just uses the default Teardrop icon
+			virtual void generateThumbnail();
+			const Thumbnail& thumbnail();
 
 			fastdelegate::FastDelegate1<const char*> NameChanged;
 
@@ -37,7 +39,7 @@ namespace Teardrop
 
 		protected:
 			void notifyPropertyChangedLocal(const Reflection::PropertyDef* prop);
-			const Thumbnail* mThumb;
+			Thumbnail mThumb;
 		};
 	}
 }

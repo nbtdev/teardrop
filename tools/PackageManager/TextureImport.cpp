@@ -18,8 +18,6 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 {
 	TextureAsset* asset = 0;
 
-	FreeImage_Initialise();
-
 	FIBITMAP* fibm = FreeImage_Load(FreeImage_GetFileType(filepath), filepath);
 	if (fibm) {
 		BITMAPINFO* bmi = FreeImage_GetInfo(fibm);
@@ -35,23 +33,7 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 		int sz = squish::GetStorageRequirements(w, h, squish::kDxt3);
 		void* data = asset->createData(sz);
 		squish::CompressImage((squish::u8*)fibm->data, w, h, data, squish::kDxt3);
-
-		//// make thumbnail
-		//FIBITMAP* thumb = FreeImage_MakeThumbnail(fibm, 128);
-		//BITMAPINFO* thumbInfo = FreeImage_GetInfo(thumb);
-		//if (thumbInfo->bmiHeader.biSizeImage)
-		//	thumbnail->mLen = thumbInfo->bmiHeader.biSizeImage;
-		//else {
-		//	thumbnail->mWidth = thumbInfo->bmiHeader.biWidth;
-		//	thumbnail->mHeight = thumbInfo->bmiHeader.biHeight;
-		//	thumbnail->mLen = thumbnail->mWidth * thumbnail->mHeight * 4;
-		//}
-
-		//thumbnail->mData = new char[thumbnail->mLen];
-		//memcpy(thumbnail->mData, thumb->data, thumbnail->mLen);
 	}
-
-	FreeImage_DeInitialise();
 
 	return asset;
 }

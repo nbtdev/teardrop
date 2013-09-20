@@ -43,6 +43,7 @@ std::pair<Asset*, Metadata*> PackageManager::importAsset(Folder* folder, const c
 			// and add an entry to the package metadata
 			String assetId;
 			Metadata* assetMeta = mMetadata->add(assetId, folder, texAsset, filepath);
+			assetMeta->generateThumbnail();
 			return std::pair<Asset*, Metadata*>(texAsset, assetMeta);
 		}
 	}
@@ -96,5 +97,9 @@ bool PackageManager::load(const String& path, DeferredObjectResolves& deferred, 
 		return false;
 
 	PackageSerializer ser(mPackage);
-	return ser.deserialize(strm, deferred, lut, mMetadata);
+	bool rtn = ser.deserialize(strm, deferred, lut, mMetadata);
+	if (rtn)
+		mMetadata->generateThumbnails();
+
+	return rtn;
 }

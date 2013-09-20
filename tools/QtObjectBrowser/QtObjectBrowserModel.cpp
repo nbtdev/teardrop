@@ -11,6 +11,7 @@ is prohibited.
 #include "PackageManager/Thumbnail.h"
 #include <QImage>
 #include <QPixmap>
+#include <QMimeData>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -80,15 +81,16 @@ QVariant QtObjectBrowserModel::data(const QModelIndex& index, int role) const
 	QtProjectItem* item = list.at(index.row());
 	if (role == Qt::DecorationRole) {
 		Metadata* meta = item->metadata();
-		const Thumbnail* thumb = meta->thumbnail();
-		if (thumb) {
-			QImage img((uchar*)thumb->data(), 128, 128, QImage::Format_ARGB32);
-			return QPixmap::fromImage(img);
+		const Thumbnail& thumb = meta->thumbnail();
+		if (thumb.isValid()) {
+			QPixmap pm;
+			pm.loadFromData((const uchar*)thumb.data(), thumb.length());
+			return pm;
 		}
 		else {
 			// make a 128x128 icon from the default logo pixmap
 			// todo: get this path from somewhere else?
-			return QPixmap("icons/td-icon-64.png");
+			return QPixmap("icons/td-icon-128.png");
 		}
 	}
 
@@ -123,7 +125,32 @@ int QtObjectBrowserModel::rowCount(const QModelIndex& parent) const
 	return mRecursive ? mRecursiveChildren.size() : mImmediateChildren.size();
 }
 
+QMimeData* QtObjectBrowserModel::mimeData(const QModelIndexList &indexes) const
+{
+	assert(indexes.size() <= 1);
+	QtProjectItem* item = static_cast<QtProjectItem*>(indexes.at(0).internalPointer());
+	if (item) {
+		QMimeData* mimeData = new QMimeData;
+		mimeData->setData("application/x-qabstractitemmodeldatalist", "DRAG");
+		mimeData->setUserData(0, new QtProjectItemData(item));
+		return mimeData;
+	}
+
+	return 0;
+}
+
 bool QtObjectBrowserModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent)
 {
 	return false;
+}
+
+Qt::ItemFlags QtObjectBrowserModel::flags(const QModelIndex& index) const
+{
+	Qt::ItemFlags f = (Qt::ItemIsEnabled|Qt::ItemIsSelectable/*|Qt::ItemIsEditable*/);
+
+	if (index.isValid()) {
+		f |= Qt::ItemIsDragEnabled;
+	}
+
+	return f;
 }

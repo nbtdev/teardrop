@@ -9,11 +9,13 @@ is prohibited.
 #include "ObjectMetadata.h"
 #include "TextureAssetMetadata.h"
 #include "Folder.h"
+#include "Thumbnail.h"
 #include "Stream/Stream.h"
 #include "Util/UUID.h"
 #include "Package/Package.h"
 #include "Asset/TextureAsset.h"
 #include "tinyxml/tinyxml.h"
+#include <tbb/task.h>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -37,6 +39,10 @@ PackageMetadata::PackageMetadata(Package* package)
 PackageMetadata::~PackageMetadata()
 {
 	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &PackageMetadata::onPropertyChanged));
+
+	for (ObjectToMetadataMap::iterator it = mObjectToMetadataMap.begin(); it != mObjectToMetadataMap.end(); ++it) {
+		delete it->second;
+	}
 }
 
 Folder* PackageMetadata::rootFolder()
@@ -348,4 +354,11 @@ void PackageMetadata::deserialize(Package* pkg, Stream& strm)
 	TiXmlElement* root = doc.RootElement();
 	mRoot = new Folder(getName(), 0);
 	loadFolders(root, mRoot, pkg);
+}
+
+void PackageMetadata::generateThumbnails()
+{
+	for (ObjectToMetadataMap::iterator it = mObjectToMetadataMap.begin(); it != mObjectToMetadataMap.end(); ++it) {
+		it->second->generateThumbnail();
+	}
 }

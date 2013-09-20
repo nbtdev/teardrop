@@ -9,15 +9,14 @@ is prohibited.
 
 using namespace Teardrop;
 using namespace Tools;
+#include <algorithm>
 
 Thumbnail::Thumbnail()
 	: mData(0)
 	, mLen(0)
-	, mWidth(128)
-	, mHeight(128)
+	, mWidth(0)
+	, mHeight(0)
 {
-	mLen = mWidth*mHeight*4; // enough for uncompressed RGBA8888 data
-	mData = TD_NEW char[mLen];
 }
 
 Thumbnail::~Thumbnail()
@@ -48,4 +47,28 @@ int Thumbnail::width() const
 int Thumbnail::height() const
 {
 	return mHeight;
+}
+
+bool Thumbnail::isValid() const
+{
+	return (mData != 0 && mLen > 0);
+}
+
+void Thumbnail::resize(int w, int h, int nBytes)
+{
+	mWidth = w;
+	mHeight = h;
+	delete [] mData;
+	mData = new char[nBytes];
+	mLen = nBytes;
+}
+
+int Thumbnail::setData(void* data, int nBytes)
+{
+	int sz = std::min(nBytes, mLen);
+	if (data && sz) {
+		memcpy(mData, data, sz);
+	}
+
+	return sz;
 }

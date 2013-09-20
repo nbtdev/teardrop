@@ -7,6 +7,7 @@ is prohibited.
 
 #include "QtPropertyGridModel.h"
 #include "QtPropertyGridItem.h"
+#include "QtProjectExplorer/QtProjectItem.h"
 #include <QMimeData>
 #include "QtUtils/ObjectDragDropData.h"
 #include "Reflection/Reflection.h"
@@ -317,11 +318,11 @@ bool QtPropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction act
 			if (item) {
 				// make sure it's a pointer property...
 				if (item->isPointer()) {
-					DragDropData* ddd = static_cast<DragDropData*>(od);
-					if (ddd->type() == DragDropData::DDD_OBJECT) {
-						ObjectDragDropData* oddd = static_cast<ObjectDragDropData*>(ddd);
-						item->property()->setData(item->object(), oddd->object());
-						item->setAltValue((const char*)oddd->path());
+					QtProjectItemData* projItemData = static_cast<QtProjectItemData*>(od);
+					QtProjectItem* projItem = projItemData->item();
+					if (projItem->isObject()) {
+						item->property()->setData(item->object(), projItem->object());
+						item->setAltValue((const char*)projItem->path());
 					}
 				}
 			}

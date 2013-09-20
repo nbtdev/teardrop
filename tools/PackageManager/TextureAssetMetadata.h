@@ -28,6 +28,8 @@ namespace Teardrop
 			TextureAssetMetadata(TextureAsset* asset);
 			~TextureAssetMetadata();
 
+			void generateThumbnail();
+
 			TD_DECLARE_ALLOCATOR();
 
 		protected:

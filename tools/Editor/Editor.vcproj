@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)tools\bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Release.vsprops;..\vsprops\FreeImage_Release.vsprops;..\vsprops\Squish_Release.vsprops"
+			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Release.vsprops;..\vsprops\FreeImage_Release.vsprops;..\vsprops\Squish_Release.vsprops;..\..\tech\vsprops\TBB_Release.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -90,7 +90,7 @@
 			OutputDirectory="$(SolutionDir)tools\bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Debug.vsprops;..\vsprops\FreeImage_Debug.vsprops;..\vsprops\Squish_Debug.vsprops"
+			InheritedPropertySheets="..\..\tech\vsprops\DirectX_Debug.vsprops;..\vsprops\FreeImage_Debug.vsprops;..\vsprops\Squish_Debug.vsprops;..\..\tech\vsprops\TBB_Debug.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"

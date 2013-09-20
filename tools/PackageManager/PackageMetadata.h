@@ -57,6 +57,8 @@ namespace Teardrop
 			Metadata* findObjectMetadata(Reflection::Object* object);
 			Reflection::Object* findObject(const String& id);
 
+			void generateThumbnails();
+
 			TD_DECLARE_ALLOCATOR();
 
 		protected:

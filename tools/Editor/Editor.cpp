@@ -14,6 +14,7 @@ is prohibited.
 #include "PackageManager/Metadata.h"
 #include "Package/Package.h"
 #include "Util/FileSystem.h"
+#include "FreeImage.h"
 #include <QDockWidget>
 #include <QVBoxLayout>
 #include <QToolBox>
@@ -34,6 +35,8 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	, mPropGridDesc(0)
 	, mProject(0)
 {
+	FreeImage_Initialise();
+
 	ui.setupUi(this);
 	mCursor = cursor();
 
@@ -114,6 +117,7 @@ Editor::~Editor()
 {
 	mPreferences.save();
 	delete mProject;
+	FreeImage_DeInitialise();
 }
 
 void Editor::onContextMenu(const QPoint& pt)

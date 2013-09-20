@@ -7,6 +7,8 @@ is prohibited.
 
 #include "QtObjectBrowser.h"
 #include "QtObjectBrowserModel.h"
+#include "QtListViewDelegate.h"
+#include "QtIconViewDelegate.h"
 #include "QtProjectExplorer/QtProjectItem.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -14,56 +16,9 @@ is prohibited.
 #include <QPushButton>
 #include <QSplitter>
 #include <QSpacerItem>
-#include <QStyledItemDelegate>
-#include <QPainter>
 
 using namespace Teardrop;
 using namespace Tools;
-
-class Teardrop::Tools::QtListDelegate : public QStyledItemDelegate
-{
-public:
-	QtListDelegate(QObject* parent=0) : QStyledItemDelegate(parent) {}
-	~QtListDelegate() {}
-
-	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-	{
-		QStyleOptionViewItemV4 opt = option;
-		initStyleOption(&opt, index);
-
-		painter->save();
-
-		// just draw the text
-		QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
-		if (item) {
-			QSize sz = sizeHint(opt, index);
-			QString val(item->toString());
-			QRectF rf = painter->boundingRect(opt.rect, Qt::AlignLeft, val);
-
-			if (opt.state & QStyle::State_Selected) {
-				QBrush brush(Qt::lightGray);
-				painter->fillRect(rf, brush);
-			}
-
-			painter->drawText(rf, val);
-		}
-		else
-			QStyledItemDelegate::paint(painter, option, index);
-
-		painter->restore();
-	}
-
-	QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-	{
-		QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
-		if (item) {
-			QRect r = option.fontMetrics.boundingRect(QString(item->toString()));
-			return QSize(r.width(), r.height());
-		}
-
-		return QSize();
-	}
-};
 
 QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 	: QWidget(parent)
@@ -76,7 +31,8 @@ QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 	, mSplitter(0)
 	, mViewType(VIEW_ICON)
 	, mModel(0)
-	, mListDelegate(new QtListDelegate)
+	, mListViewDelegate(new QtListViewDelegate)
+	, mIconViewDelegate(new QtIconViewDelegate)
 {
 	QVBoxLayout* vLayout = new QVBoxLayout(this);
 	QWidget* viewWidget = new QWidget(this);
@@ -100,12 +56,23 @@ QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 	mSplitter = new QSplitter(viewWidget);
 	mListView = new QListView(mSplitter);
 	mListView->setViewMode(QListView::ListMode);
-	mListView->setItemDelegate(mListDelegate);
+	mListView->setItemDelegate(mListViewDelegate);
 	mIconView = new QListView(mSplitter);
 	mIconView->setViewMode(QListView::IconMode);
+	mIconView->setItemDelegate(mIconViewDelegate);
 	mSplitter->addWidget(mListView);
 	mSplitter->addWidget(mIconView);
 	tmp->addWidget(mSplitter);
+
+	mListView->setAcceptDrops(true);
+	mListView->setDragEnabled(true);
+	mListView->setDropIndicatorShown(true);
+	mListView->setContextMenuPolicy(Qt::CustomContextMenu);
+
+	mIconView->setAcceptDrops(true);
+	mIconView->setDragEnabled(true);
+	mIconView->setDropIndicatorShown(true);
+	mIconView->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	QHBoxLayout* hLayout = new QHBoxLayout(buttonWidget);
 	mCmdList = new QPushButton(buttonWidget);
@@ -136,7 +103,8 @@ QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 
 QtObjectBrowser::~QtObjectBrowser()
 {
-	delete mListDelegate;
+	delete mListViewDelegate;
+	delete mIconViewDelegate;
 	delete mModel;
 }
 
