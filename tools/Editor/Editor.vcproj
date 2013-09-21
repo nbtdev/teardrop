@@ -179,6 +179,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ProgressDialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Project.cpp"
 				>
 			</File>
@@ -216,6 +220,10 @@
 			</File>
 			<File
 				RelativePath=".\Preferences.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ProgressDialog.h"
 				>
 			</File>
 			<File

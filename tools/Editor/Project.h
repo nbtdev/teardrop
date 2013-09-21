@@ -17,6 +17,7 @@ namespace Teardrop
 	namespace Tools
 	{
 		class PackageManager;
+		class ProgressFeedback;
 
 		class Project
 		{
@@ -30,8 +31,8 @@ namespace Teardrop
 			const String& path();
 			void setPath(const String& path);
 			void rename(const String& newName);
-			bool write();
-			bool read();
+			bool write(ProgressFeedback* feedback=0);
+			bool read(ProgressFeedback* feedback=0);
 			int version();
 			PackageManager* createPackage();
 

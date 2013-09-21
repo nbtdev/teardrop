@@ -10,8 +10,10 @@ is prohibited.
 #include "Package/DeferredResolution.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
+#include "QtUtils/ProgressFeedback.h"
 #include "tinyxml/tinyxml.h"
 #include <sstream>
+#include <tbb/task.h>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -78,7 +80,7 @@ const char* PATHSEP = "\\";
 const char* PATHSEP = "/";
 #endif
 
-bool Project::write()
+bool Project::write(ProgressFeedback* feedback)
 {
 	String pathname(mPath);
 	pathname += PATHSEP;
@@ -92,7 +94,13 @@ bool Project::write()
 	TiXmlElement project("project");
 	std::stringstream ss;
 	ss << mVersion;
-	project.SetAttribute("version", ss.str().c_str());
+	std::string str(ss.str());
+	project.SetAttribute("version", str.c_str());
+
+	ss.str("");
+	ss << mPackageManagers.size();
+	str.assign(ss.str());
+	project.SetAttribute("package_count", str.c_str());
 
 	String packagePath(mPath);
 	packagePath += "/packages/";
@@ -120,7 +128,34 @@ bool Project::write()
 	return true;
 }
 
-bool Project::read()
+class ThumbnailTask : public tbb::task
+{
+	Metadata* mMetadata;
+	tbb::task* execute() {
+		if (mMetadata)
+			mMetadata->generateThumbnail();
+
+		return NULL;
+	}
+
+public:
+	ThumbnailTask(Metadata* meta) : mMetadata(meta) {}
+};
+
+class DummyTask : public tbb::task
+{
+public:
+	DummyTask() {}
+	tbb::task* execute() { return NULL; }
+};
+
+static void updateFeedback(ProgressFeedback* feedback=0, int progress=0, const char* infoText=0)
+{
+	if (feedback)
+		feedback->updateProgress(progress, infoText);
+}
+
+bool Project::read(ProgressFeedback* feedback)
 {
 	String pathname(mPath);
 	pathname += PATHSEP;
@@ -130,23 +165,41 @@ bool Project::read()
 	TiXmlDocument doc;
 	doc.LoadFile(pathname);
 
+	updateFeedback(feedback);
+
 	if (doc.Error()) {
 		return false;
 	}
 
 	// otherwise, read project file
 	TiXmlElement* root = doc.RootElement();
+
+	// TODO: check version compatibility
+	const char* nPackageAttr = root->Attribute("package_count");
+	int nPkg = -1;
+	if (nPackageAttr)
+		nPkg = atoi(nPackageAttr);
+
 	TiXmlElement* package = root->FirstChildElement("package");
 
 	// for deferred object-reference resolution
 	DeferredObjectResolves deferred;
 	ObjectIdToObject lut;
 
+	// for metadata thumbnail loading
+	std::list<Metadata*> metaList;
+
+	int p = 1;
 	while (package) {
 		const char* name = package->Attribute("name");
 		const char* filename = package->Attribute("filename");
 
+		std::string pkgInfoText("Loading Package: ");
+
 		if (name && filename) {
+			pkgInfoText.append(name);
+			updateFeedback(feedback, int(float(p)/float(nPkg)*100.f), pkgInfoText.c_str());
+
 			PackageManager* pkgMgr = new PackageManager();
 			pkgMgr->metadata()->setName(name);
 
@@ -154,7 +207,11 @@ bool Project::read()
 			path += "/packages/";
 			pkgMgr->load(path, deferred, lut);
 
+			// add package metadata to list to post-process
+			pkgMgr->getAllMetadata(metaList);
+
 			mPackageManagers.push_back(pkgMgr);
+			updateFeedback(feedback, int(float(++p)/float(nPkg)*100.f), pkgInfoText.c_str());
 		}
 
 		package = package->NextSiblingElement("package");
@@ -169,5 +226,14 @@ bool Project::read()
 		}
 	}
 
+	// load all thumbnails in parallel
+	tbb::task* dummy = new(tbb::task::allocate_root()) DummyTask;
+	dummy->set_ref_count(metaList.size() + 1);
+	for (std::list<Metadata*>::iterator it = metaList.begin(); it != metaList.end(); ++it) {
+		tbb::task* t = new(dummy->allocate_child()) ThumbnailTask(*it);
+		dummy->spawn(*t);
+	}
+
+	dummy->wait_for_all();
 	return true;
 }

@@ -98,8 +98,12 @@ bool PackageManager::load(const String& path, DeferredObjectResolves& deferred, 
 
 	PackageSerializer ser(mPackage);
 	bool rtn = ser.deserialize(strm, deferred, lut, mMetadata);
-	if (rtn)
-		mMetadata->generateThumbnails();
 
 	return rtn;
+}
+
+void PackageManager::getAllMetadata(std::list<Metadata*>& metaList) const
+{
+	if (mMetadata)
+		mMetadata->getAllMetadata(metaList);
 }

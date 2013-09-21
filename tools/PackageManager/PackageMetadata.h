@@ -54,10 +54,9 @@ namespace Teardrop
 			Folder* deleteFolder(Folder* folder);
 			void renameFolder(Folder* folder, const String& name);
 
+			void getAllMetadata(std::list<Metadata*>& metaList) const;
 			Metadata* findObjectMetadata(Reflection::Object* object);
 			Reflection::Object* findObject(const String& id);
-
-			void generateThumbnails();
 
 			TD_DECLARE_ALLOCATOR();
 

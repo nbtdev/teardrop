@@ -157,6 +157,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\ProgressFeedback.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\TypeChooser.cpp"
 				>
 			</File>
@@ -176,6 +180,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\ObjectDragDropData.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\ProgressFeedback.h"
 				>
 			</File>
 			<File

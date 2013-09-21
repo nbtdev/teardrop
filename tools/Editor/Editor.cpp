@@ -7,6 +7,7 @@ is prohibited.
 
 #include "Editor.h"
 #include "Project.h"
+#include "ProgressDialog.h"
 #include "QtPropertyGrid/QtPropertyGrid.h"
 #include "QtProjectExplorer/QtProjectExplorer.h"
 #include "QtProjectExplorer/QtProjectItem.h"
@@ -153,7 +154,12 @@ void Editor::openProject(const QString& file)
 	newProject->rename(name.toLatin1().data());
 	newProject->setPath(path.toLatin1().data());
 
-	if (!newProject->read()) {
+	ProgressDialog pd(this);
+	pd.setMinimum(0);
+	pd.setMaximum(100);
+	pd.show();
+
+	if (!newProject->read(&pd)) {
 		// do something
 		delete newProject;
 	}

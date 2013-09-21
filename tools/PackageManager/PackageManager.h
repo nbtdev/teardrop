@@ -57,6 +57,7 @@ namespace Teardrop
 			String packageFilename();
 
 			PackageMetadata* metadata();
+			void getAllMetadata(std::list<Metadata*>& metaList) const;
 
 		protected:
 			Package* mPackage;

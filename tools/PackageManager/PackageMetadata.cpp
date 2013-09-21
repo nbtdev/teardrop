@@ -356,9 +356,9 @@ void PackageMetadata::deserialize(Package* pkg, Stream& strm)
 	loadFolders(root, mRoot, pkg);
 }
 
-void PackageMetadata::generateThumbnails()
+void PackageMetadata::getAllMetadata(std::list<Metadata*>& metaList) const
 {
-	for (ObjectToMetadataMap::iterator it = mObjectToMetadataMap.begin(); it != mObjectToMetadataMap.end(); ++it) {
-		it->second->generateThumbnail();
+	for (ObjectToMetadataMap::const_iterator it = mObjectToMetadataMap.begin(); it != mObjectToMetadataMap.end(); ++it) {
+		metaList.push_back(it->second);
 	}
 }
