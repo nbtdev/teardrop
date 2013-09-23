@@ -72,8 +72,21 @@ QVariant QtProjectModel::data(const QModelIndex& index, int role) const
 
 	QtProjectItem *item = static_cast<QtProjectItem*>(index.internalPointer());
 
+	if (!item)
+		return QVariant();
+
 	if (role == Qt::ToolTipRole) {
 		return item->tooltip();
+	}
+	else if (role == Qt::DecorationRole) {
+		QPixmap pm;
+		if (item->isObject()) {
+			pm.load("icons/td-icon-16.png");
+		}
+		else {
+			pm.load("icons/td-folder-closed-16.png");
+		}
+		return pm;
 	}
 	else if (role == Qt::DisplayRole || role == Qt::EditRole) {
 		return item->toString();

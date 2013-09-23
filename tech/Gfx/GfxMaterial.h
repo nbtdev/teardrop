@@ -31,18 +31,14 @@ namespace Teardrop
 		TD_COMPLEX_PROPERTY(Ambient, "Material Ambient Color", Vector4, "(0.5,0.5,0.5,0.5)", ColorEditor);
 		TD_COMPLEX_PROPERTY(Specular, "Material Specular Color", Vector4, "(0.5,0.5,0.5,0.5)", ColorEditor);
 		TD_COMPLEX_PROPERTY(Emissive, "Material Emissive Color", Vector4, "(0.5,0.5,0.5,0.5)", ColorEditor);
-		//TD_POINTER_PROPERTY(DiffuseMap, "Diffuse Map Asset", TextureAsset);
-		//TD_POINTER_PROPERTY(AmbientOcclusionMap, "Ambient Occlusion Map Asset", TextureAsset);
-		//TD_POINTER_PROPERTY(NormalMap, "Normal Map Asset", TextureAsset);
-		//TD_POINTER_PROPERTY(SpecularMap, "Specular Map Asset", TextureAsset);
 		TD_NESTED_PROPERTY(DiffuseMap, "Diffuse map texture stage", GfxTextureStage);
 		TD_PROPERTY(ColorWrite, "Enable/disable writing to the color buffer", bool, true, 0);
 		TD_PROPERTY(DepthCheck, "Enable/disable checking against the depth buffer (alpha blending)", bool, true, 0);
 		TD_PROPERTY(DepthWrite, "Enable/disable writing to the depth buffer", bool, true, 0);
 		TD_PROPERTY(DepthBias, "Set depth bias for this material", int, 0, 0);
-		TD_PROPERTY(VertexColors, "Enable/disable blending of mesh vertex colors when rendering with this material", bool, true, 0);
+		TD_PROPERTY(VertexColors, "Enable/disable blending of mesh vertex colors when rendering with this material", bool, false, 0);
 		TD_PROPERTY(Lit, "Enable/disable dynamic lighting when rendering with this material", bool, true, 0);
-		TD_PROPERTY(AlphaBlending, "Enable/disable alpha blending with target buffer when rendering with this material", bool, true, 0);
+		TD_PROPERTY(AlphaBlending, "Enable/disable alpha blending with target buffer when rendering with this material", bool, false, 0);
 
 		enum CullMode {
 			CULL_NONE,

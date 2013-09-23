@@ -72,13 +72,13 @@ namespace Teardrop
 		TD_POINTER_PROPERTY(TextureAsset, "Reference to texture asset to sample", TextureAsset);
 		TD_PROPERTY(Enabled, "Enable/disable this texture stage", bool, true, 0);
 		TD_PROPERTY(TexCoordSet, "Which texture coordinate set to use on the object rendered with this texture stage", int, 0, 0);
-		TD_ENUM_PROPERTY(MinFilter, "Minimisation filter", Filter, FILTER_NONE);
-		TD_ENUM_PROPERTY(MagFilter, "Magnification filter", Filter, FILTER_NONE);
-		TD_ENUM_PROPERTY(MipMapFilter, "Mipmap filter", Filter, FILTER_NONE);
-		TD_ENUM_PROPERTY(AddressModeU, "U coordinate addressing mode", AddressMode, ADDRMODE_UNSET);
-		TD_ENUM_PROPERTY(AddressModeV, "V coordinate addressing mode", AddressMode, ADDRMODE_UNSET);
-		TD_ENUM_PROPERTY(AddressModeW, "W coordinate addressing mode", AddressMode, ADDRMODE_UNSET);
-		TD_ENUM_PROPERTY(BlendMode, "Layer blending mode", BlendMode, BLENDMODE_REPLACE);
+		TD_ENUM_PROPERTY(MinFilter, "Minimisation filter", Filter, FILTER_BILINEAR);
+		TD_ENUM_PROPERTY(MagFilter, "Magnification filter", Filter, FILTER_BILINEAR);
+		TD_ENUM_PROPERTY(MipMapFilter, "Mipmap filter", Filter, FILTER_BILINEAR);
+		TD_ENUM_PROPERTY(AddressModeU, "U coordinate addressing mode", AddressMode, ADDRMODE_WRAP);
+		TD_ENUM_PROPERTY(AddressModeV, "V coordinate addressing mode", AddressMode, ADDRMODE_WRAP);
+		TD_ENUM_PROPERTY(AddressModeW, "W coordinate addressing mode", AddressMode, ADDRMODE_WRAP);
+		TD_ENUM_PROPERTY(BlendMode, "Layer blending mode", BlendMode, BLENDMODE_MODULATE);
 		TD_ENUM_PROPERTY(MapHint, "Hint as to purpose for this texture stage", MapHint, MAP_UNKNOWN);
 		
 		/** accessors
