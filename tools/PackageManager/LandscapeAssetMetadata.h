@@ -5,36 +5,33 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(TEXTUREASSETMETADATA_INCLUDED)
-#define TEXTUREASSETMETADATA_INCLUDED
+#if !defined(LANDSCAPEASSETMETADATA_INCLUDED)
+#define LANDSCAPEASSETMETADATA_INCLUDED
 
 #include "PackageManager/AssetMetadata.h"
 #include <map>
 
 namespace Teardrop 
 {
-	class TextureAsset;
+	class LandscapeAsset;
 
 	namespace Tools
 	{
-		class TextureAssetMetadata : public AssetMetadata
+		class LandscapeAssetMetadata : public AssetMetadata
 		{
 		public:
-			TD_CLASS(TextureAssetMetadata, AssetMetadata);
-			TD_PROPERTY(GenerateMipmaps, "Generate mipmaps for texture asset", bool, false, 0);
+			TD_CLASS(LandscapeAssetMetadata, AssetMetadata);
 
-			TextureAssetMetadata();
-			TextureAssetMetadata(TextureAsset* asset);
-			~TextureAssetMetadata();
+			LandscapeAssetMetadata();
+			LandscapeAssetMetadata(LandscapeAsset* asset);
+			~LandscapeAssetMetadata();
 
 			void generateThumbnail();
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			TextureAsset* mTexAsset;
-
-			void onPropertyChanged(const Reflection::PropertyDef* prop);
+			LandscapeAsset* mAsset;
 		};
 	}
 }

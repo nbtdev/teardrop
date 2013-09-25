@@ -11,6 +11,8 @@ is prohibited.
 #include "Package/Package.h"
 #include "Package/PackageSerializer.h"
 #include "Asset/TextureAsset.h"
+#include "Asset/LandscapeAsset.h"
+#include "AssetImport.h"
 #include "Stream/FileStream.h"
 #include <utility>
 
@@ -31,8 +33,10 @@ PackageManager::~PackageManager()
 	delete mPackage;
 }
 
-std::pair<Asset*, Metadata*> PackageManager::importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass)
+ImportedAsset PackageManager::importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass)
 {
+	ImportedAsset imp;
+
 	// TODO: get these known types from some lookup table?
 	if (assetClass == TextureAsset::getClassDef()) {
 		TextureAsset* texAsset = importTexture(filepath, TEXTUREASSET_TYPE_BCX);
@@ -44,11 +48,45 @@ std::pair<Asset*, Metadata*> PackageManager::importAsset(Folder* folder, const c
 			String assetId;
 			Metadata* assetMeta = mMetadata->add(assetId, folder, texAsset, filepath);
 			assetMeta->generateThumbnail();
-			return std::pair<Asset*, Metadata*>(texAsset, assetMeta);
+			imp.mAsset = texAsset;
+			imp.mMetadata = assetMeta;
+		}
+	}
+	else if (assetClass == LandscapeAsset::getClassDef()) {
+		// TODO: support additional landscape editors?
+		LandscapeAsset* landscapeAsset = importLandscape(imp, filepath, LANDSCAPEASSET_TYPE_L3DT);
+		if (landscapeAsset) {
+			// add the new asset to the package
+			mPackage->add(landscapeAsset);
+
+			// and add an entry to the package metadata
+			String assetId;
+			Metadata* assetMeta = mMetadata->add(assetId, folder, landscapeAsset, filepath);
+			assetMeta->generateThumbnail();
+
+			imp.mAsset = landscapeAsset;
+			imp.mMetadata = assetMeta;
+
+			// and then handle any dependencies
+			if (imp.mNumDeps > 0) {
+				// add all dependent assets to this folder too
+				for (int i=0; i<imp.mNumDeps; ++i) {
+					Asset* dep = imp.mDeps[i];
+					String& path = imp.mDepsFilepath[i];
+					mPackage->add(dep);
+
+					// and the metadata...
+					String assetId;
+					Metadata* depMeta = mMetadata->add(assetId, folder, dep, path);
+					imp.mDepsMetadata[i] = depMeta;
+					depMeta->setName(imp.mDepsMetaName[i]);
+					depMeta->generateThumbnail();
+				}
+			}
 		}
 	}
 
-	return std::pair<Asset*, Metadata*>(0,0);
+	return imp;
 }
 
 std::pair<Reflection::Object*, Metadata*> PackageManager::createObject(Folder* folder, const Reflection::ClassDef* classDef)

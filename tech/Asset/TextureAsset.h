@@ -17,6 +17,8 @@ namespace Teardrop
 	public:
 		TD_CLASS(TextureAsset, Asset);
 		TD_CLASS_CREATABLE();
+		TD_PROPERTY(Width, "Texture width in pixels", int, 0, "ReadOnly");
+		TD_PROPERTY(Height, "Texture height in pixels", int, 0, "ReadOnly");
 
 		TextureAsset();
 		virtual ~TextureAsset();

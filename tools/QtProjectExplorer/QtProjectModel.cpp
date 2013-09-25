@@ -47,7 +47,7 @@ QtProjectModel::QtProjectModel(Project* project, QObject* parent /* = 0 */)
 	if (mProject) {
 		const Project::PackageManagers& pkgMgrs = mProject->packages();
 		for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
-			QtProjectItem* rootItem = new QtProjectItem(*it, mRoot);
+			QtProjectItem* rootItem = new QtProjectItem(*it, (*it)->metadata()->rootFolder(), mRoot);
 			mRoot->append(rootItem);
 			populate((*it)->metadata()->rootFolder(), rootItem, *it);
 		}
@@ -224,14 +224,22 @@ bool QtProjectModel::dropMimeData(const QMimeData* data, Qt::DropAction action, 
 						QString str = urls.at(i).toLocalFile();
 						String pathName(str.toLatin1().constData());
 
-						std::pair<Asset*, Metadata*> assetPr = pkgMgr->importAsset(destItem->folder(), pathName, chooser.chosenClass());
-						Asset* asset = assetPr.first;
-						Metadata* assetMeta = assetPr.second;
+						ImportedAsset importedAsset = pkgMgr->importAsset(destItem->folder(), pathName, chooser.chosenClass());
+						Asset* asset = importedAsset.mAsset;
+						Metadata* assetMeta = importedAsset.mMetadata;
 
 						if (asset) {
 							emit layoutAboutToBeChanged();
 							QtProjectItem* assetItem = new QtProjectItem(pkgMgr, asset, assetMeta, destItem);
 							destItem->append(assetItem);
+
+							// there might be dependent assets imported as well...
+							int nDeps = importedAsset.mNumDeps;
+							for (int i=0; i<nDeps; ++i) {
+								QtProjectItem* depItem = new QtProjectItem(pkgMgr, importedAsset.mDeps[i], importedAsset.mDepsMetadata[i], destItem);
+								destItem->append(depItem);
+							}
+
 							emit layoutChanged();
 						}
 						else {

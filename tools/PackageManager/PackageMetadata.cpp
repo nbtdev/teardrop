@@ -8,12 +8,14 @@ is prohibited.
 #include "PackageMetadata.h"
 #include "ObjectMetadata.h"
 #include "TextureAssetMetadata.h"
+#include "LandscapeAssetMetadata.h"
 #include "Folder.h"
 #include "Thumbnail.h"
 #include "Stream/Stream.h"
 #include "Util/UUID.h"
 #include "Package/Package.h"
 #include "Asset/TextureAsset.h"
+#include "Asset/LandscapeAsset.h"
 #include "tinyxml/tinyxml.h"
 #include <tbb/task.h>
 
@@ -55,20 +57,25 @@ Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const
 	// call the general object insert handler first...
 	add(uuid, parent, asset);
 
-	Metadata* rtn = 0;
+	AssetMetadata* meta = 0;
 
 	// make new metadata for the asset
 	// TODO: should this be one level higher in the call stack?
 	if (asset->getDerivedClassDef() == TextureAsset::getClassDef()) {
-		TextureAssetMetadata* meta = new TextureAssetMetadata(static_cast<TextureAsset*>(asset));
+		meta = new TextureAssetMetadata(static_cast<TextureAsset*>(asset));
+	}
+	else if(asset->getDerivedClassDef() == LandscapeAsset::getClassDef()) {
+		meta = new LandscapeAssetMetadata(static_cast<LandscapeAsset*>(asset));
+	}
+
+	if (meta) {
 		meta->setSourcePath(assetSourcePath);
 		meta->setID(uuid);
 
 		mObjectToMetadataMap[asset] = meta;
-		rtn = meta;
 	}
 
-	return rtn;
+	return meta;
 }
 
 Metadata* PackageMetadata::add(String& uuid, Folder* parent, Reflection::Object* object)

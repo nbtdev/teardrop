@@ -193,6 +193,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\FileSystem.cpp"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\FileSystem.h"
 			>
 		</File>

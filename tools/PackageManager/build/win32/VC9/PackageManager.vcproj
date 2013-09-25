@@ -148,11 +148,43 @@
 	</References>
 	<Files>
 		<File
+			RelativePath="..\..\..\AssetImport.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\AssetMetadata.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\AssetMetadata.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\Folder.cpp"
 			>
 		</File>
 		<File
 			RelativePath="..\..\..\Folder.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ImportedAsset.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ImportedAsset.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\LandscapeAssetMetadata.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\LandscapeAssetMetadata.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\LandscapeImport.cpp"
 			>
 		</File>
 		<File
