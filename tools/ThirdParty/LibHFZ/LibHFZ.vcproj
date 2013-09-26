@@ -2,9 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Asset"
-	ProjectGUID="{4453688A-6B15-4A9F-BA5A-0D33111B0D65}"
-	RootNamespace="Asset"
+	Name="LibHFZ"
+	ProjectGUID="{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}"
+	RootNamespace="LibHFZ"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,15 +18,15 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
-			ConfigurationType="4"
-			CharacterSet="2"
+			OutputDirectory="$(SolutionDir)tools\bin"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName)..."
-				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
+				Description="Copying zlib1.dll to $(SolutionDir)tools\bin..."
+				CommandLine="copy $(ProjectDir)\zlib\zlib1.dll $(SolutionDir)tools\bin"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -42,12 +43,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../..;../../../.."
+				AdditionalIncludeDirectories="$(ProjectDir)\zlib\include"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -59,10 +62,21 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="zdll.lib"
+				OutputFile="$(OutDir)\$(ProjectName)d.dll"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="$(ProjectDir)\zlib\lib"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				ImportLibrary="$(IntDir)$(TargetName).lib"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -74,21 +88,24 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
-			ConfigurationType="4"
-			CharacterSet="2"
+			OutputDirectory="$(SolutionDir)tools\bin"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName)..."
-				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
+				Description="Copying zlib1.dll to $(SolutionDir)tools\bin..."
+				CommandLine="copy $(ProjectDir)\zlib\zlib1.dll $(SolutionDir)tools\bin"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -106,9 +123,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../..;../../../.."
+				AdditionalIncludeDirectories="$(ProjectDir)\zlib\include"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -122,10 +141,22 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="zdll.lib"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="$(ProjectDir)\zlib\lib"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				ImportLibrary="$(IntDir)$(TargetName).lib"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -137,6 +168,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -145,35 +179,19 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\Asset.cpp"
+			RelativePath=".\libhfz.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Asset.h"
+			RelativePath=".\libhfz.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\HeightfieldAsset.cpp"
+			RelativePath=".\wrapper.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\HeightfieldAsset.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\LandscapeAsset.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\LandscapeAsset.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\TextureAsset.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\TextureAsset.h"
+			RelativePath=".\wrapper.h"
 			>
 		</File>
 	</Files>

@@ -168,6 +168,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\HeightfieldAssetMetadata.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\HeightfieldAssetMetadata.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\ImportedAsset.cpp"
 			>
 		</File>

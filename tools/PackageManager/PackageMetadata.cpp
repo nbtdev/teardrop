@@ -9,6 +9,7 @@ is prohibited.
 #include "ObjectMetadata.h"
 #include "TextureAssetMetadata.h"
 #include "LandscapeAssetMetadata.h"
+#include "HeightfieldAssetMetadata.h"
 #include "Folder.h"
 #include "Thumbnail.h"
 #include "Stream/Stream.h"
@@ -16,6 +17,7 @@ is prohibited.
 #include "Package/Package.h"
 #include "Asset/TextureAsset.h"
 #include "Asset/LandscapeAsset.h"
+#include "Asset/HeightfieldAsset.h"
 #include "tinyxml/tinyxml.h"
 #include <tbb/task.h>
 
@@ -28,6 +30,7 @@ PackageMetadata::PackageMetadata()
 	: mRoot(0)
 	, mPackage(0)
 {
+	mRoot = new Folder(getName(), 0);
 }
 
 PackageMetadata::PackageMetadata(Package* package)
@@ -66,6 +69,9 @@ Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const
 	}
 	else if(asset->getDerivedClassDef() == LandscapeAsset::getClassDef()) {
 		meta = new LandscapeAssetMetadata(static_cast<LandscapeAsset*>(asset));
+	}
+	else if(asset->getDerivedClassDef() == HeightfieldAsset::getClassDef()) {
+		meta = new HeightfieldAssetMetadata(static_cast<HeightfieldAsset*>(asset));
 	}
 
 	if (meta) {

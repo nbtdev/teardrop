@@ -11,10 +11,12 @@ is prohibited.
 #include "ImportedAsset.h"
 #include "Asset/LandscapeAsset.h"
 #include "Asset/TextureAsset.h"
+#include "Asset/HeightfieldAsset.h"
 #include "Util/StringUtil.h"
 #include "Util/FileSystem.h"
 #include "FreeImage.h"
 #include "tinyxml/tinyxml.h"
+#include "ThirdParty/LibHFZ/wrapper.h"
 #include <tbb/task.h>
 #include <tbb/concurrent_vector.h>
 
@@ -180,11 +182,24 @@ namespace Teardrop {
 							filepath.append(filename);
 
 							// heightfield has to be uncompressed first...and then stays uncompressed
-							//if (!strcmp(mapName, "HF")) {
-							//	TextureAsset* tex = importTexture(filepath, TEXTUREASSET_TYPE_UNCOMPRESSED);
-							//	asset->setHeightField(tex);
-							//	imp.addDep(tex);
-							//}
+							if (!strcmp(mapName, "HF")) {
+								// libHFZ to read this one
+								float* data = hfzLoadHeightfield(filepath);
+								if (data) {
+									HeightfieldAsset* tex = new HeightfieldAsset;
+									int w = asset->getHeightFieldX();
+									int h = asset->getHeightFieldY();
+									tex->setWidth(w);
+									tex->setHeight(h);
+									int nBytes = sizeof(float) * w * h;
+									void* hfData = tex->createData(nBytes);
+									memcpy(hfData, data, nBytes);
+									asset->setHeightField(tex);
+									deps.push_back(DepInfo(tex, filepath, "HeightField"));
+
+									hfzFreeHeightfieldData(data);
+								}
+							}
 
 							// water map
 							//if (!strcmp(mapName, "WM")) {
@@ -327,23 +342,6 @@ namespace Teardrop {
 					}
 				}
 			}
-
-			//FIBITMAP* fibm = FreeImage_Load(FreeImage_GetFileType(filepath), filepath);
-			//if (fibm) {
-			//	BITMAPINFO* bmi = FreeImage_GetInfo(fibm);
-
-			//	if (bmi->bmiHeader.biBitCount != 32) {
-			//		fibm = FreeImage_ConvertTo32Bits(fibm);
-			//		bmi = FreeImage_GetInfo(fibm);
-			//	}
-
-			//	asset = new TextureAsset;
-			//	int w = bmi->bmiHeader.biWidth;
-			//	int h = bmi->bmiHeader.biHeight;
-			//	int sz = squish::GetStorageRequirements(w, h, squish::kDxt3);
-			//	void* data = asset->createData(sz);
-			//	squish::CompressImage((squish::u8*)fibm->data, w, h, data, squish::kDxt3);
-			//}
 
 			return asset;
 		}

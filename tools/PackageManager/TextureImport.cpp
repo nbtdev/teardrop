@@ -40,7 +40,7 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 
 			if (sz) {
 				void* data = asset->createData(sz);
-				memcpy(data, fibm->data, sz);
+				memcpy(data, FreeImage_GetBits(fibm), sz);
 			}
 			else {
 				delete asset;
@@ -55,7 +55,7 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 
 			int sz = squish::GetStorageRequirements(w, h, squish::kDxt3);
 			void* data = asset->createData(sz);
-			squish::CompressImage((squish::u8*)fibm->data, w, h, data, squish::kDxt3);
+			squish::CompressImage((squish::u8*)FreeImage_GetBits(fibm), w, h, data, squish::kDxt3);
 		}
 
 		FreeImage_Unload(fibm);

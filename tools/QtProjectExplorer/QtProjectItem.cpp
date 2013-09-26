@@ -40,8 +40,10 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, QtProjectItem* parent)
 	, mMetadata(0)
 	, mParent(parent)
 {
-	if (packageMgr)
+	if (packageMgr) {
 		mMetadata = packageMgr->metadata();
+		mFolder = packageMgr->metadata()->rootFolder();
+	}
 }
 
 QtProjectItem::QtProjectItem(PackageManager* packageMgr, Folder* folder, QtProjectItem* parent/* =0 */)
