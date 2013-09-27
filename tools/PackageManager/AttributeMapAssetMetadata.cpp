@@ -5,49 +5,49 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "HeightfieldAssetMetadata.h"
-#include "Asset/HeightfieldAsset.h"
+#include "AttributeMapAssetMetadata.h"
+#include "Asset/AttributeMapAsset.h"
 #include "FreeImage.h"
 
 using namespace Teardrop;
 using namespace Tools;
 
-TD_CLASS_IMPL(HeightfieldAssetMetadata);
+TD_CLASS_IMPL(AttributeMapAssetMetadata);
 
-HeightfieldAssetMetadata::HeightfieldAssetMetadata()
-	: mHFAsset(0)
+AttributeMapAssetMetadata::AttributeMapAssetMetadata()
+	: mAMAsset(0)
 {
 }
 
-HeightfieldAssetMetadata::HeightfieldAssetMetadata(HeightfieldAsset* asset)
-	: mHFAsset(asset)
+AttributeMapAssetMetadata::AttributeMapAssetMetadata(AttributeMapAsset* asset)
+	: mAMAsset(asset)
 {
-	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &HeightfieldAssetMetadata::onPropertyChanged));
+	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &AttributeMapAssetMetadata::onPropertyChanged));
 }
 
-HeightfieldAssetMetadata::~HeightfieldAssetMetadata()
+AttributeMapAssetMetadata::~AttributeMapAssetMetadata()
 {
-	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &HeightfieldAssetMetadata::onPropertyChanged));
+	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &AttributeMapAssetMetadata::onPropertyChanged));
 }
 
-void HeightfieldAssetMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)
+void AttributeMapAssetMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)
 {
 
 }
 
-void HeightfieldAssetMetadata::generateThumbnail()
+void AttributeMapAssetMetadata::generateThumbnail()
 {
-	if (!mHFAsset) 
+	if (!mAMAsset) 
 		return;
 
-	// what we have is a single-channel 32-bit floating point data field; first make a bitmap of the proper size and shape
-	int w = mHFAsset->getWidth();
-	int h = mHFAsset->getHeight();
-	float* data = (float*)mHFAsset->data();
+	// what we have is a two-channel 16-bit integer data field; first make a bitmap of the proper size and shape
+	int w = mAMAsset->getWidth();
+	int h = mAMAsset->getHeight();
+	float* data = (float*)mAMAsset->data();
 
-	FIBITMAP* fibm = FreeImage_AllocateT(FIT_FLOAT, w, h);
+	FIBITMAP* fibm = FreeImage_AllocateT(FIT_INT16, w, h);
 	if (fibm) {
-		memcpy(FreeImage_GetBits(fibm), data, w*h*sizeof(float));
+		memcpy(FreeImage_GetBits(fibm), data, w*h*sizeof(short));
 		// make thumbnail
 		FIBITMAP* thumb = FreeImage_MakeThumbnail(fibm, 128);
 		if (thumb) {

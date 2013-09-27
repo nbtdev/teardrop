@@ -46,7 +46,7 @@ TypeChooser::TypeChooser(QWidget* parent, const ClassDef* baseClass)
 	// populate the list with types of the given base class
 	ClassDef* classDef = ClassDef::getClasses();
 	while (classDef) {
-		if (classDef->isA(baseClass)) {
+		if (classDef->isA(baseClass) && classDef->isCreatable()) {
 			QVariant v = qVariantFromValue((void*)classDef);
 			mTypeList->addItem((const char*)classDef->getName(), v);
 		}

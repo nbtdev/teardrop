@@ -153,6 +153,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\AttributeMapAsset.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\AttributeMapAsset.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\HeightfieldAsset.cpp"
 			>
 		</File>

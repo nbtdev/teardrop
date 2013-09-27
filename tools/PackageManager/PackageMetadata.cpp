@@ -10,6 +10,7 @@ is prohibited.
 #include "TextureAssetMetadata.h"
 #include "LandscapeAssetMetadata.h"
 #include "HeightfieldAssetMetadata.h"
+#include "AttributeMapAssetMetadata.h"
 #include "Folder.h"
 #include "Thumbnail.h"
 #include "Stream/Stream.h"
@@ -18,6 +19,7 @@ is prohibited.
 #include "Asset/TextureAsset.h"
 #include "Asset/LandscapeAsset.h"
 #include "Asset/HeightfieldAsset.h"
+#include "Asset/AttributeMapAsset.h"
 #include "tinyxml/tinyxml.h"
 #include <tbb/task.h>
 
@@ -72,6 +74,9 @@ Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const
 	}
 	else if(asset->getDerivedClassDef() == HeightfieldAsset::getClassDef()) {
 		meta = new HeightfieldAssetMetadata(static_cast<HeightfieldAsset*>(asset));
+	}
+	else if(asset->getDerivedClassDef() == AttributeMapAsset::getClassDef()) {
+		meta = new AttributeMapAssetMetadata(static_cast<AttributeMapAsset*>(asset));
 	}
 
 	if (meta) {

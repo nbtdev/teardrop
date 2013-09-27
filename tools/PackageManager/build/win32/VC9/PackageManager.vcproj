@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tech&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech\ThirdParty&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)tech&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech\ThirdParty&quot;;&quot;$(SolutionDir)tools\ThirdParty\LibHFZ\zlib\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -107,7 +107,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tech&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech\ThirdParty&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)tech&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech\ThirdParty&quot;;&quot;$(SolutionDir)tools\ThirdParty\LibHFZ\zlib\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -157,6 +157,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\AssetMetadata.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\AttributeMapAssetMetadata.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\AttributeMapAssetMetadata.h"
 			>
 		</File>
 		<File

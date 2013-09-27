@@ -12,13 +12,36 @@ is prohibited.
 #include "Asset/LandscapeAsset.h"
 #include "Asset/TextureAsset.h"
 #include "Asset/HeightfieldAsset.h"
+#include "Asset/AttributeMapAsset.h"
 #include "Util/StringUtil.h"
 #include "Util/FileSystem.h"
 #include "FreeImage.h"
 #include "tinyxml/tinyxml.h"
 #include "ThirdParty/LibHFZ/wrapper.h"
+#include "zlib.h"
 #include <tbb/task.h>
 #include <tbb/concurrent_vector.h>
+
+#if defined(_WIN32) || defined(_WIN64)
+	#pragma pack(push, 2)
+#else
+#endif
+
+static const char* MAGIC_MARKER = "L3DT";
+static const int MAGIC_TYPE    = 520;
+
+struct AttributeMapAssetHeader
+{
+	int mMarker;			// must be "L3DT"
+	unsigned short mType;	// must be 520 for AM 
+	unsigned short mWidth;
+	unsigned short mHeight;
+};
+
+#if defined(_WIN32) || defined(_WIN64)
+	#pragma pack(pop)
+#else
+#endif
 
 namespace Teardrop {
 	namespace Tools {
@@ -209,11 +232,36 @@ namespace Teardrop {
 							//}
 
 							// attr map isn't really an image, it's a pair of shorts per HF sample
-							//if (!strcmp(mapName, "AM")) {
-							//	TextureAsset* tex = importTexture(filepath, TEXTUREASSET_TYPE_UNCOMPRESSED);
-							//	asset->setAttributesMap(tex);
-							//	imp.addDep(tex);
-							//}
+							if (!strcmp(mapName, "AM")) {
+								// asset is probably in ZLIB compressed form, check for ".gz" in filename
+								if (String(filepath).contains(".gz")) {
+									// uncompress it first...
+									gzFile gz = gzopen(filepath, "rb");
+
+									if (gz) {
+										AttributeMapAssetHeader hdr;
+										int r = gzread(gz, &hdr, sizeof(hdr));
+										if (r > 0 && hdr.mType == MAGIC_TYPE && hdr.mMarker == *((int*)MAGIC_MARKER)) {
+											int sz = hdr.mWidth * hdr.mHeight * 2;
+											AttributeMapAsset* am = new AttributeMapAsset;
+											void* data = am->createData(sz);
+											am->setWidth(hdr.mWidth);
+											am->setHeight(hdr.mHeight);
+
+											r = gzread(gz, data, sz);
+											
+											if (r == sz) {
+												asset->setAttributesMap(am);
+												deps.push_back(DepInfo(am, filepath, "Attributes Map"));
+											}
+											else
+												delete am;
+
+											gzclose(gz);
+										}
+									}
+								}
+							}
 
 							// terrain normal map
 							if (!strcmp(mapName, "TN")) {
