@@ -121,8 +121,13 @@ void PackageMetadata::remove(const String& objectId)
 		// remove from this map 
 		mObjectIdToObjectMap.erase(it);
 
-		// "object --> folder" map...
-		mObjectToFolderMap.erase(obj);
+		// "object --> folder" map...but before we do this, we need
+		// to remove it from its folder too
+		ObjectToFolderMap::iterator f = mObjectToFolderMap.find(obj);
+		if (f != mObjectToFolderMap.end()) {
+			f->second->remove(obj);
+			mObjectToFolderMap.erase(f);
+		}
 
 		// object --> metadata map
 		mObjectToMetadataMap.erase(obj);
@@ -131,8 +136,13 @@ void PackageMetadata::remove(const String& objectId)
 
 void PackageMetadata::remove(Reflection::Object* object)
 {
-	// "object --> folder" map...
-	mObjectToFolderMap.erase(object);
+	// "object --> folder" map...but before we do this, we need
+	// to remove it from its folder too
+	ObjectToFolderMap::iterator f = mObjectToFolderMap.find(object);
+	if (f != mObjectToFolderMap.end()) {
+		f->second->remove(object);
+		mObjectToFolderMap.erase(f);
+	}
 
 	ObjectToMetadataMap::iterator it = mObjectToMetadataMap.find(object);
 	if (it != mObjectToMetadataMap.end()) {

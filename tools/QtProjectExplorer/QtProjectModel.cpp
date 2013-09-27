@@ -33,10 +33,10 @@ static void populate(Folder* parentFolder, QtProjectItem* parentItem, PackageMan
 		}
 	}
 
-	const Objects& objs = parentFolder->objects();
-	for (Objects::const_iterator it = objs.begin(); it != objs.end(); ++it) {
-		parentItem->append(new QtProjectItem(pkgMgr, *it, pkgMgr->metadata()->findObjectMetadata(*it), parentItem));
-	}
+	//const Objects& objs = parentFolder->objects();
+	//for (Objects::const_iterator it = objs.begin(); it != objs.end(); ++it) {
+	//	parentItem->append(new QtProjectItem(pkgMgr, *it, pkgMgr->metadata()->findObjectMetadata(*it), parentItem));
+	//}
 }
 
 QtProjectModel::QtProjectModel(Project* project, QObject* parent /* = 0 */)

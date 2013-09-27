@@ -7,7 +7,9 @@ is prohibited.
 
 #include "QtObjectBrowserModel.h"
 #include "QtProjectExplorer/QtProjectItem.h"
-#include "PackageManager/Metadata.h"
+#include "PackageManager/PackageManager.h"
+#include "PackageManager/PackageMetadata.h"
+#include "PackageManager/Folder.h"
 #include "PackageManager/Thumbnail.h"
 #include <QImage>
 #include <QPixmap>
@@ -20,17 +22,21 @@ static void populate(QList<QtProjectItem*>& list, QtProjectItem* parent)
 {
 	if (parent) {
 		for (int i=0; i<parent->numChildren(); ++i) {
-			QtProjectItem* item = parent->child(i);
-			if (item->isPackage() || item->isFolder())
-				populate(list, item);
+			populate(list, parent->child(i));
 		}
-	}
 
-	// then add all immediate object children of this item
-	for (size_t i=0; i<parent->numChildren(); ++i) {
-		QtProjectItem* item = parent->child(i);
-		if (item->isObject())
-			list.append(item);
+		// then add all immediate object children of this folder item
+		Folder* folder = parent->folder();
+		if (folder) {
+			PackageManager* pkgMgr = parent->packageManager();
+			PackageMetadata* pkgMeta = pkgMgr->metadata();
+
+			for (Objects::const_iterator it = folder->objects().begin(); it != folder->objects().end(); ++it) {
+				Metadata* meta = pkgMeta->findObjectMetadata(*it);
+				QtProjectItem* item = new QtProjectItem(pkgMgr, *it, meta, parent);
+				list.append(item);
+			}
+		}
 	}
 }
 
@@ -39,22 +45,36 @@ QtObjectBrowserModel::QtObjectBrowserModel(QtProjectItem* topLevelItem, QObject*
 	, mTopLevelItem(topLevelItem)
 	, mRecursive(true)
 {
-	if (topLevelItem) {
-		// find all immediate object children of this item
-		for (size_t i=0; i<topLevelItem->numChildren(); ++i) {
-			QtProjectItem* item = topLevelItem->child(i);
-			if (item->isObject())
+	if (topLevelItem && topLevelItem->isFolder()) {
+		Folder* folder = topLevelItem->folder();
+		PackageManager* pkgMgr = topLevelItem->packageManager();
+		PackageMetadata* pkgMeta = pkgMgr->metadata();
+
+		if (folder) {
+			// find all immediate object children of this folder
+			for (Objects::const_iterator it = folder->objects().begin(); it != folder->objects().end(); ++it) {
+				Metadata* meta = pkgMeta->findObjectMetadata(*it);
+				QtProjectItem* item = new QtProjectItem(pkgMgr, *it, meta, topLevelItem);
 				mImmediateChildren.append(item);
+				mRecursiveChildren.append(item);
+			}
 		}
 
 		// and then do a recursive find as well
-		populate(mRecursiveChildren, topLevelItem);
+		for (int i=0; i<topLevelItem->numChildren(); ++i) {
+			QtProjectItem* child = topLevelItem->child(i);
+			if (child->isFolder()) {
+				populate(mRecursiveChildren, topLevelItem->child(i));
+			}
+		}
 	}
 }
 
 QtObjectBrowserModel::~QtObjectBrowserModel()
 {
-
+	// we only need to delete the recursive list, as the 
+	// immediate list is a proper subset of the recursive one
+	qDeleteAll(mRecursiveChildren);
 }
 
 bool QtObjectBrowserModel::recursive() const
@@ -153,4 +173,12 @@ Qt::ItemFlags QtObjectBrowserModel::flags(const QModelIndex& index) const
 	}
 
 	return f;
+}
+
+void QtObjectBrowserModel::remove(QtProjectItem* item)
+{
+	emit layoutAboutToBeChanged();
+	mRecursiveChildren.removeOne(item);
+	mImmediateChildren.removeOne(item);
+	emit layoutChanged();
 }

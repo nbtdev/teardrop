@@ -233,32 +233,29 @@ namespace Teardrop {
 
 							// attr map isn't really an image, it's a pair of shorts per HF sample
 							if (!strcmp(mapName, "AM")) {
-								// asset is probably in ZLIB compressed form, check for ".gz" in filename
-								if (String(filepath).contains(".gz")) {
-									// uncompress it first...
-									gzFile gz = gzopen(filepath, "rb");
+								// asset is probably in ZLIB compressed form, but gzopen/read can deal with uncompressed too
+								gzFile gz = gzopen(filepath, "rb");
 
-									if (gz) {
-										AttributeMapAssetHeader hdr;
-										int r = gzread(gz, &hdr, sizeof(hdr));
-										if (r > 0 && hdr.mType == MAGIC_TYPE && hdr.mMarker == *((int*)MAGIC_MARKER)) {
-											int sz = hdr.mWidth * hdr.mHeight * 2;
-											AttributeMapAsset* am = new AttributeMapAsset;
-											void* data = am->createData(sz);
-											am->setWidth(hdr.mWidth);
-											am->setHeight(hdr.mHeight);
+								if (gz) {
+									AttributeMapAssetHeader hdr;
+									int r = gzread(gz, &hdr, sizeof(hdr));
+									if (r > 0 && hdr.mType == MAGIC_TYPE && hdr.mMarker == *((int*)MAGIC_MARKER)) {
+										int sz = hdr.mWidth * hdr.mHeight * 2;
+										AttributeMapAsset* am = new AttributeMapAsset;
+										void* data = am->createData(sz);
+										am->setWidth(hdr.mWidth);
+										am->setHeight(hdr.mHeight);
 
-											r = gzread(gz, data, sz);
-											
-											if (r == sz) {
-												asset->setAttributesMap(am);
-												deps.push_back(DepInfo(am, filepath, "Attributes Map"));
-											}
-											else
-												delete am;
-
-											gzclose(gz);
+										r = gzread(gz, data, sz);
+										
+										if (r == sz) {
+											asset->setAttributesMap(am);
+											deps.push_back(DepInfo(am, filepath, "Attributes Map"));
 										}
+										else
+											delete am;
+
+										gzclose(gz);
 									}
 								}
 							}

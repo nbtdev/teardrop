@@ -10,12 +10,14 @@ is prohibited.
 #include "QtListViewDelegate.h"
 #include "QtIconViewDelegate.h"
 #include "QtProjectExplorer/QtProjectItem.h"
+#include "PackageManager/PackageManager.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QListView>
 #include <QPushButton>
 #include <QSplitter>
 #include <QSpacerItem>
+#include <QMenu>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -99,6 +101,8 @@ QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 
 	connect(mListView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
 	connect(mIconView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
+	connect(mListView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onListContextMenu(const QPoint&)));
+	connect(mIconView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onIconContextMenu(const QPoint&)));
 }
 
 QtObjectBrowser::~QtObjectBrowser()
@@ -106,6 +110,54 @@ QtObjectBrowser::~QtObjectBrowser()
 	delete mListViewDelegate;
 	delete mIconViewDelegate;
 	delete mModel;
+}
+
+void QtObjectBrowser::onListContextMenu(const QPoint& pt)
+{
+	onContextMenu(mListView, pt);
+}
+
+void QtObjectBrowser::onIconContextMenu(const QPoint& pt)
+{
+	onContextMenu(mIconView, pt);
+}
+
+void QtObjectBrowser::onContextMenu(QAbstractItemView* view, const QPoint& pt)
+{
+	// new context menu at location pt
+	QPoint globalPt = mapToGlobal(pt);
+
+	// what is underneath us?
+	QModelIndex index = view->indexAt(pt);
+	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
+	if (item) {
+		if (item->isPackage() || item->isFolder()) {
+			// should be impossible
+			return;
+		}
+		else {
+			QMenu menu;
+			QAction* action = menu.addAction("Delete");
+			action->setData(QVariant(1));
+
+			action = menu.exec(globalPt);
+
+			if (action) {
+				switch(action->data().toInt()) {
+				case 1:
+					// remove object from package
+					item->packageManager()->remove(item->object());
+
+					// and from our model
+					mModel->remove(item);
+
+					// and finally remove item from its parent
+					item->parent()->remove(item);
+					break;
+				}
+			}
+		}
+	}
 }
 
 void QtObjectBrowser::setViewType(ViewType viewType)

@@ -43,6 +43,12 @@ namespace Teardrop
 			// create/return new object instance from ClassDef
 			std::pair<Reflection::Object*, Metadata*> createObject(Folder* folder, const Reflection::ClassDef* classDef);
 
+			// delete a folder, optionally recursively; non-recursive deletes simply transfer objects and folders to the
+			// deleted folder's parent
+			void remove(Folder* folder, bool bRecursive=false);
+			// delete an object from the package 
+			void remove(Reflection::Object* obj);
+
 			// load/save the package
 			bool save(const String& path);
 			bool load(const String& path, DeferredObjectResolves& deferred, ObjectIdToObject& lut);

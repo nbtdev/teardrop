@@ -145,3 +145,13 @@ void PackageManager::getAllMetadata(std::list<Metadata*>& metaList) const
 	if (mMetadata)
 		mMetadata->getAllMetadata(metaList);
 }
+
+void PackageManager::remove(Reflection::Object* obj)
+{
+	if (!obj)
+		return;
+
+	if (mMetadata)
+		mMetadata->remove(obj);
+}
+

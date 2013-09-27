@@ -32,6 +32,7 @@ namespace Teardrop
 			Qt::ItemFlags flags(const QModelIndex& index) const;
 			bool recursive() const;
 			void setRecursive(bool recursive);
+			void remove(QtProjectItem* item);
 
 		protected:
 			QtProjectItem* mTopLevelItem;

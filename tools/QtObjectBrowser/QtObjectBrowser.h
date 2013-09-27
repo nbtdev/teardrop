@@ -16,13 +16,15 @@ class QListView;
 class QPushButton;
 class QSplitter;
 class QModelIndex;
+class QAbstractItemView;
 
 namespace Teardrop 
 {
 	namespace Tools 
 	{
 		class QtObjectBrowserModel;
-		class QtListDelegate;
+		class QtListViewDelegate;
+		class QtIconViewDelegate;
 		class QtProjectItem;
 
 		class QtObjectBrowser : public QWidget
@@ -57,7 +59,9 @@ namespace Teardrop
 			void setViewType(ViewType viewType);
 
 			QtObjectBrowserModel* mModel;
-			QtListDelegate* mListDelegate;
+			QtListViewDelegate* mListViewDelegate;
+			QtIconViewDelegate* mIconViewDelegate;
+			void onContextMenu(QAbstractItemView* view, const QPoint& pt);
 
 		protected slots:
 			void onCmdList();
@@ -65,6 +69,8 @@ namespace Teardrop
 			void onCmdHSplit();
 			void onCmdVSplit();
 			void onItemClicked(const QModelIndex&);
+			void onListContextMenu(const QPoint& pt);
+			void onIconContextMenu(const QPoint& pt);
 		};
 	}
 }
