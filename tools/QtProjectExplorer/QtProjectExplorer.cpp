@@ -75,15 +75,17 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 			QMenu menu;
 			QAction* action = menu.addAction("Add Subfolder");
 			action->setData(QVariant(1));
+			action = menu.addAction("Delete");
+			action->setData(QVariant(2));
 
 			// add all available ("creatable") object types
-			QMenu* addObject = menu.addMenu("Add Object");
-			for (Reflection::ClassDef* classDef = Reflection::ClassDef::getClasses(); classDef; classDef = classDef->m_pNext) {
-				if (classDef->isCreatable() && !classDef->isA(Asset::getClassDef())) {
-					action = addObject->addAction(classDef->getName());
-					action->setData(qVariantFromValue((void*)classDef));
-				}
-			}
+			//QMenu* addObject = menu.addMenu("Add Object");
+			//for (Reflection::ClassDef* classDef = Reflection::ClassDef::getClasses(); classDef; classDef = classDef->m_pNext) {
+			//	if (classDef->isCreatable() && !classDef->isA(Asset::getClassDef())) {
+			//		action = addObject->addAction(classDef->getName());
+			//		action->setData(qVariantFromValue((void*)classDef));
+			//	}
+			//}
 
 			action = menu.exec(globalPt);
 
@@ -91,6 +93,17 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 				switch(action->data().toInt()) {
 				case 1:
 					projModel->addFolder(index);
+					break;
+				case 2:
+					{
+						QModelIndex parentIndex = index.parent();
+						QtProjectItem* parent = static_cast<QtProjectItem*>(parentIndex.internalPointer());
+
+						projModel->deleteFolder(index);
+
+						if (SelectionChanged)
+							SelectionChanged(parent);
+					}
 					break;
 				default: // it's a create-object-instance commmand, the menu item data is the ClassDef*
 					projModel->addObject(index, (Reflection::ClassDef*)action->data().value<void*>());

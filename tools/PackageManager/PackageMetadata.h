@@ -51,7 +51,7 @@ namespace Teardrop
 			void move(Reflection::Object* object, Folder* oldParent, Folder* newParent);
 			void move(Folder* folder, Folder* newParent);
 			Folder* newFolder(const String& name, Folder* parent=0);
-			Folder* deleteFolder(Folder* folder);
+			Folder* deleteFolder(Folder* folder, bool bRecursive=false);
 			void renameFolder(Folder* folder, const String& name);
 
 			void getAllMetadata(std::list<Metadata*>& metaList) const;

@@ -191,9 +191,31 @@ Folder* PackageMetadata::newFolder(const String& name, Folder* parent)
 	return parent->createSubfolder(name);
 }
 
-Folder* PackageMetadata::deleteFolder(Folder* folder)
+Folder* PackageMetadata::deleteFolder(Folder* folder, bool bRecursive)
 {
-	return folder->parent()->deleteSubfolder(folder);
+	// can't delete the root folder
+	if (folder == mRoot)
+		return 0;
+
+	if (bRecursive) {
+
+	}
+	else {
+		// we want to move all of the folder's children to its parent, and then 
+		// delete the folder from the parent
+		Folder* parent = folder->parent();
+		for (Folders::const_iterator it = folder->folders().begin(); it != folder->folders().end(); ++it) {
+			parent->add(*it);
+		}
+
+		for (Objects::const_iterator it = folder->objects().begin(); it != folder->objects().end(); ++it) {
+			parent->add(*it);
+		}
+
+		return parent->deleteSubfolder(folder);
+	}
+
+	return 0;
 }
 
 void PackageMetadata::renameFolder(Folder* folder, const String& name)

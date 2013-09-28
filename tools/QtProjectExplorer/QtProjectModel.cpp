@@ -314,6 +314,41 @@ void QtProjectModel::addFolder(const QModelIndex& parent)
 	}
 }
 
+void QtProjectModel::deleteFolder(const QModelIndex& index)
+{
+	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
+
+	if (item && !item->isRoot()) {
+		emit layoutAboutToBeChanged();
+
+		// first adjust the model; all item's children go to the parent
+		QtProjectItem* parentItem = item->parent();
+		PackageManager* pkgMgr = item->packageManager();
+		Folder* folder = item->folder();
+
+		// TODO: keep the moved items with items of the same type in the parent (folders 
+		// with folders, objects with objects)
+		QList<QtProjectItem*> children;
+		for (int i=0; i<item->numChildren(); ++i) {
+			children.append(item->child(i));
+		}
+
+		for (int i=0; i<children.size(); ++i) {
+			QtProjectItem* child = children.at(i);
+			item->remove(child);
+			parentItem->append(child);
+		}
+
+		parentItem->remove(item);
+		delete item;
+
+		// then do the package/metadata
+		pkgMgr->remove(folder);
+
+		emit layoutChanged();
+	}
+}
+
 void QtProjectModel::addObject(const QModelIndex& parent, Reflection::ClassDef* classDef)
 {
 	QtProjectItem* parentItem = static_cast<QtProjectItem*>(parent.internalPointer());

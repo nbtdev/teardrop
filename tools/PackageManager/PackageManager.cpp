@@ -153,5 +153,18 @@ void PackageManager::remove(Reflection::Object* obj)
 
 	if (mMetadata)
 		mMetadata->remove(obj);
+
+	// and then finally, from the package
+	mPackage->remove(obj);
 }
 
+void PackageManager::remove(Folder* folder, bool bRecursive/* =false */)
+{
+	if (!folder)
+		return;
+
+	// metadata has to be responsible for deleting objects from the package, since
+	// only it knows whether objects are deleted, or transferred, and if so, to where 
+	if (mMetadata)
+		mMetadata->deleteFolder(folder, bRecursive);
+}

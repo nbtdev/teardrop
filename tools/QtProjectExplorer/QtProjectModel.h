@@ -49,6 +49,7 @@ namespace Teardrop
 
 			// editing the model 
 			void addFolder(const QModelIndex& parent);
+			void deleteFolder(const QModelIndex& parent);
 			void addObject(const QModelIndex& parent, Reflection::ClassDef* classDef);
 			void addPackage();
 
