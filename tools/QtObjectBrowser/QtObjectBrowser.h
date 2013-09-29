@@ -34,6 +34,9 @@ namespace Teardrop
 			QtObjectBrowser(QWidget* parent);
 			~QtObjectBrowser();
 
+			// clear the browser
+			void clear();
+
 			// this is temporary, we should not be showing objects in project tree
 			void onItemSelected(QtProjectItem* current);
 

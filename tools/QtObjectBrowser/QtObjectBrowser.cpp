@@ -192,6 +192,11 @@ void QtObjectBrowser::setViewType(ViewType viewType)
 	}
 }
 
+void QtObjectBrowser::clear()
+{
+	onItemSelected(0);
+}
+
 void QtObjectBrowser::onItemSelected(QtProjectItem* item)
 {
 	delete mModel;

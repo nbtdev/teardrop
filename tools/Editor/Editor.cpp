@@ -138,6 +138,7 @@ void Editor::onNew()
 	delete mProject;
 	mProject = new Project;
 	setEditorTitle();
+	mObjBrowser->clear();
 	mProjectExp->setProject(mProject);
 }
 
@@ -164,6 +165,7 @@ void Editor::openProject(const QString& file)
 		delete newProject;
 	}
 	else {
+		mObjBrowser->clear();
 		delete mProject;
 		mProject = newProject;
 		setEditorTitle();
