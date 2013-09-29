@@ -47,7 +47,7 @@ QtProjectModel::QtProjectModel(Project* project, QObject* parent /* = 0 */)
 	if (mProject) {
 		const Project::PackageManagers& pkgMgrs = mProject->packages();
 		for (Project::PackageManagers::const_iterator it = pkgMgrs.begin(); it != pkgMgrs.end(); ++it) {
-			QtProjectItem* rootItem = new QtProjectItem(*it, (*it)->metadata()->rootFolder(), mRoot);
+			QtProjectItem* rootItem = new QtProjectItem(*it, mRoot);
 			mRoot->append(rootItem);
 			populate((*it)->metadata()->rootFolder(), rootItem, *it);
 		}
@@ -314,37 +314,60 @@ void QtProjectModel::addFolder(const QModelIndex& parent)
 	}
 }
 
-void QtProjectModel::deleteFolder(const QModelIndex& index)
+static void deleteItemRecursive(QtProjectItem* item)
+{
+	// recursively deal with folder items
+	for (int i=0; i<item->numChildren(); ++i) {
+		QtProjectItem* child = item->child(i);
+		if (child->numChildren())
+			deleteItemRecursive(child);
+
+		// then delete the child
+		delete child;
+	}
+
+	item->removeAllChildren();
+}
+
+void QtProjectModel::deleteFolder(const QModelIndex& index, bool bRecursive)
 {
 	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
 
 	if (item && !item->isRoot()) {
 		emit layoutAboutToBeChanged();
+		beginRemoveRows(index.parent(), index.row(), index.row());
 
-		// first adjust the model; all item's children go to the parent
 		QtProjectItem* parentItem = item->parent();
 		PackageManager* pkgMgr = item->packageManager();
 		Folder* folder = item->folder();
 
-		// TODO: keep the moved items with items of the same type in the parent (folders 
-		// with folders, objects with objects)
-		QList<QtProjectItem*> children;
-		for (int i=0; i<item->numChildren(); ++i) {
-			children.append(item->child(i));
+		if (bRecursive) {
+			deleteItemRecursive(item);
 		}
+		else {
+			// first adjust the model; all item's children go to the parent
 
-		for (int i=0; i<children.size(); ++i) {
-			QtProjectItem* child = children.at(i);
-			item->remove(child);
-			parentItem->append(child);
+			// TODO: keep the moved items with items of the same type in the parent (folders 
+			// with folders, objects with objects)
+			QList<QtProjectItem*> children;
+			for (int i=0; i<item->numChildren(); ++i) {
+				children.append(item->child(i));
+			}
+
+			for (int i=0; i<children.size(); ++i) {
+				QtProjectItem* child = children.at(i);
+				item->remove(child);
+				parentItem->append(child);
+			}
 		}
 
 		parentItem->remove(item);
 		delete item;
 
 		// then do the package/metadata
-		pkgMgr->remove(folder);
+		pkgMgr->remove(folder, bRecursive);
 
+		endRemoveRows();
 		emit layoutChanged();
 	}
 }

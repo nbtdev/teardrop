@@ -21,6 +21,7 @@ QtProjectItem::QtProjectItem()
 	, mObject(0)
 	, mMetadata(0)
 	, mParent(0)
+	, mIsPackage(0)
 {
 }
 
@@ -30,6 +31,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, Reflection::Object* obj
 	, mObject(obj)
 	, mMetadata(metadata)
 	, mParent(parent)
+	, mIsPackage(0)
 {
 }
 
@@ -39,6 +41,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, QtProjectItem* parent)
 	, mObject(0)
 	, mMetadata(0)
 	, mParent(parent)
+	, mIsPackage(1)
 {
 	if (packageMgr) {
 		mMetadata = packageMgr->metadata();
@@ -52,6 +55,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, Folder* folder, QtProje
 	, mObject(0)
 	, mMetadata(0)
 	, mParent(parent)
+	, mIsPackage(0)
 {
 }
 
@@ -68,7 +72,7 @@ bool QtProjectItem::isRoot() const
 
 bool QtProjectItem::isPackage() const
 {
-	return (mObject==0 && mFolder==0);
+	return mIsPackage != 0;
 }
 
 bool QtProjectItem::isFolder() const
@@ -218,4 +222,9 @@ void QtProjectItem::rename(const QString& newName)
 		mPackageMgr->metadata()->renameFolder(mFolder, str);
 	else
 		mMetadata->setName(str);
+}
+
+void QtProjectItem::removeAllChildren()
+{
+	mChildren.clear();
 }

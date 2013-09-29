@@ -49,7 +49,7 @@ namespace Teardrop
 			// creates a new folder and makes it a child of "this"; takes ownership of the new folder while part of this tree
 			Folder* createSubfolder(const String& name);
 			// if this returns non-null, it will be the "folder" passed in and indicates that removal succeeded; otherwise, failure to remove indicated by null return value
-			Folder* deleteSubfolder(Folder* folder);
+			Folder* removeSubfolder(Folder* folder);
 			// add subfolder
 			void add(Folder* folder);
 			// add object to this folder (does not take ownership)

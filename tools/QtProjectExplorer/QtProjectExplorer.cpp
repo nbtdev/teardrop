@@ -75,8 +75,17 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 			QMenu menu;
 			QAction* action = menu.addAction("Add Subfolder");
 			action->setData(QVariant(1));
-			action = menu.addAction("Delete");
-			action->setData(QVariant(2));
+
+			if (item->isPackage()) {
+				action = menu.addAction("Remove From Project");
+				action->setData(QVariant(3));
+			}
+			else {
+				action = menu.addAction("Delete");
+				action->setData(QVariant(2));
+				action = menu.addAction("Delete (Recursive)");
+				action->setData(QVariant(4));
+			}
 
 			// add all available ("creatable") object types
 			//QMenu* addObject = menu.addMenu("Add Object");
@@ -89,25 +98,30 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 
 			action = menu.exec(globalPt);
 
+			bool bRecursive = true;
 			if (action) {
 				switch(action->data().toInt()) {
 				case 1:
 					projModel->addFolder(index);
 					break;
 				case 2:
+					bRecursive = false;
+				case 4:
 					{
 						QModelIndex parentIndex = index.parent();
 						QtProjectItem* parent = static_cast<QtProjectItem*>(parentIndex.internalPointer());
 
-						projModel->deleteFolder(index);
+						selectionModel()->clear();
+						projModel->deleteFolder(index, bRecursive);
+						setCurrentIndex(parentIndex);
 
 						if (SelectionChanged)
 							SelectionChanged(parent);
 					}
 					break;
-				default: // it's a create-object-instance commmand, the menu item data is the ClassDef*
-					projModel->addObject(index, (Reflection::ClassDef*)action->data().value<void*>());
-					break;
+				//default: // it's a create-object-instance commmand, the menu item data is the ClassDef*
+				//	projModel->addObject(index, (Reflection::ClassDef*)action->data().value<void*>());
+				//	break;
 				}
 			}
 		}

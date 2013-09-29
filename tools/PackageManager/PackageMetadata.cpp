@@ -198,7 +198,31 @@ Folder* PackageMetadata::deleteFolder(Folder* folder, bool bRecursive)
 		return 0;
 
 	if (bRecursive) {
+		// do the objects first
+		while (folder->objects().size()) {
+			Reflection::Object* obj = folder->objects().front();
 
+			// remove from package
+			mPackage->remove(obj);
+			
+			// then destroy the instance
+			obj->destroy();
+			delete obj;
+
+			// and actually remove it from the folder
+			folder->remove(obj);
+		}
+
+		// then the folders
+		while (folder->folders().size()) {
+			Folder* subFolder = folder->folders().front();
+			deleteFolder(subFolder, bRecursive);
+			folder->remove(subFolder);
+			delete subFolder;
+		}
+
+		// then finally delete this folder
+		deleteFolder(folder, false);
 	}
 	else {
 		// we want to move all of the folder's children to its parent, and then 
@@ -212,7 +236,8 @@ Folder* PackageMetadata::deleteFolder(Folder* folder, bool bRecursive)
 			parent->add(*it);
 		}
 
-		return parent->deleteSubfolder(folder);
+		return parent->removeSubfolder(folder);
+		delete folder;
 	}
 
 	return 0;

@@ -31,6 +31,11 @@ void Package::remove(Reflection::Object* object)
 {
 	Objects::iterator it = std::find(mObjects.begin(), mObjects.end(), object);
 	mObjects.erase(it);
+
+	// remove symbol table entry too
+	SymbolTable::iterator symIt = mSymTab.find(object->getObjectId());
+	if (symIt != mSymTab.end())
+		mSymTab.erase(symIt);
 }
 
 const Objects& Package::objects() const

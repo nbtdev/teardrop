@@ -56,6 +56,7 @@ namespace Teardrop
 			int numChildren() const;
 			void append(QtProjectItem* child);
 			void remove(QtProjectItem* child);
+			void removeAllChildren();
 			void rename(const QString& newName);
 			const String& path() const;
 
@@ -81,6 +82,8 @@ namespace Teardrop
 			QList<QtProjectItem*> mChildren;
 			QtProjectItem* mParent;
 			String mPath;
+
+			int mIsPackage;
 		};
 
 		// QObjectUserData wrapper for QtProjectItem

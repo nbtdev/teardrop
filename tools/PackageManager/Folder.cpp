@@ -79,7 +79,7 @@ Folder* Folder::createSubfolder(const String& name)
 	return newFolder;
 }
 
-Folder* Folder::deleteSubfolder(Folder* folder)
+Folder* Folder::removeSubfolder(Folder* folder)
 {
 	Folders::iterator it = std::find(mFolders.begin(), mFolders.end(), folder);
 	if (it != mFolders.end()) {
