@@ -11,6 +11,8 @@ is prohibited.
 #include <QLabel>
 #include <QSpacerItem>
 #include <QDialogButtonBox>
+#include <QCompleter>
+#include <QStringList>
 #include "Reflection/ClassDef.h"
 
 using namespace Teardrop;
@@ -45,15 +47,20 @@ TypeChooser::TypeChooser(QWidget* parent, const ClassDef* baseClass)
 	
 	// populate the list with types of the given base class
 	ClassDef* classDef = ClassDef::getClasses();
+	QStringList list;
 	while (classDef) {
 		if (classDef->isA(baseClass) && classDef->isCreatable()) {
 			QVariant v = qVariantFromValue((void*)classDef);
 			mTypeList->addItem((const char*)classDef->getName(), v);
+			list.append(classDef->getName());
 		}
 
 		classDef = classDef->m_pNext;
 	}
 
+	QCompleter* completer = new QCompleter(list, this);
+	completer->setCaseSensitivity(Qt::CaseInsensitive);
+	mTypeList->setCompleter(completer);
 	mTypeList->setCurrentIndex(0);
 }
 

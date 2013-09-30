@@ -18,9 +18,46 @@ is prohibited.
 #include <QSplitter>
 #include <QSpacerItem>
 #include <QMenu>
+#include <QDragEnterEvent>
 
 using namespace Teardrop;
 using namespace Tools;
+
+class QtIconView : public QListView
+{
+public:
+	QtIconView(QWidget* parent) : QListView(parent) {}
+	~QtIconView() {}
+	void dragMoveEvent(QDragMoveEvent* event) {
+		QModelIndex idx = indexAt(event->pos());
+		if (!idx.isValid()) {
+			QListView::dragMoveEvent(event);
+			event->acceptProposedAction();
+			return;
+		}
+
+		QListView::dragMoveEvent(event);	
+		event->ignore();
+	}
+};
+
+class QtListView : public QListView
+{
+public:
+	QtListView(QWidget* parent) : QListView(parent) {}
+	~QtListView() {}
+	void dragMoveEvent(QDragMoveEvent* event) {
+		QModelIndex idx = indexAt(event->pos());
+		if (!idx.isValid()) {
+			QListView::dragMoveEvent(event);
+			event->acceptProposedAction();
+			return;
+		}
+
+		QListView::dragMoveEvent(event);	
+		event->ignore();
+	}
+};
 
 QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 	: QWidget(parent)
@@ -56,10 +93,10 @@ QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 	buttonWidget->setSizePolicy(sizePolicy1);
 
 	mSplitter = new QSplitter(viewWidget);
-	mListView = new QListView(mSplitter);
+	mListView = new QtListView(mSplitter);
 	mListView->setViewMode(QListView::ListMode);
 	mListView->setItemDelegate(mListViewDelegate);
-	mIconView = new QListView(mSplitter);
+	mIconView = new QtIconView(mSplitter);
 	mIconView->setViewMode(QListView::IconMode);
 	mIconView->setItemDelegate(mIconViewDelegate);
 	mSplitter->addWidget(mListView);
@@ -153,6 +190,9 @@ void QtObjectBrowser::onContextMenu(QAbstractItemView* view, const QPoint& pt)
 
 					// and finally remove item from its parent
 					item->parent()->remove(item);
+
+					// and then tell the world it's no longer selected
+					onItemClicked(QModelIndex());
 					break;
 				}
 			}
@@ -235,10 +275,8 @@ void QtObjectBrowser::onCmdVSplit()
 
 void QtObjectBrowser::onItemClicked(const QModelIndex& index)
 {
-	if (index.isValid()) {
-		QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
-		if (ItemClicked) {
-			ItemClicked(item);
-		}
+	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
+	if (ItemClicked) {
+		ItemClicked(item);
 	}
 }

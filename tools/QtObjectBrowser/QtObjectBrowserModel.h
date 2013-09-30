@@ -27,7 +27,9 @@ namespace Teardrop
 			QVariant data(const QModelIndex &proxyIndex, int role /* = Qt::DisplayRole */) const;
 			int rowCount(const QModelIndex& parent = QModelIndex()) const;
 			QModelIndex index(int row, int column, const QModelIndex& parent=QModelIndex()) const;
+			QStringList mimeTypes() const;
 			QMimeData* mimeData(const QModelIndexList &indexes) const;
+			Qt::DropActions supportedDropActions() const;
 			bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent);
 			Qt::ItemFlags flags(const QModelIndex& index) const;
 			bool recursive() const;

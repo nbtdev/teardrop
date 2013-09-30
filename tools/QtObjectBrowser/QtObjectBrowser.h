@@ -12,7 +12,8 @@ is prohibited.
 #include <QObject>
 #include "FastDelegate.h"
 
-class QListView;
+class QtListView;
+class QtIconView;
 class QPushButton;
 class QSplitter;
 class QModelIndex;
@@ -43,8 +44,8 @@ namespace Teardrop
 			fastdelegate::FastDelegate1<QtProjectItem*> ItemClicked;
 
 		protected:
-			QListView* mListView;
-			QListView* mIconView;
+			QtListView* mListView;
+			QtIconView* mIconView;
 			QPushButton* mCmdList;
 			QPushButton* mCmdIcon;
 			QPushButton* mCmdHSplit;
