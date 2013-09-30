@@ -33,6 +33,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, Reflection::Object* obj
 	, mParent(parent)
 	, mIsPackage(0)
 {
+	updatePath();
 }
 
 QtProjectItem::QtProjectItem(PackageManager* packageMgr, QtProjectItem* parent)

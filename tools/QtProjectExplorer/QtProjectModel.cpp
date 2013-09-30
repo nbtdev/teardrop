@@ -396,11 +396,33 @@ void QtProjectModel::addObject(const QModelIndex& parent, Reflection::ClassDef* 
 	}
 }
 
-void QtProjectModel::addPackage()
+void QtProjectModel::addPackage(const char* packagePath)
 {
+	PackageManager* pkgMgr = 0;
+	
+	if (packagePath) {
+		pkgMgr = mProject->addPackage(packagePath);
+	}
+	else {
+		pkgMgr = mProject->createPackage();
+	}
+
+	if (pkgMgr) {
+		emit layoutAboutToBeChanged();
+		QtProjectItem* rootItem = new QtProjectItem(pkgMgr, mRoot);
+		mRoot->append(rootItem);
+		populate(pkgMgr->metadata()->rootFolder(), rootItem, pkgMgr);
+		emit layoutChanged();
+	}
+}
+
+void QtProjectModel::removePackage(const QModelIndex& package)
+{
+	QtProjectItem* packageItem = static_cast<QtProjectItem*>(package.internalPointer());
+	beginRemoveRows(package.parent(), package.row(), package.row());
 	emit layoutAboutToBeChanged();
-	PackageManager* pkgMgr = mProject->createPackage();
-	QtProjectItem* rootItem = new QtProjectItem(pkgMgr, mRoot);
-	mRoot->append(rootItem);
+	mRoot->remove(packageItem);
+	mProject->removePackage(packageItem->packageManager());
 	emit layoutChanged();
+	endRemoveRows();
 }

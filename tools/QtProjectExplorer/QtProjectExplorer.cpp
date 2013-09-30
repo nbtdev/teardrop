@@ -10,6 +10,7 @@ is prohibited.
 #include "QtProjectItem.h"
 #include <QDragEnterEvent>
 #include <QMenu>
+#include <QFileDialog>
 #include "Asset/TextureAsset.h"
 
 using namespace Teardrop;
@@ -119,6 +120,14 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 							SelectionChanged(parent);
 					}
 					break;
+				case 3: // remove package
+					selectionModel()->clear();
+					projModel->removePackage(index);
+					setCurrentIndex(QModelIndex());
+
+					if (SelectionChanged)
+						SelectionChanged(0);
+					break;
 				//default: // it's a create-object-instance commmand, the menu item data is the ClassDef*
 				//	projModel->addObject(index, (Reflection::ClassDef*)action->data().value<void*>());
 				//	break;
@@ -129,18 +138,34 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 	else {
 		enum {
 			ACTION_CREATE_PACKAGE,
+			ACTION_ADD_PACKAGE,
 		};
 
 		QMenu menu;
-		QMenu* createMenu = menu.addMenu("Create");
-		QAction* action = createMenu->addAction("Package...");
+		QAction* action = menu.addAction("New Package");
 		action->setData(QVariant(ACTION_CREATE_PACKAGE));
+		action = menu.addAction("Add Existing Package...");
+		action->setData(QVariant(ACTION_ADD_PACKAGE));
 
 		action = menu.exec(globalPt);
 		if (action) {
 			switch(action->data().toInt()) {
 			case ACTION_CREATE_PACKAGE:
 				projModel->addPackage();
+				break;
+			case ACTION_ADD_PACKAGE:
+				{
+					QFileDialog dlg;
+					dlg.setFileMode(QFileDialog::ExistingFile);
+					dlg.setNameFilter(tr("Package Files (*.package)"));
+					QStringList files;
+					if (dlg.exec()) {
+						files = dlg.selectedFiles();
+						QString file = files.at(0);
+						String packagePath(file.toLatin1().data());
+						projModel->addPackage(packagePath);
+					}
+				}
 				break;
 			}
 		}

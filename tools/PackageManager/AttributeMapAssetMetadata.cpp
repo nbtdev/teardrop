@@ -15,13 +15,12 @@ using namespace Tools;
 TD_CLASS_IMPL(AttributeMapAssetMetadata);
 
 AttributeMapAssetMetadata::AttributeMapAssetMetadata()
-	: mAMAsset(0)
 {
 }
 
 AttributeMapAssetMetadata::AttributeMapAssetMetadata(AttributeMapAsset* asset)
-	: mAMAsset(asset)
 {
+	mObject = asset;
 	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &AttributeMapAssetMetadata::onPropertyChanged));
 }
 
@@ -37,13 +36,15 @@ void AttributeMapAssetMetadata::onPropertyChanged(const Reflection::PropertyDef*
 
 void AttributeMapAssetMetadata::generateThumbnail()
 {
-	if (!mAMAsset) 
+	if (!mObject) 
 		return;
 
+	AttributeMapAsset* amAsset = static_cast<AttributeMapAsset*>(mObject);
+
 	// what we have is a two-channel 16-bit integer data field; first make a bitmap of the proper size and shape
-	int w = mAMAsset->getWidth();
-	int h = mAMAsset->getHeight();
-	float* data = (float*)mAMAsset->data();
+	int w = amAsset->getWidth();
+	int h = amAsset->getHeight();
+	float* data = (float*)amAsset->data();
 
 	FIBITMAP* fibm = FreeImage_AllocateT(FIT_INT16, w, h);
 	if (fibm) {

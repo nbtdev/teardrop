@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "TextureAssetMetadata.h"
+#include "Asset/TextureAsset.h"
 #include "FreeImage.h"
 
 using namespace Teardrop;
@@ -14,13 +15,12 @@ using namespace Tools;
 TD_CLASS_IMPL(TextureAssetMetadata);
 
 TextureAssetMetadata::TextureAssetMetadata()
-	: mTexAsset(0)
 {
 }
 
 TextureAssetMetadata::TextureAssetMetadata(TextureAsset* asset)
-	: mTexAsset(asset)
 {
+	mObject = asset;
 	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &TextureAssetMetadata::onPropertyChanged));
 }
 

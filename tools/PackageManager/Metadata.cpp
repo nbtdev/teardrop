@@ -15,6 +15,7 @@ using namespace Tools;
 TD_CLASS_IMPL(Metadata);
 
 Metadata::Metadata()
+	: mObject(0)
 {
 
 }
@@ -39,4 +40,9 @@ void Metadata::generateThumbnail()
 const Thumbnail& Metadata::thumbnail()
 {
 	return mThumb;
+}
+
+Reflection::Object* Metadata::object()
+{
+	return mObject;
 }

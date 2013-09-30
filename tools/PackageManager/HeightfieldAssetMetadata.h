@@ -31,8 +31,6 @@ namespace Teardrop
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			HeightfieldAsset* mHFAsset;
-
 			void onPropertyChanged(const Reflection::PropertyDef* prop);
 		};
 	}

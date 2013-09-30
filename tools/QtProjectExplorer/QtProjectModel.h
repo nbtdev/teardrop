@@ -51,7 +51,8 @@ namespace Teardrop
 			void addFolder(const QModelIndex& parent);
 			void deleteFolder(const QModelIndex& parent, bool bRecursive=false);
 			void addObject(const QModelIndex& parent, Reflection::ClassDef* classDef);
-			void addPackage();
+			void addPackage(const char* path = 0);
+			void removePackage(const QModelIndex& package);
 
 		protected:
 			Project* mProject;

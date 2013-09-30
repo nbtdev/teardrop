@@ -143,3 +143,39 @@ bool FileSystem::createDirectory(const String& dirPath)
 	int err = SHCreateDirectoryEx(NULL, dirPath, NULL);
 	return (ERROR_SUCCESS == err || ERROR_ALREADY_EXISTS == err);
 }
+
+// path names in Windows are not case-sensitive (i.e. F:\TMP is the same
+// directory as f:\tmp or F:\tmp), so compare everything as if it were upper-case
+bool FileSystem::isSamePath(const String& lhs, const String& rhs)
+{
+	String l(lhs);
+	String r(rhs);
+
+	// strip off any trailing path seps
+	size_t p = l.length() - 1;
+	while (l[p] == '/' || l[p] == '\\')
+		l[p--] = 0;
+	while (r[p] == '/' || r[p] == '\\')
+		r[p--] = 0;
+
+	// easy check -- same lengths?
+	if (l.length() != r.length())
+		return false;
+
+	// go through char by char and compare upper-case versions
+	for (size_t i=0; i<l.length(); ++i) {
+		if (l[i] == '\\' || r[i] == '\\' || l[i] == '/' || r[i] == '/')
+			continue;
+
+		if (toupper(l[i]) != toupper(r[i]))
+			return false;
+	}
+
+	return true;
+}
+
+// copy file from 'from' to 'to'; returns false if copy failed for any reason
+bool FileSystem::copyFile(const String& from, const String& to, bool overwrite)
+{
+	return TRUE==CopyFile(from, to, overwrite?FALSE:TRUE);
+}

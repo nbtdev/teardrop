@@ -397,7 +397,9 @@ void PackageMetadata::loadFolders(TiXmlElement* elem, Folder* parent, Package* p
 							propElem = propElem->NextSiblingElement("property");
 						}
 
-						mObjectToMetadataMap[obj] = static_cast<Metadata*>(metadata);
+						Metadata* metaObj = static_cast<Metadata*>(metadata);
+						mObjectToMetadataMap[obj] = metaObj;
+						metaObj->mObject = obj;
 					}
 				}
 			}

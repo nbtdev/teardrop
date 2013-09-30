@@ -29,7 +29,17 @@ namespace Teardrop
 		// make path, creating intermediate directories if they don't exist; returns false if creation failed
 		static bool createDirectory(const String& dirPath);
 
+		// path parts utility functions
+		static void fileName(/*out*/String& fileName, /*in*/const String& pathname);
 		static void directoryName(/*out*/String& dirName, /*in*/const String& pathname);
+		static void baseName(/*out*/String& baseName, /*in*/const String& pathname);
+
+		// returns true if the two paths are the same, false otherwise
+		static bool isSamePath(const String& lhs, const String& rhs);
+
+		// copy file from 'from' to 'to', returns false if failed for any reason; set 'overwrite' to 'true'
+		// to overwrite existing 'to' file
+		static bool copyFile(const String& from, const String& to, bool overwrite=false);
 
 		// thanks Microsoft...
 		static const char PATHSEP;

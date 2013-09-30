@@ -35,11 +35,16 @@ namespace Teardrop
 
 			fastdelegate::FastDelegate1<const char*> NameChanged;
 
+			Reflection::Object* object();
+
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
 			void notifyPropertyChangedLocal(const Reflection::PropertyDef* prop);
 			Thumbnail mThumb;
+
+			friend class PackageMetadata;
+			Reflection::Object* mObject;
 		};
 	}
 }

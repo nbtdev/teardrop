@@ -15,13 +15,12 @@ using namespace Tools;
 TD_CLASS_IMPL(HeightfieldAssetMetadata);
 
 HeightfieldAssetMetadata::HeightfieldAssetMetadata()
-	: mHFAsset(0)
 {
 }
 
 HeightfieldAssetMetadata::HeightfieldAssetMetadata(HeightfieldAsset* asset)
-	: mHFAsset(asset)
 {
+	mObject = asset;
 	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &HeightfieldAssetMetadata::onPropertyChanged));
 }
 
@@ -37,13 +36,15 @@ void HeightfieldAssetMetadata::onPropertyChanged(const Reflection::PropertyDef* 
 
 void HeightfieldAssetMetadata::generateThumbnail()
 {
-	if (!mHFAsset) 
+	if (!mObject) 
 		return;
 
+	HeightfieldAsset* hfAsset = static_cast<HeightfieldAsset*>(mObject);
+
 	// what we have is a single-channel 32-bit floating point data field; first make a bitmap of the proper size and shape
-	int w = mHFAsset->getWidth();
-	int h = mHFAsset->getHeight();
-	float* data = (float*)mHFAsset->data();
+	int w = hfAsset->getWidth();
+	int h = hfAsset->getHeight();
+	float* data = (float*)hfAsset->data();
 
 	FIBITMAP* fibm = FreeImage_AllocateT(FIT_FLOAT, w, h);
 	if (fibm) {

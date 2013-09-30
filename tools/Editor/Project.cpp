@@ -8,6 +8,7 @@ is prohibited.
 #include "Project.h"
 #include "Package/Package.h"
 #include "Package/DeferredResolution.h"
+#include "Util/FileSystem.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "QtUtils/ProgressFeedback.h"
@@ -236,4 +237,75 @@ bool Project::read(ProgressFeedback* feedback)
 
 	dummy->wait_for_all();
 	return true;
+}
+
+PackageManager* Project::addPackage(const char* packagePath)
+{
+	// verify that the package's path is our package directory; if not, copy the 
+	// package file to our packages dir first and change the path
+	String packagesDir(mPath);
+	packagesDir += "/packages/";
+
+	String baseName;
+	FileSystem::baseName(baseName, packagePath);
+
+	String packageDir;
+	FileSystem::directoryName(packageDir, packagePath);
+	
+	if (!FileSystem::isSamePath(packagesDir, packageDir)) {
+		String fileName;
+		FileSystem::fileName(fileName, packagePath);
+		
+		String newPackagePath(packagesDir);
+		newPackagePath.append("/");
+		newPackagePath.append(fileName);
+		
+		if (!FileSystem::copyFile(packagePath, newPackagePath)) {
+			// then what?
+			return 0;
+		}
+	}
+
+	PackageManager* pkgMgr = new PackageManager;
+	pkgMgr->metadata()->setName(baseName);
+
+	DeferredObjectResolves deferred;
+	ObjectIdToObject lut;
+
+	if (!pkgMgr->load(packagesDir, deferred, lut)) {
+		delete pkgMgr;
+		return 0;
+	}
+
+	mPackageManagers.push_back(pkgMgr);
+
+	// then do Phase 2 load (object reference resolution)
+	for (DeferredObjectResolves::iterator it = deferred.begin(); it != deferred.end(); ++it) {
+		DeferredResolution& d = *it;
+		ObjectIdToObject::iterator o = lut.find(d.mUUID);
+		if (o != lut.end()) {
+			d.mProp->setData(d.mObject, o->second);
+		}
+	}
+
+	std::list<Metadata*> metaList;
+	pkgMgr->getAllMetadata(metaList);
+
+	// load all thumbnails in parallel
+	tbb::task* dummy = new(tbb::task::allocate_root()) DummyTask;
+	dummy->set_ref_count(metaList.size() + 1);
+
+	for (std::list<Metadata*>::iterator it = metaList.begin(); it != metaList.end(); ++it) {
+		tbb::task* t = new(dummy->allocate_child()) ThumbnailTask(*it);
+		dummy->spawn(*t);
+	}
+	dummy->wait_for_all();
+
+	return pkgMgr;
+}
+
+void Project::removePackage(PackageManager* pkgMgr)
+{
+	mPackageManagers.remove(pkgMgr);
+	delete pkgMgr;
 }

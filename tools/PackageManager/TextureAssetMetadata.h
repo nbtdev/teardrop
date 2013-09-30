@@ -32,8 +32,6 @@ namespace Teardrop
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			TextureAsset* mTexAsset;
-
 			void onPropertyChanged(const Reflection::PropertyDef* prop);
 		};
 	}

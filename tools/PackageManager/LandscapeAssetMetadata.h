@@ -31,7 +31,6 @@ namespace Teardrop
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			LandscapeAsset* mAsset;
 		};
 	}
 }

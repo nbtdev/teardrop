@@ -34,7 +34,12 @@ namespace Teardrop
 			bool write(ProgressFeedback* feedback=0);
 			bool read(ProgressFeedback* feedback=0);
 			int version();
+			// create new, empty package
 			PackageManager* createPackage();
+			// load existing package from disk, copying into project's packages/ directory if necessary (and possible)
+			PackageManager* addPackage(const char* packagePath);
+			// remove package from project (but not delete from disk)
+			void removePackage(PackageManager* pkgMgr);
 
 			typedef std::list<PackageManager*> PackageManagers;
 			const PackageManagers& packages();
