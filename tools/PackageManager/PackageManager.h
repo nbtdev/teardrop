@@ -39,7 +39,7 @@ namespace Teardrop
 			~PackageManager();
 
 			// create new assets/objects from filesystem data
-			ImportedAsset importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass);
+			void importAsset(/*out*/ImportedAsset& imp, Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass);
 			// create/return new object instance from ClassDef
 			std::pair<Reflection::Object*, Metadata*> createObject(Folder* folder, const Reflection::ClassDef* classDef);
 

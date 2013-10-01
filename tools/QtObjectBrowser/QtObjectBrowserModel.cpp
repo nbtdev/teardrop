@@ -196,9 +196,10 @@ bool QtObjectBrowserModel::dropMimeData(const QMimeData* data, Qt::DropAction ac
 						QString str = urls.at(i).toLocalFile();
 						String pathName(str.toLatin1().constData());
 
-						ImportedAsset importedAsset = pkgMgr->importAsset(mTopLevelItem->folder(), pathName, chooser.chosenClass());
-						Asset* asset = importedAsset.mAsset;
-						Metadata* assetMeta = importedAsset.mMetadata;
+						ImportedAsset importedAsset;
+						pkgMgr->importAsset(importedAsset, mTopLevelItem->folder(), pathName, chooser.chosenClass());
+						Asset* asset = importedAsset.asset();
+						Metadata* assetMeta = importedAsset.metadata();
 
 						if (asset) {
 							emit layoutAboutToBeChanged();
@@ -208,19 +209,19 @@ bool QtObjectBrowserModel::dropMimeData(const QMimeData* data, Qt::DropAction ac
 								mRecursiveChildren.append(assetItem);
 
 							// there might be dependent assets imported as well...
-							int nDeps = importedAsset.mNumDeps;
-							for (int i=0; i<nDeps; ++i) {
-								QtProjectItem* depItem = new QtProjectItem(pkgMgr, importedAsset.mDeps[i], importedAsset.mDepsMetadata[i], mTopLevelItem);
-								mImmediateChildren.append(assetItem);
+							for (Dependencies::iterator it = importedAsset.dependencies().begin(); it != importedAsset.dependencies().end(); ++it) {
+								Dependency& dep = *it;
+								QtProjectItem* depItem = new QtProjectItem(pkgMgr, dep.mObject, dep.mMetadata, mTopLevelItem);
+								mImmediateChildren.append(depItem);
 								if (mRecursive)
-									mRecursiveChildren.append(assetItem);
+									mRecursiveChildren.append(depItem);
 							}
 
 							emit layoutChanged();
 						}
 						else {
 							QMessageBox mb;
-							mb.setText(QString("Could not import texture from file ") + str);
+							mb.setText(QString("Could not import ") + chooser.chosenClass()->getName() + QString(" from file ") + str);
 							mb.exec();
 						}
 					}

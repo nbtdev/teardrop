@@ -9,35 +9,67 @@ is prohibited.
 #define IMPORTEDASSET_INCLUDED
 
 #include "Util/_String.h"
+#include <list>
 
 namespace Teardrop 
 {
 	class Asset;
+	class GfxMaterial;
+
+	namespace Reflection
+	{
+		class Object;
+	}
 
 	namespace Tools
 	{
 		class Metadata;
 
-		struct ImportedAsset 
+		struct Dependency
 		{
+			Reflection::Object* mObject;
+			Metadata* mMetadata;
+			String mName;
+			String mSourcePath; // if applicable
+
+			Dependency() : mObject(0), mMetadata(0) {}
+			Dependency(const Dependency& other) { *this = other; }
+			Dependency& operator=(const Dependency& other) {
+				mObject = other.mObject;
+				mMetadata = other.mMetadata;
+				mName = other.mName;
+				mSourcePath = other.mSourcePath;
+				return *this;
+			}
+		};
+		typedef std::list<Dependency> Dependencies;
+
+		class ImportedAsset 
+		{
+		public:
 			ImportedAsset();
 			~ImportedAsset();
-			ImportedAsset(const ImportedAsset& other);
-			ImportedAsset& operator=(const ImportedAsset& other);
 			
 			bool isValid();
-			void addDep(Asset* asset, const String& filepath, const String& name);
+			void setAsset(Asset* asset, Metadata* metadata);
+			void addDep(Reflection::Object* obj, const String& name);
+			void addDep(Asset* asset, const String& name, const String& filepath);
+			int numDependencies();
+			Dependencies& dependencies();
+			Asset* asset();
+			Metadata* metadata();
 
-			// all assets will have these set
+		protected:
+			// all imported assets will have these set
 			Asset* mAsset;
 			Metadata* mMetadata;
 
 			// assets that pull in other assets will have these set
-			Asset** mDeps;
-			Metadata** mDepsMetadata;
-			String* mDepsFilepath;
-			String* mDepsMetaName;
-			int mNumDeps;
+			Dependencies mDeps;
+
+		private:
+			ImportedAsset(const ImportedAsset& other);
+			ImportedAsset& operator=(const ImportedAsset& other);
 		};
 	}
 }

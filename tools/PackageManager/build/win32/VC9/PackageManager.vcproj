@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Debug.vsprops;..\..\..\..\vsprops\Squish_Debug.vsprops;..\..\..\..\..\tech\vsprops\TBB_Debug.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Debug.vsprops;..\..\..\..\vsprops\Squish_Debug.vsprops;..\..\..\..\..\tech\vsprops\TBB_Debug.vsprops;..\..\..\..\vsprops\FBX_SDK_Debug.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -84,7 +84,7 @@
 			OutputDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Release.vsprops;..\..\..\..\vsprops\Squish_Release.vsprops;..\..\..\..\..\tech\vsprops\TBB_Release.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Release.vsprops;..\..\..\..\vsprops\Squish_Release.vsprops;..\..\..\..\..\tech\vsprops\TBB_Release.vsprops;..\..\..\..\vsprops\FBX_SDK_Release.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
@@ -189,6 +189,10 @@
 		</File>
 		<File
 			RelativePath="..\..\..\ImportedAsset.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ImportStaticMesh.cpp"
 			>
 		</File>
 		<File

@@ -326,21 +326,8 @@ namespace Teardrop {
 			dummy->wait_for_all();
 
 			// collect all dependencies into our return value
-			delete [] imp.mDeps;
-			delete [] imp.mDepsMetadata;
-			delete [] imp.mDepsMetaName;
-			delete [] imp.mDepsFilepath;
-
-			imp.mDeps = new Asset*[deps.size()];
-			imp.mDepsMetadata = new Metadata*[deps.size()];
-			imp.mDepsMetaName = new String[deps.size()];
-			imp.mDepsFilepath = new String[deps.size()];
-			imp.mNumDeps = deps.size();
-
-			for (int i=0; i<imp.mNumDeps; ++i) {
-				imp.mDeps[i] = deps[i].mAsset;
-				imp.mDepsFilepath[i] = deps[i].mPathname;
-				imp.mDepsMetaName[i] = deps[i].mDepname;
+			for (size_t i=0; i<deps.size(); ++i) {
+				imp.addDep(deps[i].mAsset, deps[i].mDepname, deps[i].mPathname);
 			}
 		}
 

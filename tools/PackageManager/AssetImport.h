@@ -12,10 +12,11 @@ namespace Teardrop
 {
 	class TextureAsset;
 	class LandscapeAsset;
+	class StaticMeshAsset;
 
 	namespace Tools
 	{
-		struct ImportedAsset;
+		class ImportedAsset;
 
 		enum TextureAssetType {
 			TEXTUREASSET_TYPE_BCX,			// compress to BCx (default in editor)
@@ -33,6 +34,7 @@ namespace Teardrop
 
 		TextureAsset* importTexture(const char* filepath, TextureAssetType type);
 		LandscapeAsset* importLandscape(/*out*/ImportedAsset& imp, /*in*/const char* filepath, LandscapeAssetType type);
+		StaticMeshAsset* importStaticMesh(/*out*/ImportedAsset& imp, /*in*/const char* filepath);
 	}
 }
 

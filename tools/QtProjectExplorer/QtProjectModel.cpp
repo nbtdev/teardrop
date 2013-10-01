@@ -208,52 +208,7 @@ bool QtProjectModel::dropMimeData(const QMimeData* data, Qt::DropAction action, 
 	QtProjectItem* destItem = static_cast<QtProjectItem*>(parent.internalPointer());
 
 	if (data && destItem) {
-		if (data->hasUrls()) {
-			// dropping from filesystem onto "item"
-			QList<QUrl> urls = data->urls();
-			if (urls.length()) {
-				// find out what type the user wants to import
-				TypeChooser chooser(0, Asset::getClassDef());
-				QDialog::DialogCode code = (QDialog::DialogCode)chooser.exec();
-
-				if (code == QDialog::Accepted) {
-					PackageManager* pkgMgr = destItem->packageManager();
-					//emit beginLongOperation();
-
-					for (int i=0; i<urls.size(); ++i) {
-						QString str = urls.at(i).toLocalFile();
-						String pathName(str.toLatin1().constData());
-
-						ImportedAsset importedAsset = pkgMgr->importAsset(destItem->folder(), pathName, chooser.chosenClass());
-						Asset* asset = importedAsset.mAsset;
-						Metadata* assetMeta = importedAsset.mMetadata;
-
-						if (asset) {
-							emit layoutAboutToBeChanged();
-							QtProjectItem* assetItem = new QtProjectItem(pkgMgr, asset, assetMeta, destItem);
-							destItem->append(assetItem);
-
-							// there might be dependent assets imported as well...
-							int nDeps = importedAsset.mNumDeps;
-							for (int i=0; i<nDeps; ++i) {
-								QtProjectItem* depItem = new QtProjectItem(pkgMgr, importedAsset.mDeps[i], importedAsset.mDepsMetadata[i], destItem);
-								destItem->append(depItem);
-							}
-
-							emit layoutChanged();
-						}
-						else {
-							QMessageBox mb;
-							mb.setText(QString("Could not import texture from file ") + str);
-							mb.exec();
-						}
-					}
-
-					//emit endLongOperation();
-				}
-			}
-		}
-		else {
+		if (!data->hasUrls()) {
 			// dragging/dropping from somewhere in the app; itemData is the item being dragged
 			QtProjectItemData* itemData = static_cast<QtProjectItemData*>(data->userData(0));
 			if (itemData) {

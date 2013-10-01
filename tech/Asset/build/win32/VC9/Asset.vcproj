@@ -177,6 +177,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\StaticMeshAsset.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\StaticMeshAsset.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\TextureAsset.cpp"
 			>
 		</File>

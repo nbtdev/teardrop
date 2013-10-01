@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "ImportedAsset.h"
+#include "Asset/Asset.h"
 #include <string.h>
 
 using namespace Teardrop;
@@ -14,69 +15,12 @@ using namespace Tools;
 ImportedAsset::ImportedAsset()
 	: mAsset(0)
 	, mMetadata(0)
-	, mDeps(0)
-	, mDepsMetadata(0)
-	, mDepsFilepath(0)
-	, mDepsMetaName(0)
-	, mNumDeps(0)
 {
 
 }
 
 ImportedAsset::~ImportedAsset()
 {
-	delete [] mDeps;
-	delete [] mDepsMetadata;
-	delete [] mDepsFilepath;
-	delete [] mDepsMetaName;
-}
-
-ImportedAsset::ImportedAsset(const ImportedAsset& other)
-	: mAsset(0)
-	, mMetadata(0)
-	, mDeps(0)
-	, mDepsMetadata(0)
-	, mDepsFilepath(0)
-	, mDepsMetaName(0)
-	, mNumDeps(0)
-{
-	*this = other;
-}
-
-ImportedAsset& ImportedAsset::operator=(const ImportedAsset& other)
-{
-	mAsset = other.mAsset;
-	mMetadata = other.mMetadata;
-	mNumDeps = other.mNumDeps;
-
-	delete [] mDeps;
-	mDeps = 0;
-
-	delete [] mDepsMetadata;
-	mDepsMetadata = 0;
-
-	delete [] mDepsFilepath;
-	mDepsFilepath = 0;
-
-	delete [] mDepsMetaName;
-	mDepsMetaName = 0;
-
-	if (mNumDeps) {
-		mDeps = new Asset*[mNumDeps];
-		memcpy(mDeps, other.mDeps, sizeof(mDeps[0]) * mNumDeps);
-
-		mDepsMetadata = new Metadata*[mNumDeps];
-		memcpy(mDepsMetadata, other.mDepsMetadata, sizeof(mDepsMetadata[0]) * mNumDeps);
-
-		mDepsFilepath = new String[mNumDeps];
-		mDepsMetaName = new String[mNumDeps];
-		for (int i=0; i<mNumDeps; ++i) {
-			mDepsFilepath[i] = other.mDepsFilepath[i];
-			mDepsMetaName[i] = other.mDepsMetaName[i];
-		}
-	}
-
-	return *this;
 }
 
 bool ImportedAsset::isValid()
@@ -84,36 +28,50 @@ bool ImportedAsset::isValid()
 	return mAsset != 0;
 }
 
-void ImportedAsset::addDep(Asset* asset, const String& filepath, const String& name)
+int ImportedAsset::numDependencies()
+{
+	return int(mDeps.size());
+}
+
+Dependencies& ImportedAsset::dependencies()
+{
+	return mDeps;
+}
+
+Asset* ImportedAsset::asset()
+{
+	return mAsset;
+}
+
+Metadata* ImportedAsset::metadata()
+{
+	return mMetadata;
+}
+
+void ImportedAsset::setAsset(Asset* asset, Metadata* metadata)
+{
+	mAsset = asset;
+	mMetadata = metadata;
+}
+
+void ImportedAsset::addDep(Asset* asset, const String& name, const String& filepath)
 {
 	if (asset) {
-		int nDeps = mNumDeps++;
-		Asset** newDeps = new Asset*[mNumDeps];
-		memcpy(newDeps, mDeps, sizeof(mDeps[0]) * nDeps);
-		newDeps[nDeps] = asset;
-		delete [] mDeps;
-		mDeps = newDeps;
-
-		// and resize the deps metadata array too
-		delete [] mDepsMetadata;
-		mDepsMetadata = new Metadata*[mNumDeps];
-
-		// and the filepaths
-		String* newPaths = new String[mNumDeps];
-		for (int i=0; i<nDeps; ++i) {
-			newPaths[i] = mDepsFilepath[i];
-		}
-		newPaths[nDeps] = filepath;
-		delete [] mDepsFilepath;
-		mDepsFilepath = newPaths;
-
-		// and the dependency metadata names
-		String* newNames = new String[mNumDeps];
-		for (int i=0; i<nDeps; ++i) {
-			newNames[i] = mDepsMetaName[i];
-		}
-		newNames[nDeps] = name;
-		delete [] mDepsMetaName;
-		mDepsMetaName = newNames;
+		Dependency dep;
+		dep.mObject = asset;
+		dep.mName = name;
+		dep.mSourcePath = filepath;
+		mDeps.push_back(dep);
 	}
 }
+
+void ImportedAsset::addDep(Reflection::Object* asset, const String& name)
+{
+	if (asset) {
+		Dependency dep;
+		dep.mObject = asset;
+		dep.mName = name;
+		mDeps.push_back(dep);
+	}
+}
+

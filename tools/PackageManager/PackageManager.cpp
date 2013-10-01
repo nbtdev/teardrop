@@ -12,6 +12,7 @@ is prohibited.
 #include "Package/PackageSerializer.h"
 #include "Asset/TextureAsset.h"
 #include "Asset/LandscapeAsset.h"
+#include "Asset/StaticMeshAsset.h"
 #include "AssetImport.h"
 #include "Stream/FileStream.h"
 #include <utility>
@@ -33,10 +34,8 @@ PackageManager::~PackageManager()
 	delete mPackage;
 }
 
-ImportedAsset PackageManager::importAsset(Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass)
+void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass)
 {
-	ImportedAsset imp;
-
 	// TODO: get these known types from some lookup table?
 	if (assetClass == TextureAsset::getClassDef()) {
 		TextureAsset* texAsset = importTexture(filepath, TEXTUREASSET_TYPE_BCX);
@@ -48,8 +47,20 @@ ImportedAsset PackageManager::importAsset(Folder* folder, const char* filepath, 
 			String assetId;
 			Metadata* assetMeta = mMetadata->add(assetId, folder, texAsset, filepath);
 			assetMeta->generateThumbnail();
-			imp.mAsset = texAsset;
-			imp.mMetadata = assetMeta;
+			imp.setAsset(texAsset, assetMeta);
+		}
+	}
+	else if (assetClass == StaticMeshAsset::getClassDef()) {
+		StaticMeshAsset* asset = importStaticMesh(imp, filepath);
+		if (asset) {
+			// add the new asset to the package
+			mPackage->add(asset);
+
+			// and add an entry to the package metadata
+			String assetId;
+			Metadata* assetMeta = mMetadata->add(assetId, folder, asset, filepath);
+			assetMeta->generateThumbnail();
+			imp.setAsset(asset, assetMeta);
 		}
 	}
 	else if (assetClass == LandscapeAsset::getClassDef()) {
@@ -64,29 +75,23 @@ ImportedAsset PackageManager::importAsset(Folder* folder, const char* filepath, 
 			Metadata* assetMeta = mMetadata->add(assetId, folder, landscapeAsset, filepath);
 			assetMeta->generateThumbnail();
 
-			imp.mAsset = landscapeAsset;
-			imp.mMetadata = assetMeta;
+			imp.setAsset(landscapeAsset, assetMeta);
 
-			// and then handle any dependencies
-			if (imp.mNumDeps > 0) {
-				// add all dependent assets to this folder too
-				for (int i=0; i<imp.mNumDeps; ++i) {
-					Asset* dep = imp.mDeps[i];
-					String& path = imp.mDepsFilepath[i];
-					mPackage->add(dep);
+			// add all dependent assets to this folder too
+			for (Dependencies::iterator it = imp.dependencies().begin(); it != imp.dependencies().end(); ++it) {
+				Dependency& dep = *it;
 
-					// and the metadata...
-					String assetId;
-					Metadata* depMeta = mMetadata->add(assetId, folder, dep, path);
-					imp.mDepsMetadata[i] = depMeta;
-					depMeta->setName(imp.mDepsMetaName[i]);
-					depMeta->generateThumbnail();
-				}
+				mPackage->add(dep.mObject);
+
+				// and the metadata...
+				String assetId;
+				Metadata* depMeta = mMetadata->add(assetId, folder, static_cast<Asset*>(dep.mObject), dep.mSourcePath);
+				dep.mMetadata = depMeta;
+				depMeta->setName(dep.mName);
+				depMeta->generateThumbnail();
 			}
 		}
 	}
-
-	return imp;
 }
 
 std::pair<Reflection::Object*, Metadata*> PackageManager::createObject(Folder* folder, const Reflection::ClassDef* classDef)
