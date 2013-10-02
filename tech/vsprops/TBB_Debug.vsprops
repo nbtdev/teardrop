@@ -6,11 +6,11 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="$(TBB30_INSTALL_DIR)\include"
+		AdditionalIncludeDirectories="$(TBB_INSTALL_DIR)\include"
 	/>
 	<Tool
 		Name="VCLinkerTool"
 		AdditionalDependencies="tbb_debug.lib tbbmalloc_proxy_debug.lib tbbmalloc_debug.lib"
-		AdditionalLibraryDirectories="$(TBB30_INSTALL_DIR)\lib\ia32\vc9"
+		AdditionalLibraryDirectories="$(TBB_INSTALL_DIR)\lib\ia32\vc9"
 	/>
 </VisualStudioPropertySheet>
