@@ -257,8 +257,16 @@ void Editor::onPreferences()
 	mDlgPreferences.setupUi(&dlg);
 	mDlgPreferences.mChkOpenLastProject->setChecked(mPreferences.general().mLoadLastProject);
 
+	QStringList renderers;
+	renderers << "OpenGL" << "Direct3D 9" << "Direct3D 11";
+	mDlgPreferences.mRenderEngine->insertItems(0, renderers);
+	int selected = mPreferences.rendering().mEngine;
+	mDlgPreferences.mRenderEngine->setCurrentIndex(selected);
+
 	if (QDialog::Accepted == dlg.exec()) {
 		mPreferences.general().mLoadLastProject = (mDlgPreferences.mChkOpenLastProject->checkState() != Qt::Unchecked);
+
+		mPreferences.rendering().mEngine = (Preferences::Rendering::Engine)mDlgPreferences.mRenderEngine->currentIndex();
 
 		mPreferences.save();
 	}

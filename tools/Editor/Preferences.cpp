@@ -30,6 +30,11 @@ Preferences::General& Preferences::general()
 	return mGeneral;
 }
 
+Preferences::Rendering& Preferences::rendering()
+{
+	return mRendering;
+}
+
 bool Preferences::load(const char* prefsFilename/* =0 */)
 {
 	String appDataPath;
@@ -50,17 +55,12 @@ bool Preferences::load(const char* prefsFilename/* =0 */)
 
 	TiXmlElement* general = root->FirstChildElement("general");
 	if (general) {
-		TiXmlElement* pref = general->FirstChildElement("pref");
-		while (pref) {
-			const char* name = pref->Attribute("name");
-			const char* value = pref->Attribute("value");
+		mGeneral.load(*general);
+	}
 
-			if (name && value) {
-				if (!strcmp(name, "loadLastProject")) mGeneral.mLoadLastProject = (0 == strcmp(value, "true"));
-			}
-
-			pref = pref->NextSiblingElement("pref");
-		}
+	TiXmlElement* rendering = root->FirstChildElement("rendering");
+	if (rendering) {
+		mRendering.load(*rendering);
 	}
 
 	TiXmlElement* projects = root->FirstChildElement("projects");
@@ -89,12 +89,10 @@ bool Preferences::save(const char* prefsFilename/* =0 */)
 	TiXmlDeclaration decl("1.0", "", "");
 	doc.InsertEndChild(decl);
 
-	TiXmlElement general("general");
-	
-	TiXmlElement loadLastProject("pref");
-	loadLastProject.SetAttribute("name", "loadLastProject");
-	loadLastProject.SetAttribute("value", mGeneral.mLoadLastProject ? "true" : "false");
-	general.InsertEndChild(loadLastProject);
+	TiXmlElement root("preferences");
+
+	mGeneral.save(root);
+	mRendering.save(root);
 
 	TiXmlElement projects("projects");
 	for (ProjectList::iterator it = mLastProjects.begin(); it != mLastProjects.end(); ++it) {
@@ -104,8 +102,6 @@ bool Preferences::save(const char* prefsFilename/* =0 */)
 		projects.InsertEndChild(project);
 	}
 
-	TiXmlElement root("preferences");
-	root.InsertEndChild(general);
 	root.InsertEndChild(projects);
 	doc.InsertEndChild(root);
 
@@ -141,4 +137,79 @@ Preferences::General::General()
 Preferences::General::~General()
 {
 
+}
+
+void Preferences::General::load(TiXmlElement& prefs)
+{
+	TiXmlElement* pref = prefs.FirstChildElement("pref");
+	while (pref) {
+		const char* name = pref->Attribute("name");
+		const char* value = pref->Attribute("value");
+
+		if (name && value) {
+			if (!strcmp(name, "loadLastProject")) mLoadLastProject = (0 == strcmp(value, "true"));
+		}
+
+		pref = pref->NextSiblingElement("pref");
+	}
+}
+
+void Preferences::General::save(TiXmlElement& prefs)
+{
+	TiXmlElement general("general");
+
+	TiXmlElement loadLastProject("pref");
+	loadLastProject.SetAttribute("name", "loadLastProject");
+	loadLastProject.SetAttribute("value", mLoadLastProject ? "true" : "false");
+	general.InsertEndChild(loadLastProject);
+	prefs.InsertEndChild(general);
+}
+
+Preferences::Rendering::Rendering()
+	: mEngine(ENGINE_D3D9)
+{
+
+}
+
+Preferences::Rendering::~Rendering()
+{
+
+}
+
+void Preferences::Rendering::load(TiXmlElement& prefs)
+{
+	TiXmlElement* pref = prefs.FirstChildElement("pref");
+	while (pref) {
+		const char* name = pref->Attribute("name");
+		const char* value = pref->Attribute("value");
+
+		if (name && value) {
+			if (!strcmp(name, "renderEngine")) {
+				if (!strcmp(value, "OPENGL")) mEngine = ENGINE_OPENGL;
+				if (!strcmp(value, "D3D9")) mEngine = ENGINE_D3D9;
+				if (!strcmp(value, "D3D11")) mEngine = ENGINE_D3D11;
+			}
+		}
+
+		pref = pref->NextSiblingElement("pref");
+	}
+}
+
+void Preferences::Rendering::save(TiXmlElement& prefs)
+{
+	TiXmlElement rendering("rendering");
+
+	TiXmlElement renderEngine("pref");
+	renderEngine.SetAttribute("name", "renderEngine");
+	
+	const char* engineName = "";
+	switch (mEngine) {
+		case ENGINE_OPENGL: engineName = "OPENGL"; break;
+		case ENGINE_D3D9: engineName = "D3D9"; break;
+		case ENGINE_D3D11: engineName = "D3D11"; break;
+	}
+
+	renderEngine.SetAttribute("value", engineName);
+	rendering.InsertEndChild(renderEngine);
+	prefs.InsertEndChild(rendering);
 }

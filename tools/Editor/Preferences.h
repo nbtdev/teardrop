@@ -11,6 +11,8 @@ is prohibited.
 #include "Util/_String.h"
 #include <list>
 
+class TiXmlElement;
+
 namespace Teardrop
 {
 	namespace Tools
@@ -25,14 +27,33 @@ namespace Teardrop
 			{
 				General();
 				~General();
+				void load(TiXmlElement&);
+				void save(TiXmlElement&);
 
 				bool mLoadLastProject;
+			};
+
+			struct Rendering
+			{
+				Rendering();
+				~Rendering();
+				void load(TiXmlElement&);
+				void save(TiXmlElement&);
+
+				enum Engine {
+					ENGINE_OPENGL=0,
+					ENGINE_D3D9,
+					ENGINE_D3D11,
+				};
+
+				Engine mEngine;
 			};
 
 			bool load(const char* prefsFilename=0);
 			bool save(const char* prefsFilename=0);
 
 			General& general();
+			Rendering& rendering();
 
 			typedef std::list<String> ProjectList;
 			void addProject(const String& projectPathname);
@@ -40,6 +61,7 @@ namespace Teardrop
 
 		private:
 			General mGeneral;
+			Rendering mRendering;
 
 			ProjectList mLastProjects;
 		};
