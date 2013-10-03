@@ -29,6 +29,7 @@ namespace Teardrop
 		class QtObjectBrowser;
 		class Project;
 		class RenderWindow;
+		class PackageManager;
 
 		class Editor : public QMainWindow
 		{
@@ -49,6 +50,8 @@ namespace Teardrop
 
 			void onBeginLongOperation();
 			void onEndLongOperation();
+
+			void onActivePackageChanged(PackageManager* pkgMgr);
 
 		private:
 			Ui::EditorClass ui;

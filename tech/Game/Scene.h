@@ -9,31 +9,24 @@ is prohibited.
 #define SCENE_INCLUDED
 
 #include <vector>
-#include "Memory/Allocators.h"
+#include "Game/Executable.h"
 
 namespace Teardrop
 {
+	class LandscapeAsset;
 	class Zone;
 	class ZoneObject;
 	class ZoneObjects;
 	class Stream;
 	class String;
 	class Plane;
-	struct FourCC;
 	class World;
 	class LoadListener;
 	class Vector4;
 	class Ray;
 
-	namespace Reflection
+	class Scene : public Executable
 	{
-		class ClassDef;
-	}
-
-	class Scene
-	{
-		friend struct SceneUtil;
-
 		typedef std::vector<size_t> ZoneNeighbors;
 		typedef struct ZoneNode
 		{
@@ -54,8 +47,10 @@ namespace Teardrop
 		float m_accumTime;
 
 	public:
-		static const FourCC& RESOURCE_TYPE;
-
+		TD_CLASS(Scene, Executable);
+		TD_CLASS_CREATABLE();
+		TD_POINTER_PROPERTY(Landscape, "Landscape asset for this scene", LandscapeAsset);
+		
 		Scene();
 		~Scene();
 

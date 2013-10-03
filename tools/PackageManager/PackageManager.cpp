@@ -173,3 +173,8 @@ void PackageManager::remove(Folder* folder, bool bRecursive/* =false */)
 	if (mMetadata)
 		mMetadata->deleteFolder(folder, bRecursive);
 }
+
+void PackageManager::findAllOf(std::list<Reflection::Object*>& objs, Reflection::ClassDef* isA, bool includeDerived)
+{
+	mPackage->findAllByType(objs, isA, includeDerived);
+}

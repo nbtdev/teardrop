@@ -31,6 +31,7 @@ namespace Teardrop
 			~RenderWindow();
 
 			void setScene(Scene* scene);
+			Scene* scene();
 
 		protected slots:
 			void onIdle();

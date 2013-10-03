@@ -70,3 +70,23 @@ Reflection::Object* Package::findById(const String& id)
 	uuid.fromString(id);
 	return findById(uuid);
 }
+
+void Package::findAllByType(std::list<Reflection::Object*>& objs, Reflection::ClassDef* type, bool includeDerivedTypes)
+{
+	objs.clear();
+
+	for (Objects::iterator it = mObjects.begin(); it != mObjects.end(); ++it) {
+		Reflection::Object* obj = *it;
+
+		if (includeDerivedTypes) {
+			if (obj->getDerivedClassDef()->isA(type)) {
+				objs.push_back(obj);
+			}
+		}
+		else {
+			if (obj->getDerivedClassDef() == type) {
+				objs.push_back(obj);
+			}
+		}
+	}
+}

@@ -22,6 +22,7 @@ QtProjectItem::QtProjectItem()
 	, mMetadata(0)
 	, mParent(0)
 	, mIsPackage(0)
+	, mIsActive(0)
 {
 }
 
@@ -32,6 +33,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, Reflection::Object* obj
 	, mMetadata(metadata)
 	, mParent(parent)
 	, mIsPackage(0)
+	, mIsActive(0)
 {
 	updatePath();
 }
@@ -43,6 +45,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, QtProjectItem* parent)
 	, mMetadata(0)
 	, mParent(parent)
 	, mIsPackage(1)
+	, mIsActive(0)
 {
 	if (packageMgr) {
 		mMetadata = packageMgr->metadata();
@@ -57,6 +60,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, Folder* folder, QtProje
 	, mMetadata(0)
 	, mParent(parent)
 	, mIsPackage(0)
+	, mIsActive(0)
 {
 }
 
@@ -228,4 +232,14 @@ void QtProjectItem::rename(const QString& newName)
 void QtProjectItem::removeAllChildren()
 {
 	mChildren.clear();
+}
+
+void QtProjectItem::setActive(bool active)
+{
+	mIsActive = active ? 1 : 0;
+}
+
+bool QtProjectItem::active() const
+{
+	return mIsActive != 0;
 }

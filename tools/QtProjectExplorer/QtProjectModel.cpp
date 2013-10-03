@@ -78,6 +78,13 @@ QVariant QtProjectModel::data(const QModelIndex& index, int role) const
 	if (role == Qt::ToolTipRole) {
 		return item->tooltip();
 	}
+	else if (role == Qt::FontRole) {
+		if (item->active()) {
+			QFont boldFont;
+			boldFont.setBold(true);
+			return boldFont;
+		}
+	}
 	else if (role == Qt::DecorationRole) {
 		QPixmap pm;
 		if (item->isObject()) {
@@ -380,4 +387,25 @@ void QtProjectModel::removePackage(const QModelIndex& package)
 	mProject->removePackage(packageItem->packageManager());
 	emit layoutChanged();
 	endRemoveRows();
+}
+
+void QtProjectModel::setActiveIndex(const QModelIndex& index)
+{
+	// only top-level indices can be set active, so go through each
+	// and clear their active state, and set this one while we are at it
+	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
+
+	int nChildren = mRoot->numChildren();
+
+	if (nChildren) {
+		emit layoutAboutToBeChanged();
+		for (int i=0; i<nChildren; ++i) {
+			QtProjectItem* child = mRoot->child(i);
+			if (child == item)
+				child->setActive(true);
+			else
+				child->setActive(false);
+		}
+		emit layoutChanged();
+	}
 }

@@ -54,6 +54,9 @@ namespace Teardrop
 			void addPackage(const char* path = 0);
 			void removePackage(const QModelIndex& package);
 
+			// item appearance/state
+			void setActiveIndex(const QModelIndex& index);
+
 		protected:
 			Project* mProject;
 			QtProjectItem* mRoot;

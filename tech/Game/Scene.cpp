@@ -10,15 +10,12 @@ is prohibited.
 #include "TerrainZone.h"
 #include "ZoneObject.h"
 #include "LoadListener.h"
-#include "SceneUtil.h"
+#include "Asset/LandscapeAsset.h"
 #include "Game/Component_Physics.h"
 #include "Physics/Physics.h"
 #include "Physics/World.h"
 #include "Physics/CollisionFilter.h"
-#include "Stream/FileStream.h"
-#include "Resource/ResourceManager.h"
 #include "Reflection/Reflection.h"
-#include "Util/FourCC.h"
 #include "Util/StringUtil.h"
 #include "Util/_String.h"
 #include "Util/Logger.h"
@@ -30,8 +27,8 @@ is prohibited.
 #include <algorithm>
 
 using namespace Teardrop;
+TD_CLASS_IMPL(Scene);
 //---------------------------------------------------------------------------
-const FourCC& Scene::RESOURCE_TYPE = FourCC('S','C','N','E');
 const static float TIMESTEP = 1.f/60.f;
 //---------------------------------------------------------------------------
 Scene::Scene()
@@ -47,6 +44,9 @@ Scene::~Scene()
 //---------------------------------------------------------------------------
 bool Scene::initialize()
 {
+	// create the zone(s) from the LandscapeAsset data
+	Zone* zone = createZone(TerrainZone::getClassDef(), 0);
+	setCurrentZone(*zone);
 	return true;
 }
 //---------------------------------------------------------------------------

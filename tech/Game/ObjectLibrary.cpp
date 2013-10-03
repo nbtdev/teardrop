@@ -15,7 +15,6 @@ is prohibited.
 #include "Manifest.h"
 #include "ZoneObject.h"
 #include "Zone.h"
-#include "SceneUtil.h"
 #include "BeamWeapon.h"
 #include "VFX/ParticleSystem.h"
 #include "Util/Environment.h"
@@ -333,7 +332,7 @@ ZoneObject* ObjectLibrary::create(
 
 	// deserialize the object's AABB
 	AABB aabb;
-	SceneUtil::deserializeAABB(root->FirstChildElement("AABB"), aabb);
+	//SceneUtil::deserializeAABB(root->FirstChildElement("AABB"), aabb);
 	static_cast<ZoneObject*>(pObject)->setBoundingBox(aabb);
 
 	// load components

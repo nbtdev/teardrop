@@ -20,6 +20,7 @@ namespace Teardrop
 		class Project;
 		class DragDropData;
 		class QtProjectItem;
+		class PackageManager;
 
 		class QtProjectExplorer : public QTreeView
 		{
@@ -32,6 +33,9 @@ namespace Teardrop
 			void setProject(Project* project);
 
 			fastdelegate::FastDelegate1<QtProjectItem*> SelectionChanged;
+
+		signals:
+			void activePackageChanged(PackageManager* pkgMgr);
 
 		protected slots:
 			void onContextMenu(const QPoint&);

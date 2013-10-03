@@ -11,7 +11,6 @@ is prohibited.
 #include "ZoneObject.h"
 #include "Octree/Octree.h"
 #include "Scene.h"
-#include "SceneUtil.h"
 #include "Gfx/GfxCamera.h"
 #include "Gfx/GfxBitmap.h"
 #include "Gfx/GfxMaterial.h"

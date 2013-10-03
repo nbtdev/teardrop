@@ -13,10 +13,9 @@ is prohibited.
 #include "QtProjectExplorer/QtProjectExplorer.h"
 #include "QtProjectExplorer/QtProjectItem.h"
 #include "QtObjectBrowser/QtObjectBrowser.h"
-#include "PackageManager/Metadata.h"
+#include "PackageManager/PackageMetadata.h"
+#include "PackageManager/PackageManager.h"
 #include "Game/Scene.h"
-#include "Game/TerrainZone.h"
-#include "Package/Package.h"
 #include "Util/FileSystem.h"
 #include "FreeImage.h"
 #include <QDockWidget>
@@ -26,6 +25,7 @@ is prohibited.
 #include <QFileDialog>
 #include <QFile>
 #include <QFileInfo>
+#include <QMessageBox>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -45,8 +45,6 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	mCursor = cursor();
 
-	//m3DView = new QWidget(ui.centralWidget);
-	//ui.horizontalLayout->addWidget(m3DView);
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
 
 	mObjBrowser = new QtObjectBrowser(ui.centralWidget);
@@ -70,10 +68,8 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	vertLayout = new QVBoxLayout(dockContents);
 
 	mPropGrid = new QtPropertyGrid(dockContents);
-	//mPropGrid->setResizeMode(QtTreePropertyBrowser::Interactive);
 	mPropGrid->setRootIsDecorated(true);
 	mPropGrid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	//mPropGrid->clear();
 
 	vertLayout->addWidget(mPropGrid);
 	dock->setWidget(dockContents);
@@ -109,6 +105,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mProjectExp->SelectionChanged.bind(this, &Editor::onProjectExplorerSelectionChanged);
 	mObjBrowser->ItemClicked.bind(this, &Editor::onProjectExplorerSelectionChanged);
 	mProjectExp->SelectionChanged.bind(mObjBrowser, &QtObjectBrowser::onItemSelected);
+	connect(mProjectExp, SIGNAL(activePackageChanged(PackageManager*)), this, SLOT(onActivePackageChanged(PackageManager*)));
 
 	setEditorTitle();
 	mPreferences.load();
@@ -120,12 +117,6 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 	// set up render window
 	mRenderWindow = new RenderWindow();
-
-	// empty scene to start with
-	mScene = TD_NEW Scene();
-	Zone* zone = mScene->createZone(TerrainZone::getClassDef());
-	mScene->setCurrentZone(*zone);
-	mRenderWindow->setScene(mScene);
 }
 
 Editor::~Editor()
@@ -298,4 +289,31 @@ void Editor::onProjectExplorerSelectionChanged(QtProjectItem* item)
 		mPropGrid->setObject(0);
 	else
 		mPropGrid->setObject(item->object(), item->metadata());
+}
+
+void Editor::onActivePackageChanged(PackageManager* pkgMgr)
+{
+	// check to see if one (and only one) instance of the 
+	// Executable class exists in the package
+	std::list<Reflection::Object*> list;
+	pkgMgr->findAllOf(list, Executable::getClassDef(), true);
+
+	if (list.size() != 1) {
+		char buf[128];
+		sprintf(buf, "%d", int(list.size()));
+
+		QMessageBox mb;
+		mb.setText(QString("Package ") + pkgMgr->metadata()->getName() + QString(" must contain exactly one Executable class instance (found ") + buf + QString(")"));
+		mb.exec();
+	}
+	else {
+		// for now, we know it's just Scene
+		Scene* scene = static_cast<Scene*>(list.front());
+		Scene* currentScene = mRenderWindow->scene();
+		if (currentScene)
+			currentScene->destroy();
+
+		scene->initialize();
+		mRenderWindow->setScene(scene);
+	}
 }

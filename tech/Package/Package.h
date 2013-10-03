@@ -20,6 +20,7 @@ namespace Teardrop
 	namespace Reflection
 	{
 		class Object;
+		class ClassDef;
 	}
 
 	typedef std::list<Reflection::Object*> Objects;
@@ -37,6 +38,7 @@ namespace Teardrop
 		// I hate this...these must *only* be used during package linking...
 		Reflection::Object* findById(const String& id);
 		Reflection::Object* findById(const UUID& id);
+		void findAllByType(/*out*/std::list<Reflection::Object*>& objs, /*in*/Reflection::ClassDef* type, bool includeDerivedTypes);
 
 		TD_DECLARE_ALLOCATOR();
 

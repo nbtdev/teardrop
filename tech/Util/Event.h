@@ -91,6 +91,14 @@ namespace Teardrop
 			mDelegates.erase(it);
 		}
 
+		void raise(T0 p0, T1 p1)
+		{
+			for (Delegates::iterator it = mDelegates.begin(); it != mDelegates.end(); ++it) {
+				if (*it)
+					(*it)(p0, p1);
+			}
+		}
+
 	protected:
 		typedef std::list< tDelegate > Delegates;
 		Delegates mDelegates;

@@ -59,6 +59,8 @@ namespace Teardrop
 			void removeAllChildren();
 			void rename(const QString& newName);
 			const String& path() const;
+			void setActive(bool active);
+			bool active() const;
 
 			// true if this item is the root item in a model
 			bool isRoot() const;
@@ -84,6 +86,7 @@ namespace Teardrop
 			String mPath;
 
 			int mIsPackage;
+			int mIsActive;
 		};
 
 		// QObjectUserData wrapper for QtProjectItem

@@ -107,3 +107,8 @@ void RenderWindow::onIdle()
 		mSceneRenderer->render(objects, mRenderer, mScene, mCamera);
 	}
 }
+
+Scene* RenderWindow::scene()
+{
+	return mScene;
+}

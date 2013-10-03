@@ -57,6 +57,8 @@ namespace Teardrop
 			PackageMetadata* metadata();
 			void getAllMetadata(std::list<Metadata*>& metaList) const;
 
+			void findAllOf(std::list<Reflection::Object*>& objs, Reflection::ClassDef* isA, bool includeDerived);
+
 		protected:
 			Package* mPackage;
 			PackageMetadata* mMetadata;

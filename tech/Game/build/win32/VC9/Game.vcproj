@@ -180,6 +180,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Executable.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\GameState.cpp"
 				>
 			</File>
@@ -193,6 +197,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\InputFilter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Logic.cpp"
 				>
 			</File>
 			<File
@@ -225,10 +233,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\SceneRenderer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\SceneUtil.cpp"
 				>
 			</File>
 			<File
@@ -310,6 +314,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Executable.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\GameState.h"
 				>
 			</File>
@@ -339,6 +347,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\LoadListener.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Logic.h"
 				>
 			</File>
 			<File
@@ -387,10 +399,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\SceneRenderer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\SceneUtil.h"
 				>
 			</File>
 			<File

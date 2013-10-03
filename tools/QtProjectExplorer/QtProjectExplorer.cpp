@@ -8,10 +8,14 @@ is prohibited.
 #include "QtProjectExplorer.h"
 #include "QtProjectModel.h"
 #include "QtProjectItem.h"
+#include "QtUtils/TypeChooser.h"
+#include "PackageManager/PackageManager.h"
+#include "PackageManager/PackageMetadata.h"
 #include <QDragEnterEvent>
 #include <QMenu>
 #include <QFileDialog>
 #include "Asset/TextureAsset.h"
+#include "Game/Executable.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -80,6 +84,10 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 			if (item->isPackage()) {
 				action = menu.addAction("Remove From Project");
 				action->setData(QVariant(3));
+				action = menu.addAction("Set Active");
+				action->setData(QVariant(5));
+				action = menu.addAction("Make Executable");
+				action->setData(QVariant(6));
 			}
 			else {
 				action = menu.addAction("Delete");
@@ -87,15 +95,6 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 				action = menu.addAction("Delete (Recursive)");
 				action->setData(QVariant(4));
 			}
-
-			// add all available ("creatable") object types
-			//QMenu* addObject = menu.addMenu("Add Object");
-			//for (Reflection::ClassDef* classDef = Reflection::ClassDef::getClasses(); classDef; classDef = classDef->m_pNext) {
-			//	if (classDef->isCreatable() && !classDef->isA(Asset::getClassDef())) {
-			//		action = addObject->addAction(classDef->getName());
-			//		action->setData(qVariantFromValue((void*)classDef));
-			//	}
-			//}
 
 			action = menu.exec(globalPt);
 
@@ -128,9 +127,22 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 					if (SelectionChanged)
 						SelectionChanged(0);
 					break;
-				//default: // it's a create-object-instance commmand, the menu item data is the ClassDef*
-				//	projModel->addObject(index, (Reflection::ClassDef*)action->data().value<void*>());
-				//	break;
+				case 5:
+					projModel->setActiveIndex(index);
+					emit activePackageChanged(item->packageManager());
+					break;
+				case 6:
+					{
+						TypeChooser chooser(0, Executable::getClassDef());
+						QDialog::DialogCode code = (QDialog::DialogCode)chooser.exec();
+
+						if (code == QDialog::Accepted) {
+							// make a new Executable instance in this package
+							PackageManager* pkgMgr = item->packageManager();
+							std::pair<Reflection::Object*, Metadata*> pr = pkgMgr->createObject(pkgMgr->metadata()->rootFolder(), chooser.chosenClass());
+						}
+					}
+					break;
 				}
 			}
 		}
@@ -139,6 +151,7 @@ void QtProjectExplorer::onContextMenu(const QPoint& pt)
 		enum {
 			ACTION_CREATE_PACKAGE,
 			ACTION_ADD_PACKAGE,
+			ACTION_SET_ACTIVE,
 		};
 
 		QMenu menu;
