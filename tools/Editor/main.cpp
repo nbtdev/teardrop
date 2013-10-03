@@ -16,22 +16,38 @@ is prohibited.
 #include "Memory/Allocators.h"
 #include "Memory/MemoryRegion.h"
 #include "Util/_String.h"
-
-// temp
+#include "Util/Logger.h"
+#include "Util/Environment.h"
+#include "Util/FileSystem.h"
+#include "Stream/FileStream.h"
 #include "Gfx/GfxCommon.h"
 
 int main(int argc, char *argv[])
 {
 	Teardrop::String::setAllocator(GetCRTAllocator());
-	Teardrop::setGfxAllocator(GetDEFAULTAllocator());
 
-	// temp
+	Teardrop::FileStream logStrm;
+	Teardrop::Logger logger(logStrm);
+
+	Teardrop::String logPath;
+	Teardrop::FileSystem::getAppDataPath(logPath);
+	logPath.append('/');
+	logPath.append("TeardropEditor.log");
+
+	if (!logStrm.open(logPath, Teardrop::WRITE|Teardrop::TRUNCATE|Teardrop::TEXT))
+	{
+		// todo: let the user know
+		return -1;
+	}
+
+	Teardrop::Environment& env = Teardrop::Environment::get();
+	env.pLogger = &logger;
+	env.isOffline = false;
+
+	Teardrop::setGfxAllocator(GetDEFAULTAllocator());
 	Teardrop::GfxInit();
 
 	QApplication a(argc, argv);
-	//QPalette palette;
-	//palette.setColor(QPalette::Dark, QColor(Qt::darkBlue));
-	//a.setPalette(palette);
 	Teardrop::Tools::Editor w;
 	w.show();
 	return a.exec();

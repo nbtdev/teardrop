@@ -122,13 +122,16 @@ Zone* Scene::createZone(const char* type, LoadListener* pCB)
 	if (!type)
 		return 0;
 
-	ZoneNode node;
-
 	// use reflection to create the instance
-	Reflection::ClassDef* pClassDef = Reflection::ClassDef::findClassDef(type);
+	return createZone(Reflection::ClassDef::findClassDef(type), pCB);
+}
+//---------------------------------------------------------------------------
+Zone* Scene::createZone(Reflection::ClassDef* pClassDef, LoadListener* pCB)
+{
 	if (!pClassDef)
 		return 0;
 
+	ZoneNode node;
 	node.pZone = static_cast<Zone*>(pClassDef->createInstance());
 
 #if 0

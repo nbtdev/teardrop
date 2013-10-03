@@ -8,11 +8,14 @@ is prohibited.
 #include "Editor.h"
 #include "Project.h"
 #include "ProgressDialog.h"
+#include "RenderWindow.h"
 #include "QtPropertyGrid/QtPropertyGrid.h"
 #include "QtProjectExplorer/QtProjectExplorer.h"
 #include "QtProjectExplorer/QtProjectItem.h"
 #include "QtObjectBrowser/QtObjectBrowser.h"
 #include "PackageManager/Metadata.h"
+#include "Game/Scene.h"
+#include "Game/TerrainZone.h"
 #include "Package/Package.h"
 #include "Util/FileSystem.h"
 #include "FreeImage.h"
@@ -35,6 +38,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	, m3DView(0)
 	, mPropGridDesc(0)
 	, mProject(0)
+	, mRenderWindow(0)
 {
 	FreeImage_Initialise();
 
@@ -97,6 +101,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	connect(ui.mCmdSave, SIGNAL(triggered()), this, SLOT(onSave()));
 	connect(ui.mCmdSaveAs, SIGNAL(triggered()), this, SLOT(onSaveAs()));
 	connect(ui.mCmdPreferences, SIGNAL(triggered()), this, SLOT(onPreferences()));
+	connect(ui.actionExit, SIGNAL(triggered()), this, SLOT(onClose()));
 
 	mProject = new Project;
 	mProjectExp->setProject(mProject);
@@ -112,6 +117,15 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	const Preferences::ProjectList& projs = mPreferences.projectList();
 	if (mPreferences.general().mLoadLastProject && projs.size())
 		openProject((const char*)projs.front());
+
+	// set up render window
+	mRenderWindow = new RenderWindow();
+
+	// empty scene to start with
+	mScene = TD_NEW Scene();
+	Zone* zone = mScene->createZone(TerrainZone::getClassDef());
+	mScene->setCurrentZone(*zone);
+	mRenderWindow->setScene(mScene);
 }
 
 Editor::~Editor()
@@ -119,6 +133,12 @@ Editor::~Editor()
 	mPreferences.save();
 	delete mProject;
 	FreeImage_DeInitialise();
+}
+
+void Editor::onClose()
+{
+	delete mRenderWindow;
+	QMainWindow::close();
 }
 
 void Editor::onContextMenu(const QPoint& pt)

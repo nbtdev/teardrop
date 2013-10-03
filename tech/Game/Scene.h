@@ -64,6 +64,7 @@ namespace Teardrop
 		bool update(float deltaT);
 
 		Zone* createZone(const char* type, LoadListener* pCallback=0);
+		Zone* createZone(Reflection::ClassDef* type, LoadListener* pCallback=0);
 		void destroyZone(Zone* pZone);
 		bool addNeighbor(const Zone* pMe, const Zone* pNeighbor);
 		bool getVisibleObjects(const Plane* frustum, ZoneObjects& objects) const;

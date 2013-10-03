@@ -19,6 +19,8 @@ class QLabel;
 
 namespace Teardrop
 {
+	class Scene;
+
 	namespace Tools
 	{
 		class QtPropertyGrid;
@@ -26,6 +28,7 @@ namespace Teardrop
 		class QtProjectItem;
 		class QtObjectBrowser;
 		class Project;
+		class RenderWindow;
 
 		class Editor : public QMainWindow
 		{
@@ -42,6 +45,7 @@ namespace Teardrop
 			void onOpen();
 			void onNew();
 			void onPreferences();
+			void onClose();
 
 			void onBeginLongOperation();
 			void onEndLongOperation();
@@ -49,6 +53,7 @@ namespace Teardrop
 		private:
 			Ui::EditorClass ui;
 			Ui::PreferencesDialog mDlgPreferences;
+			RenderWindow* mRenderWindow;
 			Preferences mPreferences;
 
 			QtPropertyGrid* mPropGrid;
@@ -59,6 +64,7 @@ namespace Teardrop
 			QLabel* mPropGridDesc;
 
 			Project* mProject;
+			Scene* mScene;
 
 			QCursor mCursor;
 
