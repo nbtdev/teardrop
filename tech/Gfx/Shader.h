@@ -5,32 +5,34 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "Executable.h"
+#if !defined(SHADER_INCLUDED)
+#define SHADER_INCLUDED
 
-using namespace Teardrop;
+#include "Util/UUID.h"
 
-TD_CLASS_IMPL(Executable);
-
-Executable::Executable()
+namespace Teardrop
 {
+	namespace Gfx 
+	{
+		class Material;
 
+		class Shader
+		{
+		public:
+			Shader(Material* material);
+			~Shader();
+
+			virtual bool initialize();
+			virtual bool destroy();
+
+			UUID materialId();
+
+			TD_DECLARE_ALLOCATOR();
+
+		protected:
+			Material* mMaterial;
+		};
+	}
 }
 
-Executable::~Executable()
-{
-
-}
-
-bool Executable::initialize()
-{
-	return true;
-}
-
-bool Executable::destroy()
-{
-	return true;
-}
-
-void Executable::tick()
-{
-}
+#endif // SHADER_INCLUDED

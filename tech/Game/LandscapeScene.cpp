@@ -5,32 +5,30 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "Executable.h"
+#include "LandscapeScene.h"
 
 using namespace Teardrop;
 
-TD_CLASS_IMPL(Executable);
+TD_CLASS_IMPL(LandscapeScene);
 
-Executable::Executable()
+LandscapeScene::LandscapeScene()
 {
-
 }
 
-Executable::~Executable()
+LandscapeScene::~LandscapeScene()
 {
-
 }
 
-bool Executable::initialize()
+bool LandscapeScene::initialize()
 {
 	return true;
 }
 
-bool Executable::destroy()
+bool LandscapeScene::destroy()
 {
 	return true;
 }
 
-void Executable::tick()
+void LandscapeScene::tick()
 {
 }

@@ -22,6 +22,11 @@ is prohibited.
 #include "Stream/FileStream.h"
 #include "Gfx/GfxCommon.h"
 
+// hacky
+#include "Game/LandscapeScene.h"
+static Teardrop::LandscapeScene __lscene;
+// end hacky
+
 int main(int argc, char *argv[])
 {
 	Teardrop::String::setAllocator(GetCRTAllocator());

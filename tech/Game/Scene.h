@@ -47,10 +47,6 @@ namespace Teardrop
 		float m_accumTime;
 
 	public:
-		TD_CLASS(Scene, Executable);
-		TD_CLASS_CREATABLE();
-		TD_POINTER_PROPERTY(Landscape, "Landscape asset for this scene", LandscapeAsset);
-		
 		Scene();
 		~Scene();
 

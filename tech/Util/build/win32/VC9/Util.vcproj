@@ -241,6 +241,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Singleton.h"
+			>
+		</File>
+		<File
 			RelativePath="..\stdafx.cpp"
 			>
 			<FileConfiguration

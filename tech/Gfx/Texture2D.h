@@ -5,32 +5,33 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "Executable.h"
+#if !defined(TEXTURE2D_INCLUDED)
+#define TEXTURE2D_INCLUDED
 
-using namespace Teardrop;
-
-TD_CLASS_IMPL(Executable);
-
-Executable::Executable()
+namespace Teardrop
 {
+	class TextureAsset;
 
+	namespace Gfx
+	{
+		class Texture2D
+		{
+		public:
+			Texture2D(TextureAsset* asset);
+			virtual ~Texture2D();
+
+			enum Usage {
+				USAGE_STATIC, 
+				USAGE_DYNAMIC,
+				USAGE_RENDERTARGET,
+			};
+
+			TD_DECLARE_ALLOCATOR();
+
+		protected:
+			TextureAsset* mAsset;
+		};
+	}
 }
 
-Executable::~Executable()
-{
-
-}
-
-bool Executable::initialize()
-{
-	return true;
-}
-
-bool Executable::destroy()
-{
-	return true;
-}
-
-void Executable::tick()
-{
-}
+#endif // TEXTURE2D_INCLUDED

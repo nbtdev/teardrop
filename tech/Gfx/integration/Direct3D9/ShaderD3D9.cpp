@@ -5,32 +5,37 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "Executable.h"
+#include "stdafx.h"
+#include "integration/Direct3D9/ShaderD3D9.h"
+#include <assert.h>
 
-using namespace Teardrop;
+namespace Teardrop {
+namespace Gfx {
+namespace Direct3D9 {
 
-TD_CLASS_IMPL(Executable);
-
-Executable::Executable()
+Shader::Shader(Material* mtl)
+	: Gfx::Shader(mtl)
+	, mFX(0)
+	, mTechnique(0)
+	, mTechniqueShadowCast(0)
+	, mTechniqueShadowRecv(0)
 {
-
 }
 
-Executable::~Executable()
+Shader::~Shader()
 {
-
 }
 
-bool Executable::initialize()
+bool Shader::initialize()
 {
 	return true;
 }
 
-bool Executable::destroy()
+bool Shader::destroy()
 {
 	return true;
 }
 
-void Executable::tick()
-{
-}
+} // Direct3D9
+} // Gfx
+} // Teardrop

@@ -23,6 +23,7 @@ is prohibited.
 #include "tinyxml.h"
 
 #include "TerrainZone.h"
+#include "LandscapeScene.h"
 
 using namespace Teardrop;
 using namespace Reflection;
@@ -116,6 +117,7 @@ bool ObjectLibrary::initialize()
 	Teardrop::SpotLight _spotLight;
 	Teardrop::DirectionalLight _dirLight;
 	Teardrop::TerrainZone _tzone;
+	Teardrop::LandscapeScene _lscene;
 	Teardrop::ParticleSystem _pSys;
 	Teardrop::BeamWeapon _pBeamWeapon;
 

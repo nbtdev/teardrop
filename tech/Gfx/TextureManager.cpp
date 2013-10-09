@@ -5,32 +5,21 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "Executable.h"
+#include "stdafx.h"
+#include "TextureManager.h"
+#include "Texture2D.h"
 
 using namespace Teardrop;
+using namespace Gfx;
 
-TD_CLASS_IMPL(Executable);
+TextureManager* Singleton<TextureManager>::mInst = 0;
 
-Executable::Executable()
+TextureManager::TextureManager()
+{
+}
+
+TextureManager::~TextureManager()
 {
 
 }
 
-Executable::~Executable()
-{
-
-}
-
-bool Executable::initialize()
-{
-	return true;
-}
-
-bool Executable::destroy()
-{
-	return true;
-}
-
-void Executable::tick()
-{
-}

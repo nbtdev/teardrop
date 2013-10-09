@@ -260,6 +260,38 @@
 					RelativePath="..\..\..\integration\Direct3D9\GfxViewportD3D9.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\ShaderD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\ShaderD3D9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\ShaderManagerD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\ShaderManagerD3D9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\Texture2DD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\Texture2DD3D9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\TextureManagerD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\TextureManagerD3D9.h"
+					>
+				</File>
 				<Filter
 					Name="shader"
 					>
@@ -521,6 +553,38 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Material.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Material.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Sampler2D.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Sampler2D.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Shader.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Shader.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ShaderManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ShaderManager.h"
+			>
+		</File>
+		<File
 			RelativePath="..\stdafx.cpp"
 			>
 			<FileConfiguration
@@ -542,6 +606,22 @@
 		</File>
 		<File
 			RelativePath="..\..\..\build\win32\stdafx.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Texture2D.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Texture2D.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TextureManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\TextureManager.h"
 			>
 		</File>
 	</Files>

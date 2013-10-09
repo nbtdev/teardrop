@@ -27,7 +27,6 @@ is prohibited.
 #include <algorithm>
 
 using namespace Teardrop;
-TD_CLASS_IMPL(Scene);
 //---------------------------------------------------------------------------
 const static float TIMESTEP = 1.f/60.f;
 //---------------------------------------------------------------------------

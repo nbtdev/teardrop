@@ -5,33 +5,35 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(EXECUTABLE_INCLUDED)
-#define EXECUTABLE_INCLUDED
+#if !defined(SINGLETON_INCLUDED)
+#define SINGLETON_INCLUDED
 
-#include "Memory/Allocators.h"
-#include "Reflection/Reflection.h"
+#include <assert.h>
 
 namespace Teardrop
 {
-	class Logic;
-
-	class Executable : public Reflection::Object
+	template<typename T>
+	class Singleton
 	{
 	public:
-		TD_CLASS(Executable, Object);
-		TD_POINTER_PROPERTY(Logic, "Pluggable logic module for this executable", Logic);
+		static T& instance() {
+			assert(mInst != 0);
+			return *mInst;
+		}
 
-		Executable();
-		~Executable();
+		void shutdown() {
+			delete mInst;
+			mInst = 0;
+		}
 
-		bool initialize();
-		bool destroy();
-		virtual void tick();
+	protected:
+		Singleton();
+		virtual ~Singleton();
 
 		TD_DECLARE_ALLOCATOR();
 
-	private:
+		static T* mInst;
 	};
 }
 
-#endif // EXECUTABLE_INCLUDED
+#endif // SINGLETON_INCLUDED
