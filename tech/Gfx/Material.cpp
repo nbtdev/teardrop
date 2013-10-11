@@ -63,3 +63,12 @@ Shader* Material::shader()
 
 	return mShader;
 }
+
+
+// hack...
+#include "Sampler2DExpression.h"
+
+void hackyFoo()
+{
+	Sampler2DExpression _s2de;
+}

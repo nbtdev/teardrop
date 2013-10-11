@@ -17,31 +17,6 @@ is prohibited.
 
 using namespace Teardrop;
 TD_CLASS_IMPL(GfxTextureStage);
-TD_ENUM(GfxTextureStage, Filter, "Min/Mag/Mip filter values");
-TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_NONE, "No filtering");
-TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_NEAREST, "Nearest-point filtering");
-TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_BILINEAR, "Bilinear filtering");
-TD_ENUM_VALUE(GfxTextureStage, Filter, FILTER_ANISOTROPIC, "Anisotropic filtering");
-TD_ENUM(GfxTextureStage, AddressMode, "Texture addressing modes");
-TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_UNSET, "Not set");
-TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_WRAP, "Wrap addressing");
-TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_MIRROR, "Mirror addressing");
-TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_CLAMP, "Clamp addressing");
-TD_ENUM_VALUE(GfxTextureStage, AddressMode, ADDRMODE_BORDER, "Border addressing");
-TD_ENUM(GfxTextureStage, BlendMode, "Texture layer blending mode");
-TD_ENUM_VALUE(GfxTextureStage, BlendMode, BLENDMODE_REPLACE, "Replace pixels from previous layer");
-TD_ENUM_VALUE(GfxTextureStage, BlendMode, BLENDMODE_MODULATE, "Multiply with pixels in previous layer");
-TD_ENUM_VALUE(GfxTextureStage, BlendMode, BLENDMODE_ADD, "Add to pixels in previous layer");
-TD_ENUM(GfxTextureStage, MapHint, "Hints for how to apply texture map");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_UNKNOWN, "Not set");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_DIFFUSE, "Use map for diffuse colors");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_SPECULAR, "Use texture for specular mapping");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_NORMAL, "Use texture for normal mapping");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_AMBIENT, "Use texture for ambient/occlusion mapping");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_ILLUMINATION, "Use texture for light mapping");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_IRRADIANCE, "Use texture for radiance mapping");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_ENVIRONMENT, "Use texture for environment mapping");
-TD_ENUM_VALUE(GfxTextureStage, MapHint, MAP_DISPLACEMENT, "Use texture for displacement mapping");
 //---------------------------------------------------------------------------
 GfxTextureStage::GfxTextureStage()
 {
