@@ -216,6 +216,9 @@ const PropertyDef* ClassDef::findPropertyById(int propId) const
 //-----------------------------------------------------------------------------
 bool ClassDef::isA(const ClassDef* pClass)
 {
+	if (this == pClass)
+		return true;
+
 	ClassDef* pTest = this;
 	while (pTest && pTest != pClass)
 	{

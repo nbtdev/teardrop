@@ -11,7 +11,7 @@ is prohibited.
 #include "Util/FileSystem.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
-#include "QtUtils/ProgressFeedback.h"
+#include "ProgressFeedback.h"
 #include "tinyxml/tinyxml.h"
 #include <sstream>
 #include <tbb/task.h>
