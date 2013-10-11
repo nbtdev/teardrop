@@ -6,7 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "QtObjectBrowserModel.h"
-#include "QtProjectExplorer/QtProjectItem.h"
+#include "ProjectExplorer/QtProjectItem.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/Folder.h"

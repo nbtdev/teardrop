@@ -326,6 +326,18 @@
 				</Filter>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Material Expressions"
+			>
+			<File
+				RelativePath="..\..\..\Sampler2DExpression.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Sampler2DExpression.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\..\..\GfxBitmap.cpp"
 			>
@@ -558,6 +570,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\Material.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\MaterialExpression.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\MaterialExpression.h"
 			>
 		</File>
 		<File

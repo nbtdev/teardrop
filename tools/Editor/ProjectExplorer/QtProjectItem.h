@@ -52,6 +52,8 @@ namespace Teardrop
 			QString tooltip() const;
 			QtProjectItem* child(int row) const;
 			QtProjectItem* parent() const;
+			QObject* editor() const;
+			void setEditor(QObject* editor);
 			int row() const;
 			int numChildren() const;
 			void append(QtProjectItem* child);
@@ -80,6 +82,7 @@ namespace Teardrop
 			Folder* mFolder;
 			Reflection::Object* mObject;
 			Metadata* mMetadata;
+			QObject* mEditor;
 
 			QList<QtProjectItem*> mChildren;
 			QtProjectItem* mParent;

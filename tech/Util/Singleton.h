@@ -27,8 +27,8 @@ namespace Teardrop
 		}
 
 	protected:
-		Singleton();
-		virtual ~Singleton();
+		Singleton(){}
+		virtual ~Singleton(){}
 
 		TD_DECLARE_ALLOCATOR();
 

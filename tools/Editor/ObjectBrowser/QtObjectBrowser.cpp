@@ -9,8 +9,12 @@ is prohibited.
 #include "QtObjectBrowserModel.h"
 #include "QtListViewDelegate.h"
 #include "QtIconViewDelegate.h"
-#include "QtProjectExplorer/QtProjectItem.h"
+#include "ProjectExplorer/QtProjectItem.h"
+#include "MaterialEditor/QtMaterialEditor.h"
 #include "PackageManager/PackageManager.h"
+#include "Reflection/Reflection.h"
+#include "Reflection/ClassDef.h"
+#include "Gfx/Material.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QListView>
@@ -138,6 +142,8 @@ QtObjectBrowser::QtObjectBrowser(QWidget* parent)
 
 	connect(mListView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
 	connect(mIconView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
+	connect(mListView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onItemDoubleClicked(const QModelIndex&)));
+	connect(mIconView, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(onItemDoubleClicked(const QModelIndex&)));
 	connect(mListView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onListContextMenu(const QPoint&)));
 	connect(mIconView, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(onIconContextMenu(const QPoint&)));
 }
@@ -278,5 +284,19 @@ void QtObjectBrowser::onItemClicked(const QModelIndex& index)
 	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
 	if (ItemClicked) {
 		ItemClicked(item);
+	}
+}
+
+void QtObjectBrowser::onItemDoubleClicked(const QModelIndex& index)
+{
+	QtProjectItem* item = static_cast<QtProjectItem*>(index.internalPointer());
+	if (item) {
+		Reflection::Object* obj = item->object();
+		Reflection::ClassDef* classDef = obj->getDerivedClassDef();
+
+		// TODO: do this more automatically?
+		if (classDef->isA(Gfx::Material::getClassDef())) {
+			item->setEditor(new QtMaterialEditor(static_cast<Gfx::Material*>(obj)));
+		}
 	}
 }

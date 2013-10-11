@@ -73,6 +73,7 @@ namespace Teardrop
 			void onCmdHSplit();
 			void onCmdVSplit();
 			void onItemClicked(const QModelIndex&);
+			void onItemDoubleClicked(const QModelIndex&);
 			void onListContextMenu(const QPoint& pt);
 			void onIconContextMenu(const QPoint& pt);
 		};

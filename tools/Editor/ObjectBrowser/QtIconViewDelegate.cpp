@@ -6,7 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "QtIconViewDelegate.h"
-#include "QtProjectExplorer/QtProjectItem.h"
+#include "ProjectExplorer/QtProjectItem.h"
 
 using namespace Teardrop;
 using namespace Tools;

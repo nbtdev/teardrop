@@ -20,6 +20,7 @@ QtProjectItem::QtProjectItem()
 	, mFolder(0)
 	, mObject(0)
 	, mMetadata(0)
+	, mEditor(0)
 	, mParent(0)
 	, mIsPackage(0)
 	, mIsActive(0)
@@ -31,6 +32,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, Reflection::Object* obj
 	, mFolder(0)
 	, mObject(obj)
 	, mMetadata(metadata)
+	, mEditor(0)
 	, mParent(parent)
 	, mIsPackage(0)
 	, mIsActive(0)
@@ -43,6 +45,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, QtProjectItem* parent)
 	, mFolder(0)
 	, mObject(0)
 	, mMetadata(0)
+	, mEditor(0)
 	, mParent(parent)
 	, mIsPackage(1)
 	, mIsActive(0)
@@ -58,6 +61,7 @@ QtProjectItem::QtProjectItem(PackageManager* packageMgr, Folder* folder, QtProje
 	, mFolder(folder)
 	, mObject(0)
 	, mMetadata(0)
+	, mEditor(0)
 	, mParent(parent)
 	, mIsPackage(0)
 	, mIsActive(0)
@@ -98,6 +102,17 @@ QtProjectItem* QtProjectItem::parent() const
 QtProjectItem* QtProjectItem::child(int row) const
 {
 	return mChildren.at(row);
+}
+
+QObject* QtProjectItem::editor() const
+{
+	return mEditor;
+}
+
+void QtProjectItem::setEditor(QObject* editor)
+{
+	assert(!mEditor);
+	mEditor = editor;
 }
 
 int QtProjectItem::numChildren() const
