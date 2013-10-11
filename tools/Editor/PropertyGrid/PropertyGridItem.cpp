@@ -5,13 +5,13 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "QtPropertyGridItem.h"
+#include "PropertyGridItem.h"
 #include "Reflection/Reflection.h"
 
 using namespace Teardrop;
 using namespace Tools;
 
-QtPropertyGridItem::QtPropertyGridItem(Reflection::Object* obj, const Reflection::PropertyDef* propDef, QtPropertyGridItem* parent/* =0 */)
+PropertyGridItem::PropertyGridItem(Reflection::Object* obj, const Reflection::PropertyDef* propDef, PropertyGridItem* parent/* =0 */)
 	: mObject(obj)
 	, mProp(propDef)
 	, mParent(parent)
@@ -20,7 +20,7 @@ QtPropertyGridItem::QtPropertyGridItem(Reflection::Object* obj, const Reflection
 		mName = (const char*)propDef->getName();
 }
 
-QtPropertyGridItem::QtPropertyGridItem(const QString& name, QtPropertyGridItem* parent/* =0 */)
+PropertyGridItem::PropertyGridItem(const QString& name, PropertyGridItem* parent/* =0 */)
 	: mObject(0)
 	, mProp(0)
 	, mParent(parent)
@@ -28,80 +28,80 @@ QtPropertyGridItem::QtPropertyGridItem(const QString& name, QtPropertyGridItem* 
 {
 }
 
-QtPropertyGridItem::~QtPropertyGridItem()
+PropertyGridItem::~PropertyGridItem()
 {
 	qDeleteAll(mChildren);
 }
 
-bool QtPropertyGridItem::isGroup() const
+bool PropertyGridItem::isGroup() const
 {
 	return (mObject==0 && mProp==0);
 }
 
-bool QtPropertyGridItem::isNested() const
+bool PropertyGridItem::isNested() const
 {
 	return (mObject!=0 && mProp!=0 && mProp->isNested());
 }
 
-bool QtPropertyGridItem::isBoolean() const 
+bool PropertyGridItem::isBoolean() const 
 {
 	return mProp!=0 && mProp->isBoolean();
 }
 
-bool QtPropertyGridItem::isPointer() const 
+bool PropertyGridItem::isPointer() const 
 {
 	return mProp!=0 && mProp->isPointer();
 }
 
-bool QtPropertyGridItem::isReadOnly() const
+bool PropertyGridItem::isReadOnly() const
 {
 	return mProp!=0 && strstr(mProp->getEditor(), "ReadOnly")!=0;
 }
 
-bool QtPropertyGridItem::isEnum() const
+bool PropertyGridItem::isEnum() const
 {
 	return mProp!=0 && mProp->isEnum();
 }
 
-QtPropertyGridItem* QtPropertyGridItem::parent() const
+PropertyGridItem* PropertyGridItem::parent() const
 {
 	return mParent;
 }
 
-QtPropertyGridItem* QtPropertyGridItem::child(int row) const
+PropertyGridItem* PropertyGridItem::child(int row) const
 {
 	return mChildren.at(row);
 }
 
-int QtPropertyGridItem::numChildren() const
+int PropertyGridItem::numChildren() const
 {
 	return mChildren.size();
 }
 
-int QtPropertyGridItem::row() const
+int PropertyGridItem::row() const
 {
 	if (mParent)
-		return mParent->mChildren.indexOf(const_cast<QtPropertyGridItem*>(this));
+		return mParent->mChildren.indexOf(const_cast<PropertyGridItem*>(this));
 
 	return 0;
 }
 
-Reflection::Object* QtPropertyGridItem::object() const
+Reflection::Object* PropertyGridItem::object() const
 {
 	return mObject;
 }
 
-const Reflection::PropertyDef* QtPropertyGridItem::property() const
+const Reflection::PropertyDef* PropertyGridItem::property() const
 {
 	return mProp;
 }
 
-const QString& QtPropertyGridItem::name() const
+const QString& PropertyGridItem::name() const
 {
 	return mName;
 }
 
-QString QtPropertyGridItem::valueAsString() const
+QString PropertyGridItem::valueAsString() const
 {
 	String sVal;
 	if (mObject) {
@@ -130,22 +130,22 @@ QString QtPropertyGridItem::valueAsString() const
 	return QString(sVal);
 }
 
-void QtPropertyGridItem::append(QtPropertyGridItem* child)
+void PropertyGridItem::append(PropertyGridItem* child)
 {
 	mChildren.append(child);
 }
 
-QString QtPropertyGridItem::nameTooltip() const
+QString PropertyGridItem::nameTooltip() const
 {
 	return name();
 }
 
-QString QtPropertyGridItem::valueTooltip() const
+QString PropertyGridItem::valueTooltip() const
 {
 	return valueAsString();
 }
 
-void QtPropertyGridItem::setAltValue(const QString& altValue)
+void PropertyGridItem::setAltValue(const QString& altValue)
 {
 	mAltValue = altValue;
 }

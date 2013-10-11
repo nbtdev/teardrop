@@ -9,7 +9,7 @@ is prohibited.
 #define PROGRESSDIALOG_INCLUDED
 
 #include <QProgressDialog>
-#include "QtUtils/ProgressFeedback.h"
+#include "ProgressFeedback.h"
 #include "FastDelegate.h"
 
 namespace Teardrop 

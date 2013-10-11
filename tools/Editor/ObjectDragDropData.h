@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(OBJECTDRAGDROPDATA_INCLUDED)
 #define OBJECTDRAGDROPDATA_INCLUDED
 
-#include "QtUtils/DragDropData.h"
+#include "DragDropData.h"
 #include "Util/_String.h"
 
 // Data class for Reflection::Object items being dragged around the editor

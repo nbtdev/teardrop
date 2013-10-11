@@ -5,8 +5,8 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(TEARDROP_QTPROPERTYGRID_INCLUDED)
-#define TEARDROP_QTPROPERTYGRID_INCLUDED
+#if !defined(TEARDROP_PROPERTYGRID_INCLUDED)
+#define TEARDROP_PROPERTYGRID_INCLUDED
 
 #include <QTreeView>
 
@@ -19,16 +19,16 @@ namespace Teardrop
 
 	namespace Tools
 	{
-		class QtPropertyGridDelegate;
-		class QtPropertyGridModel;
+		class PropertyGridDelegate;
+		class PropertyGridModel;
 
-		class QtPropertyGrid : public QTreeView
+		class PropertyGrid : public QTreeView
 		{
 			Q_OBJECT
 
 		public:
-			QtPropertyGrid(QWidget* parent);
-			~QtPropertyGrid();
+			PropertyGrid(QWidget* parent);
+			~PropertyGrid();
 
 			void setObject(Reflection::Object* object, Reflection::Object* metadata = 0);
 
@@ -37,11 +37,11 @@ namespace Teardrop
 			void dragLeaveEvent(QDragLeaveEvent* event);
 
 		protected:
-			QtPropertyGridDelegate* mDelegate;
-			QtPropertyGridModel* mModel;
+			PropertyGridDelegate* mDelegate;
+			PropertyGridModel* mModel;
 			Reflection::Object* mObject;
 			Reflection::Object* mMetadata;
 		};
 	}
 }
-#endif // TEARDROP_QTPROPERTYGRID_INCLUDED
+#endif // TEARDROP_PROPERTYGRID_INCLUDED

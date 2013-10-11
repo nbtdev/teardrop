@@ -167,11 +167,23 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\DragDropData.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Editor.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\FolderDragDropData.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ObjectDragDropData.cpp"
 				>
 			</File>
 			<File
@@ -183,11 +195,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ProgressFeedback.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Project.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\RenderWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TypeChooser.cpp"
 				>
 			</File>
 		</Filter>
@@ -196,6 +216,10 @@
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\DragDropData.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Editor.h"
 				>
@@ -223,11 +247,23 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\FolderDragDropData.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ObjectDragDropData.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Preferences.h"
 				>
 			</File>
 			<File
 				RelativePath=".\ProgressDialog.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ProgressFeedback.h"
 				>
 			</File>
 			<File
@@ -259,6 +295,10 @@
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\TypeChooser.h"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -404,7 +444,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Release\moc_QtMaterialEditor.cpp"
+					RelativePath=".\GeneratedFiles\Release\moc_MaterialEditor.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -416,7 +456,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Release\moc_QtObjectBrowser.cpp"
+					RelativePath=".\GeneratedFiles\Release\moc_ObjectBrowser.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -428,7 +468,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Release\moc_QtProjectExplorer.cpp"
+					RelativePath=".\GeneratedFiles\Release\moc_ProjectExplorer.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -440,7 +480,43 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Release\moc_QtProjectModel.cpp"
+					RelativePath=".\GeneratedFiles\Release\moc_ProjectModel.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Release\moc_PropertyGrid.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Release\moc_PropertyGridDelegate.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Release\moc_PropertyGridModel.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -482,7 +558,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Debug\moc_QtMaterialEditor.cpp"
+					RelativePath=".\GeneratedFiles\Debug\moc_MaterialEditor.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -494,7 +570,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Debug\moc_QtObjectBrowser.cpp"
+					RelativePath=".\GeneratedFiles\Debug\moc_ObjectBrowser.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -506,7 +582,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Debug\moc_QtProjectExplorer.cpp"
+					RelativePath=".\GeneratedFiles\Debug\moc_ProjectExplorer.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -518,7 +594,43 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Debug\moc_QtProjectModel.cpp"
+					RelativePath=".\GeneratedFiles\Debug\moc_ProjectModel.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_PropertyGrid.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_PropertyGridDelegate.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_PropertyGridModel.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -547,18 +659,18 @@
 			Name="MaterialEditor"
 			>
 			<File
-				RelativePath=".\MaterialEditor\QtMaterialEditor.cpp"
+				RelativePath=".\MaterialEditor\MaterialEditor.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MaterialEditor\QtMaterialEditor.h"
+				RelativePath=".\MaterialEditor\MaterialEditor.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtMaterialEditor.h..."
+						Description="Moc&apos;ing MaterialEditor.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -569,7 +681,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtMaterialEditor.h..."
+						Description="Moc&apos;ing MaterialEditor.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -581,18 +693,18 @@
 			Name="ProjectExplorer"
 			>
 			<File
-				RelativePath=".\ProjectExplorer\QtProjectExplorer.cpp"
+				RelativePath=".\ProjectExplorer\ProjectExplorer.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ProjectExplorer\QtProjectExplorer.h"
+				RelativePath=".\ProjectExplorer\ProjectExplorer.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtProjectExplorer.h..."
+						Description="Moc&apos;ing ProjectExplorer.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -603,7 +715,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtProjectExplorer.h..."
+						Description="Moc&apos;ing ProjectExplorer.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -611,26 +723,26 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\ProjectExplorer\QtProjectItem.cpp"
+				RelativePath=".\ProjectExplorer\ProjectItem.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ProjectExplorer\QtProjectItem.h"
+				RelativePath=".\ProjectExplorer\ProjectItem.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ProjectExplorer\QtProjectModel.cpp"
+				RelativePath=".\ProjectExplorer\ProjectModel.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ProjectExplorer\QtProjectModel.h"
+				RelativePath=".\ProjectExplorer\ProjectModel.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtProjectModel.h..."
+						Description="Moc&apos;ing ProjectModel.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -641,7 +753,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtProjectModel.h..."
+						Description="Moc&apos;ing ProjectModel.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -653,34 +765,34 @@
 			Name="ObjectBrowser"
 			>
 			<File
-				RelativePath=".\ObjectBrowser\QtIconViewDelegate.cpp"
+				RelativePath=".\ObjectBrowser\IconViewDelegate.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ObjectBrowser\QtIconViewDelegate.h"
+				RelativePath=".\ObjectBrowser\IconViewDelegate.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ObjectBrowser\QtListViewDelegate.cpp"
+				RelativePath=".\ObjectBrowser\ListViewDelegate.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ObjectBrowser\QtListViewDelegate.h"
+				RelativePath=".\ObjectBrowser\ListViewDelegate.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ObjectBrowser\QtObjectBrowser.cpp"
+				RelativePath=".\ObjectBrowser\ObjectBrowser.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ObjectBrowser\QtObjectBrowser.h"
+				RelativePath=".\ObjectBrowser\ObjectBrowser.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtObjectBrowser.h..."
+						Description="Moc&apos;ing ObjectBrowser.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -691,7 +803,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing QtObjectBrowser.h..."
+						Description="Moc&apos;ing ObjectBrowser.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -699,12 +811,114 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\ObjectBrowser\QtObjectBrowserModel.cpp"
+				RelativePath=".\ObjectBrowser\ObjectBrowserModel.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ObjectBrowser\QtObjectBrowserModel.h"
+				RelativePath=".\ObjectBrowser\ObjectBrowserModel.h"
 				>
+			</File>
+		</Filter>
+		<Filter
+			Name="PropertyGrid"
+			>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGrid.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGrid.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PropertyGrid.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PropertyGrid.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGridDelegate.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGridDelegate.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PropertyGridDelegate.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PropertyGridDelegate.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGridItem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGridItem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGridModel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PropertyGrid\PropertyGridModel.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PropertyGridModel.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing PropertyGridModel.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<File

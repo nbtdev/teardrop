@@ -5,11 +5,11 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "QtPropertyGrid.h"
-#include "QtPropertyGridDelegate.h"
-#include "QtPropertyGridModel.h"
-#include "QtPropertyGridItem.h"
-#include "QtProjectExplorer/QtProjectItem.h"
+#include "PropertyGrid.h"
+#include "PropertyGridDelegate.h"
+#include "PropertyGridModel.h"
+#include "PropertyGridItem.h"
+#include "ProjectExplorer/ProjectItem.h"
 #include <QDragEnterEvent>
 #include "Reflection/Reflection.h"
 #include "Game/ComponentHost.h"
@@ -18,33 +18,33 @@ is prohibited.
 using namespace Teardrop;
 using namespace Tools;
 
-QtPropertyGrid::QtPropertyGrid(QWidget* parent)
+PropertyGrid::PropertyGrid(QWidget* parent)
 	: QTreeView(parent)
 	, mModel(0)
 	, mObject(0)
 	, mMetadata(0)
 {
-	mDelegate = new QtPropertyGridDelegate;
+	mDelegate = new PropertyGridDelegate;
 	setItemDelegate(mDelegate);
 	//setHeaderHidden(true);
 	setAcceptDrops(true);
 }
 
-QtPropertyGrid::~QtPropertyGrid()
+PropertyGrid::~PropertyGrid()
 {
 	delete mModel;
 	delete mDelegate;
 }
 
-void QtPropertyGrid::setObject(Reflection::Object* object, Reflection::Object* metadata /* = 0 */)
+void PropertyGrid::setObject(Reflection::Object* object, Reflection::Object* metadata /* = 0 */)
 {
 	delete mModel;
-	mModel = new QtPropertyGridModel(object, metadata);
+	mModel = new PropertyGridModel(object, metadata);
 	setModel(mModel);
 	expandAll();
 }
 
-static bool canDrop(QtPropertyGridItem* item, const QMimeData* data)
+static bool canDrop(PropertyGridItem* item, const QMimeData* data)
 {
 	// have to have a valid item under us
 	if (!item)
@@ -58,9 +58,9 @@ static bool canDrop(QtPropertyGridItem* item, const QMimeData* data)
 	if (data) {
 		QObjectUserData* od = data->userData(0);
 		if (od) {
-			QtProjectItemData* projItemData = static_cast<QtProjectItemData*>(od);
+			ProjectItemData* projItemData = static_cast<ProjectItemData*>(od);
 			if (projItemData) {
-				QtProjectItem* projItem = projItemData->item();
+				ProjectItem* projItem = projItemData->item();
 				Reflection::Object* obj = projItem->object();
 
 				// TODO: find a way to compare classdef's?
@@ -73,12 +73,12 @@ static bool canDrop(QtPropertyGridItem* item, const QMimeData* data)
 	return true;
 }
 
-void QtPropertyGrid::dragEnterEvent(QDragEnterEvent* event)
+void PropertyGrid::dragEnterEvent(QDragEnterEvent* event)
 {
 	QModelIndex idx = indexAt(event->pos());
 
 	if (idx.isValid()) {
-		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(idx.internalPointer());
+		PropertyGridItem* item = static_cast<PropertyGridItem*>(idx.internalPointer());
 		if (canDrop(item, event->mimeData())) {
 			event->acceptProposedAction();
 			return;
@@ -88,12 +88,12 @@ void QtPropertyGrid::dragEnterEvent(QDragEnterEvent* event)
 	event->ignore();
 }
 
-void QtPropertyGrid::dragMoveEvent(QDragMoveEvent* event)
+void PropertyGrid::dragMoveEvent(QDragMoveEvent* event)
 {
 	QModelIndex idx = indexAt(event->pos());
 
 	if (idx.isValid()) {
-		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(idx.internalPointer());
+		PropertyGridItem* item = static_cast<PropertyGridItem*>(idx.internalPointer());
 		if (item && item->isPointer()) {
 			event->acceptProposedAction();
 			return;
@@ -103,7 +103,7 @@ void QtPropertyGrid::dragMoveEvent(QDragMoveEvent* event)
 	event->ignore();
 }
 
-void QtPropertyGrid::dragLeaveEvent(QDragLeaveEvent* event)
+void PropertyGrid::dragLeaveEvent(QDragLeaveEvent* event)
 {
 	event->accept();
 }

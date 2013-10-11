@@ -5,8 +5,8 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(TEARDROP_QTPROPERTYGRIDDELEGATE_INCLUDED)
-#define TEARDROP_QTPROPERTYGRIDDELEGATE_INCLUDED
+#if !defined(TEARDROP_PROPERTYGRIDDELEGATE_INCLUDED)
+#define TEARDROP_PROPERTYGRIDDELEGATE_INCLUDED
 
 #include <QItemDelegate>
 
@@ -14,13 +14,13 @@ namespace Teardrop
 {
 	namespace Tools
 	{
-		class QtPropertyGridDelegate : public QItemDelegate
+		class PropertyGridDelegate : public QItemDelegate
 		{
 			Q_OBJECT
 
 		public:
-			explicit QtPropertyGridDelegate(QObject* parent = 0);
-			~QtPropertyGridDelegate();
+			explicit PropertyGridDelegate(QObject* parent = 0);
+			~PropertyGridDelegate();
 
 			// QItemDelegate implementation
 			QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const;
@@ -31,4 +31,4 @@ namespace Teardrop
 		};
 	}
 }
-#endif // TEARDROP_QTPROPERTYGRIDDELEGATE_INCLUDED
+#endif // TEARDROP_PROPERTYGRIDDELEGATE_INCLUDED

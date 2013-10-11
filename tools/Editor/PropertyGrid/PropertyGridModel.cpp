@@ -5,11 +5,11 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "QtPropertyGridModel.h"
-#include "QtPropertyGridItem.h"
-#include "QtProjectExplorer/QtProjectItem.h"
+#include "PropertyGridModel.h"
+#include "PropertyGridItem.h"
+#include "ProjectExplorer/ProjectItem.h"
 #include <QMimeData>
-#include "QtUtils/ObjectDragDropData.h"
+#include "ObjectDragDropData.h"
 #include "Reflection/Reflection.h"
 #include <stack>
 
@@ -24,11 +24,11 @@ static void populate(std::stack<Reflection::ClassDef*>& classes, Reflection::Cla
 	}
 }
 
-QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Object* metadata, QObject* parent)
+PropertyGridModel::PropertyGridModel(Reflection::Object* obj, Reflection::Object* metadata, QObject* parent)
 	: QAbstractItemModel(parent)
 	, mObject(obj)
 	, mMetadata(metadata)
-	, mRoot(new QtPropertyGridItem("Properties"))
+	, mRoot(new PropertyGridItem("Properties"))
 {
 	// set up model data from Object 
 	if (obj) {
@@ -46,12 +46,12 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Ob
 
 			// don't put in a grouping for classes in the hierarchy with no properties; it's just confusing
 			if (prop) {
-				QtPropertyGridItem* group = new QtPropertyGridItem(classDef->getName(), mRoot);
+				PropertyGridItem* group = new PropertyGridItem(classDef->getName(), mRoot);
 				mRoot->append(group);
 
 				while (prop) {
 					if (prop->isNested()) {
-						QtPropertyGridItem* nestedProp = new QtPropertyGridItem(obj, prop, group);
+						PropertyGridItem* nestedProp = new PropertyGridItem(obj, prop, group);
 						group->append(nestedProp);
 
 						// add this guy's props
@@ -61,13 +61,13 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Ob
 
 						// only one level of nesting!
 						while (nestedProps) {
-							QtPropertyGridItem* np = new QtPropertyGridItem(nestedObj, nestedProps, nestedProp);
+							PropertyGridItem* np = new PropertyGridItem(nestedObj, nestedProps, nestedProp);
 							nestedProp->append(np);
 							nestedProps = nestedProps->m_pNext;
 						}
 					} 
 					else {
-						QtPropertyGridItem* propItem = new QtPropertyGridItem(obj, prop, group);
+						PropertyGridItem* propItem = new PropertyGridItem(obj, prop, group);
 						group->append(propItem);
 					}
 
@@ -107,7 +107,7 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Ob
 			populate(classes, classDef);
 
 			if (classes.size()) {
-				QtPropertyGridItem* meta = new QtPropertyGridItem("Metadata", mRoot);
+				PropertyGridItem* meta = new PropertyGridItem("Metadata", mRoot);
 				mRoot->append(meta);
 
 				while (!classes.empty()) {
@@ -117,7 +117,7 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Ob
 					// properties
 					const Reflection::PropertyDef* prop = classDef->getProps();
 					while (prop) {
-						QtPropertyGridItem* metaItem = new QtPropertyGridItem(mMetadata, prop, meta);
+						PropertyGridItem* metaItem = new PropertyGridItem(mMetadata, prop, meta);
 						meta->append(metaItem);
 						prop = prop->m_pNext;
 					}
@@ -127,22 +127,22 @@ QtPropertyGridModel::QtPropertyGridModel(Reflection::Object* obj, Reflection::Ob
 	}
 }
 
-QtPropertyGridModel::~QtPropertyGridModel()
+PropertyGridModel::~PropertyGridModel()
 {
 	delete mRoot;
 }
 
-int QtPropertyGridModel::columnCount(const QModelIndex& parent) const
+int PropertyGridModel::columnCount(const QModelIndex& parent) const
 {
 	return 2;
 }
 
-QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
+QVariant PropertyGridModel::data(const QModelIndex& index, int role) const
 {
 	if (!index.isValid())
 		return QVariant();
 
-	QtPropertyGridItem *item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	PropertyGridItem *item = static_cast<PropertyGridItem*>(index.internalPointer());
 	const Reflection::PropertyDef* prop = 0;
 	if (item)
 		prop = item->property();
@@ -189,9 +189,9 @@ QVariant QtPropertyGridModel::data(const QModelIndex& index, int role) const
 	return QVariant();
 }
 
-bool QtPropertyGridModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool PropertyGridModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	PropertyGridItem* item = static_cast<PropertyGridItem*>(index.internalPointer());
 	if (item) {
 		const Reflection::PropertyDef* prop = item->property();
 		Reflection::Object* obj = item->object();
@@ -220,30 +220,30 @@ bool QtPropertyGridModel::setData(const QModelIndex &index, const QVariant &valu
 	return false;
 }
 
-QModelIndex QtPropertyGridModel::index(int row, int column, const QModelIndex& parent) const
+QModelIndex PropertyGridModel::index(int row, int column, const QModelIndex& parent) const
 {
 	if (!hasIndex(row, column, parent))
 		return QModelIndex();
 
-	QtPropertyGridItem* parentItem;
+	PropertyGridItem* parentItem;
 	if (!parent.isValid())
 		parentItem = mRoot;
-	else parentItem = static_cast<QtPropertyGridItem*>(parent.internalPointer());
+	else parentItem = static_cast<PropertyGridItem*>(parent.internalPointer());
 
-	QtPropertyGridItem* childItem = parentItem->child(row);
+	PropertyGridItem* childItem = parentItem->child(row);
 	if (childItem)
 		return createIndex(row, column, childItem);
 	else
 		return QModelIndex();
 }
 
-QModelIndex QtPropertyGridModel::parent(const QModelIndex& index) const
+QModelIndex PropertyGridModel::parent(const QModelIndex& index) const
 {
 	if (!index.isValid())
 		return QModelIndex();
 
-	QtPropertyGridItem* childItem = static_cast<QtPropertyGridItem*>(index.internalPointer());
-	QtPropertyGridItem *parentItem = childItem->parent();
+	PropertyGridItem* childItem = static_cast<PropertyGridItem*>(index.internalPointer());
+	PropertyGridItem *parentItem = childItem->parent();
 
 	if (parentItem == mRoot)
 		return QModelIndex();
@@ -251,27 +251,27 @@ QModelIndex QtPropertyGridModel::parent(const QModelIndex& index) const
 	return createIndex(parentItem->row(), 0, parentItem);
 }
 
-int QtPropertyGridModel::rowCount(const QModelIndex& parent) const
+int PropertyGridModel::rowCount(const QModelIndex& parent) const
 {
-	QtPropertyGridItem *parentItem;
+	PropertyGridItem *parentItem;
 	if (parent.column() > 0)
 		return 0;
 
 	if (!parent.isValid())
 		parentItem = mRoot;
 	else
-		parentItem = static_cast<QtPropertyGridItem*>(parent.internalPointer());
+		parentItem = static_cast<PropertyGridItem*>(parent.internalPointer());
 
 	return parentItem->numChildren();
 }
 
-Qt::ItemFlags QtPropertyGridModel::flags(const QModelIndex& index) const
+Qt::ItemFlags PropertyGridModel::flags(const QModelIndex& index) const
 {
 	Qt::ItemFlags f = (Qt::ItemIsEnabled|Qt::ItemIsSelectable);
 
-	QtPropertyGridItem* item = 0;
+	PropertyGridItem* item = 0;
 	if (index.isValid())
-		item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+		item = static_cast<PropertyGridItem*>(index.internalPointer());
 
 	if (index.column() == 1) {
 		if (item) {
@@ -296,30 +296,30 @@ Qt::ItemFlags QtPropertyGridModel::flags(const QModelIndex& index) const
 	return f;
 }
 
-QStringList QtPropertyGridModel::mimeTypes() const
+QStringList PropertyGridModel::mimeTypes() const
 {
 	QStringList list = QAbstractItemModel::mimeTypes();
 	list.append("text/plain");
 	return list;
 }
 
-Qt::DropActions QtPropertyGridModel::supportedDropActions() const
+Qt::DropActions PropertyGridModel::supportedDropActions() const
 {
 	Qt::DropActions actions = QAbstractItemModel::supportedDropActions();
 	return actions;
 }
 
-bool QtPropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent)
+bool PropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent)
 {
 	if (data) {
 		QObjectUserData* od = data->userData(0);
 		if (od) {
-			QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(parent.internalPointer());
+			PropertyGridItem* item = static_cast<PropertyGridItem*>(parent.internalPointer());
 			if (item) {
 				// make sure it's a pointer property...
 				if (item->isPointer()) {
-					QtProjectItemData* projItemData = static_cast<QtProjectItemData*>(od);
-					QtProjectItem* projItem = projItemData->item();
+					ProjectItemData* projItemData = static_cast<ProjectItemData*>(od);
+					ProjectItem* projItem = projItemData->item();
 					if (projItem->isObject()) {
 						item->property()->setData(item->object(), projItem->object());
 						item->setAltValue((const char*)projItem->path());
@@ -332,7 +332,7 @@ bool QtPropertyGridModel::dropMimeData(const QMimeData* data, Qt::DropAction act
 	return true;
 }
 
-QVariant QtPropertyGridModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant PropertyGridModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
 	return QVariant();
 }

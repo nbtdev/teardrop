@@ -5,8 +5,8 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(QTPROPERTYGRIDITEM_INCLUDED)
-#define QTPROPERTYGRIDITEM_INCLUDED
+#if !defined(PROPERTYGRIDITEM_INCLUDED)
+#define PROPERTYGRIDITEM_INCLUDED
 
 #include <QString>
 #include <QList>
@@ -21,12 +21,12 @@ namespace Teardrop {
 
 	namespace Tools 
 	{
-		class QtPropertyGridItem
+		class PropertyGridItem
 		{
 		public:
-			QtPropertyGridItem(Reflection::Object* obj, const Reflection::PropertyDef* propDef, QtPropertyGridItem* parent=0);
-			QtPropertyGridItem(const QString& name, QtPropertyGridItem* parent=0);
-			~QtPropertyGridItem();
+			PropertyGridItem(Reflection::Object* obj, const Reflection::PropertyDef* propDef, PropertyGridItem* parent=0);
+			PropertyGridItem(const QString& name, PropertyGridItem* parent=0);
+			~PropertyGridItem();
 
 			Reflection::Object* object() const;
 			const Reflection::PropertyDef* property() const;
@@ -34,11 +34,11 @@ namespace Teardrop {
 			QString valueAsString() const;
 			QString nameTooltip() const;
 			QString valueTooltip() const;
-			QtPropertyGridItem* child(int row) const;
-			QtPropertyGridItem* parent() const;
+			PropertyGridItem* child(int row) const;
+			PropertyGridItem* parent() const;
 			int row() const;
 			int numChildren() const;
-			void append(QtPropertyGridItem* child);
+			void append(PropertyGridItem* child);
 			void setAltValue(const QString& altValue);
 
 			// true if this item represents a property group and not an actual property
@@ -57,12 +57,12 @@ namespace Teardrop {
 		private:
 			Reflection::Object* mObject;
 			const Reflection::PropertyDef* mProp;
-			QList<QtPropertyGridItem*> mChildren;
-			QtPropertyGridItem* mParent;
+			QList<PropertyGridItem*> mChildren;
+			PropertyGridItem* mParent;
 			QString mName;
 			QString mAltValue;
 		};
 	}
 }
 
-#endif // QTPROPERTYGRIDITEM_INCLUDED
+#endif // PROPERTYGRIDITEM_INCLUDED

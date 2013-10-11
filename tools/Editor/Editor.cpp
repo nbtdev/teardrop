@@ -9,10 +9,10 @@ is prohibited.
 #include "Project.h"
 #include "ProgressDialog.h"
 #include "RenderWindow.h"
-#include "QtPropertyGrid/QtPropertyGrid.h"
-#include "QtProjectExplorer/QtProjectExplorer.h"
-#include "QtProjectExplorer/QtProjectItem.h"
-#include "QtObjectBrowser/QtObjectBrowser.h"
+#include "PropertyGrid/PropertyGrid.h"
+#include "ProjectExplorer/ProjectExplorer.h"
+#include "ProjectExplorer/ProjectItem.h"
+#include "ObjectBrowser/ObjectBrowser.h"
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/PackageManager.h"
 #include "Game/Scene.h"
@@ -47,14 +47,14 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
 
-	mObjBrowser = new QtObjectBrowser(ui.centralWidget);
+	mObjBrowser = new ObjectBrowser(ui.centralWidget);
 	ui.horizontalLayout->addWidget(mObjBrowser);
 
 	QDockWidget* dock = new QDockWidget(this);
 	QWidget* dockContents = new QWidget();
 	QVBoxLayout* vertLayout = new QVBoxLayout(dockContents);
 
-	mProjectExp = new QtProjectExplorer(dockContents);
+	mProjectExp = new ProjectExplorer(dockContents);
 	mProjectExp->setHeaderHidden(true);
 	mProjectExp->setRootIsDecorated(true);
 	vertLayout->addWidget(mProjectExp);
@@ -67,7 +67,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	dockContents = new QWidget();
 	vertLayout = new QVBoxLayout(dockContents);
 
-	mPropGrid = new QtPropertyGrid(dockContents);
+	mPropGrid = new PropertyGrid(dockContents);
 	mPropGrid->setRootIsDecorated(true);
 	mPropGrid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -104,7 +104,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 	mProjectExp->SelectionChanged.bind(this, &Editor::onProjectExplorerSelectionChanged);
 	mObjBrowser->ItemClicked.bind(this, &Editor::onProjectExplorerSelectionChanged);
-	mProjectExp->SelectionChanged.bind(mObjBrowser, &QtObjectBrowser::onItemSelected);
+	mProjectExp->SelectionChanged.bind(mObjBrowser, &ObjectBrowser::onItemSelected);
 	connect(mProjectExp, SIGNAL(activePackageChanged(PackageManager*)), this, SLOT(onActivePackageChanged(PackageManager*)));
 
 	setEditorTitle();
@@ -283,7 +283,7 @@ void Editor::onPreferences()
 	}
 }
 
-void Editor::onProjectExplorerSelectionChanged(QtProjectItem* item)
+void Editor::onProjectExplorerSelectionChanged(ProjectItem* item)
 {
 	if (!item)
 		mPropGrid->setObject(0);

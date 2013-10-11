@@ -5,8 +5,8 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(TEARDROP_QTPROPERTYGRIDMODEL_INCLUDED)
-#define TEARDROP_QTPROPERTYGRIDMODEL_INCLUDED
+#if !defined(TEARDROP_PROPERTYGRIDMODEL_INCLUDED)
+#define TEARDROP_PROPERTYGRIDMODEL_INCLUDED
 
 #include <QAbstractItemModel>
 #include <QStringList>
@@ -20,15 +20,15 @@ namespace Teardrop
 
 	namespace Tools
 	{
-		class QtPropertyGridItem;
+		class PropertyGridItem;
 
-		class QtPropertyGridModel : public QAbstractItemModel
+		class PropertyGridModel : public QAbstractItemModel
 		{
 			Q_OBJECT
 
 		public:
-			QtPropertyGridModel(Reflection::Object* obj = 0, Reflection::Object* metadata = 0, QObject* parent = 0);
-			~QtPropertyGridModel();
+			PropertyGridModel(Reflection::Object* obj = 0, Reflection::Object* metadata = 0, QObject* parent = 0);
+			~PropertyGridModel();
 
 			// QAbstractItemModel implementation
 			int columnCount(const QModelIndex& parent = QModelIndex() ) const;
@@ -48,8 +48,8 @@ namespace Teardrop
 		protected:
 			Reflection::Object* mObject;
 			Reflection::Object* mMetadata;
-			QtPropertyGridItem* mRoot;
+			PropertyGridItem* mRoot;
 		};
 	}
 }
-#endif // TEARDROP_QTPROPERTYGRIDMODEL_INCLUDED
+#endif // TEARDROP_PROPERTYGRIDMODEL_INCLUDED

@@ -23,10 +23,10 @@ namespace Teardrop
 
 	namespace Tools
 	{
-		class QtPropertyGrid;
-		class QtProjectExplorer;
-		class QtProjectItem;
-		class QtObjectBrowser;
+		class PropertyGrid;
+		class ProjectExplorer;
+		class ProjectItem;
+		class ObjectBrowser;
 		class Project;
 		class RenderWindow;
 		class PackageManager;
@@ -59,9 +59,9 @@ namespace Teardrop
 			RenderWindow* mRenderWindow;
 			Preferences mPreferences;
 
-			QtPropertyGrid* mPropGrid;
-			QtProjectExplorer* mProjectExp;
-			QtObjectBrowser* mObjBrowser;
+			PropertyGrid* mPropGrid;
+			ProjectExplorer* mProjectExp;
+			ObjectBrowser* mObjBrowser;
 			QWidget* m3DView;
 			QToolBox* mClasses;
 			QLabel* mPropGridDesc;
@@ -74,7 +74,7 @@ namespace Teardrop
 			void setEditorTitle();
 			void openProject(const QString& pathname);
 
-			void onProjectExplorerSelectionChanged(QtProjectItem* item);
+			void onProjectExplorerSelectionChanged(ProjectItem* item);
 		};
 	}
 }

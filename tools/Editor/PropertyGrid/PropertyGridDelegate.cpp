@@ -5,8 +5,8 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "QtPropertyGridDelegate.h"
-#include "QtPropertyGridItem.h"
+#include "PropertyGridDelegate.h"
+#include "PropertyGridItem.h"
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QComboBox>
@@ -18,13 +18,13 @@ is prohibited.
 using namespace Teardrop;
 using namespace Tools;
 
-QtPropertyGridDelegate::QtPropertyGridDelegate(QObject *parent /* = 0 */)
+PropertyGridDelegate::PropertyGridDelegate(QObject *parent /* = 0 */)
 	: QItemDelegate(parent)
 {
 
 }
 
-QtPropertyGridDelegate::~QtPropertyGridDelegate()
+PropertyGridDelegate::~PropertyGridDelegate()
 {
 
 }
@@ -45,9 +45,9 @@ static void fromQColor(Vector4& color, const QColor& qc)
 	color.w = qc.alphaF();
 }
 
-QWidget* QtPropertyGridDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
+QWidget* PropertyGridDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	PropertyGridItem* item = static_cast<PropertyGridItem*>(index.internalPointer());
 	if (item) {
 		const Reflection::PropertyDef* prop = item->property();
 		Reflection::Object* obj = item->object();
@@ -92,9 +92,9 @@ QWidget* QtPropertyGridDelegate::createEditor(QWidget* parent, const QStyleOptio
 	return le;
 }
 
-void QtPropertyGridDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
+void PropertyGridDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	PropertyGridItem* item = static_cast<PropertyGridItem*>(index.internalPointer());
 	if (item) {
 		Reflection::Object* obj = item->object();
 		const Reflection::PropertyDef* prop = item->property();
@@ -127,9 +127,9 @@ void QtPropertyGridDelegate::setEditorData(QWidget* editor, const QModelIndex& i
 	}
 }
 
-void QtPropertyGridDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
+void PropertyGridDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-	QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+	PropertyGridItem* item = static_cast<PropertyGridItem*>(index.internalPointer());
 	if (item) {
 		const Reflection::PropertyDef* prop = item->property();
 		Reflection::Object* obj = item->object();
@@ -161,18 +161,18 @@ void QtPropertyGridDelegate::setModelData(QWidget* editor, QAbstractItemModel* m
 	}
 }
 
-void QtPropertyGridDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const
+void PropertyGridDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
 	editor->setGeometry(option.rect);
 }
 
-void QtPropertyGridDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void PropertyGridDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	painter->save();
 
 	// only do this for the value cell
 	if (index.column() == 1) {
-		QtPropertyGridItem* item = static_cast<QtPropertyGridItem*>(index.internalPointer());
+		PropertyGridItem* item = static_cast<PropertyGridItem*>(index.internalPointer());
 		if (item) {
 			const Reflection::PropertyDef* prop = item->property();
 			Reflection::Object* obj = item->object();
