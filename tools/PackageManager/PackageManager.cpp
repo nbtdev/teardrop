@@ -37,6 +37,8 @@ PackageManager::~PackageManager()
 
 void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass)
 {
+	Metadata* assetMeta = 0;
+
 	// TODO: get these known types from some lookup table?
 	if (assetClass == TextureAsset::getClassDef()) {
 		TextureAsset* texAsset = importTexture(filepath, TEXTUREASSET_TYPE_BCX);
@@ -46,7 +48,7 @@ void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char*
 
 			// and add an entry to the package metadata
 			String assetId;
-			Metadata* assetMeta = mMetadata->add(assetId, folder, texAsset, filepath);
+			assetMeta = mMetadata->add(assetId, folder, texAsset, filepath);
 			assetMeta->generateThumbnail();
 			imp.setAsset(texAsset, assetMeta);
 		}
@@ -59,7 +61,7 @@ void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char*
 
 			// and add an entry to the package metadata
 			String assetId;
-			Metadata* assetMeta = mMetadata->add(assetId, folder, asset, filepath);
+			assetMeta = mMetadata->add(assetId, folder, asset, filepath);
 			assetMeta->generateThumbnail();
 			imp.setAsset(asset, assetMeta);
 		}
@@ -73,46 +75,48 @@ void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char*
 
 			// and add an entry to the package metadata
 			String assetId;
-			Metadata* assetMeta = mMetadata->add(assetId, folder, landscapeAsset, filepath);
+			assetMeta = mMetadata->add(assetId, folder, landscapeAsset, filepath);
 			assetMeta->generateThumbnail();
 
 			imp.setAsset(landscapeAsset, assetMeta);
-
-			// name the new asset
-			String basename;
-			FileSystem::baseName(basename, filepath);
-			assetMeta->setName(basename);
-
-			// add all dependent assets to this folder too
-			for (Dependencies::iterator it = imp.dependencies().begin(); it != imp.dependencies().end(); ++it) {
-				Dependency& dep = *it;
-
-				mPackage->add(dep.mObject);
-
-				// and the metadata...
-				Metadata* depMeta = 0;
-
-				// it's an asset if it has a filepath; otherwise, it's just an object
-				if (dep.mSourcePath.length()) {
-					String assetId;
-					depMeta = mMetadata->add(assetId, folder, static_cast<Asset*>(dep.mObject), dep.mSourcePath);
-					dep.mMetadata = depMeta;
-				}
-				else {
-					String objectId;
-					depMeta = mMetadata->add(objectId, folder, dep.mObject);
-				}
-
-				dep.mMetadata = depMeta;
-				depMeta->setName(dep.mName);
-				depMeta->generateThumbnail();
-			}
-
-			// any internal dependencies just get shoved into the package directly, no folders involved
-			for (InternalDependencies::iterator it = imp.internalDependencies().begin(); it != imp.internalDependencies().end(); ++it) {
-				mPackage->add(*it);
-			}
 		}
+	}
+
+	if (assetMeta) {
+		// name the new asset
+		String basename;
+		FileSystem::baseName(basename, filepath);
+		assetMeta->setName(basename);
+	}
+
+	// add all dependent assets to this folder too
+	for (Dependencies::iterator it = imp.dependencies().begin(); it != imp.dependencies().end(); ++it) {
+		Dependency& dep = *it;
+
+		mPackage->add(dep.mObject);
+
+		// and the metadata...
+		Metadata* depMeta = 0;
+
+		// it's an asset if it has a filepath; otherwise, it's just an object
+		if (dep.mSourcePath.length()) {
+			String assetId;
+			depMeta = mMetadata->add(assetId, folder, static_cast<Asset*>(dep.mObject), dep.mSourcePath);
+			dep.mMetadata = depMeta;
+		}
+		else {
+			String objectId;
+			depMeta = mMetadata->add(objectId, folder, dep.mObject);
+		}
+
+		dep.mMetadata = depMeta;
+		depMeta->setName(dep.mName);
+		depMeta->generateThumbnail();
+	}
+
+	// any internal dependencies just get shoved into the package directly, no folders involved
+	for (InternalDependencies::iterator it = imp.internalDependencies().begin(); it != imp.internalDependencies().end(); ++it) {
+		mPackage->add(*it);
 	}
 }
 

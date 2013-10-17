@@ -12,14 +12,16 @@ is prohibited.
 
 namespace Teardrop
 {
-	class GfxMaterial;
+	namespace Gfx {
+		class Material;
+	}
 
 	class StaticMeshAsset : public Asset
 	{
 	public:
 		TD_CLASS(StaticMeshAsset, Asset);
 		TD_CLASS_CREATABLE();
-		TD_POINTER_PROPERTY(Material, "Default material for this asset", GfxMaterial, 0);
+		TD_POINTER_PROPERTY(Material, "Default material for this asset", Gfx::Material, 0);
 
 		StaticMeshAsset();
 		virtual ~StaticMeshAsset();

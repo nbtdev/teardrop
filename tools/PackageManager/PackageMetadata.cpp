@@ -67,17 +67,19 @@ Metadata* PackageMetadata::add(String& uuid, Folder* parent, Asset* asset, const
 	// make new metadata for the asset
 	// TODO: should this be one level higher in the call stack?
 	if (asset->getDerivedClassDef() == TextureAsset::getClassDef()) {
-		meta = new TextureAssetMetadata(static_cast<TextureAsset*>(asset));
+		meta = TD_NEW TextureAssetMetadata(static_cast<TextureAsset*>(asset));
 	}
 	else if(asset->getDerivedClassDef() == LandscapeAsset::getClassDef()) {
-		meta = new LandscapeAssetMetadata(static_cast<LandscapeAsset*>(asset));
+		meta = TD_NEW LandscapeAssetMetadata(static_cast<LandscapeAsset*>(asset));
 	}
 	else if(asset->getDerivedClassDef() == HeightfieldAsset::getClassDef()) {
-		meta = new HeightfieldAssetMetadata(static_cast<HeightfieldAsset*>(asset));
+		meta = TD_NEW HeightfieldAssetMetadata(static_cast<HeightfieldAsset*>(asset));
 	}
 	else if(asset->getDerivedClassDef() == AttributeMapAsset::getClassDef()) {
-		meta = new AttributeMapAssetMetadata(static_cast<AttributeMapAsset*>(asset));
+		meta = TD_NEW AttributeMapAssetMetadata(static_cast<AttributeMapAsset*>(asset));
 	}
+	else 
+		meta = TD_NEW AssetMetadata(asset);
 
 	if (meta) {
 		meta->setSourcePath(assetSourcePath);

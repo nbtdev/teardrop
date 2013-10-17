@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "AssetMetadata.h"
+#include "Asset/Asset.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -14,7 +15,11 @@ TD_CLASS_IMPL(AssetMetadata);
 
 AssetMetadata::AssetMetadata()
 {
+}
 
+AssetMetadata::AssetMetadata(Asset* asset)
+{
+	mObject = asset;
 }
 
 AssetMetadata::~AssetMetadata()

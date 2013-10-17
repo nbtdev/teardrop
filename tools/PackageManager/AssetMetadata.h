@@ -13,6 +13,8 @@ is prohibited.
 
 namespace Teardrop 
 {
+	class Asset;
+
 	namespace Tools
 	{
 		class AssetMetadata : public Metadata
@@ -22,6 +24,7 @@ namespace Teardrop
 			TD_PROPERTY(SourcePath, "Filesystem path to asset source data", String, "(undefined)", "FileChooser|ReadOnly");
 
 			AssetMetadata();
+			AssetMetadata(Asset* asset);
 			~AssetMetadata();
 
 			TD_DECLARE_ALLOCATOR();
