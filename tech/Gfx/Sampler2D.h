@@ -23,7 +23,7 @@ namespace Teardrop
 		public:
 			TD_CLASS(Sampler2D, Object);
 			TD_CLASS_CREATABLE();
-			TD_POINTER_PROPERTY(TextureAsset, "Texture Asset", TextureAsset);
+			TD_POINTER_PROPERTY(TextureAsset, "Texture Asset", TextureAsset, 0);
 
 			enum Filter
 			{

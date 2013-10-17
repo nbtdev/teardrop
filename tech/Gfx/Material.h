@@ -10,19 +10,23 @@ is prohibited.
 
 #include "Reflection/Reflection.h"
 #include "Memory/Allocators.h"
+#include <map>
 
 namespace Teardrop
 {
 	namespace Gfx 
 	{
-		class Sampler2D;
+		class MaterialOutput;
 		class Shader;
+		class Connection;
+		struct Attribute;
 
 		class Material : public Reflection::Object
 		{
 		public:
 			TD_CLASS(Material, Object);
 			TD_CLASS_CREATABLE();
+			TD_POINTER_PROPERTY(Output, "Material output expression", MaterialOutput, Hidden);
 
 			Material();
 			~Material();
@@ -30,19 +34,19 @@ namespace Teardrop
 			bool initialize();
 			bool destroy();
 
-			Sampler2D* samplers2D();
-			int numSamplers2D();
-
 			Shader* shader();
+			void addConnection(Connection* conn);
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			Sampler2D* mSamplers2D;
-			int mNumSamplers2D;
-
 			// will hold pointer to platform/renderer-specific shader instance of this material
 			Shader* mShader;
+
+			// map of connections from input to instance; this works because inputs support only
+			// one connection
+			typedef std::map<Attribute*, Connection*> Connections;
+			Connections mConnections;
 		};
 	}
 }

@@ -330,6 +330,22 @@
 			Name="Material Expressions"
 			>
 			<File
+				RelativePath="..\..\..\AddColorExpression.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\AddColorExpression.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\MaterialOutput.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\MaterialOutput.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Sampler2DExpression.cpp"
 				>
 			</File>
@@ -338,6 +354,22 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\..\Attribute.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Attribute.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Connection.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Connection.h"
+			>
+		</File>
 		<File
 			RelativePath="..\..\..\GfxBitmap.cpp"
 			>

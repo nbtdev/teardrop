@@ -43,6 +43,13 @@ const Objects& Package::objects() const
 	return mObjects;
 }
 
+void Package::initializeAllObjects()
+{
+	for (Objects::iterator it = mObjects.begin(); it != mObjects.end(); ++it) {
+		(*it)->initialize();
+	}
+}
+
 void* Package::createDataStorage(int len)
 {
 	delete [] mData;

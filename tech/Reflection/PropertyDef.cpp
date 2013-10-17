@@ -28,6 +28,8 @@ PropertyDef::PropertyDef()
 	m_bCollection = 0;
 	m_bBoolean = 0;
 	m_bEnum = 0;
+	m_bNested = 0;
+	m_bHidden = 0;
 }
 //-----------------------------------------------------------------------------
 PropertyDef::~PropertyDef()
@@ -57,4 +59,7 @@ void PropertyDef::setMetaFlags()
 
 	if (!strcmp("bool", m_pTypeName) || !strcmp("Boolean", m_pTypeName))
 		m_bBoolean = 1;
+
+	if (m_pEditor && strstr("Hidden", m_pEditor))
+		m_bHidden = 1;
 }

@@ -19,7 +19,7 @@ namespace Teardrop
 	public:
 		TD_CLASS(StaticMeshAsset, Asset);
 		TD_CLASS_CREATABLE();
-		TD_POINTER_PROPERTY(Material, "Default material for this asset", GfxMaterial);
+		TD_POINTER_PROPERTY(Material, "Default material for this asset", GfxMaterial, 0);
 
 		StaticMeshAsset();
 		virtual ~StaticMeshAsset();

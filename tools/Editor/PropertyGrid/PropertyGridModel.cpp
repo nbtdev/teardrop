@@ -67,8 +67,11 @@ PropertyGridModel::PropertyGridModel(Reflection::Object* obj, Reflection::Object
 						}
 					} 
 					else {
-						PropertyGridItem* propItem = new PropertyGridItem(obj, prop, group);
-						group->append(propItem);
+						// don't show Hidden properties
+						if (!prop->isHidden()) {
+							PropertyGridItem* propItem = new PropertyGridItem(obj, prop, group);
+							group->append(propItem);
+						}
 					}
 
 					prop = prop->m_pNext;

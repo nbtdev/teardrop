@@ -6,25 +6,27 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "Sampler2DExpression.h"
+#include "AddColorExpression.h"
 
 using namespace Teardrop;
 using namespace Gfx;
 
-TD_CLASS_IMPL(Sampler2DExpression);
+TD_CLASS_IMPL(AddColorExpression);
 
-Sampler2DExpression::Sampler2DExpression()
+AddColorExpression::AddColorExpression()
 {
 }
 
-Sampler2DExpression::~Sampler2DExpression()
+AddColorExpression::~AddColorExpression()
 {
 }
 
-bool Sampler2DExpression::initialize()
+bool AddColorExpression::initialize()
 {
-	mOutputs.push_back(Attribute("RGBA", ATTR_RGBA, this));
-	mOutputs.push_back(Attribute("RGB", ATTR_RGB, this));
+	mInputs.push_back(Attribute("A", ATTR_RGBA, this));
+	mInputs.push_back(Attribute("B", ATTR_RGBA, this));
+
+	mOutputs.push_back(Attribute("Output", ATTR_RGBA, this));
 
 	return true;
 }

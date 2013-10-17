@@ -15,6 +15,7 @@ is prohibited.
 #include "Asset/StaticMeshAsset.h"
 #include "AssetImport.h"
 #include "Stream/FileStream.h"
+#include "Util/FileSystem.h"
 #include <utility>
 
 using namespace Teardrop;
@@ -77,6 +78,11 @@ void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char*
 
 			imp.setAsset(landscapeAsset, assetMeta);
 
+			// name the new asset
+			String basename;
+			FileSystem::baseName(basename, filepath);
+			assetMeta->setName(basename);
+
 			// add all dependent assets to this folder too
 			for (Dependencies::iterator it = imp.dependencies().begin(); it != imp.dependencies().end(); ++it) {
 				Dependency& dep = *it;
@@ -84,11 +90,27 @@ void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char*
 				mPackage->add(dep.mObject);
 
 				// and the metadata...
-				String assetId;
-				Metadata* depMeta = mMetadata->add(assetId, folder, static_cast<Asset*>(dep.mObject), dep.mSourcePath);
+				Metadata* depMeta = 0;
+
+				// it's an asset if it has a filepath; otherwise, it's just an object
+				if (dep.mSourcePath.length()) {
+					String assetId;
+					depMeta = mMetadata->add(assetId, folder, static_cast<Asset*>(dep.mObject), dep.mSourcePath);
+					dep.mMetadata = depMeta;
+				}
+				else {
+					String objectId;
+					depMeta = mMetadata->add(objectId, folder, dep.mObject);
+				}
+
 				dep.mMetadata = depMeta;
 				depMeta->setName(dep.mName);
 				depMeta->generateThumbnail();
+			}
+
+			// any internal dependencies just get shoved into the package directly, no folders involved
+			for (InternalDependencies::iterator it = imp.internalDependencies().begin(); it != imp.internalDependencies().end(); ++it) {
+				mPackage->add(*it);
 			}
 		}
 	}
@@ -150,6 +172,12 @@ bool PackageManager::load(const String& path, DeferredObjectResolves& deferred, 
 	bool rtn = ser.deserialize(strm, deferred, lut, mMetadata);
 
 	return rtn;
+}
+
+void PackageManager::initializeAllObjects()
+{
+	if (mPackage)
+		mPackage->initializeAllObjects();
 }
 
 void PackageManager::getAllMetadata(std::list<Metadata*>& metaList) const

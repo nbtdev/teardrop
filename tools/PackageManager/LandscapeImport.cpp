@@ -13,8 +13,15 @@ is prohibited.
 #include "Asset/TextureAsset.h"
 #include "Asset/HeightfieldAsset.h"
 #include "Asset/AttributeMapAsset.h"
+#include "Gfx/Material.h"
+#include "Gfx/MaterialOutput.h"
+#include "Gfx/Attribute.h"
+#include "Gfx/Connection.h"
+#include "Gfx/Sampler2DExpression.h"
+#include "Gfx/AddColorExpression.h"
 #include "Util/StringUtil.h"
 #include "Util/FileSystem.h"
+#include "Util/UUID.h"
 #include "FreeImage.h"
 #include "tinyxml/tinyxml.h"
 #include "ThirdParty/LibHFZ/wrapper.h"
@@ -373,6 +380,118 @@ namespace Teardrop {
 						varlist = varlist->NextSiblingElement("varlist");
 					}
 				}
+			}
+
+			// create and insert a new Material for this landscape
+			{
+				using namespace Gfx;
+				//Sampler2DExpression* SpecLMSampExp = TD_NEW Sampler2DExpression;
+				//Sampler2DExpression* SHSampExp = TD_NEW Sampler2DExpression;
+
+				UUID uuid;
+				MaterialOutput* output = TD_NEW MaterialOutput;
+				uuid.generate();
+				output->setObjectId(uuid);
+				output->initialize();
+				imp.addInternalDep(output);
+
+				Material* mat = TD_NEW Material;
+				mat->setOutput(output);
+
+				TextureAsset* texAsset = asset->getNormalMap();
+				if (texAsset) {
+					Sampler2DExpression* TNSampExp = TD_NEW Sampler2DExpression;
+					uuid.generate();
+					TNSampExp->setObjectId(uuid);
+					TNSampExp->initialize();
+					TNSampExp->getSampler2D().setTextureAsset(texAsset);
+
+					Connection* conn = TD_NEW Connection;
+					conn->setFromExpression(TNSampExp); conn->setFromAttribute("RGBA");
+					conn->setToExpression(output); conn->setToAttribute("Normal");
+					conn->setParent(mat);
+					uuid.generate();
+					conn->setObjectId(uuid);
+					conn->initialize();
+
+					imp.addInternalDep(TNSampExp);
+					imp.addInternalDep(conn);
+				}
+
+				texAsset = asset->getDiffuseMap();
+				if (texAsset) {
+					Sampler2DExpression* TXSampExp = TD_NEW Sampler2DExpression;
+					uuid.generate();
+					TXSampExp->setObjectId(uuid);
+					TXSampExp->initialize();
+					TXSampExp->getSampler2D().setTextureAsset(texAsset);
+					imp.addInternalDep(TXSampExp);
+
+					// we only care about the lightmap if there is a diffuse map too
+					texAsset = asset->getLightMap();
+
+					// if we have both, insert an "add" expression
+					if (texAsset) {
+						Sampler2DExpression* LMSampExp = TD_NEW Sampler2DExpression;
+						uuid.generate();
+						LMSampExp->setObjectId(uuid);
+						LMSampExp->initialize();
+						LMSampExp->getSampler2D().setTextureAsset(texAsset);
+						imp.addInternalDep(LMSampExp);
+
+						// then we need an "add" expression
+						AddColorExpression* addExpr = TD_NEW AddColorExpression;
+						uuid.generate();
+						addExpr->setObjectId(uuid);
+						addExpr->initialize();
+
+						Connection* conn = TD_NEW Connection;
+						conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
+						conn->setToExpression(addExpr); conn->setToAttribute("A");
+						conn->setParent(mat);
+						uuid.generate();
+						conn->setObjectId(uuid);
+						conn->initialize();
+						imp.addInternalDep(conn);
+
+						conn = TD_NEW Connection;
+						conn->setFromExpression(LMSampExp); conn->setFromAttribute("RGBA");
+						conn->setToExpression(addExpr); conn->setToAttribute("B");
+						conn->setParent(mat);
+						uuid.generate();
+						conn->setObjectId(uuid);
+						conn->initialize();
+						imp.addInternalDep(conn);
+
+						conn = TD_NEW Connection;
+						conn->setFromExpression(addExpr); conn->setFromAttribute("Output");
+						conn->setToExpression(output); conn->setToAttribute("Diffuse");
+						conn->setParent(mat);
+						uuid.generate();
+						conn->setObjectId(uuid);
+						conn->initialize();
+						imp.addInternalDep(conn);
+
+						imp.addInternalDep(addExpr);
+					}
+					else {
+						// just connect the output of the diffuse map to the Diffuse input on the MaterialOutput
+						Connection* conn = TD_NEW Connection;
+						conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
+						conn->setToExpression(output); conn->setToAttribute("Diffuse");
+						conn->setParent(mat);
+						uuid.generate();
+						conn->setObjectId(uuid);
+						conn->initialize();
+						imp.addInternalDep(conn);
+					}
+				}
+
+				mat->initialize();
+
+				String basename;
+				FileSystem::baseName(basename, filepath);
+				imp.addDep(mat, basename);
 			}
 
 			return asset;

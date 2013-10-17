@@ -43,6 +43,7 @@ namespace Teardrop
 			}
 		};
 		typedef std::list<Dependency> Dependencies;
+		typedef std::list<Reflection::Object*> InternalDependencies;
 
 		class ImportedAsset 
 		{
@@ -53,9 +54,12 @@ namespace Teardrop
 			bool isValid();
 			void setAsset(Asset* asset, Metadata* metadata);
 			void addDep(Reflection::Object* obj, const String& name);
+			void addInternalDep(Reflection::Object* obj);
 			void addDep(Asset* asset, const String& name, const String& filepath);
 			int numDependencies();
+			int numInternalDependencies();
 			Dependencies& dependencies();
+			InternalDependencies& internalDependencies();
 			Asset* asset();
 			Metadata* metadata();
 
@@ -66,6 +70,9 @@ namespace Teardrop
 
 			// assets that pull in other assets will have these set
 			Dependencies mDeps;
+
+			// assets that create internal dependencies will have these set
+			InternalDependencies mInternalDeps;
 
 		private:
 			ImportedAsset(const ImportedAsset& other);

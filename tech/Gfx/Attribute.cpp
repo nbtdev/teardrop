@@ -6,25 +6,23 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "Sampler2DExpression.h"
+#include "Attribute.h"
 
 using namespace Teardrop;
 using namespace Gfx;
 
-TD_CLASS_IMPL(Sampler2DExpression);
-
-Sampler2DExpression::Sampler2DExpression()
+Attribute::Attribute()
+	: mName(0)
+	, mType(ATTR_UNKNOWN)
+	, mParent(0)
 {
+
 }
 
-Sampler2DExpression::~Sampler2DExpression()
+Attribute::Attribute(const char* name, AttributeType type, MaterialExpression* parent)
+	: mName(name)
+	, mType(type)
+	, mParent(parent)
 {
-}
 
-bool Sampler2DExpression::initialize()
-{
-	mOutputs.push_back(Attribute("RGBA", ATTR_RGBA, this));
-	mOutputs.push_back(Attribute("RGB", ATTR_RGB, this));
-
-	return true;
 }

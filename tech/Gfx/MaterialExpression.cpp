@@ -14,8 +14,6 @@ using namespace Gfx;
 TD_CLASS_IMPL(MaterialExpression);
 
 MaterialExpression::MaterialExpression()
-	: mInputs(0)
-	, mOutputs(0)
 {
 }
 
@@ -23,14 +21,22 @@ MaterialExpression::~MaterialExpression()
 {
 }
 
-MaterialExpression::Attribute::Attribute()
+Attribute* MaterialExpression::findInputAttribute(const char* name)
 {
+	for (size_t i=0; i<mInputs.size(); ++i) {
+		if (!strcmp(mInputs[i].mName, name))
+			return &mInputs[i];
+	}
 
+	return 0;
 }
 
-MaterialExpression::Attribute::Attribute(const char* name, AttributeType type)
-	: mName(name)
-	, mType(type)
+Attribute* MaterialExpression::findOutputAttribute(const char* name)
 {
+	for (size_t i=0; i<mOutputs.size(); ++i) {
+		if (!strcmp(mOutputs[i].mName, name))
+			return &mOutputs[i];
+	}
 
+	return 0;
 }

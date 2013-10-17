@@ -39,6 +39,7 @@ namespace Teardrop
 			bool isBoolean() const { return (0 != m_bBoolean); }
 			bool isEnum() const { return (0 != m_bEnum); }
 			bool isNested() const { return (0 != m_bNested); }
+			bool isHidden() const { return (0 != m_bHidden); }
 
 			void setName(const char* name) { m_pName = name; }
 			void setTypeName(const char* pTypeName) { m_pTypeName = pTypeName; }
@@ -68,6 +69,7 @@ namespace Teardrop
 			size_t m_bBoolean;
 			size_t m_bEnum;
 			size_t m_bNested;
+			size_t m_bHidden;
 			const char* m_pName;
 			const char* m_pTypeName;
 			const char* m_pEditor;

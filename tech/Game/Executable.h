@@ -19,7 +19,7 @@ namespace Teardrop
 	{
 	public:
 		TD_CLASS(Executable, Object);
-		TD_POINTER_PROPERTY(Logic, "Pluggable logic module for this executable", Logic);
+		TD_POINTER_PROPERTY(Logic, "Pluggable logic module for this executable", Logic, 0);
 
 		Executable();
 		~Executable();

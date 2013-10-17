@@ -7,9 +7,10 @@ is prohibited.
 
 #include "stdafx.h"
 #include "Material.h"
-#include "Sampler2D.h"
+#include "MaterialOutput.h"
 #include "Shader.h"
 #include "ShaderManager.h"
+#include "Connection.h"
 
 using namespace Teardrop;
 using namespace Gfx;
@@ -17,15 +18,12 @@ using namespace Gfx;
 TD_CLASS_IMPL(Material);
 
 Material::Material()
-	: mSamplers2D(0)
-	, mNumSamplers2D(-1) // -1 indicates material not yet initialized
-	, mShader(0)
+	: mShader(0)
 {
 }
 
 Material::~Material()
 {
-	delete [] mSamplers2D;
 }
 
 bool Material::initialize()
@@ -37,38 +35,19 @@ bool Material::destroy()
 {
 	ShaderManager::instance().release(mShader);
 	mShader = 0;
+
 	return true;
-}
-
-Sampler2D* Material::samplers2D()
-{
-	if (mNumSamplers2D < 0)
-		initialize();
-
-	return mSamplers2D;
-}
-
-int Material::numSamplers2D()
-{
-	if (mNumSamplers2D < 0)
-		initialize();
-
-	return mNumSamplers2D;
 }
 
 Shader* Material::shader()
 {
-	if (mNumSamplers2D < 0)
-		initialize();
+	if (!mShader)
+		mShader = ShaderManager::instance().createOrFindInstanceOf(this);
 
 	return mShader;
 }
 
-
-// hack...
-#include "Sampler2DExpression.h"
-
-void hackyFoo()
+void Material::addConnection(Connection* conn)
 {
-	Sampler2DExpression _s2de;
+	mConnections.insert(Connections::value_type(conn->input(), conn));
 }

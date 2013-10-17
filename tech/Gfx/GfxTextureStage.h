@@ -69,7 +69,7 @@ namespace Teardrop
 			MAP_DISPLACEMENT,
 		};
 
-		TD_POINTER_PROPERTY(TextureAsset, "Reference to texture asset to sample", TextureAsset);
+		TD_POINTER_PROPERTY(TextureAsset, "Reference to texture asset to sample", TextureAsset, 0);
 		TD_PROPERTY(Enabled, "Enable/disable this texture stage", bool, true, 0);
 		TD_PROPERTY(TexCoordSet, "Which texture coordinate set to use on the object rendered with this texture stage", int, 0, 0);
 		TD_ENUM_PROPERTY(MinFilter, "Minimisation filter", Filter, FILTER_BILINEAR);

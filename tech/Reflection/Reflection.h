@@ -192,6 +192,7 @@ namespace Teardrop
 				sProp->setDefault(defaultVal); \
 				sProp->setDescription(desc); \
 				if (pEditor) sProp->setEditor(pEditor); \
+				sProp->setMetaFlags(); \
 				getClassDef()->addProperty(sProp); \
 			} \
 		}; \
@@ -302,8 +303,8 @@ namespace Teardrop
 	public: \
 		propType& get##propName() { return ___##propName.get(); } \
 
-#define TD_POINTER_PROPERTY(propName, propDesc, propType) \
-	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, ObjectBrowser, PointerProperty) \
+#define TD_POINTER_PROPERTY(propName, propDesc, propType, propEditor) \
+	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, propEditor, PointerProperty) \
 	public: \
 		propType* get##propName() { return ___##propName.get(); } \
 		void set##propName(propType* __val) { ___##propName.set(__val); }

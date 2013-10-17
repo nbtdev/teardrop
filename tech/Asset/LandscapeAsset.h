@@ -19,7 +19,7 @@ namespace Teardrop
 	public:
 		TD_CLASS(LandscapeAsset, Asset);
 		TD_CLASS_CREATABLE();
-		TD_POINTER_PROPERTY(HeightField, "Landscape terrain heightfield; must be 8- or 16-bit grayscale", TextureAsset);
+		TD_POINTER_PROPERTY(HeightField, "Landscape terrain heightfield; must be 8- or 16-bit grayscale", TextureAsset, 0);
 		TD_PROPERTY(HeightFieldX, "Number of samples in X direction (usually same as heightfield X dimension)", int, 0, "ReadOnly");
 		TD_PROPERTY(HeightFieldY, "Number of samples in Y direction (usually same as heightfield Y dimension)", int, 0, "ReadOnly");
 		TD_PROPERTY(ColormapX, "Width in texels of colormap (diffuse) texture", int, 0, "ReadOnly");
@@ -27,12 +27,12 @@ namespace Teardrop
 		TD_PROPERTY(MinAltitude, "World-space altitude of the lowest sample in the heightfield (can be negative)", float, -1, 0);
 		TD_PROPERTY(MaxAltitude, "World-space altitude of the highest sample in the heightfield (can be negative)", float, 1, 0);
 		TD_PROPERTY(Scale, "Spacing, in world units, of heightfield samples", float, 1, 0);
-		TD_POINTER_PROPERTY(DiffuseMap, "Landscape terrain colormap", TextureAsset);
-		TD_POINTER_PROPERTY(AttributesMap, "Landscape terrain attributes map", TextureAsset);
-		TD_POINTER_PROPERTY(LightMap, "Landscape terrain light map", TextureAsset);
-		TD_POINTER_PROPERTY(SpecularLightMap, "Landscape terrain specular highlight map", TextureAsset);
-		TD_POINTER_PROPERTY(ShadowMap, "Landscape terrain shadow map", TextureAsset);
-		TD_POINTER_PROPERTY(NormalMap, "Landscape terrain normal map", TextureAsset);
+		TD_POINTER_PROPERTY(DiffuseMap, "Landscape terrain colormap", TextureAsset, 0);
+		TD_POINTER_PROPERTY(AttributesMap, "Landscape terrain attributes map", TextureAsset, 0);
+		TD_POINTER_PROPERTY(LightMap, "Landscape terrain light map", TextureAsset, 0);
+		TD_POINTER_PROPERTY(SpecularLightMap, "Landscape terrain specular highlight map", TextureAsset, 0);
+		TD_POINTER_PROPERTY(ShadowMap, "Landscape terrain shadow map", TextureAsset, 0);
+		TD_POINTER_PROPERTY(NormalMap, "Landscape terrain normal map", TextureAsset, 0);
 
 		LandscapeAsset();
 		~LandscapeAsset();

@@ -33,9 +33,19 @@ int ImportedAsset::numDependencies()
 	return int(mDeps.size());
 }
 
+int ImportedAsset::numInternalDependencies()
+{
+	return int(mInternalDeps.size());
+}
+
 Dependencies& ImportedAsset::dependencies()
 {
 	return mDeps;
+}
+
+InternalDependencies& ImportedAsset::internalDependencies()
+{
+	return mInternalDeps;
 }
 
 Asset* ImportedAsset::asset()
@@ -75,3 +85,9 @@ void ImportedAsset::addDep(Reflection::Object* asset, const String& name)
 	}
 }
 
+void ImportedAsset::addInternalDep(Reflection::Object* obj)
+{
+	if (obj) {
+		mInternalDeps.push_back(obj);
+	}
+}

@@ -227,6 +227,11 @@ bool Project::read(ProgressFeedback* feedback)
 		}
 	}
 
+	// Phase 3 -- initialize all objects in the project
+	for (PackageManagers::iterator it = mPackageManagers.begin(); it != mPackageManagers.end(); ++it) {
+		(*it)->initializeAllObjects();
+	}
+
 	// load all thumbnails in parallel
 	tbb::task* dummy = new(tbb::task::allocate_root()) DummyTask;
 	dummy->set_ref_count(metaList.size() + 1);

@@ -34,6 +34,7 @@ namespace Teardrop
 		void add(Reflection::Object* object);
 		void remove(Reflection::Object* object);
 		const Objects& objects() const;
+		void initializeAllObjects();
 
 		// I hate this...these must *only* be used during package linking...
 		Reflection::Object* findById(const String& id);
