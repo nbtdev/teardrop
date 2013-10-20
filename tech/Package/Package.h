@@ -45,7 +45,6 @@ namespace Teardrop
 
 	protected:
 		friend class PackageSerializer;
-		void* createDataStorage(int len);
 		void addSymTabEntry(Reflection::Object* obj);
 
 		Objects mObjects;

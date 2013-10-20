@@ -50,13 +50,6 @@ void Package::initializeAllObjects()
 	}
 }
 
-void* Package::createDataStorage(int len)
-{
-	delete [] mData;
-	mData = new unsigned char[len];
-	return mData;
-}
-
 void Package::addSymTabEntry(Reflection::Object* obj)
 {
 	mSymTab[obj->getObjectId()] = obj;

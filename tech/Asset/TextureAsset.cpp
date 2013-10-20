@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "TextureAsset.h"
+#include "Stream/Stream.h"
 
 using namespace Teardrop;
 
@@ -34,4 +35,33 @@ TextureAsset::TextureAsset()
 
 TextureAsset::~TextureAsset()
 {
+}
+
+int TextureAsset::serialize(Stream& strm)
+{
+	int len = mLength;
+	strm.write(&len, sizeof(len));
+
+	if (strm.write(mData, len))
+		return len + sizeof(len);
+	else
+		return 0;
+}
+
+int TextureAsset::deserialize(Stream& strm)
+{
+	delete mDynamicData;
+	mDynamicData = 0;
+
+	int len = 0;
+	if (strm.read(&len, sizeof(len))) {
+		mDynamicData = TD_NEW unsigned char[len];
+		mData = mDynamicData;
+		mLength = len;
+
+		if (strm.read(mData, mLength))
+			len += sizeof(len);
+	}
+
+	return len;
 }

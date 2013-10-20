@@ -24,7 +24,10 @@ namespace Teardrop
 		TD_POINTER_PROPERTY(Material, "Default material for this asset", Gfx::Material, 0);
 
 		StaticMeshAsset();
-		virtual ~StaticMeshAsset();
+		~StaticMeshAsset();
+
+		int serialize(Stream& strm);
+		int deserialize(Stream& strm);
 
 		TD_DECLARE_ALLOCATOR();
 

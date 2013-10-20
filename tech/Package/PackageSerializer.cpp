@@ -19,58 +19,6 @@ using namespace Teardrop;
 
 const int PackageSerializer::PACKAGE_VERSION = 1;
 
-struct DataSectionEntry
-{
-	const void* mData;
-	int mLen;
-	int mOffset;
-	int mOrdinal;
-	Asset* mAsset;
-};
-
-struct ObjectSectionEntry
-{
-	ObjectSectionEntry() {}
-	ObjectSectionEntry(const ObjectSectionEntry& other) { *this = other; }
-	ObjectSectionEntry& operator=(const ObjectSectionEntry& other) {
-		mXml = other.mXml;
-		mLen = other.mLen;
-		mOffset = other.mOffset;
-		mObj = other.mObj;
-		mOrdinal = other.mOrdinal;
-		return *this;
-	}
-
-	int mLen;
-	int mOffset;
-	String mXml;
-	int mOrdinal;
-	Reflection::Object* mObj;
-};
-
-typedef std::list<DataSectionEntry> DataSectionEntries;
-typedef std::list<ObjectSectionEntry> ObjectSectionEntries;
-typedef std::map<UUID, DataSectionEntry> DataSectionByID;
-typedef std::map<UUID, ObjectSectionEntry> ObjectSectionByID;
-
-enum SectionType
-{
-	SECTION_DATA = 0,
-	SECTION_OBJECT = 1,
-	SECTION_SYMTAB = 2,
-	SECTION_METADATA = 3,
-
-	SECTION_SIZE = 0xFFFFFFFF
-};
-
-struct SectionHeader
-{
-	SectionType mType;
-	int mSectionSize; // section length in bytes
-	int mNumEntries; // number of entries in this section
-	int mNextSection; // offset (from beginning of package) to next header
-};
-
 PackageSerializer::PackageSerializer(Package* pkg)
 	: mPkg(pkg)
 {
@@ -81,303 +29,209 @@ PackageSerializer::~PackageSerializer()
 
 }
 
-static void serializeObjectToXml(Reflection::Object* obj, String& xml, int ordinal=-1)
+static void serializeObjects(const Objects& objects, Stream& stream, std::list<Asset*>& assets)
 {
-	Reflection::ClassDef* classDef = obj->getDerivedClassDef();
-	
-	String objectId;
-	obj->getObjectId().toString(objectId);
-
 	TiXmlDocument doc;
-	TiXmlElement object("object");
-	object.SetAttribute("id", objectId);
-	object.SetAttribute("class", classDef->getName());
+	TiXmlElement objectsElem("objects");
 
-	if (ordinal >= 0) {
-		String strOrdinal;
-		StringUtil::toString(ordinal, strOrdinal);
-		object.SetAttribute("data", strOrdinal);
-	}
+	for (Objects::const_iterator it = objects.begin(); it != objects.end(); ++it) {
+		Reflection::Object* obj = *it;
+		Reflection::ClassDef* classDef = obj->getDerivedClassDef();
 
-	// get all props from all superclasses as well
-	while (classDef) {
-		const Reflection::PropertyDef* prop = classDef->getProps();
-		classDef = classDef->getBaseClass();
-
-		while (prop) {
-			TiXmlElement elem("property");
-			elem.SetAttribute("name", prop->getName());
-
-			if (prop->isNested()) {
-				// then it's actually an object, so we need to 
-				// get its own classdef and list of properties...
-				Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
-				Reflection::ClassDef* c = o->getDerivedClassDef();
-				const Reflection::PropertyDef* pd = c->getProps();
-				while (pd) {
-					TiXmlElement np("property");
-					np.SetAttribute("name", pd->getName());
-
-					// only support a single level of nesting, for now
-					String sVal;
-					pd->getDataAsString(o, sVal);
-					np.SetAttribute("value", sVal);
-					elem.InsertEndChild(np);
-					pd = pd->m_pNext;
-				}
-			}
-			else {
-				String sVal;
-				prop->getDataAsString(obj, sVal);
-				elem.SetAttribute("value", sVal);
-			}
-
-			object.InsertEndChild(elem);
-			prop = prop->m_pNext;
+		// store off the things that need to be serialized
+		if (classDef->isA(Asset::getClassDef())) {
+			assets.push_back(static_cast<Asset*>(obj));
 		}
+		
+		String objectId;
+		obj->getObjectId().toString(objectId);
+
+		TiXmlElement object("object");
+		object.SetAttribute("id", objectId);
+		object.SetAttribute("class", classDef->getName());
+
+		// get all props from all superclasses as well
+		while (classDef) {
+			const Reflection::PropertyDef* prop = classDef->getProps();
+			classDef = classDef->getBaseClass();
+
+			while (prop) {
+				TiXmlElement elem("property");
+				elem.SetAttribute("name", prop->getName());
+
+				if (prop->isNested()) {
+					// then it's actually an object, so we need to 
+					// get its own classdef and list of properties...
+					Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
+					Reflection::ClassDef* c = o->getDerivedClassDef();
+					const Reflection::PropertyDef* pd = c->getProps();
+					while (pd) {
+						TiXmlElement np("property");
+						np.SetAttribute("name", pd->getName());
+
+						// only support a single level of nesting, for now
+						String sVal;
+						pd->getDataAsString(o, sVal);
+						np.SetAttribute("value", sVal);
+						elem.InsertEndChild(np);
+						pd = pd->m_pNext;
+					}
+				}
+				else {
+					String sVal;
+					prop->getDataAsString(obj, sVal);
+					elem.SetAttribute("value", sVal);
+				}
+
+				object.InsertEndChild(elem);
+				prop = prop->m_pNext;
+			}
+		}
+		
+		objectsElem.InsertEndChild(object);
 	}
 
-	doc.InsertEndChild(object);
+	doc.InsertEndChild(objectsElem);
 	TiXmlPrinter printer;
 	doc.Accept(&printer);
 
-	xml = printer.CStr();
+	// first, we need to know how long the XML string is
+	int len = printer.Size();
+	stream.write(&len, sizeof(len));
+
+	// then the actual XML
+	const char* xml = printer.CStr();
+	stream.write(xml, len);
 }
 
 bool PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer)
 {
-	size_t offset = 0;
-
 	// first, the package format version -- we always write the current version
 	PackageHeader hdr;
 	memset(&hdr, 0, sizeof(hdr));
 	hdr.mVersion = PACKAGE_VERSION;
-	hdr.mNumSections = metadataSerializer ? 4 : 3;
 
 	stream.write(&hdr, sizeof(hdr));
-	offset = stream.getPosition();
 
-	DataSectionEntries dataEntries;
-	DataSectionByID dataById;
-	ObjectSectionEntries objectEntries;
-	ObjectSectionByID objectById;
-	int dataSectionSize = 0;
-	int dataOrdinal = 0;
-	int objectSectionSize = 0;
-	int objectOrdinal = 0;
-
-	//
 	// then the objects in the package
-	//
 	const Objects& objs = mPkg->objects();
-	for (Objects::const_iterator it = objs.begin(); it != objs.end(); ++it) {
-		Reflection::Object* obj = *it;
+	std::list<Asset*> assetList;
+	serializeObjects(objs, stream, assetList);
 
-		int thisOrdinal = -1;
-		if (obj->getDerivedClassDef()->isA(Asset::getClassDef())) {
-			// then it probably has a data blob associated with it
-			Asset* asset = static_cast<Asset*>(obj);
-			DataSectionEntry ent;
-			ent.mAsset = asset;
-			ent.mData = asset->data();
-			ent.mLen = asset->length();
-			ent.mOffset = dataSectionSize;
-			ent.mOrdinal = dataOrdinal++;
-			dataSectionSize += ent.mLen;
+	// then all asset data, if any
+	for (std::list<Asset*>::iterator it = assetList.begin(); it != assetList.end(); ++it) {
+		Asset* asset = *it;
 
-			dataEntries.push_back(ent);
-			dataById[obj->getObjectId()] = ent;
-			thisOrdinal = ent.mOrdinal;
-		}
+		// we need to know its ID for later deserialization
+		UUID id = asset->getObjectId();
+		stream.write(&id, sizeof(id));
 
-		ObjectSectionEntry ent;
-		serializeObjectToXml(obj, ent.mXml, thisOrdinal);
-		ent.mLen = ent.mXml.length() + 1; // include null terminator
-		ent.mOffset = objectSectionSize;
-		ent.mOrdinal = objectOrdinal++;
-		objectSectionSize += ent.mLen;
-		ent.mObj = obj;
-
-		objectEntries.push_back(ent);
-		objectById[obj->getObjectId()] = ent;
+		// then the actual asset data
+		asset->serialize(stream);
 	}
 
-	int nDataEntries = dataOrdinal;
-	int nObjectEntries = objectOrdinal;
+	// mark the end of asset data with an all-zeroes UUID
+	UUID zero;
+	stream.write(&zero, sizeof(zero));
 
-	// write the data section, header first
-	SectionHeader dataHdr;
-	dataHdr.mType = SECTION_DATA;
-	dataHdr.mNumEntries = nDataEntries;
-	dataHdr.mSectionSize = dataSectionSize + dataEntries.size() * sizeof(int);
-	dataHdr.mNextSection = int(offset) + sizeof(SectionHeader) + dataSectionSize + dataEntries.size() * sizeof(int);
-	stream.write(&dataHdr, sizeof(dataHdr));
-
-	for (DataSectionEntries::iterator it = dataEntries.begin(); it != dataEntries.end(); ++it) {
-		DataSectionEntry& ent = *it;
-		stream.write(&ent.mLen, sizeof(ent.mLen));
-		stream.write(ent.mData, ent.mLen);
-	}
-
-	offset = stream.getPosition();
-
-	// write the object section, header first
-	SectionHeader objHdr;
-	objHdr.mType = SECTION_OBJECT;
-	objHdr.mSectionSize = objectSectionSize + objectEntries.size() * sizeof(int);
-	objHdr.mNumEntries = nObjectEntries;
-	objHdr.mNextSection = int(offset) + sizeof(SectionHeader) + objectSectionSize + objectEntries.size() * sizeof(int);
-	stream.write(&objHdr, sizeof(objHdr));
-
-	for (ObjectSectionEntries::iterator it = objectEntries.begin(); it != objectEntries.end(); ++it) {
-		ObjectSectionEntry& ent = *it;
-		stream.write(&ent.mLen, sizeof(ent.mLen));
-		stream.write((const char*)ent.mXml, ent.mLen);
-	}
-
-	offset = stream.getPosition();
-
-	// write the object symbol table
-	SectionHeader symTabHdr;
-	symTabHdr.mType = SECTION_SYMTAB;
-	// a symbol table entry is 40 bytes for the UUID string and 4 bytes for the object ordinal
-	symTabHdr.mSectionSize = nObjectEntries * (40 + 4);
-	symTabHdr.mNumEntries = nObjectEntries;
-	symTabHdr.mNextSection = int(offset) + sizeof(SectionHeader) + symTabHdr.mSectionSize;
-	stream.write(&symTabHdr, sizeof(symTabHdr));
-
-	for (ObjectSectionEntries::iterator it = objectEntries.begin(); it != objectEntries.end(); ++it) {
-		ObjectSectionEntry& ent = *it;
-
-		String objId;
-		int buf = 0;
-		ent.mObj->getObjectId().toString(objId);
-		stream.write((const char*)objId, 36);
-		stream.write(&buf, sizeof(int));
-		stream.write(&ent.mOrdinal, sizeof(ent.mOrdinal));
-	}
-
-	offset = stream.getPosition();
-
-	if (metadataSerializer) {
-		MemoryStream memStrm;
-		metadataSerializer->serialize(mPkg, memStrm);
-
-		SectionHeader metaHdr;
-		metaHdr.mType = SECTION_METADATA;
-		metaHdr.mNextSection = 0;
-		metaHdr.mSectionSize = memStrm.length();
-		metaHdr.mNumEntries = 0;
-		stream.write(&metaHdr, sizeof(metaHdr));
-
-		stream.write(memStrm.data(), memStrm.length());
-	}
+	// and finally, if the caller supplied an editor metadata serializer, allow that to work
+	if (metadataSerializer)
+		metadataSerializer->serialize(mPkg, stream);
 
 	return true;
 }
 
-struct DataEntry
-{
-	void* mData;
-	int mLen;
-};
-
-static Reflection::Object* deserializeObjectFromXml(const char* xml, const std::vector<DataEntry>& dataEntries, DeferredObjectResolves& deferred)
+static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectResolves& deferred)
 {
 	TiXmlDocument doc;
 	doc.Parse(xml);
 	if (doc.Error())
-		return 0;
+		return false;
 
-	TiXmlElement* root = doc.RootElement();
-	const char* id = root->Attribute("id");
-	const char* type = root->Attribute("class");
-	if (id && type) {
-		Reflection::ClassDef* classDef = Reflection::ClassDef::findClassDef(type);
-		if (classDef) {
-			Reflection::Object* obj = classDef->createInstance();
-			if (obj) {
-				// check to see if there is a "data" value, if so, set up the object with the right one
-				const char* ordinal = root->Attribute("data");
-				if (ordinal) {
-					Asset* asset = static_cast<Asset*>(obj);
-					int ord;
-					StringUtil::fromString(ordinal, ord);
-					asset->setData(dataEntries[ord].mData, dataEntries[ord].mLen);
-				}
+	TiXmlElement* objects = doc.RootElement();
+	if (!objects)
+		return false;
 
-				// set the object ID
-				obj->setObjectId(id);
+	TiXmlElement* object = objects->FirstChildElement("object");
 
-				// then populate the properties (first set the defaults on the object)
-				obj->setupPropertyDefaults();
+	while (object) {
+		const char* id = object->Attribute("id");
+		const char* type = object->Attribute("class");
 
-				TiXmlElement* propElem = root->FirstChildElement("property");
-				while (propElem) {
-					const char* name = propElem->Attribute("name");
-					const char* value = propElem->Attribute("value");
-					const Reflection::PropertyDef* prop = classDef->findProperty(name, true);
-					if (prop) {
-						if (value) {
-							if (prop->isPointer()) {
-								// pointers have to wait until all objects are loaded so that
-								// they are available for resolution
-								DeferredResolution def;
-								def.mObject = obj;
-								def.mProp = prop;
-								def.mUUID.fromString(value);
-								deferred.push_back(def);
-							}
-							else {
-								prop->setDataFromString(obj, value);
-							}
-						}
-						else if (prop->isNested()) {
-							// then the property object instance already exists, just 
-							// read in the nested object's property values
-							Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
-							Reflection::ClassDef* c = o->getDerivedClassDef();
+		if (id && type) {
+			Reflection::ClassDef* classDef = Reflection::ClassDef::findClassDef(type);
+			if (classDef) {
+				Reflection::Object* obj = classDef->createInstance();
+				if (obj) {
+					// set the object ID
+					obj->setObjectId(id);
 
-							TiXmlElement* np = propElem->FirstChildElement("property");
-							while (np) {
-								const char* pname = np->Attribute("name");
-								const char* pval = np->Attribute("value");
+					// then populate the properties (first set the defaults on the object)
+					obj->setupPropertyDefaults();
 
-								if (pname && pval) {
-									const Reflection::PropertyDef* pd = c->findProperty(pname);
-									if (pd && pd->isPointer()) {
-										DeferredResolution def;
-										def.mObject = o;
-										def.mProp = pd;
-										def.mUUID.fromString(pval);
-										deferred.push_back(def);
-									}
-									else {
-										pd->setDataFromString(o, pval);
-									}
+					TiXmlElement* propElem = object->FirstChildElement("property");
+					while (propElem) {
+						const char* name = propElem->Attribute("name");
+						const char* value = propElem->Attribute("value");
+						const Reflection::PropertyDef* prop = classDef->findProperty(name, true);
+						if (prop) {
+							if (value) {
+								if (prop->isPointer()) {
+									// pointers have to wait until all objects are loaded so that
+									// they are available for resolution
+									DeferredResolution def;
+									def.mObject = obj;
+									def.mProp = prop;
+									def.mUUID.fromString(value);
+									deferred.push_back(def);
 								}
+								else {
+									prop->setDataFromString(obj, value);
+								}
+							}
+							else if (prop->isNested()) {
+								// then the property object instance already exists, just 
+								// read in the nested object's property values
+								Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
+								Reflection::ClassDef* c = o->getDerivedClassDef();
 
-								np = np->NextSiblingElement("property");
+								TiXmlElement* np = propElem->FirstChildElement("property");
+								while (np) {
+									const char* pname = np->Attribute("name");
+									const char* pval = np->Attribute("value");
+
+									if (pname && pval) {
+										const Reflection::PropertyDef* pd = c->findProperty(pname);
+										if (pd && pd->isPointer()) {
+											DeferredResolution def;
+											def.mObject = o;
+											def.mProp = pd;
+											def.mUUID.fromString(pval);
+											deferred.push_back(def);
+										}
+										else {
+											pd->setDataFromString(o, pval);
+										}
+									}
+
+									np = np->NextSiblingElement("property");
+								}
 							}
 						}
+
+						propElem = propElem->NextSiblingElement("property");
 					}
-
-					propElem = propElem->NextSiblingElement("property");
 				}
-			}
 
-			return obj;
+				pkg->add(obj);
+			}
 		}
+
+		object = object->NextSiblingElement("object");
 	}
 
-	return 0;
+	return true;
 }
-
-struct SymTabEntry
-{
-	char mId[40];
-	int mOrdinal;
-};
 
 bool PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer)
 {
@@ -387,69 +241,40 @@ bool PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& defe
 
 	if (hdr.mVersion != PACKAGE_VERSION) {
 		// TODO: do something to invoke a legacy deserializer?
-		return true;
+		return false;
 	}
 
-	assert(hdr.mNumSections >= 3);
-	if (hdr.mNumSections < 3)
+	// read in the object definitions
+	int len;
+	stream.read(&len, sizeof(len));
+
+	// read this many bytes into a string
+	std::vector<char> xml(len);
+	stream.read(&xml[0], len);
+
+	// and then deserialize objects from that
+	if (!deserializeObjects(&xml[0], mPkg, deferred))
 		return false;
 
-	std::vector<DataEntry> dataEntries;
-	std::vector<Reflection::Object*> objects;
+	// then the data
+	Reflection::ClassDef* assetClass = Asset::getClassDef();
+	UUID id, zero;
+	stream.read(&id, sizeof(id));
 
-	// read in the sections
-	for (int s = 0; s < hdr.mNumSections; ++s) {
-		SectionHeader secHdr;
-		stream.read(&secHdr, sizeof(secHdr));
-
-		if (secHdr.mType == SECTION_DATA) {
-			// slurp it all into the package
-			unsigned char* data = (unsigned char*)mPkg->createDataStorage(secHdr.mSectionSize);
-			stream.read(data, secHdr.mSectionSize);
-
-			// set up pointers to the data for later use
-			dataEntries.resize(secHdr.mNumEntries);
-
-			// and then "parse" the data blob
-			for (int i=0; i<secHdr.mNumEntries; ++i) {
-				int* pLen = (int*)data;
-				dataEntries[i].mLen = *pLen++;
-				dataEntries[i].mData = pLen;
-				data = (unsigned char*)pLen;
-				data += dataEntries[i].mLen;
-			}
+	while (id != zero) {
+		// find in the package, the object by its ID
+		Reflection::Object* obj = mPkg->findById(id);
+		if (obj && obj->getDerivedClassDef()->isA(assetClass)) {
+			Asset* asset = static_cast<Asset*>(obj);
+			asset->deserialize(stream);
 		}
 
-		if (secHdr.mType == SECTION_OBJECT) {
-			objects.resize(secHdr.mNumEntries, 0);
+		stream.read(&id, sizeof(id));
+	}
 
-			for (int i=0; i<secHdr.mNumEntries; ++i) {
-				int len;
-				stream.read(&len, sizeof(len));
-
-				char* buf = new char[len];
-				stream.read(buf, len);
-				objects[i] = deserializeObjectFromXml(buf, dataEntries, deferred);
-				delete [] buf;
-				mPkg->add(objects[i]);
-
-				// also add it to the lookup table for deferred resolution
-				lut[objects[i]->getObjectId()] = objects[i];
-			}
-		}
-
-		if (secHdr.mType == SECTION_SYMTAB) {
-			for (int i=0; i<secHdr.mNumEntries; ++i) {
-				SymTabEntry ent;
-				stream.read(&ent, sizeof(ent));
-				mPkg->addSymTabEntry(objects[ent.mOrdinal]);
-			}
-		}
-
-		if (secHdr.mType == SECTION_METADATA) {
-			if (metadataSerializer)
-				metadataSerializer->deserialize(mPkg, stream);
-		}
+	// then finally, if the caller provided a metadata serializer, use it
+	if (metadataSerializer) {
+		metadataSerializer->deserialize(mPkg, stream);
 	}
 
 	return true;

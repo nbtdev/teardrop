@@ -20,11 +20,8 @@ namespace Teardrop
 		// package format version
 		int mVersion;
 
-		// number of sections in the package
-		int mNumSections;
-
-		// 8 bytes reserved for future use
-		int mReserved[2];
+		// 12 bytes reserved for future use
+		int mReserved[3];
 	};
 
 	class PackageMetadataSerializer;

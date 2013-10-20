@@ -5,26 +5,18 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "StaticMeshAsset.h"
+#include "stdafx.h"
+#include "BufferManager.h"
 
 using namespace Teardrop;
+using namespace Gfx;
 
-TD_CLASS_IMPL(StaticMeshAsset);
+BufferManager* Singleton<BufferManager>::mInst = 0;
 
-StaticMeshAsset::StaticMeshAsset()
+BufferManager::BufferManager()
 {
 }
 
-StaticMeshAsset::~StaticMeshAsset()
+BufferManager::~BufferManager()
 {
-}
-
-int StaticMeshAsset::serialize(Stream& strm)
-{
-	return 0;
-}
-
-int StaticMeshAsset::deserialize(Stream& strm)
-{
-	return 0;
 }

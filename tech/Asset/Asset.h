@@ -13,6 +13,8 @@ is prohibited.
 
 namespace Teardrop
 {
+	class Stream;
+
 	class Asset : public Reflection::Object
 	{
 	public:
@@ -29,6 +31,10 @@ namespace Teardrop
 		void setData(void* data, int len);
 		// we own this data blob
 		void* createData(int len);
+		// write asset data to strm
+		virtual int serialize(Stream& strm);
+		// read asset data from strm
+		virtual int deserialize(Stream& strm);
 
 		TD_DECLARE_ALLOCATOR();
 

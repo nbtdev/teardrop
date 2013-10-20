@@ -5,26 +5,33 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "StaticMeshAsset.h"
+#include "stdafx.h"
+#include "IndexBuffer.h"
 
 using namespace Teardrop;
+using namespace Gfx;
 
-TD_CLASS_IMPL(StaticMeshAsset);
-
-StaticMeshAsset::StaticMeshAsset()
+IndexBuffer::IndexBuffer()
+	: mSize(0)
+	, mCount(0)
 {
 }
 
-StaticMeshAsset::~StaticMeshAsset()
+IndexBuffer::~IndexBuffer()
 {
 }
 
-int StaticMeshAsset::serialize(Stream& strm)
+int IndexBuffer::indexCount()
 {
-	return 0;
+	return mCount;
 }
 
-int StaticMeshAsset::deserialize(Stream& strm)
+int IndexBuffer::triangleCount()
 {
-	return 0;
+	return mCount / 3;
+}
+
+int IndexBuffer::indexSize()
+{
+	return mSize;
 }

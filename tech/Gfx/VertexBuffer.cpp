@@ -1,0 +1,58 @@
+/****************************************************************************
+This source file is (c) Teardrop Games LLC. All rights reserved. 
+Redistribution and/or reproduction, in whole or in part, without prior
+written permission of a duly authorized representative of Teardrop Games LLC
+is prohibited.
+****************************************************************************/
+
+#include "stdafx.h"
+#include "VertexBuffer.h"
+
+using namespace Teardrop;
+using namespace Gfx;
+
+VertexBuffer::VertexBuffer()
+	: mSize(0)
+	, mCount(0)
+{
+}
+
+VertexBuffer::~VertexBuffer()
+{
+}
+
+int VertexBuffer::vertexCount()
+{
+	return mCount;
+}
+
+int VertexBuffer::vertexSize()
+{
+	return mSize;
+}
+
+void VertexBuffer::beginAddVertexElements()
+{	
+}
+
+int VertexBuffer::endAddVertexElements()
+{
+	// recalculate vertex size
+	int size = 0;
+	for (size_t i=0; i<mElements.size(); ++i) {
+		size += mElements[i].size();
+	}
+
+	return size;
+}
+
+VertexElement& VertexBuffer::addVertexElement()
+{
+	mElements.push_back(VertexElement());
+	return mElements.back();
+}
+
+int VertexBuffer::elementCount()
+{
+	return int(mElements.size());
+}

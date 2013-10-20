@@ -5,26 +5,30 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "StaticMeshAsset.h"
+#include "stdafx.h"
+#include "VertexElement.h"
 
 using namespace Teardrop;
+using namespace Gfx;
 
-TD_CLASS_IMPL(StaticMeshAsset);
+static int sTypeSizes[] = {
+	0,	//VET_UNKNOWN,
+	1,	//VET_BYTE,
+	2,	//VET_SHORT,
+	4,	//VET_INT,
+	2,	//VET_HALF,
+	4,	//VET_FLOAT,
+};
 
-StaticMeshAsset::StaticMeshAsset()
+VertexElement::VertexElement()
+	: mType(VET_UNKNOWN)
+	, mCount(0)
+	, mUsage(VEU_UNKNOWN)
+	, mIndex(0)
 {
 }
 
-StaticMeshAsset::~StaticMeshAsset()
+int VertexElement::size()
 {
-}
-
-int StaticMeshAsset::serialize(Stream& strm)
-{
-	return 0;
-}
-
-int StaticMeshAsset::deserialize(Stream& strm)
-{
-	return 0;
+	return sTypeSizes[mType] * mCount;
 }

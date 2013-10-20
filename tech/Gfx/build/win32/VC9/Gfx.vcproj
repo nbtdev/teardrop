@@ -159,6 +159,14 @@
 				Name="Direct3D9"
 				>
 				<File
+					RelativePath="..\..\..\integration\Direct3D9\BufferManagerD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\BufferManagerD3D9.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\integration\Direct3D9\GfxIndexDataD3D9.cpp"
 					>
 				</File>
@@ -261,6 +269,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\integration\Direct3D9\IndexBufferD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\IndexBufferD3D9.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\integration\Direct3D9\ShaderD3D9.cpp"
 					>
 				</File>
@@ -290,6 +306,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\integration\Direct3D9\TextureManagerD3D9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\VertexBufferD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\VertexBufferD3D9.h"
 					>
 				</File>
 				<Filter
@@ -360,6 +384,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\Attribute.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\BufferManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\BufferManager.h"
 			>
 		</File>
 		<File
@@ -597,6 +629,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\IndexBuffer.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\IndexBuffer.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\Material.cpp"
 			>
 		</File>
@@ -610,6 +650,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\MaterialExpression.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Mesh.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Mesh.h"
 			>
 		</File>
 		<File
@@ -661,6 +709,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Submesh.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Submesh.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\Texture2D.cpp"
 			>
 		</File>
@@ -674,6 +730,22 @@
 		</File>
 		<File
 			RelativePath="..\..\..\TextureManager.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexBuffer.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexBuffer.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexElement.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexElement.h"
 			>
 		</File>
 	</Files>

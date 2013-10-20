@@ -50,3 +50,13 @@ void* Asset::createData(int len)
 	mLength = len;
 	return mData;
 }
+
+int Asset::serialize(Stream& /*strm*/)
+{
+	return 0;
+}
+
+int Asset::deserialize(Stream& /*strm*/)
+{
+	return 0;
+}
