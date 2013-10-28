@@ -27,7 +27,8 @@ namespace Teardrop
 			void beginAddVertexElements();
 			VertexElement& addVertexElement();
 			int endAddVertexElements();
-			int elementCount();
+			int vertexElementCount();
+			VertexElement* vertexElement(int index);
 			
 			enum InitFlags {
 				INIT_DYNAMIC = 1,

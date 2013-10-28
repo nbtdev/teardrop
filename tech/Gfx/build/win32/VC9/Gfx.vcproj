@@ -277,6 +277,42 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\integration\Direct3D9\Integration.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RendererD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RendererD3D9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RenderTargetD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RenderTargetD3D9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RenderTextureD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RenderTextureD3D9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RenderWindowD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\RenderWindowD3D9.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\integration\Direct3D9\ShaderD3D9.cpp"
 					>
 				</File>
@@ -392,6 +428,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\BufferManager.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Common.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Common.h"
 			>
 		</File>
 		<File
@@ -658,6 +702,22 @@
 		</File>
 		<File
 			RelativePath="..\..\..\Mesh.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Renderer.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Renderer.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\RenderTarget.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\RenderTarget.h"
 			>
 		</File>
 		<File

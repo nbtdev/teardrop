@@ -25,6 +25,7 @@ Package::~Package()
 void Package::add(Reflection::Object* object)
 {
 	mObjects.push_back(object);
+	addSymTabEntry(object);
 }
 
 void Package::remove(Reflection::Object* object)

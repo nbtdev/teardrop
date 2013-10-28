@@ -336,8 +336,10 @@ static void addFolders(TiXmlElement& parentElem, PackageMetadata* meta, Folder* 
 	}
 }
 
-void PackageMetadata::serialize(Package* pkg, Stream& strm)
+int PackageMetadata::serialize(Package* pkg, Stream& strm)
 {
+	int nBytes = 0;
+
 	// then serialize folder structure to XML
 	TiXmlDocument doc;
 	TiXmlElement folders("folders");
@@ -348,8 +350,10 @@ void PackageMetadata::serialize(Package* pkg, Stream& strm)
 	String xml(printer.CStr());
 
 	int len = xml.length()+1;
-	strm.write(&len, sizeof(len));
-	strm.write((const char*)xml, len);
+	nBytes += strm.write(&len, sizeof(len));
+	nBytes += strm.write((const char*)xml, len);
+
+	return nBytes;
 }
 
 void PackageMetadata::loadFolders(TiXmlElement* elem, Folder* parent, Package* pkg)
@@ -418,21 +422,25 @@ void PackageMetadata::loadFolders(TiXmlElement* elem, Folder* parent, Package* p
 	}
 }
 
-void PackageMetadata::deserialize(Package* pkg, Stream& strm)
+int PackageMetadata::deserialize(Package* pkg, Stream& strm)
 {
+	int nBytes = 0;
+
 	int len;
-	strm.read(&len, sizeof(len));
+	nBytes += strm.read(&len, sizeof(len));
 	char* buf = new char[len];
-	strm.read(buf, len);
+	nBytes += strm.read(buf, len);
 
 	TiXmlDocument doc;
 	doc.Parse(buf);
 	if (doc.Error())
-		return;
+		return 0;
 
 	TiXmlElement* root = doc.RootElement();
 	mRoot = new Folder(getName(), 0);
 	loadFolders(root, mRoot, pkg);
+
+	return nBytes;
 }
 
 void PackageMetadata::getAllMetadata(std::list<Metadata*>& metaList) const

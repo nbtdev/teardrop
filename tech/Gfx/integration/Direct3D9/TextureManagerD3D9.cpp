@@ -23,6 +23,10 @@ TextureManager::~TextureManager()
 	for (Tex2DMap::iterator it = mTex2DMap.begin(); it != mTex2DMap.end(); ++it) {
 		delete it->second;
 	}
+
+	for (RenderTextures::iterator it = mRenderTextures.begin(); it != mRenderTextures.end(); ++it) {
+		delete *it;
+	}
 }
 
 Gfx::Texture2D* TextureManager::createOrFindInstance2D(TextureAsset* texAsset)
@@ -34,6 +38,14 @@ Gfx::Texture2D* TextureManager::createOrFindInstance2D(TextureAsset* texAsset)
 	// else, create and record a new one
 	Direct3D9::Texture2D* tex = TD_NEW Direct3D9::Texture2D(texAsset);
 	mTex2DMap[texAsset->getObjectId()] = tex;
+
+	return tex;
+}
+
+Gfx::Texture2D* TextureManager::createRenderTexture(TextureAsset* proxyAsset)
+{
+	Direct3D9::Texture2D* tex = TD_NEW Direct3D9::Texture2D(proxyAsset);
+	mRenderTextures.push_back(tex);
 
 	return tex;
 }

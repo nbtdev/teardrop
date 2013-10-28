@@ -15,6 +15,8 @@ BufferManager* Singleton<BufferManager>::mInst = 0;
 
 BufferManager::BufferManager()
 {
+	assert(!mInst);
+	mInst = this;
 }
 
 BufferManager::~BufferManager()

@@ -47,9 +47,9 @@ namespace Teardrop
 
 		// Stream implementation
 		//! read data from this file stream
-		bool read(void* pData, size_t len, bool async=false);
+		int read(void* pData, size_t len, bool async=false);
 		//! write data to this file stream
-		bool write(const void* pData, size_t len, bool async=false);
+		int write(const void* pData, size_t len, bool async=false);
 		//! return stream length
 		size_t length() { return m_length; }
 		//! return stream length

@@ -62,7 +62,17 @@ float MathUtil::sqrt(float val)
 	return ::sqrtf(val);
 }
 //---------------------------------------------------------------------------
+int MathUtil::abs(int val)
+{
+	return ::abs(val);
+}
+//---------------------------------------------------------------------------
 float MathUtil::abs(float val)
+{
+	return ::fabs(val);
+}
+//---------------------------------------------------------------------------
+double MathUtil::abs(double val)
 {
 	return ::fabs(val);
 }

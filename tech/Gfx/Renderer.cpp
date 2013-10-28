@@ -6,23 +6,17 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "TextureManager.h"
-#include "Texture2D.h"
-#include <assert.h>
+#include "Renderer.h"
 
 using namespace Teardrop;
 using namespace Gfx;
 
-TextureManager* Singleton<TextureManager>::mInst = 0;
-
-TextureManager::TextureManager()
-{
-	assert(!mInst);
-	mInst = this;
-}
-
-TextureManager::~TextureManager()
+Renderer::Renderer()
 {
 
 }
 
+Renderer::~Renderer()
+{
+
+}

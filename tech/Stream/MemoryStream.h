@@ -29,9 +29,9 @@ namespace Teardrop
 
 		// Stream implementation - note that async flags are ignored for MemoryStream
 		//! read data from this stream
-		bool read(void* pData, size_t len, bool async=false);
+		int read(void* pData, size_t len, bool async=false);
 		//! write data to this stream
-		bool write(const void* pData, size_t len, bool async=false);
+		int write(const void* pData, size_t len, bool async=false);
 		//! return stream length in bytes
 		size_t length();
 		//! return stream position

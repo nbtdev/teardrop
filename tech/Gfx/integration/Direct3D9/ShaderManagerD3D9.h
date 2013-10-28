@@ -27,7 +27,7 @@ namespace Teardrop
 				~ShaderManager();
 
 				Gfx::Shader* createOrFindInstanceOf(Material* sourceMaterial);
-				void release(Shader* shader);
+				void release(Gfx::Shader* shader);
 
 				TD_DECLARE_ALLOCATOR();
 

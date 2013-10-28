@@ -67,3 +67,14 @@ int Mesh::submeshCount()
 {
 	return int(mSubmeshes.size());
 }
+
+Submesh* Mesh::submesh(int index)
+{
+	assert(index>=0 && index<int(mSubmeshes.size()));
+
+	if (index >= 0 && index < int(mSubmeshes.size())) {
+		return mSubmeshes[index];
+	}
+
+	return 0;
+}

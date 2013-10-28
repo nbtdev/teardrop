@@ -6,21 +6,11 @@ is prohibited.
 ****************************************************************************/
 
 #include "RenderWindow.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxCamera.h"
-#include "Gfx/GfxViewport.h"
-#include "Gfx/GfxRenderTarget.h"
-#include "Game/SceneRenderer.h"
-#include "Game/ShadowRenderStep.h"
-#include "Game/SceneRenderStep.h"
-#include "Game/Scene.h"
-#include "Game/Zone.h"
-#include "Math/MathUtil.h"
-#include "Util/_String.h"
-#include "Util/Logger.h"
-#include "Util/Environment.h"
+#include "Gfx/Renderer.h"
+#include "Gfx/RenderTarget.h"
 #include <QTimer>
 #include <QIcon>
+#include <assert.h>
 
 using namespace Teardrop;
 using namespace Tools;
@@ -29,11 +19,7 @@ RenderWindow::RenderWindow(QWidget* parent/* =0 */)
 	: QWidget(parent)
 	, mTimer(0)
 	, mRenderer(0)
-	, mCamera(0)
-	, mViewport(0)
 	, mRT(0)
-	, mScene(0)
-	, mSceneRenderer(0)
 {
 	mTimer = new QTimer(this);
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
@@ -43,38 +29,23 @@ RenderWindow::RenderWindow(QWidget* parent/* =0 */)
 	setWindowTitle("Teardrop Editor - 3D View");
 	show();
 
-	Environment& env = Environment::get();
-	env.pRenderer = mRenderer = GfxRenderer::allocate(env, GetDEFAULTAllocator());
+	// obtain list of renderers, for now just pick first one if present
+	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
+	assert(regs);
 
-	GfxRenderConfig cfg;
-	cfg.bNVPerfHUDAdapter = false;
-	cfg.fullscreen = false;
-	cfg.hWnd = winId();
-	cfg.pLogger = env.pLogger;
-	cfg.vsync = false;
+	if (regs) {
+		mRenderer = regs->create();
+		assert(mRenderer);
 
-	cfg.height = width();
-	cfg.width = height();
+		int flags = 
+			Gfx::Renderer::INIT_FRAMEBUFFER_ALPHA |
+			Gfx::Renderer::INIT_ENABLE_STENCIL_BUFFER |
+			Gfx::Renderer::INIT_ENABLE_DEPTH_BUFFER;
 
-	if (mRenderer->initialize(cfg)) {
-		mRT = mRenderer->createRenderTarget(cfg, FMT_A8R8G8B8, GfxRenderer::RT_WINDOW);
-		mViewport = mRT->addViewport(0, 0, 1, 1);
-
-		mCamera = TD_NEW GfxCamera;
-		mCamera->setAspect(float(width()) / float(height()));
-		mCamera->setNearClip(1);
-		mCamera->setFarClip(2500);
-		mCamera->setFovY(MathUtil::HALF_PI/2);
-		mCamera->setPosition(Vector4::UNIT_SCALE * 100);
-		mCamera->setLookAt(Vector4::ZERO);
-
-		mSceneRenderer = TD_NEW SceneRenderer;
-
-		SceneRenderStep* step = TD_NEW SceneRenderStep;
-		step->setCamera(mCamera);
-		step->setViewport(mViewport);
-		step->setRenderTarget(mRT);
-		mSceneRenderer->addStep(step);
+		// initialize() will return a pointer to the first render target
+		// created, which will be the "main" window
+		mRT = mRenderer->initialize((uintptr_t)winId(), flags);
+		assert(mRT);
 	}
 
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
@@ -82,33 +53,13 @@ RenderWindow::RenderWindow(QWidget* parent/* =0 */)
 
 RenderWindow::~RenderWindow()
 {
-	mRenderer->destroy();
-	GfxRenderer::deallocate(mRenderer);
-	Environment& env = Environment::get();
-	env.pRenderer = 0;
-}
+	if (mRenderer) {
+		mRenderer->shutdown();
+	}
 
-void RenderWindow::setScene(Scene* scene)
-{
-	mScene = scene;
+	delete mRenderer;
 }
 
 void RenderWindow::onIdle()
 {
-	if (mCamera)
-		mCamera->update();
-
-	if (mSceneRenderer && mScene) {
-		ZoneObjects objects;
-		mScene->getCurrentZone()->getVisibleObjects(
-			mCamera->getFrustumPlanes(), objects);
-
-		// render the scene
-		mSceneRenderer->render(objects, mRenderer, mScene, mCamera);
-	}
-}
-
-Scene* RenderWindow::scene()
-{
-	return mScene;
 }

@@ -20,7 +20,7 @@ is prohibited.
 #include "Util/Environment.h"
 #include "Util/FileSystem.h"
 #include "Stream/FileStream.h"
-#include "Gfx/GfxCommon.h"
+#include "Gfx/integration/Direct3D9/Integration.h"
 
 // hacky
 #include "Game/LandscapeScene.h"
@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
 	env.pLogger = &logger;
 	env.isOffline = false;
 
-	Teardrop::setGfxAllocator(GetDEFAULTAllocator());
-	Teardrop::GfxInit();
+	// this is a bit hacky?
+	Teardrop::Gfx::Direct3D9::registerIntegration();
 
 	QApplication a(argc, argv);
 	Teardrop::Tools::Editor w;

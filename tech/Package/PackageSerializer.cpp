@@ -29,7 +29,7 @@ PackageSerializer::~PackageSerializer()
 
 }
 
-static void serializeObjects(const Objects& objects, Stream& stream, std::list<Asset*>& assets)
+static int serializeObjects(const Objects& objects, Stream& stream, std::list<Asset*>& assets)
 {
 	TiXmlDocument doc;
 	TiXmlElement objectsElem("objects");
@@ -102,21 +102,25 @@ static void serializeObjects(const Objects& objects, Stream& stream, std::list<A
 	// then the actual XML
 	const char* xml = printer.CStr();
 	stream.write(xml, len);
+
+	return len + sizeof(len);
 }
 
-bool PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer)
+int PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer)
 {
+	int nBytes = 0;
+
 	// first, the package format version -- we always write the current version
 	PackageHeader hdr;
 	memset(&hdr, 0, sizeof(hdr));
 	hdr.mVersion = PACKAGE_VERSION;
 
-	stream.write(&hdr, sizeof(hdr));
+	nBytes += stream.write(&hdr, sizeof(hdr));
 
 	// then the objects in the package
 	const Objects& objs = mPkg->objects();
 	std::list<Asset*> assetList;
-	serializeObjects(objs, stream, assetList);
+	nBytes += serializeObjects(objs, stream, assetList);
 
 	// then all asset data, if any
 	for (std::list<Asset*>::iterator it = assetList.begin(); it != assetList.end(); ++it) {
@@ -124,24 +128,24 @@ bool PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* met
 
 		// we need to know its ID for later deserialization
 		UUID id = asset->getObjectId();
-		stream.write(&id, sizeof(id));
+		nBytes += stream.write(&id, sizeof(id));
 
 		// then the actual asset data
-		asset->serialize(stream);
+		nBytes += asset->serialize(stream);
 	}
 
 	// mark the end of asset data with an all-zeroes UUID
 	UUID zero;
-	stream.write(&zero, sizeof(zero));
+	nBytes += stream.write(&zero, sizeof(zero));
 
 	// and finally, if the caller supplied an editor metadata serializer, allow that to work
 	if (metadataSerializer)
-		metadataSerializer->serialize(mPkg, stream);
+		nBytes += metadataSerializer->serialize(mPkg, stream);
 
-	return true;
+	return nBytes;
 }
 
-static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectResolves& deferred)
+static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectResolves& deferred, ObjectIdToObject& lut)
 {
 	TiXmlDocument doc;
 	doc.Parse(xml);
@@ -224,6 +228,7 @@ static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectReso
 				}
 
 				pkg->add(obj);
+				lut[obj->getObjectId()] = obj;
 			}
 		}
 
@@ -233,49 +238,51 @@ static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectReso
 	return true;
 }
 
-bool PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer)
+int PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer)
 {
+	int nBytes = 0;
+
 	// first read the header
 	PackageHeader hdr;
-	stream.read(&hdr, sizeof(hdr));
+	nBytes += stream.read(&hdr, sizeof(hdr));
 
 	if (hdr.mVersion != PACKAGE_VERSION) {
 		// TODO: do something to invoke a legacy deserializer?
-		return false;
+		return 0;
 	}
 
 	// read in the object definitions
 	int len;
-	stream.read(&len, sizeof(len));
+	nBytes += stream.read(&len, sizeof(len));
 
 	// read this many bytes into a string
 	std::vector<char> xml(len);
-	stream.read(&xml[0], len);
+	nBytes += stream.read(&xml[0], len);
 
 	// and then deserialize objects from that
-	if (!deserializeObjects(&xml[0], mPkg, deferred))
-		return false;
+	if (!deserializeObjects(&xml[0], mPkg, deferred, lut))
+		return 0;
 
 	// then the data
 	Reflection::ClassDef* assetClass = Asset::getClassDef();
 	UUID id, zero;
-	stream.read(&id, sizeof(id));
+	nBytes += stream.read(&id, sizeof(id));
 
 	while (id != zero) {
 		// find in the package, the object by its ID
 		Reflection::Object* obj = mPkg->findById(id);
 		if (obj && obj->getDerivedClassDef()->isA(assetClass)) {
 			Asset* asset = static_cast<Asset*>(obj);
-			asset->deserialize(stream);
+			nBytes += asset->deserialize(stream);
 		}
 
-		stream.read(&id, sizeof(id));
+		nBytes += stream.read(&id, sizeof(id));
 	}
 
 	// then finally, if the caller provided a metadata serializer, use it
 	if (metadataSerializer) {
-		metadataSerializer->deserialize(mPkg, stream);
+		nBytes += metadataSerializer->deserialize(mPkg, stream);
 	}
 
-	return true;
+	return nBytes;
 }

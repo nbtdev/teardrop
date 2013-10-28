@@ -307,13 +307,13 @@ void Editor::onActivePackageChanged(PackageManager* pkgMgr)
 		mb.exec();
 	}
 	else {
-		// for now, we know it's just Scene
-		Scene* scene = static_cast<Scene*>(list.front());
-		Scene* currentScene = mRenderWindow->scene();
-		if (currentScene)
-			currentScene->destroy();
+		//// for now, we know it's just Scene
+		//Scene* scene = static_cast<Scene*>(list.front());
+		//Scene* currentScene = mRenderWindow->scene();
+		//if (currentScene)
+		//	currentScene->destroy();
 
-		scene->initialize();
-		mRenderWindow->setScene(scene);
+		//scene->initialize();
+		//mRenderWindow->setScene(scene);
 	}
 }

@@ -14,6 +14,7 @@ namespace Teardrop
 {
 	namespace Gfx {
 		class Material;
+		class Mesh;
 	}
 
 	class StaticMeshAsset : public Asset
@@ -26,12 +27,16 @@ namespace Teardrop
 		StaticMeshAsset();
 		~StaticMeshAsset();
 
+		// will create if not already present
+		Gfx::Mesh* mesh();
+
 		int serialize(Stream& strm);
 		int deserialize(Stream& strm);
 
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
+		Gfx::Mesh* mMesh;
 	};
 } // namespace Teardrop
 

@@ -40,7 +40,7 @@ Gfx::Shader* ShaderManager::createOrFindInstanceOf(Material* material)
 	return shader;
 }
 
-void ShaderManager::release(Shader* shader)
+void ShaderManager::release(Gfx::Shader* shader)
 {
 	// TODO: refcounting?
 	mShaders.erase(shader->materialId());

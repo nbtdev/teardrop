@@ -5,24 +5,16 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
-#include "TextureManager.h"
-#include "Texture2D.h"
-#include <assert.h>
+#ifndef DIRECT3D9_INTEGRATION_H
+#define DIRECT3D9_INTEGRATION_H
 
-using namespace Teardrop;
-using namespace Gfx;
-
-TextureManager* Singleton<TextureManager>::mInst = 0;
-
-TextureManager::TextureManager()
+namespace Teardrop 
 {
-	assert(!mInst);
-	mInst = this;
+	namespace Gfx {
+		namespace Direct3D9 {
+			void registerIntegration();
+		}
+	}
 }
 
-TextureManager::~TextureManager()
-{
-
-}
-
+#endif // DIRECT3D9_INTEGRATION_H

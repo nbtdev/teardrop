@@ -20,26 +20,26 @@ namespace Teardrop
 		//
 		struct Util
 		{
-			static bool write(char c, Stream& stream);
-			static bool write(unsigned char c, Stream& stream);
-			static bool write(short s, Stream& stream);
-			static bool write(unsigned short s, Stream& stream);
-			static bool write(int s, Stream& stream);
-			static bool write(unsigned int s, Stream& stream);
-			static bool write(long s, Stream& stream);
-			static bool write(unsigned long s, Stream& stream);
-			static bool write(const char* p, Stream& stream);
-			static bool write(const String& s, Stream& stream);
-			static bool read(char& c, Stream& stream);
-			static bool read(unsigned char& c, Stream& stream);
-			static bool read(short& s, Stream& stream);
-			static bool read(unsigned short& s, Stream& stream);
-			static bool read(int& s, Stream& stream);
-			static bool read(unsigned int& s, Stream& stream);
-			static bool read(long& s, Stream& stream);
-			static bool read(unsigned long& s, Stream& stream);
-			static bool read(char* p, Stream& stream, size_t len);
-			static bool read(String& s, Stream& stream);
+			static int write(char c, Stream& stream);
+			static int write(unsigned char c, Stream& stream);
+			static int write(short s, Stream& stream);
+			static int write(unsigned short s, Stream& stream);
+			static int write(int s, Stream& stream);
+			static int write(unsigned int s, Stream& stream);
+			static int write(long s, Stream& stream);
+			static int write(unsigned long s, Stream& stream);
+			static int write(const char* p, Stream& stream);
+			static int write(const String& s, Stream& stream);
+			static int read(char& c, Stream& stream);
+			static int read(unsigned char& c, Stream& stream);
+			static int read(short& s, Stream& stream);
+			static int read(unsigned short& s, Stream& stream);
+			static int read(int& s, Stream& stream);
+			static int read(unsigned int& s, Stream& stream);
+			static int read(long& s, Stream& stream);
+			static int read(unsigned long& s, Stream& stream);
+			static int read(char* p, Stream& stream, size_t len);
+			static int read(String& s, Stream& stream);
 
 			static bool verifyPlatformDataSizes();
 			static void mapResourceDependencyName(const char* src, char* dest, size_t destLen);

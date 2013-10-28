@@ -41,7 +41,9 @@ namespace Teardrop
 		static float atan(float radians);
 		static float atan2(float r1, float r2);
 		static float sqrt(float val);
+		static int abs(int val);
 		static float abs(float val);
+		static double abs(double val);
 		static float min(float a, float b);
 		static float max(float a, float b);
 		static int min(int a, int b);

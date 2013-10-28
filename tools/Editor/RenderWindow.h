@@ -14,12 +14,11 @@ class QTimer;
 
 namespace Teardrop
 {
-	class GfxRenderer;
-	class GfxCamera;
-	class GfxViewport;
-	class GfxRenderTarget;
-	class Scene;
-	class SceneRenderer;
+	namespace Gfx
+	{
+		class Renderer;
+		class RenderTarget;
+	}
 
 	namespace Tools {
 		class RenderWindow : public QWidget
@@ -30,20 +29,13 @@ namespace Teardrop
 			RenderWindow(QWidget* parent=0);
 			~RenderWindow();
 
-			void setScene(Scene* scene);
-			Scene* scene();
-
 		protected slots:
 			void onIdle();
 
 		private:
 			QTimer* mTimer;
-			GfxRenderer* mRenderer;
-			GfxCamera* mCamera;
-			GfxViewport* mViewport;
-			GfxRenderTarget* mRT;
-			Scene* mScene;
-			SceneRenderer* mSceneRenderer;
+			Gfx::Renderer* mRenderer;
+			Gfx::RenderTarget* mRT;
 		};
 	}
 }

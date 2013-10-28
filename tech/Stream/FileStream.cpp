@@ -31,7 +31,7 @@ FileStream::~FileStream()
 		CloseHandle(m_handle);
 }
 //---------------------------------------------------------------------------
-bool FileStream::read(void* buffer, size_t size, bool async) 
+int FileStream::read(void* buffer, size_t size, bool async) 
 {
 	if ((m_mode & READ && m_handle) == 0)
 		return 0;
@@ -55,7 +55,7 @@ bool FileStream::read(void* buffer, size_t size, bool async)
 		{
 			// EOF
 			m_eof = true;
-			return false;
+			return 0;
 		}
 	}
 
@@ -63,17 +63,19 @@ bool FileStream::read(void* buffer, size_t size, bool async)
 	{
 		BOOL r = GetOverlappedResult(
 			m_handle, pO, &bytesRead, TRUE);
-		m_eof = (r && b && bytesRead == 0);
-		m_position += bytesRead;
-		pO->Offset += bytesRead;
-		return (bytesRead > 0);
+		if (TRUE == r) {
+			m_eof = (r && b && bytesRead == 0);
+			m_position += bytesRead;
+			pO->Offset += bytesRead;
+			return bytesRead;
+		}
 	}
 
 	m_asyncState = READ_PENDING;
-	return true;
+	return bytesRead;
 }
 //---------------------------------------------------------------------------
-bool FileStream::write(const void* buffer, size_t size, bool async) 
+int FileStream::write(const void* buffer, size_t size, bool async) 
 {
 	if ((m_mode & (WRITE|APPEND) && m_handle) == 0)
 		return 0;
@@ -90,15 +92,16 @@ bool FileStream::write(const void* buffer, size_t size, bool async)
 
 	if (!async)
 	{
-		BOOL r = GetOverlappedResult(
-			m_handle, pO, &bytesWritten, TRUE);
-		m_position += bytesWritten;
-		pO->Offset += bytesWritten;
-		return (r == TRUE);
+		if (TRUE == GetOverlappedResult(
+			m_handle, pO, &bytesWritten, TRUE)) {
+			m_position += bytesWritten;
+			pO->Offset += bytesWritten;
+			return bytesWritten;
+		}
 	}
 
 	m_asyncState = WRITE_PENDING;
-	return true;
+	return bytesWritten;
 }
 //---------------------------------------------------------------------------
 bool FileStream::open(const char* filename, int mode, bool /*async*/) 

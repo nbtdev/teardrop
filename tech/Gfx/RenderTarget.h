@@ -5,24 +5,20 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
-#include "TextureManager.h"
-#include "Texture2D.h"
-#include <assert.h>
+#if !defined(RENDERTARGET_INCLUDED)
+#define RENDERTARGET_INCLUDED
 
-using namespace Teardrop;
-using namespace Gfx;
-
-TextureManager* Singleton<TextureManager>::mInst = 0;
-
-TextureManager::TextureManager()
+namespace Teardrop
 {
-	assert(!mInst);
-	mInst = this;
+	namespace Gfx 
+	{
+		class RenderTarget
+		{
+		public:
+			RenderTarget();
+			virtual ~RenderTarget();
+		};
+	}
 }
 
-TextureManager::~TextureManager()
-{
-
-}
-
+#endif // RENDERTARGET_INCLUDED

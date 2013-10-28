@@ -16,6 +16,8 @@ ShaderManager* Singleton<ShaderManager>::mInst = 0;
 
 ShaderManager::ShaderManager()
 {
+	assert(!mInst);
+	mInst = this;
 }
 
 ShaderManager::~ShaderManager()

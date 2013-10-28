@@ -21,7 +21,7 @@ namespace Teardrop
 			return *mInst;
 		}
 
-		void shutdown() {
+		static void shutdown() {
 			delete mInst;
 			mInst = 0;
 		}

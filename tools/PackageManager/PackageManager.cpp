@@ -160,7 +160,7 @@ bool PackageManager::save(const String& path)
 		return false;
 
 	PackageSerializer ser(mPackage);
-	return ser.serialize(strm, mMetadata);
+	return (0 != ser.serialize(strm, mMetadata));
 }
 
 bool PackageManager::load(const String& path, DeferredObjectResolves& deferred, ObjectIdToObject& lut)
@@ -173,7 +173,7 @@ bool PackageManager::load(const String& path, DeferredObjectResolves& deferred, 
 		return false;
 
 	PackageSerializer ser(mPackage);
-	bool rtn = ser.deserialize(strm, deferred, lut, mMetadata);
+	bool rtn = (0 != ser.deserialize(strm, deferred, lut, mMetadata));
 
 	return rtn;
 }

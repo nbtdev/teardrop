@@ -18,8 +18,8 @@ namespace Teardrop
 	public:
 		virtual ~PackageMetadataSerializer();
 
-		virtual void serialize(Package* pkg, Stream& strm) = 0;
-		virtual void deserialize(Package* pkg, Stream& strm) = 0;
+		virtual int serialize(Package* pkg, Stream& strm) = 0;
+		virtual int deserialize(Package* pkg, Stream& strm) = 0;
 	};
 }
 

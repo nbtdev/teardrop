@@ -56,20 +56,20 @@ void MemoryStream::expand()
 	mCapacity = newCap;
 }
 
-bool MemoryStream::read(void* data, size_t len, bool /*async*/)
+int MemoryStream::read(void* data, size_t len, bool /*async*/)
 {
 	int l = int(len);
 	assert(mPos+l < mLen-1);
 	if (mPos+l < mLen-1) {
 		memcpy(data, mData+mPos, len);
 		mPos += l;
-		return true;
+		return len;
 	}
 
-	return false;
+	return 0;
 }
 
-bool MemoryStream::write(const void* data, size_t len, bool /*async*/)
+int MemoryStream::write(const void* data, size_t len, bool /*async*/)
 {
 	int l = int(len);
 	while ((l+mLen) > mCapacity) 
@@ -80,7 +80,7 @@ bool MemoryStream::write(const void* data, size_t len, bool /*async*/)
 	mPos += l;
 	mLen += l;
 
-	return true;
+	return len;
 }
 
 size_t MemoryStream::length()

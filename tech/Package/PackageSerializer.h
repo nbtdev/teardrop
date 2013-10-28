@@ -34,8 +34,8 @@ namespace Teardrop
 
 		static const int PACKAGE_VERSION;
 
-		bool serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
-		bool deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer = 0);
+		int serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
+		int deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer = 0);
 
 	protected:
 		Package* mPkg;

@@ -7,6 +7,7 @@ is prohibited.
 
 #include "stdafx.h"
 #include "VertexBuffer.h"
+#include <assert.h>
 
 using namespace Teardrop;
 using namespace Gfx;
@@ -52,7 +53,17 @@ VertexElement& VertexBuffer::addVertexElement()
 	return mElements.back();
 }
 
-int VertexBuffer::elementCount()
+int VertexBuffer::vertexElementCount()
 {
 	return int(mElements.size());
+}
+
+VertexElement* VertexBuffer::vertexElement(int idx)
+{
+	assert(idx >= 0 && idx < int(mElements.size()));
+	if (idx >= 0 && idx < int(mElements.size())) {
+		return &mElements[idx];
+	}
+
+	return 0;
 }

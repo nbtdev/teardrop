@@ -25,6 +25,7 @@ namespace Teardrop
 			~TextureManager();
 
 			virtual Texture2D* createOrFindInstance2D(TextureAsset* texAsset) = 0;
+			virtual Texture2D* createRenderTexture(TextureAsset* proxyAsset) = 0;
 
 			TD_DECLARE_ALLOCATOR();
 

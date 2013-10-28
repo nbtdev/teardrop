@@ -40,9 +40,16 @@ namespace Teardrop
 			// vertex element size in bytes
 			int size();
 
+			// element data math type
 			VertexElementType mType;
+
+			// number of elements (usually [1..4])
 			int mCount;
+
+			// what this element is meant to be used for 
 			VertexElementUsage mUsage;
+
+			// the zero-based Nth instance of this element in the vertex (i.e. 2 for TEXCOORD2)
 			int mIndex;
 
 			TD_DECLARE_ALLOCATOR();

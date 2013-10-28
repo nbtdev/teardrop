@@ -23,9 +23,9 @@ namespace Teardrop
 		virtual ~Stream();
 
 		//! read data from this stream
-		virtual bool read(void* pData, size_t len, bool async=false) = 0;
+		virtual int read(void* pData, size_t len, bool async=false) = 0;
 		//! write data to this stream
-		virtual bool write(const void* pData, size_t len, bool async=false) = 0;
+		virtual int write(const void* pData, size_t len, bool async=false) = 0;
 		//! return stream length
 		virtual size_t length() = 0;
 		//! return stream position

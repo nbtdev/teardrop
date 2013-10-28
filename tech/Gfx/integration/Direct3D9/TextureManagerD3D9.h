@@ -11,6 +11,7 @@ is prohibited.
 #include "Gfx/TextureManager.h"
 #include "Util/UUID.h"
 #include <map>
+#include <list>
 
 namespace Teardrop
 {
@@ -25,12 +26,16 @@ namespace Teardrop
 				~TextureManager();
 
 				Texture2D* createOrFindInstance2D(TextureAsset* texAsset);
+				Texture2D* createRenderTexture(TextureAsset* proxyAsset);
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
 				typedef std::map<UUID, Texture2D*> Tex2DMap;
 				Tex2DMap mTex2DMap;
+
+				typedef std::list<Texture2D*> RenderTextures;
+				RenderTextures mRenderTextures;
 			};
 		}
 	}
