@@ -28,6 +28,15 @@ namespace Teardrop
 				RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
 				RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
 				void setRenderTarget(RenderTarget* rt);
+				void beginFrame(bool color = true,
+					unsigned int clearColor = 0,
+					bool depth = true,
+					float depthValue = 1,
+					bool stencil = true,
+					unsigned int stencilValue = 0);
+				void beginScene();
+				void endScene();
+				void endFrame();
 
 				IDirect3DDevice9* device();
 
@@ -42,6 +51,7 @@ namespace Teardrop
 
 				typedef std::vector<RenderTarget*> RenderTargets;
 				RenderTargets mRenderTargets;
+				RenderTarget* mCurrentRT;
 			};
 		}
 	}

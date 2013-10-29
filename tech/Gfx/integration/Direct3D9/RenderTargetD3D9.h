@@ -22,6 +22,17 @@ namespace Teardrop
 				RenderTarget(IDirect3DDevice9* device);
 				~RenderTarget();
 
+				void clear(
+					bool color = true,
+					unsigned int clearColor = 0,
+					bool depth = true,
+					float depthValue = 1,
+					bool stencil = true,
+					unsigned int stencilValue = 0);
+				int width();
+				int height();
+				void setCurrent();
+
 				IDirect3DSurface9* surface();
 				IDirect3DSurface9* depthStencil();
 
@@ -34,6 +45,8 @@ namespace Teardrop
 				IDirect3DDevice9* mDevice;
 				IDirect3DSurface9* mSurface;
 				IDirect3DSurface9* mDepthStencil;
+				int mWidth;
+				int mHeight;
 			};
 		}
 	}

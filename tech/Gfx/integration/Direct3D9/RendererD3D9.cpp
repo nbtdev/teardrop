@@ -23,6 +23,9 @@ namespace Direct3D9 {
 Renderer::Renderer()
 	: mD3D9(0)
 	, mDevice(0)
+	, mDepthStencil(0)
+	, mSwapChain(0)
+	, mCurrentRT(0)
 {
 }
 
@@ -104,6 +107,7 @@ Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
 	// the first render target in the list is the default/implicit render target we just created, 
 	// and it has to be a render window
 	Direct3D9::RenderWindow* renderWindow = TD_NEW Direct3D9::RenderWindow(mDevice, mPParams, hWnd);
+	mRenderTargets.push_back(renderWindow);
 
 	IDirect3DSurface9* surface;
 	mDevice->GetRenderTarget(0, &surface);
@@ -136,9 +140,18 @@ void Renderer::shutdown()
 	ShaderManager::shutdown();
 }
 
-void Renderer::setRenderTarget(Gfx::RenderTarget* /*rt*/)
+void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 {
-	//Direct3D9::RenderTarget* rtD3D9 = static_cast<Direct3D9::RenderTarget*>(rt);
+	// check to make sure it actually is one of ours
+	for (size_t r=0; r<mRenderTargets.size(); ++r) {
+		if (mRenderTargets[r] == rt) {
+			if (rt != mCurrentRT) {
+				rt->setCurrent();
+				mCurrentRT = rt;
+				return;
+			}
+		}
+	}
 }
 
 Gfx::RenderTarget* Renderer::createRenderWindow(uintptr_t /*hWnd*/, SurfaceFormat /*fmt*/, int /*flags*/)
@@ -163,6 +176,45 @@ void registerIntegration()
 		reg.mCreateFn = &create;
 		reg.mDisplayName = "Direct3D 9";
 		registerRenderer(&reg);
+	}
+}
+
+void Renderer::beginFrame(
+	bool color /* = true */, unsigned int clearColor /* = 0 */, 
+	bool depth /* = true */, float depthValue /* = 1 */, 
+	bool stencil /* = true */, unsigned int stencilValue /* = 0 */)
+{
+	assert(mCurrentRT);
+	if (mCurrentRT) {
+		mCurrentRT->clear(color, clearColor, depth, depthValue, stencil, stencilValue);
+	}
+
+	assert(mDevice);
+	if (mDevice) {
+		mDevice->BeginScene();
+	}
+}
+
+void Renderer::beginScene()
+{
+
+}
+
+void Renderer::endScene()
+{
+
+}
+
+void Renderer::endFrame()
+{
+	assert(mDevice);
+	if (mDevice) {
+		mDevice->EndScene();
+	}
+
+	assert(mCurrentRT);
+	if (mCurrentRT) {
+		mCurrentRT->present();
 	}
 }
 

@@ -47,6 +47,21 @@ namespace Teardrop
 			virtual RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
 			// set render target as current render target
 			virtual void setRenderTarget(RenderTarget* rt) = 0;
+
+			// begin a new frame render
+			virtual void beginFrame(
+				bool color = true,
+				unsigned int clearColor = 0,
+				bool depth = true,
+				float depthValue = 1,
+				bool stencil = true,
+				unsigned int stencilValue = 0) = 0;
+			// begin a new scene (frame subset)
+			virtual void beginScene() = 0;
+			// end scene
+			virtual void endScene() = 0;
+			// end frame render and swap buffers (if applicable)
+			virtual void endFrame() = 0;
 		};
 	}
 }

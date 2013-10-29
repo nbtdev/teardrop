@@ -17,6 +17,18 @@ namespace Teardrop
 		public:
 			RenderTarget();
 			virtual ~RenderTarget();
+
+			virtual void clear(
+				bool color = true,
+				unsigned int clearColor = 0,
+				bool depth = true,
+				float depthValue = 1,
+				bool stencil = true,
+				unsigned int stencilValue = 0) = 0;
+			virtual int width() = 0;
+			virtual int height() = 0;
+			virtual void setCurrent() = 0;
+			virtual void present() = 0;
 		};
 	}
 }

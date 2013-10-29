@@ -22,6 +22,8 @@ namespace Teardrop
 				RenderWindow(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS& pparams, HWND hWnd);
 				~RenderWindow();
 
+				void present();
+
 				HWND hWnd();
 				D3DPRESENT_PARAMETERS& presentParams();
 
@@ -32,6 +34,7 @@ namespace Teardrop
 			protected:
 				HWND mHwnd;
 				D3DPRESENT_PARAMETERS mPParams;
+				IDirect3DSwapChain9* mSwapChain;
 			};
 		}
 	}

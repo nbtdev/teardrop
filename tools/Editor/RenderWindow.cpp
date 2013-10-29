@@ -62,4 +62,15 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::onIdle()
 {
+	assert(mRenderer);
+	assert(mRT);
+
+	// render a black clear frame for now
+	if (mRenderer && mRT) {
+		mRenderer->setRenderTarget(mRT);
+		mRenderer->beginFrame();
+		mRenderer->beginScene();
+		mRenderer->endScene();
+		mRenderer->endFrame();
+	}
 }

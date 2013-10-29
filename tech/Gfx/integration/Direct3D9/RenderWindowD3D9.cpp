@@ -7,32 +7,53 @@ is prohibited.
 
 #include "stdafx.h"
 #include "RenderWindowD3D9.h"
+#include <assert.h>
 
 namespace Teardrop {
-	namespace Gfx {
-		namespace Direct3D9 {
+namespace Gfx {
+namespace Direct3D9 {
 
-			RenderWindow::RenderWindow(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS& pparams, HWND hWnd)
-				: RenderTarget(device)
-				, mHwnd(hWnd)
-			{
-				mPParams = pparams;
-			}
+RenderWindow::RenderWindow(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS& pparams, HWND hWnd)
+	: RenderTarget(device)
+	, mHwnd(hWnd)
+	, mSwapChain(0)
+{
+	mPParams = pparams;
 
-			RenderWindow::~RenderWindow()
-			{
-			}
+	RECT rect;
+	GetClientRect(hWnd, &rect);
 
-			HWND RenderWindow::hWnd()
-			{
-				return mHwnd;
-			}
+	mWidth = rect.right - rect.left;
+	mHeight = rect.bottom - rect.top;
+}
 
-			D3DPRESENT_PARAMETERS& RenderWindow::presentParams()
-			{
-				return mPParams;
-			}
+RenderWindow::~RenderWindow()
+{
+}
 
-		} // namespace Direct3D9
-	} // namespace Gfx
+HWND RenderWindow::hWnd()
+{
+	return mHwnd;
+}
+
+D3DPRESENT_PARAMETERS& RenderWindow::presentParams()
+{
+	return mPParams;
+}
+
+void RenderWindow::present()
+{
+	assert(mDevice);
+	if (mDevice) {
+		if (mSwapChain) {
+			mSwapChain->Present(0, 0, 0, 0, 0);
+		}
+		else {
+			mDevice->Present(0, 0, 0, 0);
+		}
+	}
+}
+
+} // namespace Direct3D9
+} // namespace Gfx
 } // namespace Teardrop
