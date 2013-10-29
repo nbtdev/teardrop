@@ -16,6 +16,8 @@ namespace Teardrop
 	{
 		class RenderTarget;
 		class Texture2D;
+		class Camera;
+		class Viewport;
 
 		class Renderer
 		{
@@ -57,7 +59,7 @@ namespace Teardrop
 				bool stencil = true,
 				unsigned int stencilValue = 0) = 0;
 			// begin a new scene (frame subset)
-			virtual void beginScene() = 0;
+			virtual void beginScene(Camera* camera, Viewport* vp) = 0;
 			// end scene
 			virtual void endScene() = 0;
 			// end frame render and swap buffers (if applicable)

@@ -9,6 +9,7 @@ is prohibited.
 #define RENDERTARGETD3D9_INCLUDED
 
 #include "Gfx/RenderTarget.h"
+#include <map>
 
 namespace Teardrop
 {
@@ -32,6 +33,8 @@ namespace Teardrop
 				int width();
 				int height();
 				void setCurrent();
+				Viewport* addViewport(float x=0, float y=0, float w=1, float h=1, unsigned int zOrder=0);
+				void releaseViewport(Viewport* vp);
 
 				IDirect3DSurface9* surface();
 				IDirect3DSurface9* depthStencil();
@@ -47,6 +50,9 @@ namespace Teardrop
 				IDirect3DSurface9* mDepthStencil;
 				int mWidth;
 				int mHeight;
+
+				typedef std::multimap<unsigned int /*zOrder*/, Viewport*> Viewports;
+				Viewports mViewports;
 			};
 		}
 	}

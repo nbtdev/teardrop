@@ -10,7 +10,6 @@ is prohibited.
 
 #include "Gfx/GfxCommon.h"
 #include "Math/Vector2.h"
-#include "Math/Matrix44.h"
 
 namespace Teardrop
 {
@@ -21,11 +20,8 @@ namespace Teardrop
 		class Viewport
 		{
 		public:
-			Viewport();
+			Viewport(RenderTarget* rt);
 			virtual ~Viewport();
-
-			virtual bool initialize(RenderTarget* rt);
-			virtual bool destroy();
 
 			virtual void updateDimensions();
 
@@ -37,10 +33,6 @@ namespace Teardrop
 			const RenderTarget* getRenderTarget() const;
 			bool isEnabled() const;
 			bool getClearEachFrame() const;
-			const Matrix44& getViewMatrix() const;
-			const Matrix44& getProjectionMatrix() const;
-			//const GfxMeshInstance* getVisibleMeshes() const;
-			//size_t getNumVisibleMeshes() const;
 
 			/*
 				Mutators
@@ -50,9 +42,6 @@ namespace Teardrop
 			void translate(const Vector2& pos, bool normalized);
 			void enable(bool enabled);
 			void setClearEachFrame(bool clear);
-			void setViewMatrix(const Matrix44& view);
-			void setProjectionMatrix(const Matrix44& proj);
-			//void setVisibleMeshes(const GfxMeshInstance* pMeshes, size_t count);
 			
 			TD_DECLARE_ALLOCATOR();
 
@@ -62,10 +51,6 @@ namespace Teardrop
 			Vector2 mPosNorm;
 			Vector2 mSizeNorm;
 			RenderTarget* mRT;
-			Matrix44 mView;
-			Matrix44 mProj;
-			//GfxMeshInstance* m_pVisibleMeshes;
-			//size_t m_numVisibleMeshes;
 			bool mEnabled;
 			bool mClearEachRender;
 		};

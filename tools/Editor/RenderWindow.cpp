@@ -8,6 +8,8 @@ is prohibited.
 #include "RenderWindow.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
+#include "Gfx/Camera.h"
+#include "Gfx/Viewport.h"
 #include <QTimer>
 #include <QIcon>
 #include <assert.h>
@@ -20,6 +22,8 @@ RenderWindow::RenderWindow(QWidget* parent/* =0 */)
 	, mTimer(0)
 	, mRenderer(0)
 	, mRT(0)
+	, mCamera(0)
+	, mViewport(0)
 {
 	mTimer = new QTimer(this);
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
@@ -46,6 +50,11 @@ RenderWindow::RenderWindow(QWidget* parent/* =0 */)
 		// created, which will be the "main" window
 		mRT = mRenderer->initialize((uintptr_t)winId(), flags);
 		assert(mRT);
+
+		if (mRT) {
+			mCamera = TD_NEW Gfx::Camera;
+			mViewport = mRT->addViewport();
+		}
 	}
 
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
@@ -53,6 +62,12 @@ RenderWindow::RenderWindow(QWidget* parent/* =0 */)
 
 RenderWindow::~RenderWindow()
 {
+	delete mCamera;
+
+	if (mRT) {
+		mRT->releaseViewport(mViewport);
+	}
+
 	if (mRenderer) {
 		mRenderer->shutdown();
 	}
@@ -69,7 +84,7 @@ void RenderWindow::onIdle()
 	if (mRenderer && mRT) {
 		mRenderer->setRenderTarget(mRT);
 		mRenderer->beginFrame();
-		mRenderer->beginScene();
+		mRenderer->beginScene(mCamera, mViewport);
 		mRenderer->endScene();
 		mRenderer->endFrame();
 	}

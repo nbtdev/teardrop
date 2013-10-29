@@ -7,6 +7,8 @@ is prohibited.
 
 #include "stdafx.h"
 #include "RenderTargetD3D9.h"
+#include "ViewportD3D9.h"
+#include "Math/Vector2.h"
 #include <assert.h>
 
 namespace Teardrop {
@@ -25,7 +27,9 @@ RenderTarget::RenderTarget(IDirect3DDevice9* device)
 
 RenderTarget::~RenderTarget()
 {
-
+	for (Viewports::iterator it = mViewports.begin(); it != mViewports.end(); ++it) {
+		delete it->second;
+	}
 }
 
 IDirect3DSurface9* RenderTarget::surface()
@@ -87,6 +91,29 @@ void RenderTarget::setCurrent()
 	if (mDevice) {
 		// TODO: support MRT
 		mDevice->SetRenderTarget(0, mSurface);
+	}
+}
+
+Gfx::Viewport* RenderTarget::addViewport(float x/* =0 */, float y/* =0 */, float w/* =1 */, float h/* =1 */, unsigned int zOrder/* =0 */)
+{
+	Viewport* vp = TD_NEW Viewport(this);
+
+	vp->setPosition(Vector2(x, y), true);
+	vp->setSize(Vector2(w, h), true);
+
+	Viewports::value_type val(zOrder, vp);
+	mViewports.insert(val);
+	return vp;
+}
+
+void RenderTarget::releaseViewport(Gfx::Viewport* vp)
+{
+	for (Viewports::iterator it = mViewports.begin(); it != mViewports.end(); ++it) {
+		if (it->second == vp) {
+			mViewports.erase(it);
+			delete vp;
+			return;
+		}
 	}
 }
 

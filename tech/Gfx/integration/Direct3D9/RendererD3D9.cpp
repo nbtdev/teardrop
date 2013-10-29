@@ -26,6 +26,8 @@ Renderer::Renderer()
 	, mDepthStencil(0)
 	, mSwapChain(0)
 	, mCurrentRT(0)
+	, mCurrentCamera(0)
+	, mCurrentVP(0)
 {
 }
 
@@ -195,9 +197,10 @@ void Renderer::beginFrame(
 	}
 }
 
-void Renderer::beginScene()
+void Renderer::beginScene(Camera* camera, Viewport* vp)
 {
-
+	mCurrentCamera = camera;
+	mCurrentVP = vp;
 }
 
 void Renderer::endScene()

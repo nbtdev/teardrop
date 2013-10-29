@@ -8,37 +8,25 @@ is prohibited.
 #include "stdafx.h"
 #include "Viewport.h"
 #include "RenderTarget.h"
-//#include "GfxMeshInstance.h"
+#include <assert.h>
 
 using namespace Teardrop;
 using namespace Gfx;
 
-Viewport::Viewport()
+Viewport::Viewport(RenderTarget* rt)
 	: mPos(Vector2::ZERO)
 	, mSize(Vector2::ZERO)
 	, mPosNorm(Vector2::ZERO)
 	, mSizeNorm(Vector2::ZERO)
-	, mRT(0)
+	, mRT(rt)
 	, mEnabled(false)
 	, mClearEachRender(true)
-	//, m_pVisibleMeshes(0)
-	//, m_numVisibleMeshes(0)
 {
+	assert(rt);
 }
 
 Viewport::~Viewport()
 {
-}
-
-bool Viewport::initialize(RenderTarget* rt)
-{
-	mRT = rt;
-	return true;
-}
-
-bool Viewport::destroy()
-{
-	return true;
 }
 
 const Vector2& Viewport::getPosition(bool normalized) const
@@ -60,96 +48,58 @@ const Vector2& Viewport::getSize(bool normalized) const
 void Viewport::setPosition(const Vector2& pos, bool normalized)
 {
 	mPos = pos;
-	if (normalized)
-	{
-		mPosNorm = pos;
-		mPos.x *= (float)mRT->width();
-		mPos.y *= (float)mRT->height();
-	}
-	else
-	{
-		mPosNorm.x = mPos.x / (float)mRT->width();
-		mPosNorm.y = mPos.y / (float)mRT->height();
+
+	assert(mRT);
+	if (mRT) {
+		if (normalized)
+		{
+			mPosNorm = pos;
+			mPos.x *= (float)mRT->width();
+			mPos.y *= (float)mRT->height();
+		}
+		else
+		{
+			mPosNorm.x = mPos.x / (float)mRT->width();
+			mPosNorm.y = mPos.y / (float)mRT->height();
+		}
 	}
 }
 
 void Viewport::translate(const Vector2& pos, bool normalized)
 {
-	Vector2 p(pos);
+	assert(mRT);
+	if (mRT) {
+		Vector2 p(pos);
 
-	if (normalized)
-	{
-		p.x *= (float)mRT->width();
-		p.y *= (float)mRT->height();
+		if (normalized)
+		{
+			p.x *= (float)mRT->width();
+			p.y *= (float)mRT->height();
+		}
+
+		setPosition(mPos + p, false);
 	}
-
-	setPosition(mPos + p, false);
 }
 
 void Viewport::setSize(const Vector2& size, bool normalized)
 {
 	mSize = size;
-	if (normalized)
-	{
-		mSizeNorm = size;
-		mSize.x *= (float)mRT->width();
-		mSize.y *= (float)mRT->height();
+
+	assert(mRT);
+	if (mRT) {
+		if (normalized)
+		{
+			mSizeNorm = size;
+			mSize.x *= (float)mRT->width();
+			mSize.y *= (float)mRT->height();
+		}
+		else
+		{
+			mSizeNorm.x = mSize.x / (float)mRT->width();
+			mSizeNorm.y = mSize.y / (float)mRT->height();
+		}
 	}
-	else
-	{
-		mSizeNorm.x = mSize.x / (float)mRT->width();
-		mSizeNorm.y = mSize.y / (float)mRT->height();
-	}
 }
-
-const Matrix44& Viewport::getViewMatrix() const
-{
-	return mView;
-}
-
-const Matrix44& Viewport::getProjectionMatrix() const
-{
-	return mProj;
-}
-
-void Viewport::setViewMatrix(const Matrix44& view)
-{
-	mView = view;
-}
-
-void Viewport::setProjectionMatrix(const Matrix44& proj)
-{
-	mProj = proj;
-}
-//
-//void Viewport::setVisibleMeshes(const GfxMeshInstance* pMeshes, size_t ct)
-//{
-//	// if somehow we still have a pointer value, discard the existing block
-//	if (m_pVisibleMeshes)
-//	{
-//		GFX_FREE(m_pVisibleMeshes);
-//	}
-//
-//	m_numVisibleMeshes = ct;
-//	m_pVisibleMeshes = 0;
-//
-//	if (pMeshes && ct)
-//	{
-//		// copy the mesh instance block
-//		m_pVisibleMeshes = (GfxMeshInstance*)GFX_ALLOCATE(sizeof(GfxMeshInstance) * ct);
-//		memcpy(m_pVisibleMeshes, pMeshes, sizeof(GfxMeshInstance) * ct);
-//	}
-//}
-//
-//const GfxMeshInstance* Viewport::getVisibleMeshes() const
-//{
-//	return m_pVisibleMeshes;
-//}
-//
-//size_t Viewport::getNumVisibleMeshes() const
-//{
-//	return m_numVisibleMeshes;
-//}
 
 const Gfx::RenderTarget* Viewport::getRenderTarget() const
 {
@@ -178,11 +128,14 @@ void Viewport::setClearEachFrame(bool clear)
 
 void Viewport::updateDimensions()
 {
-	mPos = Vector2(
-		mPosNorm.x * (float)mRT->width(),
-		mPosNorm.y * (float)mRT->height());
+	assert(mRT);
+	if (mRT) {
+		mPos = Vector2(
+			mPosNorm.x * (float)mRT->width(),
+			mPosNorm.y * (float)mRT->height());
 
-	mSize = Vector2(
-		mSizeNorm.x * (float)mRT->width(),
-		mSizeNorm.y * (float)mRT->height());
+		mSize = Vector2(
+			mSizeNorm.x * (float)mRT->width(),
+			mSizeNorm.y * (float)mRT->height());
+	}
 }

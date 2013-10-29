@@ -155,14 +155,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\..\Camera.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Viewport.cpp"
-				>
-			</File>
 			<Filter
 				Name="Direct3D9"
 				>
@@ -360,6 +352,14 @@
 					RelativePath="..\..\..\integration\Direct3D9\VertexBufferD3D9.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\ViewportD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\ViewportD3D9.h"
+					>
+				</File>
 				<Filter
 					Name="shader"
 					>
@@ -436,6 +436,10 @@
 		</File>
 		<File
 			RelativePath="..\..\..\BufferManager.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Camera.cpp"
 			>
 		</File>
 		<File
@@ -818,6 +822,10 @@
 		</File>
 		<File
 			RelativePath="..\..\..\VertexElement.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Viewport.cpp"
 			>
 		</File>
 		<File

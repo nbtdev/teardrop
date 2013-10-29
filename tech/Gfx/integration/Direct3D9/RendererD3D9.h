@@ -9,6 +9,7 @@ is prohibited.
 #define RENDERERD3D9_INCLUDED
 
 #include "Gfx/Renderer.h"
+#include "Math/Matrix44.h"
 #include <vector>
 
 namespace Teardrop
@@ -34,7 +35,7 @@ namespace Teardrop
 					float depthValue = 1,
 					bool stencil = true,
 					unsigned int stencilValue = 0);
-				void beginScene();
+				void beginScene(Camera* camera, Viewport* vp);
 				void endScene();
 				void endFrame();
 
@@ -52,6 +53,9 @@ namespace Teardrop
 				typedef std::vector<RenderTarget*> RenderTargets;
 				RenderTargets mRenderTargets;
 				RenderTarget* mCurrentRT;
+
+				Camera* mCurrentCamera;
+				Viewport* mCurrentVP;
 			};
 		}
 	}
