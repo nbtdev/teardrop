@@ -38,6 +38,8 @@ namespace Teardrop
 				void beginScene(Camera* camera, Viewport* vp);
 				void endScene();
 				void endFrame();
+				void apply(Material* material);
+				void render(Submesh* submesh);
 
 				IDirect3DDevice9* device();
 

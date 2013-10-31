@@ -41,8 +41,10 @@ bool Material::destroy()
 
 Shader* Material::shader()
 {
-	if (!mShader)
+	if (!mShader) {
 		mShader = ShaderManager::instance().createOrFindInstanceOf(this);
+		mShader->initialize();
+	}
 
 	return mShader;
 }
@@ -50,4 +52,9 @@ Shader* Material::shader()
 void Material::addConnection(Connection* conn)
 {
 	mConnections.insert(Connections::value_type(conn->input(), conn));
+}
+
+void Material::apply()
+{
+	shader()->apply();
 }

@@ -13,9 +13,11 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D9 {
 
-VertexBuffer::VertexBuffer(IDirect3DDevice9* device)
-	: mD3D9Buffer(0)
+VertexBuffer::VertexBuffer(IDirect3DDevice9* device, Submesh* parent)
+	: Gfx::VertexBuffer(parent)
+	, mD3D9Buffer(0)
 	, mDevice(device)
+	, mD3D9Desc(0)
 	, mInitFlags(0)
 {
 }
@@ -26,6 +28,8 @@ VertexBuffer::~VertexBuffer()
 	{
 		mD3D9Buffer->Release();
 	}
+
+	delete [] mD3D9Desc;
 }
 
 bool VertexBuffer::initialize(int vertexCount, int initFlags, void* data/* =0 */)

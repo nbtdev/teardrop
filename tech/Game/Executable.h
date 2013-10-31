@@ -24,9 +24,11 @@ namespace Teardrop
 		Executable();
 		~Executable();
 
-		bool initialize();
-		bool destroy();
+		virtual bool onPreLoad();
+		virtual bool onPostLoad();
 		virtual void tick();
+		virtual bool onPreUnload();
+		virtual bool onPostUnload();
 
 		TD_DECLARE_ALLOCATOR();
 

@@ -6,33 +6,19 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "IndexBuffer.h"
+#include "VertexDeclaration.h"
 
-using namespace Teardrop;
-using namespace Gfx;
+namespace Teardrop {
+namespace Gfx {
 
-IndexBuffer::IndexBuffer(Submesh* parent)
-	: mSize(0)
-	, mCount(0)
-	, mParent(parent)
+VertexDeclaration::VertexDeclaration(Submesh* parent)
+	: mParent(parent)
 {
 }
 
-IndexBuffer::~IndexBuffer()
+VertexDeclaration::~VertexDeclaration()
 {
 }
 
-int IndexBuffer::indexCount()
-{
-	return mCount;
-}
-
-int IndexBuffer::triangleCount()
-{
-	return mCount / 3;
-}
-
-int IndexBuffer::indexSize()
-{
-	return mSize;
-}
+} // namespace Gfx
+} // namespace Teardrop

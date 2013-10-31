@@ -20,15 +20,17 @@ namespace Teardrop
 			class Shader : public Gfx::Shader
 			{
 			public:
-				Shader(Material* mtl);
+				Shader(IDirect3DDevice9* device, Material* mtl);
 				~Shader();
 
 				bool initialize();
 				bool destroy();
+				void apply();
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
+				IDirect3DDevice9* mDevice;
 				ID3DXEffect* mFX;
 				D3DXHANDLE mTechnique;
 				D3DXHANDLE mTechniqueShadowCast;

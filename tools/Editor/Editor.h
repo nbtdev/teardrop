@@ -21,6 +21,10 @@ namespace Teardrop
 {
 	class Scene;
 
+	namespace Gfx {
+		class Renderer;
+	}
+
 	namespace Tools
 	{
 		class PropertyGrid;
@@ -68,6 +72,7 @@ namespace Teardrop
 
 			Project* mProject;
 			Scene* mScene;
+			Gfx::Renderer* mRenderer;
 
 			QCursor mCursor;
 

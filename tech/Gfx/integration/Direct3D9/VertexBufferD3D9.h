@@ -19,7 +19,7 @@ namespace Teardrop
 			class VertexBuffer : public Gfx::VertexBuffer
 			{
 			public:
-				VertexBuffer(IDirect3DDevice9* device);
+				VertexBuffer(IDirect3DDevice9* device, Submesh* parent);
 				~VertexBuffer();
 
 				bool initialize(int vertexCount, int initFlags, void* data=0);
@@ -34,6 +34,7 @@ namespace Teardrop
 			protected:
 				IDirect3DVertexBuffer9* mD3D9Buffer;
 				IDirect3DDevice9* mDevice;
+				D3DVERTEXELEMENT9* mD3D9Desc;
 				int mInitFlags;
 			};
 		}

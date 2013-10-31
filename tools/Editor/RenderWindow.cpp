@@ -17,10 +17,10 @@ is prohibited.
 using namespace Teardrop;
 using namespace Tools;
 
-RenderWindow::RenderWindow(QWidget* parent/* =0 */)
+RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	: QWidget(parent)
 	, mTimer(0)
-	, mRenderer(0)
+	, mRenderer(renderer)
 	, mRT(0)
 	, mCamera(0)
 	, mViewport(0)
@@ -33,28 +33,21 @@ RenderWindow::RenderWindow(QWidget* parent/* =0 */)
 	setWindowTitle("Teardrop Editor - 3D View");
 	show();
 
-	// obtain list of renderers, for now just pick first one if present
-	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
-	assert(regs);
+	assert(mRenderer);
 
-	if (regs) {
-		mRenderer = regs->create();
-		assert(mRenderer);
+	int flags = 
+		Gfx::Renderer::INIT_FRAMEBUFFER_ALPHA |
+		Gfx::Renderer::INIT_ENABLE_STENCIL_BUFFER |
+		Gfx::Renderer::INIT_ENABLE_DEPTH_BUFFER;
 
-		int flags = 
-			Gfx::Renderer::INIT_FRAMEBUFFER_ALPHA |
-			Gfx::Renderer::INIT_ENABLE_STENCIL_BUFFER |
-			Gfx::Renderer::INIT_ENABLE_DEPTH_BUFFER;
+	// initialize() will return a pointer to the first render target
+	// created, which will be the "main" window
+	mRT = mRenderer->initialize((uintptr_t)winId(), flags);
+	assert(mRT);
 
-		// initialize() will return a pointer to the first render target
-		// created, which will be the "main" window
-		mRT = mRenderer->initialize((uintptr_t)winId(), flags);
-		assert(mRT);
-
-		if (mRT) {
-			mCamera = TD_NEW Gfx::Camera;
-			mViewport = mRT->addViewport();
-		}
+	if (mRT) {
+		mCamera = TD_NEW Gfx::Camera;
+		mViewport = mRT->addViewport();
 	}
 
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
@@ -67,12 +60,6 @@ RenderWindow::~RenderWindow()
 	if (mRT) {
 		mRT->releaseViewport(mViewport);
 	}
-
-	if (mRenderer) {
-		mRenderer->shutdown();
-	}
-
-	delete mRenderer;
 }
 
 void RenderWindow::onIdle()

@@ -5,43 +5,28 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "Logic.h"
+#include "StaticMeshScene.h"
 
 using namespace Teardrop;
+using namespace Tools;
 
-TD_CLASS_IMPL(Logic);
+TD_CLASS_IMPL(StaticMeshScene);
 
-Logic::Logic()
+StaticMeshScene::StaticMeshScene()
+	: mAsset(0)
 {
-
 }
 
-Logic::~Logic()
+StaticMeshScene::StaticMeshScene(StaticMeshAsset* meshAsset)
+	: mAsset(meshAsset)
 {
-
 }
 
-bool Logic::onPreLoad(Executable* /*exe*/)
+StaticMeshScene::~StaticMeshScene()
 {
-	return true;
 }
 
-bool Logic::onPostLoad(Executable* /*exe*/)
+StaticMeshAsset* StaticMeshScene::asset()
 {
-	return true;
-}
-
-bool Logic::onPreUnload(Executable* /*exe*/)
-{
-	return true;
-}
-
-bool Logic::onPostUnload(Executable* /*exe*/)
-{
-	return true;
-}
-
-bool Logic::update(Executable* /*exe*/)
-{
-	return true;
+	return mAsset;
 }

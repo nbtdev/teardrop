@@ -23,7 +23,7 @@ namespace Teardrop
 			class ShaderManager : public Gfx::ShaderManager
 			{
 			public:
-				ShaderManager();
+				ShaderManager(IDirect3DDevice9* device);
 				~ShaderManager();
 
 				Gfx::Shader* createOrFindInstanceOf(Material* sourceMaterial);
@@ -32,6 +32,8 @@ namespace Teardrop
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
+				IDirect3DDevice9* mDevice;
+
 				typedef std::map<UUID, Direct3D9::Shader*> Shaders;
 				Shaders mShaders;
 			};

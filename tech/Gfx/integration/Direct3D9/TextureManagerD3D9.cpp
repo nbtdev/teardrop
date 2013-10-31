@@ -9,13 +9,16 @@ is prohibited.
 #include "integration/Direct3D9/TextureManagerD3D9.h"
 #include "integration/Direct3D9/Texture2DD3D9.h"
 #include "Asset/TextureAsset.h"
+#include <assert.h>
 
 namespace Teardrop {
 namespace Gfx {
 namespace Direct3D9 {
 
-TextureManager::TextureManager()
+TextureManager::TextureManager(IDirect3DDevice9* device)
+	: mDevice(device)
 {
+	assert(mDevice);
 }
 
 TextureManager::~TextureManager()
@@ -36,7 +39,7 @@ Gfx::Texture2D* TextureManager::createOrFindInstance2D(TextureAsset* texAsset)
 		return it->second;
 
 	// else, create and record a new one
-	Direct3D9::Texture2D* tex = TD_NEW Direct3D9::Texture2D(texAsset);
+	Direct3D9::Texture2D* tex = TD_NEW Direct3D9::Texture2D(mDevice, texAsset);
 	mTex2DMap[texAsset->getObjectId()] = tex;
 
 	return tex;
@@ -44,7 +47,7 @@ Gfx::Texture2D* TextureManager::createOrFindInstance2D(TextureAsset* texAsset)
 
 Gfx::Texture2D* TextureManager::createRenderTexture(TextureAsset* proxyAsset)
 {
-	Direct3D9::Texture2D* tex = TD_NEW Direct3D9::Texture2D(proxyAsset);
+	Direct3D9::Texture2D* tex = TD_NEW Direct3D9::Texture2D(mDevice, proxyAsset);
 	mRenderTextures.push_back(tex);
 
 	return tex;

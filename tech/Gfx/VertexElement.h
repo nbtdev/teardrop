@@ -16,7 +16,6 @@ namespace Teardrop
 			VET_UNKNOWN,
 			VET_BYTE,
 			VET_SHORT,
-			VET_INT,
 			VET_HALF,
 			VET_FLOAT,
 		};

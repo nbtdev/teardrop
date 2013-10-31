@@ -33,6 +33,7 @@ namespace Teardrop
 
 			bool initialize();
 			bool destroy();
+			void apply();
 
 			Shader* shader();
 			void addConnection(Connection* conn);

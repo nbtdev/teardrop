@@ -13,8 +13,9 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D9 {
 
-IndexBuffer::IndexBuffer(IDirect3DDevice9* device)
-	: mD3D9Buffer(0)
+IndexBuffer::IndexBuffer(IDirect3DDevice9* device, Submesh* parent)
+	: Gfx::IndexBuffer(parent)
+	, mD3D9Buffer(0)
 	, mDevice(device)
 {
 }

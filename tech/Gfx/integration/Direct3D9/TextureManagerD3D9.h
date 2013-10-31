@@ -22,7 +22,7 @@ namespace Teardrop
 			class TextureManager : public Teardrop::Gfx::TextureManager
 			{
 			public:
-				TextureManager();
+				TextureManager(IDirect3DDevice9* device);
 				~TextureManager();
 
 				Texture2D* createOrFindInstance2D(TextureAsset* texAsset);
@@ -31,6 +31,8 @@ namespace Teardrop
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
+				IDirect3DDevice9* mDevice;
+
 				typedef std::map<UUID, Texture2D*> Tex2DMap;
 				Tex2DMap mTex2DMap;
 

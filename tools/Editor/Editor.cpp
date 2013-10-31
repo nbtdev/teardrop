@@ -16,6 +16,7 @@ is prohibited.
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/PackageManager.h"
 #include "Game/Scene.h"
+#include "Gfx/Renderer.h"
 #include "Util/FileSystem.h"
 #include "FreeImage.h"
 #include <QDockWidget>
@@ -38,6 +39,8 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	, m3DView(0)
 	, mPropGridDesc(0)
 	, mProject(0)
+	, mScene(0)
+	, mRenderer(0)
 	, mRenderWindow(0)
 {
 	FreeImage_Initialise();
@@ -115,12 +118,28 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	if (mPreferences.general().mLoadLastProject && projs.size())
 		openProject((const char*)projs.front());
 
+	// create renderer instance
+	// obtain list of renderers, for now just pick first one if present
+	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
+	assert(regs);
+
+	if (regs) {
+		mRenderer = regs->create();
+		assert(mRenderer);
+	}
+
 	// set up render window
-	mRenderWindow = new RenderWindow();
+	mRenderWindow = new RenderWindow(mRenderer);
 }
 
 Editor::~Editor()
 {
+	if (mRenderer) {
+		mRenderer->shutdown();
+	}
+
+	delete mRenderer;
+
 	mPreferences.save();
 	delete mProject;
 	FreeImage_DeInitialise();

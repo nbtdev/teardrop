@@ -12,9 +12,10 @@ is prohibited.
 using namespace Teardrop;
 using namespace Gfx;
 
-VertexBuffer::VertexBuffer()
+VertexBuffer::VertexBuffer(Submesh* parent)
 	: mSize(0)
 	, mCount(0)
+	, mParent(parent)
 {
 }
 

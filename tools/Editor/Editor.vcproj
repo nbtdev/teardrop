@@ -922,6 +922,18 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<Filter
+			Name="Viewers"
+			>
+			<File
+				RelativePath=".\Viewers\StaticMeshScene.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Viewers\StaticMeshScene.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\Editor.rc"
 			>

@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Executable.h"
+#include "Logic.h"
 
 using namespace Teardrop;
 
@@ -21,16 +22,40 @@ Executable::~Executable()
 
 }
 
-bool Executable::initialize()
+bool Executable::onPreLoad()
 {
+	if (getLogic())
+		return getLogic()->onPreLoad(this);
+
 	return true;
 }
 
-bool Executable::destroy()
+bool Executable::onPostLoad()
 {
+	if (getLogic())
+		return getLogic()->onPostLoad(this);
+
+	return true;
+}
+
+bool Executable::onPreUnload()
+{
+	if (getLogic())
+		return getLogic()->onPreUnload(this);
+
+	return true;
+}
+
+bool Executable::onPostUnload()
+{
+	if (getLogic())
+		return getLogic()->onPostUnload(this);
+
 	return true;
 }
 
 void Executable::tick()
 {
+	if (getLogic())
+		getLogic()->update(this);
 }

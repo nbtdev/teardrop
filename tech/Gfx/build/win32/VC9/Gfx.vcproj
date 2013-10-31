@@ -353,6 +353,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\integration\Direct3D9\VertexDeclarationD3D9.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\Direct3D9\VertexDeclarationD3D9.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\integration\Direct3D9\ViewportD3D9.cpp"
 					>
 				</File>
@@ -721,6 +729,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Renderable.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\Renderer.cpp"
 			>
 		</File>
@@ -814,6 +826,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\VertexBuffer.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexDeclaration.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexDeclaration.h"
 			>
 		</File>
 		<File

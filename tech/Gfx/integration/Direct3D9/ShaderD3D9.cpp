@@ -13,13 +13,15 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D9 {
 
-Shader::Shader(Material* mtl)
+Shader::Shader(IDirect3DDevice9* device, Material* mtl)
 	: Gfx::Shader(mtl)
+	, mDevice(device)
 	, mFX(0)
 	, mTechnique(0)
 	, mTechniqueShadowCast(0)
 	, mTechniqueShadowRecv(0)
 {
+	assert(mDevice);
 }
 
 Shader::~Shader()
@@ -34,6 +36,11 @@ bool Shader::initialize()
 bool Shader::destroy()
 {
 	return true;
+}
+
+void Shader::apply()
+{
+	assert(mDevice);
 }
 
 } // Direct3D9

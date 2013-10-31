@@ -19,7 +19,7 @@ namespace Teardrop
 			class IndexBuffer : public Gfx::IndexBuffer
 			{
 			public:
-				IndexBuffer(IDirect3DDevice9* device);
+				IndexBuffer(IDirect3DDevice9* device, Submesh* parent);
 				~IndexBuffer();
 
 				bool initialize(int indexSize, int indexCount, void* data=0);

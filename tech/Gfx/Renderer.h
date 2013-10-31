@@ -18,6 +18,8 @@ namespace Teardrop
 		class Texture2D;
 		class Camera;
 		class Viewport;
+		class Material;
+		class Submesh;
 
 		class Renderer
 		{
@@ -60,6 +62,10 @@ namespace Teardrop
 				unsigned int stencilValue = 0) = 0;
 			// begin a new scene (frame subset)
 			virtual void beginScene(Camera* camera, Viewport* vp) = 0;
+			// set material (shader) used for subsequent renders
+			virtual void apply(Material* material) = 0;
+			// render 
+			virtual void render(Submesh* submesh) = 0;
 			// end scene
 			virtual void endScene() = 0;
 			// end frame render and swap buffers (if applicable)

@@ -15,10 +15,12 @@ namespace Teardrop
 {
 	namespace Gfx 
 	{
+		class Submesh;
+
 		class VertexBuffer
 		{
 		public:
-			VertexBuffer();
+			VertexBuffer(Submesh* parent);
 			virtual ~VertexBuffer();
 
 			int vertexCount();
@@ -54,6 +56,8 @@ namespace Teardrop
 
 			typedef std::vector<VertexElement> VertexElements;
 			VertexElements mElements;
+
+			Submesh* mParent;
 		};
 	}
 }

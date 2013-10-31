@@ -9,13 +9,16 @@ is prohibited.
 #include "integration/Direct3D9/ShaderManagerD3D9.h"
 #include "integration/Direct3D9/ShaderD3D9.h"
 #include "Material.h"
+#include <assert.h>
 
 namespace Teardrop {
 namespace Gfx {
 namespace Direct3D9 {
 
-ShaderManager::ShaderManager()
+ShaderManager::ShaderManager(IDirect3DDevice9* device)
+	: mDevice(device)
 {
+	assert(mDevice);
 }
 
 ShaderManager::~ShaderManager()
@@ -33,7 +36,7 @@ Gfx::Shader* ShaderManager::createOrFindInstanceOf(Material* material)
 		return it->second;
 
 	// else, create and record a new one
-	Direct3D9::Shader* shader = TD_NEW Direct3D9::Shader(material);
+	Direct3D9::Shader* shader = TD_NEW Direct3D9::Shader(mDevice, material);
 	shader->initialize();
 	mShaders[material->getObjectId()] = shader;
 

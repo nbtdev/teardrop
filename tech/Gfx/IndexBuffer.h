@@ -12,10 +12,12 @@ namespace Teardrop
 {
 	namespace Gfx 
 	{
+		class Submesh;
+
 		class IndexBuffer
 		{
 		public:
-			IndexBuffer();
+			IndexBuffer(Submesh* parent);
 			virtual ~IndexBuffer();
 
 			int indexCount();
@@ -37,6 +39,7 @@ namespace Teardrop
 		protected:
 			int mSize;
 			int mCount;
+			Submesh* mParent;
 		};
 	}
 }

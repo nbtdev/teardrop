@@ -5,35 +5,29 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(SHADER_INCLUDED)
-#define SHADER_INCLUDED
-
-#include "Util/UUID.h"
+#if !defined(VERTEXDECLARATION_INCLUDED)
+#define VERTEXDECLARATION_INCLUDED
 
 namespace Teardrop
 {
 	namespace Gfx 
 	{
-		class Material;
+		class Submesh;
 
-		class Shader
+		class VertexDeclaration
 		{
 		public:
-			Shader(Material* material);
-			~Shader();
+			VertexDeclaration(Submesh* parent);
+			virtual ~VertexDeclaration();
 
-			virtual bool initialize();
-			virtual bool destroy();
-			virtual void apply() = 0;
-
-			UUID materialId();
+			virtual void rebuild() = 0;
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			Material* mMaterial;
+			Submesh* mParent;
 		};
 	}
 }
 
-#endif // SHADER_INCLUDED
+#endif // VERTEXDECLARATION_INCLUDED

@@ -14,6 +14,8 @@ using namespace Gfx;
 
 Submesh::Submesh()
 	: mIndexBuffer(0)
+	, mVertexDeclaration(0)
+	, mPrimitiveType(PT_UNKNOWN)
 {
 }
 
@@ -24,13 +26,14 @@ Submesh::~Submesh()
 	}
 
 	BufferManager::instance().release(mIndexBuffer);
+	BufferManager::instance().release(mVertexDeclaration);
 }
 
 IndexBuffer* Submesh::createIndexBuffer()
 {
 	assert(mIndexBuffer==0);
 	if (mIndexBuffer==0) {
-		mIndexBuffer = BufferManager::instance().createIndexBuffer();
+		mIndexBuffer = BufferManager::instance().createIndexBuffer(this);
 	}
 
 	return mIndexBuffer;
@@ -38,7 +41,7 @@ IndexBuffer* Submesh::createIndexBuffer()
 
 VertexBuffer* Submesh::createVertexBuffer()
 {
-	mVertexBuffers.push_back(BufferManager::instance().createVertexBuffer());
+	mVertexBuffers.push_back(BufferManager::instance().createVertexBuffer(this));
 	return mVertexBuffers.back();
 }
 
@@ -77,4 +80,33 @@ VertexBuffer* Submesh::vertexBuffer(int index)
 IndexBuffer* Submesh::indexBuffer()
 {
 	return mIndexBuffer;
+}
+
+VertexDeclaration* Submesh::vertexDeclaration()
+{
+	if (!mVertexDeclaration) {
+		BufferManager::instance().createVertexDeclaration(this);
+
+		// initialize the decl with our vertex layout
+	}
+
+	return mVertexDeclaration;
+}
+
+void Submesh::clearVertexDeclaration()
+{
+	if (mVertexDeclaration) {
+		BufferManager::instance().release(mVertexDeclaration);
+		mVertexDeclaration = 0;
+	}
+}
+
+void Submesh::setPrimitiveType(PrimitiveType type)
+{
+	mPrimitiveType = type;
+}
+
+Submesh::PrimitiveType Submesh::primitiveType()
+{
+	return mPrimitiveType;
 }

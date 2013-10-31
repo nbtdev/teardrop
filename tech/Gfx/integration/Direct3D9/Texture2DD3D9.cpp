@@ -29,13 +29,15 @@ static D3DFORMAT sLut[] = {
 	D3DFMT_UNKNOWN,			// TEXFMT_PVRTC
 };
 
-Texture2D::Texture2D(TextureAsset* asset)
+Texture2D::Texture2D(IDirect3DDevice9* device, TextureAsset* asset)
 	: Gfx::Texture2D(asset)
+	, mDevice(device)
 	, mTexObject(0)
 {
+	assert(mDevice);
 }
 
-bool Texture2D::initialize(IDirect3DDevice9* device, Usage kUsage)
+bool Texture2D::initialize(Usage kUsage)
 {
 	assert(mTexObject == 0);
 
@@ -59,7 +61,7 @@ bool Texture2D::initialize(IDirect3DDevice9* device, Usage kUsage)
 	TextureAsset::Format fmt = mAsset->getFormat();
 	if (fmt < TextureAsset::TEXFMT_BC1 || fmt > TextureAsset::TEXFMT_BC3)
 	{
-		hr = device->CreateTexture(
+		hr = mDevice->CreateTexture(
 			(UINT)mAsset->getWidth(), 
 			(UINT)mAsset->getHeight(),
 			actualMips,
@@ -72,7 +74,7 @@ bool Texture2D::initialize(IDirect3DDevice9* device, Usage kUsage)
 	else
 	{
 		hr = D3DXCreateTextureFromFileInMemoryEx(
-			device,
+			mDevice,
 			mAsset->data(),
 			(UINT)mAsset->length(),
 			D3DX_DEFAULT,

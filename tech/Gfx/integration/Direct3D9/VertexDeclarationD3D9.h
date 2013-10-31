@@ -5,34 +5,38 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(TEXTURE2D_D3D9_INCLUDED)
-#define TEXTURE2D_D3D9_INCLUDED
+#if !defined(VERTEXDECLARATIOND3D9_INCLUDED)
+#define VERTEXDECLARATIOND3D9_INCLUDED
 
-#include "Gfx/Texture2D.h"
+#include "Gfx/VertexDeclaration.h"
 
 namespace Teardrop
 {
-	namespace Gfx
+	namespace Gfx 
 	{
+		class Submesh;
+
 		namespace Direct3D9 
 		{
-			class Texture2D : public Gfx::Texture2D
+			class VertexDeclaration : public Gfx::VertexDeclaration
 			{
 			public:
-				Texture2D(IDirect3DDevice9* device, TextureAsset* asset);
-				~Texture2D();
+				VertexDeclaration(IDirect3DDevice9* device, Submesh* parent);
+				~VertexDeclaration();
 
-				bool initialize(Usage usage);
-				IDirect3DTexture9* textureObject();
+				void rebuild();
+
+				IDirect3DVertexDeclaration9* declaration();
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
 				IDirect3DDevice9* mDevice;
-				IDirect3DTexture9* mTexObject;
+				IDirect3DVertexDeclaration9* mDecl;
+				D3DVERTEXELEMENT9* mElements;
 			};
 		}
 	}
 }
 
-#endif // TEXTURE2D_D3D9_INCLUDED
+#endif // VERTEXDECLARATIOND3D9_INCLUDED

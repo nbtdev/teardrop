@@ -13,6 +13,8 @@ is prohibited.
 
 namespace Teardrop
 {
+	class Executable;
+
 	class Logic : public Reflection::Object
 	{
 	public:
@@ -21,9 +23,11 @@ namespace Teardrop
 		Logic();
 		~Logic();
 
-		bool initialize();
-		bool destroy();
-		bool update(float deltaT);
+		virtual bool onPreLoad(Executable* exe);
+		virtual bool onPostLoad(Executable* exe);
+		virtual bool update(Executable* exe);
+		virtual bool onPreUnload(Executable* exe);
+		virtual bool onPostUnload(Executable* exe);
 
 		TD_DECLARE_ALLOCATOR();
 

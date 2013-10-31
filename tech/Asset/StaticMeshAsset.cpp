@@ -41,6 +41,10 @@ int StaticMeshAsset::serialize(Stream& strm)
 	for (int s=0; s<nSubmesh; ++s) {
 		Submesh* sm = mMesh->submesh(s);
 
+		// write primitive type
+		int primType = sm->primitiveType();
+		nBytes += strm.write(&primType, sizeof(primType));
+
 		IndexBuffer* ib = sm->indexBuffer();
 		if (ib && ib->indexCount()) {
 			// write index count
@@ -116,6 +120,11 @@ int StaticMeshAsset::deserialize(Stream& strm)
 
 	for (int s=0; s<nSubmesh; ++s) {
 		Submesh* sm = mMesh->submesh(s);
+
+		// read primitive type
+		int primType;
+		nBytes += strm.read(&primType, sizeof(primType));
+		sm->setPrimitiveType((Submesh::PrimitiveType)primType);
 
 		// read index count; if positive, create an index buffer and populate it
 		int nIndices;

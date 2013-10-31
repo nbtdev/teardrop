@@ -16,6 +16,7 @@ namespace Teardrop
 	{
 		class IndexBuffer;
 		class VertexBuffer;
+		class VertexDeclaration;
 
 		class Submesh
 		{
@@ -32,12 +33,31 @@ namespace Teardrop
 			VertexBuffer* vertexBuffer(int index);
 			IndexBuffer* indexBuffer();
 
+			VertexDeclaration* vertexDeclaration();
+			void clearVertexDeclaration();
+			
+			enum PrimitiveType
+			{
+				PT_UNKNOWN = 0,
+				PT_POINTLIST,
+				PT_LINELIST,
+				PT_LINESTRIP,
+				PT_TRILIST,
+				PT_TRISTRIP,
+				PT_TRIFAN,
+			};
+
+			void setPrimitiveType(PrimitiveType type);
+			PrimitiveType primitiveType();
+
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
 			typedef std::vector<VertexBuffer*> VertexBuffers;
 			VertexBuffers mVertexBuffers;
+			VertexDeclaration* mVertexDeclaration;
 			IndexBuffer* mIndexBuffer;
+			PrimitiveType mPrimitiveType;
 		};
 	}
 }

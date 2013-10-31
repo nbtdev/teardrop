@@ -19,6 +19,7 @@ namespace Teardrop
 		{
 			class IndexBuffer;
 			class VertexBuffer;
+			class VertexDeclaration;
 
 			class BufferManager : public Gfx::BufferManager
 			{
@@ -26,10 +27,12 @@ namespace Teardrop
 				BufferManager(IDirect3DDevice9* device);
 				~BufferManager();
 
-				Gfx::IndexBuffer* createIndexBuffer();
-				Gfx::VertexBuffer* createVertexBuffer();
+				Gfx::IndexBuffer* createIndexBuffer(Submesh* parent);
+				Gfx::VertexBuffer* createVertexBuffer(Submesh* parent);
+				Gfx::VertexDeclaration* createVertexDeclaration(Submesh* parent);
 				void release(Gfx::IndexBuffer* buffer);
 				void release(Gfx::VertexBuffer* buffer);
+				void release(Gfx::VertexDeclaration* decl);
 
 				TD_DECLARE_ALLOCATOR();
 
@@ -38,8 +41,10 @@ namespace Teardrop
 
 				typedef std::list<IndexBuffer*> IndexBuffers;
 				typedef std::list<VertexBuffer*> VertexBuffers;
+				typedef std::list<VertexDeclaration*> VertexDeclarations;
 				IndexBuffers mIndexBuffers;
 				VertexBuffers mVertexBuffers;
+				VertexDeclarations mVertexDeclarations;
 			};
 		}
 	}

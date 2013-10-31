@@ -6,9 +6,16 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
+#include "Material.h"
+#include "Submesh.h"
 #include "integration/Direct3D9/RendererD3D9.h"
 #include "integration/Direct3D9/RenderTargetD3D9.h"
 #include "integration/Direct3D9/RenderWindowD3D9.h"
+#include "integration/Direct3D9/ShaderD3D9.h"
+#include "integration/Direct3D9/IndexBufferD3D9.h"
+#include "integration/Direct3D9/VertexBufferD3D9.h"
+#include "integration/Direct3D9/VertexDeclarationD3D9.h"
+#include "integration/Direct3D9/Texture2DD3D9.h"
 #include "integration/Direct3D9/TextureManagerD3D9.h"
 #include "integration/Direct3D9/ShaderManagerD3D9.h"
 #include "integration/Direct3D9/BufferManagerD3D9.h"
@@ -118,9 +125,9 @@ Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
 	renderWindow->setDepthStencil(surface);
 
 	// finally, set up the managers we need
-	TD_NEW ShaderManager;
+	TD_NEW ShaderManager(mDevice);
 	TD_NEW BufferManager(mDevice);
-	TD_NEW TextureManager;
+	TD_NEW TextureManager(mDevice);
 
 	return renderWindow;
 }
@@ -201,6 +208,75 @@ void Renderer::beginScene(Camera* camera, Viewport* vp)
 {
 	mCurrentCamera = camera;
 	mCurrentVP = vp;
+}
+
+void Renderer::apply(Material* material)
+{
+	material->apply();
+}
+
+static D3DPRIMITIVETYPE sD3DPrimTypes [] = {
+	D3DPT_POINTLIST,       // PT_POINT,
+	D3DPT_LINELIST,		   // PT_LINES,
+	D3DPT_LINESTRIP,	   // PT_LINE_STRIP,
+	D3DPT_TRIANGLELIST,	   // PT_TRIANGLES,
+	D3DPT_TRIANGLESTRIP,   // PT_TRIANGLE_STRIP,
+};
+
+void Renderer::render(Submesh* submesh)
+{
+	assert(submesh);
+	if (!submesh)
+		return;
+
+	// vertex declaration
+	VertexDeclaration* decl = static_cast<VertexDeclaration*>(submesh->vertexDeclaration());
+	mDevice->SetVertexDeclaration(decl->declaration());
+
+	// vertex buffer(s)
+	int nVB = submesh->vertexBufferCount();
+	int nVerts = 0;
+	for (int v=0; v<nVB; ++v) {
+		VertexBuffer* vb = static_cast<VertexBuffer*>(submesh->vertexBuffer(v));
+		mDevice->SetStreamSource((UINT)v, vb->buffer(), 0, (UINT)vb->vertexSize());
+
+		// all vertex buffers in the submesh must have the same vertex count
+		nVerts = vb->vertexCount();
+	}
+
+	// index buffer
+	IndexBuffer* ib = static_cast<IndexBuffer*>(submesh->indexBuffer());
+
+	// draw primitives
+	if (ib) {
+		// indexed primitives
+		mDevice->SetIndices(ib->buffer());
+
+		// TODO: support other than trilist?
+		int primitiveCount = ib->indexCount() / 3;
+
+		mDevice->DrawIndexedPrimitive(
+			sD3DPrimTypes[submesh->primitiveType()],
+			0, // offset into vertex buffer
+			0, // min vertex index relative to vertex offset
+			(UINT)nVerts,
+			0, // offset into index buffer
+			(UINT)primitiveCount
+			);
+	}
+	else {
+		// non-indexed primitives
+
+		// TODO: if non-indexed mode is even supported, support other 
+		// than trilists
+		int primitiveCount = nVerts / 3;
+
+		mDevice->DrawPrimitive(
+			D3DPT_TRIANGLELIST,
+			0, // vertex offset
+			(UINT)primitiveCount
+			);
+	}
 }
 
 void Renderer::endScene()
