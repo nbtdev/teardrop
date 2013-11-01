@@ -926,11 +926,19 @@
 			Name="Viewers"
 			>
 			<File
-				RelativePath=".\Viewers\StaticMeshScene.cpp"
+				RelativePath=".\Viewers\ObjectViewerLogic.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Viewers\StaticMeshScene.h"
+				RelativePath=".\Viewers\ObjectViewerLogic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Viewers\ObjectViewerScene.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Viewers\ObjectViewerScene.h"
 				>
 			</File>
 		</Filter>

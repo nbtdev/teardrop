@@ -59,3 +59,7 @@ void Executable::tick()
 	if (getLogic())
 		getLogic()->update(this);
 }
+
+void Executable::renderFrame(Gfx::Renderer* /*renderer*/)
+{
+}

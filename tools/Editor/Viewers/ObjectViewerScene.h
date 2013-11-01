@@ -5,36 +5,40 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(STATICMESHSCENE_INCLUDED)
-#define STATICMESHSCENE_INCLUDED
+#if !defined(OBJECTVIEWERSCENE_INCLUDED)
+#define OBJECTVIEWERSCENE_INCLUDED
 
 #include "Game/Executable.h"
-#include "Game/Logic.h"
-#include <QWidget>
 
 namespace Teardrop
 {
-	class StaticMeshAsset;
+	class Asset;
+
+	namespace Gfx {
+		class Camera;
+		class Viewport;
+	}
 
 	namespace Tools
 	{
-		class StaticMeshScene : public Executable
+		class ObjectViewerScene : public Executable
 		{
 		public:
-			TD_CLASS(StaticMeshScene, Executable);
+			TD_CLASS(ObjectViewerScene, Executable);
+			TD_POINTER_PROPERTY(FocusObject, "Object being viewed", Asset, 0);
 
-			StaticMeshScene();
-			StaticMeshScene(StaticMeshAsset* meshAsset);
-			~StaticMeshScene();
+			ObjectViewerScene();
+			~ObjectViewerScene();
 
-			StaticMeshAsset* asset();
+			void renderFrame(Gfx::Renderer* renderer);
 
 			TD_DECLARE_ALLOCATOR();
 
-		private:
-			StaticMeshAsset* mAsset;
+		protected:
+			Gfx::Camera* mCamera;
+			Gfx::Viewport* mVP;
 		};
 	}
 }
 
-#endif // STATICMESHSCENE_INCLUDED
+#endif // OBJECTVIEWERSCENE_INCLUDED
