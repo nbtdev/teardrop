@@ -117,7 +117,7 @@ void Mountable::setBoundingBox(const AABB& /*aabb*/)
 //---------------------------------------------------------------------------
 bool Mountable::isOfType(Reflection::ClassDef* pClassDef)
 {
-	Reflection::ClassDef* pDerived = getDerivedClassDef();
+	const Reflection::ClassDef* pDerived = getDerivedClassDef();
 	while (pDerived)
 	{
 		if (pDerived == pClassDef)

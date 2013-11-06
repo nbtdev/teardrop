@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Package"
-	ProjectGUID="{B5A1C027-5488-488A-8158-420F90E3745C}"
-	RootNamespace="Package"
+	Name="Core"
+	ProjectGUID="{621ECA23-61F4-4EE1-B778-0C764E0D1CD3}"
+	RootNamespace="Core"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -25,8 +25,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName)..."
-				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
+				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../..;../../../..;../../../../ThirdParty"
+				AdditionalIncludeDirectories="../..;../../..;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -90,8 +90,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName)..."
-				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
+				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ..."
+				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -109,7 +109,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../..;../../../..;../../../../ThirdParty"
+				AdditionalIncludeDirectories="../..;../../..;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -150,47 +150,15 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\DeferredResolution.h"
+			RelativePath="..\..\..\Input.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Executable.cpp"
+			RelativePath="..\..\..\Input.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Executable.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Logic.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Logic.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Package.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Package.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\PackageMetadataSerializer.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\PackageMetadataSerializer.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\PackageSerializer.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\PackageSerializer.h"
+			RelativePath="..\..\..\InputEvent.h"
 			>
 		</File>
 	</Files>

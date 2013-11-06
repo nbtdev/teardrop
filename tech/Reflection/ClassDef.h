@@ -26,7 +26,7 @@ namespace Teardrop
 			unsigned __int64 m_classId;
 			PropertyDef* m_pProps;
 			EnumDef* m_pEnums;
-			ClassDef* m_pBaseClass;
+			mutable ClassDef* m_pBaseClass;
 			unsigned int m_numProps;
 			bool m_bCreatable;
 
@@ -43,13 +43,13 @@ namespace Teardrop
 			unsigned __int64 getId() const { return m_classId; }
 			const char* getName() const { return m_pName; }
 			const char* getBaseClassName() const { return m_pBaseClassName; }
-			ClassDef* getBaseClass();
-			bool isA(const ClassDef* pClass);
+			const ClassDef* getBaseClass() const;
+			bool isA(const ClassDef* pClass) const;
 			const PropertyDef* getProps() const { return m_pProps; }
-			const PropertyDef* findProperty(const char* pPropName, bool deep=false);
+			const PropertyDef* findProperty(const char* pPropName, bool deep=false) const;
 			const PropertyDef* findPropertyById(int propId) const;
 			const EnumDef* getEnums() const { return m_pEnums; }
-			const EnumDef* findEnum(const char* pEnumName, bool deep=false);
+			const EnumDef* findEnum(const char* pEnumName, bool deep=false) const;
 
 			static ClassDef* findClassDef(const char* pClassName);
 			static ClassDef* getClasses();

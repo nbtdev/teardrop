@@ -657,40 +657,6 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="MaterialEditor"
-			>
-			<File
-				RelativePath=".\MaterialEditor\MaterialEditor.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MaterialEditor\MaterialEditor.h"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing MaterialEditor.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing MaterialEditor.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<Filter
 			Name="ProjectExplorer"
 			>
 			<File
@@ -923,22 +889,52 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Viewers"
+			Name="Viewers And Editors"
 			>
 			<File
-				RelativePath=".\Viewers\ObjectViewerLogic.cpp"
+				RelativePath=".\MaterialEditor\MaterialEditor.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Viewers\ObjectViewerLogic.h"
+				RelativePath=".\MaterialEditor\MaterialEditor.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing MaterialEditor.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\Include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing MaterialEditor.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\tools\shared&quot; &quot;-I$(SolutionDir)tools&quot; &quot;-I$(SolutionDir)tech&quot; &quot;-I$(SolutionDir)tech\ThirdParty&quot; &quot;-I$(FBX_SDK_DIR)\include&quot; &quot;-I$(TBB_INSTALL_DIR)\include&quot; &quot;-I$(SQUISH_DIR)\.&quot; &quot;-I$(FREEIMAGE_DIST)\.&quot; &quot;-I$(DXSDK_DIR)\include&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Viewers\ObjectViewer3D.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Viewers\ObjectViewerScene.cpp"
+				RelativePath=".\Viewers\ObjectViewer3D.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Viewers\ObjectViewerScene.h"
+				RelativePath=".\Viewers\StaticMeshViewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Viewers\StaticMeshViewer.h"
 				>
 			</File>
 		</Filter>

@@ -60,7 +60,7 @@ QWidget* PropertyGridDelegate::createEditor(QWidget* parent, const QStyleOptionV
 
 			// make a combo box and fill it with the enum values
 			QComboBox* cb = new QComboBox(parent);
-			Reflection::ClassDef* classDef = obj->getDerivedClassDef();
+			const Reflection::ClassDef* classDef = obj->getDerivedClassDef();
 			const Reflection::EnumDef* enumDef = classDef->findEnum(prop->getTypeName(), true);
 			const Reflection::EnumValue* enumVal = enumDef->values();
 			

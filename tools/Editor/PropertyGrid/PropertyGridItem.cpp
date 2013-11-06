@@ -113,7 +113,7 @@ QString PropertyGridItem::valueAsString() const
 			int eVal;
 			mProp->getData(mObject, &eVal);
 
-			Reflection::ClassDef* classDef = mObject->getDerivedClassDef();
+			const Reflection::ClassDef* classDef = mObject->getDerivedClassDef();
 			const Reflection::EnumDef* enumDef = classDef->findEnum(mProp->getTypeName(), true);
 			if (enumDef) {
 				const Reflection::EnumValue* enumVal = enumDef->findByValue(eVal);

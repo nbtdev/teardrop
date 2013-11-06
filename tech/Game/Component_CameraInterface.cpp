@@ -8,7 +8,7 @@ is prohibited.
 #include "Component_CameraInterface.h"
 #include "CameraController.h"
 #include "SceneRenderer.h"
-#include "Gfx/GfxCamera.h"
+#include "Gfx/Camera.h"
 #include "Math/Transform.h"
 
 using namespace Teardrop;
@@ -55,17 +55,17 @@ bool CameraInterfaceComponent::destroy()
 	return true;
 }
 //---------------------------------------------------------------------------
-void CameraInterfaceComponent::setupSceneRenderer(SceneRenderer* pRend)
-{
-	if (m_pCamControl && m_pCamControl->getControlledCamera())
-		pRend->setCamera(m_pCamControl->getControlledCamera());
-}
+//void CameraInterfaceComponent::setupSceneRenderer(SceneRenderer* pRend)
+//{
+//	if (m_pCamControl && m_pCamControl->camera())
+//		pRend->setCamera(m_pCamControl->camera());
+//}
 //---------------------------------------------------------------------------
 bool CameraInterfaceComponent::getCameraTransform(Transform& xform)
 {
 	if (m_pCamControl)
 	{
-		GfxCamera* pCam = m_pCamControl->getControlledCamera();
+		Gfx::Camera* pCam = m_pCamControl->camera();
 		if (pCam)
 		{
 			xform.scale = Vector4::UNIT_SCALE;
@@ -83,7 +83,7 @@ bool CameraInterfaceComponent::getCameraViewportWorldRay(
 {
 	if (m_pCamControl)
 	{
-		GfxCamera* pCam = m_pCamControl->getControlledCamera();
+		Gfx::Camera* pCam = m_pCamControl->camera();
 		if (pCam)
 			return pCam->getViewportWorldRay(ray, x, y);
 	}
@@ -94,8 +94,8 @@ bool CameraInterfaceComponent::getCameraViewportWorldRay(
 const Plane* CameraInterfaceComponent::getViewFrustum()
 {
 	if (m_pCamControl)
-		if (m_pCamControl->getControlledCamera())
-			return m_pCamControl->getControlledCamera()->getFrustumPlanes();
+		if (m_pCamControl->camera())
+			return m_pCamControl->camera()->getFrustumPlanes();
 
 	return 0;
 }
@@ -162,7 +162,7 @@ bool CameraInterfaceComponent::changeCameraController()
 	}
 
 	pCamControl->initialize();
-	pCamControl->setTarget(m_pHost);
+	//pCamControl->setTargetPos(m_pHost);
 	m_pCamControl = pCamControl;
 
 	return true;

@@ -28,7 +28,7 @@ namespace Teardrop
 		ComponentHost();
 		virtual ~ComponentHost();
 
-		typedef std::multimap<Reflection::ClassDef*, Component*> Components;
+		typedef std::multimap<const Reflection::ClassDef*, Component*> Components;
 		typedef std::list<Component*> ComponentList;
 		// add a component to this host
 		bool addComponent(Component* pComp);

@@ -421,7 +421,7 @@ static void populateProperties(
 	if (!pObject)
 		return;
 
-	Reflection::ClassDef* pClassDef = pObject->getDerivedClassDef();
+	const Reflection::ClassDef* pClassDef = pObject->getDerivedClassDef();
 	
 	while (pClassDef)
 	{

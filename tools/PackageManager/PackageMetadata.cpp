@@ -281,7 +281,7 @@ Reflection::Object* PackageMetadata::findObject(const String& id)
 
 static void addMetadata(TiXmlElement& objElem, Metadata* meta)
 {
-	Reflection::ClassDef* classDef = meta->getDerivedClassDef();
+	const Reflection::ClassDef* classDef = meta->getDerivedClassDef();
 	TiXmlElement metadata("metadata");
 	metadata.SetAttribute("class", classDef->getName());
 

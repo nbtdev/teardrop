@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Package.h"
+#include "Executable.h"
 #include "Reflection/Reflection.h"
 #include "Util/UUID.h"
 #include <algorithm>
@@ -14,6 +15,7 @@ using namespace Teardrop;
 
 Package::Package()
 	: mData(0)
+	, mExecutable(0)
 {
 }
 
@@ -90,4 +92,31 @@ void Package::findAllByType(std::list<Reflection::Object*>& objs, Reflection::Cl
 			}
 		}
 	}
+}
+
+Executable* Package::executable()
+{
+	return mExecutable;
+}
+
+Executable* Package::makeExecutable(const Reflection::ClassDef* classDef/* =0 */)
+{
+	// a classDef of 0 means clear the current executable, if any
+	if (classDef == 0 && mExecutable) {
+		mExecutable->destroy();
+		delete mExecutable;
+		mExecutable = 0;
+	}
+
+	// then if classDef not null, make a new one
+	if (classDef) {
+		assert(classDef->isA(Executable::getClassDef()));
+
+		if (classDef->isA(Executable::getClassDef())) {
+			mExecutable = static_cast<Executable*>(classDef->createInstance());
+			mExecutable->initialize();
+		}
+	}
+
+	return mExecutable;
 }

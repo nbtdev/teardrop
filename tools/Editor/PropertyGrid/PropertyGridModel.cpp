@@ -16,7 +16,7 @@ is prohibited.
 using namespace Teardrop;
 using namespace Tools;
 
-static void populate(std::stack<Reflection::ClassDef*>& classes, Reflection::ClassDef* classDef)
+static void populate(std::stack<const Reflection::ClassDef*>& classes, const Reflection::ClassDef* classDef)
 {
 	classes.push(classDef);
 	if (classDef->getBaseClass()) {
@@ -33,12 +33,12 @@ PropertyGridModel::PropertyGridModel(Reflection::Object* obj, Reflection::Object
 	// set up model data from Object 
 	if (obj) {
 		// start with classes...
-		std::stack<Reflection::ClassDef*> classes;
-		Reflection::ClassDef* classDef = mObject->getDerivedClassDef();
+		std::stack<const Reflection::ClassDef*> classes;
+		const Reflection::ClassDef* classDef = mObject->getDerivedClassDef();
 		populate(classes, classDef);
 
 		while (!classes.empty()) {
-			Reflection::ClassDef* classDef = classes.top();
+			const Reflection::ClassDef* classDef = classes.top();
 			classes.pop();
 
 			// properties
@@ -56,7 +56,7 @@ PropertyGridModel::PropertyGridModel(Reflection::Object* obj, Reflection::Object
 
 						// add this guy's props
 						Reflection::Object* nestedObj = static_cast<Reflection::Object*>(const_cast<void*>(prop->getDataPointer(obj)));
-						Reflection::ClassDef* nestedClassDef = nestedObj->getDerivedClassDef();
+						const Reflection::ClassDef* nestedClassDef = nestedObj->getDerivedClassDef();
 						const Reflection::PropertyDef* nestedProps = nestedClassDef->getProps();
 
 						// only one level of nesting!
@@ -106,7 +106,7 @@ PropertyGridModel::PropertyGridModel(Reflection::Object* obj, Reflection::Object
 #endif
 		// finally, all properties on the metadata object (if any)
 		if (mMetadata) {
-			Reflection::ClassDef* classDef = mMetadata->getDerivedClassDef();
+			const Reflection::ClassDef* classDef = mMetadata->getDerivedClassDef();
 			populate(classes, classDef);
 
 			if (classes.size()) {
@@ -114,7 +114,7 @@ PropertyGridModel::PropertyGridModel(Reflection::Object* obj, Reflection::Object
 				mRoot->append(meta);
 
 				while (!classes.empty()) {
-					Reflection::ClassDef* classDef = classes.top();
+					const Reflection::ClassDef* classDef = classes.top();
 					classes.pop();
 
 					// properties

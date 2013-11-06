@@ -50,7 +50,7 @@ namespace Teardrop
 	protected:
 		TaskGraph* m_pGraph;
 
-		typedef std::map<TaskProductType*, ProductList> ProductLUT;
+		typedef std::map<const TaskProductType*, ProductList> ProductLUT;
 		ProductLUT m_productLUT;
 	};
 }

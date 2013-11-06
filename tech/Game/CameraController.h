@@ -15,14 +15,16 @@ is prohibited.
 
 namespace Teardrop
 {
+	namespace Gfx 
+	{
+		class Camera;
+	}
+
+	class InputFilter;
+
 	/*
 		Protocol class for camera controllers
 	*/
-
-	struct Environment;
-	class InputFilter;
-	class GfxCamera;
-	class ComponentHost;
 
 	class CameraController
 		: public Reflection::Object
@@ -45,21 +47,15 @@ namespace Teardrop
 		virtual bool update(float deltaT);
 		virtual InputFilter* getInputFilter() const;
 
-		GfxCamera* getControlledCamera() const { return m_pCamera; }
-
-		//! provide pTarget = 0 to detach
-		virtual void setTarget(ComponentHost* pTarget);
+		Gfx::Camera* camera() const { return mCamera; }
 
 		void setAspectRatio(float aspect);
 		void setFovY(float fovY, float time=0);
 		void setNearClip(float near);
 		void setFarClip(float far);
 
-		TD_DECLARE_ALLOCATOR();
-
 	protected:
-		GfxCamera* m_pCamera;
-		ComponentHost* m_pTarget;
+		Gfx::Camera* mCamera;
 	};
 }
 

@@ -9,7 +9,7 @@ is prohibited.
 #define SCENE_INCLUDED
 
 #include <vector>
-#include "Game/Executable.h"
+#include "Package/Executable.h"
 
 namespace Teardrop
 {

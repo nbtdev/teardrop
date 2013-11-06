@@ -49,6 +49,8 @@ namespace Teardrop
 			virtual RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) = 0;
 			// create a new render texture; if tex is null, no render texture is created
 			virtual RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
+			// release a previously-created render target
+			virtual void releaseRenderTarget(RenderTarget* rt) = 0;
 			// set render target as current render target
 			virtual void setRenderTarget(RenderTarget* rt) = 0;
 
@@ -61,7 +63,7 @@ namespace Teardrop
 				bool stencil = true,
 				unsigned int stencilValue = 0) = 0;
 			// begin a new scene (frame subset)
-			virtual void beginScene(Camera* camera, Viewport* vp) = 0;
+			virtual void beginScene(Camera* camera, Viewport* vp=0) = 0;
 			// set material (shader) used for subsequent renders
 			virtual void apply(Material* material) = 0;
 			// render 

@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\DirectX_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\DirectX_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops;..\..\..\..\vsprops\TBB_Debug.vsprops"
 			CharacterSet="2"
 			ManagedExtensions="0"
 			>
@@ -86,7 +86,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\DirectX_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\DirectX_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops;..\..\..\..\vsprops\TBB_Release.vsprops"
 			CharacterSet="2"
 			ManagedExtensions="0"
 			WholeProgramOptimization="1"
@@ -400,6 +400,18 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="DirectInput"
+				>
+				<File
+					RelativePath="..\..\..\integration\DirectInput\InputDI8.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\integration\DirectInput\InputDI8.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

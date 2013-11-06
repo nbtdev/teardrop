@@ -9,44 +9,21 @@ is prohibited.
 #define INPUT_INCLUDED
 
 #include "Util/Singleton.h"
-#include "Memory/Allocators.h"
 
 namespace Teardrop
 {
 	union InputEvent;
-	struct Environment;
 
-	class Input
+	class Input : public Singleton<Input>
 	{
-		// screen size of associated window
-		int m_extentX;
-		int m_extentY;
-
 	public:
 		Input();
-		~Input();
-
-		bool initialize(Environment& env, void* hWnd=0);
-		bool destroy();
+		virtual ~Input();
 
 		//! get pending input event into inputEvent, returns false when none pending
-		bool getNextEvent(InputEvent& /*out*/ inputEvent);
-
-		/** Accessors
-		*/
-		void getExtents(int& x, int& y);
-
-		/** Mutators
-		*/
-		void setExtents(int x, int y);
-		void suspend(); // stop capturing input events
-		void resume(); // restart capturing input events
-
-		TD_DECLARE_ALLOCATOR();
-		struct Impl;
-
-	private:
-		Impl* m_pImpl;
+		virtual bool getNextEvent(InputEvent& /*out*/ inputEvent) = 0;
+		virtual void suspend() = 0; // stop capturing input events
+		virtual void resume() = 0; // restart capturing input events
 	};
 }
 

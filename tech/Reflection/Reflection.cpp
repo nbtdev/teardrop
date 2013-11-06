@@ -32,7 +32,7 @@ void Object::onInstanceCreated()
 void Object::setupPropertyDefaults()
 {
 	// initialize properties with their default values
-	ClassDef* pDef = getDerivedClassDef();
+	const ClassDef* pDef = getDerivedClassDef();
 	if (!pDef)
 		return;
 
@@ -46,7 +46,7 @@ void Object::setupPropertyDefaults()
 		pProp = pProp->m_pNext;
 	}
 
-	ClassDef* pBaseClass = pDef->getBaseClass();
+	const ClassDef* pBaseClass = pDef->getBaseClass();
 	while (pBaseClass)
 	{
 		const PropertyDef* pProp = pBaseClass->getProps();
@@ -103,7 +103,7 @@ void Object::notifyPropertyChangedLocal(const PropertyDef* /*pPropDef*/)
 	// intentionally empty/stub dummy definition
 }
 //-----------------------------------------------------------------------------
-ClassDef* Object::getDerivedClassDef() const
+const ClassDef* Object::getDerivedClassDef() const
 {
 	return 0;
 }
@@ -130,7 +130,7 @@ Object* Object::clone() const
 	// making a new one of whatever it is, and filling in its first-level
 	// properties, and sending it on its way. Any components that have 
 	// deeper cloning needs should override this method
-	ClassDef* pClassDef = getDerivedClassDef();
+	const ClassDef* pClassDef = getDerivedClassDef();
 	Object* pRtn = pClassDef->createInstance();
 
 	while (pClassDef)

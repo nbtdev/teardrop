@@ -6,83 +6,76 @@ is prohibited.
 ****************************************************************************/
 
 #include "CameraController.h"
-#include "Gfx/GfxCamera.h"
+#include "Gfx/Camera.h"
 #include "Math/MathUtil.h"
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
 TD_CLASS_IMPL(CameraController);
-//---------------------------------------------------------------------------
+
 CameraController::CameraController()
 {
-	m_pTarget = 0;
-	m_pCamera = 0;
+	mCamera = 0;
 }
-//---------------------------------------------------------------------------
+
 CameraController::~CameraController()
 {
 }
-//---------------------------------------------------------------------------
-void CameraController::setTarget(ComponentHost* pTarget)
-{
-	m_pTarget = pTarget;
-}
-//---------------------------------------------------------------------------
+
 bool CameraController::initialize()
 {
 	// create main camera, set reasonable defaults
-	m_pCamera = TD_NEW GfxCamera;
-	m_pCamera->initialize();
-	m_pCamera->setFovY(MathUtil::HALF_PI/1.5f);
-	m_pCamera->setNearClip(1.5f);
-	m_pCamera->setFarClip(2500);
+	mCamera = TD_NEW Gfx::Camera;
+	mCamera->initialize();
+	mCamera->setFovY(MathUtil::HALF_PI/1.5f);
+	mCamera->setNearClip(1.5f);
+	mCamera->setFarClip(2500);
 
 	return true;
 }
-//---------------------------------------------------------------------------
+
 bool CameraController::destroy()
 {
-	if (m_pCamera)
-		m_pCamera->destroy();
+	if (mCamera)
+		mCamera->destroy();
 
-	delete m_pCamera;
+	delete mCamera;
 
 	return true;
 }
-//---------------------------------------------------------------------------
+
 bool CameraController::update(float /*deltaT*/)
 {
 	// derived classes should implement this
 	return true;
 }
-//---------------------------------------------------------------------------
+
 InputFilter* CameraController::getInputFilter() const
 {
 	// derived classes should implement this, if needed
 	return 0;
 }
-//---------------------------------------------------------------------------
+
 void CameraController::setAspectRatio(float aspect)
 {
-	if (m_pCamera)
-		m_pCamera->setAspect(aspect);
+	if (mCamera)
+		mCamera->setAspect(aspect);
 }
-//---------------------------------------------------------------------------
+
 void CameraController::setFovY(float fovY, float /*time*/)
 {
 	// TODO: animate over time if non-zero
-	if (m_pCamera)
-		m_pCamera->setFovY(fovY);
+	if (mCamera)
+		mCamera->setFovY(fovY);
 }
-//---------------------------------------------------------------------------
+
 void CameraController::setNearClip(float near)
 {
-	if (m_pCamera)
-		m_pCamera->setNearClip(near);
+	if (mCamera)
+		mCamera->setNearClip(near);
 }
-//---------------------------------------------------------------------------
+
 void CameraController::setFarClip(float far)
 {
-	if (m_pCamera)
-		m_pCamera->setFarClip(far);
+	if (mCamera)
+		mCamera->setFarClip(far);
 }

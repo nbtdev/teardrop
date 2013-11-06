@@ -137,6 +137,11 @@ std::pair<Reflection::Object*, Metadata*> PackageManager::createObject(Folder* f
 	return std::pair<Reflection::Object*, Metadata*>(obj, meta);
 }
 
+Executable* PackageManager::makeExecutable(const Reflection::ClassDef* classDef)
+{
+	return mPackage->makeExecutable(classDef);
+}
+
 PackageMetadata* PackageManager::metadata()
 {
 	return mMetadata;

@@ -8,12 +8,9 @@ is prohibited.
 #include "OrbitCamController.h"
 #include "ComponentHost.h"
 #include "InputFilter.h"
-#include "InputEvent.h"
+#include "Core/InputEvent.h"
 #include "Util/Timer.h"
-#include "Gfx/GfxCamera.h"
-#include "Util/Environment.h"
-#define DIRECTINPUT_VERSION 0x0800
-#include <DInput.h>
+#include "Gfx/Camera.h"
 #include "Memory/Memory.h"
 #include "Math/Transform.h"
 #include "Math/Vector4.h"
@@ -23,12 +20,11 @@ is prohibited.
 #include <assert.h>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
 TD_CLASS_IMPL(OrbitCamController);
-//---------------------------------------------------------------------------
+
 /*
-	Implementation of InputFilter that handles input specific to moving a 
-	free cam around the scene with mouse and keyboard
+	Implementation of InputFilter that handles input specific to manipulating
+	an orbit cam around a single object or point in space
 */
 class Teardrop::OrbitCamInputFilter : public InputFilter
 {
@@ -67,17 +63,17 @@ private:
 
 	bool m_emit; // only emit orbit inputs if the LMB is down
 };
-//---------------------------------------------------------------------------
+
 OrbitCamInputFilter::OrbitCamInputFilter()
 {
 	m_currentActionType = Action::NONE;
 	m_emit = false;
 }
-//---------------------------------------------------------------------------
+
 OrbitCamInputFilter::~OrbitCamInputFilter()
 {
 }
-//---------------------------------------------------------------------------
+
 bool OrbitCamInputFilter::getNextAction(Action& action)
 {
 	if (!m_actions.size())
@@ -89,7 +85,7 @@ bool OrbitCamInputFilter::getNextAction(Action& action)
 	m_actions.pop();
 	return true;
 }
-//---------------------------------------------------------------------------
+
 bool OrbitCamInputFilter::filterEvent(const InputEvent& event)
 {
 	switch(event.evtType.type)
@@ -101,12 +97,12 @@ bool OrbitCamInputFilter::filterEvent(const InputEvent& event)
 
 	return false;
 }
-//---------------------------------------------------------------------------
+
 OrbitCamInputFilter::Action::Type OrbitCamInputFilter::getCurrentActionType()
 {
 	return m_currentActionType;
 }
-//---------------------------------------------------------------------------
+
 bool OrbitCamInputFilter::filterMouseEvent(const InputEvent::Mouse& mouse)
 {
 	if (mouse.btnsDown & 0x01)
@@ -147,67 +143,60 @@ bool OrbitCamInputFilter::filterMouseEvent(const InputEvent::Mouse& mouse)
 
 	return false;
 }
-//---------------------------------------------------------------------------
+
 OrbitCamController::OrbitCamController()
 {
-	m_pInputFilter = 0;
-	m_targetPos = Vector4(0,0,0,0);
-	m_dist = 3;
-	m_zoomFactor = 0.3f;
+	mInputFilter = 0;
+	mTargetPos = Vector4(0,0,0,0);
+	reset();
 }
-//---------------------------------------------------------------------------
+
 OrbitCamController::~OrbitCamController()
 {
 }
-//---------------------------------------------------------------------------
+
 void OrbitCamController::reset()
 {
-	m_azimuth =
-	m_elevation = 0;
-	m_dist = 3;
+	mAzimuth =
+	mElevation = 0;
+	mDist = 3;
+	mZoomFactor = 0.3f;
 }
-//---------------------------------------------------------------------------
+
 bool OrbitCamController::initialize()
 {
-	if (CameraController::initialize())
-	{
+	if (CameraController::initialize()) {
 		reset();
 
-		m_pInputFilter = TD_NEW OrbitCamInputFilter;
+		mInputFilter = TD_NEW OrbitCamInputFilter;
 		return true;
 	}
 
 	return false;
 }
-//---------------------------------------------------------------------------
+
 bool OrbitCamController::destroy()
 {
-	delete m_pInputFilter;
+	delete mInputFilter;
 	return CameraController::destroy();
 }
-//---------------------------------------------------------------------------
-void OrbitCamController::setTarget(ComponentHost* pTarget)
+
+void OrbitCamController::setTargetPos(const Vector4& targetPos)
 {
-	m_pTarget = pTarget;
-	if (m_pTarget)
-	{
-		m_targetPos = m_pTarget->getTransformWS().trans;
-	}
+	mTargetPos = targetPos;
 }
-//---------------------------------------------------------------------------
+
 void OrbitCamController::evaluate(float deltaT)
 {
-	assert (m_pInputFilter);
-	if (!m_pInputFilter)
-	{
+	assert (mInputFilter);
+	if (!mInputFilter)
 		return;
-	}
 
-	float translateStep = -10 * m_zoomFactor * deltaT;
+	float translateStep = -10 * mZoomFactor * deltaT;
 	float rotateFactor = MathUtil::HALF_PI * deltaT / 8.f;
 
 	OrbitCamInputFilter::Action action;
-	while (m_pInputFilter->getNextAction(action))
+	while (mInputFilter->getNextAction(action))
 	{
 		switch(action.type)
 		{
@@ -216,97 +205,84 @@ void OrbitCamController::evaluate(float deltaT)
 			break;
 
 		case OrbitCamInputFilter::Action::ROTATE:
-			m_azimuth += rotateFactor * action.extra[0];
-			m_elevation += rotateFactor * action.extra[1];
+			mAzimuth += rotateFactor * action.extra[0];
+			mElevation += rotateFactor * action.extra[1];
 			break;
 
 		case OrbitCamInputFilter::Action::ZOOM:
-			m_dist += translateStep * action.extra[2];
+			mDist += translateStep * action.extra[2];
 			break;
 		}
 	}
 }
-//---------------------------------------------------------------------------
-bool OrbitCamController::update(float /*deltaT*/)
+
+bool OrbitCamController::update(float deltaT)
 {
-	if (!m_pCamera)
+	if (!mCamera)
 		return false;
 
 	// enable/disable input filter
-	if (m_pInputFilter)
-	{
+	if (mInputFilter) {
 		if (getEnabled())
-			m_pInputFilter->enable();
+			mInputFilter->enable();
 		else
-			m_pInputFilter->disable();
+			mInputFilter->disable();
 	}
 	
-	Environment& env = Environment::get();
 	// evaluate pending actions
-	evaluate(env.pMasterClock->getElapsedTime());
+	evaluate(deltaT);
 
 	// figure out camera position from polar coordinates
-	Quaternion qa(m_azimuth, Vector4::UNIT_Y);
-	Quaternion qe(m_elevation, Vector4::UNIT_X);
+	Quaternion qa(mAzimuth, Vector4::UNIT_Y);
+	Quaternion qe(mElevation, Vector4::UNIT_X);
 	Quaternion q(qa * qe);
 
-	m_pCamera->setOrientation(q);
+	mCamera->setOrientation(q);
 
 	// go along this direction vector by m_dist units
-	Vector4 v(q * (Vector4::UNIT_Z * m_dist));
+	Vector4 v(q * (Vector4::UNIT_Z * mDist));
 
-	Vector4 target(m_targetPos);
-	if (m_pTarget)
-	{
-		target = m_pTarget->getTransformWS().trans;
-	}
+	mCamera->setPosition(mTargetPos - v);
+	mCamera->setLookAt(mTargetPos);
 
-	m_pCamera->setPosition(target - v);
-	m_pCamera->setLookAt(target);
-
-	bool rtn = m_pCamera->update();
-	setPosition(m_pCamera->getPosition());
-	setOrientation(m_pCamera->getOrientation());
+	bool rtn = mCamera->update();
+	setPosition(mCamera->getPosition());
+	setOrientation(mCamera->getOrientation());
 	return rtn;
 }
-//---------------------------------------------------------------------------
+
 InputFilter* OrbitCamController::getInputFilter() const
 {
-	return m_pInputFilter;
+	return mInputFilter;
 }
-//---------------------------------------------------------------------------
-void OrbitCamController::setTarget(const Vector4& targetPos)
-{
-	m_targetPos = targetPos;
-}
-//---------------------------------------------------------------------------
+
 void OrbitCamController::setDistanceToTarget(float units)
 {
-	m_dist = units;
+	mDist = units;
 }
-//---------------------------------------------------------------------------
+
 void OrbitCamController::setZoomStepFactor(float factor)
 {
-	m_zoomFactor = MathUtil::clamp(factor, 0, 1);
+	mZoomFactor = MathUtil::clamp(factor, 0, 1);
 }
-//---------------------------------------------------------------------------
+
 void OrbitCamController::reinit(const Vector4& pos)
 {
-	m_dist = (pos - m_targetPos).getLength();
+	mDist = (pos - mTargetPos).getLength();
 
 	// reverse-engineer the angles -- first compare the axis of the quat
 	// to the unit-y axis
-	Quaternion q(m_pCamera->getOrientation());
+	Quaternion q(mCamera->getOrientation());
 
 	float angle;
 	Vector4 axis;
 	q.toAngleAxis(angle, axis);
 
-	m_elevation = MathUtil::acos(dot(Vector4::UNIT_Y, axis));
+	mElevation = MathUtil::acos(dot(Vector4::UNIT_Y, axis));
 
-	Quaternion tmp(m_elevation, Vector4::UNIT_Y);
+	Quaternion tmp(mElevation, Vector4::UNIT_Y);
 	invert(tmp);
 	q = q * tmp;
 
-	q.toAngleAxis(m_azimuth, axis);
+	q.toAngleAxis(mAzimuth, axis);
 }

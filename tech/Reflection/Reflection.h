@@ -65,7 +65,7 @@ namespace Teardrop
 				These are provided as hooks into derived classes, but without the
 				need to make Object itself partake in reflection (makes sense, sorta)
 			*/
-			virtual ClassDef* getDerivedClassDef() const;
+			virtual const ClassDef* getDerivedClassDef() const;
 
 			/*
 				This method is intended to allow derived classes to provide their own
@@ -144,7 +144,7 @@ namespace Teardrop
 		} \
 	} s_classDefInit; \
 	public: \
-	virtual Teardrop::Reflection::ClassDef* getDerivedClassDef() const \
+	virtual const Teardrop::Reflection::ClassDef* getDerivedClassDef() const \
 	{ \
 		return getClassDef(); \
 	} \

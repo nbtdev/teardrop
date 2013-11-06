@@ -24,18 +24,19 @@ namespace Teardrop
 				Renderer();
 				~Renderer();
 
-				RenderTarget* initialize(uintptr_t windowHandle, int flags);
+				Gfx::RenderTarget* initialize(uintptr_t windowHandle, int flags);
 				void shutdown();
-				RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
-				RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
-				void setRenderTarget(RenderTarget* rt);
+				Gfx::RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
+				Gfx::RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
+				void releaseRenderTarget(Gfx::RenderTarget* rt);
+				void setRenderTarget(Gfx::RenderTarget* rt);
 				void beginFrame(bool color = true,
 					unsigned int clearColor = 0,
 					bool depth = true,
 					float depthValue = 1,
 					bool stencil = true,
 					unsigned int stencilValue = 0);
-				void beginScene(Camera* camera, Viewport* vp);
+				void beginScene(Camera* camera, Gfx::Viewport* vp=0);
 				void endScene();
 				void endFrame();
 				void apply(Material* material);
@@ -52,9 +53,9 @@ namespace Teardrop
 				IDirect3DSwapChain9* mSwapChain;
 				D3DPRESENT_PARAMETERS mPParams;
 
-				typedef std::vector<RenderTarget*> RenderTargets;
+				typedef std::vector<Gfx::RenderTarget*> RenderTargets;
 				RenderTargets mRenderTargets;
-				RenderTarget* mCurrentRT;
+				Gfx::RenderTarget* mCurrentRT;
 
 				Camera* mCurrentCamera;
 				Viewport* mCurrentVP;

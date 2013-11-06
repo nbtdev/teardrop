@@ -7,12 +7,9 @@ is prohibited.
 
 #include "FreeCamController.h"
 #include "InputFilter.h"
-#include "InputEvent.h"
+#include "Core/InputEvent.h"
 #include "Util/Timer.h"
-#include "Gfx/GfxCamera.h"
-#include "Util/Environment.h"
-#define DIRECTINPUT_VERSION 0x0800
-#include <DInput.h>
+#include "Gfx/Camera.h"
 #include "Memory/Memory.h"
 #include "Math/MathUtil.h"
 
@@ -20,9 +17,8 @@ is prohibited.
 #include <assert.h>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
 TD_CLASS_IMPL(FreeCamController);
-//---------------------------------------------------------------------------
+
 /*
 	Implementation of InputFilter that handles input specific to moving a 
 	free cam around the scene with mouse and keyboard
@@ -65,16 +61,16 @@ private:
 	std::queue<Action> m_actions;
 	Action::Type m_currentActionType;
 };
-//---------------------------------------------------------------------------
+
 FreeCamInputFilter::FreeCamInputFilter()
 {
 	m_currentActionType = Action::NONE;
 }
-//---------------------------------------------------------------------------
+
 FreeCamInputFilter::~FreeCamInputFilter()
 {
 }
-//---------------------------------------------------------------------------
+
 bool FreeCamInputFilter::getNextAction(Action& action)
 {
 	if (!m_actions.size())
@@ -86,7 +82,7 @@ bool FreeCamInputFilter::getNextAction(Action& action)
 	m_actions.pop();
 	return true;
 }
-//---------------------------------------------------------------------------
+
 bool FreeCamInputFilter::filterEvent(const InputEvent& event)
 {
 	switch(event.evtType.type)
@@ -102,7 +98,7 @@ bool FreeCamInputFilter::filterEvent(const InputEvent& event)
 
 	return false;
 }
-//---------------------------------------------------------------------------
+
 bool FreeCamInputFilter::filterKeyEvent(const InputEvent::Key& key)
 {
 	Action action;
@@ -119,36 +115,36 @@ bool FreeCamInputFilter::filterKeyEvent(const InputEvent::Key& key)
 	bool bHandled = true;
 	switch(key.keyCode)
 	{
-	case DIK_W:
-	case DIK_UP:
+	case InputEvent::KC_W:
+	case InputEvent::KC_UP:
 		// move forward on local Z axis one unit
 		action.type = Action::MOVE;
 		action.extra[0] = 1 * factor;
 		break;
 
-	case DIK_A:
-	case DIK_LEFT:
+	case InputEvent::KC_A:
+	case InputEvent::KC_LEFT:
 		// move left on local X axis one unit
 		action.type = Action::STRAFE;
 		action.extra[0] = 1 * factor;
 		break;
 
-	case DIK_S:
-	case DIK_DOWN:
+	case InputEvent::KC_S:
+	case InputEvent::KC_DOWN:
 		// move backward on local Z axis one unit
 		action.type = Action::MOVE;
 		action.extra[0] = -1 * factor;
 		break;
 
-	case DIK_D:
-	case DIK_RIGHT:
+	case InputEvent::KC_D:
+	case InputEvent::KC_RIGHT:
 		// move right on local X axis one unit
 		action.type = Action::STRAFE;
 		action.extra[0] = -1 * factor;
 		break;
 
-	case DIK_ESCAPE:
-	case DIK_SPACE:
+	case InputEvent::KC_ESCAPE:
+	case InputEvent::KC_SPACE:
 		// move right on local X axis one unit
 		action.type = Action::RESET;
 		break;
@@ -161,12 +157,12 @@ bool FreeCamInputFilter::filterKeyEvent(const InputEvent::Key& key)
 	m_actions.push(action);
 	return bHandled;
 }
-//---------------------------------------------------------------------------
+
 FreeCamInputFilter::Action::Type FreeCamInputFilter::getCurrentActionType()
 {
 	return m_currentActionType;
 }
-//---------------------------------------------------------------------------
+
 bool FreeCamInputFilter::filterMouseEvent(const InputEvent::Mouse& mouse)
 {
 	Action action;
@@ -193,132 +189,128 @@ bool FreeCamInputFilter::filterMouseEvent(const InputEvent::Mouse& mouse)
 
 	return false;
 }
-//---------------------------------------------------------------------------
+
 FreeCamController::FreeCamController()
 {
-	m_pInputFilter = 0;
+	mInputFilter = 0;
+	reset();
 }
-//---------------------------------------------------------------------------
+
 FreeCamController::~FreeCamController()
 {
 }
-//---------------------------------------------------------------------------
+
 void FreeCamController::reset()
 {
 	setPosition(Vector4(100, 100, 100, 0));
 	getOrientation().fromAngleAxis(0, Vector4::UNIT_Y);
 
-	if (m_pCamera)
+	if (mCamera)
 	{
-		m_pCamera->setPosition(getPosition());
+		mCamera->setPosition(getPosition());
 		//m_pCamera->setOrientation(m_orientation);
-		m_pCamera->setLookAt(Vector4::ZERO);
+		mCamera->setLookAt(Vector4::ZERO);
 	}
 
-	m_move =
-	m_strafe =
-	m_zoom =
-	m_rotX =
-	m_rotY = 0;
+	mMove =
+	mStrafe =
+	mZoom =
+	mRotX =
+	mRotY = 0;
 }
-//---------------------------------------------------------------------------
+
 bool FreeCamController::initialize()
 {
 	if (CameraController::initialize())
 	{
 		reset();
 
-		m_pInputFilter = TD_NEW FreeCamInputFilter;
+		mInputFilter = TD_NEW FreeCamInputFilter;
 		return true;
 	}
 	
 	return false;
 }
-//---------------------------------------------------------------------------
+
 bool FreeCamController::destroy()
 {
-	delete m_pInputFilter;
+	delete mInputFilter;
 	return CameraController::destroy();
 }
-//---------------------------------------------------------------------------
+
 void FreeCamController::evaluate(float deltaT)
 {
-	assert (m_pInputFilter);
-	if (!m_pInputFilter)
-	{
+	assert (mInputFilter);
+	if (!mInputFilter)
 		return;
-	}
 
 	float translateStep = 100 * deltaT;
 	float rotateFactor = MathUtil::HALF_PI * deltaT / 2.f;
 
 	FreeCamInputFilter::Action action;
-	while (m_pInputFilter->getNextAction(action))
-	{
-		switch(action.type)
-		{
+	while (mInputFilter->getNextAction(action)) {
+		switch(action.type) {
 		case FreeCamInputFilter::Action::RESET:
 			reset();
 			break;
 
 		case FreeCamInputFilter::Action::MOVE:
-			m_move = action.extra[0] * translateStep;
+			mMove = action.extra[0] * translateStep;
 			break;
 
 		case FreeCamInputFilter::Action::STRAFE:
-			m_strafe = action.extra[0] * translateStep;
+			mStrafe = action.extra[0] * translateStep;
 			break;
 
 		case FreeCamInputFilter::Action::ROTATE:
-			m_rotX = rotateFactor * action.extra[0];
-			m_rotY = rotateFactor * action.extra[1];
+			mRotX = rotateFactor * action.extra[0];
+			mRotY = rotateFactor * action.extra[1];
 			break;
 
 		case FreeCamInputFilter::Action::ZOOM:
-			m_zoom = translateStep * action.extra[2] * 0.05f;
+			mZoom = translateStep * action.extra[2] * 0.05f;
 			break;
 		}
 	}
 }
-//---------------------------------------------------------------------------
-bool FreeCamController::update(float /*deltaT*/)
+
+bool FreeCamController::update(float deltaT)
 {
 	// enable/disable input filter
-	if (m_pInputFilter)
+	if (mInputFilter)
 	{
 		if (getEnabled())
-			m_pInputFilter->enable();
+			mInputFilter->enable();
 		else
-			m_pInputFilter->disable();
+			mInputFilter->disable();
 	}
 
-    Environment& env = Environment::get();
 	// evaluate pending actions
-	evaluate(env.pMasterClock->getElapsedTime());
+	evaluate(deltaT);
 
-	m_pCamera->yaw(m_rotX + getYawBias());
-	m_pCamera->pitch(m_rotY = getPitchBias());
-	m_pCamera->translate(Vector4(
-		m_strafe, 
+	mCamera->yaw(mRotX + getYawBias());
+	mCamera->pitch(mRotY = getPitchBias());
+	mCamera->translate(Vector4(
+		mStrafe, 
 		0, 
-		m_zoom + m_move, 
+		mZoom + mMove, 
 		0));
 
-	m_rotX =
-	m_rotY =
-	m_zoom = 0; // one-shot application of mouse-driven stuff
+	mRotX =
+	mRotY =
+	mZoom = 0; // one-shot application of mouse-driven stuff
 
-	m_pCamera->setLookAt(
-		m_pCamera->getPosition() + 
-		m_pCamera->getOrientation() * Vector4(0, 0, 100, 0));
+	mCamera->setLookAt(
+		mCamera->getPosition() + 
+		mCamera->getOrientation() * Vector4(0, 0, 100, 0));
 
-	bool rtn = m_pCamera->update();
-	setPosition(m_pCamera->getPosition());
-	setOrientation(m_pCamera->getOrientation());
+	bool rtn = mCamera->update();
+	setPosition(mCamera->getPosition());
+	setOrientation(mCamera->getOrientation());
 	return rtn;
 }
-//---------------------------------------------------------------------------
+
 InputFilter* FreeCamController::getInputFilter() const
 {
-	return m_pInputFilter;
+	return mInputFilter;
 }

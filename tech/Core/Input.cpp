@@ -5,33 +5,18 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(SINGLETON_INCLUDED)
-#define SINGLETON_INCLUDED
+#include "Input.h"
 
-#include <assert.h>
+using namespace Teardrop;
 
-namespace Teardrop
+Input* Singleton<Input>::mInst = 0;
+
+Input::Input()
 {
-	template<typename T>
-	class Singleton
-	{
-	public:
-		static T& instance() {
-			assert(mInst != 0);
-			return *mInst;
-		}
-
-		static void shutdown() {
-			delete mInst;
-			mInst = 0;
-		}
-
-	protected:
-		Singleton(){}
-		virtual ~Singleton(){}
-
-		static T* mInst;
-	};
+	assert(!mInst);
+	mInst = this;
 }
 
-#endif // SINGLETON_INCLUDED
+Input::~Input()
+{
+}

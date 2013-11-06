@@ -14,6 +14,7 @@ is prohibited.
 
 namespace Teardrop
 {
+	class Executable;
 	class String;
 	struct UUID;
 
@@ -41,6 +42,10 @@ namespace Teardrop
 		Reflection::Object* findById(const UUID& id);
 		void findAllByType(/*out*/std::list<Reflection::Object*>& objs, /*in*/Reflection::ClassDef* type, bool includeDerivedTypes);
 
+		// the one special object instance each package can manage...
+		Executable* executable();
+		Executable* makeExecutable(const Reflection::ClassDef* classDef=0);
+
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
@@ -51,6 +56,8 @@ namespace Teardrop
 		unsigned char* mData;
 		typedef std::map<UUID, Reflection::Object*> SymbolTable;
 		SymbolTable mSymTab;
+
+		Executable* mExecutable;
 	};
 } // namespace Teardrop
 

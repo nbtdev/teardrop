@@ -180,10 +180,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Executable.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\GameState.cpp"
 				>
 			</File>
@@ -201,10 +197,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\LandscapeScene.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Logic.cpp"
 				>
 			</File>
 			<File
@@ -238,6 +230,22 @@
 			<File
 				RelativePath="..\..\..\SceneRenderer.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\SpawnPoint.cpp"
@@ -318,10 +326,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Executable.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\GameState.h"
 				>
 			</File>
@@ -355,10 +359,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\LoadListener.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Logic.h"
 				>
 			</File>
 			<File
@@ -408,6 +408,22 @@
 			<File
 				RelativePath="..\..\..\SceneRenderer.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\SpatialPartitioning.h"
@@ -544,18 +560,82 @@
 			<File
 				RelativePath="..\..\..\ChaseCamController.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\ChaseCamController.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\FirstPersonCamController.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\FirstPersonCamController.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\FreeCamController.cpp"

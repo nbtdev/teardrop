@@ -11,6 +11,7 @@ is prohibited.
 #include "integration/Direct3D9/RendererD3D9.h"
 #include "integration/Direct3D9/RenderTargetD3D9.h"
 #include "integration/Direct3D9/RenderWindowD3D9.h"
+#include "integration/Direct3D9/ViewportD3D9.h"
 #include "integration/Direct3D9/ShaderD3D9.h"
 #include "integration/Direct3D9/IndexBufferD3D9.h"
 #include "integration/Direct3D9/VertexBufferD3D9.h"
@@ -173,6 +174,16 @@ Gfx::RenderTarget* Renderer::createRenderTexture(int /*w*/, int /*h*/, SurfaceFo
 	return 0;
 }
 
+void Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
+{
+	// don't release current render target
+	// TODO: warn about this in a log or something
+	assert(rt != mCurrentRT);
+	if (rt != mCurrentRT) {
+		delete rt;
+	}
+}
+
 static Gfx::Renderer* create() {
 	return TD_NEW Renderer();
 }
@@ -204,10 +215,28 @@ void Renderer::beginFrame(
 	}
 }
 
-void Renderer::beginScene(Camera* camera, Viewport* vp)
+void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
 {
+	assert(mCurrentRT);
+
 	mCurrentCamera = camera;
 	mCurrentVP = vp;
+
+	if (mCurrentVP) {
+		Viewport* d3d9VP = static_cast<Viewport*>(mCurrentVP);
+		mDevice->SetViewport(&d3d9VP->viewport());
+	}
+	else {
+		// default to full-RT viewport
+		D3DVIEWPORT9 vpt;
+		vpt.MinZ = 0;
+		vpt.MaxZ = 1;
+		vpt.X = 0;
+		vpt.Y = 0;
+		vpt.Width = mCurrentRT->width();
+		vpt.Height = mCurrentRT->height();
+		mDevice->SetViewport(&vpt);
+	}
 }
 
 void Renderer::apply(Material* material)

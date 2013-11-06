@@ -63,7 +63,7 @@ static void getShadowCastersAABB(
 	for (ZoneObjects::const_iterator it = visibleObjects.begin();
 		it != visibleObjects.end(); ++it)
 	{
-		Reflection::ClassDef* pClassDef = (*it)->getDerivedClassDef();
+		const Reflection::ClassDef* pClassDef = (*it)->getDerivedClassDef();
 		if (
 			TerrainPatch::getClassDef() == pClassDef
 			|| SpawnPoint::getClassDef() == pClassDef

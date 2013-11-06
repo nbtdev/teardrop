@@ -163,7 +163,7 @@ static void setObjectProperties(
 	TiXmlElement* pPropElem = elem.FirstChildElement("property");
 	while (pPropElem)
 	{
-		ClassDef* pClassDef = obj.getDerivedClassDef();
+		const ClassDef* pClassDef = obj.getDerivedClassDef();
 		const char* name = pPropElem->Attribute("name");
 		const char* value = pPropElem->Attribute("value");
 

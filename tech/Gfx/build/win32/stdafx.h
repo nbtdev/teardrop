@@ -19,6 +19,9 @@
 #include "integration\Direct3D9\GfxRenderer_StableHeaders.h"
 #include "GfxCommon.h"
 
+#define DIRECTINPUT_VERSION 0x0800
+#include <DInput.h>
+
 #include <list>
 #include <map>
 #include <vector>

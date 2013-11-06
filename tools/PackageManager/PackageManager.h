@@ -15,6 +15,7 @@ is prohibited.
 namespace Teardrop 
 {
 	class Package;
+	class Executable;
 	class Asset;
 	class TextureAsset;
 	class String;
@@ -42,6 +43,8 @@ namespace Teardrop
 			void importAsset(/*out*/ImportedAsset& imp, Folder* folder, const char* filepath, const Reflection::ClassDef* assetClass);
 			// create/return new object instance from ClassDef
 			std::pair<Reflection::Object*, Metadata*> createObject(Folder* folder, const Reflection::ClassDef* classDef);
+			// make package executable using ClassDef
+			Executable* makeExecutable(const Reflection::ClassDef* classDef);
 
 			void initializeAllObjects();
 

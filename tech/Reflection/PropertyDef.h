@@ -272,7 +272,7 @@ namespace Teardrop
 			void setDataFromString(Object* pObj, const String& str, int /*index=-1*/) const
 			{
 				// pull value from our list of possible values
-				ClassDef* classDef = pObj->getDerivedClassDef();
+				const ClassDef* classDef = pObj->getDerivedClassDef();
 				const EnumDef* enumDef = classDef->findEnum(m_pTypeName);
 				if (enumDef) {
 					const EnumValue* enumVal = enumDef->values();
@@ -313,7 +313,7 @@ namespace Teardrop
 				EnumPropertyDefImpl<T>& prop = *((EnumPropertyDefImpl<T>*)((unsigned long)pObj + m_offset));
 				T val = prop;
 
-				ClassDef* classDef = pObj->getDerivedClassDef();
+				const ClassDef* classDef = pObj->getDerivedClassDef();
 				const EnumDef* enumDef = classDef->findEnum(m_pTypeName);
 				if (enumDef) {
 					const EnumValue* enumVal = enumDef->values();

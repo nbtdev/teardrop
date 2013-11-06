@@ -86,7 +86,7 @@ void ClassDef::setCreatable()
 	m_bCreatable = true;
 }
 //---------------------------------------------------------------------------
-ClassDef* ClassDef::getBaseClass()
+const ClassDef* ClassDef::getBaseClass() const
 {
 	if (!m_pBaseClass)
 		m_pBaseClass = findClassDef(m_pBaseClassName);
@@ -121,7 +121,7 @@ void ClassDef::addEnum(EnumDef* pEnum)
 	*ppEnum = pEnum;
 }
 //-----------------------------------------------------------------------------
-const PropertyDef* ClassDef::findProperty(const char* pPropName, bool deep)
+const PropertyDef* ClassDef::findProperty(const char* pPropName, bool deep) const
 {
 	// walk the list to find the prop
 	PropertyDef* pTmp = m_pProps;
@@ -139,7 +139,7 @@ const PropertyDef* ClassDef::findProperty(const char* pPropName, bool deep)
 		if (!m_pBaseClass)
 			m_pBaseClass = findClassDef(m_pBaseClassName);
 
-		ClassDef* pClass = m_pBaseClass;
+		const ClassDef* pClass = m_pBaseClass;
 
 		while (pClass)
 		{
@@ -159,7 +159,7 @@ const PropertyDef* ClassDef::findProperty(const char* pPropName, bool deep)
 	return 0;
 }
 //-----------------------------------------------------------------------------
-const EnumDef* ClassDef::findEnum(const char* pEnumName, bool deep)
+const EnumDef* ClassDef::findEnum(const char* pEnumName, bool deep) const
 {
 	// walk the list to find the enum
 	EnumDef* pTmp = m_pEnums;
@@ -177,7 +177,7 @@ const EnumDef* ClassDef::findEnum(const char* pEnumName, bool deep)
 		if (!m_pBaseClass)
 			m_pBaseClass = findClassDef(m_pBaseClassName);
 
-		ClassDef* pClass = m_pBaseClass;
+		const ClassDef* pClass = m_pBaseClass;
 
 		while (pClass)
 		{
@@ -214,12 +214,12 @@ const PropertyDef* ClassDef::findPropertyById(int propId) const
 	return 0;
 }
 //-----------------------------------------------------------------------------
-bool ClassDef::isA(const ClassDef* pClass)
+bool ClassDef::isA(const ClassDef* pClass) const
 {
 	if (this == pClass)
 		return true;
 
-	ClassDef* pTest = this;
+	const ClassDef* pTest = this;
 	while (pTest && pTest != pClass)
 	{
 		pTest = pTest->getBaseClass();

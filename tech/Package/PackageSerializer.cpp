@@ -36,7 +36,7 @@ static int serializeObjects(const Objects& objects, Stream& stream, std::list<As
 
 	for (Objects::const_iterator it = objects.begin(); it != objects.end(); ++it) {
 		Reflection::Object* obj = *it;
-		Reflection::ClassDef* classDef = obj->getDerivedClassDef();
+		const Reflection::ClassDef* classDef = obj->getDerivedClassDef();
 
 		// store off the things that need to be serialized
 		if (classDef->isA(Asset::getClassDef())) {
@@ -63,7 +63,7 @@ static int serializeObjects(const Objects& objects, Stream& stream, std::list<As
 					// then it's actually an object, so we need to 
 					// get its own classdef and list of properties...
 					Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
-					Reflection::ClassDef* c = o->getDerivedClassDef();
+					const Reflection::ClassDef* c = o->getDerivedClassDef();
 					const Reflection::PropertyDef* pd = c->getProps();
 					while (pd) {
 						TiXmlElement np("property");
@@ -197,7 +197,7 @@ static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectReso
 								// then the property object instance already exists, just 
 								// read in the nested object's property values
 								Reflection::Object* o = (Reflection::Object*)prop->getDataPointer(obj);
-								Reflection::ClassDef* c = o->getDerivedClassDef();
+								const Reflection::ClassDef* c = o->getDerivedClassDef();
 
 								TiXmlElement* np = propElem->FirstChildElement("property");
 								while (np) {

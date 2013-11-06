@@ -245,7 +245,7 @@ void ZoneObject::setTemplateName(const String& name)
 //---------------------------------------------------------------------------
 bool ZoneObject::isOfType(Reflection::ClassDef* pClassDef)
 {
-	Reflection::ClassDef* pDerived = getDerivedClassDef();
+	const Reflection::ClassDef* pDerived = getDerivedClassDef();
 	while (pDerived)
 	{
 		if (pDerived == pClassDef)
