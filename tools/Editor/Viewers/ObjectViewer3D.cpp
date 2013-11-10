@@ -40,6 +40,15 @@ ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	splitter->addWidget(mPropGrid);
 	vl->addWidget(splitter);
 
+	setAttribute(Qt::WA_DeleteOnClose);
+	resize(800, 600);
+
+	QString title("Object Viewer (3D)");
+	//title.append(meta->getName());
+	setWindowTitle(title);
+
+	setWindowIcon(QIcon("icons/td-icon-32.png"));
+
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
 	mTimer->start(10);
 }

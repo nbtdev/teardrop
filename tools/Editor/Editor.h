@@ -80,6 +80,7 @@ namespace Teardrop
 			void openProject(const QString& pathname);
 
 			void onProjectExplorerSelectionChanged(ProjectItem* item);
+			void onObjectBrowserItemDoubleClicked(ProjectItem* item);
 		};
 	}
 }

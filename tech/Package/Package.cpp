@@ -22,6 +22,12 @@ Package::Package()
 Package::~Package()
 {
 	delete [] mData;
+
+	for (Objects::iterator it = mObjects.begin(); it != mObjects.end(); ++it) {
+		delete *it;
+	}
+
+	delete mExecutable;
 }
 
 void Package::add(Reflection::Object* object)

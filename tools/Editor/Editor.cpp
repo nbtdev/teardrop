@@ -15,6 +15,7 @@ is prohibited.
 #include "ObjectBrowser/ObjectBrowser.h"
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/PackageManager.h"
+#include "Package/Package.h"
 #include "Game/Scene.h"
 #include "Gfx/Renderer.h"
 #include "Util/FileSystem.h"
@@ -27,6 +28,13 @@ is prohibited.
 #include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
+
+#include "MaterialEditor/MaterialEditor.h"
+#include "Viewers/ObjectViewer3D.h"
+#include "Viewers/StaticMeshViewer.h"
+
+#include "Gfx/Material.h"
+#include "ASset/StaticMeshAsset.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -107,6 +115,7 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 	mProjectExp->SelectionChanged.bind(this, &Editor::onProjectExplorerSelectionChanged);
 	mObjBrowser->ItemClicked.bind(this, &Editor::onProjectExplorerSelectionChanged);
+	mObjBrowser->ItemDoubleClicked.bind(this, &Editor::onObjectBrowserItemDoubleClicked);
 	mProjectExp->SelectionChanged.bind(mObjBrowser, &ObjectBrowser::onItemSelected);
 	connect(mProjectExp, SIGNAL(activePackageChanged(PackageManager*)), this, SLOT(onActivePackageChanged(PackageManager*)));
 
@@ -134,15 +143,15 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 Editor::~Editor()
 {
+	mPreferences.save();
+	delete mProject;
+	FreeImage_DeInitialise();
+
 	if (mRenderer) {
 		mRenderer->shutdown();
 	}
 
 	delete mRenderer;
-
-	mPreferences.save();
-	delete mProject;
-	FreeImage_DeInitialise();
 }
 
 void Editor::onClose()
@@ -308,6 +317,36 @@ void Editor::onProjectExplorerSelectionChanged(ProjectItem* item)
 		mPropGrid->setObject(0);
 	else
 		mPropGrid->setObject(item->object(), item->metadata());
+}
+
+void Editor::onObjectBrowserItemDoubleClicked(ProjectItem* item)
+{
+	// TODO: is there a way to do this more generically/elegantly?
+	if (item) {
+		Reflection::Object* obj = item->object();
+		if (obj) {
+			const Reflection::ClassDef* classDef = obj->getDerivedClassDef();
+
+			// TODO: do this more automatically?
+			if (classDef->isA(Gfx::Material::getClassDef())) {
+				(new MaterialEditor(item))->show();
+			}
+
+			if (classDef->isA(StaticMeshAsset::getClassDef())) {
+				StaticMeshAsset* sma = static_cast<StaticMeshAsset*>(obj);
+				ObjectViewer3D* objViewer = TD_NEW ObjectViewer3D(mRenderer);
+
+				Package* pkg = objViewer->package();
+				Executable* exe = pkg->makeExecutable(StaticMeshViewer::getClassDef());
+
+				StaticMeshViewer* smv = static_cast<StaticMeshViewer*>(exe);
+				smv->initialize();
+				smv->setStaticMeshAsset(sma);
+
+				objViewer->show();
+			}
+		}
+	}
 }
 
 void Editor::onActivePackageChanged(PackageManager* pkgMgr)
