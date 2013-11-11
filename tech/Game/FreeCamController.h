@@ -23,13 +23,6 @@ namespace Teardrop
 	class FreeCamController 
 		: public CameraController
 	{
-		FreeCamInputFilter* m_pInputFilter;
-		float m_move;
-		float m_strafe;
-		float m_zoom;
-		float m_rotX;
-		float m_rotY;
-
 	public:
 		TD_CLASS(FreeCamController, CameraController);
 
@@ -49,7 +42,14 @@ namespace Teardrop
 		TD_DECLARE_ALLOCATOR();
 
 	private:
-		void evaluate(float deltaT);
+		void evaluate(float deltaT); 
+
+		FreeCamInputFilter* mInputFilter;
+		float mMove;
+		float mStrafe;
+		float mZoom;
+		float mRotX;
+		float mRotY;
 	};
 }
 

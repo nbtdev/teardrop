@@ -9,13 +9,12 @@ is prohibited.
 #define ORBITCAMCONTROLLER_INCLUDED
 
 #include "Game/CameraController.h"
-#include "Math/Vector4.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop
 {
 	/*
-		Free-camera implementation class
+		Free-camera implementation class 
 	*/
 
 	class OrbitCamInputFilter;
@@ -25,27 +24,18 @@ namespace Teardrop
 	class OrbitCamController 
 		: public CameraController
 	{
-		OrbitCamInputFilter* m_pInputFilter;
-		Vector4 m_targetPos;
-		float m_dist;
-		float m_azimuth;
-		float m_elevation;
-		float m_zoomFactor;
-
 	public:
 		TD_CLASS(OrbitCamController, CameraController);
 
 		OrbitCamController();
 		virtual ~OrbitCamController();
 
-		//! overrides CameraController::setTarget
-		void setTarget(ComponentHost* pTarget);
-		//! used if no target set
-		void setTarget(const Vector4& targetPos);
 		//! manually set the distance from the target
 		void setDistanceToTarget(float units);
 		//! init values from an existing position (relative to target)
 		void reinit(const Vector4& pos);
+		//! camera will orbit and look-at this point in space 
+		void setTargetPos(const Vector4& targetPos);
 
 		/*
 			CameraController implementation
@@ -64,6 +54,13 @@ namespace Teardrop
 
 	private:
 		void evaluate(float deltaT);
+
+		OrbitCamInputFilter* mInputFilter;
+		Vector4 mTargetPos;
+		float mDist;
+		float mAzimuth;
+		float mElevation;
+		float mZoomFactor;
 	};
 }
 
