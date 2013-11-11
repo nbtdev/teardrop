@@ -13,7 +13,7 @@ is prohibited.
 #include <QTimer>
 #include <QIcon>
 #include <assert.h>
-
+ 
 using namespace Teardrop;
 using namespace Tools;
 
