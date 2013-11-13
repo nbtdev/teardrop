@@ -16,6 +16,16 @@ namespace Teardrop
 	{
 		class Renderer;
 
+
+		enum InitFlags {
+			INIT_FRAMEBUFFER_ALPHA = (1<<0),
+			INIT_ENABLE_VSYNC = (1<<1),
+			INIT_ENABLE_STENCIL_BUFFER = (1<<2),
+			INIT_ENABLE_DEPTH_BUFFER = (1<<3),
+			INIT_FULLSCREEN = (1<<4),
+			INIT_ENABLE_NVPERFHUD = (1<<5),
+		};
+	
 		enum SurfaceFormat {
 			// 4 channels, 1 byte per channel
 			SURFACE_A8R8G8B8,

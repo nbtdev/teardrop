@@ -116,7 +116,7 @@ Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
 
 	// the first render target in the list is the default/implicit render target we just created, 
 	// and it has to be a render window
-	Direct3D9::RenderWindow* renderWindow = TD_NEW Direct3D9::RenderWindow(mDevice, mPParams, hWnd);
+	Direct3D9::RenderWindow* renderWindow = TD_NEW Direct3D9::RenderWindow(mDevice, hWnd);
 	mRenderTargets.push_back(renderWindow);
 
 	IDirect3DSurface9* surface;
@@ -164,9 +164,9 @@ void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 	}
 }
 
-Gfx::RenderTarget* Renderer::createRenderWindow(uintptr_t /*hWnd*/, SurfaceFormat /*fmt*/, int /*flags*/)
+Gfx::RenderTarget* Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
 {
-	return 0;
+	return TD_NEW RenderWindow(mDevice, (HWND)hWnd, flags);
 }
 
 Gfx::RenderTarget* Renderer::createRenderTexture(int /*w*/, int /*h*/, SurfaceFormat /*fmt*/, int /*flags*/)

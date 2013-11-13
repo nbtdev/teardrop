@@ -19,15 +19,14 @@ namespace Teardrop
 			class RenderWindow : public RenderTarget
 			{
 			public:
-				RenderWindow(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS& pparams, HWND hWnd);
+				RenderWindow(IDirect3DDevice9* device, HWND hWnd);
+				RenderWindow(IDirect3DDevice9* device, HWND hWnd, int flags);
 				~RenderWindow();
 
 				void present();
 
 				HWND hWnd();
 				D3DPRESENT_PARAMETERS& presentParams();
-
-				void setPresentParams(D3DPRESENT_PARAMETERS& pparams);
 
 				TD_DECLARE_ALLOCATOR();
 

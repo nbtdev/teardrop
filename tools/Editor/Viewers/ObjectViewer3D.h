@@ -15,10 +15,12 @@ class QTimer;
 namespace Teardrop
 {
 	class Package;
+	class OrbitCameraController;
 
 	namespace Gfx {
 		class Renderer;
 		class RenderTarget;
+		class Viewport;
 	}
 
 	namespace Tools
@@ -27,6 +29,8 @@ namespace Teardrop
 
 		class ObjectViewer3D : public QWidget
 		{
+			Q_OBJECT 
+
 		public:
 			ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent=0);
 			~ObjectViewer3D();
@@ -39,7 +43,9 @@ namespace Teardrop
 		protected:
 			Gfx::Renderer* mRenderer;
 			Gfx::RenderTarget* mRenderWindow;
+			Gfx::Viewport* mViewport;
 			Package* mPackage;
+			OrbitCameraController* mOrbitCam;
 			
 			QWidget* m3DView;
 			PropertyGrid* mPropGrid;

@@ -10,6 +10,7 @@ is prohibited.
 
 #include "Core/Input.h"
 #include "Memory/Allocators.h"
+#include <DInput8.h>
 #include <vector>
 
 namespace Teardrop

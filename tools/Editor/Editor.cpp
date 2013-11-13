@@ -37,7 +37,6 @@ is prohibited.
 #include "ASset/StaticMeshAsset.h"
 
 using namespace Teardrop;
-using namespace Tools;
 
 Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
@@ -119,14 +118,6 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mProjectExp->SelectionChanged.bind(mObjBrowser, &ObjectBrowser::onItemSelected);
 	connect(mProjectExp, SIGNAL(activePackageChanged(PackageManager*)), this, SLOT(onActivePackageChanged(PackageManager*)));
 
-	setEditorTitle();
-	mPreferences.load();
-
-	// do we need to load the previous project?
-	const Preferences::ProjectList& projs = mPreferences.projectList();
-	if (mPreferences.general().mLoadLastProject && projs.size())
-		openProject((const char*)projs.front());
-
 	// create renderer instance
 	// obtain list of renderers, for now just pick first one if present
 	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
@@ -139,6 +130,14 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 	// set up render window
 	mRenderWindow = new RenderWindow(mRenderer);
+
+	setEditorTitle();
+	mPreferences.load();
+
+	// do we need to load the previous project?
+	const Preferences::ProjectList& projs = mPreferences.projectList();
+	if (mPreferences.general().mLoadLastProject && projs.size())
+		openProject((const char*)projs.front());
 }
 
 Editor::~Editor()

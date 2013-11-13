@@ -49,6 +49,8 @@ ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 
 	setWindowIcon(QIcon("icons/td-icon-32.png"));
 
+	mRenderWindow = mRenderer->createRenderWindow((uintptr_t)m3DView->winId(), SURFACE_A8R8G8B8, INIT_ENABLE_DEPTH_BUFFER|INIT_ENABLE_STENCIL_BUFFER);
+
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
 	mTimer->start(10);
 }

@@ -27,15 +27,6 @@ namespace Teardrop
 			Renderer();
 			virtual ~Renderer() = 0;
 
-			enum Flags {
-				INIT_FRAMEBUFFER_ALPHA = (1<<0),
-				INIT_ENABLE_VSYNC = (1<<1),
-				INIT_ENABLE_STENCIL_BUFFER = (1<<2),
-				INIT_ENABLE_DEPTH_BUFFER = (1<<3),
-				INIT_FULLSCREEN = (1<<4),
-				INIT_ENABLE_NVPERFHUD = (1<<5),
-			};
-
 			// initialize renderer with main/default render target (typically a render
 			// window); flags is a bitwise OR of the Flags enumeration values; depending 
 			// on platform, an hWnd value of 0 means either "create a new top level window"

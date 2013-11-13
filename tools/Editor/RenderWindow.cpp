@@ -36,9 +36,9 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	assert(mRenderer);
 
 	int flags = 
-		Gfx::Renderer::INIT_FRAMEBUFFER_ALPHA |
-		Gfx::Renderer::INIT_ENABLE_STENCIL_BUFFER |
-		Gfx::Renderer::INIT_ENABLE_DEPTH_BUFFER;
+		Gfx::INIT_FRAMEBUFFER_ALPHA |
+		Gfx::INIT_ENABLE_STENCIL_BUFFER |
+		Gfx::INIT_ENABLE_DEPTH_BUFFER;
 
 	// initialize() will return a pointer to the first render target
 	// created, which will be the "main" window
