@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(VERTEXDECLARATION_INCLUDED)
 #define VERTEXDECLARATION_INCLUDED
 
+#include "Memory/Allocators.h"
+
 namespace Teardrop
 {
 	namespace Gfx 

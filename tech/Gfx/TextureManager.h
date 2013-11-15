@@ -8,7 +8,8 @@ is prohibited.
 #if !defined(TEXTUREMANAGER_INCLUDED)
 #define TEXTUREMANAGER_INCLUDED
 
-#include "Util/Singleton.h"
+#include "Memory/Allocators.h"
+#include "Core/Singleton.h"
 
 namespace Teardrop
 {

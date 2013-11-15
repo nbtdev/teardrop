@@ -5,7 +5,7 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
+
 #include "GfxRenderer.h"
 #include "GfxVertexData.h"
 #include "GfxIndexData.h"

@@ -8,6 +8,7 @@ is prohibited.
 #if !defined(SHADER_INCLUDED)
 #define SHADER_INCLUDED
 
+#include "Memory/Allocators.h"
 #include "Util/UUID.h"
 
 namespace Teardrop

@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(ATTRIBUTE_INCLUDED)
 #define ATTRIBUTE_INCLUDED
 
+#include "Memory/Allocators.h"
+
 namespace Teardrop
 {
 	namespace Gfx 

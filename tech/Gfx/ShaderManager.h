@@ -8,7 +8,8 @@ is prohibited.
 #if !defined(SHADERMANAGER_INCLUDED)
 #define SHADERMANAGER_INCLUDED
 
-#include "Util/Singleton.h"
+#include "Memory/Allocators.h"
+#include "Core/Singleton.h"
 
 namespace Teardrop
 {

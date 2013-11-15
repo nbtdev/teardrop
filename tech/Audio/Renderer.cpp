@@ -5,9 +5,7 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
 #include "Renderer.h"
-#include "integration/XAudio2/RendererXAudio2.h"
 
 using namespace Teardrop;
 using namespace Audio;
@@ -22,9 +20,9 @@ Renderer::~Renderer()
 //---------------------------------------------------------------------------
 Renderer* Renderer::createInstance()
 {
-	RendererXAudio2* pRend = TD_NEW RendererXAudio2();
-	if (pRend->initialize())
-		return pRend;
+	//RendererXAudio2* pRend = TD_NEW RendererXAudio2();
+	//if (pRend->initialize())
+	//	return pRend;
 
 	return 0;
 }

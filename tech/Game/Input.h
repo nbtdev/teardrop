@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(INPUT_INCLUDED)
 #define INPUT_INCLUDED
 
-#include "Util/Singleton.h"
+#include "Core/Singleton.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop

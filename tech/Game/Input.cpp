@@ -7,8 +7,6 @@ is prohibited.
 
 #include "Input.h"
 #include "InputEvent.h"
-#define DIRECTINPUT_VERSION 0x0800
-#include <DInput.h>
 #include "Util/Environment.h"
 #include "Util/Logger.h"
 #include "Memory/Memory.h"

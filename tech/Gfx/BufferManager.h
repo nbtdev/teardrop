@@ -8,7 +8,8 @@ is prohibited.
 #if !defined(BUFFERMANAGER_INCLUDED)
 #define BUFFERMANAGER_INCLUDED
 
-#include "Util/Singleton.h"
+#include "Core/Singleton.h"
+#include "Memory/Allocators.h"
 
 namespace Teardrop
 {

@@ -8,6 +8,7 @@ is prohibited.
 #if !defined(MESH_INCLUDED)
 #define MESH_INCLUDED
 
+#include "Memory/Allocators.h"
 #include <vector>
 
 namespace Teardrop

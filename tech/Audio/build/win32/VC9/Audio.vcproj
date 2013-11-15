@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\DirectX_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\SDK Library.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -47,7 +47,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -85,7 +85,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\DirectX_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\SDK Library.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
@@ -112,7 +112,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -149,48 +149,6 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Integration"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<Filter
-				Name="XAudio2"
-				>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\EmitterXAudio2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\EmitterXAudio2.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\RendererXAudio2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\RendererXAudio2.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\SampleXAudio2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\SampleXAudio2.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\StreamXAudio2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\integration\XAudio2\StreamXAudio2.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
 		<File
 			RelativePath="..\..\..\Emitter.cpp"
 			>
@@ -216,39 +174,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\stdafx.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\stdafx.h"
-			>
-		</File>
-		<File
 			RelativePath="..\..\..\Stream.cpp"
 			>
 		</File>
 		<File
 			RelativePath="..\..\..\Stream.h"
-			>
-		</File>
-		<File
-			RelativePath="..\targetver.h"
 			>
 		</File>
 	</Files>

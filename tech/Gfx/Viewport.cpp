@@ -5,7 +5,7 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
+
 #include "Viewport.h"
 #include "RenderTarget.h"
 #include <assert.h>

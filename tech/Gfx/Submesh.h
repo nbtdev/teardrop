@@ -8,6 +8,7 @@ is prohibited.
 #if !defined(SUBMESH_INCLUDED)
 #define SUBMESH_INCLUDED
 
+#include "Memory/Allocators.h"
 #include <vector>
 
 namespace Teardrop

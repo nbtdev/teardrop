@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(TEXTURE2D_INCLUDED)
 #define TEXTURE2D_INCLUDED
 
+#include "Memory/Allocators.h"
+
 namespace Teardrop
 {
 	class TextureAsset;

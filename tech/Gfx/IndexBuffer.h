@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(INDEXBUFFER_INCLUDED)
 #define INDEXBUFFER_INCLUDED
 
+#include "Memory/Allocators.h"
+
 namespace Teardrop
 {
 	namespace Gfx 

@@ -5,12 +5,13 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
+
 #include "Camera.h"
 #include "Math/MathUtil.h"
 #include "Math/Vector4.h"
 #include "Math/Ray.h"
 #include <assert.h>
+#include <string.h>
 
 using namespace Teardrop;
 using namespace Gfx;
@@ -31,7 +32,7 @@ Camera::Camera()
 	m_bOrtho = false;
 	m_width = 1;
 	m_height = 1;
-	ZeroMemory(m_frustum, sizeof(m_frustum));
+	memset(m_frustum, 0, sizeof(m_frustum));
 }
 
 Camera::~Camera()

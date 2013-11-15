@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\DirectX_Debug.vsprops;..\..\..\..\vsprops\SDK Library.vsprops;..\..\..\..\vsprops\TBB_Debug.vsprops"
+			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\SDK Library.vsprops;..\..\..\..\vsprops\TBB_Debug.vsprops"
 			CharacterSet="2"
 			ManagedExtensions="0"
 			>
@@ -47,7 +47,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;USE_D3D9;D3D_DEBUG_INFO;COS_TARGET_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
@@ -86,7 +86,7 @@
 			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\DirectX_Release.vsprops;..\..\..\..\vsprops\SDK Library.vsprops;..\..\..\..\vsprops\TBB_Release.vsprops"
+			InheritedPropertySheets="$(SolutionDir)\tech\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\SDK Library.vsprops;..\..\..\..\vsprops\TBB_Release.vsprops"
 			CharacterSet="2"
 			ManagedExtensions="0"
 			WholeProgramOptimization="1"
@@ -112,7 +112,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;USE_D3D9;COS_TARGET_RELEASE"
 				BufferSecurityCheck="false"
 				OpenMP="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
@@ -219,232 +219,6 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\GfxBitmap.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxBitmap.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxCamera.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxCamera.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxCommon.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxCommon.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxIndexData.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					ObjectFile="$(IntDir)\$(InputName)1.obj"
-					XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					ObjectFile="$(IntDir)\$(InputName)1.obj"
-					XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxIndexData.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxLight.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxLight.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMaterial.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMaterial.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMatrixPaletteCache.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMatrixPaletteCache.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMesh.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMesh.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMeshInstance.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxMeshInstance.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderConfig.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderer.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderer.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderStats.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderStats.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderTarget.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderTarget.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderTexture.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderTexture.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderWindow.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxRenderWindow.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxResourceFactory.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxResourceFactory.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxShader.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxShader.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxShaderConstant.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxShaderConstant.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxShaderConstantTable.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxShaderConstantTable.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxSubMesh.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxSubMesh.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxTexture.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxTexture.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxTextureStage.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxTextureStage.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxUtil.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxVertexData.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxVertexData.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxVertexFormat.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxVertexFormat.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxViewport.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\GfxViewport.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\IMeshInstanceProvider.h"
-			>
-		</File>
-		<File
 			RelativePath="..\..\..\IndexBuffer.cpp"
 			>
 		</File>
@@ -518,30 +292,6 @@
 		</File>
 		<File
 			RelativePath="..\..\..\ShaderManager.h"
-			>
-		</File>
-		<File
-			RelativePath="..\stdafx.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\..\..\build\win32\stdafx.h"
 			>
 		</File>
 		<File

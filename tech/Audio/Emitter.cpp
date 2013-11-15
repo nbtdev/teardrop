@@ -5,7 +5,6 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
 #include "Emitter.h"
 
 using namespace Teardrop;
