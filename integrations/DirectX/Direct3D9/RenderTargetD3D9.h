@@ -9,6 +9,7 @@ is prohibited.
 #define RENDERTARGETD3D9_INCLUDED
 
 #include "Gfx/RenderTarget.h"
+#include "Memory/Allocators.h"
 #include <map>
 
 namespace Teardrop

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Teardrop-Havok (Debug VC9)"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(TEARDROP_DIRECTX_INTEGRATION)\include"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="Direct3D9.lib DirectInput8.lib d3d9.lib dxguid.lib d3dx9d.lib dxerr.lib dinput8.lib"
+		AdditionalLibraryDirectories="$(TEARDROP_DIRECTX_INTEGRATION)\lib\vc9\Debug;$(DXSDK_DIR)\Lib\x86"
+	/>
+</VisualStudioPropertySheet>

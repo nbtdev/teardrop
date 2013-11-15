@@ -6,7 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "integration/Direct3D9/VertexBufferD3D9.h"
+#include "VertexBufferD3D9.h"
 #include <assert.h>
 
 namespace Teardrop {

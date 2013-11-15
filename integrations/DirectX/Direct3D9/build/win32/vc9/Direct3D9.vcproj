@@ -2,11 +2,11 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Util"
-	ProjectGUID="{618DD3DF-B23D-4BFB-9383-E5158DAE9DE9}"
-	RootNamespace="CosUtil"
+	Name="Direct3D9"
+	ProjectGUID="{7D2E9086-665E-4ED5-AE85-EBCC8970E1BF}"
+	RootNamespace="Direct3D9"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,15 +18,16 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)DirectX\lib\vc9\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Debug C Runtime Library Type.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\DirectX_Debug.vsprops;..\..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Debug).vsprops"
 			CharacterSet="2"
-			ManagedExtensions="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying headers to $(SolutionDir)DirectX\include\$(ProjectName)..."
+				CommandLine="if not exist $(SolutionDir)DirectX\include\$(ProjectName) mkdir $(SolutionDir)DirectX\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -43,15 +44,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../..;../../../platform;../../../..;../../../"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="4"
+				WarningLevel="3"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -64,7 +63,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="shlwapi.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -84,16 +82,17 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)DirectX\lib\vc9\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\Release C Runtime Library Type.vsprops;..\..\..\..\vsprops\SDK Library.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\DirectX_Release.vsprops;..\..\..\..\..\..\sdk\vsprops\vc9\TBB_Debug.vsprops;..\..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Release).vsprops"
 			CharacterSet="2"
-			ManagedExtensions="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Copying headers to $(SolutionDir)DirectX\include\$(ProjectName)..."
+				CommandLine="if not exist $(SolutionDir)DirectX\include\$(ProjectName) mkdir $(SolutionDir)DirectX\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -109,14 +108,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../..;../../../platform;../../../..;../../../"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				BufferSecurityCheck="false"
-				OpenMP="true"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
+				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -130,7 +128,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="shlwapi.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -152,96 +149,76 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Platform"
-			>
-			<Filter
-				Name="Win32"
-				>
-				<File
-					RelativePath="..\..\..\platform\win32\FileSystemWatcherWin32.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\platform\win32\FileSystemWatcherWin32.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\platform\win32\FileSystemWin32.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\platform\win32\TimerWin32.cpp"
-					>
-				</File>
-			</Filter>
-		</Filter>
 		<File
-			RelativePath="..\..\..\_String.h"
+			RelativePath="..\..\..\BufferManagerD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Environment.cpp"
+			RelativePath="..\..\..\BufferManagerD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Environment.h"
+			RelativePath="..\..\..\IndexBufferD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Event.h"
+			RelativePath="..\..\..\IndexBufferD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\FileSystem.cpp"
+			RelativePath="..\..\..\Integration.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\FileSystem.h"
+			RelativePath="..\..\..\RendererD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\FileSystemWatcher.cpp"
+			RelativePath="..\..\..\RendererD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\FileSystemWatcher.h"
+			RelativePath="..\..\..\RenderTargetD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\FourCC.cpp"
+			RelativePath="..\..\..\RenderTargetD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\FourCC.h"
+			RelativePath="..\..\..\RenderTextureD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Hash.cpp"
+			RelativePath="..\..\..\RenderTextureD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Hash.h"
+			RelativePath="..\..\..\RenderWindowD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Logger.cpp"
+			RelativePath="..\..\..\RenderWindowD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Logger.h"
+			RelativePath="..\..\..\ShaderD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\RefCounted.h"
+			RelativePath="..\..\..\ShaderD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\SharedPointer.h"
+			RelativePath="..\..\..\ShaderManagerD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\stdafx.cpp"
+			RelativePath="..\..\..\ShaderManagerD3D9.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\stdafx.cpp"
 			>
 			<FileConfiguration
 				Name="Debug|Win32"
@@ -261,43 +238,47 @@
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\stdafx.h"
+			RelativePath="..\..\..\stdafx.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\String.cpp"
+			RelativePath="..\..\..\Texture2DD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\StringUtil.cpp"
+			RelativePath="..\..\..\Texture2DD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\StringUtil.h"
+			RelativePath="..\..\..\TextureManagerD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\System.h"
+			RelativePath="..\..\..\TextureManagerD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\SystemManager.cpp"
+			RelativePath="..\..\..\VertexBufferD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\SystemManager.h"
+			RelativePath="..\..\..\VertexBufferD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Timer.h"
+			RelativePath="..\..\..\VertexDeclarationD3D9.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\UUID.cpp"
+			RelativePath="..\..\..\VertexDeclarationD3D9.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\UUID.h"
+			RelativePath="..\..\..\ViewportD3D9.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ViewportD3D9.h"
 			>
 		</File>
 	</Files>

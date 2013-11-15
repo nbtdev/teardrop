@@ -6,8 +6,8 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "integration/Direct3D9/TextureManagerD3D9.h"
-#include "integration/Direct3D9/Texture2DD3D9.h"
+#include "TextureManagerD3D9.h"
+#include "Texture2DD3D9.h"
 #include "Asset/TextureAsset.h"
 #include <assert.h>
 

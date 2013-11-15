@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Core"
-	ProjectGUID="{621ECA23-61F4-4EE1-B778-0C764E0D1CD3}"
-	RootNamespace="Core"
+	Name="DirectInput8"
+	ProjectGUID="{71E4B7C8-E8BA-48C5-91AA-1E1AB490C88E}"
+	RootNamespace="DirectInput8"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -18,15 +18,16 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)DirectX\lib\vc9\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\..\..\..\vsprops\DirectX_Debug.vsprops;..\..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Debug).vsprops;..\..\..\..\..\..\sdk\vsprops\vc9\TBB_Debug.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ..."
-				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL&#x0D;&#x0A;"
+				Description="Copying headers to $(SolutionDir)DirectX\include\$(ProjectName)..."
+				CommandLine="if not exist $(SolutionDir)DirectX\include\$(ProjectName) mkdir $(SolutionDir)DirectX\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -43,14 +44,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../..;../../..;../../../.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
 				WarningLevel="3"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -82,16 +82,17 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)sdk\lib\$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="$(SolutionDir)DirectX\lib\vc9\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\..\..\..\vsprops\DirectX_Release.vsprops;..\..\..\..\..\..\sdk\vsprops\vc9\TBB_Release.vsprops;..\..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Release).vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				Description="Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ..."
-				CommandLine="if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)&#x0D;&#x0A;if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL&#x0D;&#x0A;"
+				Description="Copying headers to $(SolutionDir)DirectX\include\$(ProjectName)..."
+				CommandLine="if not exist $(SolutionDir)DirectX\include\$(ProjectName) mkdir $(SolutionDir)DirectX\include\$(ProjectName)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt; NUL&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -109,11 +110,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../..;../../..;../../../.."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -150,27 +150,35 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\..\..\Input.cpp"
+			RelativePath="..\..\..\InputDI8.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Input.h"
+			RelativePath="..\..\..\InputDI8.h"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\InputEvent.h"
+			RelativePath="..\..\..\stdafx.cpp"
 			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\..\..\Integration.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Integration.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\Singleton.h"
+			RelativePath="..\..\..\stdafx.h"
 			>
 		</File>
 	</Files>

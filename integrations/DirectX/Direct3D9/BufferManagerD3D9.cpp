@@ -6,10 +6,10 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "integration/Direct3D9/BufferManagerD3D9.h"
-#include "integration/Direct3D9/IndexBufferD3D9.h"
-#include "integration/Direct3D9/VertexBufferD3D9.h"
-#include "integration/Direct3D9/VertexDeclarationD3D9.h"
+#include "BufferManagerD3D9.h"
+#include "IndexBufferD3D9.h"
+#include "VertexBufferD3D9.h"
+#include "VertexDeclarationD3D9.h"
 
 namespace Teardrop {
 namespace Gfx {

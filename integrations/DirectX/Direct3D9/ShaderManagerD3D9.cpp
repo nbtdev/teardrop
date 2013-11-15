@@ -6,9 +6,9 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "integration/Direct3D9/ShaderManagerD3D9.h"
-#include "integration/Direct3D9/ShaderD3D9.h"
-#include "Material.h"
+#include "ShaderManagerD3D9.h"
+#include "ShaderD3D9.h"
+#include "Gfx/Material.h"
 #include <assert.h>
 
 namespace Teardrop {
