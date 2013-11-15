@@ -1,181 +1,58 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{5EE924FF-F455-4A7D-B8D8-D7226C692B3E}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5839D3E1-D670-4B41-AB7F-857823AB4D6F}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Animation", "tech\Animation\build\win32\VC9\Animation.vcproj", "{DF1C047C-31A1-48A2-987D-F190C66A3DFD}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Audio", "tech\Audio\build\win32\VC9\Audio.vcproj", "{743BADFB-A534-48B9-BC3A-67A9A6E1A312}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "tech\Game\build\win32\VC9\Game.vcproj", "{37507FF8-9F71-4DEF-BF67-E5467A73509C}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gfx", "tech\Gfx\build\win32\VC9\Gfx.vcproj", "{70A11368-0D0D-41E1-8859-24E6F10A6BB4}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "tech\Math\build\win32\VC9\Math.vcproj", "{2102BE64-FD0B-493B-A2BB-4C41B594E817}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Memory", "tech\Memory\build\win32\VC9\Memory.vcproj", "{94C9D950-1C28-40A7-B179-B072FC54639A}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Network", "tech\Network\build\win32\VC9\Network.vcproj", "{DAFCB65C-9779-428C-83BB-9326C3F1F20F}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "tech\Physics\build\win32\VC9\Physics.vcproj", "{5966CDF9-D58F-41B7-8532-73AEB0CED55F}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ragdoll", "tech\Ragdoll\build\win32\VC9\Ragdoll.vcproj", "{43966C59-ED53-4999-ACCE-B0C728FFABD3}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Reflection", "tech\Reflection\build\win32\VC9\Reflection.vcproj", "{CFCF1B6C-C2EA-4C1B-8592-9B4670A92444}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Resource", "tech\Resource\build\win32\VC9\Resource.vcproj", "{616DEB2E-4110-41EB-AB53-0CD2F9CA0E6A}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script", "tech\Script\build\win32\VC9\Script.vcproj", "{ADFF21D7-90EB-4F22-83F4-888B14DCB06A}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Serialization", "tech\Serialization\build\win32\VC9\Serialization.vcproj", "{A0E478E0-0DF6-481B-961A-6DFEE359523E}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stream", "tech\Stream\build\win32\VC9\Stream.vcproj", "{4180E96C-EBBE-4C1B-BECC-EE512F6CD32A}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{9217CC8B-2F8F-49E4-A694-0277E7CC0EED}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thread", "tech\Thread\build\win32\VC9\Thread.vcproj", "{60ADE610-DEDA-43B8-A37C-9AA7AC74884A}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UI", "tech\UI\build\win32\VC9\UI.vcproj", "{33DEE804-9007-458D-9812-E202A85C853A}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Util", "tech\Util\build\win32\VC9\Util.vcproj", "{618DD3DF-B23D-4BFB-9383-E5158DAE9DE9}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VFX", "tech\VFX\build\win32\VC9\VFX.vcproj", "{36FE1736-7E58-424D-8380-47EA6D9C7B5F}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "tech\ThirdParty\Lua\build\win32\VC9\Lua.vcproj", "{904E80D8-7E07-4335-B6CE-6AD985BE8052}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxml", "tech\ThirdParty\tinyxml\build\win32\VC9\tinyxml_lib.vcproj", "{C406DAEC-0886-4771-8DEA-9D7329B46CC1}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Asset", "tech\Asset\build\win32\VC9\Asset.vcproj", "{4453688A-6B15-4A9F-BA5A-0D33111B0D65}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 	ProjectSection(ProjectDependencies) = postProject
 		{CFCF1B6C-C2EA-4C1B-8592-9B4670A92444} = {CFCF1B6C-C2EA-4C1B-8592-9B4670A92444}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "tools\Editor\Editor.vcproj", "{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
-	ProjectSection(ProjectDependencies) = postProject
-		{BFD2E711-4090-412B-86AB-B3190D44D378} = {BFD2E711-4090-412B-86AB-B3190D44D378}
-		{621ECA23-61F4-4EE1-B778-0C764E0D1CD3} = {621ECA23-61F4-4EE1-B778-0C764E0D1CD3}
-		{B5A1C027-5488-488A-8158-420F90E3745C} = {B5A1C027-5488-488A-8158-420F90E3745C}
-		{616DEB2E-4110-41EB-AB53-0CD2F9CA0E6A} = {616DEB2E-4110-41EB-AB53-0CD2F9CA0E6A}
-		{94C9D950-1C28-40A7-B179-B072FC54639A} = {94C9D950-1C28-40A7-B179-B072FC54639A}
-		{43966C59-ED53-4999-ACCE-B0C728FFABD3} = {43966C59-ED53-4999-ACCE-B0C728FFABD3}
-		{2102BE64-FD0B-493B-A2BB-4C41B594E817} = {2102BE64-FD0B-493B-A2BB-4C41B594E817}
-		{70A11368-0D0D-41E1-8859-24E6F10A6BB4} = {70A11368-0D0D-41E1-8859-24E6F10A6BB4}
-		{CFCF1B6C-C2EA-4C1B-8592-9B4670A92444} = {CFCF1B6C-C2EA-4C1B-8592-9B4670A92444}
-		{4180E96C-EBBE-4C1B-BECC-EE512F6CD32A} = {4180E96C-EBBE-4C1B-BECC-EE512F6CD32A}
-		{4453688A-6B15-4A9F-BA5A-0D33111B0D65} = {4453688A-6B15-4A9F-BA5A-0D33111B0D65}
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636} = {06C9EAAA-2174-4C10-9CA4-AEF3472C6636}
-		{618DD3DF-B23D-4BFB-9383-E5158DAE9DE9} = {618DD3DF-B23D-4BFB-9383-E5158DAE9DE9}
-		{A0E478E0-0DF6-481B-961A-6DFEE359523E} = {A0E478E0-0DF6-481B-961A-6DFEE359523E}
-		{C406DAEC-0886-4771-8DEA-9D7329B46CC1} = {C406DAEC-0886-4771-8DEA-9D7329B46CC1}
-		{37507FF8-9F71-4DEF-BF67-E5467A73509C} = {37507FF8-9F71-4DEF-BF67-E5467A73509C}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PackageManager", "tools\PackageManager\build\win32\VC9\PackageManager.vcproj", "{BFD2E711-4090-412B-86AB-B3190D44D378}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Package", "tech\Package\build\win32\VC9\Package.vcproj", "{B5A1C027-5488-488A-8158-420F90E3745C}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{08EEDC5E-7BB1-48B4-B3F0-D62B86D0C3E2}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibHFZ", "tools\ThirdParty\LibHFZ\LibHFZ.vcproj", "{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "tech\Core\build\win32\VC9\Core.vcproj", "{621ECA23-61F4-4EE1-B778-0C764E0D1CD3}"
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 EndProject
 Global
-	GlobalSection(PerforceSourceControlProviderSolutionProperties) = preSolution
-		SolutionIsControlled = True
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|Win64 = Debug|Win64
@@ -312,30 +189,12 @@ Global
 		{4453688A-6B15-4A9F-BA5A-0D33111B0D65}.Release|Win32.ActiveCfg = Release|Win32
 		{4453688A-6B15-4A9F-BA5A-0D33111B0D65}.Release|Win32.Build.0 = Release|Win32
 		{4453688A-6B15-4A9F-BA5A-0D33111B0D65}.Release|Win64.ActiveCfg = Release|Win32
-		{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED}.Debug|Win32.ActiveCfg = Debug|Win32
-		{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED}.Debug|Win32.Build.0 = Debug|Win32
-		{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED}.Debug|Win64.ActiveCfg = Debug|Win32
-		{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED}.Release|Win32.ActiveCfg = Release|Win32
-		{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED}.Release|Win32.Build.0 = Release|Win32
-		{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED}.Release|Win64.ActiveCfg = Release|Win32
-		{BFD2E711-4090-412B-86AB-B3190D44D378}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BFD2E711-4090-412B-86AB-B3190D44D378}.Debug|Win32.Build.0 = Debug|Win32
-		{BFD2E711-4090-412B-86AB-B3190D44D378}.Debug|Win64.ActiveCfg = Debug|Win32
-		{BFD2E711-4090-412B-86AB-B3190D44D378}.Release|Win32.ActiveCfg = Release|Win32
-		{BFD2E711-4090-412B-86AB-B3190D44D378}.Release|Win32.Build.0 = Release|Win32
-		{BFD2E711-4090-412B-86AB-B3190D44D378}.Release|Win64.ActiveCfg = Release|Win32
 		{B5A1C027-5488-488A-8158-420F90E3745C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B5A1C027-5488-488A-8158-420F90E3745C}.Debug|Win32.Build.0 = Debug|Win32
 		{B5A1C027-5488-488A-8158-420F90E3745C}.Debug|Win64.ActiveCfg = Debug|Win32
 		{B5A1C027-5488-488A-8158-420F90E3745C}.Release|Win32.ActiveCfg = Release|Win32
 		{B5A1C027-5488-488A-8158-420F90E3745C}.Release|Win32.Build.0 = Release|Win32
 		{B5A1C027-5488-488A-8158-420F90E3745C}.Release|Win64.ActiveCfg = Release|Win32
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}.Debug|Win32.ActiveCfg = Debug|Win32
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}.Debug|Win32.Build.0 = Debug|Win32
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}.Debug|Win64.ActiveCfg = Debug|Win32
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}.Release|Win32.ActiveCfg = Release|Win32
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}.Release|Win32.Build.0 = Release|Win32
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636}.Release|Win64.ActiveCfg = Release|Win32
 		{621ECA23-61F4-4EE1-B778-0C764E0D1CD3}.Debug|Win32.ActiveCfg = Debug|Win32
 		{621ECA23-61F4-4EE1-B778-0C764E0D1CD3}.Debug|Win32.Build.0 = Debug|Win32
 		{621ECA23-61F4-4EE1-B778-0C764E0D1CD3}.Debug|Win64.ActiveCfg = Debug|Win32
@@ -347,33 +206,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{DF1C047C-31A1-48A2-987D-F190C66A3DFD} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{743BADFB-A534-48B9-BC3A-67A9A6E1A312} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{37507FF8-9F71-4DEF-BF67-E5467A73509C} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{70A11368-0D0D-41E1-8859-24E6F10A6BB4} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{2102BE64-FD0B-493B-A2BB-4C41B594E817} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{94C9D950-1C28-40A7-B179-B072FC54639A} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{DAFCB65C-9779-428C-83BB-9326C3F1F20F} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{5966CDF9-D58F-41B7-8532-73AEB0CED55F} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{43966C59-ED53-4999-ACCE-B0C728FFABD3} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{CFCF1B6C-C2EA-4C1B-8592-9B4670A92444} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{616DEB2E-4110-41EB-AB53-0CD2F9CA0E6A} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{ADFF21D7-90EB-4F22-83F4-888B14DCB06A} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{A0E478E0-0DF6-481B-961A-6DFEE359523E} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{4180E96C-EBBE-4C1B-BECC-EE512F6CD32A} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{9217CC8B-2F8F-49E4-A694-0277E7CC0EED} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{60ADE610-DEDA-43B8-A37C-9AA7AC74884A} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{33DEE804-9007-458D-9812-E202A85C853A} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{618DD3DF-B23D-4BFB-9383-E5158DAE9DE9} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{36FE1736-7E58-424D-8380-47EA6D9C7B5F} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{4453688A-6B15-4A9F-BA5A-0D33111B0D65} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{B5A1C027-5488-488A-8158-420F90E3745C} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{621ECA23-61F4-4EE1-B778-0C764E0D1CD3} = {5EE924FF-F455-4A7D-B8D8-D7226C692B3E}
-		{0B5CE9B8-ACBC-4439-8572-9BB8AED81AED} = {5839D3E1-D670-4B41-AB7F-857823AB4D6F}
-		{BFD2E711-4090-412B-86AB-B3190D44D378} = {5839D3E1-D670-4B41-AB7F-857823AB4D6F}
-		{08EEDC5E-7BB1-48B4-B3F0-D62B86D0C3E2} = {5839D3E1-D670-4B41-AB7F-857823AB4D6F}
 		{904E80D8-7E07-4335-B6CE-6AD985BE8052} = {9217CC8B-2F8F-49E4-A694-0277E7CC0EED}
 		{C406DAEC-0886-4771-8DEA-9D7329B46CC1} = {9217CC8B-2F8F-49E4-A694-0277E7CC0EED}
-		{06C9EAAA-2174-4C10-9CA4-AEF3472C6636} = {08EEDC5E-7BB1-48B4-B3F0-D62B86D0C3E2}
 	EndGlobalSection
 EndGlobal
