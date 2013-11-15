@@ -211,8 +211,8 @@ namespace Teardrop {
 			int nNorm = fbxMesh->GetElementNormalCount();
 			for (int i=0; i<nNorm; ++i) {
 				FbxGeometryElementNormal* n = fbxMesh->GetElementNormal(i);
-				FbxVector4* norms = &n->GetDirectArray()[0];
-				int nNormals = n->GetDirectArray().GetCount();
+				FbxLayerElementArrayTemplate<FbxVector4>& norms = n->GetDirectArray();
+				int nNormals = norms.GetCount();
 				assert(nNormals == nVerts);
 
 				if (nNormals != nVerts)
@@ -225,15 +225,15 @@ namespace Teardrop {
 				elem.mCount = 4;
 				elem.mUsage = VEU_NORMAL;
 				elem.mIndex = i;
-				vbNorm->beginAddVertexElements();
+				vbNorm->endAddVertexElements();
 
 				// FbxVector4 is doubles...
 				std::vector<Vector4> tmpNorm(nVerts);
 				for (int i=0; i<nVerts; ++i) {
 					tmpNorm[i].x = (float)norms[i][0];
 					tmpNorm[i].y = (float)norms[i][1];
-					tmpNorm[i].z = (float)norms[i][1];
-					tmpNorm[i].w = (float)norms[i][1];
+					tmpNorm[i].z = (float)norms[i][2];
+					tmpNorm[i].w = (float)norms[i][3];
 				}
 
 				vbNorm->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpNorm[0]);
@@ -243,8 +243,8 @@ namespace Teardrop {
 			int nTangent = fbxMesh->GetElementTangentCount();
 			for (int i=0; i<nTangent; ++i) {
 				FbxGeometryElementTangent* t = fbxMesh->GetElementTangent(i);
-				FbxVector4* tangents = &t->GetDirectArray()[0];
-				int nTangents = t->GetDirectArray().GetCount();
+				FbxLayerElementArrayTemplate<FbxVector4>& tangents = t->GetDirectArray();
+				int nTangents = tangents.GetCount();
 				assert(nTangents == nVerts);
 
 				if (nTangents != nVerts)
@@ -257,15 +257,15 @@ namespace Teardrop {
 				elem.mCount = 4;
 				elem.mUsage = VEU_TANGENT;
 				elem.mIndex = i;
-				vbTangent->beginAddVertexElements();
+				vbTangent->endAddVertexElements();
 
 				// FbxVector4 is doubles...
 				std::vector<Vector4> tmpTang(nVerts);
 				for (int i=0; i<nVerts; ++i) {
 					tmpTang[i].x = (float)tangents[i][0];
 					tmpTang[i].y = (float)tangents[i][1];
-					tmpTang[i].z = (float)tangents[i][1];
-					tmpTang[i].w = (float)tangents[i][1];
+					tmpTang[i].z = (float)tangents[i][2];
+					tmpTang[i].w = (float)tangents[i][3];
 				}
 
 				vbTangent->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpTang[0]);
@@ -275,8 +275,8 @@ namespace Teardrop {
 			int nBinormal = fbxMesh->GetElementBinormalCount();
 			for (int i=0; i<nBinormal; ++i) {
 				FbxGeometryElementBinormal* b = fbxMesh->GetElementBinormal(i);
-				FbxVector4* binormals = &b->GetDirectArray()[0];
-				int nBinormals = b->GetDirectArray().GetCount();
+				FbxLayerElementArrayTemplate<FbxVector4> binormals = b->GetDirectArray();
+				int nBinormals = binormals.GetCount();
 				assert(nBinormals == nVerts);
 
 				if (nBinormals != nVerts)
@@ -289,15 +289,15 @@ namespace Teardrop {
 				elem.mCount = 4;
 				elem.mUsage = VEU_BINORMAL;
 				elem.mIndex = i;
-				vbBinormal->beginAddVertexElements();
+				vbBinormal->endAddVertexElements();
 
 				// FbxVector4 is doubles...
 				std::vector<Vector4> tmpBinorm(nVerts);
 				for (int i=0; i<nVerts; ++i) {
 					tmpBinorm[i].x = (float)binormals[i][0];
 					tmpBinorm[i].y = (float)binormals[i][1];
-					tmpBinorm[i].z = (float)binormals[i][1];
-					tmpBinorm[i].w = (float)binormals[i][1];
+					tmpBinorm[i].z = (float)binormals[i][2];
+					tmpBinorm[i].w = (float)binormals[i][3];
 				}
 
 				vbBinormal->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpBinorm[0]);
@@ -320,6 +320,7 @@ namespace Teardrop {
 				if (gfxMtl) {
 					imp.addDep(gfxMtl, mtlName);
 					asset->setMaterial(gfxMtl);
+					table[mtlName] = gfxMtl;
 				}
 			}
 

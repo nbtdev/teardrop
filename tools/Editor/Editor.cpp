@@ -37,6 +37,7 @@ is prohibited.
 #include "ASset/StaticMeshAsset.h"
 
 using namespace Teardrop;
+using namespace Tools;
 
 Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)

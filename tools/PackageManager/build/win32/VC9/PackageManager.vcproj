@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Debug.vsprops;..\..\..\..\vsprops\Squish_Debug.vsprops;..\..\..\..\..\tech\vsprops\TBB_Debug.vsprops;..\..\..\..\vsprops\FBX_SDK_Debug.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Debug.vsprops;..\..\..\..\vsprops\Squish_Debug.vsprops;..\..\..\..\..\tech\vsprops\TBB_Debug.vsprops;..\..\..\..\vsprops\FBX_SDK_Debug.vsprops;..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Debug).vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tech&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech\ThirdParty&quot;;&quot;$(SolutionDir)tools\ThirdParty\LibHFZ\zlib\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)&quot;;&quot;$(SolutionDir)ThirdParty\LibHFZ\zlib\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -84,7 +84,7 @@
 			OutputDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Release.vsprops;..\..\..\..\vsprops\Squish_Release.vsprops;..\..\..\..\..\tech\vsprops\TBB_Release.vsprops;..\..\..\..\vsprops\FBX_SDK_Release.vsprops"
+			InheritedPropertySheets="..\..\..\..\vsprops\FreeImage_Release.vsprops;..\..\..\..\vsprops\Squish_Release.vsprops;..\..\..\..\..\tech\vsprops\TBB_Release.vsprops;..\..\..\..\vsprops\FBX_SDK_Release.vsprops;..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Release).vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
@@ -107,7 +107,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(SolutionDir)tech&quot;;&quot;$(SolutionDir)tools&quot;;&quot;$(SolutionDir)tech\ThirdParty&quot;;&quot;$(SolutionDir)tools\ThirdParty\LibHFZ\zlib\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)&quot;;&quot;$(SolutionDir)ThirdParty\LibHFZ\zlib\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

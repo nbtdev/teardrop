@@ -20,7 +20,7 @@ is prohibited.
 #include "Util/Environment.h"
 #include "Util/FileSystem.h"
 #include "Stream/FileStream.h"
-#include "Gfx/integration/Direct3D9/Integration.h"
+#include "Direct3D9/Integration.h"
 
 // hacky
 #include "Game/LandscapeScene.h"
