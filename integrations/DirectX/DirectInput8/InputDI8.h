@@ -22,8 +22,8 @@ namespace Teardrop
 			Input();
 			~Input();
 
-			bool initialize(void* hWnd=0);
-			bool destroy();
+			void initialize(uintptr_t hWnd=0);
+			void destroy();
 
 			//! get pending input event into inputEvent, returns false when none pending
 			bool getNextEvent(InputEvent& /*out*/ inputEvent);

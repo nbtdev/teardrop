@@ -9,7 +9,7 @@ is prohibited.
 #include "Asset/StaticMeshAsset.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/Mesh.h"
-#include "Game/CameraController.h"
+#include "Game/OrbitCamController.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -17,6 +17,7 @@ using namespace Tools;
 TD_CLASS_IMPL(StaticMeshViewer);
 
 StaticMeshViewer::StaticMeshViewer()
+	: mController(0)
 {
 }
 
@@ -27,13 +28,17 @@ StaticMeshViewer::~StaticMeshViewer()
 bool StaticMeshViewer::initialize()
 {
 	mTimer.reset();
+
+	mController = TD_NEW OrbitCamController;
+	mController->initialize();
+
 	return true;
 }
 
 void StaticMeshViewer::tick()
 {
-	if (getCameraController())
-		getCameraController()->update(mTimer.getElapsedTime());
+	if (mController)
+		mController->update(mTimer.getElapsedTime());
 
 	mTimer.reset();
 
@@ -42,16 +47,16 @@ void StaticMeshViewer::tick()
 
 void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer)
 {
-	assert(getCameraController());
+	assert(mController);
 	assert(getStaticMeshAsset());
 
-	if (!getCameraController())
+	if (!mController)
 		return;
 
 	if (!getStaticMeshAsset())
 		return;
 
-	Gfx::Camera* cam = getCameraController()->camera();
+	Gfx::Camera* cam = mController->camera();
 	Gfx::Mesh* mesh = getStaticMeshAsset()->mesh();
 
 	assert(mesh);

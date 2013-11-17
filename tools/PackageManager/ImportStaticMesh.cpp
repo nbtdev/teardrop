@@ -148,8 +148,8 @@ namespace Teardrop {
 			int nVertColor = fbxMesh->GetElementVertexColorCount();
 			for (int i=0; i<nVertColor; ++i) {
 				FbxGeometryElementVertexColor* vc = fbxMesh->GetElementVertexColor(i);
-				FbxColor* colors = &vc->GetDirectArray()[0];
-				int nColor = vc->GetDirectArray().GetCount();
+				FbxLayerElementArrayTemplate<FbxColor>& colors = vc->GetDirectArray();
+				int nColor = colors.GetCount();
 				assert(nColor == nVerts);
 
 				if (nColor != nVerts)
@@ -181,8 +181,8 @@ namespace Teardrop {
 			int nUV = fbxMesh->GetElementUVCount();
 			for (int i=0; i<nUV; ++i) {
 				FbxGeometryElementUV* uv = fbxMesh->GetElementUV(i);
-				FbxVector2* uvs = &uv->GetDirectArray()[0];
-				int nCoord = uv->GetDirectArray().GetCount();
+				FbxLayerElementArrayTemplate<FbxVector2>& uvs = uv->GetDirectArray();
+				int nCoord = uvs.GetCount();
 				assert(nCoord == nVerts);
 
 				if (nCoord != nVerts)
@@ -275,7 +275,7 @@ namespace Teardrop {
 			int nBinormal = fbxMesh->GetElementBinormalCount();
 			for (int i=0; i<nBinormal; ++i) {
 				FbxGeometryElementBinormal* b = fbxMesh->GetElementBinormal(i);
-				FbxLayerElementArrayTemplate<FbxVector4> binormals = b->GetDirectArray();
+				FbxLayerElementArrayTemplate<FbxVector4>& binormals = b->GetDirectArray();
 				int nBinormals = binormals.GetCount();
 				assert(nBinormals == nVerts);
 

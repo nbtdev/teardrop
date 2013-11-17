@@ -158,6 +158,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\Integration.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\Integration.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\stdafx.cpp"
 			>
 			<FileConfiguration

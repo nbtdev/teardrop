@@ -20,7 +20,9 @@ is prohibited.
 #include "Util/Environment.h"
 #include "Util/FileSystem.h"
 #include "Stream/FileStream.h"
+
 #include "Direct3D9/Integration.h"
+#include "DirectInput8/Integration.h"
 
 // hacky
 #include "Game/LandscapeScene.h"
@@ -51,6 +53,7 @@ int main(int argc, char *argv[])
 
 	// this is a bit hacky?
 	Teardrop::Gfx::Direct3D9::registerIntegration();
+	Teardrop::DirectInput::Integration inputIntegration;
 
 	QApplication a(argc, argv);
 	Teardrop::Tools::Editor w;

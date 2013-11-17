@@ -40,12 +40,12 @@ void VertexBuffer::beginAddVertexElements()
 int VertexBuffer::endAddVertexElements()
 {
 	// recalculate vertex size
-	int size = 0;
+	mSize = 0;
 	for (size_t i=0; i<mElements.size(); ++i) {
-		size += mElements[i].size();
+		mSize += mElements[i].size();
 	}
 
-	return size;
+	return mSize;
 }
 
 VertexElement& VertexBuffer::addVertexElement()

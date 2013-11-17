@@ -5,29 +5,29 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
+#ifndef DIRECTINPUT8_INTEGRATION_H
+#define DIRECTINPUT8_INTEGRATION_H
 
-#include "VertexElement.h"
+#include "Core/Integration.h"
 
-using namespace Teardrop;
-using namespace Gfx;
-
-static int sTypeSizes[] = {
-	0,	//VET_UNKNOWN,
-	1,	//VET_BYTE,
-	2,	//VET_SHORT,
-	2,	//VET_HALF,
-	4,	//VET_FLOAT,
-};
-
-VertexElement::VertexElement()
-	: mType(VET_UNKNOWN)
-	, mCount(0)
-	, mUsage(VEU_UNKNOWN)
-	, mIndex(0)
+namespace Teardrop 
 {
+	namespace DirectInput {
+		
+		class Input;
+
+		class Integration : public Teardrop::Integration
+		{
+		public:
+			Integration();
+			~Integration();
+			void load();
+			void unload();
+
+		private:
+			Input* mInput;
+		};
+	}
 }
 
-int VertexElement::size()
-{
-	return sTypeSizes[mType] * mCount;
-}
+#endif // DIRECTINPUT8_INTEGRATION_H

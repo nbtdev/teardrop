@@ -9,6 +9,7 @@ is prohibited.
 #define INPUT_INCLUDED
 
 #include "Core/Singleton.h"
+#include <cstdlib>
 
 namespace Teardrop
 {
@@ -19,6 +20,9 @@ namespace Teardrop
 	public:
 		Input();
 		virtual ~Input();
+
+		/// winId is a platform-specific window identifier
+		virtual void initialize(uintptr_t winId) = 0;
 
 		//! get pending input event into inputEvent, returns false when none pending
 		virtual bool getNextEvent(InputEvent& /*out*/ inputEvent) = 0;

@@ -38,6 +38,12 @@ ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	mPropGrid = new PropertyGrid(splitter);
 	splitter->addWidget(m3DView);
 	splitter->addWidget(mPropGrid);
+	
+	QList<int> sizes;
+	int w = size().width();
+	sizes << w * 4 / 5 << w / 5;
+	
+	splitter->setSizes(sizes);
 	vl->addWidget(splitter);
 
 	setAttribute(Qt::WA_DeleteOnClose);
@@ -61,6 +67,7 @@ ObjectViewer3D::~ObjectViewer3D()
 	delete mPropGrid;
 
 	if (mRenderer) {
+		mRenderer->setRenderTarget(0);
 		mRenderer->releaseRenderTarget(mRenderWindow);
 	}
 

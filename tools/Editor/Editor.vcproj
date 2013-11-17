@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)bin"
 			IntermediateDirectory="$(SolutionDir)obj\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\vsprops\FreeImage_Release.vsprops;..\vsprops\Squish_Release.vsprops;..\vsprops\FBX_SDK_Release.vsprops;..\..\sdk\vsprops\vc9\Teardrop SDK (Release).vsprops;..\..\sdk\vsprops\vc9\TBB_Release.vsprops"
+			InheritedPropertySheets="..\vsprops\FreeImage_Release.vsprops;..\vsprops\Squish_Release.vsprops;..\vsprops\FBX_SDK_Release.vsprops;..\..\sdk\vsprops\vc9\Teardrop SDK (Release).vsprops;..\..\sdk\vsprops\vc9\TBB_Release.vsprops;..\..\integrations\DirectX\DirectX\vsprops\Teardrop-DirectX (Release).vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"

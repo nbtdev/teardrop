@@ -91,13 +91,13 @@ Input::~Input()
 {
 }
 
-bool Input::initialize(void* hW)
+void Input::initialize(uintptr_t hW)
 {
 	HWND hWnd = (HWND)hW;
 
 	// this will be zero, not INVALID_HANDLE_VALUE, until it's available
 	if (!hWnd)
-		return false;
+		return;
 
 	// initialize DInput8
 	HRESULT hr;
@@ -109,7 +109,7 @@ bool Input::initialize(void* hW)
 		0);
 
 	if (FAILED(hr))
-		return false;
+		return;
 
 	mHwnd = hWnd;
 
@@ -122,14 +122,14 @@ bool Input::initialize(void* hW)
 			0);
 
 		if (FAILED(hr))
-			return false;
+			return;
 
 		// set mouse data format and coop level
 		IDirectInputDevice8* mouse = mMouse[i];
 		hr = mouse->SetDataFormat(&c_dfDIMouse2);
 
 		if (FAILED(hr))
-			return false;
+			return;
 
 		hr = mouse->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE|DISCL_BACKGROUND);
 
@@ -153,14 +153,14 @@ bool Input::initialize(void* hW)
 		0);
 
 	if (FAILED(hr))
-		return false;
+		return;
 
 	// set the keyboard data format and co-op level
 	IDirectInputDevice8* keyboard = mKeyboard;
 	hr = keyboard->SetDataFormat(&c_dfDIKeyboard);
 
 	if (FAILED(hr))
-		return false;
+		return;
 
 	hr = keyboard->SetCooperativeLevel(hWnd, DISCL_FOREGROUND|DISCL_NONEXCLUSIVE);
 
@@ -183,7 +183,7 @@ bool Input::initialize(void* hW)
 		0);
 
 	if (FAILED(hr))
-		return false;
+		return;
 
 	IDirectInputDevice8* stick = mStick;
 	dipdw.dwData = 1024; 
@@ -192,7 +192,7 @@ bool Input::initialize(void* hW)
 	hr = stick->SetDataFormat(&c_dfDIJoystick);
 
 	if (FAILED(hr))
-		return false;
+		return;
 
 	hr = stick->SetCooperativeLevel(hWnd, DISCL_FOREGROUND|DISCL_NONEXCLUSIVE);
 
@@ -207,11 +207,9 @@ bool Input::initialize(void* hW)
 		Win32HookProc,
 		GetModuleHandle(0),
 		GetCurrentThreadId());
-
-	return true;
 }
 
-bool Input::destroy()
+void Input::destroy()
 {
 	UnhookWindowsHookEx(s_hKeyHook);
 	s_hKeyHook = 0;
@@ -227,8 +225,6 @@ bool Input::destroy()
 	}
 
 	mDI->Release();
-
-	return true;
 }
 
 static bool pollMouse(IDirectInputDevice8* mouse, InputEvent& event)

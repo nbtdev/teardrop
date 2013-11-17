@@ -151,6 +151,12 @@ void Renderer::shutdown()
 
 void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 {
+	// let user clear current RT if they wish
+	if (rt == 0) {
+		mCurrentRT = 0;
+		return;
+	}
+
 	// check to make sure it actually is one of ours
 	for (size_t r=0; r<mRenderTargets.size(); ++r) {
 		if (mRenderTargets[r] == rt) {
@@ -165,7 +171,9 @@ void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 
 Gfx::RenderTarget* Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
 {
-	return TD_NEW RenderWindow(mDevice, (HWND)hWnd, flags);
+	Gfx::RenderTarget* rt = TD_NEW RenderWindow(mDevice, (HWND)hWnd, flags);
+	mRenderTargets.push_back(rt);
+	return rt;
 }
 
 Gfx::RenderTarget* Renderer::createRenderTexture(int /*w*/, int /*h*/, SurfaceFormat /*fmt*/, int /*flags*/)
@@ -179,6 +187,15 @@ void Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
 	// TODO: warn about this in a log or something
 	assert(rt != mCurrentRT);
 	if (rt != mCurrentRT) {
+		// find it and erase it from the RT list
+		for (RenderTargets::iterator it = mRenderTargets.begin(); it != mRenderTargets.end(); ++it) {
+			if (rt == *it) {
+				mRenderTargets.erase(it);
+				break;
+			}
+		}
+
+		// delete it regardless
 		delete rt;
 	}
 }

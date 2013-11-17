@@ -8,6 +8,7 @@ is prohibited.
 
 #include "Submesh.h"
 #include "BufferManager.h"
+#include "VertexDeclaration.h"
 
 using namespace Teardrop;
 using namespace Gfx;
@@ -85,9 +86,10 @@ IndexBuffer* Submesh::indexBuffer()
 VertexDeclaration* Submesh::vertexDeclaration()
 {
 	if (!mVertexDeclaration) {
-		BufferManager::instance().createVertexDeclaration(this);
+		mVertexDeclaration = BufferManager::instance().createVertexDeclaration(this);
 
 		// initialize the decl with our vertex layout
+		mVertexDeclaration->rebuild();
 	}
 
 	return mVertexDeclaration;

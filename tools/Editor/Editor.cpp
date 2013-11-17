@@ -18,6 +18,7 @@ is prohibited.
 #include "Package/Package.h"
 #include "Game/Scene.h"
 #include "Gfx/Renderer.h"
+#include "Core/Input.h"
 #include "Util/FileSystem.h"
 #include "FreeImage.h"
 #include <QDockWidget>
@@ -131,6 +132,9 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 
 	// set up render window
 	mRenderWindow = new RenderWindow(mRenderer);
+
+	// once we have created the initial render window, we can finish initializing the input system
+	Input::instance().initialize((uintptr_t)mRenderWindow->winId());
 
 	setEditorTitle();
 	mPreferences.load();

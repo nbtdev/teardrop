@@ -14,7 +14,7 @@ is prohibited.
 namespace Teardrop
 {
 	class StaticMeshAsset;
-	class CameraController;
+	class OrbitCamController;
 
 	namespace Tools
 	{
@@ -23,7 +23,6 @@ namespace Teardrop
 		public:
 			TD_CLASS(StaticMeshViewer, Executable);
 			TD_POINTER_PROPERTY(StaticMeshAsset, "Static mesh being viewed", StaticMeshAsset, 0);
-			TD_POINTER_PROPERTY(CameraController, "Object cam controller", CameraController, 0);
 
 			StaticMeshViewer();
 			~StaticMeshViewer();
@@ -36,6 +35,7 @@ namespace Teardrop
 
 		protected:
 			Timer mTimer;
+			OrbitCamController* mController;
 		};
 	}
 }

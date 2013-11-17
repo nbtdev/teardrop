@@ -83,6 +83,7 @@ bool VertexBuffer::initialize(int vertexCount, int initFlags, void* data/* =0 */
 	}
 
 	mInitFlags = initFlags;
+	mCount = vertexCount;
 	return true;
 }
 
