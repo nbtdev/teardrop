@@ -28,3 +28,19 @@ bool Sampler2DExpression::initialize()
 
 	return true;
 }
+
+static const char* HLSL_BODY =
+"    c = samp(texcoord);\n"
+;
+
+void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
+{
+	switch (lang) {
+	case SHADER_HLSL:
+	case SHADER_HLSL5:
+		o << HLSL_BODY;
+		break;
+	default:
+		break;
+	}
+}

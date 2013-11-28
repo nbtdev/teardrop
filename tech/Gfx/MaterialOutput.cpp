@@ -29,7 +29,17 @@ bool MaterialOutput::initialize()
 	mInputs.push_back(Attribute("Ambient", ATTR_RGB, this));
 	mInputs.push_back(Attribute("Specular Power", ATTR_FLOAT, this));
 
-	mInputs.push_back(Attribute("Normal", ATTR_RGB, this));
+	mInputs.push_back(Attribute("Normal", ATTR_FLOAT3, this));
 
 	return true;
+}
+
+static const char* BODY =
+"    c = RGBA(1);\n"
+;
+
+void MaterialOutput::appendBody(Language /*lang*/, std::ostream& o)
+{
+	// it's the same in all languages
+	o << BODY;
 }

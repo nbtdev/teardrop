@@ -11,12 +11,14 @@ is prohibited.
 #include "Reflection/Reflection.h"
 #include "Memory/Allocators.h"
 #include <map>
+#include <vector>
 
 namespace Teardrop
 {
 	namespace Gfx 
 	{
 		class MaterialOutput;
+		class MaterialExpression;
 		class Shader;
 		class Connection;
 		struct Attribute;
@@ -37,6 +39,11 @@ namespace Teardrop
 
 			Shader* shader();
 			void addConnection(Connection* conn);
+			int connections(Connection** connections, int nConnections);
+
+			void sortExpressions();
+			int expressionCount();
+			MaterialExpression** sortedExpressions();
 
 			TD_DECLARE_ALLOCATOR();
 
@@ -46,8 +53,11 @@ namespace Teardrop
 
 			// map of connections from input to instance; this works because inputs support only
 			// one connection
-			typedef std::map<Attribute*, Connection*> Connections;
+			typedef std::map<const Attribute*, Connection*> Connections;
 			Connections mConnections;
+
+			typedef std::vector<MaterialExpression*> Expressions;
+			Expressions mSortedExpressions;
 		};
 	}
 }

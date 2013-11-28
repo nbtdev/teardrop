@@ -43,6 +43,8 @@ namespace Teardrop
 			Attribute();
 			Attribute(const char* name, AttributeType type, MaterialExpression* parent);
 
+			static const char* paramTypeToString(AttributeType type);
+
 			TD_DECLARE_ALLOCATOR();
 		};
 	}

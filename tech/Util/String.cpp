@@ -85,7 +85,7 @@ String& String::operator=(const String& other)
 			size_t newLen = otherLen + 1;
 			// round up to next 4 byte length, but only if needed
 			newLen = ((newLen + 3) & ~0x03);
-			m_pBuf = s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
+			m_pBuf = (char*)s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
 		}
 	}
 
@@ -120,7 +120,7 @@ String& String::operator=(const char* other)
 			size_t newLen = otherLen + 1;
 			// round up to next 4 byte length, but only if needed
 			newLen = ((newLen + 3) & ~0x03);
-			m_pBuf = s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
+			m_pBuf = (char*)s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
 		}
 	}
 

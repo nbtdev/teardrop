@@ -31,13 +31,19 @@ namespace Teardrop
 
 			protected:
 				IDirect3DDevice9* mDevice;
+				IDirect3DVertexShader9* mVS;
+				IDirect3DPixelShader9* mPS;
+
 				ID3DXEffect* mFX;
 				D3DXHANDLE mTechnique;
 				D3DXHANDLE mTechniqueShadowCast;
 				D3DXHANDLE mTechniqueShadowRecv;
+
 				String mSource; // in case we need to recompile the shader
 				String mFullpath; // in case someone wants to save the shader?
-				String mErrs; // in case we need to recompile the shader			
+				String mErrs; // in case we need to recompile the shader
+
+				static const char* HLSL_COMMON;
 			};
 		}
 	}

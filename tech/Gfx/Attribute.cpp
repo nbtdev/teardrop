@@ -26,3 +26,27 @@ Attribute::Attribute(const char* name, AttributeType type, MaterialExpression* p
 {
 
 }
+
+static const char* sAttrNameLut[] = {
+	"void",		//ATTR_UNKNOWN,
+	"int",		//ATTR_INT,
+	"int2",		//ATTR_INT2,
+	"int3",		//ATTR_INT3,
+	"int4",		//ATTR_INT4,
+	"float",	//ATTR_FLOAT,
+	"float2",	//ATTR_FLOAT2,
+	"float3",	//ATTR_FLOAT3,
+	"float4",	//ATTR_FLOAT4,
+	"mat22",	//ATTR_MAT22,
+	"mat33",	//ATTR_MAT33,
+	"mat34",	//ATTR_MAT34,
+	"mat44",	//ATTR_MAT44,
+	"mat43",	//ATTR_MAT43,
+	"RGBA",		//ATTR_RGBA = ATTR_FLOAT4,
+	"RGB",		//ATTR_RGB = ATTR_FLOAT3,
+};
+
+const char* Attribute::paramTypeToString(AttributeType type)
+{
+	return sAttrNameLut[type];
+}

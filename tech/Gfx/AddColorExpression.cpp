@@ -30,3 +30,13 @@ bool AddColorExpression::initialize()
 
 	return true;
 }
+
+static const char* BODY =
+"    c = a + b;\n"
+;
+
+void AddColorExpression::appendBody(Language /*lang*/, std::ostream& o)
+{
+	// it's the same in all languages
+	o << BODY;
+}

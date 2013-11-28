@@ -28,6 +28,8 @@ namespace Teardrop
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
+			// code generation
+			void appendBody(Language lang, std::ostream& o);
 		};
 	}
 }
