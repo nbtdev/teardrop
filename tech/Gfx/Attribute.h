@@ -37,11 +37,16 @@ namespace Teardrop
 
 		struct Attribute {
 			const char* mName;
+			const char* mDefault;
 			AttributeType mType;
 			MaterialExpression* mParent;
+			bool mRequired;
+
+			static const bool Required = true;
+			static const bool Optional = false;
 
 			Attribute();
-			Attribute(const char* name, AttributeType type, MaterialExpression* parent);
+			Attribute(const char* name, AttributeType type, MaterialExpression* parent, bool required = true, const char* defaultValue = 0);
 
 			static const char* paramTypeToString(AttributeType type);
 

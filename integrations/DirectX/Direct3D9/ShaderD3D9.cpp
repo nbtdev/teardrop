@@ -70,33 +70,30 @@ bool Shader::initialize()
 		std::string defStr(defs.str());
 		mSource.append(defStr.c_str());
 
-		// then generate the function calls; in order to manage input and output params/vars, we need 
-		// to associate the ends of the connections with variable names (mainly, the input, or "from"
-		// end of a connection would contain the output of the "from" attribute, which is the input for
-		// the "to" attribute/expression)
-		struct Temp { 
-			const Attribute* mInput; 
-			std::string mName;
-			Temp() : mInput(0) {}
-			Temp(const Temp& other) { *this = other; }
-			Temp& operator=(const Temp& other) { mInput = other.mInput; mName = other.mName; return *this; }
-		};
-
-		typedef std::map<const Attribute*, Temp> ConnectionToVarName;
-		ConnectionToVarName names;
+		// then generate the function calls
+		typedef std::map<const Attribute*, std::string> AttrToVarName;
+		AttrToVarName names;
 
 		// go through all connections and form this map
 		int nConnections = mMaterial->connections(0, 0);
 		std::vector<Connection*> connections(nConnections);
 		mMaterial->connections(&connections[0], nConnections);
 
+		// variable names should be based on the name (type) of the expression
+		// that owns the "from" (output) attr; for uniqueness, we'll just assign
+		// monotonically-increasing ordinals to each connection
+		int ord = 0;
 		for (int i=0; i<nConnections; ++i) {
-			Temp temp;
-			temp.mInput = connections[i]->input();
-			names[connections[i]->output()] = temp;
+			std::stringstream ss;
+			Gfx::Attribute* out = connections[i]->output();
+			MaterialExpression* me = out->mParent;
+			ss << me->getDerivedClassDef()->getName() << '_' << ord++ << '_' << out->mName;
+			std::string tmp(ss.str());
+			names[connections[i]->output()] = tmp;
+			names[connections[i]->input()] = tmp;
 		}
 
-		// of course this also means we need to iterate the expressions again...
+		// then generate the function calls...
 		std::stringstream calls;
 		for (int i=0; i<exprCount; ++i) {
 			MaterialExpression* expr = expressions[i];
@@ -107,40 +104,38 @@ bool Shader::initialize()
 			std::vector<std::string> inputs(inputAttrs.size());
 
 			int nameIdx = 0;
-			for (size_t j=0; j<inputAttrs.size(); ++i) {
+			for (size_t j=0; j<inputAttrs.size(); ++j) {
 				// find this attribute's name in the connection map
-				const Attribute* addr = &inputAttrs[j];
-				ConnectionToVarName::iterator name = names.find(addr);
+				const Attribute* attr = &inputAttrs[j];
+				AttrToVarName::iterator name = names.find(attr);
 
-				// this should be found
-				assert(name != names.end());
+				std::string tmp("float(0)");
+				std::string* arg = &tmp;
 
-				if (name != names.end()) {
-					inputs[nameIdx++] = name->second.mName;
+				if(name != names.end()) {
+					// then use the generated name
+					arg = &(name->second);
 				}
+				else {
+					// make sure the attribute is actually optional, and if so,
+					// use the attribute's default value
+					assert(attr->mRequired == Attribute::Optional);
+
+					if (attr->mRequired == Attribute::Optional)
+						tmp = attr->mDefault;
+				}
+
+				inputs[nameIdx++] = *arg;
 			}
 
 			// then we can generate the code for this call
-			std::vector<MaterialExpression::OutputName> outputNames;
 			expr->appendCall(
 				MaterialExpression::SHADER_HLSL,
 				i,
 				inputs,
-				outputNames,
+				names,
 				calls
 				);
-
-			// and finally, we can put the new output names in the attr-to-name map for later use
-			for (size_t j=0; j<outputNames.size(); ++j) {
-				ConnectionToVarName::iterator attrIt = names.find(outputNames[j].mOutputAttr);
-
-				// this should also be found
-				assert(attrIt != names.end());
-
-				if (attrIt != names.end()) {
-					attrIt->second.mName = outputNames[j].mOutputVarName;
-				}
-			}
 		}
 
 		std::string callStr(calls.str());

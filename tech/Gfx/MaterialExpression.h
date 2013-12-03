@@ -14,6 +14,7 @@ is prohibited.
 #include <iosfwd>
 #include <string>
 #include <vector>
+#include <map>
 
 namespace Teardrop
 {
@@ -40,16 +41,11 @@ namespace Teardrop
 			// code generation
 			void appendDefinition(Language lang, std::ostream& o);
 
-			struct OutputName {
-				Attribute* mOutputAttr;
-				std::string mOutputVarName;
-			};
-
 			void appendCall(
 				Language lang, 
 				int ordinal, // instance ordinal for this expression in the shader
 				const std::vector<std::string>& inputs, // input argument names
-				std::vector<OutputName>& outputs, // generated output argument names
+				const std::map<const Attribute*, std::string>& outputs, // output argument names 
 				std::ostream& o
 				);
 

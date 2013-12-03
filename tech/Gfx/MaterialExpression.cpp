@@ -78,30 +78,37 @@ void MaterialExpression::appendDefinition(Language lang, std::ostream& o)
 		arg++;
 	}
 
-	o << ') {\n';
+	o << ") {\n";
 
 	appendBody(lang, o);
 
-	o << '}\n\n';
+	o << "}\n\n";
 }
 
-void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::vector<std::string>& inputs, std::vector<OutputName>& outputs, std::ostream& o)
+void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::vector<std::string>& inputs, const std::map<const Attribute*, std::string>& outputs, std::ostream& o)
 {
-	// same in all languages
+	// same in all languages?
 
 	assert(inputs.size() == mInputs.size());
 
-	// generate output param/var names
-	outputs.resize(mOutputs.size());
-
 	// generate output variable names and their decls
+	std::vector<std::string> outputNames(mOutputs.size());
+	int idx = 0;
 	for (size_t i=0; i<mOutputs.size(); ++i) {
-		std::stringstream ss;
-		ss << getDerivedClassDef()->getName() << '_' << mOutputs[i].mName << '_' << ordinal;
-		outputs[i].mOutputVarName = ss.str();
-		outputs[i].mOutputAttr = &mOutputs[i];
+		std::map<const Attribute*, std::string>::const_iterator it = outputs.find(&mOutputs[i]);
 
-		o << Attribute::paramTypeToString(mOutputs[i].mType) << ' ' << outputs[i].mOutputVarName << ";\n";
+		if (it != outputs.end()) {
+			// then there is already a name generated for this output, so use it
+			outputNames[i] = it->second;
+		}
+		else {
+			// this output is unused, so generate a dummy name for it
+			std::stringstream ss;
+			ss << getDerivedClassDef()->getName() << '_' << ordinal << "_unused_" << idx++;
+			outputNames[i] = ss.str();
+		}
+
+		o << Attribute::paramTypeToString(mOutputs[i].mType) << ' ' << outputNames[i] << ";\n";
 	}
 
 	// then generate the call itself, using the provided input param names and generated output param names
@@ -118,15 +125,15 @@ void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::v
 		arg++;
 	}
 
-	for (size_t i=0; i<outputs.size(); ++i) {
+	for (size_t i=0; i<outputNames.size(); ++i) {
 		if (arg) 
 			o << ", ";
 
-		o << outputs[i].mOutputVarName;
+		o << outputNames[i];
 		arg++;
 	}
 
-	o << ');\n';
+	o << ");\n";
 }
 
 void MaterialExpression::appendBody(Language /*lang*/, std::ostream& /*o*/)

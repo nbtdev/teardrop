@@ -24,12 +24,12 @@ MaterialOutput::~MaterialOutput()
 bool MaterialOutput::initialize()
 {
 	mInputs.push_back(Attribute("Diffuse", ATTR_RGBA, this));
-	mInputs.push_back(Attribute("Specular", ATTR_RGB, this));
-	mInputs.push_back(Attribute("Emissive", ATTR_RGB, this));
-	mInputs.push_back(Attribute("Ambient", ATTR_RGB, this));
-	mInputs.push_back(Attribute("Specular Power", ATTR_FLOAT, this));
+	mInputs.push_back(Attribute("Specular", ATTR_RGB, this, Attribute::Optional, "RGB(0,0,0)"));
+	mInputs.push_back(Attribute("Emissive", ATTR_RGB, this, Attribute::Optional, "RGB(0,0,0)"));
+	mInputs.push_back(Attribute("Ambient", ATTR_RGB, this, Attribute::Optional, "RGB(0,0,0)"));
+	mInputs.push_back(Attribute("Specular Power", ATTR_FLOAT, this, Attribute::Optional, "0"));
 
-	mInputs.push_back(Attribute("Normal", ATTR_FLOAT3, this));
+	mInputs.push_back(Attribute("Normal", ATTR_FLOAT3, this, Attribute::Optional, "float3(0,1,0)"));
 
 	return true;
 }

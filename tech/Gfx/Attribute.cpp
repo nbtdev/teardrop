@@ -15,14 +15,18 @@ Attribute::Attribute()
 	: mName(0)
 	, mType(ATTR_UNKNOWN)
 	, mParent(0)
+	, mRequired(Optional)
+	, mDefault(0)
 {
 
 }
 
-Attribute::Attribute(const char* name, AttributeType type, MaterialExpression* parent)
+Attribute::Attribute(const char* name, AttributeType type, MaterialExpression* parent, bool required, const char* defaultValue)
 	: mName(name)
 	, mType(type)
 	, mParent(parent)
+	, mRequired(required)
+	, mDefault(defaultValue)
 {
 
 }
