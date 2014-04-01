@@ -15,8 +15,10 @@ namespace Teardrop
 {
 	namespace Gfx
 	{
-		class Shader;
+		class FragmentShader;
+		class VertexShader;
 		class Material;
+		class Submesh;
 
 		class ShaderManager : public Singleton<ShaderManager>
 		{
@@ -24,8 +26,10 @@ namespace Teardrop
 			ShaderManager();
 			~ShaderManager();
 
-			virtual Shader* createOrFindInstanceOf(Material* sourceMaterial) = 0;
-			virtual void release(Shader* shader) = 0;
+			virtual FragmentShader* createOrFindInstanceOf(Material* sourceMaterial) = 0;
+			virtual VertexShader* createOrFindInstanceOf(Submesh* submesh) = 0;
+			virtual void release(FragmentShader* shader) = 0;
+			virtual void release(VertexShader* shader) = 0;
 
 			TD_DECLARE_ALLOCATOR();
 

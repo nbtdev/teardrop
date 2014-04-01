@@ -9,6 +9,7 @@ is prohibited.
 #define SUBMESH_INCLUDED
 
 #include "Memory/Allocators.h"
+#include "Gfx/ShaderFeatures.h"
 #include <vector>
 
 namespace Teardrop
@@ -51,9 +52,13 @@ namespace Teardrop
 			void setPrimitiveType(PrimitiveType type);
 			PrimitiveType primitiveType();
 
+			const ShaderFeatures& features();
+			void clearFeatures();
+
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
+			ShaderFeatures mFeatures;
 			typedef std::vector<VertexBuffer*> VertexBuffers;
 			VertexBuffers mVertexBuffers;
 			VertexDeclaration* mVertexDeclaration;

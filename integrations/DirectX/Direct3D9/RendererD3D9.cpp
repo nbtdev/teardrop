@@ -12,7 +12,7 @@ is prohibited.
 #include "RenderTargetD3D9.h"
 #include "RenderWindowD3D9.h"
 #include "ViewportD3D9.h"
-#include "ShaderD3D9.h"
+#include "FragmentShaderD3D9.h"
 #include "IndexBufferD3D9.h"
 #include "VertexBufferD3D9.h"
 #include "VertexDeclarationD3D9.h"

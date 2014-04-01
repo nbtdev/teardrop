@@ -68,6 +68,9 @@ namespace Teardrop {
 
 			void VertexDeclaration::rebuild()
 			{
+				mHash = 0;
+				int nTexCoord = 0;
+
 				int nElem = 0;
 				int nVB = mParent->vertexBufferCount();
 				for (int v=0; v<nVB; ++v) {
@@ -103,9 +106,23 @@ namespace Teardrop {
 
 							offset += ve->size();
 							++eIdx;
+
+							// while we at this, create the hash (bitmask) that identifies this vertex structure
+							if (ve->mUsage == VEU_TEXCOORD)
+								nTexCoord++;
+
+							int mask = 0;
+							if (ve->mUsage != VEU_UNKNOWN) {
+								mask = 1 << ve->mUsage;
+							}
+
+							mHash |= mask;
 						}
 					}
 				}
+
+				// add the number of texcoords (if any) to the hash
+				mHash |= (nTexCoord << 16);
 
 				// mark the end of the decl list
 				mElements[eIdx].Stream = 0xFF;

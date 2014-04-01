@@ -13,11 +13,17 @@ namespace Gfx {
 
 VertexDeclaration::VertexDeclaration(Submesh* parent)
 	: mParent(parent)
+	, mHash(0)
 {
 }
 
 VertexDeclaration::~VertexDeclaration()
 {
+}
+
+int VertexDeclaration::hash()
+{
+	return mHash;
 }
 
 } // namespace Gfx

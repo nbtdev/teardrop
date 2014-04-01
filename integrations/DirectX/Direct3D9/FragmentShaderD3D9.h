@@ -5,10 +5,10 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(SHADERD3D9_INCLUDED)
-#define SHADERD3D9_INCLUDED
+#if !defined(FRAGMENTSHADERD3D9_INCLUDED)
+#define FRAGMENTSHADERD3D9_INCLUDED
 
-#include "Gfx/Shader.h"
+#include "Gfx/FragmentShader.h"
 #include "Util/_String.h"
 
 namespace Teardrop
@@ -17,11 +17,11 @@ namespace Teardrop
 	{
 		namespace Direct3D9
 		{
-			class Shader : public Gfx::Shader
+			class FragmentShader : public Gfx::FragmentShader
 			{
 			public:
-				Shader(IDirect3DDevice9* device, Material* mtl);
-				~Shader();
+				FragmentShader(IDirect3DDevice9* device, Material* mtl);
+				~FragmentShader();
 
 				bool initialize();
 				bool destroy();
@@ -31,13 +31,7 @@ namespace Teardrop
 
 			protected:
 				IDirect3DDevice9* mDevice;
-				IDirect3DVertexShader9* mVS;
 				IDirect3DPixelShader9* mPS;
-
-				ID3DXEffect* mFX;
-				D3DXHANDLE mTechnique;
-				D3DXHANDLE mTechniqueShadowCast;
-				D3DXHANDLE mTechniqueShadowRecv;
 
 				String mSource; // in case we need to recompile the shader
 				String mFullpath; // in case someone wants to save the shader?
@@ -49,4 +43,4 @@ namespace Teardrop
 	}
 }
 
-#endif // SHADERD3D9_INCLUDED
+#endif // FRAGMENTSHADERD3D9_INCLUDED

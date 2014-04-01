@@ -11,6 +11,7 @@ is prohibited.
 #include "Reflection/Reflection.h"
 #include "Memory/Allocators.h"
 #include "Gfx/Attribute.h"
+#include "Gfx/ShaderFeatures.h"
 #include <iosfwd>
 #include <string>
 #include <vector>
@@ -52,14 +53,17 @@ namespace Teardrop
 			typedef std::vector<Attribute> Attributes;
 			const Attributes& inputAttributes();
 			const Attributes& outputAttributes();
+			const ShaderFeatures& features();
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
 			Attributes mInputs;
 			Attributes mOutputs;
+			ShaderFeatures mFeatures;
 
 			virtual void appendBody(Language lang, std::ostream& o);
+			virtual void insertDependencies(Language lang, std::ostream& o);
 		};
 	}
 }

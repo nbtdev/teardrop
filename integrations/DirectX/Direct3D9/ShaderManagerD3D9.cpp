@@ -7,8 +7,11 @@ is prohibited.
 
 #include "stdafx.h"
 #include "ShaderManagerD3D9.h"
-#include "ShaderD3D9.h"
+#include "FragmentShaderD3D9.h"
+#include "VertexShaderD3D9.h"
 #include "Gfx/Material.h"
+#include "Gfx/Submesh.h"
+#include "Gfx/ShaderFeatures.h"
 #include <assert.h>
 
 namespace Teardrop {
@@ -23,30 +26,56 @@ ShaderManager::ShaderManager(IDirect3DDevice9* device)
 
 ShaderManager::~ShaderManager()
 {
-	for (Shaders::iterator it = mShaders.begin(); it != mShaders.end(); ++it) {
+	for (FragmentShaders::iterator it = mFragmentShaders.begin(); it != mFragmentShaders.end(); ++it) {
 		it->second->destroy();
 		delete it->second;
 	}
 }
 
-Gfx::Shader* ShaderManager::createOrFindInstanceOf(Material* material)
+Gfx::FragmentShader* ShaderManager::createOrFindInstanceOf(Material* material)
 {
-	Shaders::iterator it = mShaders.find(material->getObjectId());
-	if (it != mShaders.end()) 
+	FragmentShaders::iterator it = mFragmentShaders.find(material->getObjectId());
+	if (it != mFragmentShaders.end()) 
 		return it->second;
 
 	// else, create and record a new one
-	Direct3D9::Shader* shader = TD_NEW Direct3D9::Shader(mDevice, material);
+	Direct3D9::FragmentShader* shader = TD_NEW Direct3D9::FragmentShader(mDevice, material);
 	shader->initialize();
-	mShaders[material->getObjectId()] = shader;
+	mFragmentShaders[material->getObjectId()] = shader;
 
 	return shader;
 }
 
-void ShaderManager::release(Gfx::Shader* shader)
+Gfx::VertexShader* ShaderManager::createOrFindInstanceOf(Submesh* submesh)
+{
+	assert(submesh);
+	if (!submesh)
+		return 0;
+
+	VertexShaders::iterator it = mVertexShaders.find(submesh->features());
+	if (it != mVertexShaders.end()) 
+		return it->second;
+
+	// else, create and record a new one
+	Direct3D9::VertexShader* shader = TD_NEW Direct3D9::VertexShader(mDevice);
+	shader->initialize(submesh);
+	mVertexShaders[submesh->features()] = shader;
+
+	return shader;
+}
+
+void ShaderManager::release(Gfx::FragmentShader* shader)
 {
 	// TODO: refcounting?
-	mShaders.erase(shader->materialId());
+	mFragmentShaders.erase(shader->materialId());
+	shader->destroy();
+	delete shader;
+}
+
+void ShaderManager::release(Gfx::VertexShader* shader)
+{
+	// TODO: refcounting?
+	mVertexShaders.erase(shader->features());
 	shader->destroy();
 	delete shader;
 }

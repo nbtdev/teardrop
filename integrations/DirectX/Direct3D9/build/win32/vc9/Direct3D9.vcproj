@@ -158,6 +158,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\FragmentShaderD3D9.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\FragmentShaderD3D9.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\IndexBufferD3D9.cpp"
 			>
 		</File>
@@ -199,14 +207,6 @@
 		</File>
 		<File
 			RelativePath="..\..\..\RenderWindowD3D9.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\ShaderD3D9.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\ShaderD3D9.h"
 			>
 		</File>
 		<File
@@ -271,6 +271,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\VertexDeclarationD3D9.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexShaderD3D9.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexShaderD3D9.h"
 			>
 		</File>
 		<File

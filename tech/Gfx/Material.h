@@ -19,7 +19,7 @@ namespace Teardrop
 	{
 		class MaterialOutput;
 		class MaterialExpression;
-		class Shader;
+		class FragmentShader;
 		class Connection;
 		struct Attribute;
 
@@ -37,7 +37,7 @@ namespace Teardrop
 			bool destroy();
 			void apply();
 
-			Shader* shader();
+			FragmentShader* shader();
 			void addConnection(Connection* conn);
 			int connections(Connection** connections, int nConnections);
 
@@ -49,7 +49,7 @@ namespace Teardrop
 
 		protected:
 			// will hold pointer to platform/renderer-specific shader instance of this material
-			Shader* mShader;
+			FragmentShader* mShader;
 
 			// map of connections from input to instance; this works because inputs support only
 			// one connection

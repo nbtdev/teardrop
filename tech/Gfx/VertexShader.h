@@ -5,9 +5,10 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(VERTEXDECLARATION_INCLUDED)
-#define VERTEXDECLARATION_INCLUDED
+#if !defined(VERTEXSHADER_INCLUDED)
+#define VERTEXSHADER_INCLUDED
 
+#include "Gfx/ShaderFeatures.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop
@@ -16,22 +17,24 @@ namespace Teardrop
 	{
 		class Submesh;
 
-		class VertexDeclaration
+		class VertexShader
 		{
 		public:
-			VertexDeclaration(Submesh* parent);
-			virtual ~VertexDeclaration();
+			VertexShader();
+			~VertexShader();
 
-			virtual void rebuild() = 0;
-			virtual int hash();
+			virtual bool initialize(Submesh* submesh);
+			virtual bool destroy();
+			virtual void apply() = 0;
+
+			const ShaderFeatures& features();
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			Submesh* mParent;
-			int mHash;
+			ShaderFeatures mFeatures;
 		};
 	}
 }
 
-#endif // VERTEXDECLARATION_INCLUDED
+#endif // VERTEXSHADER_INCLUDED

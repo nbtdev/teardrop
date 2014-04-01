@@ -6,35 +6,33 @@ is prohibited.
 ****************************************************************************/
 
 
-#include "Shader.h"
-#include "Material.h"
-#include "Util/UUID.h"
-#include <assert.h>
+#include "VertexShader.h"
+#include "Submesh.h"
+#include "VertexDeclaration.h"
+#include "VertexElement.h"
 
 using namespace Teardrop;
 using namespace Gfx;
 
-Shader::Shader(Material* mtl)
-	: mMaterial(mtl)
-{
-	assert(mtl != 0);
-}
-
-Shader::~Shader()
+VertexShader::VertexShader()
 {
 }
 
-bool Shader::initialize()
+VertexShader::~VertexShader()
+{
+}
+
+bool VertexShader::initialize(Submesh* /*submesh*/)
 {
 	return true;
 }
 
-bool Shader::destroy()
+bool VertexShader::destroy()
 {
 	return true;
 }
 
-Teardrop::UUID Shader::materialId()
+const ShaderFeatures& VertexShader::features()
 {
-	return mMaterial->getObjectId();
+	return mFeatures;
 }

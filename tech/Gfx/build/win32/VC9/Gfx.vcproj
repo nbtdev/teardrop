@@ -219,6 +219,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\FragmentShader.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\FragmentShader.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\IndexBuffer.cpp"
 			>
 		</File>
@@ -279,11 +287,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Shader.cpp"
+			RelativePath="..\..\..\ShaderFeatures.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\Shader.h"
+			RelativePath="..\..\..\ShaderFeatures.h"
 			>
 		</File>
 		<File
@@ -340,6 +348,14 @@
 		</File>
 		<File
 			RelativePath="..\..\..\VertexElement.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexShader.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\VertexShader.h"
 			>
 		</File>
 		<File

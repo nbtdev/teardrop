@@ -9,6 +9,8 @@ is prohibited.
 #include "Submesh.h"
 #include "BufferManager.h"
 #include "VertexDeclaration.h"
+#include "VertexBuffer.h"
+#include "VertexElement.h"
 
 using namespace Teardrop;
 using namespace Gfx;
@@ -111,4 +113,36 @@ void Submesh::setPrimitiveType(PrimitiveType type)
 Submesh::PrimitiveType Submesh::primitiveType()
 {
 	return mPrimitiveType;
+}
+
+const ShaderFeatures& Submesh::features()
+{
+	if (mFeatures.isEmpty() && !mVertexBuffers.empty()) {
+		// build the features struct
+		for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
+			VertexBuffer* vb = *it;
+			int nElems = vb->vertexElementCount();
+			for (int i=0; i<nElems; ++i) {
+				VertexElement* elem = vb->vertexElement(i);
+				switch(elem->mUsage) {
+					case VEU_POSITION:
+						mFeatures.setFeature(INTERP_POSITION);
+						break;
+					case VEU_NORMAL:
+						mFeatures.setFeature(INTERP_NORMAL);
+						break;
+					case VEU_TEXCOORD:
+						mFeatures.setFeature(INTERP_TEXCOORD, elem->mIndex);
+						break;
+				}
+			}
+		}
+	}
+
+	return mFeatures;
+}
+
+void Submesh::clearFeatures()
+{
+	mFeatures.clear();
 }

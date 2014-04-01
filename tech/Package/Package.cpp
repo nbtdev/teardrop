@@ -108,7 +108,7 @@ Executable* Package::executable()
 Executable* Package::makeExecutable(const Reflection::ClassDef* classDef/* =0 */)
 {
 	// a classDef of 0 means clear the current executable, if any
-	if (classDef == 0 && mExecutable) {
+	if (mExecutable) {
 		mExecutable->destroy();
 		delete mExecutable;
 		mExecutable = 0;

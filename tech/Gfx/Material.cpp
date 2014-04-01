@@ -8,7 +8,7 @@ is prohibited.
 
 #include "Material.h"
 #include "MaterialOutput.h"
-#include "Shader.h"
+#include "FragmentShader.h"
 #include "ShaderManager.h"
 #include "Connection.h"
 #include <set>
@@ -40,7 +40,7 @@ bool Material::destroy()
 	return true;
 }
 
-Shader* Material::shader()
+FragmentShader* Material::shader()
 {
 	if (!mShader) {
 		mShader = ShaderManager::instance().createOrFindInstanceOf(this);

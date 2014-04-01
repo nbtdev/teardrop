@@ -9,6 +9,7 @@ is prohibited.
 #define SHADERMANAGERD3D9_INCLUDED
 
 #include "Gfx/ShaderManager.h"
+#include "Gfx/ShaderFeatures.h"
 #include "Util/UUID.h"
 #include <map>
 
@@ -18,7 +19,8 @@ namespace Teardrop
 	{
 		namespace Direct3D9 
 		{
-			class Shader;
+			class FragmentShader;
+			class VertexShader;
 
 			class ShaderManager : public Gfx::ShaderManager
 			{
@@ -26,16 +28,21 @@ namespace Teardrop
 				ShaderManager(IDirect3DDevice9* device);
 				~ShaderManager();
 
-				Gfx::Shader* createOrFindInstanceOf(Material* sourceMaterial);
-				void release(Gfx::Shader* shader);
+				Gfx::FragmentShader* createOrFindInstanceOf(Material* sourceMaterial);
+				Gfx::VertexShader* createOrFindInstanceOf(Submesh* submesh);
+				void release(Gfx::FragmentShader* shader);
+				void release(Gfx::VertexShader* shader);
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
 				IDirect3DDevice9* mDevice;
 
-				typedef std::map<UUID, Direct3D9::Shader*> Shaders;
-				Shaders mShaders;
+				typedef std::map<UUID, Direct3D9::FragmentShader*> FragmentShaders;
+				FragmentShaders mFragmentShaders;
+
+				typedef std::map<ShaderFeatures, Direct3D9::VertexShader*> VertexShaders;
+				VertexShaders mVertexShaders;
 			};
 		}
 	}

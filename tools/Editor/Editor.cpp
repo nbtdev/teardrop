@@ -355,17 +355,12 @@ void Editor::onObjectBrowserItemDoubleClicked(ProjectItem* item)
 
 void Editor::onActivePackageChanged(PackageManager* pkgMgr)
 {
-	// check to see if one (and only one) instance of the 
-	// Executable class exists in the package
-	std::list<Reflection::Object*> list;
-	pkgMgr->findAllOf(list, Executable::getClassDef(), true);
+	// check to see if the package has an Executable instance
+	Executable* exe = pkgMgr->executable();
 
-	if (list.size() != 1) {
-		char buf[128];
-		sprintf(buf, "%d", int(list.size()));
-
+	if (!exe) {
 		QMessageBox mb;
-		mb.setText(QString("Package ") + pkgMgr->metadata()->getName() + QString(" must contain exactly one Executable class instance (found ") + buf + QString(")"));
+		mb.setText(QString("Package ") + pkgMgr->metadata()->getName() + QString(" must be set as 'executable'"));
 		mb.exec();
 	}
 	else {

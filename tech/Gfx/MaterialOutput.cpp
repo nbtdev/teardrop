@@ -23,11 +23,13 @@ MaterialOutput::~MaterialOutput()
 
 bool MaterialOutput::initialize()
 {
+	mOutputs.push_back(Attribute("Output", ATTR_RGBA, this, Attribute::Required, "RGBA(0,0,0,0)"));
+
 	mInputs.push_back(Attribute("Diffuse", ATTR_RGBA, this));
 	mInputs.push_back(Attribute("Specular", ATTR_RGB, this, Attribute::Optional, "RGB(0,0,0)"));
 	mInputs.push_back(Attribute("Emissive", ATTR_RGB, this, Attribute::Optional, "RGB(0,0,0)"));
 	mInputs.push_back(Attribute("Ambient", ATTR_RGB, this, Attribute::Optional, "RGB(0,0,0)"));
-	mInputs.push_back(Attribute("Specular Power", ATTR_FLOAT, this, Attribute::Optional, "0"));
+	mInputs.push_back(Attribute("SpecularPower", ATTR_FLOAT, this, Attribute::Optional, "0"));
 
 	mInputs.push_back(Attribute("Normal", ATTR_FLOAT3, this, Attribute::Optional, "float3(0,1,0)"));
 
@@ -35,7 +37,7 @@ bool MaterialOutput::initialize()
 }
 
 static const char* BODY =
-"    c = RGBA(1);\n"
+"    Output = Diffuse;\n"
 ;
 
 void MaterialOutput::appendBody(Language /*lang*/, std::ostream& o)
