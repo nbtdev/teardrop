@@ -52,14 +52,14 @@ Gfx::VertexShader* ShaderManager::createOrFindInstanceOf(Submesh* submesh)
 	if (!submesh)
 		return 0;
 
-	VertexShaders::iterator it = mVertexShaders.find(submesh->features());
+	VertexShaders::iterator it = mVertexShaders.find(submesh->hash());
 	if (it != mVertexShaders.end()) 
 		return it->second;
 
 	// else, create and record a new one
 	Direct3D9::VertexShader* shader = TD_NEW Direct3D9::VertexShader(mDevice);
 	shader->initialize(submesh);
-	mVertexShaders[submesh->features()] = shader;
+	mVertexShaders[submesh->hash()] = shader;
 
 	return shader;
 }
@@ -75,7 +75,7 @@ void ShaderManager::release(Gfx::FragmentShader* shader)
 void ShaderManager::release(Gfx::VertexShader* shader)
 {
 	// TODO: refcounting?
-	mVertexShaders.erase(shader->features());
+	mVertexShaders.erase(shader->hash());
 	shader->destroy();
 	delete shader;
 }

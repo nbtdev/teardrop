@@ -13,6 +13,7 @@ is prohibited.
 #include "RenderWindowD3D9.h"
 #include "ViewportD3D9.h"
 #include "FragmentShaderD3D9.h"
+#include "VertexShaderD3D9.h"
 #include "IndexBufferD3D9.h"
 #include "VertexBufferD3D9.h"
 #include "VertexDeclarationD3D9.h"
@@ -291,6 +292,10 @@ void Renderer::render(Submesh* submesh)
 
 	// index buffer
 	IndexBuffer* ib = static_cast<IndexBuffer*>(submesh->indexBuffer());
+
+	// vertex shader
+	VertexShader* vs = static_cast<VertexShader*>(ShaderManager::instance().createOrFindInstanceOf(submesh));
+	vs->apply();
 
 	// draw primitives
 	if (ib) {

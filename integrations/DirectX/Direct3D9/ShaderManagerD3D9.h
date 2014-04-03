@@ -41,7 +41,7 @@ namespace Teardrop
 				typedef std::map<UUID, Direct3D9::FragmentShader*> FragmentShaders;
 				FragmentShaders mFragmentShaders;
 
-				typedef std::map<ShaderFeatures, Direct3D9::VertexShader*> VertexShaders;
+				typedef std::map<unsigned int, Direct3D9::VertexShader*> VertexShaders;
 				VertexShaders mVertexShaders;
 			};
 		}

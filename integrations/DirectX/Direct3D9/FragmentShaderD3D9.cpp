@@ -34,7 +34,7 @@ FragmentShader::~FragmentShader()
 
 bool FragmentShader::initialize()
 {
-	// build and compile vertex and pixel shaders
+	// build and compile pixel shader
 	if (!mSource.length()) {
 		// generate source from material definition/expressions
 
@@ -66,9 +66,11 @@ bool FragmentShader::initialize()
 		std::string defStr(defs.str());
 		mSource.append(defStr.c_str());
 
-		// insert the struct coming from the vertex shader 
-		// TODO: need to consult with vertex shader or something to get this definition...
-		mSource.append("struct PSIN \n{\n    float4 HPOS : POSITION;\n    float3 NORM : NORMAL;\n    float2 TXC0 : TEXCOORD0;\n};\n");
+		// The VertexShaderD3D9 class will have an output struct that may not match these fragment shader
+		// inputs; whether or not each of these semantics exist depends on the person using the content tools.
+		// If a mesh does not provide something that the fragment shader expects, results are undefined
+		// (but usually visually noticeable) and it's up to the user to fix it in the art assets. 
+		mSource.append("struct PSIN \n{\n    float4 HPOS : TEXCOORD0;\n    float4 NORM : TEXCOORD1;\n    float4 TXC0 : TEXCOORD2;\n    float4 TXC1 : TEXCOORD3;\n};\n");
 
 		// open the fragment shader...
 		mSource.append("float4 PS(PSIN psin) : COLOR {\n");
@@ -173,7 +175,7 @@ bool FragmentShader::initialize()
 			NULL, // no defines
 			NULL, // no includes
 			"PS", // entry point function
-			"ps_2_0", // for now, should bump to 3.0 in the Year Of Our Lord 2014...
+			"ps_3_0", // Shader Model 3.0
 			0, // flags
 			&pShader,
 			&pErrorMsgs,

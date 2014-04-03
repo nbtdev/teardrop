@@ -19,6 +19,7 @@ Submesh::Submesh()
 	: mIndexBuffer(0)
 	, mVertexDeclaration(0)
 	, mPrimitiveType(PT_UNKNOWN)
+	, mHash(0)
 {
 }
 
@@ -113,6 +114,27 @@ void Submesh::setPrimitiveType(PrimitiveType type)
 Submesh::PrimitiveType Submesh::primitiveType()
 {
 	return mPrimitiveType;
+}
+
+unsigned int Submesh::hash()
+{
+	if (mHash == 0 && !mVertexBuffers.empty()) {
+		// create a hash from our structure
+		for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
+			VertexBuffer* vb = *it;
+			int nElems = vb->vertexElementCount();
+			for (int i=0; i<nElems; ++i) {
+				VertexElement* elem = vb->vertexElement(i);
+				mHash |= (1 << elem->mUsage);
+
+				if (elem->mUsage == VEU_TEXCOORD) {
+					mHash |= (elem->mIndex << 16);
+				}
+			}
+		}
+	}
+
+	return mHash;
 }
 
 const ShaderFeatures& Submesh::features()

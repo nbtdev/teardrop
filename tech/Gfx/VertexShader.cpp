@@ -15,6 +15,7 @@ using namespace Teardrop;
 using namespace Gfx;
 
 VertexShader::VertexShader()
+	: mHash(0)
 {
 }
 
@@ -32,7 +33,7 @@ bool VertexShader::destroy()
 	return true;
 }
 
-const ShaderFeatures& VertexShader::features()
+unsigned int VertexShader::hash()
 {
-	return mFeatures;
+	return mHash;
 }

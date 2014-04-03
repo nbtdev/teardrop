@@ -55,6 +55,8 @@ namespace Teardrop
 			const ShaderFeatures& features();
 			void clearFeatures();
 
+			unsigned int hash();
+
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
@@ -64,6 +66,7 @@ namespace Teardrop
 			VertexDeclaration* mVertexDeclaration;
 			IndexBuffer* mIndexBuffer;
 			PrimitiveType mPrimitiveType;
+			unsigned int mHash;
 		};
 	}
 }

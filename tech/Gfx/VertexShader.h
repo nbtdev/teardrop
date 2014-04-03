@@ -27,12 +27,12 @@ namespace Teardrop
 			virtual bool destroy();
 			virtual void apply() = 0;
 
-			const ShaderFeatures& features();
+			unsigned int hash();
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			ShaderFeatures mFeatures;
+			unsigned int mHash;
 		};
 	}
 }
