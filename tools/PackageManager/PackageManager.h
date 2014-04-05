@@ -45,6 +45,8 @@ namespace Teardrop
 			std::pair<Reflection::Object*, Metadata*> createObject(Folder* folder, const Reflection::ClassDef* classDef);
 			// make package executable using ClassDef
 			Executable* makeExecutable(const Reflection::ClassDef* classDef);
+			// retrieve package's Executable instance (if any); returns NULL if none
+			Executable* executable();
 
 			void initializeAllObjects();
 

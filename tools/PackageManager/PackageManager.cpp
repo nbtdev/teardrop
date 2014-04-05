@@ -142,6 +142,11 @@ Executable* PackageManager::makeExecutable(const Reflection::ClassDef* classDef)
 	return mPackage->makeExecutable(classDef);
 }
 
+Executable* PackageManager::executable()
+{
+	return mPackage->executable();
+}
+
 PackageMetadata* PackageManager::metadata()
 {
 	return mMetadata;
