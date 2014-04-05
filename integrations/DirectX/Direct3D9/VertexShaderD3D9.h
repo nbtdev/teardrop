@@ -10,11 +10,14 @@ is prohibited.
 
 #include "Gfx/VertexShader.h"
 #include "Util/_String.h"
+#include <vector>
 
 namespace Teardrop
 {
 	namespace Gfx 
 	{
+		class ShaderConstant;
+
 		namespace Direct3D9
 		{
 			class VertexShader : public Gfx::VertexShader
@@ -32,12 +35,13 @@ namespace Teardrop
 			protected:
 				IDirect3DDevice9* mDevice;
 				IDirect3DVertexShader9* mVS;
+				LPD3DXCONSTANTTABLE mConstantTable;
+				typedef std::vector<ShaderConstant*> ConstantBindings;
+				ConstantBindings mBindings;
 
 				String mSource; // in case we need to recompile the shader
 				String mFullpath; // in case someone wants to save the shader?
 				String mErrs; // in case we need to recompile the shader
-
-				static const char* HLSL_COMMON;
 			};
 		}
 	}

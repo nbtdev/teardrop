@@ -197,6 +197,9 @@ bool FragmentShader::initialize()
 
 		if (pShader)
 			pShader->Release();
+
+		if (pConstants)
+			pConstants->Release();
 	}
 
 	return true;

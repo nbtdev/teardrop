@@ -287,6 +287,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\ShaderConstant.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ShaderConstant.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\ShaderFeatures.cpp"
 			>
 		</File>
