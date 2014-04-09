@@ -8,6 +8,7 @@ is prohibited.
 
 #include "ShaderManager.h"
 #include "Material.h"
+#include "ShaderConstantTable.h"
 
 using namespace Teardrop;
 using namespace Gfx;
@@ -15,6 +16,7 @@ using namespace Gfx;
 ShaderManager* Singleton<ShaderManager>::mInst = 0;
 
 ShaderManager::ShaderManager()
+	: mConstants(TD_NEW ShaderConstantTable)
 {
 	assert(!mInst);
 	mInst = this;
@@ -22,6 +24,10 @@ ShaderManager::ShaderManager()
 
 ShaderManager::~ShaderManager()
 {
-
+	delete mConstants;
 }
 
+ShaderConstantTable* ShaderManager::constantTable()
+{
+	return mConstants;
+}

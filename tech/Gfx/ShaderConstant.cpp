@@ -6,18 +6,30 @@ is prohibited.
 ****************************************************************************/
 
 #include "ShaderConstant.h"
+#include <string.h>
 
 using namespace Teardrop;
 using namespace Gfx;
 
-ShaderConstant::ShaderConstant()
-	: mType(VET_UNKNOWN)
-	, mWidth(0)
-	, mRank(0)
+ShaderConstant::ShaderConstant(VertexElementType type, int width, int rows)
+	: mType(type)
+	, mWidth(width)
+	, mRows(rows)
 	, mVersion(0)
 	, mStorage(0)
+	, mLen(0)
 {
+	switch (type) {
+		case VET_FLOAT:
+		default:
+			mLen = sizeof(float) * width * rows;
+			break;
+	}
 
+	if (mLen) {
+		mStorage = TD_NEW unsigned char[mLen];
+		memset(mStorage, 0, mLen);
+	}
 }
 
 ShaderConstant::~ShaderConstant()
@@ -33,4 +45,11 @@ const void* ShaderConstant::data() const
 int ShaderConstant::version() const
 {
 	return mVersion;
+}
+
+void ShaderConstant::set(const void* data)
+{
+	if (mStorage) {
+		memcpy(mStorage, data, mLen);
+	}
 }

@@ -39,7 +39,7 @@ Gfx::FragmentShader* ShaderManager::createOrFindInstanceOf(Material* material)
 		return it->second;
 
 	// else, create and record a new one
-	Direct3D9::FragmentShader* shader = TD_NEW Direct3D9::FragmentShader(mDevice, material);
+	Direct3D9::FragmentShader* shader = TD_NEW Direct3D9::FragmentShader(mDevice, mConstants, material);
 	shader->initialize();
 	mFragmentShaders[material->getObjectId()] = shader;
 
@@ -57,7 +57,7 @@ Gfx::VertexShader* ShaderManager::createOrFindInstanceOf(Submesh* submesh)
 		return it->second;
 
 	// else, create and record a new one
-	Direct3D9::VertexShader* shader = TD_NEW Direct3D9::VertexShader(mDevice);
+	Direct3D9::VertexShader* shader = TD_NEW Direct3D9::VertexShader(mDevice, mConstants);
 	shader->initialize(submesh);
 	mVertexShaders[submesh->hash()] = shader;
 

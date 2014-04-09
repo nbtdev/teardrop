@@ -7,6 +7,8 @@ is prohibited.
 
 #include "stdafx.h"
 #include "VertexShaderD3D9.h"
+#include "Gfx/ShaderConstantTable.h"
+#include "Gfx/ShaderConstant.h"
 #include "Gfx/Submesh.h"
 #include "Gfx/VertexBuffer.h"
 #include "Gfx/VertexElement.h"
@@ -18,10 +20,11 @@ namespace Teardrop {
 	namespace Gfx {
 		namespace Direct3D9 {
 
-			VertexShader::VertexShader(IDirect3DDevice9* device)
+			VertexShader::VertexShader(IDirect3DDevice9* device, ShaderConstantTable* constants)
 				: mDevice(device)
 				, mVS(0)
 				, mConstantTable(0)
+				, mConstants(constants)
 			{
 				assert(mDevice);
 			}
@@ -279,7 +282,20 @@ namespace Teardrop {
 							mBindings.resize(desc.Constants);
 
 							for (UINT i=0; i<desc.Constants; ++i) {
-								mBindings[i] = 0; // = by constant name, find pointer to entry in renderer's constant table
+								D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
+
+								if (pConst) {
+									UINT tmp = 1;
+									D3DXCONSTANT_DESC constDesc;
+									mConstantTable->GetConstantDesc(pConst, &constDesc, &tmp);
+
+									mBindings[i].mConstant = mConstants->find(constDesc.Name);
+
+									// when the renderer updates an entry in its table it will increment its version number, so we 
+									// can compare this to the renderer's version to see if we need to update the data in the shader
+									// TODO : is this actually true?
+									mBindings[i].mCurrentVersion = 0;
+								}
 							}
 						}
 					}

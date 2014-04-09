@@ -20,10 +20,11 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D9 {
 
-FragmentShader::FragmentShader(IDirect3DDevice9* device, Material* mtl)
+FragmentShader::FragmentShader(IDirect3DDevice9* device, ShaderConstantTable* constants, Material* mtl)
 	: Gfx::FragmentShader(mtl)
 	, mDevice(device)
 	, mPS(0)
+	, mConstants(constants)
 {
 	assert(mDevice);
 }

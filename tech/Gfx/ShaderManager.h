@@ -19,6 +19,7 @@ namespace Teardrop
 		class VertexShader;
 		class Material;
 		class Submesh;
+		class ShaderConstantTable;
 
 		class ShaderManager : public Singleton<ShaderManager>
 		{
@@ -31,9 +32,12 @@ namespace Teardrop
 			virtual void release(FragmentShader* shader) = 0;
 			virtual void release(VertexShader* shader) = 0;
 
+			ShaderConstantTable* constantTable();
+
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
+			ShaderConstantTable* mConstants;
 		};
 	}
 }

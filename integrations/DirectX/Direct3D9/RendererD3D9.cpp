@@ -7,6 +7,8 @@ is prohibited.
 
 #include "stdafx.h"
 #include "Gfx/Material.h"
+#include "Gfx/ShaderConstantTable.h"
+#include "Gfx/ShaderConstant.h"
 #include "Gfx/Submesh.h"
 #include "RendererD3D9.h"
 #include "RenderTargetD3D9.h"
@@ -23,6 +25,14 @@ is prohibited.
 #include "BufferManagerD3D9.h"
 #include "Util/_String.h"
 #include <assert.h>
+
+static const char* WORLDINVTRANS = "WorldITXf";
+static const char* WORLDVIEWPROJ = "WvpXf";
+static const char* WORLD = "WorldXf";
+static const char* WORLDINV = "WorldInv";
+static const char* VIEWINV = "ViewIXf";
+static const char* VIEWPROJ = "ViewProj"; 
+static const char* MATRIXPALETTE = "Bones";
 
 namespace Teardrop {
 namespace Gfx {
@@ -129,6 +139,26 @@ Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
 	TD_NEW ShaderManager(mDevice);
 	TD_NEW BufferManager(mDevice);
 	TD_NEW TextureManager(mDevice);
+
+	// populate shader constant table
+	ShaderConstantTable* tab = ShaderManager::instance().constantTable();
+	/*
+	"float4x4 WorldITXf : WORLDINVTRANS;\n"
+	"float4x4 WvpXf : WORLDVIEWPROJ;\n"
+	"float4x4 WorldXf : WORLD;\n"
+	"float4x4 WorldInv : WORLDINV;\n"
+	"float4x4 ViewIXf : VIEWINV;\n"
+	"float4x4 ViewProj : VIEWPROJ;\n"
+	"float4 Bones[208] : MATRIXPALETTE;\n"	*/
+
+	// TODO: add these to a semantic-based lookup table?
+	tab->addNew(WORLDINVTRANS, VET_FLOAT, 4, 4);
+	tab->addNew(WORLDVIEWPROJ, VET_FLOAT, 4, 4);
+	tab->addNew(WORLD, VET_FLOAT, 4, 4);
+	tab->addNew(WORLDINV, VET_FLOAT, 4, 4);
+	tab->addNew(VIEWINV, VET_FLOAT, 4, 4);
+	tab->addNew(VIEWPROJ, VET_FLOAT, 4, 4);
+	tab->addNew(MATRIXPALETTE, VET_FLOAT, 4, 208);
 
 	return renderWindow;
 }

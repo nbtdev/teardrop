@@ -295,6 +295,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\ShaderConstantTable.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\..\ShaderConstantTable.h"
+			>
+		</File>
+		<File
 			RelativePath="..\..\..\ShaderFeatures.cpp"
 			>
 		</File>

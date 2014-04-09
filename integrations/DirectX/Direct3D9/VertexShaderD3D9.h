@@ -17,13 +17,14 @@ namespace Teardrop
 	namespace Gfx 
 	{
 		class ShaderConstant;
+		class ShaderConstantTable;
 
 		namespace Direct3D9
 		{
 			class VertexShader : public Gfx::VertexShader
 			{
 			public:
-				VertexShader(IDirect3DDevice9* device);
+				VertexShader(IDirect3DDevice9* device, ShaderConstantTable* constants);
 				~VertexShader();
 
 				bool initialize(Submesh* submesh);
@@ -35,8 +36,17 @@ namespace Teardrop
 			protected:
 				IDirect3DDevice9* mDevice;
 				IDirect3DVertexShader9* mVS;
+				// the constants declared in the shader
 				LPD3DXCONSTANTTABLE mConstantTable;
-				typedef std::vector<ShaderConstant*> ConstantBindings;
+				// the constants managed by the engine
+				ShaderConstantTable* mConstants;
+
+				struct ConstantBinding {
+					int mCurrentVersion;
+					ShaderConstant* mConstant;
+				};
+
+				typedef std::vector<ConstantBinding> ConstantBindings;
 				ConstantBindings mBindings;
 
 				String mSource; // in case we need to recompile the shader

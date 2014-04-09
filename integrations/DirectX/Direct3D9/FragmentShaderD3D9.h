@@ -15,12 +15,14 @@ namespace Teardrop
 {
 	namespace Gfx 
 	{
+		class ShaderConstantTable;
+
 		namespace Direct3D9
 		{
 			class FragmentShader : public Gfx::FragmentShader
 			{
 			public:
-				FragmentShader(IDirect3DDevice9* device, Material* mtl);
+				FragmentShader(IDirect3DDevice9* device, ShaderConstantTable* constants, Material* mtl);
 				~FragmentShader();
 
 				bool initialize();
@@ -32,6 +34,7 @@ namespace Teardrop
 			protected:
 				IDirect3DDevice9* mDevice;
 				IDirect3DPixelShader9* mPS;
+				ShaderConstantTable* mConstants;
 
 				String mSource; // in case we need to recompile the shader
 				String mFullpath; // in case someone wants to save the shader?

@@ -17,10 +17,11 @@ namespace Teardrop {
 		class ShaderConstant
 		{
 		public:
-			ShaderConstant();
+			ShaderConstant(VertexElementType type, int width, int rows=1);
 			~ShaderConstant();
 
 			const void* data() const;
+			void set(const void* data);
 			int version() const;
 
 		protected:
@@ -29,11 +30,13 @@ namespace Teardrop {
 			// 1, 2, 3, or 4
 			int mWidth;
 			// for arrays of constant entries
-			int mRank;
+			int mRows;
 			// incremented every time the constant value is changed
 			int mVersion;
 			// constant storage
 			unsigned char* mStorage;
+			// length (bytes) of storage
+			int mLen;
 		};
 	}
 }
