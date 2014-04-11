@@ -19,6 +19,11 @@ RenderWindow::RenderWindow(IDirect3DDevice9* device, HWND hWnd)
 	, mHwnd(hWnd)
 	, mSwapChain(0)
 {
+	RECT rect;
+	GetClientRect(hWnd, &rect);
+
+	mWidth = rect.right - rect.left;
+	mHeight = rect.bottom - rect.top;
 }
 
 RenderWindow::RenderWindow(IDirect3DDevice9* device, HWND hWnd, int flags)

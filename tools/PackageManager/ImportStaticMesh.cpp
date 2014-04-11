@@ -113,6 +113,9 @@ namespace Teardrop {
 			int nIndices = nPoly * 3;
 			Gfx::Submesh* submesh = gfxMesh->createSubmesh();
 
+			// TODO: make sure this really is what the incoming mesh data is...
+			submesh->setPrimitiveType(Submesh::PT_TRILIST);
+
 			IndexBuffer* ib = submesh->createIndexBuffer();
 			bool success = ib->initialize(4, nIndices, indices);
 
@@ -142,7 +145,7 @@ namespace Teardrop {
 			elem.mUsage = VEU_POSITION;
 			vbPos->endAddVertexElements();
 
-			vbPos->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, verts);
+			vbPos->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpPos[0]);
 
 			// vertex colors
 			int nVertColor = fbxMesh->GetElementVertexColorCount();
@@ -340,7 +343,8 @@ namespace Teardrop {
 				case FbxNodeAttribute::eSkeleton:
 					break;
 				case FbxNodeAttribute::eMesh:
-					importMesh(node, asset, imp, table);
+					if (!importMesh(node, asset, imp, table))
+						return;
 					break;
 			}
 

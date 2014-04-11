@@ -326,6 +326,28 @@ namespace Teardrop {
 				if (mVS && mDevice) {
 					mDevice->SetVertexShader(mVS);
 				}
+
+				// set any shader constants we have
+				if (mConstantTable) {
+					D3DXCONSTANTTABLE_DESC desc;
+					if (SUCCEEDED(mConstantTable->GetDesc(&desc))) {
+						// set each constant we found during compilation
+						for (UINT i=0; i<desc.Constants; ++i) {
+							D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
+							if (pConst) {
+								D3DXCONSTANT_DESC constDesc;
+								UINT ct = 1;
+								mConstantTable->GetConstantDesc(pConst, &constDesc, &ct);
+								switch (constDesc.Type) {
+									case D3DXPT_FLOAT:
+										mDevice->SetVertexShaderConstantF(constDesc.RegisterIndex, (const float*)mBindings[i].mConstant->data(), constDesc.Rows);
+										break;
+								}
+								//mBindings[i].mConstant->;
+							}
+						}
+					}
+				}
 			}
 		} // Direct3D9
 	} // Gfx

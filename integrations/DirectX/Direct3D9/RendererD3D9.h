@@ -10,12 +10,15 @@ is prohibited.
 
 #include "Gfx/Renderer.h"
 #include "Math/Matrix44.h"
+#include "Memory/Allocators.h"
 #include <vector>
 
 namespace Teardrop
 {
 	namespace Gfx 
 	{
+		class ShaderConstant;
+
 		namespace Direct3D9
 		{
 			class Renderer : public Gfx::Renderer
@@ -37,6 +40,8 @@ namespace Teardrop
 					bool stencil = true,
 					unsigned int stencilValue = 0);
 				void beginScene(Camera* camera, Gfx::Viewport* vp=0);
+				void beginObject(const Matrix44& worldXf);
+				void endObject();
 				void endScene();
 				void endFrame();
 				void apply(Material* material);
@@ -59,6 +64,14 @@ namespace Teardrop
 
 				Camera* mCurrentCamera;
 				Viewport* mCurrentVP;
+
+				ShaderConstant* mWorldITXf;
+				ShaderConstant* mWvpXf;
+				ShaderConstant* mWorldXf;
+				ShaderConstant* mWorldInv;
+				ShaderConstant* mViewIXf;
+				ShaderConstant* mViewProj;
+				ShaderConstant* mBones;
 			};
 		}
 	}

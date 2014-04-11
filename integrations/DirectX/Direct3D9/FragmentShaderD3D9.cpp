@@ -160,8 +160,9 @@ bool FragmentShader::initialize()
 		std::string callStr(calls.str());
 		mSource.append(callStr.c_str());
 
-		// and then close the shader 
-		mSource.append("\nreturn output;\n}\n");
+		// and then close the shader
+		//mSource.append("\nreturn output;\n}\n");
+		mSource.append("\nreturn float4(0.5,0.5,0.5,1);\n}\n");
 	}
 
 	if (mSource.length() && !mPS) {

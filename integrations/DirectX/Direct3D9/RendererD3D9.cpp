@@ -6,10 +6,6 @@ is prohibited.
 ****************************************************************************/
 
 #include "stdafx.h"
-#include "Gfx/Material.h"
-#include "Gfx/ShaderConstantTable.h"
-#include "Gfx/ShaderConstant.h"
-#include "Gfx/Submesh.h"
 #include "RendererD3D9.h"
 #include "RenderTargetD3D9.h"
 #include "RenderWindowD3D9.h"
@@ -23,6 +19,12 @@ is prohibited.
 #include "TextureManagerD3D9.h"
 #include "ShaderManagerD3D9.h"
 #include "BufferManagerD3D9.h"
+#include "Gfx/Camera.h"
+#include "Gfx/Material.h"
+#include "Gfx/ShaderConstantTable.h"
+#include "Gfx/ShaderConstant.h"
+#include "Gfx/Submesh.h"
+#include "Math/Matrix44.h"
 #include "Util/_String.h"
 #include <assert.h>
 
@@ -46,6 +48,13 @@ Renderer::Renderer()
 	, mCurrentRT(0)
 	, mCurrentCamera(0)
 	, mCurrentVP(0)
+	, mWorldITXf(0)
+	, mWvpXf(0)
+	, mWorldXf(0)
+	, mWorldInv(0)
+	, mViewIXf(0)
+	, mViewProj(0)
+	, mBones(0)
 {
 }
 
@@ -152,13 +161,13 @@ Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
 	"float4 Bones[208] : MATRIXPALETTE;\n"	*/
 
 	// TODO: add these to a semantic-based lookup table?
-	tab->addNew(WORLDINVTRANS, VET_FLOAT, 4, 4);
-	tab->addNew(WORLDVIEWPROJ, VET_FLOAT, 4, 4);
-	tab->addNew(WORLD, VET_FLOAT, 4, 4);
-	tab->addNew(WORLDINV, VET_FLOAT, 4, 4);
-	tab->addNew(VIEWINV, VET_FLOAT, 4, 4);
-	tab->addNew(VIEWPROJ, VET_FLOAT, 4, 4);
-	tab->addNew(MATRIXPALETTE, VET_FLOAT, 4, 208);
+	mWorldITXf = tab->addNew(WORLDINVTRANS, VET_FLOAT, 4, 4);
+	mWvpXf = tab->addNew(WORLDVIEWPROJ, VET_FLOAT, 4, 4);
+	mWorldXf = tab->addNew(WORLD, VET_FLOAT, 4, 4);
+	mWorldInv = tab->addNew(WORLDINV, VET_FLOAT, 4, 4);
+	mViewIXf = tab->addNew(VIEWINV, VET_FLOAT, 4, 4);
+	mViewProj = tab->addNew(VIEWPROJ, VET_FLOAT, 4, 4);
+	mBones = tab->addNew(MATRIXPALETTE, VET_FLOAT, 4, 208);
 
 	return renderWindow;
 }
@@ -269,6 +278,12 @@ void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
 	mCurrentCamera = camera;
 	mCurrentVP = vp;
 
+	// update camera-related shader constants
+	Matrix44 tmp;
+	camera->getViewMatrix().invert(tmp);
+	mViewIXf->set(&tmp);
+	mViewProj->set(&camera->getViewProjMatrix());
+
 	if (mCurrentVP) {
 		Viewport* d3d9VP = static_cast<Viewport*>(mCurrentVP);
 		mDevice->SetViewport(&d3d9VP->viewport());
@@ -286,12 +301,43 @@ void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
 	}
 }
 
+void Renderer::beginObject(const Matrix44& worldXf)
+{
+	// set world xform
+	mWorldXf->set(&worldXf);
+
+	// and its derivatives
+	Matrix44 tmp, tmp2;
+	worldXf.invert(tmp);
+	mWorldInv->set(&tmp);
+
+	tmp.transpose(tmp2);
+	mWorldITXf->set(&tmp2);
+
+	tmp = worldXf * *((const Matrix44*)mViewProj->data());
+	mWvpXf->set(&tmp);
+}
+
 void Renderer::apply(Material* material)
 {
 	material->apply();
 }
 
+/*
+enum PrimitiveType
+{
+PT_UNKNOWN = 0,
+PT_POINTLIST,
+PT_LINELIST,
+PT_LINESTRIP,
+PT_TRILIST,
+PT_TRISTRIP,
+PT_TRIFAN,
+};
+*/
+
 static D3DPRIMITIVETYPE sD3DPrimTypes [] = {
+	D3DPT_TRIANGLELIST,    // PT_UNKNOWN
 	D3DPT_POINTLIST,       // PT_POINT,
 	D3DPT_LINELIST,		   // PT_LINES,
 	D3DPT_LINESTRIP,	   // PT_LINE_STRIP,
@@ -357,6 +403,11 @@ void Renderer::render(Submesh* submesh)
 			(UINT)primitiveCount
 			);
 	}
+}
+
+void Renderer::endObject()
+{
+
 }
 
 void Renderer::endScene()

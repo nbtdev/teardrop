@@ -14,6 +14,8 @@ is prohibited.
 
 namespace Teardrop
 {
+	class Matrix44;
+
 	namespace Gfx 
 	{
 		class RenderTarget;
@@ -58,10 +60,14 @@ namespace Teardrop
 				unsigned int stencilValue = 0) = 0;
 			// begin a new scene (frame subset)
 			virtual void beginScene(Camera* camera, Viewport* vp=0) = 0;
+			// begin rendering a new object (mesh instance)
+			virtual void beginObject(const Matrix44& worldXf) = 0;
 			// set material (shader) used for subsequent renders
 			virtual void apply(Material* material) = 0;
 			// render 
 			virtual void render(Submesh* submesh) = 0;
+			// end object (mesh instance)
+			virtual void endObject() = 0;
 			// end scene
 			virtual void endScene() = 0;
 			// end frame render and swap buffers (if applicable)

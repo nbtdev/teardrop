@@ -98,14 +98,14 @@ void VertexBuffer::resize(int vertexCount)
 void* VertexBuffer::map(int flags /*=0*/)
 {
 	DWORD D3DFlags = 0;
-	if (flags & MAP_DISCARD)
+	if ((mInitFlags & INIT_DYNAMIC) && (flags & MAP_DISCARD))
 		D3DFlags |= D3DLOCK_DISCARD;
 	if (flags & MAP_READONLY)
 		D3DFlags |= D3DLOCK_READONLY;
 
 	if (mD3D9Buffer) {
 		void* rtn = 0;
-		mD3D9Buffer->Lock(0, 0, &rtn, flags);
+		mD3D9Buffer->Lock(0, 0, &rtn, D3DFlags);
 		return rtn;
 	}
 

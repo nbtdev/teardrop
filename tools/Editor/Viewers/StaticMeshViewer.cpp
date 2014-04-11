@@ -10,6 +10,7 @@ is prohibited.
 #include "Gfx/Renderer.h"
 #include "Gfx/Mesh.h"
 #include "Game/OrbitCamController.h"
+#include "Math/Matrix44.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -69,11 +70,16 @@ void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer)
 	// apply the material
 	renderer->apply(getStaticMeshAsset()->getMaterial());
 
+	// begin the object
+	renderer->beginObject(Matrix44::IDENTITY);
+
 	// draw the submeshes
 	int nSubmesh = mesh->submeshCount();
 	for (int i=0; i<nSubmesh; ++i) {
 		renderer->render(mesh->submesh(i));
 	}
+
+	renderer->endObject();
 
 	renderer->endScene();
 }

@@ -82,14 +82,15 @@ void IndexBuffer::resize(int indexSize, int indexCount)
 void* IndexBuffer::map(int flags /*=0*/)
 {
 	DWORD D3DFlags = 0;
-	if (flags & MAP_DISCARD)
-		D3DFlags |= D3DLOCK_DISCARD;
+	// TODO: if we allow dynamic flags on create then we can lock discard
+	//if (flags & MAP_DISCARD)
+	//	D3DFlags |= D3DLOCK_DISCARD;
 	if (flags & MAP_READONLY)
 		D3DFlags |= D3DLOCK_READONLY;
 
 	if (mD3D9Buffer) {
 		void* rtn = 0;
-		mD3D9Buffer->Lock(0, 0, &rtn, flags);
+		mD3D9Buffer->Lock(0, 0, &rtn, D3DFlags);
 		return rtn;
 	}
 
