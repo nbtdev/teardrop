@@ -228,7 +228,7 @@ namespace Teardrop {
 						// static/world geometry
 						mSource.append(
 							"    vsout.NORM = mul(vsin.NORM, WorldITXf);\n"
-							"    float4 Po = vsin.POS;\n"
+							"    float4 Po = float4(vsin.POS.xyz, 1);\n"
 							"    float3 Pw = mul(Po,WorldXf).xyz;\n"
 							"    //OUT.LightVec = (Lamp0Pos[0] - Pw);\n"
 							"\n"

@@ -26,6 +26,7 @@ namespace Teardrop
 			~Sampler2DExpression();
 
 			bool initialize();
+			const String& samplerName();
 
 			TD_DECLARE_ALLOCATOR();
 

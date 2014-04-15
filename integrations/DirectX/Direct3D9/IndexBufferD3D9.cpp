@@ -85,8 +85,9 @@ void* IndexBuffer::map(int flags /*=0*/)
 	// TODO: if we allow dynamic flags on create then we can lock discard
 	//if (flags & MAP_DISCARD)
 	//	D3DFlags |= D3DLOCK_DISCARD;
-	if (flags & MAP_READONLY)
-		D3DFlags |= D3DLOCK_READONLY;
+	// TODO: D3D gets upset if you try to lock a write-only buffer as read-only...
+	//if (flags & MAP_READONLY)
+	//	D3DFlags |= D3DLOCK_READONLY;
 
 	if (mD3D9Buffer) {
 		void* rtn = 0;

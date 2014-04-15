@@ -17,6 +17,7 @@ namespace Teardrop
 
 	namespace Gfx {
 		class Renderer;
+		class RenderTarget;
 	}
 
 	class Executable : public Reflection::Object
@@ -31,7 +32,7 @@ namespace Teardrop
 		virtual bool onPreLoad();
 		virtual bool onPostLoad();
 		virtual void tick();
-		virtual void renderFrame(Gfx::Renderer* renderer);
+		virtual void renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt);
 		virtual bool onPreUnload();
 		virtual bool onPostUnload();
 

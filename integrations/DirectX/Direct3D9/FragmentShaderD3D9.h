@@ -10,12 +10,15 @@ is prohibited.
 
 #include "Gfx/FragmentShader.h"
 #include "Util/_String.h"
+#include <map>
 
 namespace Teardrop
 {
 	namespace Gfx 
 	{
 		class ShaderConstantTable;
+		class ShaderConstant;
+		class Sampler2DExpression;
 
 		namespace Direct3D9
 		{
@@ -34,7 +37,21 @@ namespace Teardrop
 			protected:
 				IDirect3DDevice9* mDevice;
 				IDirect3DPixelShader9* mPS;
+				// the constants declared in the shader
+				LPD3DXCONSTANTTABLE mConstantTable;
+				// the constants managed by the engine
 				ShaderConstantTable* mConstants;
+
+				struct ConstantBinding {
+					int mCurrentVersion;
+					ShaderConstant* mConstant;
+				};
+
+				typedef std::vector<ConstantBinding> ConstantBindings;
+				ConstantBindings mBindings;
+
+				typedef std::map<String, Sampler2DExpression*> Samplers;
+				Samplers mSamplers;
 
 				String mSource; // in case we need to recompile the shader
 				String mFullpath; // in case someone wants to save the shader?

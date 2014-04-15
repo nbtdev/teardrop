@@ -58,6 +58,8 @@ TextureAsset* importTexture(const char* filepath, TextureAssetType type)
 			squish::CompressImage((squish::u8*)FreeImage_GetBits(fibm), w, h, data, squish::kDxt3);
 		}
 
+		asset->setFormat(TextureAsset::TEXFMT_BC2);
+
 		FreeImage_Unload(fibm);
 	}
 

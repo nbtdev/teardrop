@@ -34,12 +34,17 @@ TextureManager::~TextureManager()
 
 Gfx::Texture2D* TextureManager::createOrFindInstance2D(TextureAsset* texAsset)
 {
+	assert(texAsset);
+	if (!texAsset)
+		return 0;
+
 	Tex2DMap::iterator it = mTex2DMap.find(texAsset->getObjectId());
 	if (it != mTex2DMap.end()) 
 		return it->second;
 
 	// else, create and record a new one
 	Direct3D9::Texture2D* tex = TD_NEW Direct3D9::Texture2D(mDevice, texAsset);
+	tex->initialize(Texture2D::USAGE_STATIC);
 	mTex2DMap[texAsset->getObjectId()] = tex;
 
 	return tex;

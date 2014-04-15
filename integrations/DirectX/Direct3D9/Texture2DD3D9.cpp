@@ -59,37 +59,46 @@ bool Texture2D::initialize(Usage kUsage)
 
 	// use D3DX to load DDS textures, another way otherwise
 	TextureAsset::Format fmt = mAsset->getFormat();
-	if (fmt < TextureAsset::TEXFMT_BC1 || fmt > TextureAsset::TEXFMT_BC3)
-	{
+	//if (fmt < TextureAsset::TEXFMT_BC1 || fmt > TextureAsset::TEXFMT_BC3)
+	//{
 		hr = mDevice->CreateTexture(
 			(UINT)mAsset->getWidth(), 
 			(UINT)mAsset->getHeight(),
 			actualMips,
 			usage,
 			sLut[fmt],
-			D3DPOOL_DEFAULT,
+			D3DPOOL_MANAGED,
 			&mTexObject,
 			0);
-	}
-	else
-	{
-		hr = D3DXCreateTextureFromFileInMemoryEx(
-			mDevice,
-			mAsset->data(),
-			(UINT)mAsset->length(),
-			D3DX_DEFAULT,
-			D3DX_DEFAULT,
-			(UINT)actualMips,
-			0,
-			sLut[fmt],
-			D3DPOOL_DEFAULT,
-			D3DX_DEFAULT,
-			D3DX_DEFAULT,
-			0,
-			0,
-			0,
-			&mTexObject);
-	}
+
+		// copy data to the new texture
+		D3DLOCKED_RECT rect;
+		mTexObject->LockRect(0, &rect, 0, 0);
+		void* dest = rect.pBits;
+		const void* src = mAsset->data();
+		int len = mAsset->length();
+		memcpy(dest, src, len);
+		mTexObject->UnlockRect(0);
+	//}
+	//else
+	//{
+		//hr = D3DXCreateTextureFromFileInMemoryEx(
+		//	mDevice,
+		//	mAsset->data(),
+		//	(UINT)mAsset->length(),
+		//	D3DX_DEFAULT,
+		//	D3DX_DEFAULT,
+		//	(UINT)actualMips,
+		//	0,
+		//	sLut[fmt],
+		//	D3DPOOL_DEFAULT,
+		//	D3DX_DEFAULT,
+		//	D3DX_DEFAULT,
+		//	0,
+		//	0,
+		//	0,
+		//	&mTexObject);
+	//}
 
 	if (FAILED(hr))
 	{

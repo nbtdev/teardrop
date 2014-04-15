@@ -66,3 +66,8 @@ void Sampler2DExpression::insertDependencies(Language lang, std::ostream& o)
 		}
 	}
 }
+
+const String& Sampler2DExpression::samplerName()
+{
+	return mSamplerName;
+}

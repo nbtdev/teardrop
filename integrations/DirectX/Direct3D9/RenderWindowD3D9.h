@@ -24,6 +24,7 @@ namespace Teardrop
 				~RenderWindow();
 
 				void present();
+				void resize(int w, int h);
 
 				HWND hWnd();
 				D3DPRESENT_PARAMETERS& presentParams();
@@ -32,6 +33,7 @@ namespace Teardrop
 
 			protected:
 				HWND mHwnd;
+				int mInitFlags;
 				D3DPRESENT_PARAMETERS mPParams;
 				IDirect3DSwapChain9* mSwapChain;
 			};

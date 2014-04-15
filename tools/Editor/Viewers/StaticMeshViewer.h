@@ -16,6 +16,11 @@ namespace Teardrop
 	class StaticMeshAsset;
 	class OrbitCamController;
 
+	namespace Gfx
+	{
+		class Viewport;
+	}
+
 	namespace Tools
 	{
 		class StaticMeshViewer : public Executable
@@ -29,13 +34,14 @@ namespace Teardrop
 
 			bool initialize();
 			void tick();
-			void renderFrame(Gfx::Renderer* renderer);
+			void renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt);
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
 			Timer mTimer;
 			OrbitCamController* mController;
+			Gfx::Viewport* mVP;
 		};
 	}
 }

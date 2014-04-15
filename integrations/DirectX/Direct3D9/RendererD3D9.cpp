@@ -315,7 +315,8 @@ void Renderer::beginObject(const Matrix44& worldXf)
 	mWorldITXf->set(&tmp2);
 
 	tmp = worldXf * *((const Matrix44*)mViewProj->data());
-	mWvpXf->set(&tmp);
+	tmp.transpose(tmp2);
+	mWvpXf->set(&tmp2);
 }
 
 void Renderer::apply(Material* material)

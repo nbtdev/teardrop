@@ -43,6 +43,11 @@ bool RenderTexture::initialize(int w, int h, SurfaceFormat fmt)
 	return true;
 }
 
+void RenderTexture::resize(int w, int h)
+{
+
+}
+
 Texture2D* RenderTexture::texture()
 {
 	return mTexture;

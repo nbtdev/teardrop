@@ -15,6 +15,7 @@ is prohibited.
 #include <QHBoxLayout>
 #include <QSplitter>
 #include <QTimer>
+#include <QResizeEvent>
 #include <assert.h>
 
 using namespace Teardrop;
@@ -74,6 +75,11 @@ ObjectViewer3D::~ObjectViewer3D()
 	delete mPackage;
 }
 
+void ObjectViewer3D::resizeEvent(QResizeEvent *event)
+{
+	mRenderWindow->resize(event->size().width(), event->size().height());
+}
+
 Package* ObjectViewer3D::package()
 {
 	if (!mPackage) {
@@ -93,7 +99,7 @@ void ObjectViewer3D::onIdle()
 
 			mRenderer->setRenderTarget(mRenderWindow);
 			mRenderer->beginFrame();
-			exe->renderFrame(mRenderer);
+			exe->renderFrame(mRenderer, mRenderWindow);
 			mRenderer->endFrame();
 		}
 	}

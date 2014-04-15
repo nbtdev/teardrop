@@ -28,6 +28,7 @@ namespace Teardrop
 				~RenderTexture();
 
 				bool initialize(int w, int h, SurfaceFormat fmt);
+				void resize(int w, int h);
 
 				Texture2D* texture();
 

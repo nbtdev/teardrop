@@ -100,7 +100,7 @@ void* VertexBuffer::map(int flags /*=0*/)
 	DWORD D3DFlags = 0;
 	if ((mInitFlags & INIT_DYNAMIC) && (flags & MAP_DISCARD))
 		D3DFlags |= D3DLOCK_DISCARD;
-	if (flags & MAP_READONLY)
+	if ((mInitFlags & INIT_WRITEONLY) == 0 && (flags & MAP_READONLY))
 		D3DFlags |= D3DLOCK_READONLY;
 
 	if (mD3D9Buffer) {

@@ -41,6 +41,8 @@ namespace Teardrop
 			void onIdle();
 
 		protected:
+			void resizeEvent(QResizeEvent *event);
+
 			Gfx::Renderer* mRenderer;
 			Gfx::RenderTarget* mRenderWindow;
 			Gfx::Viewport* mViewport;

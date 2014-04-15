@@ -33,7 +33,7 @@ FileStream::~FileStream()
 //---------------------------------------------------------------------------
 int FileStream::read(void* buffer, size_t size, bool async) 
 {
-	if ((m_mode & READ && m_handle) == 0)
+	if (((m_mode & READ) && m_handle) == 0)
 		return 0;
 
 	if (async)
@@ -77,7 +77,7 @@ int FileStream::read(void* buffer, size_t size, bool async)
 //---------------------------------------------------------------------------
 int FileStream::write(const void* buffer, size_t size, bool async) 
 {
-	if ((m_mode & (WRITE|APPEND) && m_handle) == 0)
+	if (((m_mode & (WRITE|APPEND)) && m_handle) == 0)
 		return 0;
 
 	if (async)

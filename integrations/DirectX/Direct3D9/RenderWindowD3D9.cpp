@@ -17,6 +17,7 @@ namespace Direct3D9 {
 RenderWindow::RenderWindow(IDirect3DDevice9* device, HWND hWnd)
 	: RenderTarget(device)
 	, mHwnd(hWnd)
+	, mInitFlags(0)
 	, mSwapChain(0)
 {
 	RECT rect;
@@ -29,21 +30,42 @@ RenderWindow::RenderWindow(IDirect3DDevice9* device, HWND hWnd)
 RenderWindow::RenderWindow(IDirect3DDevice9* device, HWND hWnd, int flags)
 	: RenderTarget(device)
 	, mHwnd(hWnd)
+	, mInitFlags(0)
 	, mSwapChain(0)
 {
 	mHwnd = hWnd;
+	mInitFlags = flags;
 
 	RECT rect;
 	GetClientRect(hWnd, &rect);
 
-	mWidth = rect.right - rect.left;
-	mHeight = rect.bottom - rect.top;
+	int width = rect.right - rect.left;
+	int height = rect.bottom - rect.top;
+	resize(width, height);
+}
+
+void RenderWindow::resize(int w, int h)
+{
+	assert(mHwnd);
+
+	if (mSurface) {
+		mSurface->Release();
+		mSurface = 0;
+	}
+
+	if (mDepthStencil) {
+		mDepthStencil->Release();
+		mDepthStencil = 0;
+	}
+
+	mWidth = w;
+	mHeight = h;
 
 	ZeroMemory(&mPParams, sizeof(mPParams));
 	mPParams.Windowed = TRUE;
 	mPParams.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	mPParams.BackBufferFormat = D3DFMT_UNKNOWN;
-	mPParams.hDeviceWindow = (HWND)hWnd;
+	mPParams.hDeviceWindow = mHwnd;
 	mPParams.BackBufferWidth = mWidth;
 	mPParams.BackBufferHeight = mHeight;
 	mPParams.BackBufferCount = 1;
@@ -51,13 +73,13 @@ RenderWindow::RenderWindow(IDirect3DDevice9* device, HWND hWnd, int flags)
 
 	D3DFORMAT dsFmt = D3DFMT_UNKNOWN;
 
-	if (flags & (INIT_ENABLE_DEPTH_BUFFER | INIT_ENABLE_STENCIL_BUFFER))
+	if (mInitFlags & (INIT_ENABLE_DEPTH_BUFFER | INIT_ENABLE_STENCIL_BUFFER))
 			dsFmt = D3DFMT_D24S8;
 
 	mPParams.AutoDepthStencilFormat = dsFmt;
 
 	mPParams.PresentationInterval = 
-		(flags & INIT_ENABLE_VSYNC) ? (D3DPRESENT_DONOTWAIT | D3DPRESENT_INTERVAL_ONE) : D3DPRESENT_INTERVAL_IMMEDIATE;
+		(mInitFlags & INIT_ENABLE_VSYNC) ? (D3DPRESENT_DONOTWAIT | D3DPRESENT_INTERVAL_ONE) : D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	HRESULT hr = mDevice->CreateAdditionalSwapChain(&mPParams, &mSwapChain);
 
@@ -76,6 +98,9 @@ RenderWindow::RenderWindow(IDirect3DDevice9* device, HWND hWnd, int flags)
 			&mDepthStencil,
 			NULL);
 	}
+
+	assert(mSurface);
+	assert(mDepthStencil);
 }
 
 RenderWindow::~RenderWindow()

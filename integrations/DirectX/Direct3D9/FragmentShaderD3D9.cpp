@@ -7,11 +7,14 @@ is prohibited.
 
 #include "stdafx.h"
 #include "FragmentShaderD3D9.h"
+#include "Texture2DD3D9.h"
 #include "Gfx/Material.h"
 #include "Gfx/Connection.h"
 #include "Gfx/Attribute.h"
 #include "Gfx/MaterialExpression.h"
 #include "Gfx/MaterialOutput.h"
+#include "Gfx/Sampler2DExpression.h"
+#include "Gfx/ShaderConstantTable.h"
 #include <sstream>
 #include <set>
 #include <assert.h>
@@ -62,16 +65,21 @@ bool FragmentShader::initialize()
 				// and then generate the definition for this expression
 				expr->appendDefinition(MaterialExpression::SHADER_HLSL, defs);
 			}
+
+			// special case -- samplers aren't regular constants so
+			// track the samplers that this shader uses, so that we can 
+			// look them up by name later if needed
+			if (expr->getDerivedClassDef() == Sampler2DExpression::getClassDef()) {
+				Sampler2DExpression* sampExp = static_cast<Sampler2DExpression*>(expr);
+				mSamplers[sampExp->samplerName()] = sampExp;
+			}
 		}
 
 		std::string defStr(defs.str());
 		mSource.append(defStr.c_str());
 
-		// The VertexShaderD3D9 class will have an output struct that may not match these fragment shader
-		// inputs; whether or not each of these semantics exist depends on the person using the content tools.
-		// If a mesh does not provide something that the fragment shader expects, results are undefined
-		// (but usually visually noticeable) and it's up to the user to fix it in the art assets. 
-		mSource.append("struct PSIN \n{\n    float4 HPOS : TEXCOORD0;\n    float4 NORM : TEXCOORD1;\n    float4 TXC0 : TEXCOORD2;\n    float4 TXC1 : TEXCOORD3;\n};\n");
+		// declare the input struct (matches the VS output struct in VertexShaderD3D9)
+		mSource.append("struct PSIN \n{\n    float4 HPOS : POSITION;\n    float4 COLOR : COLOR0;\n    float4 NORM : TEXCOORD0;\n    float4 TXC0 : TEXCOORD1;\n    float4 TXC2 : TEXCOORD2;\n};\n");
 
 		// open the fragment shader...
 		mSource.append("float4 PS(PSIN psin) : COLOR {\n");
@@ -161,15 +169,14 @@ bool FragmentShader::initialize()
 		mSource.append(callStr.c_str());
 
 		// and then close the shader
-		//mSource.append("\nreturn output;\n}\n");
-		mSource.append("\nreturn float4(0.5,0.5,0.5,1);\n}\n");
+		mSource.append("\nreturn output;\n}\n");
+		//mSource.append("\nreturn float4(0.5,0.5,0.5,1);\n}\n");
 	}
 
 	if (mSource.length() && !mPS) {
 		// compile the shader
 		LPD3DXBUFFER pErrorMsgs;
 		LPD3DXBUFFER pShader;
-		LPD3DXCONSTANTTABLE pConstants;
 
 		HRESULT hr = D3DXCompileShader(
 			mSource,
@@ -181,7 +188,7 @@ bool FragmentShader::initialize()
 			0, // flags
 			&pShader,
 			&pErrorMsgs,
-			&pConstants // constant table
+			&mConstantTable // constant table
 			);
 
 		if (hr != D3D_OK) {
@@ -197,11 +204,34 @@ bool FragmentShader::initialize()
 			}
 		}
 
+		// wrangle constants used by the shader
+		if (mConstantTable) {
+			D3DXCONSTANTTABLE_DESC desc;
+			if (SUCCEEDED(mConstantTable->GetDesc(&desc))) {
+				// bind destination (shader) constants to their renderer (source) constants
+				mBindings.resize(desc.Constants);
+
+				for (UINT i=0; i<desc.Constants; ++i) {
+					D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
+
+					if (pConst) {
+						UINT tmp = 1;
+						D3DXCONSTANT_DESC constDesc;
+						mConstantTable->GetConstantDesc(pConst, &constDesc, &tmp);
+
+						mBindings[i].mConstant = mConstants->find(constDesc.Name);
+
+						// when the renderer updates an entry in its table it will increment its version number, so we 
+						// can compare this to the renderer's version to see if we need to update the data in the shader
+						// TODO : is this actually true?
+						mBindings[i].mCurrentVersion = 0;
+					}
+				}
+			}
+		}
+
 		if (pShader)
 			pShader->Release();
-
-		if (pConstants)
-			pConstants->Release();
 	}
 
 	return true;
@@ -229,6 +259,36 @@ void FragmentShader::apply()
 
 	if (mDevice) {
 		mDevice->SetPixelShader(mPS);
+	}
+
+	// set any shader constants we have
+	if (mConstantTable) {
+		D3DXCONSTANTTABLE_DESC desc;
+		if (SUCCEEDED(mConstantTable->GetDesc(&desc))) {
+			// set each constant we found during compilation
+			for (UINT i=0; i<desc.Constants; ++i) {
+				D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
+				if (pConst) {
+					D3DXCONSTANT_DESC constDesc;
+					UINT ct = 1;
+					mConstantTable->GetConstantDesc(pConst, &constDesc, &ct);
+					switch (constDesc.Type) {
+					case D3DXPT_SAMPLER2D:
+						{
+							Samplers::iterator it = mSamplers.find(constDesc.Name);
+							if (it != mSamplers.end()) {
+								Sampler2DExpression* sampExp = it->second;
+								if (sampExp) {
+									Texture2D* tex = static_cast<Texture2D*>(sampExp->getSampler2D().texture());
+									mDevice->SetTexture(constDesc.RegisterIndex, tex->textureObject());
+								}
+							}
+						}
+						break;
+					}
+				}
+			}
+		}
 	}
 }
 

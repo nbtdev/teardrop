@@ -60,6 +60,6 @@ void Executable::tick()
 		getLogic()->update(this);
 }
 
-void Executable::renderFrame(Gfx::Renderer* /*renderer*/)
+void Executable::renderFrame(Gfx::Renderer* /*renderer*/, Gfx::RenderTarget* /*rt*/)
 {
 }
