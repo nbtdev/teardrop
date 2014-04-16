@@ -35,6 +35,8 @@ Texture2D::Texture2D(IDirect3DDevice9* device, TextureAsset* asset)
 	, mTexObject(0)
 {
 	assert(mDevice);
+	if (mDevice)
+		mDevice->AddRef();
 }
 
 bool Texture2D::initialize(Usage kUsage)
@@ -115,6 +117,9 @@ Texture2D::~Texture2D()
 		mTexObject->Release();
 		mTexObject = 0;
 	}
+
+	if (mDevice)
+		mDevice->Release();
 }
 
 IDirect3DTexture9* Texture2D::textureObject()

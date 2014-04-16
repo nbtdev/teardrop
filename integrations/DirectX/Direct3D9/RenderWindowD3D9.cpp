@@ -58,6 +58,11 @@ void RenderWindow::resize(int w, int h)
 		mDepthStencil = 0;
 	}
 
+	if (mSwapChain) {
+		mSwapChain->Release();
+		mSwapChain = 0;
+	}
+
 	mWidth = w;
 	mHeight = h;
 
@@ -101,10 +106,13 @@ void RenderWindow::resize(int w, int h)
 
 	assert(mSurface);
 	assert(mDepthStencil);
+	assert(mSwapChain);
 }
 
 RenderWindow::~RenderWindow()
 {
+	if (mSwapChain)
+		mSwapChain->Release();
 }
 
 HWND RenderWindow::hWnd()

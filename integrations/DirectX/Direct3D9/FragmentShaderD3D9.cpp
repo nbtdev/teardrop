@@ -30,10 +30,20 @@ FragmentShader::FragmentShader(IDirect3DDevice9* device, ShaderConstantTable* co
 	, mConstants(constants)
 {
 	assert(mDevice);
+	if (mDevice)
+		mDevice->AddRef();
 }
 
 FragmentShader::~FragmentShader()
 {
+	if (mConstantTable)
+		mConstantTable->Release();
+
+	if (mPS)
+		mPS->Release();
+
+	if (mDevice)
+		mDevice->Release();
 }
 
 bool FragmentShader::initialize()

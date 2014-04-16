@@ -174,6 +174,10 @@ Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
 
 void Renderer::shutdown()
 {
+	TextureManager::shutdown();
+	BufferManager::shutdown();
+	ShaderManager::shutdown();
+
 	if (mDevice) {
 		mDevice->Release();
 		mDevice = 0;
@@ -183,10 +187,6 @@ void Renderer::shutdown()
 		mD3D9->Release();
 		mD3D9 = 0;
 	}
-
-	TextureManager::shutdown();
-	BufferManager::shutdown();
-	ShaderManager::shutdown();
 }
 
 void Renderer::setRenderTarget(Gfx::RenderTarget* rt)

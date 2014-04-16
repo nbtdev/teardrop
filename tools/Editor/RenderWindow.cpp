@@ -60,6 +60,8 @@ RenderWindow::~RenderWindow()
 	if (mRT) {
 		mRT->releaseViewport(mViewport);
 	}
+
+	delete mRT;
 }
 
 void RenderWindow::onIdle()

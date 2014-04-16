@@ -20,16 +20,21 @@ VertexBuffer::VertexBuffer(IDirect3DDevice9* device, Submesh* parent)
 	, mD3D9Desc(0)
 	, mInitFlags(0)
 {
+	assert(mDevice);
+	if (mDevice)
+		mDevice->AddRef();
 }
 
 VertexBuffer::~VertexBuffer()
 {
-	if (mD3D9Buffer)
-	{
+	if (mD3D9Buffer) {
 		mD3D9Buffer->Release();
 	}
 
 	delete [] mD3D9Desc;
+
+	if (mDevice)
+		mDevice->Release();
 }
 
 bool VertexBuffer::initialize(int vertexCount, int initFlags, void* data/* =0 */)

@@ -18,14 +18,19 @@ IndexBuffer::IndexBuffer(IDirect3DDevice9* device, Submesh* parent)
 	, mD3D9Buffer(0)
 	, mDevice(device)
 {
+	assert(mDevice);
+	if (mDevice)
+		mDevice->AddRef();
 }
 
 IndexBuffer::~IndexBuffer()
 {
-	if (mD3D9Buffer)
-	{
+	if (mD3D9Buffer) {
 		mD3D9Buffer->Release();
 	}
+
+	if (mDevice)
+		mDevice->Release();
 }
 
 bool IndexBuffer::initialize(int indexSize, int indexCount, void* data/* =0 */)

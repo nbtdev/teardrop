@@ -27,12 +27,20 @@ namespace Teardrop {
 				, mConstants(constants)
 			{
 				assert(mDevice);
+				if (mDevice)
+					mDevice->AddRef();
 			}
 
 			VertexShader::~VertexShader()
 			{
 				if (mConstantTable)
 					mConstantTable->Release();
+
+				if (mVS)
+					mVS->Release();
+
+				if (mDevice)
+					mDevice->Release();
 			}
 
 			static const char* sDecls = 

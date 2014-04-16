@@ -10,6 +10,7 @@ is prohibited.
 #include "Gfx/Submesh.h"
 #include "Gfx/VertexBuffer.h"
 #include "Gfx/VertexElement.h"
+#include <assert.h>
 
 namespace Teardrop {
 	namespace Gfx {
@@ -21,6 +22,9 @@ namespace Teardrop {
 				, mDecl(0)
 				, mElements(0)
 			{
+				assert(mDevice);
+				if (mDevice)
+					mDevice->AddRef();
 			}
 
 			VertexDeclaration::~VertexDeclaration()
@@ -29,6 +33,9 @@ namespace Teardrop {
 					mDecl->Release();
 
 				delete [] mElements;
+
+				if (mDevice)
+					mDevice->Release();
 			}
 
 			static D3DDECLTYPE makeD3D9Type(VertexElementType type, int count)

@@ -23,6 +23,8 @@ RenderTarget::RenderTarget(IDirect3DDevice9* device)
 	, mHeight(0)
 {
 	assert(mDevice);
+	if (mDevice)
+		mDevice->AddRef();
 }
 
 RenderTarget::~RenderTarget()
@@ -30,6 +32,15 @@ RenderTarget::~RenderTarget()
 	for (Viewports::iterator it = mViewports.begin(); it != mViewports.end(); ++it) {
 		delete it->second;
 	}
+
+	if (mSurface)
+		mSurface->Release();
+
+	if (mDepthStencil)
+		mDepthStencil->Release();
+
+	if (mDevice)
+		mDevice->Release();
 }
 
 IDirect3DSurface9* RenderTarget::surface()
