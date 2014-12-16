@@ -44,6 +44,8 @@ namespace Teardrop
 		bool destroy();
 		bool update(float deltaT);
 		InputFilter* getInputFilter() const;
+		void injectMouseMove(int absX, int absY, int relX/* =0 */, int relY/* =0 */);
+		void injectMouseWheel(int absZ, int relZ/* =0 */);
 
 		void reset();
 

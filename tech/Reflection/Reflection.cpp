@@ -10,11 +10,11 @@ is prohibited.
 using namespace Teardrop;
 using namespace Reflection;
 //-----------------------------------------------------------------------------
-Object::BroadcastPropertyChanged Object::s_propChangedFn = 0;
+//Object::BroadcastPropertyChanged Object::s_propChangedFn = 0;
 //-----------------------------------------------------------------------------
-void Object::setBroadcastPropertyChangedFn(BroadcastPropertyChanged fn)
+void Object::setBroadcastPropertyChangedFn(BroadcastPropertyChanged /*fn*/)
 {
-	s_propChangedFn = fn;
+//	s_propChangedFn = fn;
 }
 //-----------------------------------------------------------------------------
 Object::Object()
@@ -89,8 +89,8 @@ void Object::notifyPropertyChanged(const PropertyDef* pPropDef)
 {
 	notifyPropertyChangedLocal(pPropDef);
 
-	if (s_propChangedFn)
-		s_propChangedFn(this, pPropDef);
+	//if (s_propChangedFn)
+	//	s_propChangedFn(this, pPropDef);
 
 	// preferred way to set up notifications
 	//if (!PropertyChanged.empty())
@@ -98,7 +98,25 @@ void Object::notifyPropertyChanged(const PropertyDef* pPropDef)
 	PropertyChanged.raise(pPropDef);
 }
 //-----------------------------------------------------------------------------
+void Object::notifyPropertyChanging(const PropertyDef* pPropDef)
+{
+	notifyPropertyChangingLocal(pPropDef);
+
+	//if (s_propChangedFn)
+	//	s_propChangedFn(this, pPropDef);
+
+	// preferred way to set up notifications
+	//if (!PropertyChanged.empty())
+	//	PropertyChanged(pPropDef);
+	PropertyChanging.raise(pPropDef);
+}
+//-----------------------------------------------------------------------------
 void Object::notifyPropertyChangedLocal(const PropertyDef* /*pPropDef*/)
+{
+	// intentionally empty/stub dummy definition
+}
+//-----------------------------------------------------------------------------
+void Object::notifyPropertyChangingLocal(const PropertyDef* /*pPropDef*/)
 {
 	// intentionally empty/stub dummy definition
 }

@@ -63,3 +63,23 @@ void Executable::tick()
 void Executable::renderFrame(Gfx::Renderer* /*renderer*/, Gfx::RenderTarget* /*rt*/)
 {
 }
+
+void Executable::notifyPropertyChangingLocal(const Reflection::PropertyDef* pPropDef)
+{
+	if (pPropDef == getLogicDef()) {
+		Logic* logic = getLogic();
+		if (logic) {
+			logic->detached(this);
+		}
+	}
+}
+
+void Executable::notifyPropertyChangedLocal(const Reflection::PropertyDef* pPropDef)
+{
+	if (pPropDef == getLogicDef()) {
+		Logic* logic = getLogic();
+		if (logic) {
+			logic->attached(this);
+		}
+	}
+}

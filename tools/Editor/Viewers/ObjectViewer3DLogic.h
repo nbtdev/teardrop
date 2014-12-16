@@ -5,11 +5,10 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#if !defined(LOGIC_INCLUDED)
-#define LOGIC_INCLUDED
+#if !defined(OBJECTVIEWER3D_LOGIC_INCLUDED)
+#define OBJECTVIEWER3D_LOGIC_INCLUDED
 
-#include "Memory/Allocators.h"
-#include "Reflection/Reflection.h"
+#include "Package/Logic.h"
 
 namespace Teardrop
 {
@@ -25,13 +24,11 @@ namespace Teardrop
 		Logic();
 		~Logic();
 
-		virtual bool attached(Executable* exe);
 		virtual bool onPreLoad(Executable* exe);
 		virtual bool onPostLoad(Executable* exe);
 		virtual bool update(Executable* exe);
 		virtual bool onPreUnload(Executable* exe);
 		virtual bool onPostUnload(Executable* exe);
-		virtual bool detached(Executable* exe);
 
 		virtual void injectMouseMove(int absX, int absY, int relX=0, int relY=0);
 		virtual void injectMouseWheel(int absZ, int relZ=0);
@@ -42,4 +39,4 @@ namespace Teardrop
 	};
 }
 
-#endif // LOGIC_INCLUDED
+#endif // OBJECTVIEWER3D_LOGIC_INCLUDED

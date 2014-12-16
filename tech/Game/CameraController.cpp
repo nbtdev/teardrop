@@ -79,3 +79,13 @@ void CameraController::setFarClip(float far)
 	if (mCamera)
 		mCamera->setFarClip(far);
 }
+
+void CameraController::injectMouseMove(int /*absX*/, int /*absY*/, int /*relX*//* =0 */, int /*relY*//* =0 */)
+{
+
+}
+
+void CameraController::injectMouseWheel(int /*absZ*/, int /*relZ*//* =0 */)
+{
+
+}

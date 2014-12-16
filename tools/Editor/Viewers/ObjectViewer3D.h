@@ -39,6 +39,7 @@ namespace Teardrop
 
 		protected slots:
 			void onIdle();
+			void mouseMoveEvent(QMouseEvent* event);
 
 		protected:
 			void resizeEvent(QResizeEvent *event);

@@ -38,6 +38,10 @@ namespace Teardrop
 
 		TD_DECLARE_ALLOCATOR();
 
+	protected:
+		void notifyPropertyChangedLocal(const Reflection::PropertyDef* pPropDef);
+		void notifyPropertyChangingLocal(const Reflection::PropertyDef* pPropDef);
+
 	private:
 	};
 }

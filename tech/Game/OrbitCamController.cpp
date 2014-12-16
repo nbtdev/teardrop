@@ -181,6 +181,16 @@ bool OrbitCamController::destroy()
 	return CameraController::destroy();
 }
 
+void OrbitCamController::injectMouseMove(int absX, int absY, int relX, int relY)
+{
+	absX, absY, relX, relY;
+}
+
+void OrbitCamController::injectMouseWheel(int absZ, int relZ)
+{
+	absZ, relZ;
+}
+
 void OrbitCamController::setTargetPos(const Vector4& targetPos)
 {
 	mTargetPos = targetPos;

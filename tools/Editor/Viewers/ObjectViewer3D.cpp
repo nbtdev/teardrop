@@ -104,3 +104,8 @@ void ObjectViewer3D::onIdle()
 		}
 	}
 }
+
+void ObjectViewer3D::mouseMoveEvent(QMouseEvent* event)
+{
+
+}

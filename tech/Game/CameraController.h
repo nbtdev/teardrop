@@ -54,6 +54,9 @@ namespace Teardrop
 		void setNearClip(float near);
 		void setFarClip(float far);
 
+		virtual void injectMouseMove(int absX, int absY, int relX=0, int relY=0);
+		virtual void injectMouseWheel(int absZ, int relZ=0);
+
 	protected:
 		Gfx::Camera* mCamera;
 	};

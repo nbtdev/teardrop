@@ -976,6 +976,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Viewers\ObjectViewer3DLogic.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Viewers\StaticMeshViewer.cpp"
 				>
 			</File>

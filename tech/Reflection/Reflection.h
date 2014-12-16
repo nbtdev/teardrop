@@ -106,17 +106,20 @@ namespace Teardrop
 				the notifyPropertyChangedImpl() method in your derived class.
 			*/
 		public:
+			void notifyPropertyChanging(const PropertyDef* pPropDef);
 			void notifyPropertyChanged(const PropertyDef* pPropDef);
 			// called after object instance created, and after property default have been set
 			virtual void onInstanceCreated();
 
 		protected:
+			virtual void notifyPropertyChangingLocal(const PropertyDef* pPropDef);
 			virtual void notifyPropertyChangedLocal(const PropertyDef* pPropDef);
-			static BroadcastPropertyChanged s_propChangedFn;
+			//static BroadcastPropertyChanged s_propChangedFn;
 
 		public:
 			// the preferred way to get notifications about property changes
 			//fastdelegate::FastDelegate1<const PropertyDef*> PropertyChanged;
+			Event1<const PropertyDef*> PropertyChanging;
 			Event1<const PropertyDef*> PropertyChanged;
 
 		private:
@@ -290,13 +293,13 @@ namespace Teardrop
 	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor, Property) \
 	public: \
 		propType& get##propName() { return ___##propName.get(); } \
-		void set##propName(propType __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
+		void set##propName(propType __val) { notifyPropertyChanging(get##propName##Def()); ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
 
 #define TD_COMPLEX_PROPERTY(propName, propDesc, propType, propDef, propEditor) \
 	TD_COMPLEX_TYPE_PROPERTY_BASE(propName, propDesc, propType, propDef, propEditor) \
 	public: \
 		propType& get##propName() { return ___##propName.get(); } \
-		void set##propName(const propType& __val) { ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
+		void set##propName(const propType& __val) { notifyPropertyChanging(get##propName##Def()); ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
 
 #define TD_NESTED_PROPERTY(propName, propDesc, propType) \
 	TD_NESTED_PROPERTY_BASE(propName, propDesc, propType) \
@@ -307,7 +310,7 @@ namespace Teardrop
 	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, propEditor, PointerProperty) \
 	public: \
 		propType* get##propName() { return ___##propName.get(); } \
-		void set##propName(propType* __val) { ___##propName.set(__val); }
+		void set##propName(propType* __val) { notifyPropertyChanging(get##propName##Def()); ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }
 
 //#define TD_POINTER_PROPERTY(propName, propDesc, propType) \
 //	TD_SCALAR_PROPERTY_BASE(propName, propDesc, Reflection::Object*, 0, ObjectBrowser) \

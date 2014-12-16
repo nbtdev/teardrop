@@ -21,6 +21,11 @@ Logic::~Logic()
 
 }
 
+bool Logic::attached(Executable* /*exe*/)
+{
+	return true;
+}
+
 bool Logic::onPreLoad(Executable* /*exe*/)
 {
 	return true;
@@ -41,7 +46,22 @@ bool Logic::onPostUnload(Executable* /*exe*/)
 	return true;
 }
 
+bool Logic::detached(Executable* /*exe*/)
+{
+	return true;
+}
+
 bool Logic::update(Executable* /*exe*/)
 {
 	return true;
+}
+
+void Logic::injectMouseMove(int /*absX*/, int /*absY*/, int /*relX*//* =0 */, int /*relY*//* =0 */)
+{
+
+}
+
+void Logic::injectMouseWheel(int /*absZ*/, int /*relZ*//* =0 */)
+{
+
 }
