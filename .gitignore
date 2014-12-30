@@ -1,0 +1,9 @@
+ipch
+*.stackdump
+*.opensdf
+*.sdf
+obj
+*.suo
+*.user
+sdk/include
+sdk/lib
