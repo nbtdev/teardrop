@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Scheduler">
+      <UniqueIdentifier>{fb005145-7721-4756-864b-336aabfeb049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheduler\CnC">
+      <UniqueIdentifier>{e55c2305-1994-444e-bf22-c521de2fb874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scheduler\Serial">
+      <UniqueIdentifier>{d94216ee-3474-4962-aaaf-39a487191bcc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scheduler\CnC\CnCTaskScheduler.cpp">
+      <Filter>Scheduler\CnC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scheduler\Serial\SerialTaskScheduler.cpp">
+      <Filter>Scheduler\Serial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Task.cpp" />
+    <ClCompile Include="..\..\..\TaskGraph.cpp" />
+    <ClCompile Include="..\..\..\TaskProduct.cpp" />
+    <ClCompile Include="..\..\..\TaskScheduler.cpp" />
+    <ClCompile Include="..\..\..\ThreadUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scheduler\Serial\SerialTaskScheduler.h">
+      <Filter>Scheduler\Serial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Task.h" />
+    <ClInclude Include="..\..\..\TaskGraph.h" />
+    <ClInclude Include="..\..\..\TaskProduct.h" />
+    <ClInclude Include="..\..\..\TaskProductManager.h" />
+    <ClInclude Include="..\..\..\TaskScheduler.h" />
+    <ClInclude Include="..\..\..\TaskTypes.h" />
+    <ClInclude Include="..\..\..\ThreadUtil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\..\..\scheduler\CnC\CnCTaskScheduler.h">
+      <Filter>Scheduler\CnC</Filter>
+    </CustomBuildStep>
+  </ItemGroup>
+</Project>

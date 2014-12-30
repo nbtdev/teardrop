@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{37507FF8-9F71-4DEF-BF67-E5467A73509C}</ProjectGuid>
+    <RootNamespace>CosGame</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\vsprops\Release C Runtime Library Type.props" />
+    <Import Project="..\..\..\..\vsprops\TBB_Release.props" />
+    <Import Project="..\..\..\..\vsprops\TinyXML_Release.props" />
+    <Import Project="..\..\..\..\vsprops\SDK Library.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\vsprops\Debug C Runtime Library Type.props" />
+    <Import Project="..\..\..\..\vsprops\TBB_Debug.props" />
+    <Import Project="..\..\..\..\vsprops\TinyXML_Debug.props" />
+    <Import Project="..\..\..\..\vsprops\SDK Library.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)sdk\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)sdk\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Message>Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ...</Message>
+      <Command>if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)
+if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include
+copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL
+copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL
+</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../..;../../..;../../../..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent>
+      <Message>Copying header files to $(SolutionDir)sdk\include\$(ProjectName) and global headers to $(SolutionDir)sdk\include ...</Message>
+      <Command>if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)
+if not exist $(SolutionDir)sdk\include\ mkdir $(SolutionDir)sdk\include
+copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL
+copy $(ProjectDir)\..\..\..\..\*.h $(SolutionDir)sdk\include &gt; NUL
+</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <AdditionalIncludeDirectories>../..;../../..;../../../..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\CommandTarget.cpp" />
+    <ClCompile Include="..\..\..\ComponentHost.cpp" />
+    <ClCompile Include="..\..\..\CountdownTrigger.cpp" />
+    <ClCompile Include="..\..\..\DirectionalLight.cpp" />
+    <ClCompile Include="..\..\..\DynamicLight.cpp" />
+    <ClCompile Include="..\..\..\GameState.cpp" />
+    <ClCompile Include="..\..\..\GameStateManager.cpp" />
+    <ClCompile Include="..\..\..\InputFilter.cpp" />
+    <ClCompile Include="..\..\..\LandscapeScene.cpp" />
+    <ClCompile Include="..\..\..\Manifest.cpp" />
+    <ClCompile Include="..\..\..\Mountable.cpp" />
+    <ClCompile Include="..\..\..\ObjectLibrary.cpp" />
+    <ClCompile Include="..\..\..\Overlay.cpp" />
+    <ClCompile Include="..\..\..\PointLight.cpp" />
+    <ClCompile Include="..\..\..\RenderStep.cpp" />
+    <ClCompile Include="..\..\..\Scene.cpp" />
+    <ClCompile Include="..\..\..\SceneRenderer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\SpawnPoint.cpp" />
+    <ClCompile Include="..\..\..\SpotLight.cpp" />
+    <ClCompile Include="..\..\..\TerrainPatch.cpp" />
+    <ClCompile Include="..\..\..\TerrainZone.cpp" />
+    <ClCompile Include="..\..\..\Trigger.cpp" />
+    <ClCompile Include="..\..\..\Zone.cpp" />
+    <ClCompile Include="..\..\..\ZoneObject.cpp" />
+    <ClCompile Include="..\..\..\Octree\Octree.cpp" />
+    <ClCompile Include="..\..\..\Octree\OctreeNode.cpp" />
+    <ClCompile Include="..\..\..\Player.cpp" />
+    <ClCompile Include="..\..\..\Component.cpp" />
+    <ClCompile Include="..\..\..\Component_Animation.cpp" />
+    <ClCompile Include="..\..\..\Component_Audio.cpp" />
+    <ClCompile Include="..\..\..\Component_BasicPhysics.cpp" />
+    <ClCompile Include="..\..\..\Component_CameraInterface.cpp" />
+    <ClCompile Include="..\..\..\Component_CharacterPhysics.cpp" />
+    <ClCompile Include="..\..\..\Component_EquipmentSlot.cpp" />
+    <ClCompile Include="..\..\..\Component_Interpolator.cpp" />
+    <ClCompile Include="..\..\..\Component_Physics.cpp" />
+    <ClCompile Include="..\..\..\Component_Render.cpp" />
+    <ClCompile Include="..\..\..\CameraController.cpp" />
+    <ClCompile Include="..\..\..\ChaseCamController.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\FirstPersonCamController.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\FreeCamController.cpp" />
+    <ClCompile Include="..\..\..\OrbitCamController.cpp" />
+    <ClCompile Include="..\..\..\Avatar.cpp" />
+    <ClCompile Include="..\..\..\MACRO.cpp" />
+    <ClCompile Include="..\..\..\Prop.cpp" />
+    <ClCompile Include="..\..\..\Variant.cpp" />
+    <ClCompile Include="..\..\..\DebugMeshRenderStep.cpp" />
+    <ClCompile Include="..\..\..\DepthOnlyRenderStep.cpp" />
+    <ClCompile Include="..\..\..\SceneRenderStep.cpp" />
+    <ClCompile Include="..\..\..\ShadowRenderStep.cpp" />
+    <ClCompile Include="..\..\..\BeamWeapon.cpp">
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessSuppressLineNumbers>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Weapon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Octree\Octree.h" />
+    <ClInclude Include="..\..\..\Octree\OctreeNode.h" />
+    <ClInclude Include="..\..\..\Command.h" />
+    <ClInclude Include="..\..\..\CommandTarget.h" />
+    <ClInclude Include="..\..\..\ComponentHost.h" />
+    <ClInclude Include="..\..\..\CountdownTrigger.h" />
+    <ClInclude Include="..\..\..\DirectionalLight.h" />
+    <ClInclude Include="..\..\..\DynamicLight.h" />
+    <ClInclude Include="..\..\..\GameState.h" />
+    <ClInclude Include="..\..\..\GameStateManager.h" />
+    <ClInclude Include="..\..\..\IFF.h" />
+    <ClInclude Include="..\..\..\InputEvent.h" />
+    <ClInclude Include="..\..\..\InputFilter.h" />
+    <ClInclude Include="..\..\..\Kinematic.h" />
+    <ClInclude Include="..\..\..\LandscapeScene.h" />
+    <ClInclude Include="..\..\..\LoadListener.h" />
+    <ClInclude Include="..\..\..\Manifest.h" />
+    <ClInclude Include="..\..\..\Mountable.h" />
+    <ClInclude Include="..\..\..\ObjectLibrary.h" />
+    <ClInclude Include="..\..\..\Overlay.h" />
+    <ClInclude Include="..\..\..\Player.h" />
+    <ClInclude Include="..\..\..\PlayerController.h" />
+    <ClInclude Include="..\..\..\PlayerInput.h" />
+    <ClInclude Include="..\..\..\PointLight.h" />
+    <ClInclude Include="..\..\..\RenderStep.h" />
+    <ClInclude Include="..\..\..\Scene.h" />
+    <CustomBuildStep Include="..\..\..\SceneRenderer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <ClInclude Include="..\..\..\SpatialPartitioning.h" />
+    <ClInclude Include="..\..\..\SpawnPoint.h" />
+    <ClInclude Include="..\..\..\SpotLight.h" />
+    <ClInclude Include="..\..\..\TerrainPatch.h" />
+    <ClInclude Include="..\..\..\TerrainZone.h" />
+    <ClInclude Include="..\..\..\Trigger.h" />
+    <ClInclude Include="..\..\..\Zone.h" />
+    <ClInclude Include="..\..\..\ZoneObject.h" />
+    <ClInclude Include="..\..\..\ZoneObjects.h" />
+    <ClInclude Include="..\..\..\Component.h" />
+    <ClInclude Include="..\..\..\Component_Animation.h" />
+    <ClInclude Include="..\..\..\Component_Audio.h" />
+    <ClInclude Include="..\..\..\Component_BasicPhysics.h" />
+    <ClInclude Include="..\..\..\Component_CameraInterface.h" />
+    <ClInclude Include="..\..\..\Component_CharacterPhysics.h" />
+    <ClInclude Include="..\..\..\Component_EquipmentSlot.h" />
+    <ClInclude Include="..\..\..\Component_Interpolator.h" />
+    <ClInclude Include="..\..\..\Component_Physics.h" />
+    <ClInclude Include="..\..\..\Component_Render.h" />
+    <ClInclude Include="..\..\..\CameraController.h" />
+    <CustomBuildStep Include="..\..\..\ChaseCamController.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\FirstPersonCamController.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <ClInclude Include="..\..\..\FreeCamController.h" />
+    <ClInclude Include="..\..\..\OrbitCamController.h" />
+    <ClInclude Include="..\..\..\Avatar.h" />
+    <ClInclude Include="..\..\..\MACRO.h" />
+    <ClInclude Include="..\..\..\Prop.h" />
+    <ClInclude Include="..\..\..\Variant.h" />
+    <ClInclude Include="..\..\..\DebugMeshRenderStep.h" />
+    <ClInclude Include="..\..\..\DepthOnlyRenderStep.h" />
+    <ClInclude Include="..\..\..\SceneRenderStep.h" />
+    <ClInclude Include="..\..\..\ShadowRenderStep.h" />
+    <ClInclude Include="..\..\..\BeamWeapon.h" />
+    <ClInclude Include="..\..\..\Weapon.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

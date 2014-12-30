@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Messages">
+      <UniqueIdentifier>{e24f232f-3432-421a-83be-91d794f77362}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\messages\Advertise.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\ChatMessage.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\ConnectionLost.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\ConnectionRequestAccepted.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\GameEnded.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\GameStarted.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\InterrogateServer.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PingResponse.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PlayerCommand.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PlayerEntityVariantChanged.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PlayerJoinGame.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PlayerJoinServer.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PlayerLeaveGame.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PlayerLeaveServer.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\PlayerPositionSync.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\QueryIFF.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\ResponseIFF.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\Unadvertise.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\UpdatePlayerState.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\messages\UpdateServerState.cpp">
+      <Filter>Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Message.cpp" />
+    <ClCompile Include="..\..\..\Network.cpp" />
+    <ClCompile Include="..\..\..\Peer.cpp" />
+    <ClCompile Include="..\..\..\ProxyMessage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\messages\Advertise.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\ChatMessage.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\ConnectionLost.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\ConnectionRequestAccepted.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\GameEnded.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\GameStarted.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\InterrogateServer.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PingResponse.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PlayerCommand.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PlayerEntityVariantChanged.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PlayerJoinGame.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PlayerJoinServer.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PlayerLeaveGame.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PlayerLeaveServer.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\PlayerPositionSync.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\QueryIFF.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\ResponseIFF.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\Unadvertise.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\UpdatePlayerState.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\messages\UpdateServerState.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Message.h" />
+    <ClInclude Include="..\..\..\MessageFwd.h" />
+    <ClInclude Include="..\..\..\Network.h" />
+    <ClInclude Include="..\..\..\Peer.h" />
+    <ClInclude Include="..\..\..\Protocol.h" />
+    <ClInclude Include="..\..\..\ProxyMessage.h" />
+    <ClInclude Include="..\..\..\Stream.h" />
+    <ClInclude Include="..\..\..\Types.h" />
+  </ItemGroup>
+</Project>

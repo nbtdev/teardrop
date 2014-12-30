@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Integration">
+      <UniqueIdentifier>{e162a3c7-ec04-4f8a-b597-93940b180eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Integration\Basic UI">
+      <UniqueIdentifier>{85d13c74-35a4-4e36-8002-509bf21627e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Integration\Flash UI">
+      <UniqueIdentifier>{62414947-4790-49b3-9db3-492f0bb72e61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\integration\Basic\UIQuadElement.cpp">
+      <Filter>Integration\Basic UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\integration\Basic\UIQuadRenderer.cpp">
+      <Filter>Integration\Basic UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\integration\SWF\UIFlashElement.cpp">
+      <Filter>Integration\Flash UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\integration\SWF\UIFlashEvents.cpp">
+      <Filter>Integration\Flash UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\integration\SWF\UIFlashInstance.cpp">
+      <Filter>Integration\Flash UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\integration\SWF\UIFlashRenderer.cpp">
+      <Filter>Integration\Flash UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\integration\SWF\UIFlashResource.cpp">
+      <Filter>Integration\Flash UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\integration\SWF\UIFlashSite.cpp">
+      <Filter>Integration\Flash UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\stdafx.cpp" />
+    <ClCompile Include="..\..\..\UIComposer.cpp" />
+    <ClCompile Include="..\..\..\UIElement.cpp" />
+    <ClCompile Include="..\..\..\UILayer.cpp" />
+    <ClCompile Include="..\..\..\UIRenderer.cpp" />
+    <ClCompile Include="..\..\..\UIUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\integration\Basic\UIQuadElement.h">
+      <Filter>Integration\Basic UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\Basic\UIQuadRenderer.h">
+      <Filter>Integration\Basic UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\SWF\UIFlashElement.h">
+      <Filter>Integration\Flash UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\SWF\UIFlashEvents.h">
+      <Filter>Integration\Flash UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\SWF\UIFlashInstance.h">
+      <Filter>Integration\Flash UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\SWF\UIFlashInterfaces.h">
+      <Filter>Integration\Flash UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\SWF\UIFlashRenderer.h">
+      <Filter>Integration\Flash UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\SWF\UIFlashResource.h">
+      <Filter>Integration\Flash UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\integration\SWF\UIFlashSite.h">
+      <Filter>Integration\Flash UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stdafx.h" />
+    <ClInclude Include="..\..\..\UIComposer.h" />
+    <ClInclude Include="..\..\..\UIDefs.h" />
+    <ClInclude Include="..\..\..\UIElement.h" />
+    <ClInclude Include="..\..\..\UILayer.h" />
+    <ClInclude Include="..\..\..\UILayoutTarget.h" />
+    <ClInclude Include="..\..\..\UIRenderer.h" />
+    <ClInclude Include="..\..\..\UIUtil.h" />
+  </ItemGroup>
+</Project>

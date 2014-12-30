@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{70A11368-0D0D-41E1-8859-24E6F10A6BB4}</ProjectGuid>
+    <RootNamespace>CosGfx</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)\tech\vsprops\Release C Runtime Library Type.props" />
+    <Import Project="..\..\..\..\vsprops\SDK Library.props" />
+    <Import Project="..\..\..\..\vsprops\TBB_Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)\tech\vsprops\Debug C Runtime Library Type.props" />
+    <Import Project="..\..\..\..\vsprops\SDK Library.props" />
+    <Import Project="..\..\..\..\vsprops\TBB_Debug.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)sdk\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)sdk\lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj\$(Configuration)\$(ProjectName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../..;../../..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;USE_D3D9;D3D_DEBUG_INFO;COS_TARGET_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../../../..;../../..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;USE_D3D9;COS_TARGET_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\AddColorExpression.cpp" />
+    <ClCompile Include="..\..\..\MaterialOutput.cpp" />
+    <ClCompile Include="..\..\..\Sampler2DExpression.cpp" />
+    <ClCompile Include="..\..\..\Attribute.cpp" />
+    <ClCompile Include="..\..\..\BufferManager.cpp" />
+    <ClCompile Include="..\..\..\Camera.cpp" />
+    <ClCompile Include="..\..\..\Common.cpp" />
+    <ClCompile Include="..\..\..\Connection.cpp" />
+    <ClCompile Include="..\..\..\FragmentShader.cpp" />
+    <ClCompile Include="..\..\..\IndexBuffer.cpp" />
+    <ClCompile Include="..\..\..\Material.cpp" />
+    <ClCompile Include="..\..\..\MaterialExpression.cpp" />
+    <ClCompile Include="..\..\..\Mesh.cpp" />
+    <ClCompile Include="..\..\..\Renderer.cpp" />
+    <ClCompile Include="..\..\..\RenderTarget.cpp" />
+    <ClCompile Include="..\..\..\Sampler2D.cpp" />
+    <ClCompile Include="..\..\..\ShaderConstant.cpp" />
+    <ClCompile Include="..\..\..\ShaderConstantTable.cpp" />
+    <ClCompile Include="..\..\..\ShaderFeatures.cpp" />
+    <ClCompile Include="..\..\..\ShaderManager.cpp" />
+    <ClCompile Include="..\..\..\Submesh.cpp" />
+    <ClCompile Include="..\..\..\Texture2D.cpp" />
+    <ClCompile Include="..\..\..\TextureManager.cpp" />
+    <ClCompile Include="..\..\..\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\VertexDeclaration.cpp" />
+    <ClCompile Include="..\..\..\VertexElement.cpp" />
+    <ClCompile Include="..\..\..\VertexShader.cpp" />
+    <ClCompile Include="..\..\..\Viewport.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\AddColorExpression.h" />
+    <ClInclude Include="..\..\..\MaterialOutput.h" />
+    <ClInclude Include="..\..\..\Sampler2DExpression.h" />
+    <ClInclude Include="..\..\..\Attribute.h" />
+    <ClInclude Include="..\..\..\BufferManager.h" />
+    <ClInclude Include="..\..\..\Camera.h" />
+    <ClInclude Include="..\..\..\Common.h" />
+    <ClInclude Include="..\..\..\Connection.h" />
+    <ClInclude Include="..\..\..\FragmentShader.h" />
+    <ClInclude Include="..\..\..\IndexBuffer.h" />
+    <ClInclude Include="..\..\..\Material.h" />
+    <ClInclude Include="..\..\..\MaterialExpression.h" />
+    <ClInclude Include="..\..\..\Mesh.h" />
+    <ClInclude Include="..\..\..\Renderable.h" />
+    <ClInclude Include="..\..\..\Renderer.h" />
+    <ClInclude Include="..\..\..\RenderTarget.h" />
+    <ClInclude Include="..\..\..\Sampler2D.h" />
+    <ClInclude Include="..\..\..\ShaderConstant.h" />
+    <ClInclude Include="..\..\..\ShaderConstantTable.h" />
+    <ClInclude Include="..\..\..\ShaderFeatures.h" />
+    <ClInclude Include="..\..\..\ShaderManager.h" />
+    <ClInclude Include="..\..\..\Submesh.h" />
+    <ClInclude Include="..\..\..\Texture2D.h" />
+    <ClInclude Include="..\..\..\TextureManager.h" />
+    <ClInclude Include="..\..\..\VertexBuffer.h" />
+    <ClInclude Include="..\..\..\VertexDeclaration.h" />
+    <ClInclude Include="..\..\..\VertexElement.h" />
+    <ClInclude Include="..\..\..\VertexShader.h" />
+    <ClInclude Include="..\..\..\Viewport.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

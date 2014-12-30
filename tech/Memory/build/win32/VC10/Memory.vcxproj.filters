@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Integration">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Integration\dlmalloc">
+      <UniqueIdentifier>{f9a50f26-a5aa-47bb-b33d-c1c41fd2d3e7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\integration\dlmalloc\malloc-280.c">
+      <Filter>Integration\dlmalloc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AllocationTracker.cpp">
+      <Filter>Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Allocators.cpp">
+      <Filter>Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Memory.cpp">
+      <Filter>Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\MemoryRegion.cpp">
+      <Filter>Integration</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\integration\dlmalloc\malloc-280.h">
+      <Filter>Integration\dlmalloc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AllocationTracker.h" />
+    <ClInclude Include="..\..\..\Allocators.h" />
+    <ClInclude Include="..\..\..\Memory.h" />
+    <ClInclude Include="..\..\..\MemoryRegion.h" />
+    <ClInclude Include="..\..\..\Pool.h" />
+  </ItemGroup>
+</Project>
