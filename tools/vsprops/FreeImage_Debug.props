@@ -5,12 +5,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(TBB_INSTALL_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(FREEIMAGE_DIST);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(TBB_INSTALL_DIR)\lib\ia32\vc10</AdditionalLibraryDirectories>
-      <AdditionalDependencies>tbb_debug.lib</AdditionalDependencies>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <AdditionalLibraryDirectories>$(FREEIMAGE_DIST)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>FreeImaged.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>
