@@ -7,9 +7,5 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(TEARDROP_SDK)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>Animation.lib Asset.lib Audio.lib Core.lib Game.lib Gfx.lib Lua.lib Math.lib Memory.lib Network.lib Package.lib Physics.lib Reflection.lib Resource.lib Script.lib Serialization.lib Stream.lib Thread.lib tinyxml.lib UI.lib Util.lib VFX.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(TEARDROP_SDK)\lib\Debug</AdditionalLibraryDirectories>
-    </Link>
   </ItemDefinitionGroup>
 </Project>

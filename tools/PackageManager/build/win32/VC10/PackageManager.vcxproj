@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BFD2E711-4090-412B-86AB-B3190D44D378}</ProjectGuid>
+    <RootNamespace>PackageManager</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\vsprops\FreeImage_Release.props" />
+    <Import Project="..\..\..\..\vsprops\Squish_Release.props" />
+    <Import Project="..\..\..\..\..\tech\vsprops\TBB_Release.props" />
+    <Import Project="..\..\..\..\vsprops\FBX_SDK_Release.props" />
+    <Import Project="..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Release).props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\vsprops\FreeImage_Debug.props" />
+    <Import Project="..\..\..\..\vsprops\Squish_Debug.props" />
+    <Import Project="..\..\..\..\..\tech\vsprops\TBB_Debug.props" />
+    <Import Project="..\..\..\..\vsprops\FBX_SDK_Debug.props" />
+    <Import Project="..\..\..\..\..\sdk\vsprops\vc9\Teardrop SDK (Debug).props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)ThirdParty\LibHFZ\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)ThirdParty\LibHFZ\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\AssetImport.h" />
+    <ClInclude Include="..\..\..\AssetMetadata.h" />
+    <ClInclude Include="..\..\..\AttributeMapAssetMetadata.h" />
+    <ClInclude Include="..\..\..\Folder.h" />
+    <ClInclude Include="..\..\..\HeightfieldAssetMetadata.h" />
+    <ClInclude Include="..\..\..\ImportedAsset.h" />
+    <ClInclude Include="..\..\..\LandscapeAssetMetadata.h" />
+    <ClInclude Include="..\..\..\Metadata.h" />
+    <ClInclude Include="..\..\..\ObjectMetadata.h" />
+    <ClInclude Include="..\..\..\PackageManager.h" />
+    <ClInclude Include="..\..\..\PackageMetadata.h" />
+    <ClInclude Include="..\..\..\TextureAssetMetadata.h" />
+    <ClInclude Include="..\..\..\Thumbnail.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\AssetMetadata.cpp" />
+    <ClCompile Include="..\..\..\AttributeMapAssetMetadata.cpp" />
+    <ClCompile Include="..\..\..\Folder.cpp" />
+    <ClCompile Include="..\..\..\HeightfieldAssetMetadata.cpp" />
+    <ClCompile Include="..\..\..\ImportedAsset.cpp" />
+    <ClCompile Include="..\..\..\ImportStaticMesh.cpp" />
+    <ClCompile Include="..\..\..\LandscapeAssetMetadata.cpp" />
+    <ClCompile Include="..\..\..\LandscapeImport.cpp" />
+    <ClCompile Include="..\..\..\Metadata.cpp" />
+    <ClCompile Include="..\..\..\ObjectMetadata.cpp" />
+    <ClCompile Include="..\..\..\PackageManager.cpp" />
+    <ClCompile Include="..\..\..\PackageMetadata.cpp" />
+    <ClCompile Include="..\..\..\TextureAssetMetadata.cpp" />
+    <ClCompile Include="..\..\..\TextureImport.cpp" />
+    <ClCompile Include="..\..\..\Thumbnail.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
