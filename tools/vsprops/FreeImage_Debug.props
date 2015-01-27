@@ -8,8 +8,8 @@
       <AdditionalIncludeDirectories>$(FREEIMAGE_DIST);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(FREEIMAGE_DIST)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>FreeImaged.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(FREEIMAGE_DIST);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>FreeImaged.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>
