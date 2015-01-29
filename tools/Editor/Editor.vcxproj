@@ -31,21 +31,21 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\vsprops\FreeImage_Debug.props" />
-    <Import Project="..\vsprops\Squish_Debug.props" />
-    <Import Project="..\vsprops\FBX_SDK_Debug.props" />
-    <Import Project="..\..\sdk\vsprops\vc9\Teardrop SDK (Debug).props" />
-    <Import Project="..\..\sdk\vsprops\vc9\TBB_Debug.props" />
-    <Import Project="..\..\integrations\DirectX\DirectX\vsprops\Teardrop-DirectX (Debug).props" />
+    <Import Project="..\..\sdk\vsprops\vc10\TBB_Debug.props" />
+    <Import Project="..\..\integrations\DirectX\DirectX\vsprops\vc10\Teardrop-DirectX (Debug).props" />
+    <Import Project="..\..\sdk\vsprops\vc10\Teardrop SDK (Debug).props" />
+    <Import Project="..\vsprops\vc10\FreeImage_Debug.props" />
+    <Import Project="..\vsprops\vc10\FBX_SDK_Debug.props" />
+    <Import Project="..\vsprops\vc10\Squish_Debug.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\vsprops\FreeImage_Release.props" />
-    <Import Project="..\vsprops\Squish_Release.props" />
-    <Import Project="..\vsprops\FBX_SDK_Release.props" />
-    <Import Project="..\..\sdk\vsprops\vc9\Teardrop SDK (Release).props" />
-    <Import Project="..\..\sdk\vsprops\vc9\TBB_Release.props" />
-    <Import Project="..\..\integrations\DirectX\DirectX\vsprops\Teardrop-DirectX (Release).props" />
+    <Import Project="..\vsprops\vc10\FreeImage_Release.props" />
+    <Import Project="..\vsprops\vc10\Squish_Release.props" />
+    <Import Project="..\vsprops\vc10\FBX_SDK_Release.props" />
+    <Import Project="..\..\sdk\vsprops\vc10\Teardrop SDK (Release).props" />
+    <Import Project="..\..\sdk\vsprops\vc10\TBB_Release.props" />
+    <Import Project="..\..\integrations\DirectX\DirectX\vsprops\vc10\Teardrop-DirectX (Release).props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>

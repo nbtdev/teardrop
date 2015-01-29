@@ -11,7 +11,7 @@
 	<Tool
 		Name="VCLinkerTool"
 		AdditionalDependencies="libfbxsdk-md.lib"
-		AdditionalLibraryDirectories="$(FBX_SDK_DIR)\lib\vs2008\x86\debug"
+		AdditionalLibraryDirectories="$(FBX_SDK_DIR)\lib\vs2010\x86\debug"
 	/>
 	<Tool
 		Name="VCPreBuildEventTool"
