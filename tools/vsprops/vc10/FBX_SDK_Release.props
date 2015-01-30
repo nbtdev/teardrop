@@ -9,8 +9,8 @@
       <AdditionalIncludeDirectories>$(FBX_SDK_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(FBX_SDK_DIR)\lib\vs2010\x86\release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libfbxsdk-md.lib$(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(FBX_SDK_DIR)\lib\vs2010\x86\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>
