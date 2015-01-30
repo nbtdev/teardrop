@@ -12,5 +12,9 @@
       <AdditionalLibraryDirectories>$(FBX_SDK_DIR)\lib\vs2010\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Link>
+      <AdditionalLibraryDirectories>$(FBX_SDK_DIR)\lib\vs2010\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
 </Project>
