@@ -1,1 +1,0 @@
-// ===== load the Arcadia tools pluginloadPlugin "CoSMayaTools";// ===== create menu itemsetParent "MayaWindow";menu -label "Clash Of Steel" -tearOff false;	menuItem -label "Export" -command "cosExporter";// ===== launch exporter processing, and then the Havok exporterglobal proc cosExporter(){	cosFixupMaterials();	hkProcExporter_export();}
