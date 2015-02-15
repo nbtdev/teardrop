@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{7e9275b9-ebde-4c79-b70a-e86c60134c3d}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{ff213223-9be2-48f0-9211-672e2d8cfcc2}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="ProjectExplorer">
+      <UniqueIdentifier>{2ea9ecbc-2a41-4e96-a537-70840d2afd81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectBrowser">
+      <UniqueIdentifier>{4ec89b43-e2bf-4ab5-aad0-a7639ba3aabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PropertyGrid">
+      <UniqueIdentifier>{cff10360-53a1-4a9c-8bb4-a1a8c731e8a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Viewers And Editors">
+      <UniqueIdentifier>{76e18433-b296-459e-b175-613b1058e280}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DragDropData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderDragDropData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectDragDropData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Preferences.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressFeedback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeChooser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_Editor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Editor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MaterialEditor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ObjectBrowser.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ObjectViewer3D.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ProjectExplorer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ProjectModel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyGrid.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyGridDelegate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PropertyGridModel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_RenderWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Editor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MaterialEditor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ObjectBrowser.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ObjectViewer3D.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ProjectExplorer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ProjectModel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyGrid.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyGridDelegate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PropertyGridModel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_RenderWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectExplorer\ProjectExplorer.cpp">
+      <Filter>ProjectExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectExplorer\ProjectItem.cpp">
+      <Filter>ProjectExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectExplorer\ProjectModel.cpp">
+      <Filter>ProjectExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectBrowser\IconViewDelegate.cpp">
+      <Filter>ObjectBrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectBrowser\ListViewDelegate.cpp">
+      <Filter>ObjectBrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectBrowser\ObjectBrowser.cpp">
+      <Filter>ObjectBrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectBrowser\ObjectBrowserModel.cpp">
+      <Filter>ObjectBrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyGrid\PropertyGrid.cpp">
+      <Filter>PropertyGrid</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyGrid\PropertyGridDelegate.cpp">
+      <Filter>PropertyGrid</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyGrid\PropertyGridItem.cpp">
+      <Filter>PropertyGrid</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyGrid\PropertyGridModel.cpp">
+      <Filter>PropertyGrid</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEditor\MaterialEditor.cpp">
+      <Filter>Viewers And Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewers\ObjectViewer3D.cpp">
+      <Filter>Viewers And Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewers\StaticMeshViewer.cpp">
+      <Filter>Viewers And Editors</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DragDropData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderDragDropData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDragDropData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Preferences.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressFeedback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeChooser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_Editor.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_Preferences.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectExplorer\ProjectItem.h">
+      <Filter>ProjectExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectBrowser\IconViewDelegate.h">
+      <Filter>ObjectBrowser</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectBrowser\ListViewDelegate.h">
+      <Filter>ObjectBrowser</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectBrowser\ObjectBrowserModel.h">
+      <Filter>ObjectBrowser</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyGrid\PropertyGridItem.h">
+      <Filter>PropertyGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewers\ObjectViewer3DLogic.h">
+      <Filter>Viewers And Editors</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewers\StaticMeshViewer.h">
+      <Filter>Viewers And Editors</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Editor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Editor.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="RenderWindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Editor.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Preferences.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Editor.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ProjectExplorer\ProjectExplorer.h">
+      <Filter>ProjectExplorer</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ProjectExplorer\ProjectModel.h">
+      <Filter>ProjectExplorer</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ObjectBrowser\ObjectBrowser.h">
+      <Filter>ObjectBrowser</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyGrid\PropertyGrid.h">
+      <Filter>PropertyGrid</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyGrid\PropertyGridDelegate.h">
+      <Filter>PropertyGrid</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PropertyGrid\PropertyGridModel.h">
+      <Filter>PropertyGrid</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MaterialEditor\MaterialEditor.h">
+      <Filter>Viewers And Editors</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Viewers\ObjectViewer3D.h">
+      <Filter>Viewers And Editors</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

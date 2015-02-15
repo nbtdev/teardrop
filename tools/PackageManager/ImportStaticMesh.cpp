@@ -27,7 +27,7 @@ is prohibited.
 #include "fbxsdk.h"
 #include <map>
 
-using namespace fbxsdk_2014_1;
+using namespace fbxsdk_2015_1;
 
 namespace Teardrop {
 	using namespace Gfx;

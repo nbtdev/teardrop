@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7D2E9086-665E-4ED5-AE85-EBCC8970E1BF}</ProjectGuid>
+    <RootNamespace>Direct3D9</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\vsprops\DirectX_Release.props" />
+    <Import Project="..\..\..\..\..\..\sdk\vsprops\vc10\TBB_Debug.props" />
+    <Import Project="..\..\..\..\..\..\sdk\vsprops\vc10\Teardrop SDK (Release).props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\..\vsprops\DirectX_Debug.props" />
+    <Import Project="..\..\..\..\..\..\sdk\vsprops\vc10\Teardrop SDK (Debug).props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)DirectX\lib\vc10\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)DirectX\lib\vc10\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Message>Copying headers to $(SolutionDir)DirectX\include\$(ProjectName)...</Message>
+      <Command>if not exist $(SolutionDir)DirectX\include\$(ProjectName) mkdir $(SolutionDir)DirectX\include\$(ProjectName)
+copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt; NUL
+</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent>
+      <Message>Copying headers to $(SolutionDir)DirectX\include\$(ProjectName)...</Message>
+      <Command>if not exist $(SolutionDir)DirectX\include\$(ProjectName) mkdir $(SolutionDir)DirectX\include\$(ProjectName)
+copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt; NUL
+</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\BufferManagerD3D9.cpp" />
+    <ClCompile Include="..\..\..\FragmentShaderD3D9.cpp" />
+    <ClCompile Include="..\..\..\IndexBufferD3D9.cpp" />
+    <ClCompile Include="..\..\..\RendererD3D9.cpp" />
+    <ClCompile Include="..\..\..\RenderTargetD3D9.cpp" />
+    <ClCompile Include="..\..\..\RenderTextureD3D9.cpp" />
+    <ClCompile Include="..\..\..\RenderWindowD3D9.cpp" />
+    <ClCompile Include="..\..\..\ShaderManagerD3D9.cpp" />
+    <ClCompile Include="..\..\..\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Texture2DD3D9.cpp" />
+    <ClCompile Include="..\..\..\TextureManagerD3D9.cpp" />
+    <ClCompile Include="..\..\..\VertexBufferD3D9.cpp" />
+    <ClCompile Include="..\..\..\VertexDeclarationD3D9.cpp" />
+    <ClCompile Include="..\..\..\VertexShaderD3D9.cpp" />
+    <ClCompile Include="..\..\..\ViewportD3D9.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\BufferManagerD3D9.h" />
+    <ClInclude Include="..\..\..\FragmentShaderD3D9.h" />
+    <ClInclude Include="..\..\..\IndexBufferD3D9.h" />
+    <ClInclude Include="..\..\..\Integration.h" />
+    <ClInclude Include="..\..\..\RendererD3D9.h" />
+    <ClInclude Include="..\..\..\RenderTargetD3D9.h" />
+    <ClInclude Include="..\..\..\RenderTextureD3D9.h" />
+    <ClInclude Include="..\..\..\RenderWindowD3D9.h" />
+    <ClInclude Include="..\..\..\ShaderManagerD3D9.h" />
+    <ClInclude Include="..\..\..\stdafx.h" />
+    <ClInclude Include="..\..\..\Texture2DD3D9.h" />
+    <ClInclude Include="..\..\..\TextureManagerD3D9.h" />
+    <ClInclude Include="..\..\..\VertexBufferD3D9.h" />
+    <ClInclude Include="..\..\..\VertexDeclarationD3D9.h" />
+    <ClInclude Include="..\..\..\VertexShaderD3D9.h" />
+    <ClInclude Include="..\..\..\ViewportD3D9.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
