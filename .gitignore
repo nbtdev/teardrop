@@ -7,3 +7,5 @@ obj
 *.user
 sdk/include
 sdk/lib
+*.ncb
+tools/bin
