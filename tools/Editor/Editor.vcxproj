@@ -32,12 +32,13 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\sdk\vsprops\vc10\TBB_Debug.props" />
     <Import Project="..\..\integrations\DirectX\DirectX\vsprops\vc10\Teardrop-DirectX (Debug).props" />
-    <Import Project="..\..\sdk\vsprops\vc10\Teardrop SDK (Debug).props" />
-    <Import Project="..\vsprops\vc10\FreeImage_Debug.props" />
     <Import Project="..\vsprops\vc10\FBX_SDK_Debug.props" />
+    <Import Project="..\..\sdk\vsprops\vc10\Teardrop SDK (Debug).props" />
     <Import Project="..\vsprops\vc10\Squish_Debug.props" />
+    <Import Project="..\vsprops\vc10\FreeImage_Debug.props" />
+    <Import Project="..\..\sdk\vsprops\vc10\TBB_Debug.props" />
+    <Import Project="..\vsprops\vc10\Qt4.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -85,7 +86,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\tools\shared;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\tools\shared;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -94,9 +95,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>qtmaind.lib;QtCored4.lib;QtGuid4.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>
@@ -200,7 +201,7 @@
     <ClInclude Include="DragDropData.h" />
     <CustomBuild Include="Editor.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing Editor.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing Editor.h...</Message>
@@ -216,7 +217,7 @@
     <ClInclude Include="Project.h" />
     <CustomBuild Include="RenderWindow.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing RenderWindow.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing RenderWindow.h...</Message>
@@ -229,7 +230,7 @@
     <ClInclude Include="GeneratedFiles\ui_Preferences.h" />
     <CustomBuild Include="ProjectExplorer\ProjectExplorer.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ProjectExplorer.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ProjectExplorer.h...</Message>
@@ -240,7 +241,7 @@
     <ClInclude Include="ProjectExplorer\ProjectItem.h" />
     <CustomBuild Include="ProjectExplorer\ProjectModel.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ProjectModel.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ProjectModel.h...</Message>
@@ -252,7 +253,7 @@
     <ClInclude Include="ObjectBrowser\ListViewDelegate.h" />
     <CustomBuild Include="ObjectBrowser\ObjectBrowser.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ObjectBrowser.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ObjectBrowser.h...</Message>
@@ -263,7 +264,7 @@
     <ClInclude Include="ObjectBrowser\ObjectBrowserModel.h" />
     <CustomBuild Include="PropertyGrid\PropertyGrid.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing PropertyGrid.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing PropertyGrid.h...</Message>
@@ -273,7 +274,7 @@
     </CustomBuild>
     <CustomBuild Include="PropertyGrid\PropertyGridDelegate.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing PropertyGridDelegate.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing PropertyGridDelegate.h...</Message>
@@ -284,7 +285,7 @@
     <ClInclude Include="PropertyGrid\PropertyGridItem.h" />
     <CustomBuild Include="PropertyGrid\PropertyGridModel.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing PropertyGridModel.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing PropertyGridModel.h...</Message>
@@ -294,7 +295,7 @@
     </CustomBuild>
     <CustomBuild Include="MaterialEditor\MaterialEditor.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MaterialEditor.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing MaterialEditor.h...</Message>
@@ -304,7 +305,7 @@
     </CustomBuild>
     <CustomBuild Include="Viewers\ObjectViewer3D.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ObjectViewer3D.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(FBX_SDK_DIR)\include" "-I$(SQUISH_DIR)\." "-I$(FREEIMAGE_DIST)\."</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -D_MBCS -DFREEIMAGE_LIB  "-I.\GeneratedFiles" "-I." "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\tools\shared" "-I$(SolutionDir)\." "-I$(SQUISH_DIR)\." "-I$(FBX_SDK_DIR)\include" "-I$(FREEIMAGE_DIST)\." "-I$(QTDIR)\include" "-I$(TEARDROP_SDK)\include" "-I$(TEARDROP_DIRECTX_INTEGRATION)\include" "-I$(TBB_INSTALL_DIR)\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ObjectViewer3D.h...</Message>
