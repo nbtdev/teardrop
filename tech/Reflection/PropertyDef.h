@@ -8,6 +8,8 @@ is prohibited.
 #if !defined (PROPERTYDEF_INCLUDED)
 #define PROPERTYDEF_INCLUDED
 
+#include "Reflection/ClassDef.h"
+#include "Reflection/EnumDef.h"
 #include "Reflection/Property.h"
 #include "Reflection/Reflection.h"
 
@@ -16,7 +18,7 @@ namespace Teardrop
 	namespace Reflection
 	{
 		class Object;
-
+        
 		class PropertyDef
 		{
 		public:

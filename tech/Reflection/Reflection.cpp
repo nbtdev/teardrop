@@ -6,6 +6,8 @@ is prohibited.
 ****************************************************************************/
 
 #include "Reflection.h"
+#include "ClassDef.h"
+#include "PropertyDef.h"
 
 using namespace Teardrop;
 using namespace Reflection;

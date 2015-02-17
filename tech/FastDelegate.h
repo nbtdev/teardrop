@@ -2188,7 +2188,7 @@ namespace func
       {
         auto_cs_t<CritSect> lock(cs);
 
-        std::vector<holder_type>::iterator iter = std::find(vec_subscribers.begin(), vec_subscribers.end(), dlghld);
+        typename std::vector<holder_type>::iterator iter = std::find(vec_subscribers.begin(), vec_subscribers.end(), dlghld);
         if (iter != vec_subscribers.end())
         {
           vec_subscribers.erase(iter);

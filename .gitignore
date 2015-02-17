@@ -3,9 +3,11 @@ ipch
 *.opensdf
 *.sdf
 obj
+lib
 *.suo
 *.user
 sdk/include
 sdk/lib
 *.ncb
 tools/bin
+*~

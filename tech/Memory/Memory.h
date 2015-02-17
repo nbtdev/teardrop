@@ -1,4 +1,4 @@
-/****************************************************************************
+    /****************************************************************************
 This source file is (c) Teardrop Games LLC. All rights reserved. 
 Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
@@ -17,6 +17,13 @@ is prohibited.
 #if _MSC_VER > 1490
 #include <sal.h>
 #endif // _MSC_VER
+
+#include <cstddef>
+#include <new>
+
+#if !defined(_WIN32) && !defined(_WIN64)
+#define _Ret_bytecap_(s)
+#endif // _WIN32, _WIN64
 
 namespace Teardrop
 {

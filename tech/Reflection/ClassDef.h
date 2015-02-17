@@ -8,6 +8,10 @@ is prohibited.
 #if !defined(CLASSDEF_INCLUDED)
 #define CLASSDEF_INCLUDED
 
+#include <Memory/Allocators.h>
+#include <Reflection/Reflection.h>
+#include <cstdint>
+
 namespace Teardrop
 {
 	namespace Reflection
@@ -23,7 +27,7 @@ namespace Teardrop
 		{
 			const char* m_pName;
 			const char* m_pBaseClassName;
-			unsigned __int64 m_classId;
+			uint64_t m_classId;
 			PropertyDef* m_pProps;
 			EnumDef* m_pEnums;
 			mutable ClassDef* m_pBaseClass;
@@ -40,7 +44,7 @@ namespace Teardrop
 			virtual Object* createInstance() const = 0;
 
 			bool isCreatable() const { return m_bCreatable; }
-			unsigned __int64 getId() const { return m_classId; }
+			uint64_t getId() const { return m_classId; }
 			const char* getName() const { return m_pName; }
 			const char* getBaseClassName() const { return m_pBaseClassName; }
 			const ClassDef* getBaseClass() const;

@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(TDHASH_INCLUDED)
 #define TDHASH_INCLUDED
 
+#include <cstdint>
+
 namespace Teardrop
 {
 	//! hash a null-terminated string to a word-length unique hash value
@@ -15,9 +17,9 @@ namespace Teardrop
 	//! hash an arbitrary byte stream of length len to a word-length unique hash value
 	size_t hashData(void* pData, size_t len);
 	//! hash a null-terminated string to a word-length unique hash value
-	unsigned __int64 hashString64(const char* strVal);
+	uint64_t hashString64(const char* strVal);
 	//! hash an arbitrary byte stream of length len to a word-length unique hash value
-	unsigned __int64 hashData64(void* pData, size_t len);
+	uint64_t hashData64(void* pData, size_t len);
 }
 
 #endif // TDHASH_INCLUDED

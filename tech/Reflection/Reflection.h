@@ -9,7 +9,6 @@ is prohibited.
 #define REFLECTION_INCLUDED
 
 #include "Memory/Memory.h"
-#include "Serialization/Serialization.h"
 #include "Util/_String.h"
 #include "Util/UUID.h"
 #include "Util/Event.h"
@@ -119,8 +118,8 @@ namespace Teardrop
 		public:
 			// the preferred way to get notifications about property changes
 			//fastdelegate::FastDelegate1<const PropertyDef*> PropertyChanged;
-			Event1<const PropertyDef*> PropertyChanging;
-			Event1<const PropertyDef*> PropertyChanged;
+			Event<const PropertyDef*> PropertyChanging;
+			Event<const PropertyDef*> PropertyChanged;
 
 		private:
 		};
@@ -362,14 +361,10 @@ namespace Teardrop
 		} \
 	} s_c##enumValue##Initializer;\
 
-#include "Reflection/ClassDef.h"
-#include "Reflection/PropertyDef.h"
-#include "Reflection/EnumDef.h"
-
 namespace Teardrop
 {
 	typedef int Int32;
-	typedef __int64 Int64;
+	typedef int64_t Int64;
 	typedef float Real;
 	typedef bool Bool;
 }
