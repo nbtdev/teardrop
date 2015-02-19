@@ -2,6 +2,7 @@ SUBDIRS = \
 	Asset \
 	Core \
 	Gfx \
+	Math \
 	Reflection
 
 all:
