@@ -1,4 +1,5 @@
 SUBDIRS = \
+	Core \
 	Gfx \
 	Reflection
 
