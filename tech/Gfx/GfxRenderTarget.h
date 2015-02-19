@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(GFXRENDERTARGET_INCLUDED)
 #define GFXRENDERTARGET_INCLUDED
 
+#include <Gfx/GfxCommon.h>
+#include <cstdint>
 #include <map>
 
 namespace Teardrop
@@ -18,7 +20,7 @@ namespace Teardrop
 	class GfxRenderTarget
 	{
 	public:
-		const static unsigned __int64 IID;
+        const static uint64_t IID;
 
 		GfxRenderTarget();
 		virtual ~GfxRenderTarget();
@@ -54,7 +56,7 @@ namespace Teardrop
 
 		// "QueryInterface" because there's not a better way to pull off the multiple
 		// things that can be a GfxRenderTarget
-		virtual bool queryInterface(unsigned __int64 IID, void** ppInterface);
+        virtual bool queryInterface(uint64_t IID, void** ppInterface);
 		
 		DECLARE_GFX_ALLOCATOR();
 

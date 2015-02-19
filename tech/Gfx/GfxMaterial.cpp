@@ -10,12 +10,9 @@ is prohibited.
 #include "GfxTextureStage.h"
 #include "GfxTexture.h"
 #include "GfxCommon.h"
-#include "Resource/ResourceManager.h"
-#include "Serialization/ResourceSerializer.h"
 #include "Util/Environment.h"
 #include <assert.h>
 #include <memory.h>
-#include <new.h>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -34,12 +31,13 @@ const size_t MAX_TEXTURE_STAGES = 8;
 //---------------------------------------------------------------------------
 GfxMaterial::GfxMaterial()
 {
+    mTextureStages.resize(MAX_TEXTURE_STAGES);
 }
 //---------------------------------------------------------------------------
-GfxMaterial::GfxMaterial(int i) 
+GfxMaterial::GfxMaterial(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
-	m_bHasAllTextures = false;
+    mTextureStages.resize(MAX_TEXTURE_STAGES);
+    m_bHasAllTextures = false;
 }
 //---------------------------------------------------------------------------
 GfxMaterial::~GfxMaterial()
@@ -53,7 +51,7 @@ size_t GfxMaterial::getMaxNumTextureStages() const
 //---------------------------------------------------------------------------
 size_t GfxMaterial::getNumTextureStages() const
 {
-	return m_pTextureStages.size();
+    return mTextureStages.size();
 }
 //---------------------------------------------------------------------------
 bool GfxMaterial::initialize()
@@ -73,16 +71,16 @@ bool GfxMaterial::initialize()
 //---------------------------------------------------------------------------
 bool GfxMaterial::destroy()
 {
-	for (size_t i=0; i<m_pTextureStages.size(); ++i)
+    for (size_t i=0; i<mTextureStages.size(); ++i)
 	{
-		m_pTextureStages[i]->destroy();
-		GFX_FREE(m_pTextureStages[i]);
+        mTextureStages[i]->destroy();
+        GFX_FREE(mTextureStages[i]);
 	}
 
 	return true;
 }
 //---------------------------------------------------------------------------
-unsigned __int64 GfxMaterial::getHashCode()
+uint64_t GfxMaterial::getHashCode()
 {
 	checkForAllTextures();
 	return m_hashCode;
@@ -101,8 +99,8 @@ void GfxMaterial::checkForAllTextures()
 		bool hasAll = true;
 		for (size_t i=0; i<getNumTextureStages(); ++i)
 		{
-			GfxTextureStage* pStage = m_pTextureStages[i];
-			hasAll &= (pStage->getTexture() != 0);
+            GfxTextureStage* pStage = mTextureStages[i];
+            hasAll &= (pStage->texture() != 0);
 		}
 
 		m_bHasAllTextures = hasAll;
@@ -117,8 +115,8 @@ void GfxMaterial::checkForAllTextures()
 //---------------------------------------------------------------------------
 GfxTextureStage* GfxMaterial::addTextureStage()
 {
-	assert(m_pTextureStages.size() < MAX_TEXTURE_STAGES);
-	if (m_pTextureStages.size() >= MAX_TEXTURE_STAGES)
+    assert(mTextureStages.size() < MAX_TEXTURE_STAGES);
+    if (mTextureStages.size() >= MAX_TEXTURE_STAGES)
 	{
 		return 0;
 	}
@@ -128,55 +126,55 @@ GfxTextureStage* GfxMaterial::addTextureStage()
 		(GfxTextureStage*)GFX_ALLOCATE_ALIGNED(blockSize, 16);
 
 	memset(pStage, 0, blockSize);
-	m_pTextureStages.push_back(pStage);
+    mTextureStages.push_back(pStage);
 
 	pStage->initialize();
 
-	return m_pTextureStages[m_pTextureStages.size() - 1];
+    return mTextureStages[mTextureStages.size() - 1];
 }
 //---------------------------------------------------------------------------
 const GfxTextureStage* GfxMaterial::getTextureStage(size_t index) const
 {
-	assert(index < m_pTextureStages.size());
-	if (index >= m_pTextureStages.size())
+    assert(index < mTextureStages.size());
+    if (index >= mTextureStages.size())
 	{
 		return 0;
 	}
 
-	return m_pTextureStages[index];
+    return mTextureStages[index];
 }
 //---------------------------------------------------------------------------
 GfxTextureStage* GfxMaterial::getTextureStage(size_t index)
 {
-	assert(index < m_pTextureStages.size());
-	if (index >= m_pTextureStages.size())
+    assert(index < mTextureStages.size());
+    if (index >= mTextureStages.size())
 	{
 		return 0;
 	}
 
-	return m_pTextureStages[index];
+    return mTextureStages[index];
 }
 //---------------------------------------------------------------------------
 bool GfxMaterial::isTextureStageEnabled(size_t index) const
 {
-	assert(index < m_pTextureStages.size());
-	if (index >= m_pTextureStages.size())
+    assert(index < mTextureStages.size());
+    if (index >= mTextureStages.size())
 	{
 		return false;
 	}
 
-	return m_pTextureStages[index]->getEnabled();
+    return mTextureStages[index]->getEnabled();
 }
 //---------------------------------------------------------------------------
 bool GfxMaterial::setTextureStage(size_t index, bool bEnabled)
 {
-	assert(index < m_pTextureStages.size());
-	if (index >= m_pTextureStages.size())
+    assert(index < mTextureStages.size());
+    if (index >= mTextureStages.size())
 	{
 		return false;
 	}
 
-	m_pTextureStages[index]->setEnabled(bEnabled);
+    mTextureStages[index]->setEnabled(bEnabled);
 	recalcHashCode();
 	return true;
 }
@@ -201,14 +199,14 @@ bool GfxMaterial::isTransparent() const
 	return (___DepthCheck && !___DepthWrite || ___AlphaBlending);
 }
 //---------------------------------------------------------------------------
-void GfxMaterial::setNumLights(unsigned int numLights)
+void GfxMaterial::setNumLights(size_t numLights)
 {
-	m_numLights = unsigned char(numLights);
+    m_numLights = (unsigned char)(numLights);
 }
 //---------------------------------------------------------------------------
 void GfxMaterial::setCustomShader(CustomShader shader)
 {
-	m_special = unsigned short(shader);
+    m_special = (unsigned short)(shader);
 }
 //---------------------------------------------------------------------------
 void GfxMaterial::notify()
@@ -225,7 +223,7 @@ GfxMaterial& GfxMaterial::operator=(const GfxMaterial& other)
 	
 	// we just want to clear out *our* version, we don't want to try to 
 	// cleanup *their* version in the process
-	m_pTextureStages._init(); 
+    mTextureStages.clear();
 
 	for (size_t i=0; i<other.getNumTextureStages(); ++i)
 	{
@@ -233,9 +231,6 @@ GfxMaterial& GfxMaterial::operator=(const GfxMaterial& other)
 		const GfxTextureStage* pOtherStage = other.getTextureStage(i);
 
 		memcpy(pStage, pOtherStage, sizeof(GfxTextureStage));
-
-		// inc ref count
-		Environment::get().pResourceMgr->deref(pStage->getTextureHandle());
 	}
 
 	return *this;
@@ -269,10 +264,10 @@ void GfxMaterial::recalcHashCode()
 	// texture samplers
 	unsigned int numSamplers = 0;
 	unsigned int blendOps = 0;
-	for (size_t i=0; i<m_pTextureStages.size(); ++i)
+    for (size_t i=0; i<mTextureStages.size(); ++i)
 	{
-		GfxTextureStage* pStage = m_pTextureStages[i];
-		if (pStage->getEnabled() && pStage->getTexture())
+        GfxTextureStage* pStage = mTextureStages[i];
+        if (pStage->getEnabled() && pStage->texture())
 		{
 			++numSamplers;
 	
@@ -299,21 +294,5 @@ void GfxMaterial::recalcHashCode()
 	m_hashCode = hash;
 
 	// mark off any specialty/custom shaders in the upper half of the hash
-	m_hashCode |= ((__int64)1 << (32 + m_special));
-}
-//---------------------------------------------------------------------------
-bool GfxMaterial::serialize(ResourceSerializer& serializer)
-{
-	serializer.relocate(this, sizeof(GfxMaterial));
-
-	// deal with the texture stage array...
-	serializer.relocate(m_pTextureStages);
-
-	// and then write out each texture stage def
-	for (size_t i=0; i<m_pTextureStages.size(); ++i)
-	{
-		m_pTextureStages[i]->serialize(serializer);
-	}
-
-	return true;
+    m_hashCode |= ((int64_t)1 << (32 + m_special));
 }

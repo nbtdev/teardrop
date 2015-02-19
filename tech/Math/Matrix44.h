@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(TDMATRIX44_INCLUDED)
 #define TDMATRIX44_INCLUDED
 
+#include <cstddef>
+
 namespace Teardrop
 {
 	class Quaternion;

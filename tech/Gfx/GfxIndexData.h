@@ -8,22 +8,25 @@ is prohibited.
 #if !defined(TDGFXINDEXDATA_INCLUDED)
 #define TDGFXINDEXDATA_INCLUDED
 
+#include <Gfx/GfxCommon.h>
+#include <cstddef>
+
 namespace Teardrop
 {
 	class ResourceSerializer;
 
 	class GfxIndexData
 	{
-		DECLARE_SERIALIZABLE_VTABLE
-		DECLARE_SERIALIZABLE(GfxIndexData);
-
-	public:
+    public:
 		//! normal c'tor (cannot fail)
 		GfxIndexData();
 		//! placement c'tor (cannot fail)
 		GfxIndexData(int);
 		//! d'tor (cannot fail)
 		virtual ~GfxIndexData();
+
+        GfxIndexData(const GfxIndexData& other) = delete;
+        GfxIndexData& operator=(const GfxIndexData& other) = delete;
 
 		//! initialize (anything that can fail), with specified index count and size and optional buffer pointer
 		virtual bool initialize(
@@ -54,12 +57,6 @@ namespace Teardrop
 			unsigned int count, 
 			void* pBuffer);
 
-		/**
-			Serialization
-		*/
-		//! package for storage
-		virtual bool serialize(ResourceSerializer& serializer);
-
 		DECLARE_GFX_ALIGNED_ALLOCATOR();
 
 	protected:
@@ -69,14 +66,11 @@ namespace Teardrop
 		unsigned int m_indexCount;
 		//! whether to delete the index buffer pointer on destroy
 		unsigned int m_bDeleteIB;
-		//! pointer to the actual index data
-		SerialPointer<void> m_pIndexBuffer;
+        //! pointer to the actual index data
+        void* m_pIndexBuffer;
 
 	private:
-		//! NOT IMPLEMENTED
-		GfxIndexData(const GfxIndexData& other);
-		GfxIndexData& operator=(const GfxIndexData& other);
-	};
+    };
 }
 
 #endif // TDGFXINDEXDATA_INCLUDED

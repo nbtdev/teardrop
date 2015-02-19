@@ -8,6 +8,7 @@ is prohibited.
 #if !defined(TDGFXTEXTURESTAGE_INCLUDED)
 #define TDGFXTEXTURESTAGE_INCLUDED
 
+#include <Gfx/GfxCommon.h>
 #include "Reflection/Reflection.h"
 
 namespace Teardrop
@@ -25,6 +26,8 @@ namespace Teardrop
 
 		GfxTextureStage();
 		~GfxTextureStage();
+        GfxTextureStage(const GfxTextureStage& other) = delete;
+        GfxTextureStage& operator=(const GfxTextureStage& other) = delete;
 
 		//! initialize the texture stage (anything that can fail)
 		bool initialize();
@@ -84,24 +87,12 @@ namespace Teardrop
 		/** accessors
 		*/
 		//! return texture
-		GfxTexture* getTexture();
-		//! return texture
-		HResource getTextureHandle() const;
+        GfxTexture* texture();
 
 		/** mutators
 		*/
 		//! set stage texture (can be null to disable stage)
-		void setTexture(GfxTexture* pTexture, HResource texHandle);
-
-		/**
-			Serialization
-		*/
-		//! package for storage
-		bool serialize(ResourceSerializer& serializer);
-		//! set texture name (meaningful only during serialization)
-		void setTextureName(const char* name);
-		//! get texture name (meaningful only during serialization)
-		const char* getTextureName() const;
+        void setTexture(GfxTexture* pTexture);
 
 		DECLARE_GFX_ALLOCATOR();
 
@@ -115,15 +106,10 @@ namespace Teardrop
 		AddressMode m_addrU;
 		AddressMode m_addrV;
 		AddressMode m_addrW;
-		SerialPointer<void> m_hTexture; // this is actually an HResource
 		unsigned int m_enabled;
 		unsigned int m_pName; // used only during serialization
 		unsigned int m_texCoordSet;
-		SerialPointer<GfxTexture> m_pTexture;
-
-		//! NOT IMPLEMENTED
-		GfxTextureStage(const GfxTextureStage& other);
-		GfxTextureStage& operator=(const GfxTextureStage& other);
+        GfxTexture* mTexture;
 	};
 }
 

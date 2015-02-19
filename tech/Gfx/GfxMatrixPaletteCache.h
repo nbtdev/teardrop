@@ -8,6 +8,9 @@ is prohibited.
 #if !defined(GFXMATRIXPALETTECACHE_INCLUDED)
 #define GFXMATRIXPALETTECACHE_INCLUDED
 
+#include <Gfx/GfxCommon.h>
+#include <cstddef>
+
 namespace Teardrop
 {
 	class Matrix44;

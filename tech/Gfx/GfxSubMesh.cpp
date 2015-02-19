@@ -13,14 +13,10 @@ is prohibited.
 #include "GfxCommon.h"
 #include "Util/Environment.h"
 #include "Math/Matrix44.h"
-#include "Serialization/ResourceSerializer.h"
 #include <assert.h>
 #include <memory.h>
-#include <new.h>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxSubMesh);
 //---------------------------------------------------------------------------
 GfxSubMesh::GfxSubMesh()
 {
@@ -30,9 +26,8 @@ GfxSubMesh::GfxSubMesh()
 }
 //---------------------------------------------------------------------------
 // placement c'tor
-GfxSubMesh::GfxSubMesh(int i) 
+GfxSubMesh::GfxSubMesh(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
 	m_hashCode = 0;
 	m_primType = UNKNOWN;
 }
@@ -53,7 +48,7 @@ bool GfxSubMesh::release()
 	// release our vertex and index data
 	for (size_t i=0; i<m_pVertexData.size(); ++i)
 	{
-		m_pVertexData[i]->release();
+        m_pVertexData[i]->release();
 	}
 
 	if (m_pIndexData)
@@ -330,54 +325,7 @@ PrimitiveType GfxSubMesh::getPrimitiveType() const
 	return (PrimitiveType)m_primType;
 }
 //---------------------------------------------------------------------------
-const SerialPointerArray<Matrix44>& GfxSubMesh::getBindPoses() const
+const Matrix44** GfxSubMesh::getBindPoses() const
 {
-	return m_pBindPoseData;
-}
-//---------------------------------------------------------------------------
-SerialPointerArray<Matrix44>& GfxSubMesh::getBindPoses()
-{
-	return m_pBindPoseData;
-}
-//---------------------------------------------------------------------------
-bool GfxSubMesh::serialize(ResourceSerializer& serializer)
-{
-	// save this off because we need to set the image value to zero
-	unsigned char dynFlags = m_dynamicFlags;
-	m_dynamicFlags = 0;
-
-	serializer.relocate(this, sizeof(GfxSubMesh));
-
-	// note our pointer arrays...
-	serializer.relocate(m_pVertexData);
-	serializer.relocate(m_pBindPoseData);
-
-	// and pointers...
-	serializer.relocate(m_pIndexData);
-	serializer.relocate(m_pMaterial);
-
-	// and then bind pose data, if any
-	for (size_t i=0; i<m_pBindPoseData.size(); ++i)
-	{
-		if (m_pBindPoseData[i])
-		{
-			serializer.relocate(m_pBindPoseData[i], sizeof(Matrix44));
-		}
-	}
-
-	// and then each vertex buffer used
-	for (size_t i=0; i<m_pVertexData.size(); ++i)
-	{
-		m_pVertexData[i]->serialize(serializer);
-	}
-
-	// write out the material block...
-	m_pMaterial->serialize(serializer);
-
-	// and then the index data
-	m_pIndexData->serialize(serializer);
-
-	m_dynamicFlags = dynFlags;
-
-	return true;
+    return const_cast<const Matrix44**>(m_pBindPoseData.data());
 }

@@ -8,6 +8,7 @@ is prohibited.
 
 #include "MaterialExpression.h"
 #include "Attribute.h"
+#include <cstring>
 #include <sstream>
 
 using namespace Teardrop;

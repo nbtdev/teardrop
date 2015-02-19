@@ -11,7 +11,6 @@ is prohibited.
 #include "Util/Environment.h"
 #include "PhysicsMemory.h"
 #include "Memory/Allocators.h"
-#include <new.h>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------

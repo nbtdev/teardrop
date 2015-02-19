@@ -12,15 +12,12 @@ is prohibited.
 #include "GfxTexture.h"
 #include "GfxMesh.h"
 #include "GfxMeshInstance.h"
-//#include "GfxResourceFactory.h"
 #include "GfxRenderStats.h"
 #include "GfxRenderWindow.h"
 #include "GfxMatrixPaletteCache.h"
 #include "Memory/Memory.h"
-#include "Thread/ThreadUtil.h"
 #include "Util/Logger.h"
 #include "Util/Environment.h"
-//#include "Resource/ResourceManager.h"
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -79,7 +76,8 @@ bool GfxRenderer::destroy()
 //---------------------------------------------------------------------------
 bool GfxRenderer::update()
 {
-	// Windows housekeeping
+#if defined(_WIN32) || defined(_WIN64)
+    // Windows housekeeping
 	MSG msg;
 	while(PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
 	{
@@ -92,6 +90,7 @@ bool GfxRenderer::update()
 
 		DispatchMessage(&msg);
 	}
+#endif // _WIN32, _WIN64
 
 	return true;
 }
@@ -111,7 +110,9 @@ bool GfxRenderer::swap(GfxRenderStats& stats)
 }
 //---------------------------------------------------------------------------
 // todo: implement better way to do this
+#if defined(_WIN32) || defined(_WIN64)
 #include "integration/Direct3D9/GfxRendererD3D9.h"
+#endif // _WIN32, _WIN64
 //---------------------------------------------------------------------------
 GfxRenderer* GfxRenderer::allocate(Environment& env, Allocator* pAlloc) 
 {
@@ -121,7 +122,11 @@ GfxRenderer* GfxRenderer::allocate(Environment& env, Allocator* pAlloc)
 		setGfxAllocator(pAlloc);
 	}
 
-	return TD_NEW GfxRendererD3D9(env);
+#if defined(_WIN32) || defined(_WIN64)
+    return TD_NEW GfxRendererD3D9(env);
+#else // _WIN32, _WIN64
+    return nullptr;
+#endif // _WIN32, _WIN64
 }
 //---------------------------------------------------------------------------
 void GfxRenderer::deallocate(GfxRenderer* pRend) 

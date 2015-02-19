@@ -11,7 +11,7 @@ is prohibited.
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
-const unsigned __int64 GfxRenderWindow::IID = hashString64("GfxRenderWindow");
+const uint64_t GfxRenderWindow::IID = hashString64("GfxRenderWindow");
 //---------------------------------------------------------------------------
 GfxRenderWindow::GfxRenderWindow()
 {

@@ -11,7 +11,7 @@ is prohibited.
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
-const unsigned __int64 GfxRenderTexture::IID = hashString64("GfxRenderTexture");
+const uint64_t GfxRenderTexture::IID = hashString64("GfxRenderTexture");
 //---------------------------------------------------------------------------
 GfxRenderTexture::GfxRenderTexture()
 {

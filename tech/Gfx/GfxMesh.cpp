@@ -11,17 +11,17 @@ is prohibited.
 #include "GfxSubMesh.h"
 #include "GfxCommon.h"
 #include "Util/Environment.h"
-#include "Util/FourCC.h"
 #include "Math/MathUtil.h"
-#include "Serialization/ResourceSerializer.h"
 #include <assert.h>
 #include <memory.h>
-#include <new.h>
+
+#if defined(_WIN32) || defined(_WIN64)
+    #define STRCPY(d, n, s) strcpy_s(d, n, s)
+#else // _WIN32, _WIN64
+    #define STRCPY(d, n, s) strncpy(d, s, n)
+#endif // _WIN32, _WIN64
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxMesh);
-const FourCC& GfxMesh::RESOURCE_TYPE = FourCC('M','S','H',' ');
 //---------------------------------------------------------------------------
 GfxMesh::GfxMesh()
 {
@@ -29,9 +29,8 @@ GfxMesh::GfxMesh()
 }
 //---------------------------------------------------------------------------
 // placement c'tor
-GfxMesh::GfxMesh(int i) 
+GfxMesh::GfxMesh(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
 }
 //---------------------------------------------------------------------------
 GfxMesh::~GfxMesh()
@@ -46,9 +45,9 @@ bool GfxMesh::initialize()
 // called by resource manager to clean up non-dynamically-created resource data
 bool GfxMesh::release()
 {
-	for (size_t i=0; i<m_pSubMeshes.size(); ++i)
+    for (size_t i=0; i<mSubMeshes.size(); ++i)
 	{
-		m_pSubMeshes[i]->release();
+        mSubMeshes[i]->release();
 	}
 
 	return true;
@@ -57,17 +56,17 @@ bool GfxMesh::release()
 bool GfxMesh::destroy()
 {
 	// clean up all submeshes we created
-	for (size_t i=0; i<m_pSubMeshes.size(); ++i)
+    for (size_t i=0; i<mSubMeshes.size(); ++i)
 	{
 		size_t flag = (0x01 << i);
 		if ((m_dynamicSubmeshFlags & flag) == flag)
 		{
-			GfxSubMesh* p = m_pSubMeshes[i];
+            GfxSubMesh* p = mSubMeshes[i];
 			if (p)
 			{
 				p->destroy();
 				delete p;
-				m_pSubMeshes[i] = 0;
+                mSubMeshes[i] = nullptr;
 
 				// clear the dynamic bit for this submesh
 				m_dynamicSubmeshFlags &= ~flag;
@@ -76,17 +75,17 @@ bool GfxMesh::destroy()
 	}
 
 	// same for the vertex data streams (if any)
-	for (size_t i=0; i<m_pSharedVertexData.size(); ++i)
+    for (size_t i=0; i<mSharedVertexData.size(); ++i)
 	{
 		unsigned char flag = (0x01 << (unsigned char)i);
 		if ((m_dynamicSharedVertexFlags & flag) == flag)
 		{
-			GfxVertexData* p = m_pSharedVertexData[i];
+            GfxVertexData* p = mSharedVertexData[i];
 			if (p)
 			{
 				p->destroy();
 				delete p;
-				m_pSharedVertexData[i] = 0;
+                mSharedVertexData[i] = 0;
 
 				// clear the dynamic bit for this submesh
 				m_dynamicSharedVertexFlags &= ~flag;
@@ -107,10 +106,10 @@ GfxSubMesh* GfxMesh::createSubMesh(bool bUseSharedVertexData)
 	}
 
 	p->setUseSharedVertexData(bUseSharedVertexData);
-	m_pSubMeshes.push_back(p);
+    mSubMeshes.push_back(p);
 
 	// mark this submesh entry as dynamic (for cleanup later)
-	m_dynamicSubmeshFlags |= (0x01 << (m_pSubMeshes.size()-1));
+    m_dynamicSubmeshFlags |= (0x01 << (mSubMeshes.size()-1));
 	return p;
 }
 //---------------------------------------------------------------------------
@@ -130,17 +129,17 @@ bool GfxMesh::destroySubMesh(GfxSubMesh* /*pSubMesh*/)
 //---------------------------------------------------------------------------
 GfxSubMesh* GfxMesh::getSubMesh(size_t index) const
 {
-	return m_pSubMeshes[index];
+    return mSubMeshes[index];
 }
 //---------------------------------------------------------------------------
 size_t GfxMesh::getNumSubMeshes() const
 {
-	return m_pSubMeshes.size();
+    return mSubMeshes.size();
 }
 //---------------------------------------------------------------------------
 size_t GfxMesh::getNumSharedVertexData() const
 {
-	return m_pSharedVertexData.size();
+    return mSharedVertexData.size();
 }
 //---------------------------------------------------------------------------
 const GfxVertexData* const GfxMesh::getSharedVertexData(size_t index) const
@@ -151,7 +150,7 @@ const GfxVertexData* const GfxMesh::getSharedVertexData(size_t index) const
 		return 0;
 	}
 
-	return m_pSharedVertexData[index];
+    return mSharedVertexData[index];
 }
 //---------------------------------------------------------------------------
 GfxVertexData* GfxMesh::getSharedVertexData(size_t index)
@@ -162,7 +161,7 @@ GfxVertexData* GfxMesh::getSharedVertexData(size_t index)
 		return 0;
 	}
 
-	return m_pSharedVertexData[index];
+    return mSharedVertexData[index];
 }
 //---------------------------------------------------------------------------
 GfxVertexData* GfxMesh::createSharedVertexData(
@@ -174,15 +173,15 @@ GfxVertexData* GfxMesh::createSharedVertexData(
 	void* pData)
 {
 	// find the first available slot and put a new one there
-	if (m_pSharedVertexData.size() < MAX_SHARED_VERTEX_STREAMS)
+    if (mSharedVertexData.size() < MAX_SHARED_VERTEX_STREAMS)
 	{
-		streamIndex = m_pSharedVertexData.size();
-		m_pSharedVertexData.push_back(env.pRenderer->createVertexData());
+        streamIndex = mSharedVertexData.size();
+        mSharedVertexData.push_back(env.pRenderer->createVertexData());
 
 		// mark this one as dynamic for later cleanup
 		m_dynamicSharedVertexFlags |= (0x01 << streamIndex);
 
-		if (!m_pSharedVertexData[streamIndex]->initialize(
+        if (!mSharedVertexData[streamIndex]->initialize(
 			flags, 
 			(unsigned int)elemSize, 
 			(unsigned int)numElems, 
@@ -191,7 +190,7 @@ GfxVertexData* GfxMesh::createSharedVertexData(
 			return 0;
 		}
 
-		return m_pSharedVertexData[streamIndex];
+        return mSharedVertexData[streamIndex];
 	}
 
 	// if no available slots, report the bad news to the caller
@@ -205,7 +204,7 @@ const char* GfxMesh::getName() const
 //---------------------------------------------------------------------------
 void GfxMesh::setName(const char* name)
 {
-	strcpy_s(m_name, MAX_MESH_NAME_LENGTH, name);
+    STRCPY(m_name, MAX_MESH_NAME_LENGTH, name);
 }
 //---------------------------------------------------------------------------
 bool GfxMesh::clear()
@@ -235,9 +234,9 @@ void GfxMesh::getAABB(Vector4& minCorner, Vector4& maxCorner) const
 	maxCorner.w = 0;
 
 	// go through each vertex in the mesh and push out the corners as needed
-	for (size_t i=0; i<m_pSubMeshes.size(); ++i)
+    for (size_t i=0; i<mSubMeshes.size(); ++i)
 	{
-		GfxSubMesh* pSM = m_pSubMeshes[i];
+        GfxSubMesh* pSM = mSubMeshes[i];
 
 		// go through each vertex position in the submesh
 		const GfxVertexFormat::Element& elem =
@@ -275,33 +274,4 @@ void GfxMesh::getAABB(Vector4& minCorner, Vector4& maxCorner) const
 
 		pVD->unlock();
 	}
-}
-//---------------------------------------------------------------------------
-bool GfxMesh::serialize(ResourceSerializer& serializer)
-{
-	// save the dynamic flags temporarily; memory image has no dynamic data
-	m_dynamicSubmeshFlags = 0;
-	m_dynamicSharedVertexFlags = 0;
-
-	serializer.start();
-	serializer.relocate(GfxMesh::getSerialClass()->getId());
-	serializer.relocate(this, sizeof(GfxMesh));
-
-	// relocate our pointer arrays
-	serializer.relocate(m_pSubMeshes);
-	serializer.relocate(m_pSharedVertexData);
-
-	// then our vertex data, if any
-	for (size_t i=0; i<m_pSharedVertexData.size(); ++i)
-	{
-		m_pSharedVertexData[i]->serialize(serializer);
-	}
-
-	// and finally our submeshes
-	for (size_t i=0; i<m_pSubMeshes.size(); ++i)
-	{
-		m_pSubMeshes[i]->serialize(serializer);
-	}
-
-	return serializer.finalize();
 }

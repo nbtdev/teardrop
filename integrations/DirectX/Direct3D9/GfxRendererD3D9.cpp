@@ -37,9 +37,7 @@ is prohibited.
 #include "Util/Hash.h"
 #include "Util/Logger.h"
 #include "Stream/FileStream.h"
-#include "Resource/ResourceManager.h"
 #include <assert.h>
-#include <new.h>
 #include <sstream>
 #include <list>
 #include <algorithm>

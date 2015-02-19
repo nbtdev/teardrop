@@ -11,16 +11,12 @@ is prohibited.
 #include "GfxRenderer.h"
 #include "GfxRendererD3D9.h"
 #include "Util/Environment.h"
-#include "Serialization/ResourceSerializer.h"
 #include <assert.h>
 #include <memory.h>
-#include <new.h>
 
 #include <string>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxTextureD3D9);
 //---------------------------------------------------------------------------
 static D3DFORMAT s_lut[] = 
 {

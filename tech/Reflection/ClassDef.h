@@ -9,7 +9,7 @@ is prohibited.
 #define CLASSDEF_INCLUDED
 
 #include <Memory/Allocators.h>
-#include <Reflection/Reflection.h>
+#include <Reflection/Object.h>
 #include <cstdint>
 
 namespace Teardrop

@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(GFXRENDERTEXTURE_INCLUDED)
 #define GFXRENDERTEXTURE_INCLUDED
 
+#include <cstdint>
+
 namespace Teardrop
 {
 	class GfxViewport;
@@ -15,16 +17,16 @@ namespace Teardrop
 	class GfxRenderTexture
 	{
 	public:
-		static const unsigned __int64 IID;
+        GfxRenderTexture(const GfxRenderTexture& other) = delete;
+        GfxRenderTexture& operator=(const GfxRenderTexture& other) = delete;
+
+        static const uint64_t IID;
 
 		virtual void* getTextureHandle() const = 0;
 		virtual GfxViewport* getFullTargetViewport() const = 0;
 
 	protected:
 		GfxRenderTexture();
-	private:
-		GfxRenderTexture(const GfxRenderTexture& other);
-		GfxRenderTexture& operator=(const GfxRenderTexture& other);
 	};
 }
 

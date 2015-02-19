@@ -8,6 +8,10 @@ is prohibited.
 #if !defined(GFXSHADERCONSTANT_INCLUDED)
 #define GFXSHADERCONSTANT_INCLUDED
 
+#include <Gfx/GfxCommon.h>
+#include <cstddef>
+#include <cstdint>
+
 namespace Teardrop
 {
 	class Vector4;
@@ -17,7 +21,7 @@ namespace Teardrop
 	{
 		friend class GfxShaderConstantTable;
 
-		unsigned __int64 m_name;
+        uint64_t m_name;
 		size_t m_bMatrix;
 		size_t m_len;
 		Vector4* m_pValue;
@@ -31,7 +35,7 @@ namespace Teardrop
 		bool isModified() const { return (m_bModified != 0); }
 		bool isMatrix() const { return m_bMatrix != 0; }
 		void clearModified() { m_bModified = 0; }
-		unsigned __int64 getName() const { return m_name; }
+        uint64_t getName() const { return m_name; }
 		const Vector4* getValue() const { return m_pValue; }
 		// assumes that val points to at least enough memory to cover m_len Vector4's
 		void setValue(const Vector4* val);

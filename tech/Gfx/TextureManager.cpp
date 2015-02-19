@@ -13,7 +13,7 @@ is prohibited.
 using namespace Teardrop;
 using namespace Gfx;
 
-TextureManager* Singleton<TextureManager>::mInst = 0;
+template<> TextureManager* Singleton<TextureManager>::mInst = 0;
 
 TextureManager::TextureManager()
 {

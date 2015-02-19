@@ -12,7 +12,6 @@ is prohibited.
 #include "Util/Environment.h"
 #include <set>
 #include <map>
-#include <new.h>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------

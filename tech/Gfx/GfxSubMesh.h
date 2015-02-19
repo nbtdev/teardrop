@@ -10,7 +10,8 @@ is prohibited.
 
 #include "Gfx/GfxVertexData.h"
 #include "Gfx/GfxVertexFormat.h"
-#include "Serialization/SerialPointerArray.h"
+#include <cstddef>
+#include <vector>
 
 namespace Teardrop
 {
@@ -23,8 +24,6 @@ namespace Teardrop
 	// 64 bytes each
 	class GfxSubMesh
 	{
-		DECLARE_SERIALIZABLE(GfxSubMesh);
-
 	public:
 		//! max number of vertex streams supported by a submesh
 		const static size_t MAX_VERTEX_STREAMS = 6;
@@ -33,13 +32,13 @@ namespace Teardrop
 
 	private:
 		//! pointers to up to MAX_VERTEX_STREAMS
-		SerialPointerArray<GfxVertexData> m_pVertexData; 
+        std::vector<GfxVertexData*> m_pVertexData;
 		//! pointers to bind pose matrices (for skinning, if submesh is animated)
-		SerialPointerArray<Matrix44> m_pBindPoseData; 
+        std::vector<Matrix44*> m_pBindPoseData;
 		//! pointer to the single index stream for this submesh
-		SerialPointer<GfxIndexData> m_pIndexData;
+        GfxIndexData* m_pIndexData;
 		//! pointer to the material used for this submesh
-		SerialPointer<GfxMaterial> m_pMaterial;
+        GfxMaterial* m_pMaterial;
 		//! vertex element layout (38 bytes)
 		GfxVertexFormat m_format;
 		//! 32-bit hash code for this submesh (used for shader lookup)
@@ -60,6 +59,9 @@ namespace Teardrop
 		GfxSubMesh(int);
 		//! d'tor (cannot fail)
 		~GfxSubMesh();
+
+        GfxSubMesh(const GfxSubMesh& other) = delete;
+        GfxSubMesh& operator=(const GfxSubMesh& other) = delete;
 
 		//! initialize the submesh (anything that can fail)
 		bool initialize();
@@ -85,9 +87,9 @@ namespace Teardrop
 		/** accessors
 		*/
 		//! get a const pointer to the vertex data
-		const GfxVertexData* const getVertexData(size_t stream) const;
+        const GfxVertexData* const getVertexData(size_t stream) const;
 		//! get an editable pointer to the vertex data
-		GfxVertexData* getVertexData(size_t stream);
+        GfxVertexData* getVertexData(size_t stream);
 		//! get an editable pointer to the vertex data
 		size_t getNumVertexData();
 		//! get a const pointer to the index data
@@ -103,7 +105,7 @@ namespace Teardrop
 		//! get this submesh's hash value
 		unsigned int getHashCode() const { return m_hashCode; }
 		//! access the bind pose array
-		const SerialPointerArray<Matrix44>& getBindPoses() const;
+        const Matrix44** getBindPoses() const;
 		//! access the submesh primitive type
 		PrimitiveType getPrimitiveType() const;
 
@@ -119,8 +121,6 @@ namespace Teardrop
 		void setUseSharedVertexData(bool bUseSharedData);
 		//! set this submesh's material definition; autoDelete=true takes ownership of the material
 		void setMaterial(GfxMaterial* pMaterial, bool autoDelete=false);
-		//! access the bind pose array
-		SerialPointerArray<Matrix44>& getBindPoses();
 		//! set this submesh's primitive type
 		void setPrimitiveType(PrimitiveType type);
 
@@ -133,10 +133,6 @@ namespace Teardrop
 	private:
 		// recalculate hash code
 		void recalcHashCode(); 
-
-		//! NOT IMPLEMENTED
-		GfxSubMesh(const GfxSubMesh& other);
-		GfxSubMesh& operator=(const GfxSubMesh& other);
 	};
 }
 

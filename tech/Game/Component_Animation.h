@@ -16,7 +16,6 @@ is prohibited.
 namespace Teardrop
 {
 	struct Environment;
-	struct FourCC;
 	class ZoneObject;
 	class AnimationBlender;
 	class SkeletonInstance;
@@ -26,7 +25,7 @@ namespace Teardrop
 	class AnimationComponent
 		: public Component
 	{
-		HResource m_hRig;
+        //HResource m_hRig;
 		typedef std::map<String, HResource> AnimationLUT;
 		AnimationLUT m_lut;
 		AnimationBlender* m_pBlender;

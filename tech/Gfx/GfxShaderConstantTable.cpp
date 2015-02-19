@@ -11,6 +11,9 @@ is prohibited.
 #include "Math/Vector4.h"
 #include "Util/_String.h"
 #include "Util/Hash.h"
+#include <algorithm>
+#include <cstdint>
+#include <cstring>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -107,7 +110,7 @@ GfxShaderConstant* GfxShaderConstantTable::getConstant(size_t index)
 //---------------------------------------------------------------------------
 GfxShaderConstant* GfxShaderConstantTable::getConstant(const String& name)
 {
-	unsigned __int64 hash = hashString64(name);
+    uint64_t hash = hashString64(name);
 
 	for (size_t i=0; i<m_constants.size(); ++i)
 	{

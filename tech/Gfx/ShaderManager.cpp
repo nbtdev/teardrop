@@ -13,7 +13,7 @@ is prohibited.
 using namespace Teardrop;
 using namespace Gfx;
 
-ShaderManager* Singleton<ShaderManager>::mInst = 0;
+template<> ShaderManager* Singleton<ShaderManager>::mInst = 0;
 
 ShaderManager::ShaderManager()
 	: mConstants(TD_NEW ShaderConstantTable)

@@ -11,7 +11,7 @@ is prohibited.
 #include "Gfx/GfxCommon.h"
 #include "Math/Transform.h"
 #include "Math/AABB.h"
-#include "FastDelegate.h"
+#include <Util/Event.h>
 
 namespace Teardrop
 {
@@ -31,9 +31,9 @@ namespace Teardrop
 		~GfxMeshInstance();
 
 		// fired right before an instance is rendered
-		func::delegate1<GfxRenderer*> PreRender;
+        Event<GfxRenderer*> PreRender;
 		// fired right after an instance is rendered
-		func::delegate1<GfxRenderer*> PostRender;
+        Event<GfxRenderer*> PostRender;
 
 		bool initialize();
 		bool destroy();
@@ -41,7 +41,6 @@ namespace Teardrop
 
 		/** Accessors
 		*/
-		HResource getMeshHandle() const { return m_meshHandle; }
 		size_t getMaterialCount() const { return m_numMaterials; }
 		GfxMaterial* getMaterialByIndex(size_t index) const;
 		const Transform& getTransform() const { return m_transform; }
@@ -51,7 +50,6 @@ namespace Teardrop
 
 		/** Mutators
 		*/
-		bool setMeshHandle(HResource handle);
 		bool setMaterialByIndex(size_t index, GfxMaterial* pMaterial);
 		bool setTransform(const Transform& xform);
 		void setDistToCam(float dist) { m_distToCamera = dist; }
@@ -131,10 +129,6 @@ namespace Teardrop
 		DECLARE_GFX_ALLOCATOR();
 
 	private:
-		/**
-			Handle to the mesh we use as base for this instance
-		*/
-		HResource m_meshHandle;
 
 		/**
 			Transform for this mesh (relative to its parent transform, if any)
@@ -168,7 +162,6 @@ namespace Teardrop
 
 	inline GfxMeshInstance& GfxMeshInstance::operator=(const GfxMeshInstance& other)
 	{
-		m_meshHandle = other.m_meshHandle;
 		m_transform = other.m_transform;
 		m_pMatrixPalette = other.m_pMatrixPalette;
 		m_numMatrices = other.m_numMatrices;

@@ -548,15 +548,7 @@ tech/Reflection/EnumDef.h
 tech/Reflection/Property.h
 tech/Reflection/PropertyDef.cpp
 tech/Reflection/PropertyDef.h
-tech/Reflection/Reflection.cpp
 tech/Reflection/Reflection.h
-tech/Resource/Resource.cpp
-tech/Resource/Resource.h
-tech/Resource/ResourceFactory.cpp
-tech/Resource/ResourceFactory.h
-tech/Resource/ResourceHandle.h
-tech/Resource/ResourceManager.cpp
-tech/Resource/ResourceManager.h
 tech/Script/build/win32/stdafx.cpp
 tech/Script/build/win32/stdafx.h
 tech/Script/build/win32/targetver.h
@@ -722,14 +714,11 @@ tech/Util/FileSystem.cpp
 tech/Util/FileSystem.h
 tech/Util/FileSystemWatcher.cpp
 tech/Util/FileSystemWatcher.h
-tech/Util/FourCC.cpp
-tech/Util/FourCC.h
 tech/Util/Hash.cpp
 tech/Util/Hash.h
 tech/Util/Logger.cpp
 tech/Util/Logger.h
 tech/Util/RefCounted.h
-tech/Util/ResourceSerializer.cpp
 tech/Util/SharedPointer.h
 tech/Util/String.cpp
 tech/Util/StringUtil.cpp
@@ -857,3 +846,5 @@ tools/ThirdParty/LibHFZ/libhfz.cpp
 tools/ThirdParty/LibHFZ/libhfz.h
 tools/ThirdParty/LibHFZ/wrapper.cpp
 tools/ThirdParty/LibHFZ/wrapper.h
+tech/Reflection/Object.h
+tech/Reflection/Object.cpp

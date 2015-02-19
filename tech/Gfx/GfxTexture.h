@@ -8,28 +8,25 @@ is prohibited.
 #if !defined(TDGFXTEXTURE_INCLUDED)
 #define TDGFXTEXTURE_INCLUDED
 
-#include "Resource/Resource.h"
+#include <Gfx/GfxCommon.h>
+#include <cstddef>
 
 namespace Teardrop
 {
-	class ResourceSerializer;
 	class Stream;
-	struct FourCC;
 
-	class GfxTexture : public Resource
+    class GfxTexture
 	{
-		DECLARE_SERIALIZABLE(GfxTexture);
-		DECLARE_SERIALIZABLE_VTABLE
-
 	public:
-		static const FourCC& RESOURCE_TYPE;
-
 		//! normal c'tor (cannot fail)
 		GfxTexture();
 		//! placement c'tor (cannot fail)
 		GfxTexture(int);
 		//! d'tor (cannot fail)
 		virtual ~GfxTexture();
+
+        GfxTexture(const GfxTexture& other) = delete;
+        GfxTexture& operator=(const GfxTexture& other) = delete;
 
 		enum Format
 		{
@@ -116,14 +113,6 @@ namespace Teardrop
 
 		//! set texture filename (if available/applicable)
 		void setName(const char* pName);
-		//! loads texture data from stream; owns the data once loaded
-		bool loadTextureData(Stream& stream);
-
-		/**
-			Serialization
-		*/
-		//! package for storage
-		virtual bool serialize(ResourceSerializer& serializer);
 
 		// for use by renderer implementation
 		virtual bool setToSampler(size_t sampler);
@@ -146,12 +135,9 @@ namespace Teardrop
 		//! length of texture data (if m_pData not null)
 		unsigned int m_dataLen;
 		//! the actual texture data
-		SerialPointer<void> m_pData;
+        void* m_pData;
 
 	private:
-		//! NOT IMPLEMENTED
-		GfxTexture(const GfxTexture& other);
-		GfxTexture& operator=(const GfxTexture& other);
 	};
 }
 

@@ -8,6 +8,7 @@ is prohibited.
 #if !defined(TDHASH_INCLUDED)
 #define TDHASH_INCLUDED
 
+#include <cstddef>
 #include <cstdint>
 
 namespace Teardrop

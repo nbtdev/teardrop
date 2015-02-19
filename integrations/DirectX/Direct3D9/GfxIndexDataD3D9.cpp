@@ -12,9 +12,7 @@ is prohibited.
 #include "GfxRendererD3D9.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
-#include "Serialization/ResourceSerializer.h"
 #include <assert.h>
-#include <new.h>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------

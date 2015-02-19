@@ -12,17 +12,15 @@ is prohibited.
 #include "GfxMeshInstance.h"
 #include "GfxRenderer.h"
 #include "Math/Matrix44.h"
-#include "Resource/ResourceManager.h"
 #include "Util/Environment.h"
 #include "Memory/Allocators.h"
-#include <new.h>
+#include <cstring>
 #include <limits>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 GfxMeshInstance::GfxMeshInstance()
 {
-	m_meshHandle = INVALID_RESOURCE_HANDLE;
 	m_pMaterialOverrides = 0;
 	m_numMaterials = 0;
 	m_pMatrixPalette = 0;
@@ -58,12 +56,6 @@ bool GfxMeshInstance::destroy()
 		m_numMaterials = 0;
 	}
 
-	// TODO: release mesh by handle back to the pool?
-	if (m_meshHandle != INVALID_RESOURCE_HANDLE)
-	{
-		Environment::get().pResourceMgr->release(m_meshHandle);
-	}
-
 	return true;
 }
 //---------------------------------------------------------------------------
@@ -75,12 +67,6 @@ GfxMaterial* GfxMeshInstance::getMaterialByIndex(size_t index) const
 	}
 
 	return m_pMaterialOverrides[index];
-}
-//---------------------------------------------------------------------------
-bool GfxMeshInstance::setMeshHandle(HResource handle)
-{
-	m_meshHandle = handle;
-	return true;
 }
 //---------------------------------------------------------------------------
 bool GfxMeshInstance::setMaterialByIndex(
@@ -133,10 +119,10 @@ void GfxMeshInstance::setAABB(const AABB& aabb, bool show)
 //---------------------------------------------------------------------------
 void GfxMeshInstance::preRender(GfxRenderer* pRenderer) const
 {
-	PreRender(pRenderer);
+    PreRender.raise(pRenderer);
 }
 //---------------------------------------------------------------------------
 void GfxMeshInstance::postRender(GfxRenderer* pRenderer) const
 {
-	PostRender(pRenderer);
+    PostRender.raise(pRenderer);
 }

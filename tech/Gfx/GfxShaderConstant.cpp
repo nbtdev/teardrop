@@ -9,6 +9,7 @@ is prohibited.
 #include "GfxShaderConstant.h"
 #include "Math/Matrix44.h"
 #include "Math/Vector4.h"
+#include <cstring>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------

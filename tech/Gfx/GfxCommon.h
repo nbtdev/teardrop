@@ -9,6 +9,8 @@ is prohibited.
 #define TDGFXCOMMON_INCLUDED
 
 #include "Config.h"
+#include "Memory/Allocators.h"
+#include <cstddef>
 
 namespace Teardrop
 {
@@ -130,14 +132,5 @@ namespace Teardrop
 
 #endif // TD_OPTION_MEMPROFILE
 }
-
-// since Gfx resource classes have to participate in serialization
-#include "Serialization/Serialization.h"
-
-// includes SerialPointer.h too
-#include "Serialization/SerialPointerArray.h"
-
-// base resource handle definition
-#include "Resource/ResourceHandle.h"
 
 #endif // TDGFXCOMMON_INCLUDED

@@ -9,17 +9,14 @@ is prohibited.
 #define TDGFXVERTEXDATA_INCLUDED
 
 #include "GfxCommon.h"
+#include <vector>
 
 namespace Teardrop
 {
 	class GfxVertexFormat;
-	class ResourceSerializer;
 
 	class GfxVertexData
 	{
-		DECLARE_SERIALIZABLE(GfxVertexData);
-		DECLARE_SERIALIZABLE_VTABLE
-
 	public:
 		//! normal c'tor (cannot fail)
 		GfxVertexData();
@@ -27,6 +24,9 @@ namespace Teardrop
 		GfxVertexData(int);
 		//! d'tor (cannot fail)
 		virtual ~GfxVertexData();
+
+        GfxVertexData(const GfxVertexData& other) = delete;
+        GfxVertexData& operator=(const GfxVertexData& other) = delete;
 
 		typedef enum
 		{
@@ -69,12 +69,6 @@ namespace Teardrop
 			unsigned int vertCount, 
 			void* pData=0);
 
-		/**
-			Serialization
-		*/
-		//! package for storage
-		virtual bool serialize(ResourceSerializer& serializer);
-
 		DECLARE_GFX_ALLOCATOR();
 
 	protected:
@@ -91,12 +85,9 @@ namespace Teardrop
 		//! unused
 		unsigned char m_flags;
 		//! pointer to the actual vertex data
-		SerialPointer<void> m_pVertexBuffer;
+        void* mVertexBuffer;
 
 	private:
-		// NOT IMPLEMENTED
-		GfxVertexData(const GfxVertexData& other);
-		GfxVertexData& operator=(const GfxVertexData& other);
 	};
 }
 

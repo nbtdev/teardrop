@@ -19,16 +19,10 @@ namespace Teardrop
 	class SkeletonInstance;
 	class Stream;
 	class ResourceSerializer;
-	struct FourCC;
 
 	class Rig : public Resource
 	{
-		DECLARE_SERIALIZABLE(Rig);
-		DECLARE_SERIALIZABLE_VTABLE
-
 	public:
-		static const FourCC& RESOURCE_TYPE;
-
 		enum SkeletonInstanceHandleType
 		{
 			INVALID_SKELETON_INSTANCE_HANDLE = size_t(-1),

@@ -9,6 +9,7 @@ is prohibited.
 #include "GfxViewport.h"
 #include "GfxRenderTarget.h"
 #include "GfxMeshInstance.h"
+#include <cstring>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------

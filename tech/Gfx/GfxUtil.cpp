@@ -22,9 +22,7 @@ is prohibited.
 #include "Math/Vector4.h"
 #include "Math/Query.h"
 #include "Math/MathUtil.h"
-#include "Util/FourCC.h"
 #include <assert.h>
-#include <new.h>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -129,23 +127,6 @@ void GfxUtil::unpackColor(
 	g = (unsigned char)(0x000000FF & c);
 	c >>= 8;
 	r = (unsigned char)(0x000000FF & c);
-}
-//---------------------------------------------------------------------------
-void* GfxUtil::createResource(const FourCC& fourCC)
-{
-	void* pMem = 0;
-
-	if (fourCC == GfxMesh::RESOURCE_TYPE)
-	{
-		return TD_NEW GfxMesh;
-	}
-
-	if (fourCC == GfxTexture::RESOURCE_TYPE)
-	{
-		return TD_NEW GfxTexture;
-	}
-
-	return pMem;
 }
 //---------------------------------------------------------------------------
 bool GfxUtil::collideRayWithMesh(

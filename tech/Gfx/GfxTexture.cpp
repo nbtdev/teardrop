@@ -9,27 +9,20 @@ is prohibited.
 #include "GfxTexture.h"
 #include "GfxCommon.h"
 #include "GfxBitmap.h"
-#include "Util/FourCC.h"
 #include "Stream/Stream.h"
 #include <assert.h>
 #include <memory.h>
-#include <new.h>
-
 #include <string>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxTexture);
-const FourCC& GfxTexture::RESOURCE_TYPE = FourCC('T','E','X',' ');
 //---------------------------------------------------------------------------
 GfxTexture::GfxTexture()
 {
 	memset(this, 0, sizeof(GfxTexture));
 }
 //---------------------------------------------------------------------------
-GfxTexture::GfxTexture(int i)
+GfxTexture::GfxTexture(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
 	m_pData = 0;
 	m_dataLen = 0;
 }
@@ -169,73 +162,8 @@ bool GfxTexture::setTextureData(
 	return true;
 }
 //---------------------------------------------------------------------------
-bool GfxTexture::loadTextureData(Stream& stream)
-{
-	// for now, go by extension -- we support .dds and .tga...and *that's all*
-	GfxBitmap image;
-	size_t len = stream.length();
-
-	if (!image.load(stream))
-	{
-		return false;
-	}
-
-	// otherwise, we need to make a buffer to store the stream's contents
-	m_pData = GFX_ALLOCATE(len);
-	memcpy(m_pData, image.getData(), len);
-
-	Format fmt = GfxTexture::UNKNOWN;
-
-	switch (image.getFormat())
-	{
-	case GfxBitmap::DXT1:
-		fmt = GfxTexture::DXT1;
-		break;
-
-	case GfxBitmap::DXT2:
-		fmt = GfxTexture::DXT2;
-		break;
-
-	case GfxBitmap::DXT3:
-		fmt = GfxTexture::DXT3;
-		break;
-
-	case GfxBitmap::DXT4:
-		fmt = GfxTexture::DXT4;
-		break;
-
-	case GfxBitmap::DXT5:
-		fmt = GfxTexture::DXT5;
-		break;
-
-	case GfxBitmap::TGA:
-		fmt = GfxTexture::TGA;
-		break;
-
-	default:
-		return false;
-		break;
-	}
-
-	return initialize(
-		(unsigned int)image.getWidth(),
-		(unsigned int)image.getHeight(),
-		(unsigned int)image.getDepth(),
-		fmt,
-		GfxTexture::TEX2D,
-		0,
-		(unsigned int)image.getMips(),
-		m_pData,
-		(unsigned int)len);
-}
-//---------------------------------------------------------------------------
 bool GfxTexture::setToSampler(size_t /*sampler*/)
 {
 	// is implemented by derived classes
 	return true;
-}
-//---------------------------------------------------------------------------
-bool GfxTexture::serialize(ResourceSerializer& /*serializer*/)
-{
-	return false;
 }

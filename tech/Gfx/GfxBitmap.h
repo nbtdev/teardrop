@@ -33,14 +33,6 @@ namespace Teardrop
 			DXT5,
 		} Format;
 
-		//! load bitmap image from arbitrary stream
-		bool load(Stream& stream);
-		//! load bitmap image from disk
-		bool load(const char* pFilename);
-		//! load bitmap image from in-memory data
-		bool load(void* pData, Format fmt=RAW, 
-			size_t sx=0, size_t sy=0, size_t depth=0);
-
 		/** Accessors
 		*/
 		size_t getWidth() const { return m_width; }
@@ -60,7 +52,6 @@ namespace Teardrop
 		size_t m_mips;
 		Format m_fmt;
 
-		bool loadBMP(const char* pFilename);
 		bool loadTGA(const char* pFilename);
 		bool loadRawData(const char* pFilename);
 		bool loadRawData(Stream& stream);

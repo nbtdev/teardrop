@@ -11,6 +11,9 @@ is prohibited.
 #include "Reflection/Reflection.h"
 #include "Math/Vector4.h"
 #include "Gfx/GfxTextureStage.h"
+#include <cstddef>
+#include <cstdint>
+#include <vector>
 
 namespace Teardrop
 {
@@ -63,6 +66,8 @@ namespace Teardrop
 		//! d'tor (cannot fail)
 		~GfxMaterial();
 
+        GfxMaterial(const GfxMaterial& other) = delete;
+
 		//! create and initialize the material (anything that can fail)
 		bool initialize();
 		//! destroy the material
@@ -89,7 +94,7 @@ namespace Teardrop
 		const GfxTextureStage* getTextureStage(size_t index) const;
 		bool isTextureStageEnabled(size_t index) const;
 		CustomShader getCustomShader() const;
-		unsigned __int64 getHashCode();
+        uint64_t getHashCode();
 		bool isTransparent() const;
 		void checkForAllTextures();
 
@@ -100,12 +105,6 @@ namespace Teardrop
 		void setCustomShader(CustomShader shader);
 
 		GfxMaterial& operator=(const GfxMaterial& other);
-
-		/**
-			Serialization
-		*/
-		//! package for storage
-		bool serialize(ResourceSerializer& serializer);
 		
 		// called by texture stage if changed
 		void notify();
@@ -113,19 +112,15 @@ namespace Teardrop
 		DECLARE_GFX_ALLOCATOR();
 
 	private:
-		__int64 m_hashCode; // used for shader lookups
+        int64_t m_hashCode; // used for shader lookups
 		bool m_bStencilWrite;
 		bool m_bStencilCheck;
 		bool m_bHasAllTextures;
 		unsigned char m_numLights;
 		unsigned short m_special; // to flag different custom shaders
-		
-		SerialPointerArray<GfxTextureStage> m_pTextureStages;
+        std::vector<GfxTextureStage*> mTextureStages;
 
 		void recalcHashCode(); 
-
-		//! NOT IMPLEMENTED
-		GfxMaterial(const GfxMaterial& other);
 	};
 }
 

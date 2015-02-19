@@ -9,20 +9,17 @@ is prohibited.
 #include "GfxVertexData.h"
 #include "GfxCommon.h"
 #include <assert.h>
-#include <new.h>
+#include <cstring>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxVertexData);
 //---------------------------------------------------------------------------
 GfxVertexData::GfxVertexData()
 {
 	memset(this, 0, sizeof(GfxVertexData));
 }
 //---------------------------------------------------------------------------
-GfxVertexData::GfxVertexData(int i)
+GfxVertexData::GfxVertexData(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
 }
 //---------------------------------------------------------------------------
 GfxVertexData::~GfxVertexData()
@@ -47,10 +44,10 @@ bool GfxVertexData::destroy()
 {
 	if (m_bDeleteVB)
 	{
-		GFX_FREE(m_pVertexBuffer);
+        GFX_FREE(mVertexBuffer);
 	}
 
-	m_pVertexBuffer = 0;
+    mVertexBuffer = 0;
 	m_vertexCount = 0;
 	m_vertexSize = 0;
 	m_bDeleteVB = false;
@@ -60,7 +57,7 @@ bool GfxVertexData::destroy()
 //---------------------------------------------------------------------------
 void* GfxVertexData::lock(bool /*bDiscardExisting*/)
 {
-	return m_pVertexBuffer;
+    return mVertexBuffer;
 }
 //---------------------------------------------------------------------------
 void GfxVertexData::unlock()
@@ -80,27 +77,27 @@ bool GfxVertexData::setVertexData(
 	// if user provided a vertex buffer, use it -- otherwise, make one
 	if (pData)
 	{
-		m_pVertexBuffer = pData;
+        mVertexBuffer = pData;
 		m_bDeleteVB = false;
 	}
 	else
 	{
 		size_t size = vertSize * numVerts;
-		m_pVertexBuffer = GFX_ALLOCATE_ALIGNED(size, 16);
+        mVertexBuffer = GFX_ALLOCATE_ALIGNED(size, 16);
 		m_bDeleteVB = true;
 	}
 
 	return true;
 }
 //---------------------------------------------------------------------------
-size_t GfxVertexData::getVertexSize() const
+unsigned int GfxVertexData::getVertexSize() const
 {
 	return m_vertexSize;
 }
 //---------------------------------------------------------------------------
 void* GfxVertexData::getBuffer()
 {
-	return m_pVertexBuffer;
+    return mVertexBuffer;
 }
 //---------------------------------------------------------------------------
 void GfxVertexData::updateData()
@@ -108,12 +105,7 @@ void GfxVertexData::updateData()
 	m_bDataChanged = true;
 }
 //---------------------------------------------------------------------------
-size_t GfxVertexData::getVertexCount() const
+unsigned int GfxVertexData::getVertexCount() const
 {
 	return m_vertexCount;
-}
-//---------------------------------------------------------------------------
-bool GfxVertexData::serialize(ResourceSerializer& /*serializer*/)
-{
-	return false;
 }

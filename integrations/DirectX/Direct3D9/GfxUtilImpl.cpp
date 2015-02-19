@@ -24,7 +24,6 @@ is prohibited.
 #include "Math/Vector4.h"
 #include "Util/Environment.h"
 #include <assert.h>
-#include <new.h>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------

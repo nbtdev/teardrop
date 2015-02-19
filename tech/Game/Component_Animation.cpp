@@ -10,10 +10,8 @@ is prohibited.
 #include "Zone.h"
 #include "Scene.h"
 #include "Util/Hash.h"
-#include "Util/FourCC.h"
 #include "Util/Environment.h"
 #include "Util/SystemManager.h"
-#include "Resource/ResourceManager.h"
 #include "Animation/Rig.h"
 #include "Animation/Animation.h"
 #include "Animation/BlendGraph.h"
@@ -32,7 +30,6 @@ const String& AnimationComponent::SHORT_NAME = String("animation");
 AnimationComponent::AnimationComponent()
 {
 	m_pBlender = 0;
-	m_hRig = INVALID_RESOURCE_HANDLE;
 }
 //---------------------------------------------------------------------------
 AnimationComponent::~AnimationComponent()

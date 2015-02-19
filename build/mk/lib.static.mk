@@ -2,23 +2,17 @@
 #  Build static library
 #############################################################################
 
-AR = ar
-ARFLAGS = rcs
-RM = rm
-RMFLAGS = -rf
+CXXFLAGS = $(CFLAGS)
 
-CC = gcc
-CXX = g++
-CFLAGS = -O2 -g -fPIC
-LDFLAGS = -O2 -g
-CXXFLAGS = $(CFLAGS) -std=c++11
+LIB = $(LIBDIR)/$(BUILD_TYPE)/lib$(LIBNAME).a
+OBJDIR = $(OBJROOT)/$(BUILD_TYPE)/tech/$(LIBNAME)
 
-INCLUDES = \
+INCLUDES += \
 	$(ROOT)/tech
     
 INCDIRS = $(addprefix -I, $(INCLUDES))
-
 OBJS = $(addprefix $(OBJDIR)/, $(patsubst %.cpp, %.o, $(wildcard *.cpp)))
+
 
 all: $(OBJDIR) $(LIBDIR) $(LIB)
 
@@ -27,7 +21,7 @@ $(LIB): $(OBJS)
 	@$(AR) $(ARFLAGS) -o $@ $^
 
 $(LIBDIR):
-	@mkdir -p $(LIBDIR)
+	@mkdir -p $(LIBDIR)/$(BUILD_TYPE)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
@@ -37,4 +31,4 @@ $(OBJDIR)/%.o: %.cpp
 	@$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
     
 clean:
-	$(RM) $(RMFLAGS) $(LIB) $(OBJDIR)
+	@$(RM) $(RMFLAGS) $(LIB) $(OBJDIR)

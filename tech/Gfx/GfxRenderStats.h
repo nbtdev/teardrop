@@ -8,6 +8,9 @@ is prohibited.
 #if !defined(GFXRENDERSTATS_INCLUDED)
 #define GFXRENDERSTATS_INCLUDED
 
+#include <Gfx/GfxCommon.h>
+#include <cstddef>
+
 namespace Teardrop
 {
 	struct GfxRenderStats

@@ -15,6 +15,14 @@ is prohibited.
 #include "Memory/Memory.h"
 #include <assert.h>
 
+#if defined(_WIN32) || defined(_WIN64)
+    #define ZERO_MEMORY(m) ZeroMemory(m, sizeof(m));
+#else // _WIN32, _WIN64
+    #include <strings.h>
+    #define ZERO_MEMORY(m) bzero(m, sizeof(m));
+#endif // _WIN32, _WIN64
+
+
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 GfxCamera::GfxCamera()
@@ -33,7 +41,7 @@ GfxCamera::GfxCamera()
 	m_bOrtho = false;
 	m_width = 1;
 	m_height = 1;
-	ZeroMemory(m_frustum, sizeof(m_frustum));
+    ZERO_MEMORY(m_frustum);
 }
 //---------------------------------------------------------------------------
 GfxCamera::~GfxCamera()
@@ -316,11 +324,14 @@ bool GfxCamera::getViewportWorldRay(/*out*/Ray& ray, float x, float y) const
 	ray.end.w = ray.dir.w = 0;
 
 	Matrix44 inv;
+    // TODO: either use GL util function or make Matrix44::invert actually work properly
+#if 0
 	if(!D3DXMatrixInverse((D3DXMATRIX*)&inv, 0, (D3DXMATRIX*)&m_view))
 	//if (!m_view.invert(inv))
 	{
 		return false;
 	}
+#endif
 
 	Vector4 v(
 		 ((2.f * x) - 1.0f) / m_proj.m[0][0],

@@ -36,7 +36,7 @@ namespace Teardrop
             }
 		}
 
-		void raise(Args... params) {
+        void raise(Args... params) const {
             for (auto d : mDelegates) {
                 d(params...);
             }

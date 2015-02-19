@@ -13,24 +13,17 @@ is prohibited.
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxVertexFormat);
-//---------------------------------------------------------------------------
 static GfxVertexFormat::Element s_nullElement;
 //---------------------------------------------------------------------------
 GfxVertexFormat::GfxVertexFormat()
-	: m_pImpl(0),
-	m_vertexSize(0),
-	m_elementCount(0)
+    : m_vertexSize(0)
+    , m_elementCount(0)
 {
 }
 //---------------------------------------------------------------------------
 // placement c'tor
-GfxVertexFormat::GfxVertexFormat(int i) 
+GfxVertexFormat::GfxVertexFormat(int /*i*/)
 {
-	// TODO: need to do something with the Pimpl on placement-new
-	// i.e. it's a IDirect3DVertexDeclaration9 on D3D9, and so on...
-	m_pImpl = 0;
-	UNREFERENCED_PARAMETER(i);
 }
 //---------------------------------------------------------------------------
 GfxVertexFormat::GfxVertexFormat(const GfxVertexFormat& other)
@@ -57,10 +50,6 @@ GfxVertexFormat& GfxVertexFormat::operator=(const GfxVertexFormat& other)
 	memcpy(m_layout, other.m_layout, sizeof(m_layout));
 	m_vertexSize = other.m_vertexSize;
 	m_elementCount = other.m_elementCount;
-
-	// TODO: need to find a way to wrap this so that when it's a ref-counted 
-	// pointer (D3D9) that its ref count gets managed properly
-	m_pImpl = other.m_pImpl;
 
 	return *this;
 }

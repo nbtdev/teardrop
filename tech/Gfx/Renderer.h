@@ -11,6 +11,7 @@ is prohibited.
 //#include "Core/Integration.h"
 #include "Gfx/Common.h"
 #include <cstdlib>
+#include <cstdint>
 
 namespace Teardrop
 {

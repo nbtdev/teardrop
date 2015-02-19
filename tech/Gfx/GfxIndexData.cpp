@@ -9,20 +9,17 @@ is prohibited.
 #include "GfxIndexData.h"
 #include "GfxCommon.h"
 #include <assert.h>
-#include <new.h>
+#include <cstring>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxIndexData);
 //---------------------------------------------------------------------------
 GfxIndexData::GfxIndexData()
 {
 	memset(this, 0, sizeof(GfxIndexData));
 }
 //---------------------------------------------------------------------------
-GfxIndexData::GfxIndexData(int i)
+GfxIndexData::GfxIndexData(int /*i*/)
 {
-	UNREFERENCED_PARAMETER(i);
 }
 //---------------------------------------------------------------------------
 GfxIndexData::~GfxIndexData()
@@ -106,9 +103,4 @@ size_t GfxIndexData::getIndexCount() const
 size_t GfxIndexData::getIndexSize() const
 {
 	return m_indexSize;
-}
-//---------------------------------------------------------------------------
-bool GfxIndexData::serialize(ResourceSerializer& /*serializer*/)
-{
-	return false;
 }

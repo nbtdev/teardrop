@@ -11,11 +11,11 @@ is prohibited.
 #include "GfxViewport.h"
 #include "Util/Hash.h"
 #include <map>
-#include <new.h>
+#include <cstdint>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
-const unsigned __int64 GfxRenderTarget::IID = hashString64("GfxRenderTarget");
+const uint64_t GfxRenderTarget::IID = hashString64("GfxRenderTarget");
 //---------------------------------------------------------------------------
 GfxRenderTarget::GfxRenderTarget()
 {
@@ -135,7 +135,7 @@ bool GfxRenderTarget::handlePendingResize()
 	return false;
 }
 //---------------------------------------------------------------------------
-bool GfxRenderTarget::queryInterface(unsigned __int64 IID, void** ppInterface)
+bool GfxRenderTarget::queryInterface(uint64_t IID, void** ppInterface)
 {
 	if (!ppInterface)
 		return false;

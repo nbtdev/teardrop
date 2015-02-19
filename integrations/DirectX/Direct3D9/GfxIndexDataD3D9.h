@@ -14,7 +14,6 @@ is prohibited.
 #include "GfxRendererD3D9.h"
 #include "Util/Environment.h"
 #include <assert.h>
-#include <new.h>
 
 namespace Teardrop
 {

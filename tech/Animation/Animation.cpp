@@ -8,7 +8,6 @@ is prohibited.
 #include "Animation.h"
 #include "Stream/Stream.h"
 #include "Memory/Allocators.h"
-#include "Util/FourCC.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
 #include "Util/System.h"
@@ -16,10 +15,6 @@ is prohibited.
 #include <assert.h>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-const FourCC& Animation::RESOURCE_TYPE = FourCC('A','N','I','M');
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(Animation);
 //---------------------------------------------------------------------------
 Animation::Animation()
 {

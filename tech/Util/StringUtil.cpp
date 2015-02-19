@@ -11,6 +11,7 @@ is prohibited.
 #include "_String.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <ostream>
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -385,4 +386,10 @@ void StringUtil::fromString(const String& /*in*/, Reflection::PointerPropertyBas
 
 void StringUtil::toString(const Reflection::PointerPropertyBase& /*in*/, String& /*out*/)
 {
+}
+
+std::ostream& operator<<(std::ostream& os, const String& s)
+{
+    os.write((const char*)s, s.length());
+    return os;
 }

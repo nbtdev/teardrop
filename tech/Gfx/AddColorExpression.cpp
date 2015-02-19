@@ -38,5 +38,5 @@ static const char* BODY =
 void AddColorExpression::appendBody(Language /*lang*/, std::ostream& o)
 {
 	// it's the same in all languages
-	o << BODY;
+    o << std::string(BODY);
 }

@@ -20,16 +20,10 @@ namespace Teardrop
 	class ResourceSerializer;
 	class AnimationBlender;
 	class SkeletonInstance;
-	struct FourCC;
 
 	class Animation : public Resource
 	{
-		DECLARE_SERIALIZABLE(Animation);
-		DECLARE_SERIALIZABLE_VTABLE
-
 	public:
-		static const FourCC& RESOURCE_TYPE;
-
 		//! normal c'tor (cannot fail)
 		Animation();
 		//! placement c'tor (cannot fail)

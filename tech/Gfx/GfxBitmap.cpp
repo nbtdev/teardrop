@@ -55,28 +55,6 @@ GfxBitmap::~GfxBitmap()
 	}
 }
 //---------------------------------------------------------------------------
-bool GfxBitmap::loadBMP(const char* pFilename)
-{
-	HANDLE hBmp = LoadImage(
-		GetModuleHandle(0),
-		pFilename,
-		IMAGE_BITMAP,
-		0, 
-		0,
-		LR_DEFAULTSIZE | LR_LOADFROMFILE);
-
-	if (hBmp == INVALID_HANDLE_VALUE)
-	{
-		return false;
-	}
-
-	BITMAP bmp;
-	GetObject(hBmp, sizeof(BITMAP), &bmp);
-
-	m_fmt = BMP;
-	return true;
-}
-//---------------------------------------------------------------------------
 bool GfxBitmap::loadTGA(const char* pFilename)
 {
 	assert(!m_pData);
@@ -113,45 +91,9 @@ bool GfxBitmap::loadTGA(const char* pFilename)
 	return true;
 }
 //---------------------------------------------------------------------------
-bool GfxBitmap::load(Stream& stream)
-{
-	return loadRawData(stream);
-}
-//---------------------------------------------------------------------------
-bool GfxBitmap::load(const char* pFilename)
-{
-	assert(!m_pData);
-	if (m_pData)
-	{
-		return false;
-	}
-
-	std::string fname(pFilename);
-	std::string ext(fname.substr(fname.find_last_of('.')+1));
-
-	if (ext == "bmp" || ext == "BMP")
-	{
-		// load Windows bitmap file
-		return loadBMP(pFilename);
-	}
-
-	if (ext == "tga" || ext == "TGA")
-	{
-		return loadTGA(pFilename);
-	}
-
-	return loadRawData(pFilename);
-}
-//---------------------------------------------------------------------------
-bool GfxBitmap::load(
-	void* /*pData*/, Format /*fmt*/, 
-	size_t /*sx*/, size_t /*sy*/, size_t /*depth*/)
-{
-	return true;
-}
-//---------------------------------------------------------------------------
 bool GfxBitmap::loadRawData(Stream& strm)
 {
+#if defined(_WIN32) || defined(_WIN64)
 	size_t dataSize = strm.length();
 	m_pData = GFX_ALLOCATE(dataSize);
 	if (!strm.read(m_pData, dataSize))
@@ -161,13 +103,7 @@ bool GfxBitmap::loadRawData(Stream& strm)
 		return false;
 	}
 
-	//FourCC* pfcc = (FourCC*)m_pData;
-
 	m_fmt = UNKNOWN;
-	//if (*pfcc == DDS)
-	//{
-	//	m_fmt = DXTC;
-	//}
 	// TODO: figure out a better way not to have D3DX in this file...
 	D3DXIMAGE_INFO info;
 	HRESULT hr = D3DXGetImageInfoFromFileInMemory(
@@ -217,6 +153,9 @@ bool GfxBitmap::loadRawData(Stream& strm)
 	m_mips = info.MipLevels;
 
 	return true;
+#else // _WIN32, _WIN64
+    return false;
+#endif // _WIN32, _WIN64
 }
 //---------------------------------------------------------------------------
 bool GfxBitmap::loadRawData(const char* pFilename)

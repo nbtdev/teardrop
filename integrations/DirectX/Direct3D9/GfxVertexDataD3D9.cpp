@@ -11,14 +11,10 @@ is prohibited.
 #include "GfxRendererD3D9.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
-#include "Serialization/ResourceSerializer.h"
 #include "GfxCommon.h"
 #include <assert.h>
-#include <new.h>
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(GfxVertexDataD3D9);
 //---------------------------------------------------------------------------
 GfxVertexDataD3D9::GfxVertexDataD3D9()
 : m_pD3D9VertexBuffer(0)

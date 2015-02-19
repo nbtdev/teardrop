@@ -9,6 +9,7 @@ is prohibited.
 #define TDGFXVERTEXFORMAT_INCLUDED
 
 #include "GfxCommon.h"
+#include <cstddef>
 
 namespace Teardrop
 {
@@ -16,8 +17,6 @@ namespace Teardrop
 
 	class GfxVertexFormat
 	{
-		DECLARE_SERIALIZABLE(GfxVertexFormat);
-
 	public:
 		const static int MAX_ELEMENT_COUNT = 8;
 
@@ -93,7 +92,6 @@ namespace Teardrop
 		bool hasBlendindex() const;
 		size_t getNumElements() const;
 		size_t getVertexSize() const;
-		const void* getImpl() const { return m_pImpl; }
 
 		Element& getElementAt(size_t index);
 		const Element& getElementAt(size_t index) const;
@@ -117,7 +115,6 @@ namespace Teardrop
 	private:
 		// 48 bytes
 		Element m_layout[MAX_ELEMENT_COUNT];		// 32
-		SerialPointer<void> m_pImpl;				// 8
 		unsigned int m_vertexSize;					// 4
 		unsigned int m_elementCount;				// 4
 	};

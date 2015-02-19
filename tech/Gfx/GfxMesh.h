@@ -10,8 +10,7 @@ is prohibited.
 
 #include "Gfx/GfxVertexData.h"
 #include "Gfx/GfxVertexFormat.h"
-#include "Serialization/Serialization.h"
-#include "Resource/Resource.h"
+#include <vector>
 
 namespace Teardrop
 {
@@ -19,14 +18,10 @@ namespace Teardrop
 	class GfxVertexFormat;
 	class GfxSubMesh;
 	class ResourceSerializer;
-	struct FourCC;
 	class Vector4;
 
-	class GfxMesh : public Resource
+    class GfxMesh
 	{
-		DECLARE_SERIALIZABLE(GfxMesh);
-		DECLARE_SERIALIZABLE_VTABLE;
-
 		const static int MAX_SHARED_VERTEX_STREAMS = 4;
 		const static int MAX_SUBMESHES = 27;
 		const static int MAX_MESH_NAME_LENGTH = 23;
@@ -35,18 +30,19 @@ namespace Teardrop
 		unsigned int m_dynamicSubmeshFlags;						
 		unsigned int m_dynamicSharedVertexFlags;				
 		char m_name[MAX_MESH_NAME_LENGTH+1];					
-		SerialPointerArray<GfxSubMesh> m_pSubMeshes;			
-		SerialPointerArray<GfxVertexData> m_pSharedVertexData;	
+        std::vector<GfxSubMesh*> mSubMeshes;
+        std::vector<GfxVertexData*> mSharedVertexData;
 
 	public:
-		const static FourCC& RESOURCE_TYPE;
-
 		//! normal c'tor (cannot fail)
 		GfxMesh();
 		//! placement c'tor (cannot fail and does not initialize)
 		GfxMesh(int i);
 		//! d'tor (cannot fail)
 		~GfxMesh();
+
+        GfxMesh(const GfxMesh& other) = delete;
+        GfxMesh& operator=(const GfxMesh& other) = delete;
 
 		//! initialize the mesh (anything that can fail)
 		bool initialize();
@@ -96,18 +92,9 @@ namespace Teardrop
 		void setName(const char* name);
 		void setSharedVertexFormat(const GfxVertexFormat& fmt);
 
-		/**
-			Serialization
-		*/
-		//! package for storage
-		bool serialize(ResourceSerializer& serializer);
-
 		DECLARE_GFX_ALLOCATOR();
 
 	private:
-		//! NOT IMPLEMENTED
-		GfxMesh(const GfxMesh& other);
-		GfxMesh& operator=(const GfxMesh& other);
 	};
 }
 

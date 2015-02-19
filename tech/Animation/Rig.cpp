@@ -9,15 +9,10 @@ is prohibited.
 #include "Rig.h"
 #include "Stream/Stream.h"
 #include "Memory/Allocators.h"
-#include "Util/FourCC.h"
 #include "Util/Environment.h"
 #include "Util/SystemManager.h"
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(Rig);
-//---------------------------------------------------------------------------
-const FourCC& Rig::RESOURCE_TYPE = FourCC('R','I','G',' ');
 //---------------------------------------------------------------------------
 Rig::Rig()
 {

@@ -8,12 +8,17 @@ is prohibited.
 #if !defined(GFXRENDERWINDOW_INCLUDED)
 #define GFXRENDERWINDOW_INCLUDED
 
+#include <cstdint>
+
 namespace Teardrop
 {
 	class GfxRenderWindow
 	{
 	public:
-		static const unsigned __int64 IID;
+        GfxRenderWindow(const GfxRenderWindow& other) = delete;
+        GfxRenderWindow& operator=(const GfxRenderWindow& other) = delete;
+
+        static const uint64_t IID;
 
 		virtual void* getHwnd() const = 0;
 		virtual void resizeWindow(int w=-1, int h=-1) = 0;
@@ -21,8 +26,6 @@ namespace Teardrop
 	protected:
 		GfxRenderWindow();
 	private:
-		GfxRenderWindow(const GfxRenderWindow& other);
-		GfxRenderWindow& operator=(const GfxRenderWindow& other);
 	};
 }
 

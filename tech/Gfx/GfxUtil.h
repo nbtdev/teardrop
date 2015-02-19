@@ -16,7 +16,6 @@ namespace Teardrop
 	class GfxRenderer;
 	struct Environment;
 	class Vector4;
-	struct FourCC;
 	class Ray;
 	class Transform;
 	class GfxCamera;
@@ -36,7 +35,6 @@ namespace Teardrop
 		static void unpackColor(unsigned int c, unsigned char& r, unsigned char& g, unsigned char& b, unsigned char& a);
 		static void unpackColor(unsigned int c, float& r, float& g, float& b, float& a);
 		static void unpackColor(unsigned int c, Vector4& out);
-		static void* createResource(const FourCC& fourC);
 		static GfxMesh* createAABBTemplateMesh(GfxRenderer* pRend);
 		// returns true if ray collides with mesh, with ray collision parameter in t; false if no collision
 		static bool collideRayWithMesh(
