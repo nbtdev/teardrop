@@ -849,3 +849,4 @@ tools/ThirdParty/LibHFZ/wrapper.h
 tech/Reflection/Object.h
 tech/Reflection/Object.cpp
 tech/Core/Makefile
+tech/Asset/Makefile
