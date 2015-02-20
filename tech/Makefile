@@ -4,6 +4,7 @@ SUBDIRS = \
 	Gfx \
 	Math \
 	Memory \
+	Package \
 	Reflection
 
 all:
