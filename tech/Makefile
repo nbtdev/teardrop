@@ -5,6 +5,7 @@ SUBDIRS = \
 	Math \
 	Memory \
 	Package \
+	Stream \
 	Reflection
 
 all:

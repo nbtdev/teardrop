@@ -12,10 +12,15 @@ INCLUDES += \
     
 INCDIRS = $(addprefix -I, $(INCLUDES))
 
-OBJCPP = $(addprefix $(OBJDIR)/, $(patsubst %.cpp, %.o, $(wildcard *.cpp)))
-OBJC = $(addprefix $(OBJDIR)/, $(patsubst %.c, %.o, $(wildcard *.c)))
-OBJCC = $(addprefix $(OBJDIR)/, $(patsubst %.cc, %.o, $(wildcard *.cc)))
-OBJS = $(OBJCPP) $(OBJC) $(OBJCC)
+SRCS += $(wildcard *.cpp)
+SRCS += $(wildcard *.c)
+SRCS += $(wildcard *.cc)
+
+TMPOBJ1 = $(filter %.o, $(SRCS:cpp=o))
+TMPOBJ2 = $(filter %.o, $(SRCS:c=o))
+TMPOBJ3 = $(filter %.o, $(SRCS:cc=o))
+
+OBJS = $(addprefix $(OBJDIR)/, $(TMPOBJ1) $(TMPOBJ2) $(TMPOBJ3))
 
 all: $(OBJDIR) $(LIBDIR) $(LIB)
 
@@ -24,6 +29,7 @@ $(LIB): $(OBJS)
 	@$(AR) $(ARFLAGS) -o $@ $^
 
 $(LIBDIR):
+	@echo $(OBJS)
 	@mkdir -p $(LIBDIR)/$(BUILD_TYPE)
 
 $(OBJDIR):
@@ -31,14 +37,20 @@ $(OBJDIR):
 
 $(OBJDIR)/%.o: %.cpp
 	@echo "  [cxx] $< --> $@"
+	@mkdir -p $(dir $@)
+	@touch $@
 	@$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
 
 $(OBJDIR)/%.o: %.cc
 	@echo "  [cxx] $< --> $@"
+	@mkdir -p $(dir $@)
+	@touch $@
 	@$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
 
 $(OBJDIR)/%.o: %.c
 	@echo "  [cxx] $< --> $@"
+	@mkdir -p $(dir $@)
+	@touch $@
 	@$(CXX) $(CXXFLAGS) -fpermissive $(INCDIRS) -c -o $@ $<
     
 clean:
