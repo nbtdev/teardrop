@@ -29,7 +29,7 @@ OPT_LDFLAGS = $(COMMON_LDFLAGS)
 all: opt-debug
 
 opt-debug:
-	export CFLAGS="$(OPTDEBUG_CFLAGS)"; \
+	@export CFLAGS="$(OPTDEBUG_CFLAGS)"; \
 	export LDFLAGS="$(OPTDEBUG_LDFLAGS)"; \
 	export BUILD_TYPE="opt-debug"; \
 	for s in $(SUBDIRS); do \

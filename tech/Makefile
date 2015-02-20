@@ -3,6 +3,7 @@ SUBDIRS = \
 	Core \
 	Gfx \
 	Math \
+	Memory \
 	Reflection
 
 all:

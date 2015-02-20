@@ -444,8 +444,8 @@ tech/Math/Vector2.cpp
 tech/Math/Vector2.h
 tech/Math/Vector4.cpp
 tech/Math/Vector4.h
-tech/Memory/integration/dlmalloc/malloc-280.c
-tech/Memory/integration/dlmalloc/malloc-280.h
+tech/Memory/malloc-280.c
+tech/Memory/malloc-280.h
 tech/Memory/AllocationTracker.cpp
 tech/Memory/AllocationTracker.h
 tech/Memory/Allocators.cpp

@@ -5,11 +5,27 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
+#if defined(USE_DL_MALLOC)
+    #define USE_DL_PREFIX
+    #define MSPACES 1
+    #pragma warning(push)
+    #pragma warning(disable: 4267 4312)
+    #include "malloc-280.h"
+    #pragma warning(pop)
+#endif
+
 #include "Memory.h"
 #include "MemoryRegion.h"
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#if defined(_WIN32) || defined(_WIN64)
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+    #define STRCPY(d, n, s) strcpy_s(d, n, s)
+#else // _WIN32, _WIN64
+    #include <cstring>
+    #define STRCPY(d, n, s) strncpy(d, s, n)
+#endif // _WIN32, _WIN64
+
 #include <stdlib.h>
 #include <assert.h>
 
@@ -22,20 +38,13 @@ is prohibited.
 
 #include <algorithm>
 
-#define USE_DL_PREFIX
-#define MSPACES 1
-#pragma warning(push)
-#pragma warning(disable: 4267 4312)
-#include "malloc-280.h"
-#pragma warning(pop)
-
 using namespace Teardrop;
 //-----------------------------------------------------------------------------
 MemoryRegion::MemoryRegion(const char* name, size_t size, void* pBase)
 {
 	m_totalBytes = 0;
 	m_maxBytes = 0;
-	strcpy_s(m_name, 32, name);
+    STRCPY(m_name, 32, name);
 	m_pData = 0;
 	m_size = size;
 	m_pBase = pBase;

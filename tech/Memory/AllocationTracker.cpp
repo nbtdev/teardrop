@@ -9,12 +9,13 @@ is prohibited.
 #include "Memory.h"
 #include "AllocationTracker.h"
 #include "MemoryRegion.h"
-#include "Serialization/SerialUtil.h"
 #include "Stream/Stream.h"
 #include <sstream>
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#if defined(_WIN32) || defined(_WIN64)
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif // _WIN32, _WIN64
 
 using namespace Teardrop;
 
