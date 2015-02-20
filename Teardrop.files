@@ -684,12 +684,14 @@ tech/UI/UIRenderer.cpp
 tech/UI/UIRenderer.h
 tech/UI/UIUtil.cpp
 tech/UI/UIUtil.h
-tech/Util/build/win32/stdafx.cpp
-tech/Util/build/win32/stdafx.h
-tech/Util/platform/win32/FileSystemWatcherWin32.cpp
-tech/Util/platform/win32/FileSystemWatcherWin32.h
-tech/Util/platform/win32/FileSystemWin32.cpp
-tech/Util/platform/win32/TimerWin32.cpp
+tech/Util/build/Win32/stdafx.cpp
+tech/Util/build/Win32/stdafx.h
+tech/Util/platform/Win32/FileSystemWatcherWin32.cpp
+tech/Util/platform/Win32/FileSystemWatcherWin32.h
+tech/Util/platform/Win32/FileSystemWin32.cpp
+tech/Util/platform/Win32/TimerWin32.cpp
+tech/Util/platform/Win32/UUID.cpp
+tech/Util/platform/POSIX/UUID.cpp
 tech/Util/_String.h
 tech/Util/Environment.cpp
 tech/Util/Environment.h
@@ -711,7 +713,6 @@ tech/Util/System.h
 tech/Util/SystemManager.cpp
 tech/Util/SystemManager.h
 tech/Util/Timer.h
-tech/Util/UUID.cpp
 tech/Util/UUID.h
 tech/VFX/Emitters/PointEmitter.cpp
 tech/VFX/Emitters/PointEmitter.h
@@ -836,3 +837,5 @@ tech/Core/Makefile
 tech/Asset/Makefile
 tech/Math/Makefile
 tech/Package/Makefile
+tech/Util/Makefile
+tech/Stream/Makefile

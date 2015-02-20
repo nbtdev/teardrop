@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(UTIL_UUID_INCLUDED)
 #define UTIL_UUID_INCLUDED
 
+#include <cstdint>
+
 namespace Teardrop
 {
 	class String;
@@ -25,8 +27,8 @@ namespace Teardrop
 		void toString(String& str) const;
 		void fromString(const String& str);
 
-		unsigned long long mLow;
-		unsigned long long mHigh;
+        uint64_t mLow;
+        uint64_t mHigh;
 	};
 }
 

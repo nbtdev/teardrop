@@ -6,7 +6,8 @@ SUBDIRS = \
 	Memory \
 	Package \
 	Stream \
-	Reflection
+	Reflection \
+	Util
 
 all:
 	@echo $(ROOT)

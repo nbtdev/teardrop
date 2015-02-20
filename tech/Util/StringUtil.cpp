@@ -5,13 +5,18 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
 #include "Config.h"
 #include "StringUtil.h"
 #include "_String.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <ostream>
+
+#if defined(_WIN32) || defined(_WIN64)
+#else // _WIN32, _WIN64
+    #define sprintf_s snprintf
+    #define sscanf_s sscanf
+#endif // _WIN32, _WIN64
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------

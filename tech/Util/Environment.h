@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(TDENVIRONMENT_INCLUDED)
 #define TDENVIRONMENT_INCLUDED
 
+#include <cstddef>
+
 struct GameOptions;
 
 namespace Teardrop

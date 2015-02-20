@@ -5,11 +5,18 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
 #include "_String.h"
-#include <string.h>
 #include "Stream/Stream.h"
 #include "Memory/Memory.h"
+#include <cstring>
+
+#if defined(_WIN32) || defined(_WIN64)
+    #define STRCPY(d, n, s) strcpy_s(d, n, s)
+    #define STRCAT(d, n, s) strcat_s(d, n, s)
+#else // _WIN32, _WIN64
+    #define STRCPY(d, n, s) strncpy(d, s, n)
+    #define STRCAT(d, n, s) strncat(d, s, n)
+#endif // _WIN32, _WIN64
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -91,7 +98,7 @@ String& String::operator=(const String& other)
 
 	// other string will fit into our current storage
 	m_len = otherLen;
-	strcpy_s(m_pBuf, otherLen+1, other.m_pBuf);
+    STRCPY(m_pBuf, otherLen+1, other.m_pBuf);
 	return *this;
 }
 //---------------------------------------------------------------------------
@@ -126,7 +133,7 @@ String& String::operator=(const char* other)
 
 	// other string will fit into our current storage
 	m_len = otherLen;
-	strcpy_s(m_pBuf, otherLen+1, other);
+    STRCPY(m_pBuf, otherLen+1, other);
 	return *this;
 }
 //---------------------------------------------------------------------------
@@ -139,7 +146,7 @@ String& String::operator+=(char c)
 String& String::operator+=(const char* other)
 {
 	size_t newLen = _resize(strlen(other));
-	strcat_s(m_pBuf, newLen, other);
+    STRCAT(m_pBuf, newLen, other);
 	return *this;
 }
 //---------------------------------------------------------------------------
@@ -294,7 +301,7 @@ size_t String::_resize(size_t otherLen)
 			// round up to next 4 byte length, but only if needed
 			newLen = ((newLen + 3) & ~0x03);
 			char* newBuf = (char*)s_pAllocator->AllocateAligned(newLen, 8 TD_ALLOC_SITE);
-			strcpy_s(newBuf, newLen, m_pBuf);
+            STRCPY(newBuf, newLen, m_pBuf);
 			*m_pBuf = 0;
 
 			if (m_pBuf != m_default)
@@ -309,25 +316,6 @@ size_t String::_resize(size_t otherLen)
 	m_len = needed;
 
 	return newLen;
-}
-//---------------------------------------------------------------------------
-bool String::serialize(Stream& strm) const
-{
-	strm.write(&m_len, sizeof(m_len));
-	strm.write(m_pBuf, m_len);
-
-	return true;
-}
-//---------------------------------------------------------------------------
-bool String::deserialize(Stream& strm)
-{
-	// strings are serialized with a 16-bit char count, then the string chars
-	unsigned short len;
-	strm.read(&len, sizeof(unsigned short));
-	_resize(len);
-	strm.read(m_pBuf, len);
-
-	return true;
 }
 //---------------------------------------------------------------------------
 char& String::operator [](size_t idx)

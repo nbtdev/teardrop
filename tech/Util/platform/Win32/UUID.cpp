@@ -46,9 +46,6 @@ bool Teardrop::UUID::operator<(const Teardrop::UUID& other) const
 	return false;
 }
 
-#if defined(_WIN32) || defined(_WIN64)
-#include <rpc.h>
-
 void Teardrop::UUID::generate() 
 {
 	::UUID uuidGen;
@@ -74,4 +71,3 @@ void Teardrop::UUID::fromString(const String& str)
 	mHigh = 0;
 	UuidFromString((RPC_CSTR)(const char*)str, (::UUID*)this);
 }
-#endif // Windows
