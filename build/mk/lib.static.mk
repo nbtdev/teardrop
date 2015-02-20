@@ -38,19 +38,16 @@ $(OBJDIR):
 $(OBJDIR)/%.o: %.cpp
 	@echo "  [cxx] $< --> $@"
 	@mkdir -p $(dir $@)
-	@touch $@
 	@$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
 
 $(OBJDIR)/%.o: %.cc
 	@echo "  [cxx] $< --> $@"
 	@mkdir -p $(dir $@)
-	@touch $@
 	@$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
 
 $(OBJDIR)/%.o: %.c
 	@echo "  [cxx] $< --> $@"
 	@mkdir -p $(dir $@)
-	@touch $@
 	@$(CXX) $(CXXFLAGS) -fpermissive $(INCDIRS) -c -o $@ $<
     
 clean:

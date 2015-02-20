@@ -20,6 +20,7 @@ namespace Teardrop
 	struct Environment;
 	class Component;
 	class Vector4;
+    class Zone;
 
 	class ZoneObject 
 		: public Reflection::Object

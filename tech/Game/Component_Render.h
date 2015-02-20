@@ -8,7 +8,6 @@ is prohibited.
 #if !defined(COMPONENT_RENDER_INCLUDED)
 #define COMPONENT_RENDER_INCLUDED
 
-#include "Resource/ResourceHandle.h"
 #include "Gfx/GfxMeshInstance.h"
 #include "Gfx/GfxShaderConstantTable.h"
 #include "Memory/Allocators.h"
@@ -20,7 +19,6 @@ is prohibited.
 namespace Teardrop
 {
 	struct Environment;
-	struct FourCC;
 	class ZoneObject;
 	class Scene;
 	class IMeshInstanceProvider;

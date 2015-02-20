@@ -7,7 +7,8 @@ SUBDIRS = \
 	Package \
 	Stream \
 	Reflection \
-	Util
+	Util \
+	VFX
 
 all:
 	@echo $(ROOT)

@@ -839,3 +839,4 @@ tech/Math/Makefile
 tech/Package/Makefile
 tech/Util/Makefile
 tech/Stream/Makefile
+tech/VFX/Makefile

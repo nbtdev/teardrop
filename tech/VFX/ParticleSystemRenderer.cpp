@@ -18,7 +18,6 @@ is prohibited.
 #include "Gfx/GfxUtil.h"
 #include "Math/Matrix44.h"
 #include "Math/MathUtil.h"
-#include "Resource/ResourceManager.h"
 #include "Game/Zone.h"
 #include "Util/Environment.h"
 
@@ -118,8 +117,8 @@ bool ParticleSystemRenderer::initialize()
 		texPath += getTexture();
 
 		GfxTextureStage* pStage = pMtl->addTextureStage();
-		pStage->setTexture(0, 
-			Environment::get().pResourceMgr->acquire(GfxTexture::RESOURCE_TYPE, texPath));
+//		pStage->setTexture(0,
+//			Environment::get().pResourceMgr->acquire(GfxTexture::RESOURCE_TYPE, texPath));
 		pStage->setEnabled(true);
 		pStage->setBlendMode(GfxTextureStage::BLENDMODE_MODULATE);
 		pStage->setMinFilter(GfxTextureStage::FILTER_BILINEAR);

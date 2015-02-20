@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(POINTEMITTER_INCLUDED)
 #define POINTEMITTER_INCLUDED
 
-#include "Emitter.h"
+#include "VFX/Emitter.h"
 
 namespace Teardrop
 {
