@@ -1,4 +1,4 @@
-SUBDIRS = tech
+SUBDIRS = tech integrations tools
 
 DIR = `pwd`
 
@@ -33,7 +33,7 @@ opt-debug:
 	export LDFLAGS="$(OPTDEBUG_LDFLAGS)"; \
 	export BUILD_TYPE="opt-debug"; \
 	for s in $(SUBDIRS); do \
-		$(MAKE) -C $$s; \
+		$(MAKE) -C $$s opt-debug; \
 	done
 
 debug:
@@ -41,7 +41,7 @@ debug:
 	export LDFLAGS=$(DEBUG_LDFLAGS); \
 	export BUILD_TYPE="debug"; \
 	for s in $(SUBDIRS); do \
-		$(MAKE) -C $$s; \
+		$(MAKE) -C $$s debug; \
 	done
 
 opt:
@@ -49,7 +49,7 @@ opt:
 	export LDFLAGS=$(OPT_LDFLAGS); \
 	export BUILD_TYPE="opt"; \
 	for s in $(SUBDIRS); do \
-		$(MAKE) -C $$s; \
+		$(MAKE) -C $$s opt; \
 	done
 
 clean: clean-opt-debug
@@ -58,19 +58,19 @@ clean-opt-debug:
 	@export BUILD_TYPE="opt-debug"; \
 	for s in $(SUBDIRS); do \
 		echo Cleaning in $$s; \
-		$(MAKE) -C $$s clean; \
+		$(MAKE) -C $$s clean-opt-debug; \
 	done
 
 clean-debug:
 	@export BUILD_TYPE="debug"; \
 	for s in $(SUBDIRS); do \
 		echo Cleaning in $$s; \
-		$(MAKE) -C $$s clean; \
+		$(MAKE) -C $$s clean-debug; \
 	done
 
 clean-opt:
 	@export BUILD_TYPE="opt"; \
 	for s in $(SUBDIRS); do \
 		echo Cleaning in $$s; \
-		$(MAKE) -C $$s clean; \
+		$(MAKE) -C $$s clean-opt; \
 	done

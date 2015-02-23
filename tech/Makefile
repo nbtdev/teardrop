@@ -7,17 +7,8 @@ SUBDIRS = \
 	Package \
 	Stream \
 	Reflection \
+	ThirdParty \
 	Util \
 	VFX
 
-all:
-	@echo $(ROOT)
-	@for s in $(SUBDIRS); do \
-		$(MAKE) -C $$s; \
-	done
-
-clean:
-	@for s in $(SUBDIRS); do \
-		echo Cleaning in $$s; \
-		$(MAKE) -C $$s clean; \
-	done
+include $(ROOT)/build/mk/targets.mk

@@ -8,8 +8,8 @@ is prohibited.
 #if !defined(MATERIALEDITOR_INCLUDED)
 #define MATERIALEDITOR_INCLUDED
 
-#include <QWidget>
-#include <QStringListModel>
+#include <QtWidgets/QWidget>
+#include <QtCore/QStringListModel>
 #include <vector>
 
 class QGraphicsView;

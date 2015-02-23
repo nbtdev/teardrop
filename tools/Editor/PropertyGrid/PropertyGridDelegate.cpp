@@ -7,11 +7,11 @@ is prohibited.
 
 #include "PropertyGridDelegate.h"
 #include "PropertyGridItem.h"
-#include <QLineEdit>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QPainter>
-#include <QColorDialog>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
+#include <QtGui/QPainter>
+#include <QtWidgets/QColorDialog>
 #include "Reflection/Reflection.h"
 #include "Math/Vector4.h"
 
@@ -120,7 +120,7 @@ void PropertyGridDelegate::setEditorData(QWidget* editor, const QModelIndex& ind
 			dlg->setCurrentColor(qc);
 		}
 		else {
-			QString& str = index.model()->data(index, Qt::EditRole).toString();
+            QString str = index.model()->data(index, Qt::EditRole).toString();
 			QLineEdit* le = static_cast<QLineEdit*>(editor);
 			le->setText(str);
 		}
@@ -155,7 +155,7 @@ void PropertyGridDelegate::setModelData(QWidget* editor, QAbstractItemModel* mod
 		}
 		else {
 			QLineEdit* le = static_cast<QLineEdit*>(editor);
-			QString& str = le->text();
+            QString str = le->text();
 			model->setData(index, str, Qt::EditRole);
 		}
 	}

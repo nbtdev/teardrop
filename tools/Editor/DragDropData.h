@@ -9,7 +9,7 @@ is prohibited.
 #define DRAGDROPDATA_INCLUDED
 
 // Base class for things that can be dragged around the editor
-#include <QObject>
+#include <QtCore/QObject>
 
 namespace Teardrop
 {

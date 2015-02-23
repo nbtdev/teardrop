@@ -10,8 +10,8 @@ is prohibited.
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Viewport.h"
-#include <QTimer>
-#include <QIcon>
+#include <QtCore/QTimer>
+#include <QtGui/QIcon>
 #include <assert.h>
  
 using namespace Teardrop;

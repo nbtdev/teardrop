@@ -5,12 +5,12 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#ifndef EDITOR_H
-#define EDITOR_H
+#ifndef __TEARDROP_EDITOR_H__
+#define __TEARDROP_EDITOR_H__
 
-#include <QtGui/QMainWindow>
-#include "ui_Editor.h"
-#include "ui_Preferences.h"
+#include <QtWidgets/QMainWindow>
+#include "Editor.ui.h"
+#include "Preferences.ui.h"
 #include "Preferences.h"
 
 class QWidget;
@@ -40,7 +40,7 @@ namespace Teardrop
 			Q_OBJECT
 
 		public:
-			Editor(QWidget *parent = 0, Qt::WFlags flags = 0);
+            Editor(QWidget *parent = 0, Qt::WindowFlags flags = 0);
 			~Editor();
 
 		protected slots:
@@ -85,4 +85,4 @@ namespace Teardrop
 	}
 }
 
-#endif // EDITOR_H
+#endif // __TEARDROP_EDITOR_H__

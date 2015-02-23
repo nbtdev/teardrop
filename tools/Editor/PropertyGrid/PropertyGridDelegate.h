@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(TEARDROP_PROPERTYGRIDDELEGATE_INCLUDED)
 #define TEARDROP_PROPERTYGRIDDELEGATE_INCLUDED
 
-#include <QItemDelegate>
+#include <QtWidgets/QItemDelegate>
 
 namespace Teardrop
 {

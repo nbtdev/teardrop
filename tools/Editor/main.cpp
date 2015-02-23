@@ -6,7 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Editor.h"
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtGui/QPalette>
 
 #if defined(TD_OPTION_MEMPROFILE)
@@ -21,8 +21,10 @@ is prohibited.
 #include "Util/FileSystem.h"
 #include "Stream/FileStream.h"
 
+#if defined(_WIN32) || defined(_WIN64)
 #include "Direct3D9/Integration.h"
 #include "DirectInput8/Integration.h"
+#endif // _WIN32, _WIN64
 
 // hacky
 #include "Game/LandscapeScene.h"
@@ -52,8 +54,10 @@ int main(int argc, char *argv[])
 	env.isOffline = false;
 
 	// this is a bit hacky?
-	Teardrop::Gfx::Direct3D9::registerIntegration();
+#if defined(_WIN32) || defined(_WIN64)
+    Teardrop::Gfx::Direct3D9::registerIntegration();
 	Teardrop::DirectInput::Integration inputIntegration;
+#endif // _WIN32, _WIN64
 
 	QApplication a(argc, argv);
 	Teardrop::Tools::Editor w;

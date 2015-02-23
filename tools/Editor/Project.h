@@ -9,7 +9,7 @@ is prohibited.
 #define PROJECT_H
 
 #include "Util/_String.h"
-#include "FastDelegate.h"
+#include "Util/Event.h"
 #include <list>
 
 namespace Teardrop
@@ -44,8 +44,8 @@ namespace Teardrop
 			typedef std::list<PackageManager*> PackageManagers;
 			const PackageManagers& packages();
 
-			fastdelegate::FastDelegate1<const char*> NameChanged;
-			fastdelegate::FastDelegate1<PackageManager*> PackageLoaded;
+            Event<const char*> NameChanged;
+            Event<PackageManager*> PackageLoaded;
 
 		protected:
 			String mName;

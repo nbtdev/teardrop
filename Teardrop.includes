@@ -59,3 +59,7 @@ tools/PackageManager
 tools/ThirdParty/LibHFZ
 tools/ThirdParty/LibHFZ/zlib/include
 /opt/gcc/include/c++
+/opt/qt/5.4.0/5.4/gcc_64/include
+/opt/fbx/current/include
+/opt/squish/include
+tech/Util/platform/POSIX

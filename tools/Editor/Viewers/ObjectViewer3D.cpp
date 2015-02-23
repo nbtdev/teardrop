@@ -11,11 +11,11 @@ is prohibited.
 #include "Gfx/RenderTarget.h"
 #include "Package/Executable.h"
 #include "Package/Package.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QSplitter>
-#include <QTimer>
-#include <QResizeEvent>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QSplitter>
+#include <QtCore/QTimer>
+#include <QtGui/QResizeEvent>
 #include <assert.h>
 
 using namespace Teardrop;

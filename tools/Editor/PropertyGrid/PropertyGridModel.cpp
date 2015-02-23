@@ -8,7 +8,8 @@ is prohibited.
 #include "PropertyGridModel.h"
 #include "PropertyGridItem.h"
 #include "ProjectExplorer/ProjectItem.h"
-#include <QMimeData>
+#include <QtGui/QColor>
+#include <QtCore/QMimeData>
 #include "ObjectDragDropData.h"
 #include "Reflection/Reflection.h"
 #include <stack>
@@ -153,7 +154,8 @@ QVariant PropertyGridModel::data(const QModelIndex& index, int role) const
 	if (role == Qt::BackgroundColorRole) {
 		if (item) {
 			if (item->isGroup() || item->isNested()) {
-				return Qt::gray;
+                QVariant v = QColor(Qt::gray);
+                return v;
 			}
 		}
 	}

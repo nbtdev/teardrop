@@ -21,26 +21,27 @@ is prohibited.
 #include "Core/Input.h"
 #include "Util/FileSystem.h"
 #include "FreeImage.h"
-#include <QDockWidget>
-#include <QVBoxLayout>
-#include <QToolBox>
-#include <QLabel>
-#include <QFileDialog>
-#include <QFile>
-#include <QFileInfo>
-#include <QMessageBox>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QToolBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QFileDialog>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtWidgets/QMessageBox>
 
 #include "MaterialEditor/MaterialEditor.h"
 #include "Viewers/ObjectViewer3D.h"
 #include "Viewers/StaticMeshViewer.h"
 
 #include "Gfx/Material.h"
-#include "ASset/StaticMeshAsset.h"
+#include "Asset/StaticMeshAsset.h"
 
 using namespace Teardrop;
 using namespace Tools;
+using namespace std::placeholders;
 
-Editor::Editor(QWidget *parent, Qt::WFlags flags)
+Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow(parent, flags)
 	, mPropGrid(0)
 	, mProjectExp(0)
@@ -114,10 +115,10 @@ Editor::Editor(QWidget *parent, Qt::WFlags flags)
 	mProject = new Project;
 	mProjectExp->setProject(mProject);
 
-	mProjectExp->SelectionChanged.bind(this, &Editor::onProjectExplorerSelectionChanged);
-	mObjBrowser->ItemClicked.bind(this, &Editor::onProjectExplorerSelectionChanged);
-	mObjBrowser->ItemDoubleClicked.bind(this, &Editor::onObjectBrowserItemDoubleClicked);
-	mProjectExp->SelectionChanged.bind(mObjBrowser, &ObjectBrowser::onItemSelected);
+    mProjectExp->SelectionChanged.bind(std::bind(&Editor::onProjectExplorerSelectionChanged, this, _1));
+    mObjBrowser->ItemClicked.bind(std::bind(&Editor::onProjectExplorerSelectionChanged, this, _1));
+    mObjBrowser->ItemDoubleClicked.bind(std::bind(&Editor::onObjectBrowserItemDoubleClicked, this, _1));
+    mProjectExp->SelectionChanged.bind(std::bind(&ObjectBrowser::onItemSelected, mObjBrowser, _1));
 	connect(mProjectExp, SIGNAL(activePackageChanged(PackageManager*)), this, SLOT(onActivePackageChanged(PackageManager*)));
 
 	// create renderer instance

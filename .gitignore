@@ -11,3 +11,4 @@ sdk/lib
 *.ncb
 tools/bin
 *~
+*autogen

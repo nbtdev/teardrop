@@ -53,8 +53,7 @@ const Objects& Folder::objects() const
 void Folder::setName(const String& name)
 {
 	mName = name;
-	if (NameChanged)
-		NameChanged(name);
+    NameChanged.raise(name);
 }
 
 const String& Folder::name() const

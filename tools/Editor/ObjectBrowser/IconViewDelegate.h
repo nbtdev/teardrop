@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(ICONVIEWDELEGATE_INCLUDED)
 #define ICONVIEWDELEGATE_INCLUDED
 
-#include <QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 
 namespace Teardrop 
 {

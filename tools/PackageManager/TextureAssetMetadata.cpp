@@ -9,6 +9,7 @@ is prohibited.
 #include "Asset/TextureAsset.h"
 #include "FreeImage.h"
 
+using namespace std::placeholders;
 using namespace Teardrop;
 using namespace Tools;
 
@@ -21,12 +22,12 @@ TextureAssetMetadata::TextureAssetMetadata()
 TextureAssetMetadata::TextureAssetMetadata(TextureAsset* asset)
 {
 	mObject = asset;
-	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &TextureAssetMetadata::onPropertyChanged));
+    PropertyChanged.bind(std::bind(&TextureAssetMetadata::onPropertyChanged, this, _1));
 }
 
 TextureAssetMetadata::~TextureAssetMetadata()
 {
-	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &TextureAssetMetadata::onPropertyChanged));
+    PropertyChanged.unbind(std::bind(&TextureAssetMetadata::onPropertyChanged, this, _1));
 }
 
 void TextureAssetMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)

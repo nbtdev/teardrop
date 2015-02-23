@@ -8,9 +8,9 @@ is prohibited.
 #if !defined(OBJECTBROWSER_INCLUDED)
 #define OBJECTBROWSER_INCLUDED
 
-#include <QWidget>
-#include <QObject>
-#include "FastDelegate.h"
+#include "Util/Event.h"
+#include <QtWidgets/QWidget>
+#include <QtCore/QObject>
 
 class QtListView;
 class QtIconView;
@@ -41,8 +41,8 @@ namespace Teardrop
 			// this is temporary, we should not be showing objects in project tree
 			void onItemSelected(ProjectItem* current);
 
-			fastdelegate::FastDelegate1<ProjectItem*> ItemClicked;
-			fastdelegate::FastDelegate1<ProjectItem*> ItemDoubleClicked;
+            Event<ProjectItem*> ItemClicked;
+            Event<ProjectItem*> ItemDoubleClicked;
 
 		protected:
 			QtListView* mListView;

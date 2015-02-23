@@ -8,7 +8,7 @@ is prohibited.
 #ifndef RENDERWINDOW_H
 #define RENDERWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 
 class QTimer;
 

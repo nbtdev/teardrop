@@ -13,14 +13,14 @@ is prohibited.
 #include "PackageManager/PackageManager.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/ClassDef.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QListView>
-#include <QPushButton>
-#include <QSplitter>
-#include <QSpacerItem>
-#include <QMenu>
-#include <QDragEnterEvent>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QListView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSplitter>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QMenu>
+#include <QtGui/QDragEnterEvent>
 
 // hopefully temp...
 #include "Gfx/Material.h"
@@ -299,15 +299,11 @@ void ObjectBrowser::onCmdVSplit()
 void ObjectBrowser::onItemClicked(const QModelIndex& index)
 {
 	ProjectItem* item = static_cast<ProjectItem*>(index.internalPointer());
-	if (ItemClicked) {
-		ItemClicked(item);
-	}
+    ItemClicked.raise(item);
 }
 
 void ObjectBrowser::onItemDoubleClicked(const QModelIndex& index)
 {
 	ProjectItem* item = static_cast<ProjectItem*>(index.internalPointer());
-	if (ItemDoubleClicked) {
-		ItemDoubleClicked(item);
-	}
+    ItemDoubleClicked.raise(item);
 }

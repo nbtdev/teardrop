@@ -7,7 +7,7 @@ is prohibited.
 
 #include "ListViewDelegate.h"
 #include "ProjectExplorer/ProjectItem.h"
-#include <QPainter>
+#include <QtGui/QPainter>
 
 using namespace Teardrop;
 using namespace Tools;

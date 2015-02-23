@@ -393,8 +393,13 @@ void StringUtil::toString(const Reflection::PointerPropertyBase& /*in*/, String&
 {
 }
 
+namespace Teardrop
+{
+
 std::ostream& operator<<(std::ostream& os, const String& s)
 {
     os.write((const char*)s, s.length());
     return os;
 }
+
+} // namespace Teardrop

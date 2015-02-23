@@ -27,9 +27,7 @@ Metadata::~Metadata()
 void Metadata::notifyPropertyChangedLocal(const Reflection::PropertyDef* prop)
 {
 	if (String("Name") == prop->getName()) {
-		if (NameChanged) {
-			NameChanged((const char*)getName());
-		}
+        NameChanged.raise((const char*)getName());
 	}
 }
 

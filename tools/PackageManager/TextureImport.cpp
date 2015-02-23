@@ -10,6 +10,7 @@ is prohibited.
 #include "Asset/TextureAsset.h"
 #include "FreeImage.h"
 #include "squish.h"
+#include <cstring>
 
 namespace Teardrop {
 namespace Tools {

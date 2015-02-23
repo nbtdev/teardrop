@@ -8,7 +8,9 @@ is prohibited.
 #include "AttributeMapAssetMetadata.h"
 #include "Asset/AttributeMapAsset.h"
 #include "FreeImage.h"
+#include <cstring>
 
+using namespace std::placeholders;
 using namespace Teardrop;
 using namespace Tools;
 
@@ -21,12 +23,12 @@ AttributeMapAssetMetadata::AttributeMapAssetMetadata()
 AttributeMapAssetMetadata::AttributeMapAssetMetadata(AttributeMapAsset* asset)
 {
 	mObject = asset;
-	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &AttributeMapAssetMetadata::onPropertyChanged));
+    PropertyChanged.bind(std::bind(&AttributeMapAssetMetadata::onPropertyChanged, this, _1));
 }
 
 AttributeMapAssetMetadata::~AttributeMapAssetMetadata()
 {
-	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &AttributeMapAssetMetadata::onPropertyChanged));
+    PropertyChanged.unbind(std::bind(&AttributeMapAssetMetadata::onPropertyChanged, this, _1));
 }
 
 void AttributeMapAssetMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)

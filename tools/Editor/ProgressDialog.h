@@ -8,9 +8,8 @@ is prohibited.
 #if !defined(PROGRESSDIALOG_INCLUDED)
 #define PROGRESSDIALOG_INCLUDED
 
-#include <QProgressDialog>
+#include <QtWidgets/QProgressDialog>
 #include "ProgressFeedback.h"
-#include "FastDelegate.h"
 
 namespace Teardrop 
 {
