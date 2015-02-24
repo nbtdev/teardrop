@@ -44,8 +44,7 @@ bool CountdownTrigger::update(float deltaT)
 			m_countdownTimer = m_secondsUntilFire;
 
 		// fire the trigger
-		if (!Fire.empty())
-			Fire(this);	
+        Fire.raise(this);
 	}
 
 	return true;

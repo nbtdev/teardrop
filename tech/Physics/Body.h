@@ -9,9 +9,6 @@ is prohibited.
 #define BODY_INCLUDED
 
 #include "Math/Vector4.h"
-#include "Resource/Resource.h"
-#include "Serialization/SerialPointer.h"
-#include "Serialization/Serialization.h"
 #include "Memory/Allocators.h"
 #include <vector>
 #include <list>
@@ -21,15 +18,9 @@ namespace Teardrop
 	class Shape;
 	class Vector4;
 	class Transform;
-	class Stream;
-	class ResourceSerializer;
-	struct FourCC;
 
 	class Body 
-		: public Resource
 	{
-		DECLARE_SERIALIZABLE(Body);
-
 	public:
 		enum MotionType
 		{
@@ -37,8 +28,6 @@ namespace Teardrop
 			DYNAMIC,
 			KEYFRAMED
 		};
-
-		static const FourCC& RESOURCE_TYPE;
 
 		//! normal c'tor (cannot fail)
 		Body();
@@ -75,10 +64,6 @@ namespace Teardrop
 		virtual void setWorldTransform(const Transform& xform);
 		virtual void setUserData(void* pData);
 
-		//! loads body data from stream; owns the data once loaded
-		bool load(Stream& stream);
-		//! release the resource when done with it
-		bool release();
 		bool destroy();
 
 		// make a copy of this object with unique rigid body
@@ -89,20 +74,14 @@ namespace Teardrop
 		typedef std::list<DisplayGeometry> DisplayGeometries;
 		// will return a list of lines (start end start end ...) that describe 
 		// the debug view of the body's geometry
-		virtual bool getDisplayGeometry(DisplayGeometries& geom);
-
-		/**
-			Serialization
-		*/
-		//! package for storage
-		virtual bool serialize(ResourceSerializer& serializer);
+        //virtual bool getDisplayGeometry(DisplayGeometries& geom);
 
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
-		SerialPointer<void> m_pData;
-		SerialPointer<void> m_pUserData;
-		SerialPointer<Shape> m_pShape;
+        void* m_pData;
+        void* m_pUserData;
+        Shape* m_pShape;
 		unsigned int m_dataLen;
 	};
 }

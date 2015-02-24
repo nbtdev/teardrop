@@ -12,3 +12,4 @@ sdk/lib
 tools/bin
 *~
 *autogen
+*.autosave

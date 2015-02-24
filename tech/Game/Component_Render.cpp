@@ -10,20 +10,18 @@ is prohibited.
 #include "Scene.h"
 #include "ZoneObject.h"
 #include "DynamicLight.h"
-#include "Gfx/GfxMesh.h"
-#include "Gfx/GfxSubMesh.h"
-#include "Gfx/GfxMaterial.h"
-#include "Gfx/GfxRenderer.h"
+#include "Gfx/Mesh.h"
+#include "Gfx/Submesh.h"
+#include "Gfx/Material.h"
+#include "Gfx/Renderer.h"
 #include "Gfx/IMeshInstanceProvider.h"
 #include "Util/Hash.h"
-#include "Util/FourCC.h"
 #include "Util/Environment.h"
-#include "Resource/ResourceManager.h"
-#include "Resource/ResourceHandle.h"
 #include <algorithm>
 
 using namespace Teardrop;
 using namespace Reflection;
+using namespace Gfx;
 //---------------------------------------------------------------------------
 TD_CLASS_IMPL(RenderComponent);
 //---------------------------------------------------------------------------
@@ -31,7 +29,7 @@ RenderComponent::RenderComponent()
 {
 	m_pHost = 0;
 	m_bNeedLightsUpdated = false;
-	m_meshInst.m_pShaderConstants = &m_constants;
+    //m_meshInst.m_pShaderConstants = &m_constants;
 }
 //---------------------------------------------------------------------------
 RenderComponent::~RenderComponent()
@@ -48,35 +46,35 @@ void RenderComponent::recalculateLighting()
 	// determine if this mesh instance is lit (by examining the mesh 
 	// materials and overrides
 	setLit(false);
-	GfxMesh* pMesh = AutoResPtr<GfxMesh>(m_meshInst.getMeshHandle());
+    Mesh* pMesh = nullptr;//AutoResPtr<GfxMesh>(m_meshInst.getMeshHandle());
 	if (pMesh)
 	{
-		for (size_t i=0; i<pMesh->getNumSubMeshes(); ++i)
+        for (size_t i=0; i<pMesh->submeshCount(); ++i)
 		{
-			const GfxMaterial* pMtl = m_meshInst.getMaterialByIndex(i);
-			if (!pMtl)
-				pMtl = pMesh->getSubMesh(i)->getMaterial();
+            const Material* pMtl = nullptr;//m_meshInst.getMaterialByIndex(i);
+//			if (!pMtl)
+//                pMtl = pMesh->submesh(i)->getMaterial();
 
-			getLit() |= const_cast<GfxMaterial*>(pMtl)->getLit();
+//            getLit() |= const_cast<Material*>(pMtl)->getLit();
 		}
 	}
 
 	m_bNeedLightsUpdated = getLit();
 }
 //---------------------------------------------------------------------------
-void RenderComponent::setMeshInstance(const GfxMeshInstance& inst)
-{
-	m_meshInst = inst;
-	m_meshInst.m_pShaderConstants = &m_constants;
-	m_meshInst.m_pShader = (const char*)getShaderName();
-	m_meshInst.m_bCastShadows = getShadowCaster();
-	m_meshInst.m_bReceiveShadows = getShadowReceiver();
-	recalculateLighting();
-}
+//void RenderComponent::setMeshInstance(const GfxMeshInstance& inst)
+//{
+//	m_meshInst = inst;
+//	m_meshInst.m_pShaderConstants = &m_constants;
+//	m_meshInst.m_pShader = (const char*)getShaderName();
+//	m_meshInst.m_bCastShadows = getShadowCaster();
+//	m_meshInst.m_bReceiveShadows = getShadowReceiver();
+//	recalculateLighting();
+//}
 //---------------------------------------------------------------------------
 void RenderComponent::updateTransform(const Transform& xform)
 {
-	m_meshInst.setTransform(xform);
+//	m_meshInst.setTransform(xform);
 
 	if (m_pLights.isNull())
 		recalculateLighting();
@@ -90,10 +88,10 @@ bool RenderComponent::initialize()
 	if (!Environment::get().pRenderer)
 		return true; // early out if we are not rendering
 
-	m_meshInst.setTransform(m_pHost->getTransformWS());
-	m_meshInst.m_pShader = (const char*)getShaderName();
-	m_meshInst.m_bCastShadows = getShadowCaster();
-	m_meshInst.m_bReceiveShadows = getShadowReceiver();
+//	m_meshInst.setTransform(m_pHost->getTransformWS());
+//	m_meshInst.m_pShader = (const char*)getShaderName();
+//	m_meshInst.m_bCastShadows = getShadowCaster();
+//	m_meshInst.m_bReceiveShadows = getShadowReceiver();
 
 	if (getMeshName() != "(undefined)")
 	{
@@ -101,9 +99,9 @@ bool RenderComponent::initialize()
 		name += "/";
 		name += getMeshName();
 
-		m_meshInst.setMeshHandle(
-			Environment::get().pResourceMgr->acquire(
-			GfxMesh::RESOURCE_TYPE, name));
+//		m_meshInst.setMeshHandle(
+//			Environment::get().pResourceMgr->acquire(
+//			GfxMesh::RESOURCE_TYPE, name));
 
 		recalculateLighting();
 	}
@@ -112,7 +110,7 @@ bool RenderComponent::initialize()
 //---------------------------------------------------------------------------
 bool RenderComponent::destroy()
 {
-	Environment::get().pResourceMgr->release(m_meshInst.getMeshHandle());
+//	Environment::get().pResourceMgr->release(m_meshInst.getMeshHandle());
 	return true;
 }
 //---------------------------------------------------------------------------
@@ -127,8 +125,8 @@ void RenderComponent::updateMatrixPalette(const Matrix44* pPalette, size_t sz)
 {
 	if (pPalette && sz)
 	{
-		m_meshInst.m_pMatrixPalette = pPalette;
-		m_meshInst.m_numMatrices = sz;
+//		m_meshInst.m_pMatrixPalette = pPalette;
+//		m_meshInst.m_numMatrices = sz;
 	}
 }
 //---------------------------------------------------------------------------
@@ -142,22 +140,22 @@ static bool lightFilter(ZoneObject* pObj)
 	return false;
 }
 //---------------------------------------------------------------------------
-void RenderComponent::queueForRendering(GfxRenderer* pRenderer)
-{
-	// if we are disabled, don't queue any renderables
-	if (!getEnabled())
-		return;
+//void RenderComponent::queueForRendering(GfxRenderer* pRenderer)
+//{
+//	// if we are disabled, don't queue any renderables
+//	if (!getEnabled())
+//		return;
 
-	// queue the one we have 
-	pRenderer->queueForRendering(m_meshInst);
+//	// queue the one we have
+//    pRenderer->queueForRendering(m_meshInst);
 
-	// and then the ones from registered providers
-	for (MeshInstanceProviders::iterator it = m_meshInstProviders.begin();
-		it != m_meshInstProviders.end(); ++it)
-	{
-		(*it)->queueForRendering(pRenderer);
-	}
-}
+//	// and then the ones from registered providers
+//	for (MeshInstanceProviders::iterator it = m_meshInstProviders.begin();
+//		it != m_meshInstProviders.end(); ++it)
+//	{
+//		(*it)->queueForRendering(pRenderer);
+//	}
+//}
 //---------------------------------------------------------------------------
 void RenderComponent::addMeshInstanceProvider(IMeshInstanceProvider* pProvider)
 {
@@ -197,10 +195,10 @@ void RenderComponent::updateLightList(Scene* pScene)
 		for (size_t i=0; i<objects.size(); ++i)
 		{
 			DynamicLight* pLight = static_cast<DynamicLight*>(objects[i]);
-			(*m_pLights)[i] = static_cast<GfxLight*>(pLight);
+            (*m_pLights)[i] = static_cast<Gfx::Light*>(pLight);
 		}
 
-		m_meshInst.m_pLights = (const GfxLight**)&((*m_pLights.get())[0]);
-		m_meshInst.m_numLights = m_pLights->size();
+//		m_meshInst.m_pLights = (const GfxLight**)&((*m_pLights.get())[0]);
+//		m_meshInst.m_numLights = m_pLights->size();
 	}
 }

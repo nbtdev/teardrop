@@ -28,7 +28,7 @@ $(OBJDIR):
 $(OBJDIR)/%.o: %.cpp
 	@echo "  [cxx] $< --> $@"
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
+	@$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
 
 $(OBJDIR)/%.o: %.cc
 	@echo "  [cxx] $< --> $@"

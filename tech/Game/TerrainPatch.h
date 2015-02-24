@@ -9,32 +9,30 @@ is prohibited.
 #define TDTERRAINPATCH_INCLUDED
 
 #include "Game/ZoneObject.h"
-#include "Gfx/GfxMeshInstance.h"
+#include "Gfx/IMeshInstanceProvider.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop
 {
-	class Stream;
 	class TerrainZone;
 	struct TerrainVertex;
 	struct TerrainVertex2;
 	struct TerrainNormal;
 	struct Environment;
-	struct FourCC;
-	class GfxBitmap;
+
+    namespace Gfx {
+        class Bitmap;
+    }
 
 	class TerrainPatch : 
 		public ZoneObject
 	{
-		HResource m_hMesh;
 		TerrainVertex* m_pVertexBuffer;
 		TerrainNormal* m_pNormalBuffer;
 		short* m_pIndexBuffer;
 		TerrainZone* m_pOwner;
 
 	public:
-		static const FourCC& FOURCC;
-
 		TD_CLASS(TerrainPatch, ZoneObject);
 
 		TerrainPatch();
@@ -46,7 +44,7 @@ namespace Teardrop
 		//! create patch from source heightmap data
 		bool create(
 			TerrainZone* pOwner, 
-			const GfxBitmap& heightmap,
+            const Gfx::Bitmap& heightmap,
 			size_t x, 
 			size_t y);
 

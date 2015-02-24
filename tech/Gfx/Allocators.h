@@ -14,7 +14,8 @@ is prohibited.
 
 namespace Teardrop
 {
-	//! vertex element semantics -- limited to 8 different semantics
+#if 0
+    //! vertex element semantics -- limited to 8 different semantics
 	enum VertexElementSemantic
 	{
 		UNUSED			= 0,
@@ -71,7 +72,7 @@ namespace Teardrop
 	// generic handle type used by non-Gfx clients to reference Gfx objects
 	//const unsigned int INVALID_GFX_HANDLE = 0xFFFFFFFF;
 	//typedef unsigned int GfxHandle;
-
+#endif
 	// put all graphics allocations on 16-byte boundaries
 	const size_t DEFAULT_GFX_ALIGNMENT = 16;
 

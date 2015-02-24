@@ -13,7 +13,7 @@ TD_CLASS_IMPL(DirectionalLight);
 //---------------------------------------------------------------------------
 DirectionalLight::DirectionalLight()
 {
-	setType(GfxLight::LT_DIRECTIONAL);
+    setType(Gfx::Light::LT_DIRECTIONAL);
 }
 //---------------------------------------------------------------------------
 DirectionalLight::~DirectionalLight()

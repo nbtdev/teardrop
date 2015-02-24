@@ -8,7 +8,6 @@ is prohibited.
 #if !defined(COMPONENT_ANIMATION_INCLUDED)
 #define COMPONENT_ANIMATION_INCLUDED
 
-#include "Resource/ResourceHandle.h"
 #include <map>
 #include "Game/Component.h"
 #include "Memory/Allocators.h"
@@ -16,17 +15,17 @@ is prohibited.
 namespace Teardrop
 {
 	struct Environment;
-	class ZoneObject;
+    class Animation;
 	class AnimationBlender;
-	class SkeletonInstance;
 	class Matrix44;
 	class Quaternion;
+    class SkeletonInstance;
+    class ZoneObject;
 
 	class AnimationComponent
 		: public Component
 	{
-        //HResource m_hRig;
-		typedef std::map<String, HResource> AnimationLUT;
+        typedef std::map<String, Animation*> AnimationLUT;
 		AnimationLUT m_lut;
 		AnimationBlender* m_pBlender;
 

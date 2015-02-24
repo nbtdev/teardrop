@@ -225,8 +225,8 @@ namespace Teardrop
 	TD_VECTOR_PROPERTY_BASE(propName, propDesc, Reflection::CollectionPropertyType, containedType, , 0) \
 	public: \
 		t##propName##Type& get##propName() { return ___##propName; } \
-		bool get##propName##At(int index, /*out*/##containedType& lval) { return ___##propName.getAt(index, lval); } \
-		void set##propName##At(int index, /*in*/##containedType& rval) { ___##propName.setAt(index, rval); } \
+        bool get##propName##At(int index, containedType& lval) { return ___##propName.getAt(index, lval); } \
+        void set##propName##At(int index, containedType& rval) { ___##propName.setAt(index, rval); } \
 
 #define TD_POINTER_COLLECTION(propName, propDesc, pointerType) \
 	TD_VECTOR_PROPERTY_BASE(propName, propDesc, Reflection::PointerCollectionPropertyType, pointerType, , ObjectCollectionBrowser) \

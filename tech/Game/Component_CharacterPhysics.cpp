@@ -16,12 +16,6 @@ is prohibited.
 #include "Util/Hash.h"
 #include "Util/Environment.h"
 #include "Util/SystemManager.h"
-#include "Resource/ResourceManager.h"
-#include "Gfx/GfxMesh.h"
-#include "Gfx/GfxSubMesh.h"
-#include "Gfx/GfxVertexFormat.h"
-#include "Gfx/GfxVertexData.h"
-#include "Gfx/GfxMaterial.h"
 #include "Memory/Memory.h"
 #include "Memory/Allocators.h"
 #include "Physics/Physics.h"
@@ -83,13 +77,13 @@ bool CharacterPhysicsComponent::initialize()
 		pathname += "/";
 		pathname += getRagdollName();
 
-		HResource hRagdoll = Environment::get().pResourceMgr->acquire(
-			Ragdoll::RESOURCE_TYPE, pathname);
+//		HResource hRagdoll = Environment::get().pResourceMgr->acquire(
+//			Ragdoll::RESOURCE_TYPE, pathname);
 
 		RagdollSystem* pSys = static_cast<RagdollSystem*>(
 			Environment::get().pSystemMgr->getActiveSystem(System::SYSTEM_RAGDOLL));
 		m_pRagdoll = pSys->createController();
-		m_pRagdoll->initialize(hRagdoll);
+        m_pRagdoll->initialize(/*hRagdoll*/);
 		m_pRagdoll->setUserData(static_cast<PhysicsComponent*>(this));
 	}
 
@@ -217,6 +211,7 @@ void CharacterPhysicsComponent::driveRagdoll(
 	if (m_pRagdoll) 
 		m_pRagdoll->drive(deltaT, pBlender, xform);
 }
+#if 0
 //---------------------------------------------------------------------------
 void CharacterPhysicsComponent::initializeDebugMesh()
 {
@@ -277,3 +272,4 @@ void CharacterPhysicsComponent::initializeDebugMesh()
 
 	m_bDebugMeshInitialized = true;
 }
+#endif

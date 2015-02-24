@@ -8,8 +8,7 @@ is prohibited.
 #if !defined(COMPONENT_RENDER_INCLUDED)
 #define COMPONENT_RENDER_INCLUDED
 
-#include "Gfx/GfxMeshInstance.h"
-#include "Gfx/GfxShaderConstantTable.h"
+#include "Gfx/ShaderConstantTable.h"
 #include "Memory/Allocators.h"
 #include "Game/Component.h"
 #include "Util/SharedPointer.h"
@@ -21,15 +20,21 @@ namespace Teardrop
 	struct Environment;
 	class ZoneObject;
 	class Scene;
-	class IMeshInstanceProvider;
+    class Matrix44;
+
+    namespace Gfx {
+        class IMeshInstanceProvider;
+        class Renderer;
+        class Light;
+    }
 
 	class RenderComponent 
 		: public Component
 	{
-		GfxMeshInstance m_meshInst;
-		GfxShaderConstantTable m_constants;
+//		GfxMeshInstance m_meshInst;
+        Gfx::ShaderConstantTable m_constants;
 		
-		typedef std::list<IMeshInstanceProvider*> MeshInstanceProviders;
+        typedef std::list<Gfx::IMeshInstanceProvider*> MeshInstanceProviders;
 		MeshInstanceProviders m_meshInstProviders;
 
 	public:
@@ -53,22 +58,22 @@ namespace Teardrop
 		bool update(float deltaT);
 		void updateTransform(const Transform& xform);
 
-		GfxMeshInstance& getMeshInstance() { return m_meshInst; }
-		void setMeshInstance(const GfxMeshInstance& inst); // call with caution
+//		GfxMeshInstance& getMeshInstance() { return m_meshInst; }
+//		void setMeshInstance(const GfxMeshInstance& inst); // call with caution
 		void updateMatrixPalette(const Matrix44* pPalette, size_t sz);
 
 		//! dynamic light support -- lightweight call if object not lit
 		void updateLightList(Scene* pScene);
 
 		// return mutable reference to our shader constant table
-		GfxShaderConstantTable& getShaderConstants() { return m_constants; }
+        Gfx::ShaderConstantTable& getShaderConstants() { return m_constants; }
 
 		// queue all mesh instances for rendering
-		void queueForRendering(GfxRenderer* pRenderer);
+        void queueForRendering(Gfx::Renderer* pRenderer);
 
 		// add/remove mesh instance providers
-		void addMeshInstanceProvider(IMeshInstanceProvider*);
-		void removeMeshInstanceProvider(IMeshInstanceProvider*);
+        void addMeshInstanceProvider(Gfx::IMeshInstanceProvider*);
+        void removeMeshInstanceProvider(Gfx::IMeshInstanceProvider*);
 
 		TD_DECLARE_ALLOCATOR();
 
@@ -76,7 +81,7 @@ namespace Teardrop
 		// call this if you change the "lit" properties of the materials for the mesh instance
 		void recalculateLighting();
 
-		typedef std::vector<GfxLight*> LightList;
+        typedef std::vector<Gfx::Light*> LightList;
 		typedef Teardrop::SharedPointer<LightList> LightListPtr;
 		LightListPtr m_pLights;
 

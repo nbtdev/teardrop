@@ -6,18 +6,18 @@ is prohibited.
 ****************************************************************************/
 
 
-#include "GfxLight.h"
-#include "GfxCamera.h"
-#include "GfxRenderConfig.h"
-#include "GfxRenderTarget.h"
-#include "GfxRenderer.h"
+#include "Light.h"
+#include "Camera.h"
+#include "RenderTarget.h"
+#include "Renderer.h"
 #include "Math/MathUtil.h"
 #include "Util/Environment.h"
 #include <assert.h>
 
 using namespace Teardrop;
+using namespace Gfx;
 //---------------------------------------------------------------------------
-GfxLight::GfxLight()
+Light::Light()
 {
 	// defaults: white point light with range 1000 and no attentuation
 	m_type = LT_POINT;
@@ -36,33 +36,33 @@ GfxLight::GfxLight()
 	m_pShadowCam = 0;
 }
 //---------------------------------------------------------------------------
-GfxLight::~GfxLight()
+Light::~Light()
 {
-	if (m_pShadowTexture)
-		Environment::get().pRenderer->destroyRenderTarget(m_pShadowTexture);
+//	if (m_pShadowTexture)
+//		Environment::get().pRenderer->destroyRenderTarget(m_pShadowTexture);
 }
 //---------------------------------------------------------------------------
-const Vector4& GfxLight::getPosition() const
+const Vector4& Light::getPosition() const
 {
 	return Vector4::ZERO;
 }
 //---------------------------------------------------------------------------
-const Vector4& GfxLight::getDirection() const
+const Vector4& Light::getDirection() const
 {
 	return m_direction;
 }
 //---------------------------------------------------------------------------
-GfxLight::Type GfxLight::getType() const
+Light::Type Light::getType() const
 {
 	return m_type;
 }
 //---------------------------------------------------------------------------
-float GfxLight::getRange() const
+float Light::getRange() const
 {
 	return m_range;
 }
 //---------------------------------------------------------------------------
-void GfxLight::getAttenuation(
+void Light::getAttenuation(
 	float& /*out*/constant, float& /*out*/linear, float& /*out*/quadratic) const
 {
 	constant = m_constant;
@@ -70,14 +70,14 @@ void GfxLight::getAttenuation(
 	quadratic = m_quadratic;
 }
 //---------------------------------------------------------------------------
-void GfxLight::getSpotParams(
+void Light::getSpotParams(
 	float& /*out*/innerAngle, float& /*out*/outerAngle) const
 {
 	innerAngle = m_innerAngle;
 	outerAngle = m_outerAngle;
 }
 //---------------------------------------------------------------------------
-void GfxLight::getColor(
+void Light::getColor(
 	float& /*out*/r, float& /*out*/g, float& /*out*/b) const
 {
 	r = m_red;
@@ -85,7 +85,7 @@ void GfxLight::getColor(
 	b = m_blue;
 }
 //---------------------------------------------------------------------------
-void GfxLight::getColor(
+void Light::getColor(
 	unsigned char& /*out*/r, unsigned char& /*out*/g, unsigned char& /*out*/b) const
 {
 	r = (unsigned char)(255.0f * m_red);
@@ -93,78 +93,78 @@ void GfxLight::getColor(
 	b = (unsigned char)(255.0f * m_blue);
 }
 //---------------------------------------------------------------------------
-void GfxLight::setDirection(const Vector4& direction)
+void Light::setDirection(const Vector4& direction)
 {
 	m_direction = direction;
 }
 //---------------------------------------------------------------------------
-void GfxLight::setType(Type type)
+void Light::setType(Type type)
 {
 	m_type = type;
 }
 //---------------------------------------------------------------------------
-void GfxLight::setRange(float range)
+void Light::setRange(float range)
 {
 	assert(range > 0);
 	m_range = range;
 }
 //---------------------------------------------------------------------------
-void GfxLight::setAttenuation(float constant, float linear, float quadratic)
+void Light::setAttenuation(float constant, float linear, float quadratic)
 {
 	m_constant = constant;
 	m_linear = linear;
 	m_quadratic = quadratic;
 }
 //---------------------------------------------------------------------------
-void GfxLight::setSpotParams(float innerAngle, float outerAngle)
+void Light::setSpotParams(float innerAngle, float outerAngle)
 {
 	m_innerAngle = innerAngle;
 	m_outerAngle = outerAngle;
 }
 //---------------------------------------------------------------------------
-void GfxLight::setColor(float r, float g, float b)
+void Light::setColor(float r, float g, float b)
 {
 	m_red = r;
 	m_green = g;
 	m_blue = b;
 }
 //---------------------------------------------------------------------------
-void GfxLight::setColor(unsigned char r, unsigned char g, unsigned char b)
+void Light::setColor(unsigned char r, unsigned char g, unsigned char b)
 {
 	float oo255 = 1 / 255.0f;
 	setColor((float)r * oo255, (float)g * oo255, (float)b * oo255);
 }
 //---------------------------------------------------------------------------
-const GfxRenderTarget* GfxLight::getShadowTexture() const
+const Gfx::RenderTarget* Light::getShadowTexture() const
 {
 	return m_pShadowTexture;
 }
 //---------------------------------------------------------------------------
-GfxRenderTarget* GfxLight::getShadowTexture()
+Gfx::RenderTarget* Light::getShadowTexture()
 {
 	if (!m_pShadowTexture)
 	{
 		// create one with purely arbitrary cfg values (the renderer will 
 		// change the render target as needed)
-		GfxRenderConfig cfg;
-		cfg.width = 512;
-		cfg.height = 512;
-		m_pShadowTexture = 
-			Environment::get().pRenderer->createRenderTarget(
-			cfg, 
-			FMT_FLOAT32,
-			GfxRenderer::RT_TEXTURE);
+//		GfxRenderConfig cfg;
+//		cfg.width = 512;
+//		cfg.height = 512;
+//		m_pShadowTexture =
+//			Environment::get().pRenderer->createRenderTarget(
+//			cfg,
+//			FMT_FLOAT32,
+//			GfxRenderer::RT_TEXTURE);
 	}
 
 	return m_pShadowTexture;
 }
 //---------------------------------------------------------------------------
-void GfxLight::setShadowCamera(GfxCamera* pCam)
+void Light::setShadowCamera(Gfx::Camera* pCam)
 {
 	m_pShadowCam = pCam;
 }
 //---------------------------------------------------------------------------
-GfxCamera* GfxLight::getShadowCamera()
+Gfx::Camera* Light::getShadowCamera()
 {
 	//if (!m_pShadowCam)
 	//{
@@ -175,12 +175,12 @@ GfxCamera* GfxLight::getShadowCamera()
 	return m_pShadowCam;
 }
 //---------------------------------------------------------------------------
-const GfxCamera* GfxLight::getShadowCamera() const
+const Gfx::Camera* Light::getShadowCamera() const
 {
 	return m_pShadowCam;
 }
 //---------------------------------------------------------------------------
-void GfxLight::createShadowCamera()
+void Light::createShadowCamera()
 {
 	if (m_pShadowCam)
 	{
@@ -188,7 +188,7 @@ void GfxLight::createShadowCamera()
 		m_pShadowCam->destroy();
 		delete m_pShadowCam;
 
-		m_pShadowCam = TD_NEW GfxCamera;
+        m_pShadowCam = TD_NEW Gfx::Camera;
 		m_pShadowCam->initialize();
 	}
 

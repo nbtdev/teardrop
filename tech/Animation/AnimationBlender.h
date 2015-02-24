@@ -8,7 +8,6 @@ is prohibited.
 #if !defined(ANIMATIONBLENDER_INCLUDED)
 #define ANIMATIONBLENDER_INCLUDED
 
-#include "Resource/ResourceHandle.h"
 #include "Math/Matrix44.h"
 #include "Util/_String.h"
 #include "Memory/Memory.h"
@@ -16,6 +15,7 @@ is prohibited.
 
 namespace Teardrop
 {
+    class Rig;
 	class Matrix44;
 	class Quaternion;
 	class Vector4;
@@ -31,7 +31,7 @@ namespace Teardrop
 		//! d'tor (cannot fail)
 		virtual ~AnimationBlender();
 
-		virtual bool initialize(HResource hRig, const BlendGraph& def);
+        virtual bool initialize(Rig* rig, const BlendGraph& def);
 		virtual bool destroy();
 		virtual bool advance(float timeStep);
 		virtual bool transitionToState(const String& stateName);
@@ -55,7 +55,7 @@ namespace Teardrop
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
-		HResource m_hRig;
+        Rig* m_pRig;
 		size_t m_instanceIdx;
 
 	private:

@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(TRIGGER_INCLUDED)
 #define TRIGGER_INCLUDED
 
-#include "FastDelegate.h"
+#include "Util/Event.h"
 
 namespace Teardrop
 {
@@ -22,7 +22,7 @@ namespace Teardrop
 		Trigger();
 		virtual ~Trigger();
 
-		fastdelegate::FastDelegate1<Trigger*> Fire;
+        Event<Trigger*> Fire;
 
 		//! returns false if the trigger is disabled~
 		virtual bool update(float deltaT) = 0;

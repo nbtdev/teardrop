@@ -8,19 +8,14 @@ is prohibited.
 #if !defined(RIG_INCLUDED)
 #define RIG_INCLUDED
 
-#include "Serialization/Serialization.h"
-#include "Serialization/SerialPointer.h"
-#include "Resource/Resource.h"
 #include "Memory/Memory.h"
 
 namespace Teardrop
 {
 	class Bone;
 	class SkeletonInstance;
-	class Stream;
-	class ResourceSerializer;
 
-	class Rig : public Resource
+    class Rig
 	{
 	public:
 		enum SkeletonInstanceHandleType
@@ -48,21 +43,10 @@ namespace Teardrop
 		virtual size_t createInstance();
 		virtual SkeletonInstance* getInstance(size_t idx);
 
-		//! loads rig data from stream; owns the data once loaded
-		bool load(Stream& stream);
-		//! release the resource when done with it
-		bool release();
-
-		/**
-			Serialization
-		*/
-		//! package for storage
-		virtual bool serialize(ResourceSerializer& serializer);
-
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
-		SerialPointer<void> m_pData;
+        void* m_pData;
 		unsigned int m_dataLen;
 	};
 }

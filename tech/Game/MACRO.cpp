@@ -13,7 +13,6 @@ is prohibited.
 #include "Component_Interpolator.h"
 #include "Component_CameraInterface.h"
 #include "Animation/AnimationBlender.h"
-#include "Gfx/GfxMesh.h"
 #include "Physics/Body.h"
 #include "Stream/Stream.h"
 #include "Math/MathUtil.h"

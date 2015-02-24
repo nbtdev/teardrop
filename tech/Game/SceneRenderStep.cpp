@@ -10,8 +10,8 @@ is prohibited.
 #include "Zone.h"
 #include "ZoneObject.h"
 #include "Component_Render.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxRenderTarget.h"
+#include "Gfx/Renderer.h"
+#include "Gfx/RenderTarget.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/ClassDef.h"
 
@@ -26,16 +26,16 @@ SceneRenderStep::~SceneRenderStep()
 }
 //---------------------------------------------------------------------------
 void SceneRenderStep::render(
-	const VisibleObjects& objects, GfxRenderer* pRend, Scene* pScene)
+    const VisibleObjects& objects, Gfx::Renderer* pRend, Scene* pScene)
 {
 	if (!m_pCamera)
 		return;
 
 	// then update/render the main scene
-	pRend->setRenderMode(GfxRenderer::RENDER_DEFAULT);
+    //pRend->setRenderMode(Gfx::Renderer::RENDER_DEFAULT);
 	pRend->setRenderTarget(m_pRT);
-	pRend->clearRenderTarget(); // clears all 
-	pRend->setColorWrite(true);
+//	pRend->clearRenderTarget(); // clears all
+//	pRend->setColorWrite(true);
 	pRend->beginScene(m_pCamera, m_pVP);
 
 	// first, find out if there is anything to render

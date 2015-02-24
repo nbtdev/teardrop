@@ -8,7 +8,6 @@ is prohibited.
 #if !defined(BLENDGRAPH_INCLUDED)
 #define BLENDGRAPH_INCLUDED
 
-#include "Resource/ResourceHandle.h"
 #include "Util/_String.h"
 #include "Memory/Memory.h"
 #include <vector>
@@ -63,8 +62,6 @@ namespace Teardrop
 		Transitions m_transitions;
 
 		String m_initState;
-
-		static bool load(const String& filename, BlendGraph& graph);
 		void reset();
 
 	private:

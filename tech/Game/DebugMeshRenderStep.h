@@ -16,16 +16,18 @@ namespace Teardrop
 		Render step that renders the physics debug meshes
 	*/
 
-	class GfxCamera;
-	class GfxViewport;
-	class GfxRenderTarget;
+    namespace Gfx {
+        class Camera;
+        class Viewport;
+        class RenderTarget;
+    }
 
 	class DebugMeshRenderStep
 		: public RenderStep
 	{
-		GfxCamera* m_pCam;
-		GfxViewport* m_pVP;
-		GfxRenderTarget* m_pRT;
+        Gfx::Camera* m_pCam;
+        Gfx::Viewport* m_pVP;
+        Gfx::RenderTarget* m_pRT;
 		bool m_bEnabled;
 
 	public:
@@ -36,12 +38,12 @@ namespace Teardrop
 		bool isEnabled() { return m_bEnabled; }
 		void toggleEnabled() { m_bEnabled = !m_bEnabled; }
 
-		void setCamera(GfxCamera* pCam) { m_pCam = pCam; }
-		void setViewport(GfxViewport* pVP) { m_pVP = pVP; }
-		void setRenderTarget(GfxRenderTarget* pRT) { m_pRT = pRT; }
+        void setCamera(Gfx::Camera* pCam) { m_pCam = pCam; }
+        void setViewport(Gfx::Viewport* pVP) { m_pVP = pVP; }
+        void setRenderTarget(Gfx::RenderTarget* pRT) { m_pRT = pRT; }
 
 		// RenderStep implementation
-		void render(const VisibleObjects& objects, GfxRenderer* pRenderer, Scene* pScene);
+        void render(const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* pScene);
 
 		TD_DECLARE_ALLOCATOR();
 	};

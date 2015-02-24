@@ -9,17 +9,11 @@ is prohibited.
 #include "Body.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
-#include "Util/SystemManager.h"
-#include "Util/System.h"
+//#include "Util/SystemManager.h"
+//#include "Util/System.h"
 #include "Memory/Allocators.h"
-#include "Stream/Stream.h"
-#include "Util/FourCC.h"
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(Body);
-//---------------------------------------------------------------------------
-const FourCC& Body::RESOURCE_TYPE = FourCC('R','B','D',' ');
 //---------------------------------------------------------------------------
 Body::Body()
 {
@@ -110,29 +104,29 @@ void Body::setAngularVelocity(const Vector4& /*vel*/)
 void Body::setWorldTransform(const Transform& /*xform*/)
 {
 }
-//---------------------------------------------------------------------------
-bool Body::load(Stream& strm)
-{
-	Teardrop::System* pSys = 
-		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_PHYSICS);
+////---------------------------------------------------------------------------
+//bool Body::load(Stream& strm)
+//{
+//	Teardrop::System* pSys =
+//		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_PHYSICS);
 
-	// load the whole stream and own the data once loaded
-	if (m_pData)
-	{
-		pSys->getAllocator()->Deallocate(m_pData);
-	}
+//	// load the whole stream and own the data once loaded
+//	if (m_pData)
+//	{
+//		pSys->getAllocator()->Deallocate(m_pData);
+//	}
 
-	unsigned int len = (unsigned int)strm.length();
-	m_pData = pSys->getAllocator()->AllocateAligned(len, 16 TD_ALLOC_SITE);
-	strm.read(m_pData, len);
+//	unsigned int len = (unsigned int)strm.length();
+//	m_pData = pSys->getAllocator()->AllocateAligned(len, 16 TD_ALLOC_SITE);
+//	strm.read(m_pData, len);
 
-	return initialize(m_pData, len);
-}
-//---------------------------------------------------------------------------
-bool Body::serialize(ResourceSerializer& /*ser*/)
-{
-	return false;
-}
+//	return initialize(m_pData, len);
+//}
+////---------------------------------------------------------------------------
+//bool Body::serialize(ResourceSerializer& /*ser*/)
+//{
+//	return false;
+//}
 //---------------------------------------------------------------------------
 void* Body::getUserData()
 {

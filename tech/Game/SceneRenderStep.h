@@ -17,26 +17,29 @@ namespace Teardrop
 		of the scene
 	*/
 
-	class GfxViewport;
-	class GfxRenderTarget;
+    namespace Gfx {
+        class Viewport;
+        class RenderTarget;
+    }
+
 	class Scene;
 
 	class SceneRenderStep
 		: public RenderStep
 	{
-		GfxViewport* m_pVP;
-		GfxRenderTarget* m_pRT;
+        Gfx::Viewport* m_pVP;
+        Gfx::RenderTarget* m_pRT;
 		Scene* m_pScene;
 
 	public:
 		SceneRenderStep();
 		~SceneRenderStep();
 
-		void setViewport(GfxViewport* pVP) { m_pVP = pVP; }
-		void setRenderTarget(GfxRenderTarget* pRT) { m_pRT = pRT; }
+        void setViewport(Gfx::Viewport* pVP) { m_pVP = pVP; }
+        void setRenderTarget(Gfx::RenderTarget* pRT) { m_pRT = pRT; }
 
 		// RenderStep implementation
-		void render(const VisibleObjects& objects, GfxRenderer* pRenderer, Scene* pScene);
+        void render(const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* pScene);
 
 		TD_DECLARE_ALLOCATOR();
 	};

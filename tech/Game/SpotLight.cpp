@@ -13,7 +13,7 @@ TD_CLASS_IMPL(SpotLight);
 //---------------------------------------------------------------------------
 SpotLight::SpotLight()
 {
-	setType(GfxLight::LT_SPOT);
+    setType(Gfx::Light::LT_SPOT);
 }
 //---------------------------------------------------------------------------
 SpotLight::~SpotLight()

@@ -122,7 +122,7 @@ bool ParticleSystem::update(float deltaT)
 	if (findComponents(
 		RenderComponent::getClassDef(), (Component**)&pRenderable))
 	{
-		pRenderable->setMeshInstance(pRenderer->getMeshInstance());
+//		pRenderable->setMeshInstance(pRenderer->getMeshInstance());
 	}
 
 	return ZoneObject::update(deltaT);

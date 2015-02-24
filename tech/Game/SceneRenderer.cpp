@@ -11,7 +11,7 @@ is prohibited.
 #include "Zone.h"
 #include "ZoneObject.h"
 #include "Component_Render.h"
-#include "Gfx/GfxRenderer.h"
+#include "Gfx/Renderer.h"
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -35,9 +35,9 @@ void SceneRenderer::addStep(RenderStep* pStep)
 //---------------------------------------------------------------------------
 void SceneRenderer::render(
 	const ZoneObjects& visibleObjects, 
-	GfxRenderer* pRenderer,
+    Gfx::Renderer* pRenderer,
 	Scene* pScene,
-	GfxCamera* pViewCam)
+    Gfx::Camera* pViewCam)
 {
 	if (!pRenderer)
 		return;

@@ -37,6 +37,7 @@ LIBS += \
 	HFZ \
 	Asset \
 	Core \
+	Game \
 	Gfx \
 	Math \
 	Memory \

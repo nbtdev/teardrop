@@ -11,6 +11,7 @@ is prohibited.
 #include "Util/Environment.h"
 
 using namespace Teardrop;
+using namespace std::placeholders;
 //---------------------------------------------------------------------------
 TD_CLASS_IMPL(AudioComponent);
 //---------------------------------------------------------------------------
@@ -86,7 +87,7 @@ void AudioComponent::play2D(size_t idx, float delay, bool finishPlayingBy)
 
 
 			// connect our play callback
-			m_sfx[idx].pDelayTrigger->Fire.bind(this, &AudioComponent::play);
+            m_sfx[idx].pDelayTrigger->Fire.bind(std::bind(&AudioComponent::play, this, _1));
 		}
 
 		m_sfx[idx].pDelayTrigger->setEnabled(true);

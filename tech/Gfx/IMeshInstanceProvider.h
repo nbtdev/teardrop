@@ -10,13 +10,15 @@ is prohibited.
 
 namespace Teardrop
 {
-	class GfxRenderer;
+    namespace Gfx {
+        class Renderer;
 
-	class IMeshInstanceProvider
-	{
-	public:
-		virtual void queueForRendering(GfxRenderer* pRend) = 0;
-	};
+        class IMeshInstanceProvider
+        {
+        public:
+            virtual void queueForRendering(Renderer* pRend) = 0;
+        };
+    }
 }
 
 #endif // MESHINSTANCEPROVIDER_INCLUDED

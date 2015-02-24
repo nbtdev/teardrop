@@ -38,6 +38,7 @@ namespace Teardrop
 		TD_DECLARE_ALLOCATOR();
 
 	private:
+        ZoneObject* mTarget;
 	};
 }
 

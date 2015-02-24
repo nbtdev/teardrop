@@ -15,14 +15,17 @@ is prohibited.
 
 namespace Teardrop
 {
-	class GfxMaterial;
+    namespace Gfx {
+        class Material;
+    }
+
 	class Body;
 	class Shape;
 
 	class TerrainZone 
 		: public Zone
 	{
-		GfxMaterial* m_pTerrainMtl;
+        Gfx::Material* m_pTerrainMtl;
 		Body* m_pHeightfieldBody;
 		Shape* m_pHeightfieldShape;
 
@@ -52,7 +55,7 @@ namespace Teardrop
 		bool addObject(ZoneObject* pObject);
 		bool removeObject(ZoneObject* pObject);
 		bool getVisibleObjects(const Plane* frustum, ZoneObjects& objects);
-		GfxMaterial* getTerrainMaterial();
+        Gfx::Material* getTerrainMaterial();
 
 		void addSpawnPoint(SpawnPoint* pSpawn);
 		size_t getNumSpawnPoints() const;

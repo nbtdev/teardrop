@@ -7,23 +7,22 @@ is prohibited.
 
 #include "AnimationBlender.h"
 #include "Rig.h"
-#include "Resource/ResourceManager.h"
 #include "Util/Environment.h"
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 AnimationBlender::AnimationBlender()
+    : m_hRig(nullptr)
 {
-	m_hRig = INVALID_RESOURCE_HANDLE;
 }
 //---------------------------------------------------------------------------
 AnimationBlender::~AnimationBlender()
 {
 }
 //---------------------------------------------------------------------------
-bool AnimationBlender::initialize(HResource hRig, const BlendGraph& /*graph*/)
+bool AnimationBlender::initialize(Rig* rig, const BlendGraph& /*graph*/)
 {
-	m_hRig = hRig;
+    m_pRig = rig;
 	return true;
 }
 //---------------------------------------------------------------------------
@@ -44,11 +43,10 @@ bool AnimationBlender::transitionToState(const String& /*stateName*/)
 //---------------------------------------------------------------------------
 SkeletonInstance* AnimationBlender::getSkeletonInstance()
 {
-	Rig* pRig = AutoResPtr<Rig>(m_hRig);
-	if (!pRig)
+    if (!m_pRig)
 		return 0;
 
-	return pRig->getInstance(m_instanceIdx);
+    return m_pRig->getInstance(m_instanceIdx);
 }
 //---------------------------------------------------------------------------
 void AnimationBlender::setAdditionalRotation(

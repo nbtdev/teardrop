@@ -7,15 +7,15 @@ is prohibited.
 
 #include "ParticleSystemRenderer.h"
 #include "ParticleSystem.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxMesh.h"
-#include "Gfx/GfxSubMesh.h"
-#include "Gfx/GfxVertexData.h"
-#include "Gfx/GfxVertexFormat.h"
-#include "Gfx/GfxMaterial.h"
-#include "Gfx/GfxTextureStage.h"
-#include "Gfx/GfxTexture.h"
-#include "Gfx/GfxUtil.h"
+#include "Gfx/Renderer.h"
+#include "Gfx/Mesh.h"
+#include "Gfx/Submesh.h"
+//#include "Gfx/VertexData.h"
+//#include "Gfx/VertexFormat.h"
+#include "Gfx/Material.h"
+//#include "Gfx/TextureStage.h"
+//#include "Gfx/Texture.h"
+//#include "Gfx/Util.h"
 #include "Math/Matrix44.h"
 #include "Math/MathUtil.h"
 #include "Game/Zone.h"
@@ -42,6 +42,7 @@ void ParticleSystemRenderer::onInstanceCreated()
 //---------------------------------------------------------------------------
 bool ParticleSystemRenderer::initialize()
 {
+#if 0
 	// initialize the "reference" mesh quad
 	GfxMesh* pMesh = m_inst.m_pProceduralMesh = TD_NEW GfxMesh;
 	GfxSubMesh* pSubmesh = pMesh->createSubMesh();
@@ -152,12 +153,13 @@ bool ParticleSystemRenderer::initialize()
 	fmt.addElement(instElem);
 
 	pSubmesh->setVertexFormat(Environment::get(), fmt);
-	
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------
 bool ParticleSystemRenderer::destroy()
 {
+#if 0
 	// delete everything we own; note that the memory pool cleans itself up
 	if (m_inst.m_pProceduralMesh)
 		m_inst.m_pProceduralMesh->destroy();
@@ -170,12 +172,13 @@ bool ParticleSystemRenderer::destroy()
 		m_inst.m_instanceVertexData->destroy();
 	delete m_inst.m_instanceVertexData;
 	m_inst.m_instanceVertexData = 0;
-
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------
 bool ParticleSystemRenderer::update(float deltaT)
 {
+#if 0
 	// we only work with ParticleSystem as a host
 	if (!m_pHost->isOfType(ParticleSystem::getClassDef()))
 		return false;
@@ -252,6 +255,6 @@ bool ParticleSystemRenderer::update(float deltaT)
 	m_pHost->setBoundingBox(aabb);
 
 	m_inst.setTransform(m_pHost->getTransformWS());
-
+#endif
 	return true;
 }

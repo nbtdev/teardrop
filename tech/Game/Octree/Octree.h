@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(TDOCTREE_INCLUDED)
 #define TDOCTREE_INCLUDED
 
-#include "SpatialPartitioning.h"
+#include "Game/SpatialPartitioning.h"
 #include "Memory/Allocators.h"
 #include <map>
 

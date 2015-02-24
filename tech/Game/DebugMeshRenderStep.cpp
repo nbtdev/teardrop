@@ -8,9 +8,9 @@ is prohibited.
 #include "DebugMeshRenderStep.h"
 #include "Component_Physics.h"
 #include "ZoneObject.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxViewport.h"
-#include "Gfx/GfxRenderTarget.h"
+#include "Gfx/Renderer.h"
+#include "Gfx/Viewport.h"
+#include "Gfx/RenderTarget.h"
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
@@ -24,7 +24,7 @@ DebugMeshRenderStep::~DebugMeshRenderStep()
 }
 //---------------------------------------------------------------------------
 void DebugMeshRenderStep::render(
-	const VisibleObjects& objects, GfxRenderer* pRenderer, Scene* /*pScene*/)
+    const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* /*pScene*/)
 {
 	if (!m_bEnabled)
 		return;
@@ -42,7 +42,7 @@ void DebugMeshRenderStep::render(
 			continue;
 
 		// allow dynamic updates to meshes
-		pRenderer->queueForRendering(pComp->getDebugMesh());
+//		pRenderer->queueForRendering(pComp->getDebugMesh());
 	}
 
 	pRenderer->endScene();

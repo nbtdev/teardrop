@@ -18,7 +18,7 @@ RenderStep::~RenderStep()
 {
 }
 //---------------------------------------------------------------------------
-void RenderStep::setCamera(GfxCamera* pCamera)
+void RenderStep::setCamera(Gfx::Camera* pCamera)
 {
 	m_pCamera = pCamera;
 }

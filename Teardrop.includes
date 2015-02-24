@@ -35,6 +35,7 @@ tech/Script/build/win32
 tech/Script/integration/Lua
 tech/Serialization
 tech/Stream
+tech/ThirdParty
 tech/ThirdParty/Lua/src
 tech/ThirdParty/tinyxml
 tech/Thread
@@ -62,4 +63,5 @@ tools/ThirdParty/LibHFZ/zlib/include
 /opt/qt/5.4.0/5.4/gcc_64/include
 /opt/fbx/current/include
 /opt/squish/include
+/opt/tbb/current/include
 tech/Util/platform/POSIX
