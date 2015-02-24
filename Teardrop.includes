@@ -65,3 +65,5 @@ tools/ThirdParty/LibHFZ/zlib/include
 /opt/squish/include
 /opt/tbb/current/include
 tech/Util/platform/POSIX
+integrations
+integrations/OpenGL

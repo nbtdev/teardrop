@@ -22,8 +22,10 @@ is prohibited.
 #include "Stream/FileStream.h"
 
 #if defined(_WIN32) || defined(_WIN64)
-#include "Direct3D9/Integration.h"
-#include "DirectInput8/Integration.h"
+    #include "Direct3D9/Integration.h"
+    #include "DirectInput8/Integration.h"
+#else // _WIN32, _WIN64
+    #include "OpenGL/IntegrationOpenGL.h"
 #endif // _WIN32, _WIN64
 
 // hacky
@@ -57,6 +59,8 @@ int main(int argc, char *argv[])
 #if defined(_WIN32) || defined(_WIN64)
     Teardrop::Gfx::Direct3D9::registerIntegration();
 	Teardrop::DirectInput::Integration inputIntegration;
+#else // _WIN32, _WIN64
+    Teardrop::Gfx::OpenGL::registerIntegration();
 #endif // _WIN32, _WIN64
 
 	QApplication a(argc, argv);

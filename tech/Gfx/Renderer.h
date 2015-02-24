@@ -8,7 +8,6 @@ is prohibited.
 #if !defined(RENDERER_INCLUDED)
 #define RENDERER_INCLUDED
 
-//#include "Core/Integration.h"
 #include "Gfx/Common.h"
 #include <cstdlib>
 #include <cstdint>
@@ -27,7 +26,6 @@ namespace Teardrop
 		class Submesh;
 
 		class Renderer
-			//: public Integration
 		{
 		public:
 			Renderer();

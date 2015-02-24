@@ -16,7 +16,7 @@ MOCFILES = \
 UICFILES = Editor.ui Preferences.ui
 
 NODENAME = tools
-INCLUDES = $(ROOT)/$(NODENAME) $(ROOT)/tech/ThirdParty .
+INCLUDES = $(ROOT)/$(NODENAME) $(ROOT)/tech/ThirdParty $(ROOT)/integrations
 
 SRCS = $(wildcard MaterialEditor/*.cpp)
 SRCS += $(wildcard ObjectBrowser/*.cpp)
@@ -32,6 +32,7 @@ include $(ROOT)/build/mk/fbx.mk
 include $(ROOT)/build/mk/squish.mk
 
 LIBS += \
+	OpenGL \
 	PackageManager \
 	squish \
 	HFZ \

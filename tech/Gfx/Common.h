@@ -46,13 +46,13 @@ namespace Teardrop
 			// (required) unique implementation ID
 			UUID mUUID;
 			// (required) creation function that returns an instance of Renderer
-			RendererCreateFn mCreateFn;
+            RendererCreateFn mCreateFn = nullptr;
 			// (required) short name suitable for list entries
-			const char* mDisplayName;
+            const char* mDisplayName = nullptr;
 			// (optional) description of renderer implementation
-			const char* mDescription;
+            const char* mDescription = nullptr;
 			// (internal use only)
-			RendererRegistration* mNext;
+            RendererRegistration* mNext = nullptr;
 		};
 
 		void registerRenderer(RendererRegistration* registration);

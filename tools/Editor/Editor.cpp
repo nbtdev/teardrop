@@ -304,7 +304,7 @@ void Editor::onPreferences()
 	mDlgPreferences.mChkOpenLastProject->setChecked(mPreferences.general().mLoadLastProject);
 
 	QStringList renderers;
-	renderers << "OpenGL" << "Direct3D 9" << "Direct3D 11";
+    renderers << "OpenGL 4" << "Direct3D 9" << "Direct3D 11";
 	mDlgPreferences.mRenderEngine->insertItems(0, renderers);
 	int selected = mPreferences.rendering().mEngine;
 	mDlgPreferences.mRenderEngine->setCurrentIndex(selected);

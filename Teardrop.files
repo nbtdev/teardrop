@@ -752,3 +752,7 @@ tools/Editor/Preferences.ui
 tech/Util/platform/POSIX/Timer.cpp
 tech/Util/platform/POSIX/FileSystem.cpp
 tech/Game/Makefile
+integrations/OpenGL/RendererOpenGL.h
+integrations/OpenGL/RendererOpenGL.cpp
+integrations/OpenGL/IntegrationOpenGL.h
+integrations/OpenGL/IntegrationOpenGL.cpp
