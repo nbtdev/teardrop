@@ -131,11 +131,13 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 		assert(mRenderer);
 	}
 
-	// set up render window
-	mRenderWindow = new RenderWindow(mRenderer);
+    if (mRenderer) {
+        // set up render window
+        mRenderWindow = new RenderWindow(mRenderer);
 
-	// once we have created the initial render window, we can finish initializing the input system
-	Input::instance().initialize((uintptr_t)mRenderWindow->winId());
+        // once we have created the initial render window, we can finish initializing the input system
+        Input::instance().initialize((uintptr_t)mRenderWindow->winId());
+    }
 
 	setEditorTitle();
 	mPreferences.load();
