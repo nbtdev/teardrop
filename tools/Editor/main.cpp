@@ -6,7 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Editor.h"
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtGui/QPalette>
 
 #if defined(TD_OPTION_MEMPROFILE)
@@ -21,8 +21,13 @@ is prohibited.
 #include "Util/FileSystem.h"
 #include "Stream/FileStream.h"
 
-#include "Direct3D9/Integration.h"
-#include "DirectInput8/Integration.h"
+#if defined(_WIN32) || defined(_WIN64)
+    #include "Direct3D9/Integration.h"
+    #include "DirectInput8/Integration.h"
+#else // _WIN32, _WIN64
+    #include "OpenGL/IntegrationOpenGL.h"
+    #include "XWindow/Integration.h"
+#endif // _WIN32, _WIN64
 
 // hacky
 #include "Game/LandscapeScene.h"
@@ -36,15 +41,24 @@ int main(int argc, char *argv[])
 	Teardrop::FileStream logStrm;
 	Teardrop::Logger logger(logStrm);
 
-	Teardrop::String logPath;
-	Teardrop::FileSystem::getAppDataPath(logPath);
-	logPath.append('/');
-	logPath.append("TeardropEditor.log");
+    Teardrop::String logPath, logFilePath;
+    Teardrop::FileSystem::getAppDataPath(logPath);
+    Teardrop::FileSystem::getAppDataPath(logFilePath);
+    logFilePath.append('/');
+    logFilePath.append("TeardropEditor.log");
 
-	if (!logStrm.open(logPath, Teardrop::WRITE|Teardrop::TRUNCATE|Teardrop::TEXT))
+    if (!logStrm.open(logFilePath, Teardrop::WRITE|Teardrop::TRUNCATE|Teardrop::TEXT))
 	{
-		// todo: let the user know
-		return -1;
+        // attempt to create the directory
+        if (Teardrop::FileSystem::createDirectory(logPath)) {
+            // todo: let the user know
+            return -2;
+        }
+
+        if (!logStrm.open(logFilePath, Teardrop::WRITE|Teardrop::TRUNCATE|Teardrop::TEXT)) {
+            // todo: let the user know
+            return -1;
+        }
 	}
 
 	Teardrop::Environment& env = Teardrop::Environment::get();
@@ -52,8 +66,13 @@ int main(int argc, char *argv[])
 	env.isOffline = false;
 
 	// this is a bit hacky?
-	Teardrop::Gfx::Direct3D9::registerIntegration();
+#if defined(_WIN32) || defined(_WIN64)
+    Teardrop::Gfx::Direct3D9::registerIntegration();
 	Teardrop::DirectInput::Integration inputIntegration;
+#else // _WIN32, _WIN64
+    Teardrop::Gfx::OpenGL::registerIntegration();
+    Teardrop::XWindow::Integration inputIntegration;
+#endif // _WIN32, _WIN64
 
 	QApplication a(argc, argv);
 	Teardrop::Tools::Editor w;

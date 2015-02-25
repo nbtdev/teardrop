@@ -8,120 +8,39 @@ is prohibited.
 #if !defined(EVENT_INCLUDED)
 #define EVENT_INCLUDED
 
-#include "FastDelegate.h"
+#include <functional>
 #include <list>
 
 namespace Teardrop
 {
-	template< typename T >
+	template<typename... Args>
 	class Event
 	{
 	public:
 		Event(){}
 		~Event(){}
 
-		typedef fastdelegate::FastDelegate0<> tDelegate;
-		void bind(tDelegate callback)
-		{
+		typedef std::function<void(Args...)> tDelegate;
+		void bind(const tDelegate& callback) {
 			mDelegates.push_back(callback);
 		}
 
-		void unbind(tDelegate callback)
-		{
-			Delegates::iterator it = std::find(mDelegates.begin(), mDelegates.end(), callback);
-			mDelegates.erase(it);
+		void unbind(tDelegate callback) {
+            for (auto d = mDelegates.begin(); d != mDelegates.end(); ++d) {
+                auto f1 = (*d).template target<void(*)(Args...)>();
+                auto f2 = callback.template target<void(*)(Args...)>();
+                
+                if (!f1 || (f1 && f2 && *f1 == *f2)) {
+                    d = mDelegates.erase(d);
+                }
+            }
 		}
 
-		void raise() {}
-
-	protected:
-		typedef std::list< tDelegate > Delegates;
-		Delegates mDelegates;
-	};
-
-	template< typename T >
-	class Event1
-	{
-	public:
-		Event1(){}
-		~Event1(){}
-
-		typedef fastdelegate::FastDelegate1<T> tDelegate;
-		void bind(tDelegate callback)
-		{
-			mDelegates.push_back(callback);
-		}
-
-		void unbind(tDelegate callback)
-		{
-			Delegates::iterator it = std::find(mDelegates.begin(), mDelegates.end(), callback);
-			if (it != mDelegates.end())
-				mDelegates.erase(it);
-		}
-
-		void raise(T p0)
-		{
-			for (Delegates::iterator it = mDelegates.begin(); it != mDelegates.end(); ++it) {
-				if (*it)
-					(*it)(p0);
-			}
-		}
-
-	protected:
-		typedef std::list< tDelegate > Delegates;
-		Delegates mDelegates;
-	};
-
-	template< typename T0, typename T1 >
-	class Event2
-	{
-	public:
-		Event2(){}
-		~Event2(){}
-
-		typedef fastdelegate::FastDelegate2<T0, T1> tDelegate;
-		void bind(tDelegate callback)
-		{
-			mDelegates.push_back(callback);
-		}
-
-		void unbind(tDelegate callback)
-		{
-			Delegates::iterator it = std::find(mDelegates.begin(), mDelegates.end(), callback);
-			mDelegates.erase(it);
-		}
-
-		void raise(T0 p0, T1 p1)
-		{
-			for (Delegates::iterator it = mDelegates.begin(); it != mDelegates.end(); ++it) {
-				if (*it)
-					(*it)(p0, p1);
-			}
-		}
-
-	protected:
-		typedef std::list< tDelegate > Delegates;
-		Delegates mDelegates;
-	};
-
-	template< typename T0, typename T1, typename T2 >
-	class Event3
-	{
-	public:
-		Event3(){}
-		~Event3(){}
-
-		typedef fastdelegate::FastDelegate2<T0, T1, T2> tDelegate;
-		void bind(tDelegate callback)
-		{
-			mDelegates.push_back(callback);
-		}
-
-		void unbind(tDelegate callback)
-		{
-			Delegates::iterator it = std::find(mDelegates.begin(), mDelegates.end(), callback);
-			mDelegates.erase(it);
-		}
+        void raise(Args... params) const {
+            for (auto d : mDelegates) {
+                d(params...);
+            }
+        }
 
 	protected:
 		typedef std::list< tDelegate > Delegates;
@@ -130,3 +49,4 @@ namespace Teardrop
 }
 
 #endif // EVENT_INCLUDED
+ 

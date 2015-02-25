@@ -3,9 +3,14 @@ ipch
 *.opensdf
 *.sdf
 obj
+lib
+bin
 *.suo
 *.user
 sdk/include
 sdk/lib
 *.ncb
 tools/bin
+*~
+*autogen
+*.autosave

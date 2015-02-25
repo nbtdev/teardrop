@@ -7,7 +7,6 @@ is prohibited.
 
 #include "Component_Physics.h"
 #include "ZoneObject.h"
-#include "Resource/ResourceManager.h"
 #include "Util/Environment.h"
 
 using namespace Teardrop;
@@ -16,7 +15,7 @@ TD_CLASS_IMPL(PhysicsComponent);
 //---------------------------------------------------------------------------
 PhysicsComponent::PhysicsComponent()
 {
-	m_bDebugMeshInitialized = false;
+//	m_bDebugMeshInitialized = false;
 }
 //---------------------------------------------------------------------------
 PhysicsComponent::~PhysicsComponent()
@@ -30,7 +29,7 @@ bool PhysicsComponent::initialize(const char* /*asset*/, const FourCC& /*type*/)
 //---------------------------------------------------------------------------
 bool PhysicsComponent::destroy()
 {
-	releaseDebugMesh();
+//	releaseDebugMesh();
 	return false;
 }
 //---------------------------------------------------------------------------
@@ -66,26 +65,26 @@ void PhysicsComponent::addedToZone(Zone* /*pZone*/)
 void PhysicsComponent::removeFromZone(Zone* /*pZone*/)
 {
 }
-//---------------------------------------------------------------------------
-GfxMeshInstance& PhysicsComponent::getDebugMesh()
-{
-	if (!m_bDebugMeshInitialized)
-		initializeDebugMesh();
+////---------------------------------------------------------------------------
+//GfxMeshInstance& PhysicsComponent::getDebugMesh()
+//{
+//	if (!m_bDebugMeshInitialized)
+//		initializeDebugMesh();
 
-	// update transform on the instance first
-	m_debugMeshInstance.setTransform(m_pHost->getTransformWS());
-	return m_debugMeshInstance;
-}
-//---------------------------------------------------------------------------
-void PhysicsComponent::initializeDebugMesh()
-{
-	// implemented by derived classes
-}
-//---------------------------------------------------------------------------
-void PhysicsComponent::releaseDebugMesh()
-{
-	// can be overridden by derived classes
+//	// update transform on the instance first
+//	m_debugMeshInstance.setTransform(m_pHost->getTransformWS());
+//	return m_debugMeshInstance;
+//}
+////---------------------------------------------------------------------------
+//void PhysicsComponent::initializeDebugMesh()
+//{
+//	// implemented by derived classes
+//}
+////---------------------------------------------------------------------------
+//void PhysicsComponent::releaseDebugMesh()
+//{
+//	// can be overridden by derived classes
 
-	Environment::get().pResourceMgr->release(
-		m_debugMeshInstance.getMeshHandle());
-}
+//	Environment::get().pResourceMgr->release(
+//		m_debugMeshInstance.getMeshHandle());
+//}

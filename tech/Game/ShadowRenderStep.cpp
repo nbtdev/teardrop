@@ -12,11 +12,11 @@ is prohibited.
 #include "TerrainZone.h"
 #include "SpawnPoint.h"
 #include "DynamicLight.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxCamera.h"
-#include "Gfx/GfxLight.h"
-#include "Gfx/GfxRenderTarget.h"
-#include "Gfx/GfxRenderTexture.h"
+#include "Gfx/Renderer.h"
+#include "Gfx/Camera.h"
+#include "Gfx/Light.h"
+#include "Gfx/RenderTarget.h"
+//#include "Gfx/RenderTexture.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/ClassDef.h"
 #include "Math/AABB.h"
@@ -27,7 +27,7 @@ is prohibited.
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 static void renderShadowTexture(
-	GfxRenderer*, Scene*, const ShadowRenderStep::VisibleObjects&, GfxLight*);
+    Gfx::Renderer*, Scene*, const ShadowRenderStep::VisibleObjects&, Gfx::Light*);
 //---------------------------------------------------------------------------
 ShadowRenderStep::ShadowRenderStep()
 {
@@ -38,14 +38,14 @@ ShadowRenderStep::~ShadowRenderStep()
 }
 //---------------------------------------------------------------------------
 void ShadowRenderStep::render(
-	const VisibleObjects& objects, GfxRenderer* pRend, Scene* pScene)
+    const VisibleObjects& objects, Gfx::Renderer* pRend, Scene* pScene)
 {
 	// update shadow textures first, if any (naive implementation, btw, just getting it working first)
 	Zone* pZone = pScene->getCurrentZone();
 	size_t numLights = pZone->getNumShadowCastingLights();
 
-	if (numLights)
-		pRend->setRenderMode(GfxRenderer::RENDER_SHADOW_CASTERS);
+//	if (numLights)
+//		pRend->setRenderMode(Gfx::Renderer::RENDER_SHADOW_CASTERS);
 
 	for (size_t i=0; i<numLights; ++i)
 	{
@@ -76,7 +76,7 @@ static void getShadowCastersAABB(
 }
 //---------------------------------------------------------------------------
 static bool focusCamera(
-	const ShadowRenderStep::VisibleObjects& objects, GfxCamera* pCam)
+    const ShadowRenderStep::VisibleObjects& objects, Gfx::Camera* pCam)
 {
 	AABB aabb;
 	getShadowCastersAABB(objects, aabb);
@@ -135,10 +135,10 @@ static bool focusCamera(
 }
 //---------------------------------------------------------------------------
 static void renderShadowTexture(
-	GfxRenderer* pRend, 
+    Gfx::Renderer* pRend,
 	Scene* pScene, 
 	const ShadowRenderStep::VisibleObjects& objects, 
-	GfxLight* pLight)
+    Gfx::Light* pLight)
 {
 	if (!objects.size())
 		return;
@@ -147,14 +147,14 @@ static void renderShadowTexture(
 	// intersect this camera's frustum; each light uses its own camera for 
 	// rendering its shadow texture
 
-	GfxRenderTarget* pRT = pLight->getShadowTexture();
+    Gfx::RenderTarget* pRT = pLight->getShadowTexture();
 	if (!pRT)
 		return;
 
-	GfxCamera* pShadowCam = pLight->getShadowCamera();
+    Gfx::Camera* pShadowCam = pLight->getShadowCamera();
 	if (!pShadowCam)
 	{
-		pShadowCam = TD_NEW GfxCamera;
+        pShadowCam = TD_NEW Gfx::Camera;
 		pShadowCam->initialize();
 		pLight->setShadowCamera(pShadowCam);
 	}
@@ -166,8 +166,9 @@ static void renderShadowTexture(
 	if (!focusCamera(objects, pShadowCam))
 		return;
 
-	GfxRenderTexture* pRTex;
-	pRT->queryInterface(GfxRenderTexture::IID, (void**)&pRTex);
+#if 0
+    Gfx::RenderTexture* pRTex;
+    pRT->queryInterface(GfxRenderTexture::IID, (void**)&pRTex);
 
 	if (pRTex)
 	{
@@ -197,4 +198,5 @@ static void renderShadowTexture(
 			pRend->endScene();
 		}
 	}
+#endif
 }

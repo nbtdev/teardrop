@@ -45,7 +45,7 @@ void* operator new[](size_t size)
 #endif
 }
 //-----------------------------------------------------------------------------
-void operator delete(void* pMem)
+void operator delete(void* pMem) noexcept
 {
 	// see above
 #if !defined(_DEBUG)
@@ -56,7 +56,7 @@ void operator delete(void* pMem)
 #endif
 }
 //-----------------------------------------------------------------------------
-void operator delete[](void* pMem)
+void operator delete[](void* pMem) noexcept
 {
 	// see above
 #if !defined(_DEBUG)

@@ -8,32 +8,29 @@ is prohibited.
 #include "TerrainPatch.h"
 #include "TerrainZone.h"
 #include "Component_Render.h"
-#include "Gfx/GfxBitmap.h"
-#include "Gfx/GfxVertexFormat.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxTexture.h"
-#include "Gfx/GfxTextureStage.h"
-#include "Gfx/GfxUtil.h"
-#include "Gfx/GfxMesh.h"
-#include "Gfx/GfxSubMesh.h"
-#include "Gfx/GfxMaterial.h"
-#include "Gfx/GfxMeshInstance.h"
-#include "Gfx/GfxVertexData.h"
-#include "Gfx/GfxIndexData.h"
-#include "Gfx/GfxShaderConstantTable.h"
-#include "Gfx/GfxShaderConstant.h"
+//#include "Gfx/Bitmap.h"
+//#include "Gfx/VertexFormat.h"
+#include "Gfx/Renderer.h"
+//#include "Gfx/Texture.h"
+//#include "Gfx/TextureStage.h"
+//#include "Gfx/Util.h"
+#include "Gfx/Mesh.h"
+//#include "Gfx/SubMesh.h"
+#include "Gfx/Material.h"
+//#include "Gfx/MeshInstance.h"
+//#include "Gfx/VertexData.h"
+//#include "Gfx/IndexData.h"
+#include "Gfx/ShaderConstantTable.h"
+#include "Gfx/ShaderConstant.h"
 #include "Util/Environment.h"
 #include "Util/Hash.h"
 #include "Math/Transform.h"
 #include "Math/MathUtil.h"
-#include "Resource/ResourceManager.h"
 #include "Memory/Memory.h"
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 TD_CLASS_IMPL(TerrainPatch);
-//---------------------------------------------------------------------------
-const FourCC& TerrainPatch::FOURCC = FourCC('T', 'R', 'N', 'P');
 //---------------------------------------------------------------------------
 struct Teardrop::TerrainVertex
 {
@@ -53,7 +50,6 @@ struct Teardrop::TerrainNormal
 //---------------------------------------------------------------------------
 TerrainPatch::TerrainPatch()
 {
-	m_hMesh = INVALID_RESOURCE_HANDLE;
 	m_pVertexBuffer = 0;
 	m_pNormalBuffer = 0;
 	m_pIndexBuffer = 0;
@@ -77,17 +73,18 @@ bool TerrainPatch::initialize()
 //---------------------------------------------------------------------------
 bool TerrainPatch::destroy()
 {
-	Environment::get().pResourceMgr->release(m_hMesh);
+    //Environment::get().pResourceMgr->release(m_hMesh);
 	ZoneObject::destroy();
 	return true;
 }
 //---------------------------------------------------------------------------
 bool TerrainPatch::create(
 	TerrainZone* pOwner, 
-	const GfxBitmap& heightmap,
+    const Gfx::Bitmap& heightmap,
 	size_t x, 
 	size_t y)
 {
+#if 0
 	m_pOwner = pOwner;
 
 	float xStep, zStep; // one-over the width and height of the patch
@@ -322,7 +319,7 @@ bool TerrainPatch::create(
 	constants.getConstant(String("vStep"))->setValue(vStep);
 	constants.getConstant(String("xScale"))->setValue(xScale);
 	constants.getConstant(String("zScale"))->setValue(zScale);
-
+#endif
 	return true;
 }
 #if 0

@@ -10,10 +10,8 @@ is prohibited.
 #include "Zone.h"
 #include "Scene.h"
 #include "Util/Hash.h"
-#include "Util/FourCC.h"
 #include "Util/Environment.h"
 #include "Util/SystemManager.h"
-#include "Resource/ResourceManager.h"
 #include "Animation/Rig.h"
 #include "Animation/Animation.h"
 #include "Animation/BlendGraph.h"
@@ -32,7 +30,6 @@ const String& AnimationComponent::SHORT_NAME = String("animation");
 AnimationComponent::AnimationComponent()
 {
 	m_pBlender = 0;
-	m_hRig = INVALID_RESOURCE_HANDLE;
 }
 //---------------------------------------------------------------------------
 AnimationComponent::~AnimationComponent()
@@ -81,12 +78,12 @@ bool AnimationComponent::initialize()
 	String configPath(m_assetPath);
 	configPath += "/";
 	configPath += getBlendConfigName();
-	if (!BlendGraph::load(configPath, graph))
+#if 0
+    if (!BlendGraph::load(configPath, graph))
 		return false;
 
 	m_pBlender->initialize(m_hRig, graph);
 
-#if 0
 	// add all of the animations that have been added to date
 	for(AnimationLUT::iterator it = m_lut.begin(); it != m_lut.end(); ++it)
 	{
@@ -143,7 +140,8 @@ bool AnimationComponent::addAnimation(const char* name, const char* assetPath)
 //---------------------------------------------------------------------------
 bool AnimationComponent::addRig(const char* assetPath)
 {
-	if (m_hRig != INVALID_RESOURCE_HANDLE)
+#if 0
+    if (m_hRig != INVALID_RESOURCE_HANDLE)
 	{
 		// release existing one first
 		Environment::get().pResourceMgr->release(m_hRig);
@@ -151,7 +149,7 @@ bool AnimationComponent::addRig(const char* assetPath)
 
 	m_hRig = Environment::get().pResourceMgr->acquire(
 		Rig::RESOURCE_TYPE, assetPath);
-
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------

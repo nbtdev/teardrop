@@ -8,7 +8,6 @@ is prohibited.
 #if !defined(RAGDOLLCONTROLLER_INCLUDED)
 #define RAGDOLLCONTROLLER_INCLUDED
 
-#include "Resource/ResourceHandle.h"
 #include "Memory/Memory.h"
 
 #include "Math/Vector4.h"
@@ -19,6 +18,7 @@ namespace Teardrop
 {
 	class AnimationBlender;
 	class Transform;
+    class Ragdoll;
 	class World;
 
 	class RagdollController
@@ -29,7 +29,7 @@ namespace Teardrop
 		//! d'tor (cannot fail)
 		virtual ~RagdollController();
 
-		virtual bool initialize(HResource hRagdoll);
+        virtual bool initialize(/*HResource hRagdoll*/);
 		virtual bool destroy();
 		virtual bool drive(float timeStep, AnimationBlender* pBlender, const Transform& world);
 		virtual bool addToWorld(World* pWorld);
@@ -47,7 +47,7 @@ namespace Teardrop
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
-		HResource m_hRagdoll;
+        Ragdoll* m_pRagdoll;
 
 	private:
 		RagdollController(const RagdollController& other);

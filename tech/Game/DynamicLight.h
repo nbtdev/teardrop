@@ -8,15 +8,15 @@ is prohibited.
 #if !defined(DYNAMICLIGHT_INCLUDED)
 #define DYNAMICLIGHT_INCLUDED
 
-#include "Gfx/GfxLight.h"
+#include "Gfx/Light.h"
 #include "Game/ZoneObject.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop
 {
 	class DynamicLight
-		: public ZoneObject,
-		public GfxLight
+        : public ZoneObject
+        , public Gfx::Light
 	{
 
 	public:

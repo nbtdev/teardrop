@@ -11,12 +11,6 @@ is prohibited.
 #include "Scene.h"
 #include "Util/Hash.h"
 #include "Util/Environment.h"
-#include "Resource/ResourceManager.h"
-#include "Gfx/GfxMesh.h"
-#include "Gfx/GfxSubMesh.h"
-#include "Gfx/GfxVertexFormat.h"
-#include "Gfx/GfxVertexData.h"
-#include "Gfx/GfxMaterial.h"
 #include "Memory/Memory.h"
 #include "Memory/Allocators.h"
 #include "Physics/Physics.h"
@@ -33,7 +27,7 @@ TD_CLASS_IMPL(BasicPhysicsComponent);
 BasicPhysicsComponent::BasicPhysicsComponent()
 {
 	m_pWorld = 0;
-	m_hBody = INVALID_RESOURCE_HANDLE;
+    m_pBody = nullptr;
 	m_pendingOp = NONE;
 }
 //---------------------------------------------------------------------------
@@ -47,32 +41,33 @@ bool BasicPhysicsComponent::initialize()
 	name += "/";
 	name += getRigidBodyName();
 
-	Environment& env = Environment::get();
-	m_hBody = env.pResourceMgr->acquire(
-		Body::RESOURCE_TYPE, name);
+//	Environment& env = Environment::get();
+//	m_hBody = env.pResourceMgr->acquire(
+//		Body::RESOURCE_TYPE, name);
 
 	return true;
 }
 //---------------------------------------------------------------------------
 bool BasicPhysicsComponent::destroy()
 {
-	Body* pBody = AutoResPtr<Body>(m_hBody);
+//	Body* pBody = AutoResPtr<Body>(m_hBody);
 
-	if (pBody)
-	{
-		pBody->setUserData(0);
-		pBody->release();
-	}
+//	if (pBody)
+//	{
+//		pBody->setUserData(0);
+//		pBody->release();
+//	}
 
-	Environment::get().pResourceMgr->release(m_hBody);
-	m_hBody = INVALID_RESOURCE_HANDLE;
+//	Environment::get().pResourceMgr->release(m_hBody);
+//	m_hBody = INVALID_RESOURCE_HANDLE;
 
 	return PhysicsComponent::destroy();
 }
 //---------------------------------------------------------------------------
 bool BasicPhysicsComponent::update(float deltaT)
 {
-	Body* pBody = AutoResPtr<Body>(m_hBody);
+//	Body* pBody = AutoResPtr<Body>(m_hBody);
+    Body* pBody = m_pBody;
 
 	if (!pBody)
 	{
@@ -125,7 +120,8 @@ bool BasicPhysicsComponent::removeFromWorld(World* pWorld)
 //---------------------------------------------------------------------------
 bool BasicPhysicsComponent::setBody(const char* assetFilename)
 {
-	ResourceManager* pMgr = Environment::get().pResourceMgr;
+#if 0
+    ResourceManager* pMgr = Environment::get().pResourceMgr;
 	Body* pBody = AutoResPtr<Body>(m_hBody);
 
 	if (pBody)
@@ -134,32 +130,35 @@ bool BasicPhysicsComponent::setBody(const char* assetFilename)
 	}
 
 	m_hBody = pMgr->acquire(Body::RESOURCE_TYPE, assetFilename);
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------
 bool BasicPhysicsComponent::getWorldTransform(Transform& xform)
 {
-	Body* pBody = AutoResPtr<Body>(m_hBody);
+#if 0
+    Body* pBody = AutoResPtr<Body>(m_hBody);
 
 	if (pBody)
 	{
 		pBody->getWorldTransform(xform);
 		return true;
 	}
-
+#endif
 	return false;
 }
 //---------------------------------------------------------------------------
 bool BasicPhysicsComponent::setWorldTransform(const Transform& xform)
 {
-	Body* pBody = AutoResPtr<Body>(m_hBody);
+#if 0
+    Body* pBody = AutoResPtr<Body>(m_hBody);
 
 	if (pBody)
 	{
 		pBody->setWorldTransform(xform);
 		return true;
 	}
-
+#endif
 	return false;
 }
 //---------------------------------------------------------------------------
@@ -178,10 +177,11 @@ void BasicPhysicsComponent::removeFromZone(Zone* pZone)
 	// do it now
 	update(0);
 }
+#if 0
 //---------------------------------------------------------------------------
 void BasicPhysicsComponent::initializeDebugMesh()
 {
-	if (m_bDebugMeshInitialized)
+    if (m_bDebugMeshInitialized)
 		return; // already done
 
 	Body* pBody = AutoResPtr<Body>(m_hBody);
@@ -242,3 +242,4 @@ void BasicPhysicsComponent::initializeDebugMesh()
 
 	m_bDebugMeshInitialized = true;
 }
+#endif

@@ -37,7 +37,7 @@ namespace Teardrop
 		Quaternion operator-() const;
 		float normalize();
 		float getNormalized(/*out*/Quaternion& q) const;
-		Quaternion Quaternion::conjugate() const;
+        Quaternion conjugate() const;
 
 		bool operator==(const Quaternion& other);
 		bool operator!=(const Quaternion& other);

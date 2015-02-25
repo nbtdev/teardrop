@@ -8,9 +8,9 @@ is prohibited.
 #if !defined(PROJECTITEM_INCLUDED)
 #define PROJECTITEM_INCLUDED
 
-#include <QString>
-#include <QList>
-#include <QObject>
+#include <QtCore/QString>
+#include <QtCore/QList>
+#include <QtCore/QObject>
 #include "Util/_String.h"
 
 namespace Teardrop 

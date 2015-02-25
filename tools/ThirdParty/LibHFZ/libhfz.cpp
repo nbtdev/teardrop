@@ -34,8 +34,13 @@ http://www.bundysoft.com/docs/doku.php?id=libhfz
 	
 
 #include "libhfz.h"
+#if defined(_WIN32) || defined(_WIN64)
 #include "zlib\include\zlib.h"
 #include "zlib\include\zconf.h"
+#else // _WIN32, _WIN64
+#include <zlib.h>
+#include <zconf.h>
+#endif // _WIN32, _WIN64
 
 // global vars
 static long hfzByteOrder = LIBHFZ_BYTEORDER_LITTLEENDIAN; // *NIX developers: change this default
@@ -121,7 +126,7 @@ long hfzSave(const char* lpFileName, hfzFormat Format, hfzHeader& fh, float* pDa
 long hfzLoad(const char* lpFileName, hfzHeader& fh, float *pData, LIBHFZ_PROG_CALLBACK lpProgCallback, void* lpCallbackParam) {
 
 	// null header (in case caller forgot to do so)
-	hfzHeader_Init(fh, 0, 0, 0, 0, 0, NULL);
+    hfzHeader_Init(fh, 0, 0, 0, 0, 0, 0);
 
 	if(!pData)
 		return LIBHFZ_ERROR_INVALID_HANDLE;
@@ -176,7 +181,7 @@ long hfzLoad(const char* lpFileName, hfzHeader& fh, float *pData, LIBHFZ_PROG_CA
 long hfzLoadEx(const char* lpFileName, hfzHeader& fh, float **h_pData, LIBHFZ_PROG_CALLBACK lpProgCallback, void* lpCallbackParam) {
 
 	// null header (in case caller forgot to do so)
-	hfzHeader_Init(fh, 0, 0, 0, 0, 0, NULL);
+    hfzHeader_Init(fh, 0, 0, 0, 0, 0, 0);
 
 	long rval = hfzReadHeader2(lpFileName, fh);
 	if(LIBHFZ_STATUS_OK!=rval) {
@@ -920,7 +925,7 @@ void hfzClose(hfzFile* fs) {
 	} else {
 		switch(fs->Format) {
 		case LIBHFZ_FORMAT_HF2:	fclose((FILE*)fs->pIoStream); break;
-		case LIBHFZ_FORMAT_HF2_GZ: gzclose(fs->pIoStream); break;
+        case LIBHFZ_FORMAT_HF2_GZ: gzclose((gzFile)fs->pIoStream); break;
 		}
 	}
 
@@ -943,7 +948,7 @@ long hfzRead(hfzFile* fs, void* pData, long len) {
 	} else {
 		switch(fs->Format) {
 		case LIBHFZ_FORMAT_HF2:    return (long)fread(pData, 1, len, (FILE*)fs->pIoStream);
-		case LIBHFZ_FORMAT_HF2_GZ: return (long)gzread(fs->pIoStream, pData, len);
+        case LIBHFZ_FORMAT_HF2_GZ: return (long)gzread((gzFile)fs->pIoStream, pData, len);
 		}
 	}
 
@@ -966,7 +971,7 @@ long hfzWrite(hfzFile* fs, const void* pData, long len) {
 	} else {
 		switch(fs->Format) {
 		case LIBHFZ_FORMAT_HF2:    return (long)fwrite(pData, 1, len, (FILE*)fs->pIoStream);
-		case LIBHFZ_FORMAT_HF2_GZ: return (long)gzwrite(fs->pIoStream, pData, len);
+        case LIBHFZ_FORMAT_HF2_GZ: return (long)gzwrite((gzFile)fs->pIoStream, pData, len);
 		}
 	}
 

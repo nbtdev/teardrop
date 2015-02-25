@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(STRINGUTIL_INCLUDED)
 #define STRINGUTIL_INCLUDED
 
+#include <iosfwd>
+
 namespace Teardrop
 {
 	class String;
@@ -89,6 +91,9 @@ namespace Teardrop
 		// convert from DOS (\) to UNIX (/) path separators
 		static void toUNIXPath(/*inout*/ String& s);
 	};
+
+    // insert String into std::ostream
+    std::ostream& operator<<(std::ostream& os, const String& s);
 }
 
 #endif // STRINGUTIL_INCLUDED

@@ -9,18 +9,19 @@ is prohibited.
 #define BEAMWEAPON_INCLUDED
 
 #include "Game/Weapon.h"
-#include "Gfx/GfxMeshInstance.h"
 
 namespace Teardrop
 {
-	class GfxShaderConstant;
+    namespace Gfx {
+        class ShaderConstant;
+    }
+
 	class CountdownTrigger;
 
 	class BeamWeapon
 		: public Weapon
 	{
-		GfxMeshInstance m_inst;
-		GfxShaderConstant* m_pMountTransformConstant;
+        Gfx::ShaderConstant* m_pMountTransformConstant;
 
 	public:
 		TD_CLASS(BeamWeapon, Weapon);

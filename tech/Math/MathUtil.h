@@ -9,6 +9,7 @@ is prohibited.
 #define TDMATHUTIL_INCLUDED
 
 #include "Math/Vector4.h"
+#include <cstddef>
 
 #if defined(min)
 #undef min

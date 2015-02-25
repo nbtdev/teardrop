@@ -11,7 +11,7 @@ is prohibited.
 using namespace Teardrop;
 using namespace Gfx;
 
-BufferManager* Singleton<BufferManager>::mInst = 0;
+template<> BufferManager* Singleton<BufferManager>::mInst = 0;
 
 BufferManager::BufferManager()
 {

@@ -11,7 +11,7 @@ is prohibited.
 #include "PackageManager/Thumbnail.h"
 #include "Reflection/Reflection.h"
 #include "Memory/Memory.h"
-#include "FastDelegate.h"
+#include "Util/Event.h"
 
 namespace Teardrop
 {
@@ -33,7 +33,7 @@ namespace Teardrop
 			virtual void generateThumbnail();
 			const Thumbnail& thumbnail();
 
-			fastdelegate::FastDelegate1<const char*> NameChanged;
+            Event<const char*> NameChanged;
 
 			Reflection::Object* object();
 

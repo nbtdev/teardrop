@@ -10,6 +10,7 @@ is prohibited.
 
 #include "Core/Singleton.h"
 #include <cstdlib>
+#include <cstdint>
 
 namespace Teardrop
 {

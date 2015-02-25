@@ -9,7 +9,7 @@ is prohibited.
 #define COMPONENT_PHYSICS_INCLUDED
 
 #include "Game/Component.h"
-#include "Gfx/GfxMeshInstance.h"
+//#include "Gfx/IMeshInstanceProvider.h"
 
 namespace Teardrop
 {
@@ -39,14 +39,14 @@ namespace Teardrop
 		void removeFromZone(Zone* pZone);
 
 		// for debug display
-		virtual GfxMeshInstance& getDebugMesh();
+        //virtual Gfx::MeshInstance& getDebugMesh();
 
 	protected:
-		GfxMeshInstance m_debugMeshInstance;
-		bool m_bDebugMeshInitialized;
+        //GfxMeshInstance m_debugMeshInstance;
+        //bool m_bDebugMeshInitialized;
 
-		virtual void initializeDebugMesh();
-		virtual void releaseDebugMesh();
+        //virtual void initializeDebugMesh();
+        //virtual void releaseDebugMesh();
 	};
 }
 

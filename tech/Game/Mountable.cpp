@@ -139,7 +139,7 @@ void Mountable::notifyUnmounted()
 	m_pSlot = 0;
 }
 //---------------------------------------------------------------------------
-void Mountable::queueForRendering(GfxRenderer* pRend)
+void Mountable::queueForRendering(Gfx::Renderer* pRend)
 {
 	ComponentList list;
 	findComponents(RenderComponent::getClassDef(), list);

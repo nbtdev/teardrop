@@ -5,11 +5,13 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
-#include "win32/FileSystemWatcherWin32.h"
+#include "FileSystemWatcher.h"
 
 using namespace Teardrop;
-//---------------------------------------------------------------------------
+
+#if defined(_WIN32) || defined(_WIN64)
+#include "win32/FileSystemWatcherWin32.h"
+
 FileSystemWatcher* FileSystemWatcher::create(
 	const String& watchPath, bool bRecursive, float timeout)
 {
@@ -17,6 +19,18 @@ FileSystemWatcher* FileSystemWatcher::create(
 	return TD_NEW FileSystemWatcherWin32(
 		watchPath, bRecursive, timeout);
 }
+#else // _WIN32, _WIN64
+
+// TODO: implement POSIX filesystem watcher
+
+FileSystemWatcher* FileSystemWatcher::create(
+    const String& /*watchPath*/, bool /*bRecursive*/, float /*timeout*/)
+{
+    return nullptr;
+}
+
+#endif // _WIN32, _WIN64
+
 //---------------------------------------------------------------------------
 void FileSystemWatcher::destroy(FileSystemWatcher* pWatcher)
 {

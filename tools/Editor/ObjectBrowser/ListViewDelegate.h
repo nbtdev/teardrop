@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(LISTVIEWDELEGATE_INCLUDED)
 #define LISTVIEWDELEGATE_INCLUDED
 
-#include <QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 
 namespace Teardrop 
 {

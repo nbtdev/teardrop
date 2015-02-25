@@ -8,25 +8,18 @@ is prohibited.
 #if !defined(TD_STRING_INCLUDED)
 #define TD_STRING_INCLUDED
 
-#include "Serialization/SerialPointer.h"
-#include "Serialization/Serialization.h"
 #include "Memory/Memory.h"
+#include <cstddef>
 
 namespace Teardrop
 {
 	class Allocator;
-	class ResourceSerializer;
 	class Stream;
 
-	/*
-		TD String class, UTF-8 only, serializable
-	*/
-	class String
+    class String
 	{
-		DECLARE_SERIALIZABLE(String);
-
 		static const int DEFAULT_BUFLEN = 16;
-		SerialPointer<char> m_pBuf;
+		char* m_pBuf;
 		char m_default[DEFAULT_BUFLEN];
 		unsigned int m_len;
 
@@ -75,13 +68,6 @@ namespace Teardrop
 
 		/* NOTE: THESE RETURN COPIES */
 		String substr(size_t begin=0, size_t end=INVALID) const;
-
-		/*
-			Serialization
-		*/
-		bool serialize(ResourceSerializer& serializer) const;
-		bool serialize(Stream& strm) const;
-		bool deserialize(Stream& strm);
 
 		TD_DECLARE_ALLOCATOR();
 

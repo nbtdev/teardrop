@@ -9,7 +9,6 @@ is prohibited.
 #define COMPONENT_BASICPHYSICS_INCLUDED
 
 #include "Game/Component_Physics.h"
-#include "Resource/ResourceHandle.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop
@@ -20,7 +19,7 @@ namespace Teardrop
 	class BasicPhysicsComponent 
 		: public PhysicsComponent
 	{
-		HResource m_hBody;
+        Body* m_pBody;
 		World* m_pWorld;
 
 		enum Operation

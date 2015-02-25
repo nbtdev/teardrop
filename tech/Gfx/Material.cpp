@@ -91,7 +91,7 @@ public:
 		sortedNodes.reserve(mNodes.size());
 
 		std::set<Node> visited;
-		for (NodeList::iterator it = mNodes.begin(); it != mNodes.end(); ++it) {
+        for (typename NodeList::iterator it = mNodes.begin(); it != mNodes.end(); ++it) {
 			visit(*it, sortedNodes, visited);
 		}
 	}
@@ -108,7 +108,7 @@ private:
 
 		// find the nodes on which we depend; that is, edges that have 'node'
 		// as 'from' will have our dependencies as 'to'
-		for (EdgeList::iterator e = mEdges.begin(); e != mEdges.end(); ++e) {
+        for (typename EdgeList::iterator e = mEdges.begin(); e != mEdges.end(); ++e) {
 			if (e->mFrom == node) {
 				visit(e->mTo, sortedNodes, visited);
 			}

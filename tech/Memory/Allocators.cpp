@@ -12,9 +12,44 @@ is prohibited.
 #include "AllocationTracker.h"
 #include "Math/MathUtil.h"
 #include <assert.h>
+#include <errno.h>
 #include <string.h>
-#include <new.h>
 #include <stdlib.h>
+#include <new>
+
+namespace {
+#if defined(_WIN32) || defined(_WIN64)
+    #define STRCPY(d, n, s) strcpy_s(d, n, s)
+
+    void* alloc_aligned(size_t sz, size_t alignment) {
+        return _aligned_malloc(size, alignment);
+    }
+
+    void free_aligned(void* p) {
+        _aligned_free(p);
+    }
+#else // _WIN32, _WIN64
+    #define STRCPY(d, n, s) strncpy(d, s, n)
+
+    void* alloc_aligned(size_t sz, size_t alignment) {
+        void* p = nullptr;
+        int rtn = posix_memalign(&p, alignment, sz);
+
+        // TOOD: assert? throw exception? EINVAL means not power of two
+        if (rtn) {
+            assert(rtn != EINVAL && "Alignment must be a power of two");
+            return nullptr;
+        }
+
+        return p;
+    }
+
+    void free_aligned(void* p) {
+        free(p);
+    }
+#endif // _WIN32, _WIN64
+
+} // namespace
 
 using namespace Teardrop;
 //-----------------------------------------------------------------------------
@@ -47,7 +82,7 @@ Allocator::Allocator(
 	size_t softLimit, 
 	MemoryRegion* pRegion)
 {
-	strcpy_s(m_allocatorName, MAX_ALLOCATOR_NAME_LEN, name);
+    STRCPY(m_allocatorName, MAX_ALLOCATOR_NAME_LEN, name);
 	m_pMemRegion = pRegion;
 	m_softLimit = softLimit;
 	m_hardLimit = hardLimit;
@@ -174,7 +209,7 @@ void* CrtAllocator::Allocate(size_t size TD_ALLOC_SITE_ARGS)
 void* CrtAllocator::AllocateAligned(size_t size, 
 	size_t alignment TD_ALLOC_SITE_ARGS)
 {
-	void* pMem = _aligned_malloc(size, alignment);
+    void* pMem = alloc_aligned(size, alignment);
 #if defined(_DEBUG)
 	size_t* pSz = (size_t*)((char*)pMem - 16);
 	m_stats.current += *pSz;
@@ -228,7 +263,7 @@ void CrtAllocator::DeallocateAligned(void *pMem)
 		m_stats.current -= *pSz;
 	}
 #endif
-	_aligned_free(pMem);
+    free_aligned(pMem);
 	//TD_TRACK_DEALLOCATION(pMem);
 }
 //-----------------------------------------------------------------------------

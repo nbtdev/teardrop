@@ -8,8 +8,8 @@ is prohibited.
 #if !defined(QTOBJECTBROWSERMODEL_INCLUDED)
 #define QTOBJECTBROWSERMODEL_INCLUDED
 
-#include <QAbstractListModel>
-#include <QList>
+#include <QtCore/QAbstractListModel>
+#include <QtCore/QList>
 
 namespace Teardrop
 {

@@ -8,26 +8,15 @@ is prohibited.
 #if !defined(RAGDOLL_INCLUDED)
 #define RAGDOLL_INCLUDED
 
-#include "Resource/Resource.h"
-#include "Serialization/SerialPointer.h"
-#include "Serialization/Serialization.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop
 {
-	class Stream;
-	class ResourceSerializer;
-	struct FourCC;
 	class AnimationBlender;
 
-	class Ragdoll: public Resource
+    class Ragdoll
 	{
-		DECLARE_SERIALIZABLE_VTABLE();
-		DECLARE_SERIALIZABLE(Ragdoll);
-
 	public:
-		static const FourCC& RESOURCE_TYPE;
-
 		//! normal c'tor (cannot fail)
 		Ragdoll();
 		//! placement c'tor (cannot fail)
@@ -44,25 +33,13 @@ namespace Teardrop
 
 		virtual bool update(float deltaT, AnimationBlender* pAnimBlender);
 
-		//! loads body data from stream; owns the data once loaded
-		bool load(Stream& stream);
-		//! release the resource when done with it
-		bool release();
-		bool destroy();
-
 		// make a copy of this object with unique ragdoll
 		virtual Ragdoll* clone();
-
-		/**
-			Serialization
-		*/
-		//! package for storage
-		virtual bool serialize(ResourceSerializer& serializer);
 
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
-		SerialPointer<void> m_pData;
+        void* m_pData;
 		unsigned int m_dataLen;
 	};
 }

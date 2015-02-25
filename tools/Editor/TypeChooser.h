@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(TYPECHOOSER_INCLUDED)
 #define TYPECHOOSER_INCLUDED
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 
 class QComboBox;
 class QDialogButtonBox;

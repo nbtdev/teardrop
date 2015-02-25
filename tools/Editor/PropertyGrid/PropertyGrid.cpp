@@ -10,7 +10,8 @@ is prohibited.
 #include "PropertyGridModel.h"
 #include "PropertyGridItem.h"
 #include "ProjectExplorer/ProjectItem.h"
-#include <QDragEnterEvent>
+#include <QtCore/QMimeData>
+#include <QtGui/QDragEnterEvent>
 #include "Reflection/Reflection.h"
 #include "Game/ComponentHost.h"
 #include "Game/Component.h"

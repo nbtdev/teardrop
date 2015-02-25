@@ -7,7 +7,8 @@ is prohibited.
 
 #include "ChaseCamController.h"
 #include "ComponentHost.h"
-#include "Gfx/GfxCamera.h"
+#include "ZoneObject.h"
+#include "Gfx/Camera.h"
 #include "Math/MathUtil.h"
 #include "Math/Transform.h"
 #include "Util/Environment.h"
@@ -32,21 +33,21 @@ bool ChaseCamController::update(float /*deltaT*/)
 		For now, just put ourselves back some distance and a bit to the upper
 		right of the thing to which we are attached
 	*/
-	if (m_pTarget)
+    if (mTarget)
 	{
-		Transform xform(m_pTarget->getTransformWS());
-		m_pCamera->setPosition(xform.trans);
+        Transform xform(mTarget->getTransformWS());
+        mCamera->setPosition(xform.trans);
 
 		Quaternion yawBias; yawBias.fromAngleAxis(getYawBias(), Vector4::UNIT_Y);
 		Quaternion pitchBias; pitchBias.fromAngleAxis(getPitchBias(), Vector4::UNIT_X);
 		Quaternion rot(xform.rot * pitchBias * yawBias);
-		m_pCamera->setOrientation(rot);
+        mCamera->setOrientation(rot);
 
-		m_pCamera->translate(getOffset());
-		m_pCamera->setLookAt(xform.trans + rot * Vector4(0, 0, 100, 0));
-		bool rtn = m_pCamera->update();
-		setPosition(m_pCamera->getPosition());
-		setOrientation(m_pCamera->getOrientation());
+        mCamera->translate(getOffset());
+        mCamera->setLookAt(xform.trans + rot * Vector4(0, 0, 100, 0));
+        bool rtn = mCamera->update();
+        setPosition(mCamera->getPosition());
+        setOrientation(mCamera->getOrientation());
 		return rtn;
 	}
 

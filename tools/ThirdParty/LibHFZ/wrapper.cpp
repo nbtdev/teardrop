@@ -1,6 +1,6 @@
 #include "libhfz.h"
 
-__declspec(dllexport) float* hfzLoadHeightfield(const char* filename)
+DLLEXPORT float* hfzLoadHeightfield(const char* filename)
 {
 	float* rtn = 0;
 	hfzHeader hdr;
@@ -8,7 +8,7 @@ __declspec(dllexport) float* hfzLoadHeightfield(const char* filename)
 	return rtn;
 }
 
-__declspec(dllexport) void hfzFreeHeightfieldData(float* data)
+DLLEXPORT void hfzFreeHeightfieldData(float* data)
 {
 	if (data)
 		hfzFree(data);

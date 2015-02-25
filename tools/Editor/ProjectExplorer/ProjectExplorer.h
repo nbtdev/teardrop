@@ -8,9 +8,9 @@ is prohibited.
 #if !defined(PROJECTEXPLORER_INCLUDED)
 #define PROJECTEXPLORER_INCLUDED
 
-#include <QTreeView>
+#include "Util/Event.h"
+#include <QtWidgets/QTreeView>
 #include <list>
-#include "FastDelegate.h"
 
 namespace Teardrop
 {
@@ -32,7 +32,7 @@ namespace Teardrop
 
 			void setProject(Project* project);
 
-			fastdelegate::FastDelegate1<ProjectItem*> SelectionChanged;
+            Event<ProjectItem*> SelectionChanged;
 
 		signals:
 			void activePackageChanged(PackageManager* pkgMgr);

@@ -3,7 +3,14 @@
 
 #pragma once
 
-#include "zlib\include\zlib.h"
+#if defined(_WIN32) || defined(_WIN64)
+    #include "zlib\include\zlib.h"
+    #define DLLEXPORT __declspec(dllexport)
+#else // _WIN32, _WIN64
+    #include <zlib.h>
+    #define __stdcall
+    #define DLLEXPORT
+#endif // _WIN32, _WIN64
 
 
 #define LIBHFZ_STATUS_OK				0

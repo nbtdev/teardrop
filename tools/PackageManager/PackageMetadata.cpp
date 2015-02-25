@@ -22,7 +22,9 @@ is prohibited.
 #include "Asset/AttributeMapAsset.h"
 #include "tinyxml/tinyxml.h"
 #include <tbb/task.h>
+#include <algorithm>
 
+using namespace std::placeholders;
 using namespace Teardrop;
 using namespace Tools;
 
@@ -39,13 +41,13 @@ PackageMetadata::PackageMetadata(Package* package)
 	: mRoot(0)
 	, mPackage(package)
 {
-	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &PackageMetadata::onPropertyChanged));
+    PropertyChanged.bind(std::bind(&PackageMetadata::onPropertyChanged, this, _1));
 	mRoot = new Folder(getName(), 0);
 }
 
 PackageMetadata::~PackageMetadata()
 {
-	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &PackageMetadata::onPropertyChanged));
+    PropertyChanged.unbind(std::bind(&PackageMetadata::onPropertyChanged, this, _1));
 
 	for (ObjectToMetadataMap::iterator it = mObjectToMetadataMap.begin(); it != mObjectToMetadataMap.end(); ++it) {
 		delete it->second;

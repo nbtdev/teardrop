@@ -6,13 +6,13 @@ is prohibited.
 ****************************************************************************/
 
 #include "TypeChooser.h"
-#include <QVBoxLayout>
-#include <QComboBox>
-#include <QLabel>
-#include <QSpacerItem>
-#include <QDialogButtonBox>
-#include <QCompleter>
-#include <QStringList>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QCompleter>
+#include <QtCore/QStringList>
 #include "Reflection/ClassDef.h"
 
 using namespace Teardrop;

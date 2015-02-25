@@ -8,6 +8,8 @@ is prohibited.
 
 #include "Sampler2DExpression.h"
 #include "Sampler2D.h"
+#include "Util/StringUtil.h"
+#include <ostream>
 
 using namespace Teardrop;
 using namespace Gfx;
@@ -36,8 +38,11 @@ void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
 	switch (lang) {
 	case SHADER_HLSL:
 	case SHADER_HLSL5:
-		o << "    RGBA = tex2D(" << mSamplerName << ", texcoord);" << std::endl;
-		o << "    RGB = float3(RGBA.r, RGBA.g, RGBA.b);" << std::endl;
+        o << std::string("    RGBA = tex2D(");
+        o << mSamplerName;
+        o << std::string(", texcoord);") << std::endl;
+
+        o << std::string("    RGB = float3(RGBA.r, RGBA.g, RGBA.b);") << std::endl;
 		break;
 	default:
 		break;

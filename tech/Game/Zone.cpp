@@ -13,7 +13,6 @@ is prohibited.
 #include "ZoneObject.h"
 #include "SpawnPoint.h"
 #include "Octree/Octree.h"
-#include "Gfx/GfxCamera.h"
 #include "Physics/World.h"
 #include "Math/Ray.h"
 #include <algorithm>

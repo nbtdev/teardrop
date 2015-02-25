@@ -7,7 +7,8 @@ is prohibited.
 
 #include "Integration.h"
 
-using namespace Teardrop;
+namespace Teardrop
+{
 
 Integration::Integration()
 {
@@ -16,3 +17,5 @@ Integration::Integration()
 Integration::~Integration()
 {
 }
+
+} // namespace Teardrop

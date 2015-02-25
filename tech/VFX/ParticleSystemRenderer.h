@@ -10,7 +10,7 @@ is prohibited.
 
 #include "Game/Component.h"
 #include "VFX/ParticleData.h"
-#include "Gfx/GfxMeshInstance.h"
+#include "Gfx/IMeshInstanceProvider.h"
 #include "Math/Vector2.h"
 #include "Math/Vector4.h"
 #include "Math/Quaternion.h"
@@ -22,7 +22,7 @@ namespace Teardrop
 		// a system needs only one mesh instance, as the instance structure 
 		// contains all of the instanced-rendering information needed to render
 		// all of the system's particles.
-		GfxMeshInstance m_inst;
+//		GfxMeshInstance m_inst;
 		struct Quad
 		{
 			Vector4 pos;
@@ -50,7 +50,7 @@ namespace Teardrop
 
 		bool update(float deltaT);
 
-		const GfxMeshInstance& getMeshInstance() const { return m_inst; }
+//		const GfxMeshInstance& getMeshInstance() const { return m_inst; }
 		ParticleList& getParticleList() { return m_particles; }
 
 		// inform us of the camera's world-space position

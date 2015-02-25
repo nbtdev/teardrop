@@ -8,7 +8,6 @@ is prohibited.
 #include "Prop.h"
 #include "Component_Render.h"
 #include "Component_BasicPhysics.h"
-#include "Gfx/GfxMesh.h"
 #include "Physics/Body.h"
 #include "Util/StringUtil.h"
 #include "Util/Environment.h"

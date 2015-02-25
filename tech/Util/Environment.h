@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(TDENVIRONMENT_INCLUDED)
 #define TDENVIRONMENT_INCLUDED
 
+#include <cstddef>
+
 struct GameOptions;
 
 namespace Teardrop
@@ -22,8 +24,10 @@ namespace Teardrop
 		class Renderer;
 	}
 
-	class GfxRenderer;
-	class GfxCommandBuffer;
+    namespace Gfx {
+        class Renderer;
+    }
+
 	class Logger;
 	class Input;
 	class GameStateManager;
@@ -45,9 +49,8 @@ namespace Teardrop
 
 		// system instances
 		GameOptions*		pOptions;
-		GfxRenderer*		pRenderer;
+        Gfx::Renderer*		pRenderer;
 		Audio::Renderer*	pAudio;
-		GfxCommandBuffer*	pGfxCmdBuf;
 		Logger*				pLogger;
 		GameStateManager*	pGSM;
 		Input*				pInput;

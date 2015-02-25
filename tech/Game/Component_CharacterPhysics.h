@@ -62,7 +62,7 @@ namespace Teardrop
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
-		void initializeDebugMesh();
+        //void initializeDebugMesh();
 	};
 }
 

@@ -9,9 +9,9 @@ is prohibited.
 #define FOLDER_INCLUDED
 
 #include "Memory/Memory.h"
+#include "Util/Event.h"
 #include "Util/_String.h"
 #include <list>
-#include "FastDelegate.h"
 
 namespace Teardrop 
 {
@@ -40,7 +40,7 @@ namespace Teardrop
 
 			TD_DECLARE_ALLOCATOR();
 
-			fastdelegate::FastDelegate1<const char*> NameChanged;
+            Event<const char*> NameChanged;
 
 		private:
 			friend class PackageMetadata;

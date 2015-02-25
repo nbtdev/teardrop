@@ -43,5 +43,5 @@ static const char* BODY =
 void MaterialOutput::appendBody(Language /*lang*/, std::ostream& o)
 {
 	// it's the same in all languages
-	o << BODY;
+    o << std::string(BODY);
 }

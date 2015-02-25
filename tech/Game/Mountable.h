@@ -26,12 +26,15 @@ namespace Teardrop
 
 	class Transform;
 	class EquipmentSlotComponent;
-	class GfxRenderer;
+
+    namespace Gfx {
+        class Renderer;
+    }
 
 	class Mountable
 		: public Reflection::Object
 		, public ComponentHost
-		, public IMeshInstanceProvider
+        , public Gfx::IMeshInstanceProvider
 	{
 	public:
 		TD_CLASS(Mountable, Object);
@@ -63,7 +66,7 @@ namespace Teardrop
 		virtual void notifyUnmounted();
 		//! called by the mount host to collect any renderable mesh instances
 		//! (IMeshInstanceProvider implementation)
-		virtual void queueForRendering(GfxRenderer* pRend);
+        virtual void queueForRendering(Gfx::Renderer* pRend);
 
 		TD_DECLARE_ALLOCATOR();
 

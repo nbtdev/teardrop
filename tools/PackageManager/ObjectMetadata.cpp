@@ -7,6 +7,7 @@ is prohibited.
 
 #include "ObjectMetadata.h"
 
+using namespace std::placeholders;
 using namespace Teardrop;
 using namespace Tools;
 
@@ -20,12 +21,12 @@ ObjectMetadata::ObjectMetadata()
 ObjectMetadata::ObjectMetadata(Reflection::Object* obj)
 	: mObject(obj)
 {
-	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &ObjectMetadata::onPropertyChanged));
+    PropertyChanged.bind(std::bind(&ObjectMetadata::onPropertyChanged, this, _1));
 }
 
 ObjectMetadata::~ObjectMetadata()
 {
-	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &ObjectMetadata::onPropertyChanged));
+    PropertyChanged.unbind(std::bind(&ObjectMetadata::onPropertyChanged, this, _1));
 }
 
 void ObjectMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)

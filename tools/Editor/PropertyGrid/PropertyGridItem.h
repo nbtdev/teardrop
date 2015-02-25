@@ -8,8 +8,8 @@ is prohibited.
 #if !defined(PROPERTYGRIDITEM_INCLUDED)
 #define PROPERTYGRIDITEM_INCLUDED
 
-#include <QString>
-#include <QList>
+#include <QtCore/QString>
+#include <QtCore/QList>
 
 namespace Teardrop {
 

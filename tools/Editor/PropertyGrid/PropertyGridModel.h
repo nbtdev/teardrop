@@ -8,8 +8,8 @@ is prohibited.
 #if !defined(TEARDROP_PROPERTYGRIDMODEL_INCLUDED)
 #define TEARDROP_PROPERTYGRIDMODEL_INCLUDED
 
-#include <QAbstractItemModel>
-#include <QStringList>
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QStringList>
 
 namespace Teardrop
 {

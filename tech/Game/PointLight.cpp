@@ -13,7 +13,7 @@ TD_CLASS_IMPL(PointLight);
 //---------------------------------------------------------------------------
 PointLight::PointLight()
 {
-	setType(GfxLight::LT_POINT);
+    setType(Gfx::Light::LT_POINT);
 }
 //---------------------------------------------------------------------------
 PointLight::~PointLight()

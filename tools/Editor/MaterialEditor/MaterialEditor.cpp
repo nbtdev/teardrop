@@ -13,15 +13,15 @@ is prohibited.
 #include "Gfx/Material.h"
 #include "Gfx/MaterialExpression.h"
 #include "Reflection/ClassDef.h"
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGraphicsView>
-#include <QListView>
-#include <QString>
-#include <QLabel>
-#include <QIcon>
-#include <QSizePolicy>
-#include <QGraphicsRectItem>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QListView>
+#include <QtCore/QString>
+#include <QtWidgets/QLabel>
+#include <QtGui/QIcon>
+#include <QtWidgets/QSizePolicy>
+#include <QtWidgets/QGraphicsRectItem>
 
 using namespace Teardrop;
 using namespace Tools;

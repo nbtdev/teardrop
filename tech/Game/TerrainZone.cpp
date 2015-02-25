@@ -11,16 +11,15 @@ is prohibited.
 #include "ZoneObject.h"
 #include "Octree/Octree.h"
 #include "Scene.h"
-#include "Gfx/GfxCamera.h"
-#include "Gfx/GfxBitmap.h"
-#include "Gfx/GfxMaterial.h"
-#include "Gfx/GfxTextureStage.h"
-#include "Gfx/GfxTexture.h"
+#include "Gfx/Camera.h"
+//#include "Gfx/Bitmap.h"
+#include "Gfx/Material.h"
+//#include "Gfx/TextureStage.h"
+//#include "Gfx/Texture.h"
 #include "Math/Transform.h"
 #include "Math/MathUtil.h"
 #include "Util/Environment.h"
 #include "Util/SystemManager.h"
-#include "Resource/ResourceManager.h"
 #include "Memory/Memory.h"
 #include "Physics/Physics.h"
 #include "Physics/Shape.h"
@@ -51,6 +50,7 @@ const char* TerrainZone::getType() const
 //---------------------------------------------------------------------------
 bool TerrainZone::initialize(World* pWorld)
 {
+#if 0
 	if(!Zone::initialize(pWorld))
 	{
 		return false;
@@ -70,14 +70,14 @@ bool TerrainZone::initialize(World* pWorld)
 	hmap += getHeightMap();
 
 	// for now, just load the default test terrain
-	GfxBitmap bmap;
-	if (!bmap.load(hmap))
-	{
-		return false;
-	}
+    Gfx::Bitmap bmap;
+    if (!bmap.load(hmap))
+    {
+        return false;
+    }
 
-	size_t chunksX = bmap.getWidth() / size_t(tiling.x);
-	size_t chunksY = bmap.getHeight() / size_t(tiling.y);
+    size_t chunksX = bmap.getWidth() / size_t(tiling.x);
+    size_t chunksY = bmap.getHeight() / size_t(tiling.y);
 
 	// create the single material shared by all terrain patches
 	if (Environment::get().pRenderer)
@@ -89,10 +89,10 @@ bool TerrainZone::initialize(World* pWorld)
 		detailMap += "/";
 		detailMap += getDetailMap();
 
-		m_pTerrainMtl = TD_NEW GfxMaterial;
+        m_pTerrainMtl = TD_NEW Gfx::Material;
 		m_pTerrainMtl->initialize();
 		//m_pTerrainMtl->setDiffuse(0xFFFFFFFF); // white, for modulating against
-		m_pTerrainMtl->setCustomShader(GfxMaterial::SHADER_TERRAIN);
+        m_pTerrainMtl->setCustomShader(Gfx::Material::SHADER_TERRAIN);
 		GfxTextureStage* pStage = m_pTerrainMtl->addTextureStage();
 		pStage->setTexture(0, 
 			env.pResourceMgr->acquire(GfxTexture::RESOURCE_TYPE, colorMap));
@@ -143,7 +143,7 @@ bool TerrainZone::initialize(World* pWorld)
 	m_pHeightfieldBody->initialize(
 		m_pHeightfieldShape, Body::STATIC, Vector4(-size.x/2, 0, -size.z/2, 0));
 	m_pWorld->add(m_pHeightfieldBody);
-
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------
@@ -248,7 +248,7 @@ bool TerrainZone::getVisibleObjects(const Plane* frustum, ZoneObjects& objects)
 	return Zone::getVisibleObjects(frustum, objects);
 }
 //---------------------------------------------------------------------------
-GfxMaterial* TerrainZone::getTerrainMaterial()
+Gfx::Material* TerrainZone::getTerrainMaterial()
 {
 	return m_pTerrainMtl;
 }

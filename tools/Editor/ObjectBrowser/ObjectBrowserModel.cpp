@@ -13,11 +13,11 @@ is prohibited.
 #include "PackageManager/Thumbnail.h"
 #include "Asset/TextureAsset.h"
 #include "TypeChooser.h"
-#include <QImage>
-#include <QPixmap>
-#include <QMimeData>
-#include <QUrl>
-#include <QMessageBox>
+#include <QtGui/QImage>
+#include <QtGui/QPixmap>
+#include <QtCore/QMimeData>
+#include <QtCore/QUrl>
+#include <QtWidgets/QMessageBox>
 
 using namespace Teardrop;
 using namespace Tools;

@@ -14,6 +14,7 @@ is prohibited.
 using namespace Teardrop;
 using Reflection::ClassDef;
 using Reflection::PropertyDef;
+using namespace std::placeholders;
 //---------------------------------------------------------------------------
 TD_CLASS_IMPL(CameraInterfaceComponent);
 //---------------------------------------------------------------------------
@@ -38,14 +39,14 @@ bool CameraInterfaceComponent::initialize()
 
 	// we don't want to put this in the c'tor since it will fire when the 
 	// camera controller property is set
-	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &CameraInterfaceComponent::onPropertyChanged));
+    PropertyChanged.bind(std::bind(&CameraInterfaceComponent::onPropertyChanged, this, _1));
 
 	return rtn;
 }
 //---------------------------------------------------------------------------
 bool CameraInterfaceComponent::destroy()
 {
-	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &CameraInterfaceComponent::onPropertyChanged));
+    PropertyChanged.unbind(std::bind(&CameraInterfaceComponent::onPropertyChanged, this, _1));
 
 	if (m_pCamControl)
 		m_pCamControl->destroy();

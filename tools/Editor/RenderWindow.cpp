@@ -10,8 +10,8 @@ is prohibited.
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Viewport.h"
-#include <QTimer>
-#include <QIcon>
+#include <QtCore/QTimer>
+#include <QtGui/QIcon>
 #include <assert.h>
  
 using namespace Teardrop;
@@ -72,7 +72,7 @@ void RenderWindow::onIdle()
 	// render a black clear frame for now
 	if (mRenderer && mRT) {
 		mRenderer->setRenderTarget(mRT);
-		mRenderer->beginFrame();
+        mRenderer->beginFrame(true, 0x000000FF);
 		mRenderer->beginScene(mCamera, mViewport);
 		mRenderer->endScene();
 		mRenderer->endFrame();

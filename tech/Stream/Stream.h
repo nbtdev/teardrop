@@ -8,6 +8,8 @@ is prohibited.
 #if !defined(TDSTREAM_INCLUDED)
 #define TDSTREAM_INCLUDED
 
+#include <cstddef>
+
 namespace Teardrop
 {
 	class Stream

@@ -12,9 +12,9 @@ is prohibited.
 #include "PackageManager/PackageMetadata.h"
 #include "PackageManager/Folder.h"
 #include "Asset/TextureAsset.h"
-#include <QMimeData>
-#include <QUrl>
-#include <QMessageBox>
+#include <QtCore/QMimeData>
+#include <QtCore/QUrl>
+#include <QtWidgets/QMessageBox>
 #include "TypeChooser.h"
 #include "Reflection/Reflection.h"
 #include <stack>

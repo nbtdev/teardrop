@@ -13,9 +13,12 @@ is prohibited.
 
 namespace Teardrop
 {
-	class ZoneObject;
-	class GfxRenderer;
-	class GfxCamera;
+    namespace Gfx {
+        class Renderer;
+        class Camera;
+    }
+
+    class ZoneObject;
 	class RenderStep;
 	class Scene;
 
@@ -35,7 +38,7 @@ namespace Teardrop
 	{
 		typedef std::vector<RenderStep*> RenderSteps;
 		RenderSteps m_renderSteps;
-		GfxCamera* m_pCamera;
+        Gfx::Camera* m_pCamera;
 
 	public:
 		SceneRenderer();
@@ -48,12 +51,12 @@ namespace Teardrop
 		typedef std::vector<ZoneObject*> ZoneObjects;
 		virtual void render(
 			const ZoneObjects& visbleObjects,	// list of objects visible through the camera
-			GfxRenderer* pRenderer,				// renderer to use to render the scene
+            Gfx::Renderer* pRenderer,				// renderer to use to render the scene
 			Scene* pScene,						// passthru to RenderSteps
-			GfxCamera* pViewCam	= 0				// main player view camera
+            Gfx::Camera* pViewCam	= 0				// main player view camera
 			);
 
-		void setCamera(GfxCamera* pCam) { m_pCamera = pCam; }
+        void setCamera(Gfx::Camera* pCam) { m_pCamera = pCam; }
 
 		TD_DECLARE_ALLOCATOR();
 	};

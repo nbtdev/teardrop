@@ -8,7 +8,9 @@ is prohibited.
 #include "HeightfieldAssetMetadata.h"
 #include "Asset/HeightfieldAsset.h"
 #include "FreeImage.h"
+#include <cstring>
 
+using namespace std::placeholders;
 using namespace Teardrop;
 using namespace Tools;
 
@@ -21,12 +23,12 @@ HeightfieldAssetMetadata::HeightfieldAssetMetadata()
 HeightfieldAssetMetadata::HeightfieldAssetMetadata(HeightfieldAsset* asset)
 {
 	mObject = asset;
-	PropertyChanged.bind(fastdelegate::MakeDelegate(this, &HeightfieldAssetMetadata::onPropertyChanged));
+    PropertyChanged.bind(std::bind(&HeightfieldAssetMetadata::onPropertyChanged, this, _1));
 }
 
 HeightfieldAssetMetadata::~HeightfieldAssetMetadata()
 {
-	PropertyChanged.unbind(fastdelegate::MakeDelegate(this, &HeightfieldAssetMetadata::onPropertyChanged));
+    PropertyChanged.unbind(std::bind(&HeightfieldAssetMetadata::onPropertyChanged, this, _1));
 }
 
 void HeightfieldAssetMetadata::onPropertyChanged(const Reflection::PropertyDef* prop)

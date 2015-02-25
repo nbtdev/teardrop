@@ -48,8 +48,7 @@ void Project::rename(const String& newName)
 {
 	mName = newName;
 
-	if (NameChanged)
-		NameChanged((const char*)mName);
+    NameChanged.raise((const char*)mName);
 }
 
 PackageManager* Project::createPackage()

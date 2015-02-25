@@ -6,10 +6,11 @@ is prohibited.
 ****************************************************************************/
 
 #include "Thumbnail.h"
+#include <algorithm>
+#include <cstring>
 
 using namespace Teardrop;
 using namespace Tools;
-#include <algorithm>
 
 Thumbnail::Thumbnail()
 	: mData(0)

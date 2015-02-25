@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(OBJECTVIEWER3D_INCLUDED)
 #define OBJECTVIEWER3D_INCLUDED
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 
 class QTimer;
 

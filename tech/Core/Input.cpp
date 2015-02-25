@@ -9,7 +9,7 @@ is prohibited.
 
 using namespace Teardrop;
 
-Input* Singleton<Input>::mInst = 0;
+template<> Input* Singleton<Input>::mInst = 0;
 
 Input::Input()
 {

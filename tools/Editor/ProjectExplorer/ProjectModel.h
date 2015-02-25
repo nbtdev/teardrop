@@ -8,8 +8,8 @@ is prohibited.
 #if !defined(PROJECTMODEL_INCLUDED)
 #define PROJECTMODEL_INCLUDED
 
-#include <QAbstractItemModel>
-#include <QStringList>
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QStringList>
 
 namespace Teardrop
 {

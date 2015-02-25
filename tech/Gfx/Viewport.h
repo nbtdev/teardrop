@@ -8,7 +8,7 @@ is prohibited.
 #if !defined(VIEWPORT_INCLUDED)
 #define VIEWPORT_INCLUDED
 
-#include "Gfx/GfxCommon.h"
+#include "Gfx/Allocators.h"
 #include "Math/Vector2.h"
 
 namespace Teardrop

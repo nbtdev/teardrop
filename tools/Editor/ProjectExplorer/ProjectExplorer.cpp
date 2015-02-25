@@ -11,9 +11,9 @@ is prohibited.
 #include "TypeChooser.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
-#include <QDragEnterEvent>
-#include <QMenu>
-#include <QFileDialog>
+#include <QtGui/QDragEnterEvent>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QFileDialog>
 #include "Asset/TextureAsset.h"
 #include "Package/Executable.h"
 
@@ -115,8 +115,7 @@ void ProjectExplorer::onContextMenu(const QPoint& pt)
 						projModel->deleteFolder(index, bRecursive);
 						setCurrentIndex(parentIndex);
 
-						if (SelectionChanged)
-							SelectionChanged(parent);
+                        SelectionChanged.raise(parent);
 					}
 					break;
 				case 3: // remove package
@@ -124,8 +123,7 @@ void ProjectExplorer::onContextMenu(const QPoint& pt)
 					projModel->removePackage(index);
 					setCurrentIndex(QModelIndex());
 
-					if (SelectionChanged)
-						SelectionChanged(0);
+                    SelectionChanged.raise(0);
 					break;
 				case 5:
 					projModel->setActiveIndex(index);
@@ -187,14 +185,12 @@ void ProjectExplorer::onContextMenu(const QPoint& pt)
 
 void ProjectExplorer::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
-	if (SelectionChanged) {
-		if (!current.isValid())
-			SelectionChanged(0);
-		else {
-			ProjectItem* item = static_cast<ProjectItem*>(current.internalPointer());
-			SelectionChanged(item);
-		}
-	}
+    if (!current.isValid())
+        SelectionChanged.raise(0);
+    else {
+        ProjectItem* item = static_cast<ProjectItem*>(current.internalPointer());
+        SelectionChanged.raise(item);
+    }
 
 	QTreeView::currentChanged(current, previous);
 }

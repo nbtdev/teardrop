@@ -9,15 +9,15 @@ is prohibited.
 #include "Component_Render.h"
 #include "Component_Audio.h"
 #include "Component_EquipmentSlot.h"
-#include "Gfx/GfxMesh.h"
-#include "Gfx/GfxSubMesh.h"
-#include "Gfx/GfxVertexData.h"
-#include "Gfx/GfxIndexData.h"
-#include "Gfx/GfxVertexFormat.h"
-#include "Gfx/GfxMaterial.h"
-#include "Gfx/GfxShaderConstantTable.h"
-#include "Gfx/GfxShaderConstant.h"
-#include "Gfx/GfxUtil.h"
+#include "Gfx/Mesh.h"
+#include "Gfx/Submesh.h"
+//#include "Gfx/VertexData.h"
+//#include "Gfx/IndexData.h"
+//#include "Gfx/VertexFormat.h"
+#include "Gfx/Material.h"
+#include "Gfx/ShaderConstantTable.h"
+#include "Gfx/ShaderConstant.h"
+//#include "Gfx/Util.h"
 #include "Math/Matrix44.h"
 #include "Math/MathUtil.h"
 #include "Util/Environment.h"
@@ -39,14 +39,15 @@ BeamWeapon::~BeamWeapon()
 //---------------------------------------------------------------------------
 bool BeamWeapon::_initialize()
 {
-	// TODO: do this a different way
+#if 0
+    // TODO: do this a different way
 	if (Environment::get().isServer)
 		return true;
 
 	m_inst.m_pProceduralMesh = TD_NEW GfxMesh;
 	m_inst.m_pProceduralMesh->initialize();
 
-	GfxSubMesh* pSubmesh = m_inst.m_pProceduralMesh->createSubMesh();
+    Gfx::Submesh* pSubmesh = m_inst.m_pProceduralMesh->createSubMesh();
 	pSubmesh->setPrimitiveType(TRISTRIP);
 
 	// beam vertex format: positions and single set of texcoord
@@ -126,19 +127,20 @@ bool BeamWeapon::_initialize()
 		m_pMountTransformConstant = constants.addFloatConstant("mountTransform", 4);
 		constants.end();
 	}
-	
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------
 bool BeamWeapon::_destroy()
 {
-	if (m_inst.m_pProceduralMesh)
+#if 0
+    if (m_inst.m_pProceduralMesh)
 	{
 		m_inst.m_pProceduralMesh->destroy();
 		delete m_inst.m_pProceduralMesh;
 		m_inst.m_pProceduralMesh = 0;
 	}
-
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------
@@ -169,7 +171,7 @@ bool BeamWeapon::_update(float deltaT)
 		// early-out, we are entirely idle
 		return true;
 	}
-
+#if 0
 	if (m_pMountTransformConstant)
 	{
 		const Matrix44& xform = m_pSlot->getTransform();
@@ -178,7 +180,7 @@ bool BeamWeapon::_update(float deltaT)
 		xform.transpose(tmp);
 
 		// update shader constant(s) on the RenderComponent
-		m_pMountTransformConstant->setValue((Vector4*)&tmp);
+        m_pMountTransformConstant->setValue((Vector4*)&tmp);
 	}
 
 	if (pComp)
@@ -186,7 +188,7 @@ bool BeamWeapon::_update(float deltaT)
 		m_inst.setTransform(getTransformWS());
 		pComp->setMeshInstance(m_inst);
 	}
-
+#endif
 	return true;
 }
 //---------------------------------------------------------------------------
