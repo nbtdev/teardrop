@@ -40,7 +40,6 @@ namespace Teardrop
                 Window mParent = 0;
                 Window mWindow = 0;
                 GLXContext mCtx = nullptr;
-                GLXWindow mGLXWindow = 0;
             };
 
         } // namespace OpenGL

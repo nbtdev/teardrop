@@ -71,6 +71,8 @@ namespace Teardrop
             private:
                 typedef std::vector<Gfx::RenderTarget*> RenderTargets;
                 RenderTargets mRenderTargets;
+
+                RenderTarget* mCurrentRT = nullptr;
             };
         }
     }

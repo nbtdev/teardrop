@@ -72,7 +72,7 @@ void RenderWindow::onIdle()
 	// render a black clear frame for now
 	if (mRenderer && mRT) {
 		mRenderer->setRenderTarget(mRT);
-		mRenderer->beginFrame();
+        mRenderer->beginFrame(true, 0x000000FF);
 		mRenderer->beginScene(mCamera, mViewport);
 		mRenderer->endScene();
 		mRenderer->endFrame();

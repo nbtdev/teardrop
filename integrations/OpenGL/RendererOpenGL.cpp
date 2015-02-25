@@ -10,6 +10,7 @@ is prohibited.
 #include "Util/UUID.h"
 #include "Util/_String.h"
 #include <X11/Xlib.h>
+#include <assert.h>
 
 namespace Teardrop
 {
@@ -62,9 +63,22 @@ Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
 }
 
 void
-Renderer::setRenderTarget(Gfx::RenderTarget* rt)
+Renderer::setRenderTarget(Gfx::RenderTarget* aRT)
 {
+    // let user clear current RT if they wish
+    if (aRT == nullptr) {
+        mCurrentRT = nullptr;
+        return;
+    }
 
+    // and make sure it's one of ours
+    for (auto rt : mRenderTargets) {
+        if (rt == aRT) {
+            mCurrentRT = aRT;
+            aRT->setCurrent();
+            break;
+        }
+    }
 }
 
 void
@@ -76,7 +90,9 @@ Renderer::beginFrame(
     bool stencil,
     unsigned int stencilValue)
 {
-
+    if (mCurrentRT) {
+        mCurrentRT->clear(color, clearColor, depth, depthValue, stencil, stencilValue);
+    }
 }
 
 void
@@ -100,7 +116,6 @@ Renderer::apply(Material* material)
 void
 Renderer::render(Submesh* submesh)
 {
-
 }
 
 void
@@ -118,7 +133,10 @@ Renderer::endScene()
 void
 Renderer::endFrame()
 {
-
+    assert(mCurrentRT);
+    if (mCurrentRT) {
+        mCurrentRT->present();
+    }
 }
 
 } // namespace OpenGL

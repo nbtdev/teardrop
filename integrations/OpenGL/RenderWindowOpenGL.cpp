@@ -8,6 +8,7 @@ is prohibited.
 #include "RenderWindowOpenGL.h"
 #include "Gfx/Common.h"
 #include <assert.h>
+#include <iostream>
 
 namespace Teardrop {
 namespace Gfx {
@@ -73,13 +74,18 @@ RenderWindow::RenderWindow(Display* aDisplay, Window aParent, int aFlags)
             }
         }
 
+        Window parent = mParent;
+        int width = mWidth, height = mHeight;
+
+        if (mParent == 0) parent = RootWindow(mDisplay, vis->screen);
+
         // create a new window for the context, possibly at the screen root if no parent was supplied
         mWindow = XCreateWindow(
                     mDisplay,
-                    mParent == 0 ? RootWindow(mDisplay, vis->screen) : mParent,
+                    parent,
                     -1, -1,
-                    mParent == 0 ? -1 : mWidth,
-                    mParent == 0 ? -1 : mHeight,
+                    width,
+                    height,
                     0,
                     vis->depth,
                     InputOutput,
@@ -88,21 +94,39 @@ RenderWindow::RenderWindow(Display* aDisplay, Window aParent, int aFlags)
                     &swa
                 );
 
-        mCtx = glXCreateNewContext(mDisplay, config[0], GLX_RGBA_TYPE, NULL, True);
-        mGLXWindow = glXCreateWindow(mDisplay, config[0], mWindow, NULL);
+        typedef GLXContext (*glXCreateContextAttribsARB_fn)(Display*, GLXFBConfig, GLXContext, Bool, const int*);
+        glXCreateContextAttribsARB_fn glXCreateContextAttribsARB = (glXCreateContextAttribsARB_fn)glXGetProcAddress((GLubyte*)"glXCreateContextAttribsARB");
+
+        if (!glXCreateContextAttribsARB) {
+            std::cerr << "Could not find glXCreateContextAttribsARB function" << std::endl;
+            return;
+        }
+
+        int ctxAttrs[] = {
+            GLX_CONTEXT_MAJOR_VERSION_ARB, 4,
+            GLX_CONTEXT_MINOR_VERSION_ARB, 0,
+            None
+        };
+
+        mCtx = glXCreateContextAttribsARB(mDisplay, config[0], nullptr, True, ctxAttrs);
+
+        if (!mCtx) {
+            std::cerr << "Failed to create GL4 context" << std::endl;
+            return;
+        }
+
         XMapWindow(mDisplay, mWindow);
 
         XEvent event;
         XIfEvent(mDisplay, &event, WaitForNotify, (XPointer)mWindow);
 
-        glXMakeContextCurrent(mDisplay, mGLXWindow, mGLXWindow, mCtx);
+        glXMakeCurrent(mDisplay, mWindow, mCtx);
     }
 }
 
 RenderWindow::~RenderWindow()
 {
     glXDestroyContext(mDisplay, mCtx);
-    glXDestroyWindow(mDisplay, mGLXWindow);
 }
 
 void RenderWindow::resize(int w, int h)
@@ -180,7 +204,7 @@ void RenderWindow::present()
 void
 RenderWindow::setCurrent()
 {
-    glXMakeContextCurrent(mDisplay, mGLXWindow, mGLXWindow, mCtx);
+    glXMakeCurrent(mDisplay, mWindow, mCtx);
 }
 
 } // namespace OpenGL

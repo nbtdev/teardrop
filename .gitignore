@@ -4,6 +4,7 @@ ipch
 *.sdf
 obj
 lib
+bin
 *.suo
 *.user
 sdk/include
