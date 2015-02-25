@@ -756,3 +756,13 @@ integrations/OpenGL/RendererOpenGL.h
 integrations/OpenGL/RendererOpenGL.cpp
 integrations/OpenGL/IntegrationOpenGL.h
 integrations/OpenGL/IntegrationOpenGL.cpp
+integrations/OpenGL/RenderTargetOpenGL.h
+integrations/OpenGL/RenderTargetOpenGL.cpp
+integrations/OpenGL/ViewportOpenGL.h
+integrations/OpenGL/ViewportOpenGL.cpp
+integrations/OpenGL/RenderWindowOpenGL.h
+integrations/OpenGL/RenderWindowOpenGL.cpp
+integrations/XWindow/Integration.h
+integrations/XWindow/Integration.cpp
+integrations/XWindow/InputXWindow.h
+integrations/XWindow/InputXWindow.cpp

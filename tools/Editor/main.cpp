@@ -26,6 +26,7 @@ is prohibited.
     #include "DirectInput8/Integration.h"
 #else // _WIN32, _WIN64
     #include "OpenGL/IntegrationOpenGL.h"
+    #include "XWindow/Integration.h"
 #endif // _WIN32, _WIN64
 
 // hacky
@@ -40,15 +41,24 @@ int main(int argc, char *argv[])
 	Teardrop::FileStream logStrm;
 	Teardrop::Logger logger(logStrm);
 
-	Teardrop::String logPath;
-	Teardrop::FileSystem::getAppDataPath(logPath);
-	logPath.append('/');
-	logPath.append("TeardropEditor.log");
+    Teardrop::String logPath, logFilePath;
+    Teardrop::FileSystem::getAppDataPath(logPath);
+    Teardrop::FileSystem::getAppDataPath(logFilePath);
+    logFilePath.append('/');
+    logFilePath.append("TeardropEditor.log");
 
-	if (!logStrm.open(logPath, Teardrop::WRITE|Teardrop::TRUNCATE|Teardrop::TEXT))
+    if (!logStrm.open(logFilePath, Teardrop::WRITE|Teardrop::TRUNCATE|Teardrop::TEXT))
 	{
-		// todo: let the user know
-		return -1;
+        // attempt to create the directory
+        if (Teardrop::FileSystem::createDirectory(logPath)) {
+            // todo: let the user know
+            return -2;
+        }
+
+        if (!logStrm.open(logFilePath, Teardrop::WRITE|Teardrop::TRUNCATE|Teardrop::TEXT)) {
+            // todo: let the user know
+            return -1;
+        }
 	}
 
 	Teardrop::Environment& env = Teardrop::Environment::get();
@@ -61,6 +71,7 @@ int main(int argc, char *argv[])
 	Teardrop::DirectInput::Integration inputIntegration;
 #else // _WIN32, _WIN64
     Teardrop::Gfx::OpenGL::registerIntegration();
+    Teardrop::XWindow::Integration inputIntegration;
 #endif // _WIN32, _WIN64
 
 	QApplication a(argc, argv);

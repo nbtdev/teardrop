@@ -6,8 +6,10 @@ is prohibited.
 ****************************************************************************/
 
 #include "RendererOpenGL.h"
+#include "RenderWindowOpenGL.h"
 #include "Util/UUID.h"
 #include "Util/_String.h"
+#include <X11/Xlib.h>
 
 namespace Teardrop
 {
@@ -26,10 +28,13 @@ Renderer::~Renderer()
 
 }
 
-RenderTarget*
+Gfx::RenderTarget*
 Renderer::initialize(uintptr_t hWnd, int flags)
 {
-    return nullptr;
+    OpenGL::RenderWindow* renderWindow = TD_NEW OpenGL::RenderWindow(XOpenDisplay(0), (Window)hWnd, flags);
+    mRenderTargets.push_back(renderWindow);
+
+    return renderWindow;
 }
 
 void
@@ -38,26 +43,26 @@ Renderer::shutdown()
 
 }
 
-RenderTarget*
+Gfx::RenderTarget*
 Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags)
 {
     return nullptr;
 }
 
-RenderTarget*
+Gfx::RenderTarget*
 Renderer::createRenderTexture(int w, int h, SurfaceFormat fmt, int flags)
 {
     return nullptr;
 }
 
 void
-Renderer::releaseRenderTarget(RenderTarget* rt)
+Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
 {
 
 }
 
 void
-Renderer::setRenderTarget(RenderTarget* rt)
+Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 {
 
 }

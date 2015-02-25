@@ -1,4 +1,5 @@
 SUBDIRS = \
-	OpenGL
+	OpenGL \
+	XWindow
 
 include $(ROOT)/build/mk/targets.mk

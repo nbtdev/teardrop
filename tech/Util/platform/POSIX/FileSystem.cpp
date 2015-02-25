@@ -85,7 +85,12 @@ void FileSystem::getAppDataPath(String& path)
 
 bool FileSystem::createDirectory(const String& dirPath)
 {
-    mkdir(dirPath, 0755);
+    int rtn = mkdir(dirPath, 0755);
+    if (rtn) {
+        return false;
+    }
+
+    return true;
 }
 
 // path names in Windows are not case-sensitive (i.e. F:\TMP is the same

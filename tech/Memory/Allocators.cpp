@@ -12,6 +12,7 @@ is prohibited.
 #include "AllocationTracker.h"
 #include "Math/MathUtil.h"
 #include <assert.h>
+#include <errno.h>
 #include <string.h>
 #include <stdlib.h>
 #include <new>

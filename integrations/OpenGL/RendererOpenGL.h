@@ -10,6 +10,7 @@ is prohibited.
 
 #include "Gfx/Renderer.h"
 #include "Memory/Allocators.h"
+#include <vector>
 
 namespace Teardrop
 {
@@ -18,7 +19,7 @@ namespace Teardrop
         namespace OpenGL
         {
             class Renderer
-                    : public Gfx::Renderer
+                : public Gfx::Renderer
             {
             public:
                 Renderer();
@@ -28,19 +29,19 @@ namespace Teardrop
                 // window); flags is a bitwise OR of the Flags enumeration values; depending
                 // on platform, an hWnd value of 0 means either "create a new top level window"
                 // or "use the window/context created for me"
-                RenderTarget* initialize(uintptr_t hWnd, int flags);
+                Gfx::RenderTarget* initialize(uintptr_t hWnd, int flags);
                 void shutdown();
 
                 // create a new render window; if hWnd is 0, creates a new top-level
                 // window, otherwise, creates an embedded render context in the supplied
                 // window;
-                RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
+                Gfx::RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
                 // create a new render texture; if tex is null, no render texture is created
-                RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
+                Gfx::RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
                 // release a previously-created render target
-                void releaseRenderTarget(RenderTarget* rt);
+                void releaseRenderTarget(Gfx::RenderTarget* rt);
                 // set render target as current render target
-                void setRenderTarget(RenderTarget* rt);
+                void setRenderTarget(Gfx::RenderTarget* rt);
 
                 // begin a new frame render
                 void beginFrame(
@@ -66,6 +67,10 @@ namespace Teardrop
                 void endFrame();
 
                 TD_DECLARE_ALLOCATOR();
+
+            private:
+                typedef std::vector<Gfx::RenderTarget*> RenderTargets;
+                RenderTargets mRenderTargets;
             };
         }
     }

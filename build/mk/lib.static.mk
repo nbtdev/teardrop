@@ -8,17 +8,18 @@
 #############################################################################
 
 
-LIB = $(LIBDIR)/$(BUILD_TYPE)/lib$(NAME).a
+LIBPATH = $(LIBDIR)/$(BUILD_TYPE)
+LIB = $(LIBPATH)/lib$(NAME).a
 
-opt-debug: $(OBJDIR) $(LIBDIR) $(LIB)
-debug: $(OBJDIR) $(LIBDIR) $(LIB)
-opt: $(OBJDIR) $(LIBDIR) $(LIB)
+opt-debug: $(OBJDIR) $(LIBPATH) $(LIB)
+debug: $(OBJDIR) $(LIBPATH) $(LIB)
+opt: $(OBJDIR) $(LIBPATH) $(LIB)
 
 $(LIB): $(OBJS)
 	@echo "  [lib] $@"
 	@$(AR) $(ARFLAGS) -o $@ $^
 
-$(LIBDIR):
+$(LIBPATH):
 	@echo $(OBJS)
 	@mkdir -p $(LIBDIR)/$(BUILD_TYPE)
 

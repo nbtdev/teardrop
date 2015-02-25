@@ -1,7 +1,5 @@
 SUBDIRS = tech integrations tools
 
-DIR = `pwd`
-
 ROOT := $(CURDIR)
 export ROOT
 
@@ -37,16 +35,16 @@ opt-debug:
 	done
 
 debug:
-	@export CFLAGS=$(DEBUG_CFLAGS); \
-	export LDFLAGS=$(DEBUG_LDFLAGS); \
+	@export CFLAGS="$(DEBUG_CFLAGS)"; \
+	export LDFLAGS="$(DEBUG_LDFLAGS)"; \
 	export BUILD_TYPE="debug"; \
 	for s in $(SUBDIRS); do \
 		$(MAKE) -C $$s debug; \
 	done
 
 opt:
-	@export CFLAGS=$(OPT_CFLAGS); \
-	export LDFLAGS=$(OPT_LDFLAGS); \
+	@export CFLAGS="$(OPT_CFLAGS)"; \
+	export LDFLAGS="$(OPT_LDFLAGS)"; \
 	export BUILD_TYPE="opt"; \
 	for s in $(SUBDIRS); do \
 		$(MAKE) -C $$s opt; \

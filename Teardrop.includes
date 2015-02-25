@@ -67,3 +67,4 @@ tools/ThirdParty/LibHFZ/zlib/include
 tech/Util/platform/POSIX
 integrations
 integrations/OpenGL
+integrations/XWindow
