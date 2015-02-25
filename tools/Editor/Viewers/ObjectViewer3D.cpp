@@ -13,6 +13,7 @@ is prohibited.
 #include "Package/Package.h"
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QMessageBox>
 #include <QtWidgets/QSplitter>
 #include <QtCore/QTimer>
 #include <QtGui/QResizeEvent>
@@ -57,6 +58,11 @@ ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	setWindowIcon(QIcon("icons/td-icon-32.png"));
 
 	mRenderWindow = mRenderer->createRenderWindow((uintptr_t)m3DView->winId(), SURFACE_A8R8G8B8, INIT_ENABLE_DEPTH_BUFFER|INIT_ENABLE_STENCIL_BUFFER);
+    if (!mRenderWindow) {
+        QMessageBox mb;
+        mb.setText("Could not create render window for static mesh asset viewer");
+        mb.exec();
+    }
 
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
 	mTimer->start(10);
@@ -77,7 +83,8 @@ ObjectViewer3D::~ObjectViewer3D()
 
 void ObjectViewer3D::resizeEvent(QResizeEvent *event)
 {
-	mRenderWindow->resize(event->size().width(), event->size().height());
+    if (mRenderWindow)
+        mRenderWindow->resize(event->size().width(), event->size().height());
 }
 
 Package* ObjectViewer3D::package()
