@@ -766,3 +766,5 @@ integrations/XWindow/Integration.h
 integrations/XWindow/Integration.cpp
 integrations/XWindow/InputXWindow.h
 integrations/XWindow/InputXWindow.cpp
+integrations/OpenGL/ExtensionManager.h
+integrations/OpenGL/ExtensionManager.cpp

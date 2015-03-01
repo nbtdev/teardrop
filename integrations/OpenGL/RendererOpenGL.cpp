@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "RendererOpenGL.h"
+#include "ExtensionManager.h"
 #include "RenderWindowOpenGL.h"
 #include "Util/UUID.h"
 #include "Util/_String.h"
@@ -35,13 +36,17 @@ Renderer::initialize(uintptr_t hWnd, int flags)
     OpenGL::RenderWindow* renderWindow = TD_NEW OpenGL::RenderWindow(XOpenDisplay(0), (Window)hWnd, flags);
     mRenderTargets.push_back(renderWindow);
 
+    // now we can initialize extensions
+    mExtMgr = TD_NEW ExtensionManager;
+
     return renderWindow;
 }
 
 void
 Renderer::shutdown()
 {
-
+    delete mExtMgr;
+    mExtMgr = nullptr;
 }
 
 Gfx::RenderTarget*

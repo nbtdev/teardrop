@@ -18,6 +18,8 @@ namespace Teardrop
     {
         namespace OpenGL
         {
+            class ExtensionManager;
+
             class Renderer
                 : public Gfx::Renderer
             {
@@ -73,6 +75,8 @@ namespace Teardrop
                 RenderTargets mRenderTargets;
 
                 RenderTarget* mCurrentRT = nullptr;
+
+                ExtensionManager* mExtMgr = nullptr;
             };
         }
     }
