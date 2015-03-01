@@ -131,6 +131,8 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::resize(int w, int h)
 {
+    XResizeWindow(mDisplay, mWindow, w, h);
+
 #if 0
     assert(mHwnd);
 
