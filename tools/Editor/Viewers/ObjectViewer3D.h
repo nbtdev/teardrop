@@ -16,6 +16,7 @@ namespace Teardrop
 {
 	class Package;
 	class OrbitCameraController;
+    class String;
 
 	namespace Gfx {
 		class Renderer;
@@ -36,6 +37,7 @@ namespace Teardrop
 			~ObjectViewer3D();
 
 			Package* package();
+            void setObjectName(const String& aName);
 
 		protected slots:
 			void onIdle();

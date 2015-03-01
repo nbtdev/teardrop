@@ -350,6 +350,8 @@ void Editor::onObjectBrowserItemDoubleClicked(ProjectItem* item)
 				smv->initialize();
 				smv->setStaticMeshAsset(sma);
 
+                objViewer->setObjectName(item->metadata()->getName());
+
 				objViewer->show();
 			}
 		}

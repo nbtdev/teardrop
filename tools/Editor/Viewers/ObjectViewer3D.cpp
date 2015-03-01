@@ -23,6 +23,10 @@ using namespace Teardrop;
 using namespace Tools;
 using namespace Gfx;
 
+namespace {
+    const char* sWindowName = "Object Viewer (3D)";
+}
+
 ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	: QWidget(parent)
 	, mRenderer(renderer)
@@ -51,8 +55,7 @@ ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	setAttribute(Qt::WA_DeleteOnClose);
 	resize(800, 600);
 
-	QString title("Object Viewer (3D)");
-	//title.append(meta->getName());
+    QString title(sWindowName);
 	setWindowTitle(title);
 
 	setWindowIcon(QIcon("icons/td-icon-32.png"));
@@ -94,6 +97,14 @@ Package* ObjectViewer3D::package()
 	}
 
 	return mPackage;
+}
+
+void ObjectViewer3D::setObjectName(const String& aName)
+{
+    QString title(sWindowName);
+    title.append(" - ");
+    title.append((const char*)aName);
+    setWindowTitle(title);
 }
 
 void ObjectViewer3D::onIdle()
