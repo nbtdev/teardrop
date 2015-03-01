@@ -45,9 +45,12 @@ Renderer::shutdown()
 }
 
 Gfx::RenderTarget*
-Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags)
+Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
 {
-    return nullptr;
+    OpenGL::RenderWindow* renderWindow = TD_NEW OpenGL::RenderWindow(XOpenDisplay(0), (Window)hWnd, flags);
+    mRenderTargets.push_back(renderWindow);
+
+    return renderWindow;
 }
 
 Gfx::RenderTarget*
