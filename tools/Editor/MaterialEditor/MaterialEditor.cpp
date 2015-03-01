@@ -86,9 +86,10 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 	// populate the expression list with candidates
 	QStringList exprNames;
 	Reflection::ClassDef* classDef = Reflection::ClassDef::getClasses();
-	while (classDef) {
-		Reflection::ClassDef* mtlExprClass = Gfx::MaterialExpression::getClassDef();
-		if (classDef->isA(mtlExprClass) && classDef != mtlExprClass && classDef->isCreatable()) {
+    Reflection::ClassDef* mtlExprClass = Gfx::MaterialExpression::getClassDef();
+
+    while (classDef) {
+        if (classDef->isA(mtlExprClass) && classDef != mtlExprClass && classDef->isCreatable()) {
 			exprNames.append(classDef->getName());
 			mExpressionClasses.push_back(classDef);
 		}
