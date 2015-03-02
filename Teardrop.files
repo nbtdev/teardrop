@@ -768,3 +768,5 @@ integrations/XWindow/InputXWindow.h
 integrations/XWindow/InputXWindow.cpp
 integrations/OpenGL/ExtensionManager.h
 integrations/OpenGL/ExtensionManager.cpp
+integrations/OpenGL/IndexBufferOpenGL.h
+integrations/OpenGL/IndexBufferOpenGL.cpp

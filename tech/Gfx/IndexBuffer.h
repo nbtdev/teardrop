@@ -27,13 +27,15 @@ namespace Teardrop
 			int indexSize();
 
 			enum MapFlags {
+                MAP_ANY = 0,
 				MAP_READONLY = 1,
 				MAP_DISCARD = 2,
+                MAP_WRITEONLY = 3
 			};
 
 			virtual bool initialize(int indexSize, int indexCount, void* data=0) = 0;
 			virtual void resize(int indexSize, int indexCount) = 0;
-			virtual void* map(int flags=0) = 0;
+            virtual void* map(MapFlags flags=MAP_ANY) = 0;
 			virtual void unmap() = 0;
 
 			TD_DECLARE_ALLOCATOR();

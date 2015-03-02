@@ -6,59 +6,42 @@ is prohibited.
 ****************************************************************************/
 
 #include "ExtensionManager.h"
-#include <vector>
 #include <assert.h>
+#include <GL/glx.h>
 #include <string.h>
+#include <vector>
 
 namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
 
+template<> ExtensionManager* Singleton<ExtensionManager>::mInst = 0;
+
 ExtensionManager::ExtensionManager()
-    : glBindVertexArray(0)
-    , glDeleteVertexArrays(0)
-    , glGenVertexArrays(0)
-    , glGenSamplers(0)
-    , glDeleteSamplers(0)
-    , glIsSampler(0)
-    , glBindSampler(0)
-    , glSamplerParameteri(0)
-    , glSamplerParameteriv(0)
-    , glSamplerParameterf(0)
-    , glSamplerParameterfv(0)
-    , glSamplerParameterIiv(0)
-    , glSamplerParameterIuiv(0)
-    , glGetSamplerParameteriv(0)
-    , glGetSamplerParameterIiv(0)
-    , glGetSamplerParameterfv(0)
-    , glGetSamplerParameterIuiv(0)
-    , glIsRenderbuffer(0)
-    , glBindRenderbuffer(0)
-    , glDeleteRenderbuffers(0)
-    , glGenRenderbuffers(0)
-    , glRenderbufferStorage(0)
-    , glGetRenderbufferParameteriv(0)
-    , glIsFramebuffer(0)
-    , glBindFramebuffer(0)
-    , glDeleteFramebuffers(0)
-    , glGenFramebuffers(0)
-    , glCheckFramebufferStatus(0)
-    , glFramebufferTexture1D(0)
-    , glFramebufferTexture2D(0)
-    , glFramebufferTexture3D(0)
-    , glFramebufferRenderbuffer(0)
-    , glGetFramebufferAttachmentParameteriv(0)
-    , glGenerateMipmap(0)
-    , glBlitFramebuffer(0)
-    , glRenderbufferStorageMultisample(0)
-    , glFramebufferTextureLayer(0)
 {
+    assert(!mInst);
+    mInst = this;
+}
+
+ExtensionManager::~ExtensionManager()
+{
+
 }
 
 void ExtensionManager::initialize()
 {
     const char* ext = (const char*)glGetString(GL_EXTENSIONS);
     if (ext) {
+        // things that simply are there at this time and date...
+        glGenBuffers = (PFNGLGENBUFFERSPROC)glXGetProcAddress((GLubyte*)"glGenBuffers");
+        assert(glGenBuffers);
+        glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)glXGetProcAddress((GLubyte*)"glDeleteBuffers");
+        assert(glDeleteBuffers);
+        glBindBuffer = (PFNGLBINDBUFFERPROC)glXGetProcAddress((GLubyte*)"glBindBuffer");
+        assert(glBindBuffer);
+        glBufferData = (PFNGLBUFFERDATAPROC)glXGetProcAddress((GLubyte*)"glBufferData");
+        assert(glBufferData);
+
         if (strstr(ext, "GL_ARB_vertex_array_object")) {
             glBindVertexArray = (PFNGLBINDVERTEXARRAYPROC)glXGetProcAddress((GLubyte*)"glBindVertexArray");
             assert(glBindVertexArray);
@@ -139,6 +122,26 @@ void* ExtensionManager::mapBuffer(GLenum target, GLenum access)
 void ExtensionManager::unmapBuffer(GLenum target)
 {
     glUnmapBuffer(target);
+}
+
+void ExtensionManager::genBuffers(GLsizei aCount, GLuint *aBuffers)
+{
+    if (glGenBuffers) glGenBuffers(aCount, aBuffers);
+}
+
+void ExtensionManager::deleteBuffers(GLsizei aCount, GLuint *aBuffers)
+{
+    if (glDeleteBuffers) glDeleteBuffers(aCount, aBuffers);
+}
+
+void ExtensionManager::bindBuffer(GLenum aTarget, GLuint aBuffer)
+{
+    if (glBindBuffer) glBindBuffer(aTarget, aBuffer);
+}
+
+void ExtensionManager::bufferData(GLenum aTarget, GLsizeiptr aSize, const GLvoid* aData, GLenum aUsage)
+{
+    if (glBufferData) glBufferData(aTarget, aSize, aData, aUsage);
 }
 
 bool ExtensionManager::hasGenSamplers()

@@ -8,8 +8,8 @@ is prohibited.
 #ifndef EXTENSIONMANAGER_H
 #define EXTENSIONMANAGER_H
 
+#include <Core/Singleton.h>
 #define GL_GLEXT_PROTOTYPES 1
-#include <GL/glx.h>
 #include <GL/gl.h>
 #include <GL/glext.h>
 #include <vector>
@@ -18,7 +18,7 @@ namespace Teardrop {
     namespace Gfx {
         namespace OpenGL {
 
-            class ExtensionManager
+            class ExtensionManager : public Singleton<ExtensionManager>
             {
             public:
                 ExtensionManager();
@@ -35,6 +35,13 @@ namespace Teardrop {
                 bool hasMapBuffer() { return true; }
                 virtual void* mapBuffer(GLenum target, GLenum access);
                 virtual void unmapBuffer(GLenum target);
+
+                // these may not appear in gl.h even though they
+                // are also in core OpenGL since 1.x...
+                void genBuffers(GLsizei aCount, GLuint* aBuffers);
+                void deleteBuffers(GLsizei aCount, GLuint* aBuffers);
+                void bindBuffer(GLenum target, GLuint aBuffer);
+                void bufferData(GLenum target, GLsizeiptr aSize, const GLvoid* aData, GLenum aUsage);
 
                 // glGenSamplers is present in 3.3 and above
                 bool hasGenSamplers();
@@ -77,45 +84,49 @@ namespace Teardrop {
                 void framebufferTextureLayer (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
 
             private:
-                PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
-                PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays;
-                PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
+                PFNGLBINDVERTEXARRAYPROC glBindVertexArray = nullptr;
+                PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = nullptr;
+                PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = nullptr;
+                PFNGLGENBUFFERSPROC glGenBuffers = nullptr;
+                PFNGLDELETEBUFFERSPROC glDeleteBuffers = nullptr;
+                PFNGLBINDBUFFERPROC glBindBuffer = nullptr;
+                PFNGLBUFFERDATAPROC glBufferData = nullptr;
 
-                PFNGLGENSAMPLERSPROC glGenSamplers;
-                PFNGLDELETESAMPLERSPROC glDeleteSamplers;
-                PFNGLISSAMPLERPROC glIsSampler;
-                PFNGLBINDSAMPLERPROC glBindSampler;
-                PFNGLSAMPLERPARAMETERIPROC glSamplerParameteri;
-                PFNGLSAMPLERPARAMETERIVPROC glSamplerParameteriv;
-                PFNGLSAMPLERPARAMETERFPROC glSamplerParameterf;
-                PFNGLSAMPLERPARAMETERFVPROC glSamplerParameterfv;
-                PFNGLSAMPLERPARAMETERIIVPROC glSamplerParameterIiv;
-                PFNGLSAMPLERPARAMETERIUIVPROC glSamplerParameterIuiv;
-                PFNGLGETSAMPLERPARAMETERIVPROC glGetSamplerParameteriv;
-                PFNGLGETSAMPLERPARAMETERIIVPROC glGetSamplerParameterIiv;
-                PFNGLGETSAMPLERPARAMETERFVPROC glGetSamplerParameterfv;
-                PFNGLGETSAMPLERPARAMETERIUIVPROC glGetSamplerParameterIuiv;
+                PFNGLGENSAMPLERSPROC glGenSamplers = nullptr;
+                PFNGLDELETESAMPLERSPROC glDeleteSamplers = nullptr;
+                PFNGLISSAMPLERPROC glIsSampler = nullptr;
+                PFNGLBINDSAMPLERPROC glBindSampler = nullptr;
+                PFNGLSAMPLERPARAMETERIPROC glSamplerParameteri = nullptr;
+                PFNGLSAMPLERPARAMETERIVPROC glSamplerParameteriv = nullptr;
+                PFNGLSAMPLERPARAMETERFPROC glSamplerParameterf = nullptr;
+                PFNGLSAMPLERPARAMETERFVPROC glSamplerParameterfv = nullptr;
+                PFNGLSAMPLERPARAMETERIIVPROC glSamplerParameterIiv = nullptr;
+                PFNGLSAMPLERPARAMETERIUIVPROC glSamplerParameterIuiv = nullptr;
+                PFNGLGETSAMPLERPARAMETERIVPROC glGetSamplerParameteriv = nullptr;
+                PFNGLGETSAMPLERPARAMETERIIVPROC glGetSamplerParameterIiv = nullptr;
+                PFNGLGETSAMPLERPARAMETERFVPROC glGetSamplerParameterfv = nullptr;
+                PFNGLGETSAMPLERPARAMETERIUIVPROC glGetSamplerParameterIuiv = nullptr;
 
-                PFNGLISRENDERBUFFERPROC glIsRenderbuffer;
-                PFNGLBINDRENDERBUFFERPROC glBindRenderbuffer;
-                PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers;
-                PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
-                PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
-                PFNGLGETRENDERBUFFERPARAMETERIVPROC glGetRenderbufferParameteriv;
-                PFNGLISFRAMEBUFFERPROC glIsFramebuffer;
-                PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
-                PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
-                PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
-                PFNGLCHECKFRAMEBUFFERSTATUSPROC glCheckFramebufferStatus;
-                PFNGLFRAMEBUFFERTEXTURE1DPROC glFramebufferTexture1D;
-                PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
-                PFNGLFRAMEBUFFERTEXTURE3DPROC glFramebufferTexture3D;
-                PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer;
-                PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC glGetFramebufferAttachmentParameteriv;
-                PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
-                PFNGLBLITFRAMEBUFFERPROC glBlitFramebuffer;
-                PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC glRenderbufferStorageMultisample;
-                PFNGLFRAMEBUFFERTEXTURELAYERPROC glFramebufferTextureLayer;
+                PFNGLISRENDERBUFFERPROC glIsRenderbuffer = nullptr;
+                PFNGLBINDRENDERBUFFERPROC glBindRenderbuffer = nullptr;
+                PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers = nullptr;
+                PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers = nullptr;
+                PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage = nullptr;
+                PFNGLGETRENDERBUFFERPARAMETERIVPROC glGetRenderbufferParameteriv = nullptr;
+                PFNGLISFRAMEBUFFERPROC glIsFramebuffer = nullptr;
+                PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer = nullptr;
+                PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers = nullptr;
+                PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers = nullptr;
+                PFNGLCHECKFRAMEBUFFERSTATUSPROC glCheckFramebufferStatus = nullptr;
+                PFNGLFRAMEBUFFERTEXTURE1DPROC glFramebufferTexture1D = nullptr;
+                PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D = nullptr;
+                PFNGLFRAMEBUFFERTEXTURE3DPROC glFramebufferTexture3D = nullptr;
+                PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer = nullptr;
+                PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC glGetFramebufferAttachmentParameteriv = nullptr;
+                PFNGLGENERATEMIPMAPPROC glGenerateMipmap = nullptr;
+                PFNGLBLITFRAMEBUFFERPROC glBlitFramebuffer = nullptr;
+                PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC glRenderbufferStorageMultisample = nullptr;
+                PFNGLFRAMEBUFFERTEXTURELAYERPROC glFramebufferTextureLayer = nullptr;
             };
         } // namespace OpenGL
     } // namespace Gfx
