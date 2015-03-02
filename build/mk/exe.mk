@@ -21,7 +21,7 @@ opt-debug: $(OBJDIR) $(BINDIR) $(EXE)
 debug: $(OBJDIR) $(BINDIR) $(EXE)
 opt: $(OBJDIR) $(BINDIR) $(EXE)
 
-$(EXE): $(OBJS)
+$(EXE): $(OBJS) $(DEPS)
 	@echo "  [exe] $@"
 	@$(CXX) -o $@ $^ $(LDFLAGS) 
 

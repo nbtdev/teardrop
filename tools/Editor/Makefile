@@ -31,11 +31,10 @@ include $(ROOT)/build/mk/tbb.mk
 include $(ROOT)/build/mk/fbx.mk
 include $(ROOT)/build/mk/squish.mk
 
-LIBS += \
+TEARDROP_LIBS = \
 	OpenGL \
 	XWindow \
 	PackageManager \
-	squish \
 	HFZ \
 	Asset \
 	Core \
@@ -48,10 +47,15 @@ LIBS += \
 	Stream \
 	tinyxml \
 	Util \
-	VFX \
+	VFX
+
+LIBS += \
+	squish \
 	uuid \
 	freeimage \
 	z
+
+DEPS = 	$(addprefix $(LIBPATH)/lib, $(addsuffix .a, $(TEARDROP_LIBS)))
 
 include $(ROOT)/build/mk/exe.mk
 

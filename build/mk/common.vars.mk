@@ -19,3 +19,5 @@ TMPOBJ2 = $(filter %.o, $(SRCS:c=o))
 TMPOBJ3 = $(filter %.o, $(SRCS:cc=o))
 
 OBJS = $(addprefix $(OBJDIR)/, $(TMPOBJ1) $(TMPOBJ2) $(TMPOBJ3))
+
+LIBPATH = $(LIBDIR)/$(BUILD_TYPE)

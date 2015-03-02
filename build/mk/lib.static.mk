@@ -8,7 +8,6 @@
 #############################################################################
 
 
-LIBPATH = $(LIBDIR)/$(BUILD_TYPE)
 LIB = $(LIBPATH)/lib$(NAME).a
 
 opt-debug: $(OBJDIR) $(LIBPATH) $(LIB)
