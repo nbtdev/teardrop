@@ -16,7 +16,7 @@ is prohibited.
 #include "Util/Logger.h"
 #include "Util/Hash.h"
 #include "Util/StringUtil.h"
-#include "tinyxml/tinyxml.h"
+#include "ThirdParty/tinyxml/tinyxml.h"
 
 using namespace Teardrop;
 using namespace Reflection;

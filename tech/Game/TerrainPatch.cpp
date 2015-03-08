@@ -79,10 +79,10 @@ bool TerrainPatch::destroy()
 }
 //---------------------------------------------------------------------------
 bool TerrainPatch::create(
-	TerrainZone* pOwner, 
-    const Gfx::Bitmap& heightmap,
-	size_t x, 
-	size_t y)
+	TerrainZone* /*pOwner*/, 
+    const Gfx::Bitmap& /*heightmap*/,
+	size_t /*x*/, 
+	size_t /*y*/)
 {
 #if 0
 	m_pOwner = pOwner;

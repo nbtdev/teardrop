@@ -118,7 +118,7 @@ bool BasicPhysicsComponent::removeFromWorld(World* pWorld)
 	return true;
 }
 //---------------------------------------------------------------------------
-bool BasicPhysicsComponent::setBody(const char* assetFilename)
+bool BasicPhysicsComponent::setBody(const char* /*assetFilename*/)
 {
 #if 0
     ResourceManager* pMgr = Environment::get().pResourceMgr;
@@ -134,7 +134,7 @@ bool BasicPhysicsComponent::setBody(const char* assetFilename)
 	return true;
 }
 //---------------------------------------------------------------------------
-bool BasicPhysicsComponent::getWorldTransform(Transform& xform)
+bool BasicPhysicsComponent::getWorldTransform(Transform& /*xform*/)
 {
 #if 0
     Body* pBody = AutoResPtr<Body>(m_hBody);
@@ -148,7 +148,7 @@ bool BasicPhysicsComponent::getWorldTransform(Transform& xform)
 	return false;
 }
 //---------------------------------------------------------------------------
-bool BasicPhysicsComponent::setWorldTransform(const Transform& xform)
+bool BasicPhysicsComponent::setWorldTransform(const Transform& /*xform*/)
 {
 #if 0
     Body* pBody = AutoResPtr<Body>(m_hBody);

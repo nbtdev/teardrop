@@ -49,9 +49,9 @@ void RenderComponent::recalculateLighting()
     Mesh* pMesh = nullptr;//AutoResPtr<GfxMesh>(m_meshInst.getMeshHandle());
 	if (pMesh)
 	{
-        for (size_t i=0; i<pMesh->submeshCount(); ++i)
+        for (int i=0; i<pMesh->submeshCount(); ++i)
 		{
-            const Material* pMtl = nullptr;//m_meshInst.getMaterialByIndex(i);
+//            const Material* pMtl = nullptr;//m_meshInst.getMaterialByIndex(i);
 //			if (!pMtl)
 //                pMtl = pMesh->submesh(i)->getMaterial();
 
@@ -72,7 +72,7 @@ void RenderComponent::recalculateLighting()
 //	recalculateLighting();
 //}
 //---------------------------------------------------------------------------
-void RenderComponent::updateTransform(const Transform& xform)
+void RenderComponent::updateTransform(const Transform& /*xform*/)
 {
 //	m_meshInst.setTransform(xform);
 

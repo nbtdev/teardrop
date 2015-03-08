@@ -5,7 +5,6 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
 #include "FileSystemWatcherWin32.h"
 #include "Logger.h"
 #include "Environment.h"
@@ -121,10 +120,12 @@ void FileSystemWatcherWin32::update(FileSystemChanges& changed)
 			char buf[MAX_PATH];
 
 			// temporarily null-terminate the next filename
-			WCHAR* tmp = pInfo->FileName + (pInfo->FileNameLength/2);
+			int len = pInfo->FileNameLength / 2;
+			WCHAR* tmp = pInfo->FileName + len;
 			WCHAR c = *tmp;
+			size_t numConv;
 			*tmp = 0;
-			wcstombs(buf, pInfo->FileName, MAX_PATH);
+			wcstombs_s(&numConv, buf, MAX_PATH, pInfo->FileName, len);
 			*tmp = c;
 			offset = pInfo->NextEntryOffset;
 
