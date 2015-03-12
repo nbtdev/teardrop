@@ -39,6 +39,9 @@ namespace Teardrop
 			Package* package();
             void setObjectName(const String& aName);
 
+        public slots:
+            void onClose();
+
 		protected slots:
 			void onIdle();
 			void mouseMoveEvent(QMouseEvent* event);

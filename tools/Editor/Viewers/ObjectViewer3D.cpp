@@ -107,6 +107,11 @@ void ObjectViewer3D::setObjectName(const String& aName)
     setWindowTitle(title);
 }
 
+void ObjectViewer3D::onClose()
+{
+    close();
+}
+
 void ObjectViewer3D::onIdle()
 {
 	if (mPackage) {

@@ -343,6 +343,9 @@ void Editor::onObjectBrowserItemDoubleClicked(ProjectItem* item)
 				StaticMeshAsset* sma = static_cast<StaticMeshAsset*>(obj);
 				ObjectViewer3D* objViewer = TD_NEW ObjectViewer3D(mRenderer);
 
+                // hook up signals for cleanup on exit
+                connect(ui.actionExit, SIGNAL(triggered()), objViewer, SLOT(onClose()));
+
 				Package* pkg = objViewer->package();
 				Executable* exe = pkg->makeExecutable(StaticMeshViewer::getClassDef());
 
