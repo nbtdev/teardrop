@@ -105,7 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\AssetMetadata.cpp" />
-    <ClCompile Include="..\..\..\AttributeMapAssetMetadata.cpp" />
+    <ClCompile Include="..\..\..\AttributeMapAssetMetadata.cpp">
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessToFile>
+    </ClCompile>
     <ClCompile Include="..\..\..\Folder.cpp" />
     <ClCompile Include="..\..\..\HeightfieldAssetMetadata.cpp" />
     <ClCompile Include="..\..\..\ImportedAsset.cpp" />
