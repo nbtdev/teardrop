@@ -9,6 +9,7 @@ is prohibited.
 #include "Component.h"
 #include "Reflection/Reflection.h"
 #include "Util/Environment.h"
+#include <algorithm>
 
 using namespace Teardrop;
 using namespace Reflection;

@@ -5,7 +5,9 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <rpc.h>
 #include "UUID.h"
 #include "_String.h"
 

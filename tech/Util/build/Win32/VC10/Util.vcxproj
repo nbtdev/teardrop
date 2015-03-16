@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -21,11 +21,13 @@
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -61,7 +63,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -76,7 +78,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <OpenMPSupport>true</OpenMPSupport>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -92,17 +94,12 @@
     <ClCompile Include="..\..\..\Environment.cpp" />
     <ClCompile Include="..\..\..\FileSystem.cpp" />
     <ClCompile Include="..\..\..\FileSystemWatcher.cpp" />
-    <ClCompile Include="..\..\..\FourCC.cpp" />
     <ClCompile Include="..\..\..\Hash.cpp" />
     <ClCompile Include="..\..\..\Logger.cpp" />
-    <ClCompile Include="..\stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Win32\UUID.cpp" />
     <ClCompile Include="..\..\..\String.cpp" />
     <ClCompile Include="..\..\..\StringUtil.cpp" />
     <ClCompile Include="..\..\..\SystemManager.cpp" />
-    <ClCompile Include="..\..\..\UUID.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\platform\win32\FileSystemWatcherWin32.h" />
@@ -111,12 +108,10 @@
     <ClInclude Include="..\..\..\Event.h" />
     <ClInclude Include="..\..\..\FileSystem.h" />
     <ClInclude Include="..\..\..\FileSystemWatcher.h" />
-    <ClInclude Include="..\..\..\FourCC.h" />
     <ClInclude Include="..\..\..\Hash.h" />
     <ClInclude Include="..\..\..\Logger.h" />
     <ClInclude Include="..\..\..\RefCounted.h" />
     <ClInclude Include="..\..\..\SharedPointer.h" />
-    <ClInclude Include="..\stdafx.h" />
     <ClInclude Include="..\..\..\StringUtil.h" />
     <ClInclude Include="..\..\..\System.h" />
     <ClInclude Include="..\..\..\SystemManager.h" />
