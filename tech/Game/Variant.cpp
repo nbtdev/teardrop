@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "Variant.h"
+#include <algorithm>
 
 using namespace Teardrop;
 

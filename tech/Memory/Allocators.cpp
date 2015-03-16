@@ -22,7 +22,7 @@ namespace {
     #define STRCPY(d, n, s) strcpy_s(d, n, s)
 
     void* alloc_aligned(size_t sz, size_t alignment) {
-        return _aligned_malloc(size, alignment);
+        return _aligned_malloc(sz, alignment);
     }
 
     void free_aligned(void* p) {

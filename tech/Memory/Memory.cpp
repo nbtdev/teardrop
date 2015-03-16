@@ -11,6 +11,11 @@ is prohibited.
 #include <assert.h>
 #include <stdlib.h>
 
+// thanks MSVC...
+#if !defined(_NOEXCEPT)
+#define _NOEXCEPT noexcept
+#endif // _NOEXCEPT
+
 using namespace Teardrop;
 //-----------------------------------------------------------------------------
 void* operator new(size_t size)
@@ -45,7 +50,7 @@ void* operator new[](size_t size)
 #endif
 }
 //-----------------------------------------------------------------------------
-void operator delete(void* pMem) noexcept
+void operator delete(void* pMem) _NOEXCEPT
 {
 	// see above
 #if !defined(_DEBUG)
@@ -56,7 +61,7 @@ void operator delete(void* pMem) noexcept
 #endif
 }
 //-----------------------------------------------------------------------------
-void operator delete[](void* pMem) noexcept
+void operator delete[](void* pMem) _NOEXCEPT
 {
 	// see above
 #if !defined(_DEBUG)

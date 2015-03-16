@@ -138,7 +138,7 @@ bool AnimationComponent::addAnimation(const char* name, const char* assetPath)
 }
 #endif
 //---------------------------------------------------------------------------
-bool AnimationComponent::addRig(const char* assetPath)
+bool AnimationComponent::addRig(const char* /*assetPath*/)
 {
 #if 0
     if (m_hRig != INVALID_RESOURCE_HANDLE)

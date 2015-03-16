@@ -135,8 +135,8 @@ static bool focusCamera(
 }
 //---------------------------------------------------------------------------
 static void renderShadowTexture(
-    Gfx::Renderer* pRend,
-	Scene* pScene, 
+    Gfx::Renderer* /*pRend*/,
+	Scene* /*pScene*/, 
 	const ShadowRenderStep::VisibleObjects& objects, 
     Gfx::Light* pLight)
 {
