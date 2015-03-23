@@ -97,6 +97,10 @@ copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NU
     <ClInclude Include="..\..\..\Package.h" />
     <ClInclude Include="..\..\..\PackageMetadataSerializer.h" />
     <ClInclude Include="..\..\..\PackageSerializer.h" />
+    <ClInclude Include="..\..\..\UUIDReader.h" />
+    <ClInclude Include="..\..\..\UUIDStreamReader.h" />
+    <ClInclude Include="..\..\..\UUIDStreamWriter.h" />
+    <ClInclude Include="..\..\..\UUIDWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Executable.cpp" />
@@ -104,6 +108,10 @@ copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NU
     <ClCompile Include="..\..\..\Package.cpp" />
     <ClCompile Include="..\..\..\PackageMetadataSerializer.cpp" />
     <ClCompile Include="..\..\..\PackageSerializer.cpp" />
+    <ClCompile Include="..\..\..\platform\Win32\UUIDStreamReader.cpp" />
+    <ClCompile Include="..\..\..\platform\Win32\UUIDStreamWriter.cpp" />
+    <ClCompile Include="..\..\..\UUIDReader.cpp" />
+    <ClCompile Include="..\..\..\UUIDWriter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

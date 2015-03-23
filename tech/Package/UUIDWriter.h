@@ -12,7 +12,7 @@ is prohibited.
 
 namespace Teardrop
 {
-    class UUID;
+    struct UUID;
 
     class UUIDWriter
     {
