@@ -441,6 +441,10 @@ tech/Package/PackageMetadataSerializer.cpp
 tech/Package/PackageMetadataSerializer.h
 tech/Package/PackageSerializer.cpp
 tech/Package/PackageSerializer.h
+tech/Package/UUIDReader.h
+tech/Package/UUIDWriter.h
+tech/Package/UUIDReader.cpp
+tech/Package/UUIDWriter.cpp
 tech/Physics/Body.cpp
 tech/Physics/Body.h
 tech/Physics/CharacterProxy.cpp
@@ -770,3 +774,7 @@ integrations/OpenGL/ExtensionManager.h
 integrations/OpenGL/ExtensionManager.cpp
 integrations/OpenGL/IndexBufferOpenGL.h
 integrations/OpenGL/IndexBufferOpenGL.cpp
+tech/Package/UUIDStreamReader.h
+tech/Package/UUIDStreamWriter.h
+tech/Package/platform/POSIX/UUIDStreamReader.cpp
+tech/Package/platform/POSIX/UUIDStreamWriter.cpp

@@ -2,6 +2,9 @@ NAME = Package
 INCLUDES = \
 	$(ROOT)/tech/ThirdParty
 
+SRCS = \
+	platform/POSIX/UUIDStreamReader.cpp \
+	platform/POSIX/UUIDStreamWriter.cpp
 
 NODENAME = tech
 

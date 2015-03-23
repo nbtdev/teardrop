@@ -8,6 +8,8 @@ is prohibited.
 #include "PackageSerializer.h"
 #include "PackageMetadataSerializer.h"
 #include "Package.h"
+#include "UUIDStreamReader.h"
+#include "UUIDStreamWriter.h"
 #include "Asset/Asset.h"
 #include "Stream/FileStream.h"
 #include "Stream/MemoryStream.h"
@@ -128,7 +130,8 @@ int PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* meta
 
 		// we need to know its ID for later deserialization
 		UUID id = asset->getObjectId();
-		nBytes += stream.write(&id, sizeof(id));
+        UUIDStreamWriter sw(stream, id);
+        nBytes += sw.write();
 
 		// then the actual asset data
 		nBytes += asset->serialize(stream);
@@ -136,7 +139,8 @@ int PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* meta
 
 	// mark the end of asset data with an all-zeroes UUID
 	UUID zero;
-	nBytes += stream.write(&zero, sizeof(zero));
+    UUIDStreamWriter sw(stream, zero);
+    nBytes += sw.write();
 
 	// and finally, if the caller supplied an editor metadata serializer, allow that to work
 	if (metadataSerializer)
@@ -266,7 +270,8 @@ int PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& defer
 	// then the data
 	Reflection::ClassDef* assetClass = Asset::getClassDef();
 	UUID id, zero;
-	nBytes += stream.read(&id, sizeof(id));
+    UUIDStreamReader sr(stream, id);
+    nBytes += sr.read();
 
 	while (id != zero) {
 		// find in the package, the object by its ID
@@ -276,7 +281,7 @@ int PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& defer
 			nBytes += asset->deserialize(stream);
 		}
 
-		nBytes += stream.read(&id, sizeof(id));
+        nBytes += sr.read();
 	}
 
 	// then finally, if the caller provided a metadata serializer, use it

@@ -8,6 +8,8 @@ is prohibited.
 #include "RendererOpenGL.h"
 #include "ExtensionManager.h"
 #include "RenderWindowOpenGL.h"
+#include "Gfx/Viewport.h"
+#include "Math/Vector2.h"
 #include "Util/UUID.h"
 #include "Util/_String.h"
 #include <X11/Xlib.h>
@@ -104,9 +106,13 @@ Renderer::beginFrame(
 }
 
 void
-Renderer::beginScene(Camera* camera, Viewport*)
+Renderer::beginScene(Camera* /*aCamera*/, Viewport* aVP)
 {
+    // setup viewport and camera for the next render
+    const Vector2& pos = aVP->getPosition();
+    const Vector2& dim = aVP->getSize();
 
+    glViewport(int(pos.x), int(pos.y), int(dim.x), int(dim.y));
 }
 
 void

@@ -12,24 +12,24 @@ is prohibited.
 
 namespace Teardrop
 {
-	class String;
+    class String;
 
-	struct UUID
-	{
-		UUID();
-		UUID(const UUID& other);
-		~UUID();
-		bool operator==(const UUID& other) const;
-		bool operator!=(const UUID& other) const;
-		bool operator<(const UUID& other) const;
+    struct UUID
+    {
+        UUID();
+        UUID(const UUID& other);
+        ~UUID();
+        bool operator==(const UUID& other) const;
+        bool operator!=(const UUID& other) const;
+        bool operator<(const UUID& other) const;
 
-		void generate();
-		void toString(String& str) const;
-		void fromString(const String& str);
+        void generate();
+        void toString(String& str) const;
+        void fromString(const String& str);
 
         uint64_t mLow;
         uint64_t mHigh;
-	};
+    };
 }
 
 #endif // UTIL_UUID_INCLUDED
