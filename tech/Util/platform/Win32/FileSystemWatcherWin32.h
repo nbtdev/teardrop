@@ -11,6 +11,9 @@ is prohibited.
 #include "Util/FileSystemWatcher.h"
 #include <map>
 
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
 namespace Teardrop
 {
 	class FileSystemWatcherWin32

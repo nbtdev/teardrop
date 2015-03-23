@@ -48,7 +48,7 @@ const char* TerrainZone::getType() const
 	return ZONE_TYPE;
 }
 //---------------------------------------------------------------------------
-bool TerrainZone::initialize(World* pWorld)
+bool TerrainZone::initialize(World* /*pWorld*/)
 {
 #if 0
 	if(!Zone::initialize(pWorld))

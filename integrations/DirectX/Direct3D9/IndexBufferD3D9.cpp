@@ -84,7 +84,7 @@ void IndexBuffer::resize(int indexSize, int indexCount)
 	initialize(indexSize, indexCount);
 }
 
-void* IndexBuffer::map(int flags /*=0*/)
+void* IndexBuffer::map(MapFlags flags /*=MAP_ANY*/)
 {
 	DWORD D3DFlags = 0;
 	// TODO: if we allow dynamic flags on create then we can lock discard

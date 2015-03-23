@@ -10,9 +10,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\integration\dlmalloc\malloc-280.c">
-      <Filter>Integration\dlmalloc</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\AllocationTracker.cpp">
       <Filter>Integration</Filter>
     </ClCompile>
@@ -25,15 +22,18 @@
     <ClCompile Include="..\..\..\MemoryRegion.cpp">
       <Filter>Integration</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\malloc-280.c">
+      <Filter>Integration\dlmalloc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\integration\dlmalloc\malloc-280.h">
-      <Filter>Integration\dlmalloc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\AllocationTracker.h" />
     <ClInclude Include="..\..\..\Allocators.h" />
     <ClInclude Include="..\..\..\Memory.h" />
     <ClInclude Include="..\..\..\MemoryRegion.h" />
     <ClInclude Include="..\..\..\Pool.h" />
+    <ClInclude Include="..\..\..\malloc-280.h">
+      <Filter>Integration\dlmalloc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ is prohibited.
 #include "FragmentShader.h"
 #include "ShaderManager.h"
 #include "Connection.h"
+#include <algorithm>
 #include <set>
 
 using namespace Teardrop;

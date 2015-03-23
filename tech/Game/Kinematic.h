@@ -10,6 +10,7 @@ is prohibited.
 
 #include "Math/Vector4.h"
 #include "Math/MathUtil.h"
+#include <algorithm>
 
 namespace Teardrop {
 	/*

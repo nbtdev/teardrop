@@ -24,7 +24,7 @@ namespace Teardrop
 
 				bool initialize(int indexSize, int indexCount, void* data=0);
 				void resize(int indexSize, int indexCount);
-				void* map(int flags=0);
+				void* map(MapFlags flags=MAP_ANY);
 				void unmap();
 
 				IDirect3DIndexBuffer9* buffer();

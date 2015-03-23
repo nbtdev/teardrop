@@ -5,7 +5,10 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <ShlObj.h>
+#include <Shlwapi.h>
 #include "FileSystem.h"
 
 using namespace Teardrop;
