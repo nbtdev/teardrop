@@ -5,7 +5,6 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "stdafx.h"
 #include "BufferManagerOpenGL.h"
 #include "IndexBufferOpenGL.h"
 #include "VertexBufferOpenGL.h"
@@ -13,39 +12,42 @@ is prohibited.
 
 namespace Teardrop {
 namespace Gfx {
-namespace Direct3D9 {
+namespace OpenGL {
 
-BufferManager::BufferManager(IDirect3DDevice9* device)
-    : mDevice(device)
+BufferManager::BufferManager()
 {
 }
 
 BufferManager::~BufferManager()
 {
-    for (IndexBuffers::iterator it = mIndexBuffers.begin(); it != mIndexBuffers.end(); ++it) {
-        delete *it;
-    }
+	for (auto b : mIndexBuffers) {
+		delete b;
+	}
 
-    for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
-        delete *it;
-    }
+	for (auto b : mVertexBuffers) {
+		delete b;
+	}
+
+	for (auto v : mVertexDeclarations) {
+		delete v;
+	}
 }
 
 Gfx::IndexBuffer* BufferManager::createIndexBuffer(Submesh* parent)
 {
-    Gfx::IndexBuffer* rtn = TD_NEW IndexBuffer(mDevice, parent);
+    Gfx::IndexBuffer* rtn = TD_NEW IndexBuffer(parent);
     return rtn;
 }
 
 Gfx::VertexBuffer* BufferManager::createVertexBuffer(Submesh* parent)
 {
-    Gfx::VertexBuffer* rtn = TD_NEW VertexBuffer(mDevice, parent);
+    Gfx::VertexBuffer* rtn = TD_NEW VertexBuffer(parent);
     return rtn;
 }
 
 Gfx::VertexDeclaration* BufferManager::createVertexDeclaration(Submesh* parent)
 {
-    Gfx::VertexDeclaration* rtn = TD_NEW VertexDeclaration(mDevice, parent);
+    Gfx::VertexDeclaration* rtn = TD_NEW VertexDeclaration(parent);
     return rtn;
 }
 

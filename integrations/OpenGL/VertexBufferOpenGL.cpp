@@ -43,7 +43,11 @@ VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData)
         ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, mBufferName);
         ExtensionManager::instance().bufferData(GL_ARRAY_BUFFER, aVertexCount * vertexSize(), aData, usage);
         ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, 0);
+
+		return true;
     }
+
+	return false;
 }
 
 void

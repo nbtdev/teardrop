@@ -8,10 +8,6 @@ is prohibited.
 #include "IndexBufferOpenGL.h"
 #include "ExtensionManager.h"
 
-#define GL_GLEXT_PROTOTYPES 1
-#include <GL/gl.h>
-#include <GL/glext.h>
-
 namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
@@ -37,7 +33,11 @@ IndexBuffer::initialize(int aIndexSize, int aIndexCount, void* aData)
         mStride = aIndexSize;
         ExtensionManager::instance().bufferData(GL_ELEMENT_ARRAY_BUFFER, aIndexCount * aIndexSize, aData, GL_STATIC_DRAW);
         ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		return true;
     }
+
+	return false;
 }
 
 void
@@ -56,7 +56,7 @@ IndexBuffer::resize(int aIndexSize, int aIndexCount)
 void*
 IndexBuffer::map(MapFlags aFlags)
 {
-    if (aFlags == MAP_WRITEONLY) {
+    if (aFlags == MAP_DISCARD) {
         if (!mIsMapped) {
             bool hasMap = ExtensionManager::instance().hasMapBuffer();
             if (hasMap) {

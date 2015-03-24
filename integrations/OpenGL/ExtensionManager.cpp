@@ -7,15 +7,14 @@ is prohibited.
 
 #include "ExtensionManager.h"
 #include <assert.h>
-#include <GL/glx.h>
 #include <string.h>
 #include <vector>
+
+template<> Teardrop::Gfx::OpenGL::ExtensionManager* Teardrop::Singleton<Teardrop::Gfx::OpenGL::ExtensionManager>::mInst = 0;
 
 namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
-
-template<> ExtensionManager* Singleton<ExtensionManager>::mInst = 0;
 
 ExtensionManager::ExtensionManager()
 {
@@ -33,63 +32,67 @@ void ExtensionManager::initialize()
     const char* ext = (const char*)glGetString(GL_EXTENSIONS);
     if (ext) {
         // things that simply are there at this time and date...
-        glGenBuffers = (PFNGLGENBUFFERSPROC)glXGetProcAddress((GLubyte*)"glGenBuffers");
+        glGenBuffers = (PFNGLGENBUFFERSPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glGenBuffers");
         assert(glGenBuffers);
-        glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)glXGetProcAddress((GLubyte*)"glDeleteBuffers");
+        glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glDeleteBuffers");
         assert(glDeleteBuffers);
-        glBindBuffer = (PFNGLBINDBUFFERPROC)glXGetProcAddress((GLubyte*)"glBindBuffer");
+        glBindBuffer = (PFNGLBINDBUFFERPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glBindBuffer");
         assert(glBindBuffer);
-        glBufferData = (PFNGLBUFFERDATAPROC)glXGetProcAddress((GLubyte*)"glBufferData");
-        assert(glBufferData);
+		glBufferData = (PFNGLBUFFERDATAPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glBufferData");
+		assert(glBufferData);
+		glMapBuffer = (PFNGLMAPBUFFERPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glMapBuffer");
+		assert(glMapBuffer);
+		glUnmapBuffer = (PFNGLUNMAPBUFFERPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glUnmapBuffer");
+		assert(glUnmapBuffer);
 
         if (strstr(ext, "GL_ARB_vertex_array_object")) {
-            glBindVertexArray = (PFNGLBINDVERTEXARRAYPROC)glXGetProcAddress((GLubyte*)"glBindVertexArray");
+            glBindVertexArray = (PFNGLBINDVERTEXARRAYPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glBindVertexArray");
             assert(glBindVertexArray);
-            glGenVertexArrays = (PFNGLGENVERTEXARRAYSPROC)glXGetProcAddress((GLubyte*)"glGenVertexArrays");
+            glGenVertexArrays = (PFNGLGENVERTEXARRAYSPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glGenVertexArrays");
             assert(glGenVertexArrays);
-            glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSPROC)glXGetProcAddress((GLubyte*)"glDeleteVertexArrays");
+            glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSPROC)GL_GETPROCADDRESS(GL_UBYTE_PTR "glDeleteVertexArrays");
             assert(glDeleteVertexArrays);
         }
 
         if (strstr(ext, "GL_ARB_sampler_objects")) {
-            glGenSamplers = (PFNGLGENSAMPLERSPROC) glXGetProcAddress((GLubyte*)"glGenSamplers");
-            glDeleteSamplers = (PFNGLDELETESAMPLERSPROC) glXGetProcAddress((GLubyte*)"glDeleteSamplers");
-            glIsSampler = (PFNGLISSAMPLERPROC) glXGetProcAddress((GLubyte*)"glIsSampler");
-            glBindSampler = (PFNGLBINDSAMPLERPROC) glXGetProcAddress((GLubyte*)"glBindSampler");
-            glSamplerParameteri = (PFNGLSAMPLERPARAMETERIPROC) glXGetProcAddress((GLubyte*)"glSamplerParameteri");
-            glSamplerParameteriv = (PFNGLSAMPLERPARAMETERIVPROC) glXGetProcAddress((GLubyte*)"glSamplerParameteriv");
-            glSamplerParameterf = (PFNGLSAMPLERPARAMETERFPROC) glXGetProcAddress((GLubyte*)"glSamplerParameterf");
-            glSamplerParameterfv = (PFNGLSAMPLERPARAMETERFVPROC) glXGetProcAddress((GLubyte*)"glSamplerParameterfv");
-            glSamplerParameterIiv = (PFNGLSAMPLERPARAMETERIIVPROC) glXGetProcAddress((GLubyte*)"glSamplerParameterIiv");
-            glSamplerParameterIuiv = (PFNGLSAMPLERPARAMETERIUIVPROC) glXGetProcAddress((GLubyte*)"glSamplerParameterIuiv");
-            glGetSamplerParameteriv = (PFNGLGETSAMPLERPARAMETERIVPROC) glXGetProcAddress((GLubyte*)"glGetSamplerParameteriv");
-            glGetSamplerParameterIiv = (PFNGLGETSAMPLERPARAMETERIIVPROC) glXGetProcAddress((GLubyte*)"glGetSamplerParameterIiv");
-            glGetSamplerParameterfv = (PFNGLGETSAMPLERPARAMETERFVPROC) glXGetProcAddress((GLubyte*)"glGetSamplerParameterfv");
-            glGetSamplerParameterIuiv = (PFNGLGETSAMPLERPARAMETERIUIVPROC) glXGetProcAddress((GLubyte*)"glGetSamplerParameterIuiv");
+            glGenSamplers = (PFNGLGENSAMPLERSPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glGenSamplers");
+            glDeleteSamplers = (PFNGLDELETESAMPLERSPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glDeleteSamplers");
+            glIsSampler = (PFNGLISSAMPLERPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glIsSampler");
+            glBindSampler = (PFNGLBINDSAMPLERPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glBindSampler");
+            glSamplerParameteri = (PFNGLSAMPLERPARAMETERIPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glSamplerParameteri");
+            glSamplerParameteriv = (PFNGLSAMPLERPARAMETERIVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glSamplerParameteriv");
+            glSamplerParameterf = (PFNGLSAMPLERPARAMETERFPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glSamplerParameterf");
+            glSamplerParameterfv = (PFNGLSAMPLERPARAMETERFVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glSamplerParameterfv");
+            glSamplerParameterIiv = (PFNGLSAMPLERPARAMETERIIVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glSamplerParameterIiv");
+            glSamplerParameterIuiv = (PFNGLSAMPLERPARAMETERIUIVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glSamplerParameterIuiv");
+            glGetSamplerParameteriv = (PFNGLGETSAMPLERPARAMETERIVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glGetSamplerParameteriv");
+            glGetSamplerParameterIiv = (PFNGLGETSAMPLERPARAMETERIIVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glGetSamplerParameterIiv");
+            glGetSamplerParameterfv = (PFNGLGETSAMPLERPARAMETERFVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glGetSamplerParameterfv");
+            glGetSamplerParameterIuiv = (PFNGLGETSAMPLERPARAMETERIUIVPROC) GL_GETPROCADDRESS(GL_UBYTE_PTR "glGetSamplerParameterIuiv");
         }
 
         // FBO support (GL 3.x and above, ignore EXT versions that are older)
         if (strstr(ext, "GL_ARB_framebuffer_object")) {
-            glIsRenderbuffer = (PFNGLISRENDERBUFFERPROC)glXGetProcAddress(((GLubyte*)"glIsRenderbuffer"));
-            glBindRenderbuffer = (PFNGLBINDRENDERBUFFERPROC)glXGetProcAddress(((GLubyte*)"glBindRenderbuffer"));
-            glDeleteRenderbuffers = (PFNGLDELETERENDERBUFFERSPROC)glXGetProcAddress(((GLubyte*)"glDeleteRenderbuffer"));
-            glGenRenderbuffers = (PFNGLGENRENDERBUFFERSPROC)glXGetProcAddress(((GLubyte*)"glGenRenderbuffers"));
-            glRenderbufferStorage = (PFNGLRENDERBUFFERSTORAGEPROC)glXGetProcAddress(((GLubyte*)"glRenderbufferStorage"));
-            glGetRenderbufferParameteriv = (PFNGLGETRENDERBUFFERPARAMETERIVPROC)glXGetProcAddress(((GLubyte*)"glGetRenderbufferParameteriv"));
-            glIsFramebuffer = (PFNGLISFRAMEBUFFERPROC)glXGetProcAddress(((GLubyte*)"glIsFramebuffer"));
-            glBindFramebuffer = (PFNGLBINDFRAMEBUFFERPROC)glXGetProcAddress(((GLubyte*)"glBindFramebuffer"));
-            glDeleteFramebuffers = (PFNGLDELETEFRAMEBUFFERSPROC)glXGetProcAddress(((GLubyte*)"glDeleteFramebuffers"));
-            glGenFramebuffers = (PFNGLGENFRAMEBUFFERSPROC)glXGetProcAddress(((GLubyte*)"glGenFramebuffers"));
-            glCheckFramebufferStatus = (PFNGLCHECKFRAMEBUFFERSTATUSPROC)glXGetProcAddress(((GLubyte*)"glCheckFramebufferStatus"));
-            glFramebufferTexture1D = (PFNGLFRAMEBUFFERTEXTURE1DPROC)glXGetProcAddress(((GLubyte*)"glFramebufferTexture1D"));
-            glFramebufferTexture2D = (PFNGLFRAMEBUFFERTEXTURE2DPROC)glXGetProcAddress(((GLubyte*)"glFramebufferTexture2D"));
-            glFramebufferTexture3D = (PFNGLFRAMEBUFFERTEXTURE3DPROC)glXGetProcAddress(((GLubyte*)"glFramebufferTexture3D"));
-            glFramebufferRenderbuffer = (PFNGLFRAMEBUFFERRENDERBUFFERPROC)glXGetProcAddress(((GLubyte*)"glFramebufferRenderbuffer"));
-            glGetFramebufferAttachmentParameteriv = (PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC)glXGetProcAddress(((GLubyte*)"glGetFramebufferAttachmentParameteriv"));
-            glGenerateMipmap = (PFNGLGENERATEMIPMAPPROC)glXGetProcAddress(((GLubyte*)"glGenerateMipmap"));
-            glBlitFramebuffer = (PFNGLBLITFRAMEBUFFERPROC)glXGetProcAddress(((GLubyte*)"glBlitFramebuffer"));
-            glRenderbufferStorageMultisample = (PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC)glXGetProcAddress(((GLubyte*)"glRenderbufferStorageMultisample"));
-            glFramebufferTextureLayer = (PFNGLFRAMEBUFFERTEXTURELAYERPROC)glXGetProcAddress(((GLubyte*)"glFramebufferTextureLayer"));
+            glIsRenderbuffer = (PFNGLISRENDERBUFFERPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glIsRenderbuffer"));
+            glBindRenderbuffer = (PFNGLBINDRENDERBUFFERPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glBindRenderbuffer"));
+            glDeleteRenderbuffers = (PFNGLDELETERENDERBUFFERSPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glDeleteRenderbuffer"));
+            glGenRenderbuffers = (PFNGLGENRENDERBUFFERSPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glGenRenderbuffers"));
+            glRenderbufferStorage = (PFNGLRENDERBUFFERSTORAGEPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glRenderbufferStorage"));
+            glGetRenderbufferParameteriv = (PFNGLGETRENDERBUFFERPARAMETERIVPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glGetRenderbufferParameteriv"));
+            glIsFramebuffer = (PFNGLISFRAMEBUFFERPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glIsFramebuffer"));
+            glBindFramebuffer = (PFNGLBINDFRAMEBUFFERPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glBindFramebuffer"));
+            glDeleteFramebuffers = (PFNGLDELETEFRAMEBUFFERSPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glDeleteFramebuffers"));
+            glGenFramebuffers = (PFNGLGENFRAMEBUFFERSPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glGenFramebuffers"));
+            glCheckFramebufferStatus = (PFNGLCHECKFRAMEBUFFERSTATUSPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glCheckFramebufferStatus"));
+            glFramebufferTexture1D = (PFNGLFRAMEBUFFERTEXTURE1DPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glFramebufferTexture1D"));
+            glFramebufferTexture2D = (PFNGLFRAMEBUFFERTEXTURE2DPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glFramebufferTexture2D"));
+            glFramebufferTexture3D = (PFNGLFRAMEBUFFERTEXTURE3DPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glFramebufferTexture3D"));
+            glFramebufferRenderbuffer = (PFNGLFRAMEBUFFERRENDERBUFFERPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glFramebufferRenderbuffer"));
+            glGetFramebufferAttachmentParameteriv = (PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glGetFramebufferAttachmentParameteriv"));
+            glGenerateMipmap = (PFNGLGENERATEMIPMAPPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glGenerateMipmap"));
+            glBlitFramebuffer = (PFNGLBLITFRAMEBUFFERPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glBlitFramebuffer"));
+            glRenderbufferStorageMultisample = (PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glRenderbufferStorageMultisample"));
+            glFramebufferTextureLayer = (PFNGLFRAMEBUFFERTEXTURELAYERPROC)GL_GETPROCADDRESS((GL_UBYTE_PTR "glFramebufferTextureLayer"));
         }
     }
 }
@@ -139,7 +142,7 @@ void ExtensionManager::bindBuffer(GLenum aTarget, GLuint aBuffer)
     if (glBindBuffer) glBindBuffer(aTarget, aBuffer);
 }
 
-void ExtensionManager::bufferData(GLenum aTarget, GLsizeiptr aSize, const GLvoid* aData, GLenum aUsage)
+void ExtensionManager::bufferData(GLenum aTarget, GL_SIZEIPTR aSize, const GLvoid* aData, GLenum aUsage)
 {
     if (glBufferData) glBufferData(aTarget, aSize, aData, aUsage);
 }
@@ -161,7 +164,7 @@ void ExtensionManager::deleteSamplers(GLsizei count, const GLuint* samplers)
 
 bool ExtensionManager::isSampler (GLuint sampler)
 {
-    return glIsSampler(sampler);
+    return (GL_TRUE == glIsSampler(sampler));
 }
 
 void ExtensionManager::bindSampler (GLuint unit, GLuint sampler)

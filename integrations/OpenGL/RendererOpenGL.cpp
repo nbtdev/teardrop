@@ -7,20 +7,16 @@ is prohibited.
 
 #include "RendererOpenGL.h"
 #include "ExtensionManager.h"
-#include "RenderWindowOpenGL.h"
+#include "Gfx/RenderTarget.h"
 #include "Gfx/Viewport.h"
 #include "Math/Vector2.h"
 #include "Util/UUID.h"
 #include "Util/_String.h"
-#include <X11/Xlib.h>
 #include <assert.h>
 
-namespace Teardrop
-{
-namespace Gfx
-{
-namespace OpenGL
-{
+namespace Teardrop {
+namespace Gfx {
+namespace OpenGL {
 
 Renderer::Renderer()
 {
@@ -35,13 +31,12 @@ Renderer::~Renderer()
 Gfx::RenderTarget*
 Renderer::initialize(uintptr_t hWnd, int flags)
 {
-    OpenGL::RenderWindow* renderWindow = TD_NEW OpenGL::RenderWindow(XOpenDisplay(0), (Window)hWnd, flags);
-    mRenderTargets.push_back(renderWindow);
+	Gfx::RenderTarget* rt = createRenderWindow(hWnd, SURFACE_A8R8G8B8, flags);
 
     // now we can initialize extensions
     mExtMgr = TD_NEW ExtensionManager;
 
-    return renderWindow;
+    return rt;
 }
 
 void
@@ -49,15 +44,6 @@ Renderer::shutdown()
 {
     delete mExtMgr;
     mExtMgr = nullptr;
-}
-
-Gfx::RenderTarget*
-Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
-{
-    OpenGL::RenderWindow* renderWindow = TD_NEW OpenGL::RenderWindow(XOpenDisplay(0), (Window)hWnd, flags);
-    mRenderTargets.push_back(renderWindow);
-
-    return renderWindow;
 }
 
 Gfx::RenderTarget*

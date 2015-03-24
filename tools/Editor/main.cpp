@@ -24,6 +24,7 @@ is prohibited.
 #if defined(_WIN32) || defined(_WIN64)
     #include "Direct3D9/Integration.h"
     #include "DirectInput8/Integration.h"
+	#include "OpenGL/IntegrationOpenGL.h"
 #else // _WIN32, _WIN64
     #include "OpenGL/IntegrationOpenGL.h"
     #include "XWindow/Integration.h"

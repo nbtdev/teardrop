@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="platform">
+      <UniqueIdentifier>{ba0601c9-b713-4217-9998-348276d50321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform\Win32">
+      <UniqueIdentifier>{422991b5-ba6e-4e4b-ae99-12306bcc6144}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\platform\Win32\RenderWindowOpenGL.h">
+      <Filter>platform\Win32</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\platform\Win32\RenderWindowOpenGL.cpp">
+      <Filter>platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Win32\RendererOpenGL_createRenderWindow.cpp">
+      <Filter>platform\Win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

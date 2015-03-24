@@ -9,9 +9,7 @@ is prohibited.
 #define EXTENSIONMANAGER_H
 
 #include <Core/Singleton.h>
-#define GL_GLEXT_PROTOTYPES 1
-#include <GL/gl.h>
-#include <GL/glext.h>
+#include "GLHeaders.h"
 #include <vector>
 
 namespace Teardrop {
@@ -41,7 +39,7 @@ namespace Teardrop {
                 void genBuffers(GLsizei aCount, GLuint* aBuffers);
                 void deleteBuffers(GLsizei aCount, GLuint* aBuffers);
                 void bindBuffer(GLenum target, GLuint aBuffer);
-                void bufferData(GLenum target, GLsizeiptr aSize, const GLvoid* aData, GLenum aUsage);
+                void bufferData(GLenum target, uintptr_t aSize, const GLvoid* aData, GLenum aUsage);
 
                 // glGenSamplers is present in 3.3 and above
                 bool hasGenSamplers();
@@ -84,7 +82,10 @@ namespace Teardrop {
                 void framebufferTextureLayer (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
 
             private:
-                PFNGLBINDVERTEXARRAYPROC glBindVertexArray = nullptr;
+				PFNGLMAPBUFFERPROC glMapBuffer = nullptr;
+				PFNGLUNMAPBUFFERPROC glUnmapBuffer = nullptr;
+
+				PFNGLBINDVERTEXARRAYPROC glBindVertexArray = nullptr;
                 PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = nullptr;
                 PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = nullptr;
                 PFNGLGENBUFFERSPROC glGenBuffers = nullptr;
