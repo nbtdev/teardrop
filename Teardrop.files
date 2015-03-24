@@ -778,3 +778,9 @@ tech/Package/UUIDStreamReader.h
 tech/Package/UUIDStreamWriter.h
 tech/Package/platform/POSIX/UUIDStreamReader.cpp
 tech/Package/platform/POSIX/UUIDStreamWriter.cpp
+integrations/OpenGL/BufferManagerOpenGL.h
+integrations/OpenGL/BufferManagerOpenGLcpp
+integrations/OpenGL/VertexBufferOpenGL.h
+integrations/OpenGL/VertexBufferOpenGL.cpp
+integrations/OpenGL/VertexDeclarationOpenGL.h
+integrations/OpenGL/VertexDeclarationOpenGL.cpp

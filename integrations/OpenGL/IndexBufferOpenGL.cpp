@@ -18,6 +18,7 @@ namespace OpenGL {
 
 IndexBuffer::IndexBuffer(Gfx::Submesh* aParent)
     : Gfx::IndexBuffer(aParent)
+    , mBufferName(0)
 {
     ExtensionManager::instance().genBuffers(1, &mBufferName);
 }
@@ -85,6 +86,12 @@ IndexBuffer::unmap()
         ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         mIsMapped = false;
     }
+}
+
+GLuint
+IndexBuffer::bufferName()
+{
+    return mBufferName;
 }
 
 } // namespace OpenGL

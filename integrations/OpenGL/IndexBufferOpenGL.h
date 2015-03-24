@@ -28,6 +28,8 @@ namespace Teardrop {
                 void* map(MapFlags flags);
                 void unmap();
 
+                GLuint bufferName();
+
                 DECLARE_GFX_ALIGNED_ALLOCATOR();
 
             protected:
