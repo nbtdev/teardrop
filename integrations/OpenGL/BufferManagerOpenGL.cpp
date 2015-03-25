@@ -35,20 +35,23 @@ BufferManager::~BufferManager()
 
 Gfx::IndexBuffer* BufferManager::createIndexBuffer(Submesh* parent)
 {
-    Gfx::IndexBuffer* rtn = TD_NEW IndexBuffer(parent);
-    return rtn;
+	IndexBuffer* buf = TD_NEW IndexBuffer(parent);
+	mIndexBuffers.push_back(buf);
+    return buf;
 }
 
 Gfx::VertexBuffer* BufferManager::createVertexBuffer(Submesh* parent)
 {
-    Gfx::VertexBuffer* rtn = TD_NEW VertexBuffer(parent);
-    return rtn;
+    VertexBuffer* buf = TD_NEW VertexBuffer(parent);
+	mVertexBuffers.push_back(buf);
+    return buf;
 }
 
 Gfx::VertexDeclaration* BufferManager::createVertexDeclaration(Submesh* parent)
 {
-    Gfx::VertexDeclaration* rtn = TD_NEW VertexDeclaration(parent);
-    return rtn;
+    VertexDeclaration* buf = TD_NEW VertexDeclaration(parent);
+	mVertexDeclarations.push_back(buf);
+    return buf;
 }
 
 void BufferManager::release(Gfx::IndexBuffer* buffer)
