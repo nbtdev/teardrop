@@ -20,6 +20,7 @@ is prohibited.
 #include "Gfx/Renderer.h"
 #include "Core/Input.h"
 #include "Util/FileSystem.h"
+#include "Util/Logger.h"
 #include "FreeImage.h"
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -121,26 +122,38 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
     mProjectExp->SelectionChanged.bind(std::bind(&ObjectBrowser::onItemSelected, mObjBrowser, _1));
 	connect(mProjectExp, SIGNAL(activePackageChanged(PackageManager*)), this, SLOT(onActivePackageChanged(PackageManager*)));
 
+	setEditorTitle();
+	mPreferences.load();
+
 	// create renderer instance
-	// obtain list of renderers, for now just pick first one if present
+	// choose renderer from preferences...
 	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
 	assert(regs);
 
-	if (regs) {
-		mRenderer = regs->create();
-		assert(mRenderer);
+	while (regs) {
+		if (regs->mUUID == mPreferences.rendering().mEngineId) {
+			mRenderer = regs->create();
+		}
+
+		regs = regs->mNext;
 	}
 
-    if (mRenderer) {
-        // set up render window
-        mRenderWindow = new RenderWindow(mRenderer);
+	// ...or first in list if no preference set (first time running, for example)
+	if (!mRenderer) {
+		if (regs) {
+			mRenderer = regs[0].create();
+		}
+	}
 
-        // once we have created the initial render window, we can finish initializing the input system
-        Input::instance().initialize((uintptr_t)mRenderWindow->winId());
-    }
+	assert(mRenderer);
 
-	setEditorTitle();
-	mPreferences.load();
+	if (mRenderer) {
+		// set up render window
+		mRenderWindow = new RenderWindow(mRenderer);
+
+		// once we have created the initial render window, we can finish initializing the input system
+		Input::instance().initialize((uintptr_t)mRenderWindow->winId());
+	}
 
 	// do we need to load the previous project?
 	const Preferences::ProjectList& projs = mPreferences.projectList();
