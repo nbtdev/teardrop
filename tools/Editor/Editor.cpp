@@ -303,16 +303,32 @@ void Editor::onPreferences()
 	mDlgPreferences.setupUi(&dlg);
 	mDlgPreferences.mChkOpenLastProject->setChecked(mPreferences.general().mLoadLastProject);
 
-	QStringList renderers;
-    renderers << "OpenGL 4" << "Direct3D 9" << "Direct3D 11";
-	mDlgPreferences.mRenderEngine->insertItems(0, renderers);
-	int selected = mPreferences.rendering().mEngine;
+	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
+	assert(regs);
+
+	int selected = -1, idx = 0;
+	UUID selectedId = mPreferences.rendering().mEngineId;
+
+	while (regs) {
+		String uuid;
+		regs->mUUID.toString(uuid);
+		mDlgPreferences.mRenderEngine->insertItem(idx, regs->mDisplayName, QVariant((const char*)uuid));
+
+		if (regs->mUUID == selectedId)
+			selected = idx;
+
+		regs = regs->mNext;
+		idx++;
+	}
+
 	mDlgPreferences.mRenderEngine->setCurrentIndex(selected);
 
 	if (QDialog::Accepted == dlg.exec()) {
 		mPreferences.general().mLoadLastProject = (mDlgPreferences.mChkOpenLastProject->checkState() != Qt::Unchecked);
 
-		mPreferences.rendering().mEngine = (Preferences::Rendering::Engine)mDlgPreferences.mRenderEngine->currentIndex();
+		UUID engineId;
+		engineId.fromString(mDlgPreferences.mRenderEngine->currentData().toString().toLatin1().constData());
+		mPreferences.rendering().mEngineId = engineId;
 
 		mPreferences.save();
 	}

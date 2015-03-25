@@ -9,12 +9,9 @@ is prohibited.
 #include "RendererOpenGL.h"
 #include "Util/_String.h"
 
-namespace Teardrop
-{
-namespace Gfx
-{
-namespace OpenGL
-{
+namespace Teardrop {
+namespace Gfx {
+namespace OpenGL {
 
 Integration::Integration()
 {
@@ -52,6 +49,7 @@ void registerIntegration()
         registerRenderer(&reg);
     }
 }
+
 } // namespace OpenGL
 } // namespace Gfx
 } // namespace Teardrop

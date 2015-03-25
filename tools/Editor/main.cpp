@@ -68,7 +68,8 @@ int main(int argc, char *argv[])
 
 	// this is a bit hacky?
 #if defined(_WIN32) || defined(_WIN64)
-    Teardrop::Gfx::Direct3D9::registerIntegration();
+	Teardrop::Gfx::Direct3D9::registerIntegration();
+	Teardrop::Gfx::OpenGL::registerIntegration();
 	Teardrop::DirectInput::Integration inputIntegration;
 #else // _WIN32, _WIN64
     Teardrop::Gfx::OpenGL::registerIntegration();

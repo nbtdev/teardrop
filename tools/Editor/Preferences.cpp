@@ -7,6 +7,7 @@ is prohibited.
 
 #include "Preferences.h"
 #include "Util/FileSystem.h"
+#include "Util/UUID.h"
 #include "tinyxml/tinyxml.h"
 #include <algorithm>
 
@@ -166,7 +167,6 @@ void Preferences::General::save(TiXmlElement& prefs)
 }
 
 Preferences::Rendering::Rendering()
-	: mEngine(ENGINE_D3D9)
 {
 
 }
@@ -185,9 +185,7 @@ void Preferences::Rendering::load(TiXmlElement& prefs)
 
 		if (name && value) {
 			if (!strcmp(name, "renderEngine")) {
-				if (!strcmp(value, "OPENGL")) mEngine = ENGINE_OPENGL;
-				if (!strcmp(value, "D3D9")) mEngine = ENGINE_D3D9;
-				if (!strcmp(value, "D3D11")) mEngine = ENGINE_D3D11;
+				mEngineId.fromString(value);
 			}
 		}
 
@@ -201,15 +199,11 @@ void Preferences::Rendering::save(TiXmlElement& prefs)
 
 	TiXmlElement renderEngine("pref");
 	renderEngine.SetAttribute("name", "renderEngine");
-	
-	const char* engineName = "";
-	switch (mEngine) {
-		case ENGINE_OPENGL: engineName = "OPENGL"; break;
-		case ENGINE_D3D9: engineName = "D3D9"; break;
-		case ENGINE_D3D11: engineName = "D3D11"; break;
-	}
 
-	renderEngine.SetAttribute("value", engineName);
+	String id;
+	mEngineId.toString(id);
+	renderEngine.SetAttribute("value", id);
+
 	rendering.InsertEndChild(renderEngine);
 	prefs.InsertEndChild(rendering);
 }

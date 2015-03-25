@@ -37,6 +37,7 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\integrations\OpenGL\vsprops\OpenGL-Integration.Debug.props" />
     <Import Project="..\..\integrations\DirectX\DirectX\vsprops\vc10\Teardrop-DirectX (Debug).props" />
     <Import Project="..\vsprops\vc10\FBX_SDK_Debug.props" />
     <Import Project="..\..\sdk\vsprops\vc10\Teardrop SDK (Debug).props" />

@@ -9,6 +9,7 @@ is prohibited.
 #define PREFERENCES_INCLUDED
 
 #include "Util/_String.h"
+#include "Util/UUID.h"
 #include <list>
 
 class TiXmlElement;
@@ -40,13 +41,7 @@ namespace Teardrop
 				void load(TiXmlElement&);
 				void save(TiXmlElement&);
 
-				enum Engine {
-					ENGINE_OPENGL=0,
-					ENGINE_D3D9,
-					ENGINE_D3D11,
-				};
-
-				Engine mEngine;
+				UUID mEngineId;
 			};
 
 			bool load(const char* prefsFilename=0);
