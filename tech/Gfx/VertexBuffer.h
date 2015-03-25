@@ -45,7 +45,7 @@ namespace Teardrop
 
 			virtual bool initialize(int vertexCount, int initFlags, void* data=0) = 0;
 			virtual void resize(int vertexCount) = 0;
-			virtual void* map(int mapFlags) = 0;
+			virtual void* map(MapFlags mapFlags) = 0;
 			virtual void unmap() = 0;
 
 			TD_DECLARE_ALLOCATOR();
