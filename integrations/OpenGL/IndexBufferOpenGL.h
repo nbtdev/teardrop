@@ -30,7 +30,7 @@ namespace Teardrop {
 
                 GLuint bufferName();
 
-                DECLARE_GFX_ALIGNED_ALLOCATOR();
+                TD_DECLARE_ALLOCATOR();
 
             protected:
                 GLuint mBufferName = 0;

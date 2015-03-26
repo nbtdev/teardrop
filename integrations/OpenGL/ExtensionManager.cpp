@@ -119,12 +119,14 @@ void ExtensionManager::genVertexArrays(GLsizei n, GLuint *arrays)
 
 void* ExtensionManager::mapBuffer(GLenum target, GLenum access)
 {
-    return glMapBuffer(target, access);
+    if (glMapBuffer) return glMapBuffer(target, access);
+
+	return nullptr;
 }
 
 void ExtensionManager::unmapBuffer(GLenum target)
 {
-    glUnmapBuffer(target);
+	if (glUnmapBuffer) glUnmapBuffer(target);
 }
 
 void ExtensionManager::genBuffers(GLsizei aCount, GLuint *aBuffers)

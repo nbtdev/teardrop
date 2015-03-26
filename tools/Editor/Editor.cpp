@@ -128,7 +128,9 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 	// create renderer instance
 	// choose renderer from preferences...
 	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
+	const Gfx::RendererRegistration* firstReg = regs;
 	assert(regs);
+	assert(firstReg);
 
 	while (regs) {
 		if (regs->mUUID == mPreferences.rendering().mEngineId) {
@@ -140,8 +142,8 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 
 	// ...or first in list if no preference set (first time running, for example)
 	if (!mRenderer) {
-		if (regs) {
-			mRenderer = regs[0].create();
+		if (firstReg) {
+			mRenderer = firstReg->create();
 		}
 	}
 

@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "RendererOpenGL.h"
+#include "BufferManagerOpenGL.h"
 #include "ExtensionManager.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Viewport.h"
@@ -36,12 +37,17 @@ Renderer::initialize(uintptr_t hWnd, int flags)
     // now we can initialize extensions
     mExtMgr = TD_NEW ExtensionManager;
 
-    return rt;
+	// and initialize managers
+	TD_NEW BufferManager;
+
+	return rt;
 }
 
 void
 Renderer::shutdown()
 {
+	BufferManager::instance().shutdown();
+
     delete mExtMgr;
     mExtMgr = nullptr;
 }

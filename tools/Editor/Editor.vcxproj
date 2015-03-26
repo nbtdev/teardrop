@@ -37,7 +37,7 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\integrations\OpenGL\vsprops\OpenGL-Integration.Debug.props" />
+    <Import Project="..\..\integrations\OpenGL\vsprops\vc12\OpenGL-Integration.Debug.props" />
     <Import Project="..\..\integrations\DirectX\DirectX\vsprops\vc10\Teardrop-DirectX (Debug).props" />
     <Import Project="..\vsprops\vc10\FBX_SDK_Debug.props" />
     <Import Project="..\..\sdk\vsprops\vc10\Teardrop SDK (Debug).props" />
@@ -99,6 +99,7 @@
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>rpcrt4.lib;ws2_32.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
