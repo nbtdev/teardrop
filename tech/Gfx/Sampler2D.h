@@ -8,12 +8,11 @@ is prohibited.
 #if !defined(SAMPLER2D_INCLUDED)
 #define SAMPLER2D_INCLUDED
 
+#include "Asset/TextureAsset.h"
 #include "Reflection/Reflection.h"
 
 namespace Teardrop
 {
-	class TextureAsset;
-
 	namespace Gfx
 	{
 		class Texture2D;

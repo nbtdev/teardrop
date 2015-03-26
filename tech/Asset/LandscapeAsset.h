@@ -9,11 +9,10 @@ is prohibited.
 #define LANDSCAPEASSET_INCLUDED
 
 #include "Asset/Asset.h"
+#include "Asset/TextureAsset.h"
 
 namespace Teardrop
 {
-	class TextureAsset;
-
 	class LandscapeAsset : public Asset
 	{
 	public:

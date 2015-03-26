@@ -8,13 +8,13 @@ is prohibited.
 #if !defined(LOGIC_INCLUDED)
 #define LOGIC_INCLUDED
 
+#include "Game/CameraController.h"
 #include "Memory/Allocators.h"
 #include "Reflection/Reflection.h"
 
 namespace Teardrop
 {
 	class Executable;
-	class CameraController;
 
 	class Logic : public Reflection::Object
 	{

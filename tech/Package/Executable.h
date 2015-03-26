@@ -9,12 +9,11 @@ is prohibited.
 #define EXECUTABLE_INCLUDED
 
 #include "Memory/Allocators.h"
+#include "Package/Logic.h"
 #include "Reflection/Reflection.h"
 
 namespace Teardrop
 {
-	class Logic;
-
 	namespace Gfx {
 		class Renderer;
 		class RenderTarget;

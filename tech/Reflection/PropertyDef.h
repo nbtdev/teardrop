@@ -63,6 +63,7 @@ namespace Teardrop
 			virtual const void* getDataPointer(/*in*/const Object* pObj) const = 0;
 			virtual void getDataAsString(/*in*/const Object* pObj, /*out*/String& sVal) const = 0;
 			virtual void copyTo(/*in*/Object* pDest, const Object* pSrc) const = 0;
+			virtual ClassDef* getClassDef() const = 0;
 
 		protected:
 			size_t m_bPointer;
@@ -155,6 +156,12 @@ namespace Teardrop
 					*pOtherProp = *pProp;
 				}
 			}
+
+			ClassDef* getClassDef() const
+			{
+				// non-Object/Pointer/Collection types have no ClassDef
+				return nullptr;
+			}
 		};
 
 		template<class _T>
@@ -200,6 +207,11 @@ namespace Teardrop
 			void copyTo(Object* /*pDest*/, const Object* /*pSrc*/) const
 			{
 				// cannot set or get data on a nested property, nor makes copies
+			}
+
+			ClassDef* getClassDef() const
+			{
+				return _T::getClassDef();
 			}
 		};
 
@@ -254,6 +266,11 @@ namespace Teardrop
 				PointerPropertyDefImpl<_T>* pProp = (PointerPropertyDefImpl<_T>*)((unsigned long)pSrc + m_offset);
 				PointerPropertyDefImpl<_T>* pOtherProp = (PointerPropertyDefImpl<_T>*)((unsigned long)pDest + m_offset);
 				*pOtherProp = *pProp;
+			}
+
+			ClassDef* getClassDef() const
+			{
+				return _T::getClassDef();
 			}
 		};
 
@@ -334,6 +351,12 @@ namespace Teardrop
 				EnumPropertyDefImpl<T>* pProp = (EnumPropertyDefImpl<T>*)((unsigned long)pSrc + m_offset);
 				EnumPropertyDefImpl<T>* pOtherProp = (EnumPropertyDefImpl<T>*)((unsigned long)pDest + m_offset);
 				*pOtherProp = *pProp;
+			}
+
+			ClassDef* getClassDef() const
+			{
+				// Enum properties have no ClassDef
+				return nullptr;
 			}
 		};
 	} // namespace Reflection

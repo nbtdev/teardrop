@@ -8,8 +8,9 @@ is prohibited.
 #if !defined(MATERIAL_INCLUDED)
 #define MATERIAL_INCLUDED
 
-#include "Reflection/Reflection.h"
+#include "Gfx/MaterialOutput.h"
 #include "Memory/Allocators.h"
+#include "Reflection/Reflection.h"
 #include <map>
 #include <vector>
 
@@ -17,7 +18,6 @@ namespace Teardrop
 {
 	namespace Gfx 
 	{
-		class MaterialOutput;
 		class MaterialExpression;
 		class FragmentShader;
 		class Connection;

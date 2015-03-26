@@ -65,13 +65,13 @@ static bool canDrop(PropertyGridItem* item, const QMimeData* data)
 				Reflection::Object* obj = projItem->object();
 
 				// TODO: find a way to compare classdef's?
-				if (String(obj->getDerivedClassDef()->getName()) != item->property()->getTypeName())
-					return false;
+				if (obj->getDerivedClassDef()->isA(item->property()->getClassDef()))
+					return true;
 			}
 		}
 	}
 
-	return true;
+	return false;
 }
 
 void PropertyGrid::dragEnterEvent(QDragEnterEvent* event)

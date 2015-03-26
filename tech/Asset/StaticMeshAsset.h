@@ -9,11 +9,11 @@ is prohibited.
 #define STATICMESHASSET_INCLUDED
 
 #include "Asset/Asset.h"
+#include "Gfx/Material.h"
 
 namespace Teardrop
 {
 	namespace Gfx {
-		class Material;
 		class Mesh;
 	}
 
