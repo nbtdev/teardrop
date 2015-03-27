@@ -28,6 +28,8 @@ namespace Teardrop
 	uint32_t
 		UUIDStreamReader::read()
 	{
+		uint32_t nBytes = mStream.read(&mUUID, sizeof(mUUID));
+
 		// the first half (int and two shorts) of the UUID need to 
 		// have their byte order swapped
 		::UUID& u = (::UUID&)mUUID;
@@ -35,9 +37,7 @@ namespace Teardrop
 		u.Data2 = ntohs(u.Data2);
 		u.Data3 = ntohs(u.Data3);
 
-		return mStream.read(&u, sizeof(u));
+		return nBytes;
 	}
 
 } // namespace Teardrop
-
-
