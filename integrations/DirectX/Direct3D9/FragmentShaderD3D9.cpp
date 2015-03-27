@@ -100,22 +100,26 @@ bool FragmentShader::initialize()
 
 		// go through all connections and form this map
 		int nConnections = mMaterial->connections(0, 0);
-		std::vector<Connection*> connections(nConnections);
-		mMaterial->connections(&connections[0], nConnections);
 
-		// variable names should be based on the name (type) of the expression
-		// that owns the "from" (output) attr; for uniqueness, we'll just assign
-		// monotonically-increasing ordinals to each connection
-		int ord = 0;
-		for (int i=0; i<nConnections; ++i) {
-			std::stringstream ss;
-			Gfx::Attribute* out = connections[i]->output();
-			MaterialExpression* me = out->mParent;
-			ss << me->getDerivedClassDef()->getName() << '_' << ord++ << '_' << out->mName;
-			std::string tmp(ss.str());
+		//  there may not be connections yet, so do the following only if connections exist
+		if (nConnections) {
+			std::vector<Connection*> connections(nConnections);
+			mMaterial->connections(&connections[0], nConnections);
 
-			names[connections[i]->output()] = tmp;
-			names[connections[i]->input()] = tmp;
+			// variable names should be based on the name (type) of the expression
+			// that owns the "from" (output) attr; for uniqueness, we'll just assign
+			// monotonically-increasing ordinals to each connection
+			int ord = 0;
+			for (int i = 0; i < nConnections; ++i) {
+				std::stringstream ss;
+				Gfx::Attribute* out = connections[i]->output();
+				MaterialExpression* me = out->mParent;
+				ss << me->getDerivedClassDef()->getName() << '_' << ord++ << '_' << out->mName;
+				std::string tmp(ss.str());
+
+				names[connections[i]->output()] = tmp;
+				names[connections[i]->input()] = tmp;
+			}
 		}
 
 		// then generate the function calls...

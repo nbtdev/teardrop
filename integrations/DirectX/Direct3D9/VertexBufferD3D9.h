@@ -24,7 +24,7 @@ namespace Teardrop
 
 				bool initialize(int vertexCount, int initFlags, void* data=0);
 				void resize(int vertexCount);
-				void* map(int mapFlags);
+				void* map(MapFlags mapFlags);
 				void unmap();
 
 				IDirect3DVertexBuffer9* buffer();

@@ -100,7 +100,7 @@ void VertexBuffer::resize(int vertexCount)
 	initialize(vertexCount, mInitFlags);
 }
 
-void* VertexBuffer::map(int flags /*=0*/)
+void* VertexBuffer::map(MapFlags flags)
 {
 	DWORD D3DFlags = 0;
 	if ((mInitFlags & INIT_DYNAMIC) && (flags & MAP_DISCARD))

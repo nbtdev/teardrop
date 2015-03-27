@@ -150,7 +150,10 @@ void Material::sortExpressions()
 
 MaterialExpression** Material::sortedExpressions()
 {
-	return &mSortedExpressions[0];
+	if (expressionCount()) 
+		return &mSortedExpressions[0];
+
+	return nullptr;
 }
 
 int Material::expressionCount()
