@@ -32,6 +32,11 @@ namespace Teardrop
                 
                 if (!f1 || (f1 && f2 && *f1 == *f2)) {
                     d = mDelegates.erase(d);
+
+					// HACK: VC2013 (VC12) doesn't seem to implement the loop properly (and 
+					// tries to do the pre-increment above prior to checking the termination 
+					// condition). Hackaround: check here (benign on other, working, compilers)
+					if (d == mDelegates.end()) break;
                 }
             }
 		}
