@@ -28,9 +28,11 @@ namespace Teardrop
 	uint32_t
 		UUIDStreamWriter::write()
 	{
+		UUID tmp = mUUID;
+
 		// the first half (int and two shorts) of the UUID need to 
 		// have their byte order swapped
-		::UUID& u = (::UUID&)mUUID;
+		::UUID& u = (::UUID&)tmp;
 		u.Data1 = htonl(u.Data1);
 		u.Data2 = htons(u.Data2);
 		u.Data3 = htons(u.Data3);
