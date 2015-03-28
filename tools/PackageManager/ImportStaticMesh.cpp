@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "AssetImport.h"
+#include "AssetImportException.h"
 #include "Metadata.h"
 #include "ImportedAsset.h"
 #include "Asset/StaticMeshAsset.h"
@@ -92,7 +93,7 @@ namespace Teardrop {
 			return gfxMtl;
 		}
 
-		static bool importMesh(FbxNode* node, StaticMeshAsset* asset, ImportedAsset& imp, MaterialTable& table)
+		static bool importMesh(FbxNode* node, StaticMeshAsset* asset, ImportedAsset& imp, MaterialTable& table, const char* filepath)
 		{
 			// then the mesh data
 			FbxMesh* fbxMesh = (FbxMesh*)node->GetNodeAttribute();
@@ -103,8 +104,7 @@ namespace Teardrop {
 			// note: assets must be triangulated, so check for polygons with exactly 3 edges
 			for (int i=0; i<nPoly; ++i) {
 				if (fbxMesh->GetPolygonSize(i) != 3) {
-					// TODO: alert user?
-					return false;
+					throw InvalidAssetFormatException(std::string(filepath), "Mesh is not triangulated");
 				}
 			}
 
@@ -330,7 +330,7 @@ namespace Teardrop {
 			return true;
 		}
 
-		static void importNode(FbxNode* node, StaticMeshAsset* asset, ImportedAsset& imp, MaterialTable& table) 
+		static void importNode(FbxNode* node, StaticMeshAsset* asset, ImportedAsset& imp, MaterialTable& table, const char* filepath) 
 		{
 			using namespace Gfx;
 
@@ -343,7 +343,7 @@ namespace Teardrop {
 				case FbxNodeAttribute::eSkeleton:
 					break;
 				case FbxNodeAttribute::eMesh:
-					if (!importMesh(node, asset, imp, table))
+					if (!importMesh(node, asset, imp, table, filepath))
 						return;
 					break;
 			}
@@ -351,7 +351,7 @@ namespace Teardrop {
 			int nChild = node->GetChildCount();
 
 			for(int i = 0; i < nChild; i++) {
-				importNode(node->GetChild(i), asset, imp, table);
+				importNode(node->GetChild(i), asset, imp, table, filepath);
 			}
 		}
 
@@ -376,7 +376,7 @@ namespace Teardrop {
 				asset->initialize();
 
 				for (int i=0; i<node->GetChildCount(); ++i) {
-					importNode(node->GetChild(i), asset, imp, table);
+					importNode(node->GetChild(i), asset, imp, table, filepath);
 				}
 			}
 

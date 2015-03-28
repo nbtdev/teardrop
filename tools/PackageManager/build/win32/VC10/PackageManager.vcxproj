@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\AssetImport.h" />
+    <ClInclude Include="..\..\..\AssetImportException.h" />
     <ClInclude Include="..\..\..\AssetMetadata.h" />
     <ClInclude Include="..\..\..\AttributeMapAssetMetadata.h" />
     <ClInclude Include="..\..\..\Folder.h" />
@@ -102,9 +103,9 @@
     <ClInclude Include="..\..\..\PackageMetadata.h" />
     <ClInclude Include="..\..\..\TextureAssetMetadata.h" />
     <ClInclude Include="..\..\..\Thumbnail.h" />
-    <ClInclude Include="AssetImportException.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\AssetImportException.cpp" />
     <ClCompile Include="..\..\..\AssetMetadata.cpp" />
     <ClCompile Include="..\..\..\AttributeMapAssetMetadata.cpp">
       <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessToFile>
@@ -122,7 +123,6 @@
     <ClCompile Include="..\..\..\TextureAssetMetadata.cpp" />
     <ClCompile Include="..\..\..\TextureImport.cpp" />
     <ClCompile Include="..\..\..\Thumbnail.cpp" />
-    <ClCompile Include="AssetImportException.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

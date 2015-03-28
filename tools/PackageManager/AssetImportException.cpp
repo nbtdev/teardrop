@@ -22,7 +22,7 @@ namespace Tools {
 
 	const char* AssetImportException::what() const NOTHROW
 	{
-		return (std::string("Exception occurred importing asset: ") + mDetail).c_str();
+		return mDetail.c_str();
 	}
 
 	const char* AssetImportException::detail() const

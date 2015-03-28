@@ -7,9 +7,10 @@ is prohibited.
 
 #include "ObjectBrowserModel.h"
 #include "ProjectExplorer/ProjectItem.h"
+#include "PackageManager/AssetImportException.h"
+#include "PackageManager/Folder.h"
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
-#include "PackageManager/Folder.h"
 #include "PackageManager/Thumbnail.h"
 #include "Asset/TextureAsset.h"
 #include "TypeChooser.h"
@@ -196,13 +197,14 @@ bool ObjectBrowserModel::dropMimeData(const QMimeData* data, Qt::DropAction acti
 						QString str = urls.at(i).toLocalFile();
 						String pathName(str.toLatin1().constData());
 
-						ImportedAsset importedAsset;
-						pkgMgr->importAsset(importedAsset, mTopLevelItem->folder(), pathName, chooser.chosenClass());
-						Asset* asset = importedAsset.asset();
-						Metadata* assetMeta = importedAsset.metadata();
+						try {
+							ImportedAsset importedAsset;
+							pkgMgr->importAsset(importedAsset, mTopLevelItem->folder(), pathName, chooser.chosenClass());
+							Asset* asset = importedAsset.asset();
+							Metadata* assetMeta = importedAsset.metadata();
 
-						if (asset) {
 							emit layoutAboutToBeChanged();
+
 							ProjectItem* assetItem = new ProjectItem(pkgMgr, asset, assetMeta, mTopLevelItem);
 							mImmediateChildren.append(assetItem);
 							if (mRecursive)
@@ -219,9 +221,16 @@ bool ObjectBrowserModel::dropMimeData(const QMimeData* data, Qt::DropAction acti
 
 							emit layoutChanged();
 						}
-						else {
+						catch (const AssetImportException& e) {
+							QString msg("Could not import ");
+							msg += chooser.chosenClass()->getName();
+							msg += "\nReason: ";
+							msg += e.what();
+							msg += "\nPath: ";
+							msg += e.assetPath();
+
 							QMessageBox mb;
-							mb.setText(QString("Could not import ") + chooser.chosenClass()->getName() + QString(" from file ") + str);
+							mb.setText(msg);
 							mb.exec();
 						}
 					}
