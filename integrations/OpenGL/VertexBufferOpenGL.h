@@ -9,7 +9,7 @@ is prohibited.
 #define VERTEXBUFFEROPENGL_INCLUDED
 
 #include "Gfx/VertexBuffer.h"
-#include <GL/gl.h>
+#include "GLHeaders.h"
 
 namespace Teardrop
 {

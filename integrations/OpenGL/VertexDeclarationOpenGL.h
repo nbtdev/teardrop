@@ -10,7 +10,7 @@ is prohibited.
 
 #include "Gfx/VertexDeclaration.h"
 #include "Memory/Allocators.h"
-#include <GL/gl.h>
+#include "GLHeaders.h"
 
 namespace Teardrop
 {

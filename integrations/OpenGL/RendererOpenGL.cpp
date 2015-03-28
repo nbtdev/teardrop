@@ -7,7 +7,10 @@ is prohibited.
 
 #include "RendererOpenGL.h"
 #include "BufferManagerOpenGL.h"
-#include "ExtensionManager.h"
+#include "GLHeaders.h"
+#include "ShaderManagerOpenGL.h"
+#include "TextureManagerOpenGL.h"
+#include "Gfx/Material.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Viewport.h"
 #include "Math/Vector2.h"
@@ -35,10 +38,15 @@ Renderer::initialize(uintptr_t hWnd, int flags)
 	Gfx::RenderTarget* rt = createRenderWindow(hWnd, SURFACE_A8R8G8B8, flags);
 
     // now we can initialize extensions
-    mExtMgr = TD_NEW ExtensionManager;
+	if (GLEW_OK != glewInit()) {
+		// then do something terrible? 
+		return nullptr;
+	}
 
 	// and initialize managers
 	TD_NEW BufferManager;
+	TD_NEW ShaderManager;
+	TD_NEW TextureManager;
 
 	return rt;
 }
@@ -46,10 +54,9 @@ Renderer::initialize(uintptr_t hWnd, int flags)
 void
 Renderer::shutdown()
 {
+	TextureManager::instance().shutdown();
+	ShaderManager::instance().shutdown();
 	BufferManager::instance().shutdown();
-
-    delete mExtMgr;
-    mExtMgr = nullptr;
 }
 
 Gfx::RenderTarget*
@@ -116,7 +123,8 @@ Renderer::beginObject(const Matrix44& worldXf)
 void
 Renderer::apply(Material* material)
 {
-
+	if (material)
+		material->apply();
 }
 
 void

@@ -9,6 +9,8 @@ is prohibited.
 #define __GLHEADERS_H__
 
 #if defined(_WIN32) || defined(_WIN64)
+	#include <GL/glew.h>
+	#include <GL/wglew.h>
 	#include <GL/gl.h>
 	#include <GL/wglext.h>
 	#include <GL/glext.h>

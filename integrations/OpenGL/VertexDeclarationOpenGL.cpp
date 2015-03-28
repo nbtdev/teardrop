@@ -6,7 +6,6 @@ is prohibited.
 ****************************************************************************/
 
 #include "VertexDeclarationOpenGL.h"
-#include "ExtensionManager.h"
 
 namespace Teardrop {
 namespace Gfx {
@@ -25,11 +24,11 @@ void
 VertexDeclaration::rebuild()
 {
     if (mVAO) {
-        ExtensionManager::instance().deleteVertexArrays(1, &mVAO);
+        glDeleteVertexArrays(1, &mVAO);
         mVAO = 0;
     }
 
-    ExtensionManager::instance().genVertexArrays(1, &mVAO);
+    glGenVertexArrays(1, &mVAO);
 
     // pull index and vertex information from parent Submesh, and construct
     // VAO data from that

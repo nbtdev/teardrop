@@ -6,7 +6,6 @@ is prohibited.
 ****************************************************************************/
 
 #include "IndexBufferOpenGL.h"
-#include "ExtensionManager.h"
 
 namespace Teardrop {
 namespace Gfx {
@@ -16,23 +15,23 @@ IndexBuffer::IndexBuffer(Gfx::Submesh* aParent)
     : Gfx::IndexBuffer(aParent)
     , mBufferName(0)
 {
-    ExtensionManager::instance().genBuffers(1, &mBufferName);
+    glGenBuffers(1, &mBufferName);
 }
 
 IndexBuffer::~IndexBuffer()
 {
-    ExtensionManager::instance().deleteBuffers(1, &mBufferName);
+    glDeleteBuffers(1, &mBufferName);
 }
 
 bool
 IndexBuffer::initialize(int aIndexSize, int aIndexCount, void* aData)
 {
     if (mBufferName) {
-        ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
         mElementCount = aIndexCount;
         mStride = aIndexSize;
-        ExtensionManager::instance().bufferData(GL_ELEMENT_ARRAY_BUFFER, aIndexCount * aIndexSize, aData, GL_STATIC_DRAW);
-        ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, aIndexCount * aIndexSize, aData, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 		return true;
     }
@@ -47,9 +46,9 @@ IndexBuffer::resize(int aIndexSize, int aIndexCount)
         mStride = aIndexSize;
         mElementCount = aIndexCount;
 
-        ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-        ExtensionManager::instance().bufferData(GL_ELEMENT_ARRAY_BUFFER, mElementCount * mStride, nullptr, GL_STATIC_DRAW);
-        ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, mElementCount * mStride, nullptr, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 }
 
@@ -58,15 +57,12 @@ IndexBuffer::map(MapFlags aFlags)
 {
     if (aFlags == MAP_DISCARD) {
         if (!mIsMapped) {
-            bool hasMap = ExtensionManager::instance().hasMapBuffer();
-            if (hasMap) {
-                ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-                void* rtn = ExtensionManager::instance().mapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
-                //reportGLError();
-                ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-                mIsMapped = true;
-                return rtn;
-            }
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
+            void* rtn = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
+            //reportGLError();
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+            mIsMapped = true;
+            return rtn;
         }
     }
 
@@ -79,13 +75,10 @@ IndexBuffer::unmap()
     if (!mIsMapped)
         return;
 
-    bool hasMap = ExtensionManager::instance().hasMapBuffer();
-    if (hasMap) {
-        ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-        ExtensionManager::instance().unmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
-        ExtensionManager::instance().bindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        mIsMapped = false;
-    }
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
+    glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    mIsMapped = false;
 }
 
 GLuint

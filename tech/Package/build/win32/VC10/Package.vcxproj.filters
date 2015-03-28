@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Executable.cpp" />
+    <ClCompile Include="..\..\..\Logic.cpp" />
+    <ClCompile Include="..\..\..\Package.cpp" />
+    <ClCompile Include="..\..\..\PackageMetadataSerializer.cpp" />
+    <ClCompile Include="..\..\..\PackageSerializer.cpp" />
+    <ClCompile Include="..\..\..\UUIDReader.cpp" />
+    <ClCompile Include="..\..\..\UUIDWriter.cpp" />
+    <ClCompile Include="..\..\..\platform\Win32\UUIDStreamReader.cpp">
+      <Filter>Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Win32\UUIDStreamWriter.cpp">
+      <Filter>Win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\DeferredResolution.h" />
+    <ClInclude Include="..\..\..\Executable.h" />
+    <ClInclude Include="..\..\..\Logic.h" />
+    <ClInclude Include="..\..\..\Package.h" />
+    <ClInclude Include="..\..\..\PackageMetadataSerializer.h" />
+    <ClInclude Include="..\..\..\PackageSerializer.h" />
+    <ClInclude Include="..\..\..\UUIDReader.h" />
+    <ClInclude Include="..\..\..\UUIDStreamReader.h" />
+    <ClInclude Include="..\..\..\UUIDStreamWriter.h" />
+    <ClInclude Include="..\..\..\UUIDWriter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Win32">
+      <UniqueIdentifier>{3eb26484-5c66-46e7-a51f-536abc980e69}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

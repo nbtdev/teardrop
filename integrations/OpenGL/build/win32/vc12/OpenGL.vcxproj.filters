@@ -7,11 +7,43 @@
     <Filter Include="platform\Win32">
       <UniqueIdentifier>{422991b5-ba6e-4e4b-ae99-12306bcc6144}</UniqueIdentifier>
     </Filter>
+    <Filter Include="extern">
+      <UniqueIdentifier>{4910facf-dba7-412f-a48b-ed7aea4ea5ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glew">
+      <UniqueIdentifier>{f4707bdf-94f9-4c4e-95c8-72b39dc84505}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\platform\Win32\RenderWindowOpenGL.h">
       <Filter>platform\Win32</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\BufferManagerOpenGL.h" />
+    <ClInclude Include="..\..\..\GLHeaders.h" />
+    <ClInclude Include="..\..\..\IndexBufferOpenGL.h" />
+    <ClInclude Include="..\..\..\IntegrationOpenGL.h" />
+    <ClInclude Include="..\..\..\RendererOpenGL.h" />
+    <ClInclude Include="..\..\..\RenderTargetOpenGL.h" />
+    <ClInclude Include="..\..\..\VertexBufferOpenGL.h" />
+    <ClInclude Include="..\..\..\VertexDeclarationOpenGL.h" />
+    <ClInclude Include="..\..\..\ViewportOpenGL.h" />
+    <ClInclude Include="..\..\..\ShaderManagerOpenGL.h" />
+    <ClInclude Include="..\..\..\FragmentShaderOpenGL.h" />
+    <ClInclude Include="..\..\..\VertexShaderOpenGL.h" />
+    <ClInclude Include="..\..\..\Texture2DOpenGL.h" />
+    <ClInclude Include="GL\wglext.h">
+      <Filter>extern</Filter>
+    </ClInclude>
+    <ClInclude Include="GL\glext.h">
+      <Filter>extern</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extern\glew\include\GL\glew.h">
+      <Filter>extern\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extern\glew\include\GL\wglew.h">
+      <Filter>extern\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\TextureManagerOpenGL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\platform\Win32\RenderWindowOpenGL.cpp">
@@ -20,5 +52,21 @@
     <ClCompile Include="..\..\..\platform\Win32\RendererOpenGL_createRenderWindow.cpp">
       <Filter>platform\Win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\BufferManagerOpenGL.cpp" />
+    <ClCompile Include="..\..\..\IndexBufferOpenGL.cpp" />
+    <ClCompile Include="..\..\..\IntegrationOpenGL.cpp" />
+    <ClCompile Include="..\..\..\RendererOpenGL.cpp" />
+    <ClCompile Include="..\..\..\RenderTargetOpenGL.cpp" />
+    <ClCompile Include="..\..\..\VertexBufferOpenGL.cpp" />
+    <ClCompile Include="..\..\..\VertexDeclarationOpenGL.cpp" />
+    <ClCompile Include="..\..\..\ViewportOpenGL.cpp" />
+    <ClCompile Include="..\..\..\ShaderManagerOpenGL.cpp" />
+    <ClCompile Include="..\..\..\FragmentShaderOpenGL.cpp" />
+    <ClCompile Include="..\..\..\VertexShaderOpenGL.cpp" />
+    <ClCompile Include="..\..\..\Texture2DOpenGL.cpp" />
+    <ClCompile Include="..\..\..\extern\glew\src\glew.c">
+      <Filter>extern\glew</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\TextureManagerOpenGL.cpp" />
   </ItemGroup>
 </Project>

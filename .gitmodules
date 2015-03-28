@@ -1,0 +1,3 @@
+[submodule "integrations/OpenGL/extern/glew"]
+	path = integrations/OpenGL/extern/glew
+	url = git@github.com:nigels-com/glew.git

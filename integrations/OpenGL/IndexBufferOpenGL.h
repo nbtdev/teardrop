@@ -10,7 +10,7 @@ is prohibited.
 
 #include "Gfx/IndexBuffer.h"
 #include "Gfx/Allocators.h"
-#include <GL/gl.h>
+#include "GLHeaders.h"
 
 namespace Teardrop {
     namespace Gfx {

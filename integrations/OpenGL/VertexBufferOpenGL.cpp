@@ -6,11 +6,6 @@ is prohibited.
 ****************************************************************************/
 
 #include "VertexBufferOpenGL.h"
-#include "ExtensionManager.h"
-
-#define GL_GLEXT_PROTOTYPES 1
-#include <GL/gl.h>
-#include <GL/glext.h>
 
 namespace Teardrop {
 namespace Gfx {
@@ -20,12 +15,12 @@ VertexBuffer::VertexBuffer(Gfx::Submesh* aParent)
     : Gfx::VertexBuffer(aParent)
     , mBufferName(0)
 {
-    ExtensionManager::instance().genBuffers(1, &mBufferName);
+    glGenBuffers(1, &mBufferName);
 }
 
 VertexBuffer::~VertexBuffer()
 {
-    ExtensionManager::instance().deleteBuffers(1, &mBufferName);
+    glDeleteBuffers(1, &mBufferName);
 }
 
 bool
@@ -34,15 +29,15 @@ VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData)
     mCount = aVertexCount;
     mInitFlags = aInitFlags;
 
-    if (mBufferName && aData) {
+    if (mBufferName) {
         GLenum usage = GL_STATIC_DRAW;
 
         if (aInitFlags & INIT_DYNAMIC)
             usage = GL_DYNAMIC_DRAW;
 
-        ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, mBufferName);
-        ExtensionManager::instance().bufferData(GL_ARRAY_BUFFER, aVertexCount * vertexSize(), aData, usage);
-        ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+        glBufferData(GL_ARRAY_BUFFER, aVertexCount * vertexSize(), aData, usage);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		return true;
     }
@@ -61,9 +56,9 @@ VertexBuffer::resize(int aVertexCount)
         if (mInitFlags & INIT_DYNAMIC)
             usage = GL_DYNAMIC_DRAW;
 
-        ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, mBufferName);
-        ExtensionManager::instance().bufferData(GL_ARRAY_BUFFER, mCount * vertexSize(), nullptr, usage);
-        ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+        glBufferData(GL_ARRAY_BUFFER, mCount * vertexSize(), nullptr, usage);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 }
 
@@ -72,15 +67,12 @@ VertexBuffer::map(MapFlags aFlags)
 {
     if (aFlags == MAP_DISCARD) {
         if (!mIsMapped) {
-            bool hasMap = ExtensionManager::instance().hasMapBuffer();
-            if (hasMap) {
-                ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, mBufferName);
-                void* rtn = ExtensionManager::instance().mapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-                //reportGLError();
-                ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, 0);
-                mIsMapped = true;
-                return rtn;
-            }
+            glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+            void* rtn = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+            //reportGLError();
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            mIsMapped = true;
+            return rtn;
         }
     }
 
@@ -93,13 +85,10 @@ VertexBuffer::unmap()
     if (!mIsMapped)
         return;
 
-    bool hasMap = ExtensionManager::instance().hasMapBuffer();
-    if (hasMap) {
-        ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, mBufferName);
-        ExtensionManager::instance().unmapBuffer(GL_ARRAY_BUFFER);
-        ExtensionManager::instance().bindBuffer(GL_ARRAY_BUFFER, 0);
-        mIsMapped = false;
-    }
+    glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+    glUnmapBuffer(GL_ARRAY_BUFFER);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    mIsMapped = false;
 }
 
 GLuint
