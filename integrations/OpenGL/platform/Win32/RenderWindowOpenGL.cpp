@@ -14,9 +14,11 @@ namespace {
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		switch (msg) {
-		case WM_CREATE: 
-			reinterpret_cast<Teardrop::Gfx::OpenGL::RenderWindow*>(lParam)->initContext(hWnd);
+		case WM_CREATE: {
+			CREATESTRUCT* s = (CREATESTRUCT*)lParam;
+			reinterpret_cast<Teardrop::Gfx::OpenGL::RenderWindow*>(s->lpCreateParams)->initContext(hWnd);
 			return 0;
+		}
 
 		default:
 			return DefWindowProc(hWnd, msg, wParam, lParam);
@@ -45,7 +47,7 @@ RenderWindow::RenderWindow(HWND aParent, int aFlags)
 	GetClientRect(mParent, &rect);
 
 	int w = rect.right - rect.left;
-	int h = rect.bottom = rect.top;
+	int h = rect.bottom - rect.top;
 
 	HWND tmp = CreateWindow(
 		wc.lpszClassName,
@@ -58,6 +60,9 @@ RenderWindow::RenderWindow(HWND aParent, int aFlags)
 		(HINSTANCE)0,
 		this
 		);
+
+	mWidth = w;
+	mHeight = h;
 
 	// force this WM_CREATE through before we return
 	MSG msg = { 0 };
@@ -85,6 +90,9 @@ void RenderWindow::resize(int w, int h)
 	RECT rect;
 	GetWindowRect(mWindow, &rect);
 	MoveWindow(mWindow, rect.left, rect.top, w, h, TRUE);
+
+	mWidth = w;
+	mHeight = h;
 }
 
 void RenderWindow::present()
@@ -93,9 +101,15 @@ void RenderWindow::present()
 }
 
 void
-	RenderWindow::setCurrent()
+RenderWindow::setCurrent()
 {
 	wglMakeCurrent(mDC, mContext);
+}
+
+void
+RenderWindow::unsetCurrent()
+{
+	wglMakeCurrent(mDC, nullptr);
 }
 
 void RenderWindow::initContext(HWND aDummy)

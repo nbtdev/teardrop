@@ -100,6 +100,9 @@ Renderer::beginFrame(
     unsigned int stencilValue)
 {
     if (mCurrentRT) {
+		if (clearColor == 0)
+			clearColor = 0xFF000000;
+
         mCurrentRT->clear(color, clearColor, depth, depthValue, stencil, stencilValue);
     }
 }
@@ -111,6 +114,7 @@ Renderer::beginScene(Camera* /*aCamera*/, Viewport* aVP)
     const Vector2& pos = aVP->getPosition();
     const Vector2& dim = aVP->getSize();
 
+	aVP->updateDimensions();
     glViewport(int(pos.x), int(pos.y), int(dim.x), int(dim.y));
 }
 
@@ -150,6 +154,7 @@ Renderer::endFrame()
     assert(mCurrentRT);
     if (mCurrentRT) {
         mCurrentRT->present();
+		mCurrentRT->unsetCurrent();
     }
 }
 

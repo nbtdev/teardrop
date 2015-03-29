@@ -105,6 +105,15 @@ void RenderTarget::setCurrent()
 	}
 }
 
+void RenderTarget::unsetCurrent()
+{
+	assert(mDevice);
+	if (mDevice) {
+		// TODO: support MRT
+		mDevice->SetRenderTarget(0, nullptr);
+	}
+}
+
 Gfx::Viewport* RenderTarget::addViewport(float x/* =0 */, float y/* =0 */, float w/* =1 */, float h/* =1 */, unsigned int zOrder/* =0 */)
 {
 	Viewport* vp = TD_NEW Viewport(this);

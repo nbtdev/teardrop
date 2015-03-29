@@ -34,7 +34,8 @@ namespace Teardrop
 				int width();
 				int height();
 				void setCurrent();
-				Viewport* addViewport(float x=0, float y=0, float w=1, float h=1, unsigned int zOrder=0);
+				void unsetCurrent();
+				Viewport* addViewport(float x = 0, float y = 0, float w = 1, float h = 1, unsigned int zOrder = 0);
 				void releaseViewport(Viewport* vp);
 
 				IDirect3DSurface9* surface();

@@ -278,6 +278,10 @@ void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
 	mCurrentCamera = camera;
 	mCurrentVP = vp;
 
+	// ensure camera has the correct aspect ratio
+	camera->setAspect(float(mCurrentRT->width()) / float(mCurrentRT->height()));
+	camera->update();
+
 	// update camera-related shader constants
 	Matrix44 tmp;
 	camera->getViewMatrix().invert(tmp);

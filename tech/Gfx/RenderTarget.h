@@ -31,6 +31,7 @@ namespace Teardrop
 			virtual int height() = 0;
 			virtual void resize(int w, int h) = 0;
 			virtual void setCurrent() = 0;
+			virtual void unsetCurrent() = 0;
 			virtual void present() = 0;
 			virtual Viewport* addViewport(float x=0, float y=0, float w=1, float h=1, unsigned int zOrder=0) = 0;
 			virtual void releaseViewport(Viewport* vp) = 0;

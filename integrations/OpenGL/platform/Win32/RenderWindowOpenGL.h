@@ -28,6 +28,7 @@ namespace Teardrop
 				void present();
 				void resize(int w, int h);
 				void setCurrent();
+				void unsetCurrent();
 
 				// RenderWindow-specific methods
 				void initContext(HWND aDummy); // internal use only
