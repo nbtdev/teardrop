@@ -60,7 +60,7 @@ ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 
 	setWindowIcon(QIcon("icons/td-icon-32.png"));
 
-	mRenderWindow = mRenderer->createRenderWindow((uintptr_t)m3DView->winId(), SURFACE_A8R8G8B8, INIT_ENABLE_DEPTH_BUFFER|INIT_ENABLE_STENCIL_BUFFER);
+	mRenderWindow = mRenderer->createRenderWindow((uintptr_t)m3DView->winId(), SURFACE_A8R8G8B8, INIT_FRAMEBUFFER_ALPHA|INIT_ENABLE_DEPTH_BUFFER|INIT_ENABLE_STENCIL_BUFFER);
     if (!mRenderWindow) {
         QMessageBox mb;
         mb.setText("Could not create render window for static mesh asset viewer");
@@ -68,7 +68,7 @@ ObjectViewer3D::ObjectViewer3D(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
     }
 
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
-	mTimer->start(10);
+	mTimer->start(33);
 }
 
 ObjectViewer3D::~ObjectViewer3D()

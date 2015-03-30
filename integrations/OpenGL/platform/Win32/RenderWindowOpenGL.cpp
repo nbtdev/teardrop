@@ -25,6 +25,25 @@ namespace {
 			break;
 		}
 	}
+
+	struct ClassReg
+	{
+		static const char* className;
+		ClassReg() {
+			WNDCLASS wc = { 0 };
+			wc.lpfnWndProc = WndProc;
+			wc.hbrBackground = (HBRUSH)WHITE_BRUSH;
+			wc.lpszClassName = className;
+			wc.style = CS_OWNDC;
+			RegisterClass(&wc);
+		}
+
+		~ClassReg() {
+			UnregisterClass(className, (HINSTANCE)0);
+		}
+	};
+
+	const char* ClassReg::className = "wglContextWindow";
 } // namespace
 
 namespace Teardrop {
@@ -35,14 +54,9 @@ RenderWindow::RenderWindow(HWND aParent, int aFlags)
 	: mParent(aParent)
 	, mInitFlags(aFlags)
 {
-	// first make a Win32 window with CS_OWNDC style
-	WNDCLASS wc = { 0 };
-	wc.lpfnWndProc = WndProc;
-	wc.hbrBackground = (HBRUSH)(COLOR_BACKGROUND);
-	wc.lpszClassName = "wglContextWindow";
-	wc.style = CS_OWNDC;
-	RegisterClass(&wc);
+	static ClassReg cr;
 
+	// first make a Win32 window with CS_OWNDC style
 	RECT rect = { 0 };
 	GetClientRect(mParent, &rect);
 
@@ -50,9 +64,9 @@ RenderWindow::RenderWindow(HWND aParent, int aFlags)
 	int h = rect.bottom - rect.top;
 
 	HWND tmp = CreateWindow(
-		wc.lpszClassName,
+		cr.className,
 		NULL,
-		WS_CHILD,
+		WS_CHILD|WS_VISIBLE,
 		0, 0,
 		w, h,
 		mParent,
@@ -88,7 +102,12 @@ RenderWindow::~RenderWindow()
 void RenderWindow::resize(int w, int h)
 {
 	RECT rect;
-	GetWindowRect(mWindow, &rect);
+
+	if (mParent)
+		GetClientRect(mParent, &rect);
+	else
+		GetWindowRect(mWindow, &rect);
+
 	MoveWindow(mWindow, rect.left, rect.top, w, h, TRUE);
 
 	mWidth = w;

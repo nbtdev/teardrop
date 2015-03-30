@@ -36,10 +36,10 @@ void RenderTarget::clear(
     if (color) {
         flags |= GL_COLOR_BUFFER_BIT;
 
-        float red = float(uint8_t(clearColor >> 24)) / 255.0f;
-        float green = float(uint8_t(clearColor >> 16)) / 255.0f;
-        float blue = float(uint8_t(clearColor >> 8)) / 255.0f;
-        float alpha = float(uint8_t(clearColor)) / 255.0f;
+        float alpha = float(uint8_t(clearColor >> 24)) / 255.0f;
+        float red = float(uint8_t(clearColor >> 16)) / 255.0f;
+        float green = float(uint8_t(clearColor >> 8)) / 255.0f;
+        float blue = float(uint8_t(clearColor)) / 255.0f;
         glClearColor(red, green, blue, alpha);
     }
 
