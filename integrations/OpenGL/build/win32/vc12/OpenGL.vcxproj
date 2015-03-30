@@ -19,6 +19,7 @@
     <ClInclude Include="..\..\..\IndexBufferOpenGL.h" />
     <ClInclude Include="..\..\..\IntegrationOpenGL.h" />
     <ClInclude Include="..\..\..\platform\Win32\RenderWindowOpenGL.h" />
+    <ClInclude Include="..\..\..\ProgramOpenGL.h" />
     <ClInclude Include="..\..\..\RendererOpenGL.h" />
     <ClInclude Include="..\..\..\RenderTargetOpenGL.h" />
     <ClInclude Include="..\..\..\ShaderManagerOpenGL.h" />
@@ -39,6 +40,7 @@
     <ClCompile Include="..\..\..\IntegrationOpenGL.cpp" />
     <ClCompile Include="..\..\..\platform\Win32\RenderWindowOpenGL.cpp" />
     <ClCompile Include="..\..\..\platform\Win32\RendererOpenGL_createRenderWindow.cpp" />
+    <ClCompile Include="..\..\..\ProgramOpenGL.cpp" />
     <ClCompile Include="..\..\..\RendererOpenGL.cpp" />
     <ClCompile Include="..\..\..\RenderTargetOpenGL.cpp" />
     <ClCompile Include="..\..\..\ShaderManagerOpenGL.cpp" />

@@ -7,13 +7,18 @@ is prohibited.
 
 #include "RendererOpenGL.h"
 #include "BufferManagerOpenGL.h"
+#include "FragmentShaderOpenGL.h"
 #include "GLHeaders.h"
+#include "ProgramOpenGL.h"
 #include "ShaderManagerOpenGL.h"
 #include "TextureManagerOpenGL.h"
+#include "VertexShaderOpenGL.h"
 #include "Gfx/Material.h"
 #include "Gfx/RenderTarget.h"
+#include "Gfx/Submesh.h"
 #include "Gfx/Viewport.h"
 #include "Math/Vector2.h"
+#include "Util/Hash.h"
 #include "Util/UUID.h"
 #include "Util/_String.h"
 #include <assert.h>
@@ -127,13 +132,28 @@ Renderer::beginObject(const Matrix44& worldXf)
 void
 Renderer::apply(Material* material)
 {
-	if (material)
-		material->apply();
+	mCurrentMtl = material;
 }
 
 void
 Renderer::render(Submesh* submesh)
 {
+	// calculate the program to use (creating a new one if necessary) based on current material and 
+	// this submesh
+	std::shared_ptr<Program> program = findProgram(mCurrentMtl, submesh);
+
+	if (program != mCurrentProgram) {
+		// save off this one and apply it...
+		mCurrentProgram = program;
+
+		// sanity check...
+		if (mCurrentProgram)
+			mCurrentProgram->apply();
+	}
+
+	// clean up after this render...
+	if (mCurrentProgram)
+		mCurrentProgram->disable();
 }
 
 void
@@ -156,6 +176,43 @@ Renderer::endFrame()
         mCurrentRT->present();
 		mCurrentRT->unsetCurrent();
     }
+}
+
+struct ForHash
+{
+	UUID mtlUuid;
+	unsigned int submeshHash = 0;
+};
+
+std::shared_ptr<Program>
+Renderer::findProgram(Material* aMaterial, Submesh* aSubmesh)
+{
+	// delegate shader management to ShaderManager for now
+	Gfx::VertexShader* vs = ShaderManager::instance().createOrFindInstanceOf(aSubmesh);
+	Gfx::FragmentShader* fs = ShaderManager::instance().createOrFindInstanceOf(aMaterial);
+
+	ForHash forHash;
+	forHash.mtlUuid = aMaterial->getObjectId();
+	forHash.submeshHash = aSubmesh->hash();
+	uint64_t key = hashData64(&forHash, sizeof(forHash));
+
+	std::shared_ptr<Program> program;
+
+	auto it = mPrograms.find(key);
+	if (it == mPrograms.end()) {
+		// need to make a new one...
+		program.reset(TD_NEW Program);
+
+		if (program->initialize(static_cast<VertexShader*>(vs), static_cast<FragmentShader*>(fs))) {
+			// ...and add it to the table
+			mPrograms[key] = program;
+		}
+
+		// if the initialize failed, the SP will go out of scope and take the program with it; 
+		// otherwise, the mPrograms table will be holding a reference to it, keeping the SP good
+	}
+
+	return program;
 }
 
 } // namespace OpenGL

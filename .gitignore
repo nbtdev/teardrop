@@ -15,4 +15,6 @@ tools/bin
 *autogen
 *.autosave
 GeneratedFiles
-integrations/OpenGL/extern/glew
+integrations/OpenGL/include
+integrations/DirectX/DirectX/include
+

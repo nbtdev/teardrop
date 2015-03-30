@@ -44,6 +44,7 @@
       <Filter>extern\glew</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\TextureManagerOpenGL.h" />
+    <ClInclude Include="..\..\..\ProgramOpenGL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\platform\Win32\RenderWindowOpenGL.cpp">
@@ -68,5 +69,6 @@
       <Filter>extern\glew</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\TextureManagerOpenGL.cpp" />
+    <ClCompile Include="..\..\..\ProgramOpenGL.cpp" />
   </ItemGroup>
 </Project>

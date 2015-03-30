@@ -10,14 +10,20 @@ is prohibited.
 
 #include "Gfx/Renderer.h"
 #include "Memory/Allocators.h"
+#include <map>
+#include <memory>
 #include <vector>
 
 namespace Teardrop
 {
     namespace Gfx
     {
+		class Material;
+
         namespace OpenGL
         {
+			class Program;
+
             class Renderer
                 : public Gfx::Renderer
             {
@@ -73,6 +79,21 @@ namespace Teardrop
                 RenderTargets mRenderTargets;
 
                 RenderTarget* mCurrentRT = nullptr;
+
+				// the render sequence is such that material changes are made before the submeshes
+				// that the material shades are provided, so since GL uses programs instead of 
+				// applying shaders individually, we need to track the current material so that 
+				// we can pull the correct program for the fragment+vertex shaders as needed
+				Material* mCurrentMtl = nullptr;
+
+				// somewhere to track GLSL programs based on submesh and material combination
+				typedef std::map<uint64_t, std::shared_ptr<Program>> Programs;
+				Programs mPrograms;
+
+				std::shared_ptr<Program> findProgram(Material* aMaterial, Submesh* aSubmesh);
+
+				// avoid changing state unnecessarily (GL probably prevents this anyway...)
+				std::shared_ptr<Program> mCurrentProgram;
             };
         }
     }
