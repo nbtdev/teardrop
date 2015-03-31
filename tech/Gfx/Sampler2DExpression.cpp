@@ -26,9 +26,9 @@ Sampler2DExpression::~Sampler2DExpression()
 
 bool Sampler2DExpression::initialize()
 {
-	mInputs.push_back(Attribute("texcoord", ATTR_FLOAT2, this, Attribute::Optional, "psin.TXC0"));
-	mOutputs.push_back(Attribute("RGBA", ATTR_RGBA, this));
-	mOutputs.push_back(Attribute("RGB", ATTR_RGB, this));
+	mInputs.push_back(Attribute("Texcoord", ATTR_FLOAT2, this, Attribute::Optional, "psin.TXC0"));
+	mOutputs.push_back(Attribute("Color", ATTR_RGBA, this));
+	mOutputs.push_back(Attribute("Color3", ATTR_RGB, this));
 
 	return true;
 }
@@ -38,11 +38,18 @@ void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
 	switch (lang) {
 	case SHADER_HLSL:
 	case SHADER_HLSL5:
-        o << std::string("    RGBA = tex2D(");
-        o << mSamplerName;
-        o << std::string(", texcoord);") << std::endl;
+		o << std::string("    Color = tex2D(");
+		o << mSamplerName;
+		o << std::string(", Texcoord);") << std::endl;
 
-        o << std::string("    RGB = float3(RGBA.r, RGBA.g, RGBA.b);") << std::endl;
+		o << std::string("    Color3 = float3(Color.r, Color.g, Color.b);") << std::endl;
+		break;
+	case SHADER_GLSL4:
+		o << std::string("    Color = texture2D(");
+		o << mSamplerName;
+		o << std::string(", Texcoord);") << std::endl;
+
+		o << std::string("    Color3 = float3(Color.r, Color.g, Color.b);") << std::endl;
 		break;
 	default:
 		break;
@@ -62,6 +69,10 @@ void Sampler2DExpression::insertDependencies(Language lang, std::ostream& o)
 		}
 
 		switch (lang) {
+			// be tricky here...GLSL4 only needs "uniform" in front of the same declaration that HLSL uses,
+			// so insert that then fall through to the remainder of the uniform decl
+		case SHADER_GLSL4:
+			o << "uniform ";
 		case SHADER_HLSL:
 		case SHADER_HLSL5:
 			o << "sampler2D " << mSamplerName << ";" << std::endl;

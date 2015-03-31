@@ -90,7 +90,7 @@ namespace Teardrop
 				typedef std::map<uint64_t, std::shared_ptr<Program>> Programs;
 				Programs mPrograms;
 
-				std::shared_ptr<Program> findProgram(Material* aMaterial, Submesh* aSubmesh);
+				std::shared_ptr<Program> findOrCreateProgram(Material* aMaterial, Submesh* aSubmesh);
 
 				// avoid changing state unnecessarily (GL probably prevents this anyway...)
 				std::shared_ptr<Program> mCurrentProgram;

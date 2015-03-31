@@ -23,8 +23,14 @@ void ProgressDialog::updateProgress(int progress, const char* infoText)
 {
 	setValue(progress);
 
-	if (infoText) 
+	if (infoText)
 		setLabelText(infoText);
-	else 
+	else
 		setLabelText(QString());
+}
+
+void ProgressDialog::updateTitle(const char* infoText)
+{
+	if (infoText)
+		setLabelText(infoText);
 }

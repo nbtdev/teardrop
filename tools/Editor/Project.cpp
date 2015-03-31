@@ -149,10 +149,16 @@ public:
 	tbb::task* execute() { return NULL; }
 };
 
-static void updateFeedback(ProgressFeedback* feedback=0, int progress=0, const char* infoText=0)
+static void updateFeedback(ProgressFeedback* feedback = 0, int progress = 0, const char* infoText = 0)
 {
 	if (feedback)
 		feedback->updateProgress(progress, infoText);
+}
+
+static void updateFeedback(ProgressFeedback* feedback, const char* infoText)
+{
+	if (feedback)
+		feedback->updateTitle(infoText);
 }
 
 bool Project::read(ProgressFeedback* feedback)
@@ -189,16 +195,16 @@ bool Project::read(ProgressFeedback* feedback)
 	// for metadata thumbnail loading
 	std::list<Metadata*> metaList;
 
-	int p = 1;
+	int p = 0;
 	while (package) {
 		const char* name = package->Attribute("name");
 		const char* filename = package->Attribute("filename");
 
 		std::string pkgInfoText("Loading Package: ");
+		updateFeedback(feedback, pkgInfoText.c_str());
 
 		if (name && filename) {
 			pkgInfoText.append(name);
-			updateFeedback(feedback, int(float(p)/float(nPkg)*100.f), pkgInfoText.c_str());
 
 			PackageManager* pkgMgr = new PackageManager();
 			pkgMgr->metadata()->setName(name);

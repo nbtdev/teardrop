@@ -24,7 +24,8 @@ namespace Teardrop
 			~ProgressDialog();
 
 			// ProgressFeedback implementation
-			void updateProgress(int progress, const char* infoText=0);
+			void updateProgress(int progress, const char* infoText = 0);
+			void updateTitle(const char* infoText);
 		};
 	}
 }

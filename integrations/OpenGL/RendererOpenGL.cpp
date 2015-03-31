@@ -140,7 +140,7 @@ Renderer::render(Submesh* submesh)
 {
 	// calculate the program to use (creating a new one if necessary) based on current material and 
 	// this submesh
-	std::shared_ptr<Program> program = findProgram(mCurrentMtl, submesh);
+	std::shared_ptr<Program> program = findOrCreateProgram(mCurrentMtl, submesh);
 
 	if (program != mCurrentProgram) {
 		// save off this one and apply it...
@@ -174,7 +174,6 @@ Renderer::endFrame()
     assert(mCurrentRT);
     if (mCurrentRT) {
         mCurrentRT->present();
-		//mCurrentRT->unsetCurrent();
     }
 }
 
@@ -185,7 +184,7 @@ struct ForHash
 };
 
 std::shared_ptr<Program>
-Renderer::findProgram(Material* aMaterial, Submesh* aSubmesh)
+Renderer::findOrCreateProgram(Material* aMaterial, Submesh* aSubmesh)
 {
 	// delegate shader management to ShaderManager for now
 	Gfx::VertexShader* vs = ShaderManager::instance().createOrFindInstanceOf(aSubmesh);

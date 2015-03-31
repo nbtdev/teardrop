@@ -76,7 +76,7 @@ namespace Teardrop {
 									imp.addDep(texAsset, texName, fileName);
 
 									Connection* conn = TD_NEW Connection;
-									conn->setFromExpression(expr); conn->setFromAttribute("RGBA");
+									conn->setFromExpression(expr); conn->setFromAttribute("Color");
 									conn->setToExpression(output); conn->setToAttribute("Diffuse");
 									conn->setParent(gfxMtl);
 									uuid.generate();
@@ -105,12 +105,7 @@ namespace Teardrop {
 			// note: assets must be triangulated, so check for polygons with exactly 3 edges
 			for (int i=0; i<nPoly; ++i) {
 				if (fbxMesh->GetPolygonSize(i) != 3) {
-					//throw InvalidAssetFormatException(std::string(filepath), "Mesh is not triangulated");
-					
-					// attempt to have FBX triangulate the mesh for them...
-					// TODO: ask the user if this is what they want...
-					FbxGeometryConverter conv(node->GetFbxManager());
-					fbxMesh = (FbxMesh*)conv.Triangulate(fbxMesh, true);
+					throw InvalidAssetFormatException(std::string(filepath), "Mesh is not triangulated");
 				}
 			}
 
