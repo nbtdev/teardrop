@@ -10,6 +10,7 @@ is prohibited.
 
 #include "Memory/Allocators.h"
 #include "Gfx/VertexElement.h"
+#include "Util/Event.h"
 #include "Util/_String.h"
 #include <map>
 
@@ -21,12 +22,9 @@ namespace Teardrop {
 		class ShaderConstantTable
 		{
 		public:
-			struct Listener {
-				virtual ~Listener();
-				virtual void onConstantAdded(const String& name, ShaderConstant* constant) = 0;
-			};
+			Event<const String& /*name*/, ShaderConstant* /*constant*/> ConstantAdded;
 
-			ShaderConstantTable(Listener* listener = 0);
+			ShaderConstantTable();
 			~ShaderConstantTable();
 
 			ShaderConstant* addNew(const String& name, VertexElementType type, int width, int rows=1);
@@ -35,8 +33,6 @@ namespace Teardrop {
 		protected:
 			typedef std::map<String, ShaderConstant*> ShaderConstants;
 			ShaderConstants mConstants;
-
-			Listener* mListener;
 		};
 	}
 }

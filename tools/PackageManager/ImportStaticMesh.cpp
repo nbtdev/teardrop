@@ -100,11 +100,17 @@ namespace Teardrop {
 			Gfx::Mesh* gfxMesh = asset->mesh();
 
 			int nPoly = fbxMesh->GetPolygonCount();
+			int nVerts = fbxMesh->GetControlPointsCount();
 
 			// note: assets must be triangulated, so check for polygons with exactly 3 edges
 			for (int i=0; i<nPoly; ++i) {
 				if (fbxMesh->GetPolygonSize(i) != 3) {
-					throw InvalidAssetFormatException(std::string(filepath), "Mesh is not triangulated");
+					//throw InvalidAssetFormatException(std::string(filepath), "Mesh is not triangulated");
+					
+					// attempt to have FBX triangulate the mesh for them...
+					// TODO: ask the user if this is what they want...
+					FbxGeometryConverter conv(node->GetFbxManager());
+					fbxMesh = (FbxMesh*)conv.Triangulate(fbxMesh, true);
 				}
 			}
 
@@ -125,7 +131,7 @@ namespace Teardrop {
 
 			// the vertex array is called "control points"
 			FbxVector4* verts = fbxMesh->GetControlPoints();
-			int nVerts = fbxMesh->GetControlPointsCount();
+			nVerts = fbxMesh->GetControlPointsCount();
 
 			// FbxVector4 is doubles...
 			std::vector<Vector4> tmpPos(nVerts);

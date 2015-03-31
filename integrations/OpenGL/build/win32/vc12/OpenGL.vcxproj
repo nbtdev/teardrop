@@ -99,7 +99,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;GLEW_STATIC;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>Windows.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(TEARDROP_SDK)\include;.;../../..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(TEARDROP_SDK)\include;.;..\..\..;$(SolutionDir)extern\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -123,6 +123,7 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)include\$(ProjectName) &gt; NUL
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;GLEW_STATIC;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>Windows.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(TEARDROP_SDK)\include;.;..\..\..;$(SolutionDir)extern\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

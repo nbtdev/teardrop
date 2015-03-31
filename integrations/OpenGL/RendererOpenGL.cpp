@@ -174,7 +174,7 @@ Renderer::endFrame()
     assert(mCurrentRT);
     if (mCurrentRT) {
         mCurrentRT->present();
-		mCurrentRT->unsetCurrent();
+		//mCurrentRT->unsetCurrent();
     }
 }
 

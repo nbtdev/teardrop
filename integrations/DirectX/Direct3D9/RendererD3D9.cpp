@@ -325,7 +325,8 @@ void Renderer::beginObject(const Matrix44& worldXf)
 
 void Renderer::apply(Material* material)
 {
-	material->apply();
+	if (material) 
+		material->apply();
 }
 
 /*

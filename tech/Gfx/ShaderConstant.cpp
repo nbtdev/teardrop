@@ -37,14 +37,24 @@ ShaderConstant::~ShaderConstant()
 	delete [] mStorage;
 }
 
-const void* ShaderConstant::data() const
+int ShaderConstant::width() const
 {
-	return mStorage;
+	return mWidth;
+}
+
+int ShaderConstant::rows() const
+{
+	return mRows;
 }
 
 int ShaderConstant::version() const
 {
 	return mVersion;
+}
+
+const void* ShaderConstant::data() const
+{
+	return mStorage;
 }
 
 void ShaderConstant::set(const void* data)

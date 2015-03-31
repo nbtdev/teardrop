@@ -20,9 +20,12 @@ namespace Teardrop {
 			ShaderConstant(VertexElementType type, int width, int rows=1);
 			~ShaderConstant();
 
-			const void* data() const;
-			void set(const void* data);
+			int width() const;
+			int rows() const;
 			int version() const;
+			const void* data() const;
+
+			void set(const void* data);
 
 		protected:
 			// typically VET_FLOAT

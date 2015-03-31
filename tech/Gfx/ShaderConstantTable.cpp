@@ -11,8 +11,7 @@ is prohibited.
 using namespace Teardrop;
 using namespace Gfx;
 
-ShaderConstantTable::ShaderConstantTable(Listener* listener /* = 0 */)
-	: mListener(listener)
+ShaderConstantTable::ShaderConstantTable()
 {
 
 }
@@ -34,9 +33,7 @@ ShaderConstant* ShaderConstantTable::addNew(const String& name, VertexElementTyp
 		constant = pr.first->second;
 	}
 	else {
-		if (mListener) {
-			mListener->onConstantAdded(name, constant);
-		}
+		ConstantAdded.raise(name, constant);
 	}
 
 	return constant;
