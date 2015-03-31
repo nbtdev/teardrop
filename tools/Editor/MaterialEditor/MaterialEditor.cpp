@@ -101,7 +101,7 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 	mExpressionListView->setModel(&mExpressionModel);
 
 	mView->setScene(new QGraphicsScene);
-	mView->scene()->addItem(new QGraphicsRectItem(10, 100, 200, 100));
+	mView->scene()->addItem(new TestItem);
 }
 
 MaterialEditor::~MaterialEditor()
@@ -109,6 +109,10 @@ MaterialEditor::~MaterialEditor()
 	delete mPackage;
 }
 
+void MaterialEditor::onClose()
+{
+	close();
+}
 Package* MaterialEditor::package()
 {
 	if (!mPackage) {

@@ -44,6 +44,9 @@ namespace Teardrop
 
 			Package* package();
 
+		public slots:
+			void onClose();
+
 		private:
 			Gfx::Material* mMaterial;
 			PropertyGrid* mPropGrid;

@@ -367,7 +367,11 @@ void Editor::onObjectBrowserItemDoubleClicked(ProjectItem* item)
 
 			// TODO: do this more automatically?
 			if (classDef->isA(Gfx::Material::getClassDef())) {
-				(new MaterialEditor(item))->show();
+				MaterialEditor* mtlEd = TD_NEW MaterialEditor(item);
+
+				// hook up signals for cleanup on exit
+				connect(ui.actionExit, SIGNAL(triggered()), mtlEd, SLOT(onClose()));
+				mtlEd->show();
 			}
 
 			if (classDef->isA(StaticMeshAsset::getClassDef())) {
