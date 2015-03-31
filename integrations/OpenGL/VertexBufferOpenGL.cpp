@@ -65,15 +65,21 @@ VertexBuffer::resize(int aVertexCount)
 void*
 VertexBuffer::map(MapFlags aFlags)
 {
-    if (aFlags == MAP_DISCARD) {
-        if (!mIsMapped) {
-            glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
-            void* rtn = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-            //reportGLError();
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            mIsMapped = true;
-            return rtn;
-        }
+	GLenum flags = 0;
+
+	if (aFlags == MAP_DISCARD)
+		flags |= GL_WRITE_ONLY;
+
+	if (aFlags == MAP_READONLY)
+		flags |= GL_READ_ONLY;
+
+    if (!mIsMapped) {
+        glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
+        void* rtn = glMapBuffer(GL_ARRAY_BUFFER, flags);
+        //reportGLError();
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        mIsMapped = true;
+        return rtn;
     }
 
     return nullptr;

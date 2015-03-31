@@ -16,14 +16,6 @@ IndexBuffer::IndexBuffer(Gfx::Submesh* aParent)
     , mBufferName(0)
 {
     glGenBuffers(1, &mBufferName);
-
-	GLenum err;
-	while ((err = glGetError()) != GL_NO_ERROR) {
-		switch (err) {
-		case GL_INVALID_OPERATION:
-			break;
-		}
-	}
 }
 
 IndexBuffer::~IndexBuffer()
@@ -36,9 +28,9 @@ IndexBuffer::initialize(int aIndexSize, int aIndexCount, void* aData)
 {
     if (mBufferName) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-        mElementCount = aIndexCount;
-        mStride = aIndexSize;
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, aIndexCount * aIndexSize, aData, GL_STATIC_DRAW);
+        mCount = aIndexCount;
+        mSize = aIndexSize;
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, mCount * mSize, aData, GL_STATIC_DRAW);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 		return true;
@@ -51,11 +43,11 @@ void
 IndexBuffer::resize(int aIndexSize, int aIndexCount)
 {
     if (mBufferName) {
-        mStride = aIndexSize;
-        mElementCount = aIndexCount;
+        mSize = aIndexSize;
+        mCount = aIndexCount;
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, mElementCount * mStride, nullptr, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, mCount * mSize, nullptr, GL_STATIC_DRAW);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 }
@@ -63,15 +55,21 @@ IndexBuffer::resize(int aIndexSize, int aIndexCount)
 void*
 IndexBuffer::map(MapFlags aFlags)
 {
-    if (aFlags == MAP_DISCARD) {
-        if (!mIsMapped) {
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-            void* rtn = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
-            //reportGLError();
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-            mIsMapped = true;
-            return rtn;
-        }
+	GLenum flags = 0;
+
+	if (aFlags == MAP_DISCARD)
+		flags |= GL_WRITE_ONLY;
+
+	if (aFlags == MAP_READONLY)
+		flags |= GL_READ_ONLY;
+
+    if (!mIsMapped) {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
+        void* rtn = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, flags);
+        //reportGLError();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        mIsMapped = true;
+        return rtn;
     }
 
     return nullptr;

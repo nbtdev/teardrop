@@ -95,6 +95,7 @@ int StaticMeshAsset::serialize(Stream& strm)
 			// then the actual VB data
 			void* data = vb->map(VertexBuffer::MAP_READONLY);
 			nBytes += strm.write(data, vb->vertexSize() * nVerts);
+			vb->unmap();
 		}
 	}
 
