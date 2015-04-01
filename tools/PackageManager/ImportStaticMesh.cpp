@@ -100,7 +100,6 @@ namespace Teardrop {
 			Gfx::Mesh* gfxMesh = asset->mesh();
 
 			int nPoly = fbxMesh->GetPolygonCount();
-	
 			// note: assets must be triangulated, so check for polygons with exactly 3 edges
 			for (int i=0; i<nPoly; ++i) {
 				if (fbxMesh->GetPolygonSize(i) != 3) {
