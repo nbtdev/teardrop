@@ -6,6 +6,7 @@ is prohibited.
 ****************************************************************************/
 
 #include "IndexBufferOpenGL.h"
+#include <assert.h>
 
 namespace Teardrop {
 namespace Gfx {
@@ -16,6 +17,7 @@ IndexBuffer::IndexBuffer(Gfx::Submesh* aParent)
     , mBufferName(0)
 {
     glGenBuffers(1, &mBufferName);
+	assert(mBufferName);
 }
 
 IndexBuffer::~IndexBuffer()

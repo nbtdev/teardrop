@@ -17,7 +17,8 @@ namespace Teardrop
 		public:
 			ProgressFeedback();
 			virtual ~ProgressFeedback();
-			virtual void updateProgress(int progress, const char* infoText=0) = 0;
+			virtual void updateProgress(int progress, const char* infoText = 0) = 0;
+			virtual void updateTitle(const char* infoText) = 0;
 		};
 	}
 }

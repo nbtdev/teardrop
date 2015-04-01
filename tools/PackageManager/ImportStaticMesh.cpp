@@ -76,7 +76,7 @@ namespace Teardrop {
 									imp.addDep(texAsset, texName, fileName);
 
 									Connection* conn = TD_NEW Connection;
-									conn->setFromExpression(expr); conn->setFromAttribute("RGBA");
+									conn->setFromExpression(expr); conn->setFromAttribute("Color");
 									conn->setToExpression(output); conn->setToAttribute("Diffuse");
 									conn->setParent(gfxMtl);
 									uuid.generate();
@@ -100,7 +100,6 @@ namespace Teardrop {
 			Gfx::Mesh* gfxMesh = asset->mesh();
 
 			int nPoly = fbxMesh->GetPolygonCount();
-
 			// note: assets must be triangulated, so check for polygons with exactly 3 edges
 			for (int i=0; i<nPoly; ++i) {
 				if (fbxMesh->GetPolygonSize(i) != 3) {
