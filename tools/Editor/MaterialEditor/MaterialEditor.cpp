@@ -32,10 +32,10 @@ is prohibited.
 namespace Teardrop {
 namespace Tools {
 
-class Connection : public QGraphicsPathItem
+class ExpressionConnection : public QGraphicsPathItem
 {
 public:
-	Connection() {
+	ExpressionConnection() {
 		setFlag(ItemIsMovable);
 		setFlag(ItemIsSelectable);
 	}
@@ -46,12 +46,22 @@ class ExpressionItem : public QGraphicsItem
 	Gfx::MaterialExpression* mExpr = nullptr;
 	QStaticText mLabel;
 	String mDisplayName;
-	qreal mWidth = 0;
-	qreal mHeight = 0;
+	qreal mX = 0.f;
+	qreal mY = 0.f;
+	qreal mWidth = 0.f;
+	qreal mHeight = 0.f;
 
 public:
-	ExpressionItem(Gfx::MaterialExpression* aExpr) 
+	ExpressionItem(Gfx::MaterialExpression* aExpr)
+		: ExpressionItem(aExpr, 0, 0)
+	{
+
+	}
+	
+	ExpressionItem(Gfx::MaterialExpression* aExpr, int x, int y)
 		: mExpr(aExpr)
+		, mX(float(x))
+		, mY(float(y))
 	{
 		setFlag(ItemIsMovable);
 		setFlag(ItemIsSelectable);
@@ -75,7 +85,7 @@ public:
 	}
 
 	QRectF boundingRect() const {
-		return QRectF(0, 0, mWidth+20, mHeight);
+		return QRectF(mX, mY, mWidth+20, mHeight);
 	}
 
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) {
@@ -184,9 +194,19 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 
 	// add material output expression
 	if (mMaterial) {
-		Gfx::MaterialOutput* out = mMaterial->getOutput();
-		if (out) {
-			ExpressionItem* item = TD_NEW ExpressionItem(out);
+		// any material created in the tools will have at least a MaterialOutput
+		assert(mMaterial->getOutput());
+
+		// add the expressions present in the material
+		mMaterial->sortExpressions();
+		Gfx::MaterialExpression** exprs = mMaterial->sortedExpressions();
+		int nExpr = mMaterial->expressionCount();
+		mExpressionItems.resize(nExpr);
+
+		for (int i=0; i<nExpr; ++i) {
+			Gfx::MaterialExpression* expr = exprs[i];
+			ExpressionItem* item = TD_NEW ExpressionItem(expr);
+			mExpressionItems[i] = item;
 			mView->scene()->addItem(item);
 		}
 	}

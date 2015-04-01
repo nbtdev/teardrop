@@ -33,6 +33,7 @@ namespace Teardrop
 	{
 		class PropertyGrid;
 		class ProjectItem;
+		class ExpressionItem;
 
 		class MaterialEditor : public QWidget
 		{
@@ -57,6 +58,7 @@ namespace Teardrop
 			// material expressions and list model
 			QStringListModel mExpressionModel;
 			std::vector<Reflection::ClassDef*> mExpressionClasses;
+			std::vector<ExpressionItem*> mExpressionItems;
 
 			// editors create/own temporary packages to hold their objects
 			Package* mPackage;
