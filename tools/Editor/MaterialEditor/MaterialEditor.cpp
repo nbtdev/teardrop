@@ -76,7 +76,7 @@ public:
 		mDisplayName = name.substr(0, pos);
 
 		mLabel.setText((const char*)mDisplayName);
-		mWidth = mLabel.size().width() + 30.f;
+		mWidth = mLabel.size().width() + 50.f;
 
 		// height is based on how many inputs/outputs we have; take the largest of the two and amke enough room
 		// (give the label/name 50, and then 50 for each connector)
