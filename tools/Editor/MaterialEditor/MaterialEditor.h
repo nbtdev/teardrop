@@ -60,6 +60,13 @@ namespace Teardrop
 
 			// editors create/own temporary packages to hold their objects
 			Package* mPackage;
+
+			enum State {
+				IDLE,
+				MOVE_OBJECT,
+			};
+
+			State mState;
 		};
 	}
 }

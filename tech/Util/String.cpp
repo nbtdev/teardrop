@@ -246,6 +246,20 @@ size_t String::findLast(char c) const
 	return INVALID;
 }
 //---------------------------------------------------------------------------
+size_t String::find(const char* aNeedle) const
+{
+	char* p = strstr(m_pBuf, aNeedle);
+	if (p)
+		return (p - m_pBuf);
+
+	return INVALID;
+}
+//---------------------------------------------------------------------------
+size_t String::find(const String& aNeedle) const
+{
+	return find((const char*)aNeedle);
+}
+//---------------------------------------------------------------------------
 void String::truncate(size_t len)
 {
 	// fast-and-easy version: put a null in the desired place

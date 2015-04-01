@@ -59,6 +59,8 @@ namespace Teardrop
 		String& append(char c);
 		size_t findFirst(char c) const;
 		size_t findLast(char c) const;
+		size_t find(const String& needle) const;
+		size_t find(const char* needle) const;
 		bool contains(const String& search) const;
 		bool contains(const char* search) const;
 		size_t length() const;
