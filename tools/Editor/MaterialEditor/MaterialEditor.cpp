@@ -14,10 +14,12 @@ is prohibited.
 #include "Gfx/MaterialExpression.h"
 #include "Gfx/MaterialOutput.h"
 #include "Reflection/ClassDef.h"
+#include "Util/Event.h"
 #include "Util/_String.h"
 #include <QtCore/QString>
-#include <QtGui/QPainterPath>
 #include <QtGui/QIcon>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPainterPath>
 #include <QtGui/QStaticText>
 #include <QtWidgets/QSizePolicy>
 #include <QtWidgets/QLabel>
@@ -32,16 +34,27 @@ is prohibited.
 namespace Teardrop {
 namespace Tools {
 
-class ExpressionConnection : public QGraphicsPathItem
+class EditorCanvasItem
+{
+public:
+	virtual bool isPath() const abstract;
+	virtual bool isItem() const abstract;
+};
+
+class ExpressionConnection : public QGraphicsPathItem, public EditorCanvasItem
 {
 public:
 	ExpressionConnection() {
 		setFlag(ItemIsMovable);
 		setFlag(ItemIsSelectable);
 	}
+
+	// EditorCanvasItem implementation
+	bool isPath() const { return true; }
+	bool isItem() const { return false; }
 };
 
-class ExpressionItem : public QGraphicsItem
+class ExpressionItem : public QGraphicsItem, public EditorCanvasItem
 {
 	Gfx::MaterialExpression* mExpr = nullptr;
 	QStaticText mLabel;
@@ -125,6 +138,44 @@ public:
 			y += 25.f;
 		}
 	}
+
+	// EditorCanvasItem implementation
+	bool isPath() const { return false; }
+	bool isItem() const { return true; }
+
+	Gfx::MaterialExpression* expression()
+	{
+		return mExpr;
+	}
+};
+
+class EditorCanvas : public QGraphicsView
+{
+	Gfx::Material* mMaterial;
+
+public:
+	Event<ExpressionItem*> ItemSelected;
+	Event<ExpressionConnection*> PathSelected;
+	Event<> SelectionCleared;
+
+	EditorCanvas(Gfx::Material* aMaterial, QWidget* aParent) : QGraphicsView(aParent), mMaterial(aMaterial) {}
+
+protected:
+	void mousePressEvent(QMouseEvent* event) {
+		QGraphicsView::mousePressEvent(event);
+
+		QGraphicsItem* item = itemAt(event->pos());
+
+		if (item) {
+			EditorCanvasItem* canvasItem = reinterpret_cast<EditorCanvasItem*>(item);
+			if (canvasItem->isItem())
+				ItemSelected.raise(static_cast<ExpressionItem*>(item));
+			else if (canvasItem->isPath())
+				PathSelected.raise(static_cast<ExpressionConnection*>(item));
+		} else {
+			SelectionCleared.raise();
+		}
+	}
 };
 
 MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 */)
@@ -140,12 +191,13 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 	QVBoxLayout* vlayout = TD_NEW QVBoxLayout(this);
 	QWidget* top = TD_NEW QWidget(this);
 	mPropGrid = TD_NEW PropertyGrid(this);
+	mPropGrid->setObject(mMaterial);
 	vlayout->addWidget(top);
 	vlayout->addWidget(mPropGrid);
 
 	QHBoxLayout* hlayout = TD_NEW QHBoxLayout(top);
 	m3DView = TD_NEW QWidget(this);
-	mView = TD_NEW QGraphicsView(this);
+	mView = TD_NEW EditorCanvas(mMaterial, this);
 	hlayout->addWidget(m3DView);
 	hlayout->addWidget(mView);
 
@@ -167,7 +219,7 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 	hlayout->addWidget(viewWidget);
 
 	setAttribute(Qt::WA_DeleteOnClose);
-	resize(800, 600);
+	resize(1280, 800);
 
 	QString title("Material Editor - ");
 	title.append(meta->getName());
@@ -192,12 +244,11 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 
 	mView->setScene(TD_NEW QGraphicsScene);
 
-	// add material output expression
+	// add the expressions present in the material
 	if (mMaterial) {
 		// any material created in the tools will have at least a MaterialOutput
 		assert(mMaterial->getOutput());
 
-		// add the expressions present in the material
 		mMaterial->sortExpressions();
 		Gfx::MaterialExpression** exprs = mMaterial->sortedExpressions();
 		int nExpr = mMaterial->expressionCount();
@@ -228,7 +279,11 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 			}
 		}
 	}
-}
+
+	mView->ItemSelected.bind(std::bind(&MaterialEditor::onItemSelected, this, std::placeholders::_1));
+	mView->PathSelected.bind(std::bind(&MaterialEditor::onConnectionSelected, this, std::placeholders::_1));
+	mView->SelectionCleared.bind(std::bind(&MaterialEditor::onSelectionCleared, this));
+	}
 
 MaterialEditor::~MaterialEditor()
 {
@@ -246,6 +301,21 @@ Package* MaterialEditor::package()
 	}
 
 	return mPackage;
+}
+
+void MaterialEditor::onItemSelected(ExpressionItem* aItem)
+{
+	mPropGrid->setObject(aItem->expression());
+}
+
+void MaterialEditor::onConnectionSelected(ExpressionConnection* aItem)
+{
+	mPropGrid->setObject(nullptr);
+}
+
+void MaterialEditor::onSelectionCleared()
+{
+	mPropGrid->setObject(mMaterial);
 }
 
 } // namespace Tools

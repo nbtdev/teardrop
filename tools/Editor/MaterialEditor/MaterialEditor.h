@@ -34,6 +34,8 @@ namespace Teardrop
 		class PropertyGrid;
 		class ProjectItem;
 		class ExpressionItem;
+		class ExpressionConnection;
+		class EditorCanvas;
 
 		class MaterialEditor : public QWidget
 		{
@@ -52,7 +54,7 @@ namespace Teardrop
 			Gfx::Material* mMaterial;
 			PropertyGrid* mPropGrid;
 			QWidget* m3DView;
-			QGraphicsView* mView;
+			EditorCanvas* mView;
 			QListView* mExpressionListView;
 
 			// material expressions and list model
@@ -69,6 +71,11 @@ namespace Teardrop
 			};
 
 			State mState;
+
+			// editor canvas event handlers
+			void onItemSelected(ExpressionItem* aItem);
+			void onConnectionSelected(ExpressionConnection* aConnection);
+			void onSelectionCleared();
 		};
 	}
 }
