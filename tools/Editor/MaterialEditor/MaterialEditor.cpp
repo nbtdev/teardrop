@@ -203,11 +203,29 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 		int nExpr = mMaterial->expressionCount();
 		mExpressionItems.resize(nExpr);
 
-		for (int i=0; i<nExpr; ++i) {
-			Gfx::MaterialExpression* expr = exprs[i];
-			ExpressionItem* item = TD_NEW ExpressionItem(expr);
-			mExpressionItems[i] = item;
-			mView->scene()->addItem(item);
+		// TODO: when the user makes changes to the material editor item layout, we should save 
+		// the item positions off so that the layout can be loaded again later; for now, we just 
+		// spread them out in a grid
+
+		// figure out grid row count by taking square root of number of expressions; we will 
+		// take the floor of that value for the number of rows, and the ceiling of that value
+		// as the number of columns
+		qreal sqr = std::sqrtf(float(nExpr));
+		int rows = int(std::floorf(sqr));
+		int cols = int(std::ceilf(sqr));
+
+		int k = 0;
+		qreal x = 0.f;
+		qreal y = 0.f;
+		for (int j = 0; j < rows; ++j, y += 300.f) {
+			for (int i = 0; i < cols; ++i, x -= 150.f) {
+				Gfx::MaterialExpression* expr = exprs[k];
+				ExpressionItem* item = TD_NEW ExpressionItem(expr);
+				mExpressionItems[k] = item;
+				mView->scene()->addItem(item);
+				item->setPos(x, y);
+				++k;
+			}
 		}
 	}
 }
