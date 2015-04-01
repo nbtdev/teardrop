@@ -77,7 +77,8 @@ bool FragmentShader::initialize()
 		std::string defStr(defs.str());
 		mSource.append(defStr.c_str());
 
-		// declare the input struct (matches the VS output struct in VertexShaderD3D9)
+		// declare the varying inputs
+		// TODO: get this information from ShaderFeatures (somehow...)
 		mSource.append("varying vec4 POSITION_HPOS;\nvarying vec4 COLOR0_COLOR;\nvarying vec4 TEXCOORD0_NORM;\nvarying vec4 TEXCOORD1_TXC0;\nvarying vec4 TEXCOORD2_TXC1;\n\n");
 
 		// open the fragment shader...
