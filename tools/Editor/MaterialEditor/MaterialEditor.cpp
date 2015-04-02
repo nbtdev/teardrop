@@ -10,6 +10,7 @@ is prohibited.
 #include "ProjectExplorer/ProjectItem.h"
 #include "PackageManager/Metadata.h"
 #include "Package/Package.h"
+#include "Gfx/Attribute.h"
 #include "Gfx/Material.h"
 #include "Gfx/MaterialExpression.h"
 #include "Gfx/MaterialOutput.h"
@@ -34,6 +35,31 @@ is prohibited.
 namespace Teardrop {
 namespace Tools {
 
+class ExpressionConnector
+{
+	Gfx::Attribute& mAttr;
+	QPointF mPos;
+	bool mOutput; // true if the connector is an output, false otherwise
+
+public:
+	Event<ExpressionConnector* /*this*/> PositionChanged;
+
+	ExpressionConnector(Gfx::Attribute& aAttr, bool aOutput) : mAttr(aAttr), mOutput(aOutput) {}
+
+	void onPositionChanged(const QPointF& aPos) {
+		mPos = aPos;
+		PositionChanged.raise(this);
+	}
+
+	Gfx::Attribute& attribute() {
+		return mAttr;
+	}
+
+	bool isOutput() {
+		return mOutput;
+	}
+};
+
 class EditorCanvasItem
 {
 public:
@@ -43,15 +69,40 @@ public:
 
 class ExpressionConnection : public QGraphicsPathItem, public EditorCanvasItem
 {
+	ExpressionConnector* mA;
+	ExpressionConnector* mB;
+
 public:
-	ExpressionConnection() {
+	ExpressionConnection(ExpressionConnector* aA=nullptr, ExpressionConnector* aB=nullptr) 
+		: mA(aA)
+		, mB(aB)
+	{
 		setFlag(ItemIsMovable);
 		setFlag(ItemIsSelectable);
+
+		mA->PositionChanged.bind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+		mB->PositionChanged.bind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+	}
+
+	~ExpressionConnection() {
+		mA->PositionChanged.unbind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+		mB->PositionChanged.unbind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+	}
+
+	void onConnectorChangedPosition(ExpressionConnector* aConn) {
+
 	}
 
 	// EditorCanvasItem implementation
 	bool isPath() const { return true; }
 	bool isItem() const { return false; }
+	
+	QRectF boundingRect() const {
+		return QRectF(/*mX, mY, mWidth + 20, mHeight*/);
+	}
+
+	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) {
+	}
 };
 
 class ExpressionItem : public QGraphicsItem, public EditorCanvasItem
