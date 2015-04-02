@@ -193,11 +193,16 @@ rm -f tools/bin/Debug/FreeImage.dll
 cp $FREEIMAGE_DIST/bin/Win32/Release/FreeImage.dll tools/bin/Release/FreeImage.dll
 cp $FREEIMAGE_DIST/bin/Win32/Debug/FreeImage.dll tools/bin/Debug/FreeImage.dll
 
+# set the base SDK dir variable
+TEARDROP_SDK_VAL=$WINDIR\\sdk
+setx TEARDROP_SDK "$TEARDROP_SDK_VAL"
+
 echo
 echo "******** Environment Variables ********"
 echo "TBB_INSTALL_DIR: $TBB_INSTALL_DIR_VAL"
 echo "SQUISH_DIR: $SQUISH_DIR_VAL"
 echo "FREEIMAGE_DIST: $FREEIMAGE_DIST_VAL"
 echo "QTDIR: $QT_DIR"
+echo "TEARDROP_SDK: $TEARDROP_SDK_VAL"
 echo
 echo "Done!"
