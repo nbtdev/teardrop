@@ -43,10 +43,10 @@ const RendererRegistration* rendererRegistrations()
 	return sRegistrations;
 }
 
-Renderer* RendererRegistration::create() const
+Renderer* RendererRegistration::create(int aFlags) const
 {
 	if (mCreateFn)
-		return mCreateFn();
+		return mCreateFn(aFlags);
 
 	return 0;
 }

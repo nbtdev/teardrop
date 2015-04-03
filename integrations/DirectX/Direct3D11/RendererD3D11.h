@@ -24,11 +24,9 @@ namespace Teardrop
 			class Renderer : public Gfx::Renderer
 			{
 			public:
-				Renderer();
+				Renderer(int flags);
 				~Renderer();
 
-				Gfx::RenderTarget* initialize(uintptr_t windowHandle, int flags);
-				void shutdown();
 				Gfx::RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
 				Gfx::RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
 				void releaseRenderTarget(Gfx::RenderTarget* rt);
@@ -49,16 +47,15 @@ namespace Teardrop
 
 				ID3D11Device* device();
 				ID3D11DeviceContext* context();
+				IDXGIFactory* factory();
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
 				IDXGIAdapter* mAdapter = nullptr;
-				ID3D11Device* mDevice;
-				ID3D11DeviceContext* mDeviceContext;
-				//IDirect3DSurface9* mDepthStencil;
-				IDXGISwapChain* mSwapChain;
-				//D3DPRESENT_PARAMETERS mPParams;
+				IDXGIFactory* mFactory = nullptr;
+				ID3D11Device* mDevice = nullptr;
+				ID3D11DeviceContext* mDeviceContext = nullptr;
 
 				typedef std::vector<Gfx::RenderTarget*> RenderTargets;
 				RenderTargets mRenderTargets;

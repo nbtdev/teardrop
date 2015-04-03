@@ -28,15 +28,7 @@ namespace Teardrop
 		class Renderer
 		{
 		public:
-			Renderer();
-			virtual ~Renderer() = 0;
-
-			// initialize renderer with main/default render target (typically a render
-			// window); flags is a bitwise OR of the Flags enumeration values; depending 
-			// on platform, an hWnd value of 0 means either "create a new top level window"
-			// or "use the window/context created for me"
-			virtual RenderTarget* initialize(uintptr_t hWnd, int flags) = 0;
-			virtual void shutdown() = 0;
+			virtual ~Renderer();
 
 			// create a new render window; if hWnd is 0, creates a new top-level
 			// window, otherwise, creates an embedded render context in the supplied 

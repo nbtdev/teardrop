@@ -16,26 +16,27 @@ namespace Teardrop
 	{
 		namespace Direct3D11
 		{
+			class Renderer;
+
 			class RenderWindow : public RenderTarget
 			{
 			public:
-				RenderWindow(HWND hWnd);
-				RenderWindow(HWND hWnd, int flags);
+				RenderWindow(Renderer* aRenderer, HWND hWnd);
+				RenderWindow(Renderer* aRenderer, HWND hWnd, int flags);
 				~RenderWindow();
 
 				void present();
 				void resize(int w, int h);
 
 				HWND hWnd();
-//				D3DPRESENT_PARAMETERS& presentParams();
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
 				HWND mHwnd = 0;
 				int mInitFlags = 0;
-//				D3DPRESENT_PARAMETERS mPParams;
-//				IDirect3DSwapChain9* mSwapChain;
+				ID3D11Device* mDevice = nullptr;
+				IDXGISwapChain* mSwapChain = nullptr;
 			};
 		}
 	}

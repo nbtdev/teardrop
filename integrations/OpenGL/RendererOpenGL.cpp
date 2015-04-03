@@ -27,37 +27,22 @@ namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
 
-Renderer::Renderer()
+Renderer::Renderer(int aFlags)
 {
+//	Gfx::RenderTarget* rt = createRenderWindow(hWnd, SURFACE_A8R8G8B8, aFlags);
 
-}
-
-Renderer::~Renderer()
-{
-
-}
-
-Gfx::RenderTarget*
-Renderer::initialize(uintptr_t hWnd, int flags)
-{
-	Gfx::RenderTarget* rt = createRenderWindow(hWnd, SURFACE_A8R8G8B8, flags);
-
-    // now we can initialize extensions
+	// now we can initialize extensions
 	if (GLEW_OK != glewInit()) {
 		// then do something terrible? 
-		return nullptr;
 	}
 
 	// and initialize managers
 	TD_NEW BufferManager;
 	TD_NEW ShaderManager;
 	TD_NEW TextureManager;
-
-	return rt;
 }
 
-void
-Renderer::shutdown()
+Renderer::~Renderer()
 {
 	TextureManager::instance().shutdown();
 	ShaderManager::instance().shutdown();

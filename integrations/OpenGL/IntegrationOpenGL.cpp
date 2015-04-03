@@ -35,8 +35,8 @@ Integration::unload()
 
 }
 
-static Gfx::Renderer* create() {
-    return TD_NEW Renderer();
+static Gfx::Renderer* create(int aFlags) {
+    return TD_NEW Renderer(aFlags);
 }
 
 void registerIntegration()

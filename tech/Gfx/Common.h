@@ -36,12 +36,12 @@ namespace Teardrop
 		};
 
 		// Renderer implementation registration
-		typedef Renderer*(*RendererCreateFn)();
+		typedef Renderer*(*RendererCreateFn)(int /*flags*/);
 
 		struct RendererRegistration
 		{
 			RendererRegistration();
-			Renderer* create() const;
+			Renderer* create(int aFlags) const;
 			
 			// (required) unique implementation ID
 			UUID mUUID;

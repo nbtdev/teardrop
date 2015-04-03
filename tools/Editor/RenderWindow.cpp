@@ -42,7 +42,7 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 
 	// initialize() will return a pointer to the first render target
 	// created, which will be the "main" window
-	mRT = mRenderer->initialize((uintptr_t)winId(), flags);
+	mRT = mRenderer->createRenderWindow((uintptr_t)winId(), Teardrop::Gfx::SURFACE_A8R8G8B8, flags);
 	assert(mRT);
 
 	if (mRT) {

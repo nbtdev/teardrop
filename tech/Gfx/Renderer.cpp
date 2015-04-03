@@ -11,11 +11,6 @@ is prohibited.
 using namespace Teardrop;
 using namespace Gfx;
 
-Renderer::Renderer()
-{
-
-}
-
 Renderer::~Renderer()
 {
 

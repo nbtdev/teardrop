@@ -134,7 +134,7 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 
 	while (regs) {
 		if (regs->mUUID == mPreferences.rendering().mEngineId) {
-			mRenderer = regs->create();
+			mRenderer = regs->create(0);
 		}
 
 		regs = regs->mNext;
@@ -143,7 +143,7 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 	// ...or first in list if no preference set (first time running, for example)
 	if (!mRenderer) {
 		if (firstReg) {
-			mRenderer = firstReg->create();
+			mRenderer = firstReg->create(0);
 		}
 	}
 
@@ -154,7 +154,7 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 		mRenderWindow = new RenderWindow(mRenderer);
 
 		// once we have created the initial render window, we can finish initializing the input system
-		Input::instance().initialize((uintptr_t)mRenderWindow->winId());
+		//Input::instance().initialize((uintptr_t)mRenderWindow->winId());
 	}
 
 	// do we need to load the previous project?
@@ -168,10 +168,6 @@ Editor::~Editor()
 	mPreferences.save();
 	delete mProject;
 	FreeImage_DeInitialise();
-
-	if (mRenderer) {
-		mRenderer->shutdown();
-	}
 
 	delete mRenderer;
 }

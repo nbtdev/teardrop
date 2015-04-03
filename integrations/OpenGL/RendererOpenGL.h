@@ -28,15 +28,8 @@ namespace Teardrop
                 : public Gfx::Renderer
             {
             public:
-                Renderer();
+				Renderer(int flags);
                 ~Renderer();
-
-                // initialize renderer with main/default render target (typically a render
-                // window); flags is a bitwise OR of the Flags enumeration values; depending
-                // on platform, an hWnd value of 0 means either "create a new top level window"
-                // or "use the window/context created for me"
-                Gfx::RenderTarget* initialize(uintptr_t hWnd, int flags);
-                void shutdown();
 
                 // create a new render window; if hWnd is 0, creates a new top-level
                 // window, otherwise, creates an embedded render context in the supplied

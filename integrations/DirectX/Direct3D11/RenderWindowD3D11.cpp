@@ -7,6 +7,7 @@ is prohibited.
 
 #include "stdafx.h"
 #include "RenderWindowD3D11.h"
+#include "RendererD3D11.h"
 #include "Gfx/Common.h"
 #include <assert.h>
 
@@ -14,15 +15,18 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D11 {
 
-RenderWindow::RenderWindow(HWND hWnd)
-	: RenderWindow(hWnd, 0)
+RenderWindow::RenderWindow(Renderer* aRenderer, HWND hWnd)
+	: RenderWindow(aRenderer, hWnd, 0)
 {
 }
 
-RenderWindow::RenderWindow(HWND hWnd, int flags)
+RenderWindow::RenderWindow(Renderer* aRenderer, HWND hWnd, int flags)
 	: mHwnd(hWnd)
 	, mInitFlags(flags)
 {
+	assert(aRenderer);
+	assert(mHwnd);
+
 	mHwnd = hWnd;
 
 	RECT rect;
@@ -30,7 +34,41 @@ RenderWindow::RenderWindow(HWND hWnd, int flags)
 
 	int width = rect.right - rect.left;
 	int height = rect.bottom - rect.top;
-	resize(width, height);
+
+	DXGI_SWAP_CHAIN_DESC desc = { 0 };
+	desc.BufferCount = 1;
+	desc.BufferDesc.Width = width;
+	desc.BufferDesc.Height = height;
+	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.BufferDesc.RefreshRate.Numerator = 60;
+	desc.BufferDesc.RefreshRate.Denominator = 1;
+	desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	desc.OutputWindow = hWnd;
+	desc.SampleDesc.Count = 1;
+	desc.SampleDesc.Quality = 0;
+	desc.Windowed = TRUE;
+	
+	mDevice = aRenderer->device();
+	IDXGIFactory* factory = aRenderer->factory();
+	HRESULT hr = E_FAIL;
+
+	if (factory) {
+		hr = factory->CreateSwapChain(
+			mDevice,
+			&desc,
+			&mSwapChain
+			);
+	}
+
+	if (FAILED(hr) || !mSwapChain) {
+		// TODO: throw a tantrum
+	}
+}
+
+RenderWindow::~RenderWindow()
+{
+	if (mSwapChain)
+		mSwapChain->Release();
 }
 
 void RenderWindow::resize(int w, int h)
@@ -96,12 +134,6 @@ void RenderWindow::resize(int w, int h)
 	//assert(mSurface);
 	//assert(mDepthStencil);
 	//assert(mSwapChain);
-}
-
-RenderWindow::~RenderWindow()
-{
-	//if (mSwapChain)
-	//	mSwapChain->Release();
 }
 
 HWND RenderWindow::hWnd()

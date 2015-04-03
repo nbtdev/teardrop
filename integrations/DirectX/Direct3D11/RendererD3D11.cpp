@@ -44,19 +44,25 @@ namespace Direct3D11 {
 
 class RenderWindow;
 
-Renderer::Renderer()
+Renderer::Renderer(int flags)
 {
 	// enumerate adapters
 	UINT i = 0;
 	IDXGIAdapter* adapter = nullptr;
-	IDXGIFactory* factory = nullptr;
 
-	if (SUCCEEDED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory))) {
+	if (SUCCEEDED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&mFactory))) {
 		DXGI_ADAPTER_DESC desc;
 		const int len = sizeof(desc.Description) / 2;
 		char buf[len];
 
-		while (factory->EnumAdapters(i, &adapter) != DXGI_ERROR_NOT_FOUND) {
+		while (mFactory->EnumAdapters(i, &adapter) != DXGI_ERROR_NOT_FOUND) {
+
+			// for now, just use the first one found
+			if (!mAdapter) {
+				mAdapter = adapter;
+				mAdapter->AddRef();
+			}
+
 			adapter->GetDesc(&desc);
 
 			size_t nChar = 0;
@@ -65,26 +71,47 @@ Renderer::Renderer()
 			++i;
 		}
 	}
+
+	D3D11_CREATE_DEVICE_FLAG D3Dflags = D3D11_CREATE_DEVICE_SINGLETHREADED;
+	D3D_FEATURE_LEVEL supported;
+
+	HRESULT hr = D3D11CreateDevice(
+		mAdapter,
+		D3D_DRIVER_TYPE_UNKNOWN,
+		NULL,
+		D3Dflags,
+		nullptr,
+		0,
+		D3D11_SDK_VERSION,
+		&mDevice,
+		&supported,
+		&mDeviceContext
+		);
+
+	if (FAILED(hr)) {
+		// TODO: throw a fit
+	}
 }
 
 Renderer::~Renderer()
 {
-	//assert(mD3D9 == 0 && "Did you forget to call Renderer::shutdown()?");
+	if (mDeviceContext)
+		mDeviceContext->Release();
+
+	if (mDevice)
+		mDevice->Release();
+
+	if (mAdapter)
+		mAdapter->Release();
+
+	if (mFactory)
+		mFactory->Release();
 }
 
-Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
-{
-	assert(windowHandle);
-	if (!windowHandle)
-		return 0;
-
-	RenderWindow* renderWindow = nullptr;
-
 #if 0
+void Renderer::initialize()
+{
 	mD3D9 = Direct3DCreate9(D3D_SDK_VERSION);
-	HWND hWnd = (HWND)windowHandle;
-	RECT rect;
-	GetClientRect(hWnd, &rect);
 
 	if (!mD3D9) {
 		return 0;
@@ -180,7 +207,6 @@ Gfx::RenderTarget* Renderer::initialize(uintptr_t windowHandle, int flags)
 	mViewIXf = tab->addNew(VIEWINV, VET_FLOAT, 4, 4);
 	mViewProj = tab->addNew(VIEWPROJ, VET_FLOAT, 4, 4);
 	mBones = tab->addNew(MATRIXPALETTE, VET_FLOAT, 4, 208);
-#endif 
 	return renderWindow;
 }
 
@@ -200,6 +226,7 @@ void Renderer::shutdown()
 	//	mD3D9 = 0;
 	//}
 }
+#endif
 
 void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 {
@@ -223,7 +250,7 @@ void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 
 Gfx::RenderTarget* Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
 {
-	Gfx::RenderTarget* rt = TD_NEW RenderWindow((HWND)hWnd, flags);
+	Gfx::RenderTarget* rt = TD_NEW RenderWindow(this, (HWND)hWnd, flags);
 	mRenderTargets.push_back(rt);
 	return rt;
 }
@@ -252,8 +279,8 @@ void Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
 	}
 }
 
-static Gfx::Renderer* create() {
-	return TD_NEW Renderer();
+static Gfx::Renderer* create(int flags) {
+	return TD_NEW Renderer(flags);
 }
 
 void registerIntegration()
@@ -447,6 +474,21 @@ void Renderer::endFrame()
 	if (mCurrentRT) {
 		mCurrentRT->present();
 	}
+}
+
+ID3D11Device* Renderer::device()
+{
+	return mDevice;
+}
+
+ID3D11DeviceContext* Renderer::context()
+{
+	return mDeviceContext;
+}
+
+IDXGIFactory* Renderer::factory()
+{
+	return mFactory;
 }
 
 } // Direct3D9
