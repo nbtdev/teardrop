@@ -113,6 +113,10 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)include\$(ProjectName) &gt; NUL
     <PreBuildEvent>
       <Message>Copying headers to $(SolutionDir)DirectX\include\$(ProjectName)...</Message>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>setx TEARDROP_OPENGL_INTEGRATION $(SolutionDir)</Command>
+      <Message>Set TEARDROP_OPENGL_INTEGRATION environment variable to $(SolutionDir)</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -131,6 +135,10 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)include\$(ProjectName) &gt; NUL
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>setx TEARDROP_OPENGL_INTEGRATION $(SolutionDir)</Command>
+      <Message>Set TEARDROP_OPENGL_INTEGRATION environment variable to $(SolutionDir)</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

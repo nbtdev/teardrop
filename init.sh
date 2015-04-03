@@ -5,6 +5,7 @@
 
 DIR=$(cd `dirname -- $0` && pwd)
 WINDIR=$(cd `dirname -- $0` && cmd /C cd | dos2unix)
+CYGDIR=$(echo `cygpath -w /` | dos2unix)
 
 # explain to the user what we will be doing
 echo "We need to grab some dependencies from the interwebs. These include:"
@@ -12,6 +13,7 @@ echo "    1) TBB (current 4.x OSS version, used by engine and tools) [download, 
 echo "    2) FreeImage (image manipulation, used by the editor/tools) [submodule]"
 echo "    3) libsquish (texture compression, used by the editor/tools) [submodule]"
 echo "    4) Qt 5.x (UI framework, used by the editor) [download, install]"
+echo "    5) FBX SDK 2015.1 (geometry/animation asset import) [download, install]"
 echo " "
 
 read -p "Press Enter to continue..."
@@ -119,6 +121,54 @@ else
 	echo "found in '$QTDIR'"
 fi
 
+
+# grab FBX SDK 2015.1 (VS 2013) and install it
+
+FBXINSTALLER=fbx20151_fbxsdk_vs2013_win.exe
+FBXURL=http://images.autodesk.com/adsk/files/fbx20151_fbxsdk_vs2013_win.exe
+
+echo -n "4) Checking for installed FBX SDK..."
+if [ "x$FBX_SDK_DIR" == "x" ]
+then
+	echo -n "no, checking for installer..."
+	if [ ! -e /tmp/fbx.exe ]
+	then
+		echo "no, downloading installer"
+		wget --show-progress -O /tmp/fbx.exe $FBXURL
+	
+	else
+		echo "found"
+	fi
+	
+	# quiet install
+	echo "We will now launch the FBX SDK GUI installer. Please make a note of the root FBX SDK install location, you will need to supply that information when the install is completed."
+	echo 
+	read -p "Press Enter when ready to launch FBX SDK installer..."
+	chmod +x /tmp/fbx.exe
+	cmd /C "${CYGDIR}\\tmp\\fbx.exe"
+	
+	echo "In the following prompt, if using Windows-style path separators, please "
+	echo "escape them properly (i.e. C:\\\\MyDir and not C:\\MyDir)"
+	echo
+	
+	FBX_DEFAULT_DIR="C:\\Program Files\\Autodesk\\FBX\\FBX SDK\\2015.1"
+	read -p "Root FBX SDK install dir [${FBX_DEFAULT_DIR}]: " FBX_DIR
+	
+	if [ "x$FBX_DIR" == "x" ]
+	then
+		FBX_DIR="$FBX_DEFAULT_DIR"
+	fi
+	
+	echo "Using '$FBX_DIR'; if this is not correct, you will need to correct manually with 'setx' command"
+	setx FBX_SDK_DIR "$FBX_DIR"
+	
+	# since we are running in Bash, and possibly on Cygwin, export this as well to the current terminal
+	FBX_SDK_DIR="$FBX_DIR"
+	export FBX_SDK_DIR
+else
+	echo "found in '$FBX_SDK_DIR'"
+fi
+
 echo 
 echo "************************************************************************"
 echo "Updating submodules, if necessary"
@@ -203,6 +253,7 @@ echo "TBB_INSTALL_DIR: $TBB_INSTALL_DIR_VAL"
 echo "SQUISH_DIR: $SQUISH_DIR_VAL"
 echo "FREEIMAGE_DIST: $FREEIMAGE_DIST_VAL"
 echo "QTDIR: $QT_DIR"
+echo "FBX_SDK_DIR: $FBX_SDK_DIR"
 echo "TEARDROP_SDK: $TEARDROP_SDK_VAL"
 echo
 echo "Done!"

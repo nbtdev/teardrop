@@ -32,13 +32,11 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\vsprops\DirectX_Release.props" />
     <Import Project="..\..\..\..\..\..\sdk\vsprops\vc10\TBB_Debug.props" />
     <Import Project="..\..\..\..\..\..\sdk\vsprops\vc10\Teardrop SDK (Release).props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\vsprops\DirectX_Debug.props" />
     <Import Project="..\..\..\..\..\..\sdk\vsprops\vc10\Teardrop SDK (Debug).props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -73,7 +71,14 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>setx TEARDROP_DIRECTX_INTEGRATION $(SolutionDir)DirectX</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Set TEARDROP_DIRECTX_INTEGRATION environment variable to $(SolutionDir)DirectX</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
@@ -91,7 +96,14 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>setx TEARDROP_DIRECTX_INTEGRATION $(SolutionDir)DirectX</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Set TEARDROP_DIRECTX_INTEGRATION environment variable to $(SolutionDir)DirectX</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\BufferManagerD3D9.cpp" />
