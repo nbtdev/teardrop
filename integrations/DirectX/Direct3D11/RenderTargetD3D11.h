@@ -18,10 +18,12 @@ namespace Teardrop
 	{
 		namespace Direct3D11
 		{
+			class Renderer;
+
 			class RenderTarget : public Gfx::RenderTarget
 			{
 			public:
-				RenderTarget();
+				RenderTarget(Renderer* aRenderer, int aWidth, int aHeight);
 				~RenderTarget();
 
 				void clear(
@@ -31,25 +33,25 @@ namespace Teardrop
 					float depthValue = 1,
 					bool stencil = true,
 					unsigned int stencilValue = 0);
+				float aspect();
 				int width();
 				int height();
 				void setCurrent();
 				void unsetCurrent();
-				Viewport* addViewport(float x = 0, float y = 0, float w = 1, float h = 1, unsigned int zOrder = 0);
-				void releaseViewport(Viewport* vp);
-
-				//IDirect3DSurface9* surface();
-				//IDirect3DSurface9* depthStencil();
-
-				//void setSurface(IDirect3DSurface9* surface);
-				//void setDepthStencil(IDirect3DSurface9* depthStencil);
+				Gfx::Viewport* addViewport(float x = 0, float y = 0, float w = 1, float h = 1, unsigned int zOrder = 0);
+				void releaseViewport(Gfx::Viewport* vp);
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
-				//IDirect3DDevice9* mDevice;
-				//IDirect3DSurface9* mSurface;
-				//IDirect3DSurface9* mDepthStencil;
+				ComPtr<ID3D11Device> mDevice;
+				ComPtr<ID3D11DeviceContext> mDeviceContext;
+				ComPtr<ID3D11BlendState> mBlendState;
+				ComPtr<ID3D11DepthStencilState> mDepthStencilState;
+				ComPtr<ID3D11RenderTargetView> mRenderTargetView;
+				ComPtr<ID3D11Texture2D> mDepthStencilTexture;
+				ComPtr<ID3D11DepthStencilView> mDepthStencilView;
+
 				int mWidth = 0;
 				int mHeight = 0;
 

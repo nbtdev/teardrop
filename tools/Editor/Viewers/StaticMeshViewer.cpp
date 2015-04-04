@@ -74,6 +74,7 @@ void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* r
 	if (!mesh)
 		return;
 
+	cam->setAspect(rt->aspect());
 	renderer->beginScene(cam, mVP);
 
 	// apply the material

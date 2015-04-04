@@ -23,6 +23,8 @@ namespace Teardrop
 			public:
 				RenderWindow(Renderer* aRenderer, HWND hWnd);
 				RenderWindow(Renderer* aRenderer, HWND hWnd, int flags);
+				RenderWindow(Renderer* aRenderer, HWND hWnd, int aWidth, int aHeight);
+				RenderWindow(Renderer* aRenderer, HWND hWnd, int aWidth, int aHeight, int aFlags);
 				~RenderWindow();
 
 				void present();
@@ -35,8 +37,10 @@ namespace Teardrop
 			protected:
 				HWND mHwnd = 0;
 				int mInitFlags = 0;
-				ID3D11Device* mDevice = nullptr;
-				IDXGISwapChain* mSwapChain = nullptr;
+				ComPtr<ID3D11Device> mDevice;
+				ComPtr<IDXGISwapChain> mSwapChain;
+				ComPtr<ID3D11Texture2D> mBackBuffer;
+				D3D11_TEXTURE2D_DESC mDesc;
 			};
 		}
 	}

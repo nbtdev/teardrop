@@ -5,22 +5,36 @@ written permission of a duly authorized representative of Teardrop Games LLC
 is prohibited.
 ****************************************************************************/
 
-#include "RendererOpenGL.h"
-#include "RenderWindowOpenGL.h"
+#include "stdafx.h"
+#include "ViewportD3D11.h"
 
 namespace Teardrop {
 namespace Gfx {
-namespace OpenGL {
+namespace Direct3D11 {
 
-std::shared_ptr<Gfx::RenderTarget>
-Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
+Viewport::Viewport(Gfx::RenderTarget* rt)
+	: Gfx::Viewport(rt)
 {
-	std::shared_ptr<OpenGL::RenderWindow> renderWindow(TD_NEW OpenGL::RenderWindow((HWND)hWnd, flags));
-	mRenderTargets.push_back(renderWindow);
-
-	return renderWindow;
+	mVP.MinDepth = 0.f;
+	mVP.MaxDepth = 1.f;
 }
 
-} // namespace OpenGL
-} // namespace Gfx
-} // namespace Teardrop
+Viewport::~Viewport()
+{
+}
+
+D3D11_VIEWPORT& Viewport::viewport()
+{
+	updateDimensions();
+
+	mVP.TopLeftX = mPos.x;
+	mVP.TopLeftY = mPos.y;
+	mVP.Width = mSize.x;
+	mVP.Height = mSize.y;
+
+	return mVP;
+}
+
+} // namespace Direct3D9
+} // Gfx
+} // Teardrop

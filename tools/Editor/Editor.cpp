@@ -17,6 +17,7 @@ is prohibited.
 #include "PackageManager/PackageManager.h"
 #include "Package/Package.h"
 #include "Game/Scene.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Renderer.h"
 #include "Core/Input.h"
 #include "Util/FileSystem.h"
@@ -125,36 +126,44 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 	setEditorTitle();
 	mPreferences.load();
 
-	// create renderer instance
-	// choose renderer from preferences...
-	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
-	const Gfx::RendererRegistration* firstReg = regs;
-	assert(regs);
-	assert(firstReg);
+	try {
+		// create renderer instance
+		// choose renderer from preferences...
+		const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
+		const Gfx::RendererRegistration* firstReg = regs;
+		assert(regs);
+		assert(firstReg);
 
-	while (regs) {
-		if (regs->mUUID == mPreferences.rendering().mEngineId) {
-			mRenderer = regs->create(0);
+		while (regs) {
+			if (regs->mUUID == mPreferences.rendering().mEngineId) {
+				mRenderer = regs->create(0);
+			}
+
+			regs = regs->mNext;
 		}
 
-		regs = regs->mNext;
-	}
+		// ...or first in list if no preference set (first time running, for example)
+		if (!mRenderer) {
+			if (firstReg) {
+				mRenderer = firstReg->create(0);
+			}
+		}
 
-	// ...or first in list if no preference set (first time running, for example)
-	if (!mRenderer) {
-		if (firstReg) {
-			mRenderer = firstReg->create(0);
+		assert(mRenderer);
+
+		if (mRenderer) {
+			// set up render window
+			mRenderWindow = new RenderWindow(mRenderer);
+
+			// once we have created the initial render window, we can finish initializing the input system
+			//Input::instance().initialize((uintptr_t)mRenderWindow->winId());
 		}
 	}
-
-	assert(mRenderer);
-
-	if (mRenderer) {
-		// set up render window
-		mRenderWindow = new RenderWindow(mRenderer);
-
-		// once we have created the initial render window, we can finish initializing the input system
-		//Input::instance().initialize((uintptr_t)mRenderWindow->winId());
+	catch (const Gfx::Exception& e) {
+		QMessageBox mb;
+		mb.setText(e.what());
+		mb.exec();
+		throw e;
 	}
 
 	// do we need to load the previous project?

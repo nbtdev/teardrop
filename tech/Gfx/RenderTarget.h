@@ -27,6 +27,7 @@ namespace Teardrop
 				float depthValue = 1,
 				bool stencil = true,
 				unsigned int stencilValue = 0) = 0;
+			virtual float aspect() = 0;
 			virtual int width() = 0;
 			virtual int height() = 0;
 			virtual void resize(int w, int h) = 0;

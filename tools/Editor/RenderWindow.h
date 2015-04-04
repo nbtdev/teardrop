@@ -9,6 +9,7 @@ is prohibited.
 #define RENDERWINDOW_H
 
 #include <QtWidgets/QWidget>
+#include <memory>
 
 class QTimer;
 
@@ -38,7 +39,7 @@ namespace Teardrop
 		private:
 			QTimer* mTimer;
 			Gfx::Renderer* mRenderer;
-			Gfx::RenderTarget* mRT;
+			std::shared_ptr<Gfx::RenderTarget> mRT;
 			Gfx::Camera* mCamera;
 			Gfx::Viewport* mViewport;
 		};

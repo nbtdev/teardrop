@@ -10,6 +10,7 @@ is prohibited.
 #include "Zone.h"
 #include "ZoneObject.h"
 #include "Component_Render.h"
+#include "Gfx/Camera.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
 #include "Reflection/Reflection.h"
@@ -33,9 +34,10 @@ void SceneRenderStep::render(
 
 	// then update/render the main scene
     //pRend->setRenderMode(Gfx::Renderer::RENDER_DEFAULT);
-	pRend->setRenderTarget(m_pRT);
+	m_pRT->setCurrent();
 //	pRend->clearRenderTarget(); // clears all
 //	pRend->setColorWrite(true);
+	m_pCamera->setAspect(m_pRT->aspect());
 	pRend->beginScene(m_pCamera, m_pVP);
 
 	// first, find out if there is anything to render

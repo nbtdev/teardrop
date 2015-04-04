@@ -11,6 +11,7 @@ is prohibited.
 #include "Gfx/Common.h"
 #include <cstdlib>
 #include <cstdint>
+#include <memory>
 
 namespace Teardrop
 {
@@ -33,22 +34,12 @@ namespace Teardrop
 			// create a new render window; if hWnd is 0, creates a new top-level
 			// window, otherwise, creates an embedded render context in the supplied 
 			// window; 
-			virtual RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) = 0;
+			virtual std::shared_ptr<RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) = 0;
 			// create a new render texture; if tex is null, no render texture is created
-			virtual RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
-			// release a previously-created render target
-			virtual void releaseRenderTarget(RenderTarget* rt) = 0;
-			// set render target as current render target
-			virtual void setRenderTarget(RenderTarget* rt) = 0;
+			virtual std::shared_ptr<RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
 
 			// begin a new frame render
-			virtual void beginFrame(
-				bool color = true,
-				unsigned int clearColor = 0,
-				bool depth = true,
-				float depthValue = 1,
-				bool stencil = true,
-				unsigned int stencilValue = 0) = 0;
+			virtual void beginFrame() = 0;
 			// begin a new scene (frame subset)
 			virtual void beginScene(Camera* camera, Viewport* vp=0) = 0;
 			// begin rendering a new object (mesh instance)

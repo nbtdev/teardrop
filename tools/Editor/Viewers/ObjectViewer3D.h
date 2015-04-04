@@ -9,6 +9,7 @@ is prohibited.
 #define OBJECTVIEWER3D_INCLUDED
 
 #include <QtWidgets/QWidget>
+#include <memory>
 
 class QTimer;
 
@@ -50,7 +51,7 @@ namespace Teardrop
 			void resizeEvent(QResizeEvent *event);
 
 			Gfx::Renderer* mRenderer;
-			Gfx::RenderTarget* mRenderWindow;
+			std::shared_ptr<Gfx::RenderTarget> mRenderWindow;
 			Gfx::Viewport* mViewport;
 			Package* mPackage;
 			OrbitCameraController* mOrbitCam;

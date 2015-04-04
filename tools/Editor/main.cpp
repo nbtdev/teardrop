@@ -78,10 +78,14 @@ int main(int argc, char *argv[])
     Teardrop::XWindow::Integration inputIntegration;
 #endif // _WIN32, _WIN64
 
-	QApplication a(argc, argv);
-	Teardrop::Tools::Editor w;
-	w.show();
-	return a.exec();
+	try {
+		QApplication a(argc, argv);
+		Teardrop::Tools::Editor w;
+		w.show();
+		return a.exec();
+	} catch (...) {
+		return -1;
+	}
 }
 
 using namespace Teardrop;

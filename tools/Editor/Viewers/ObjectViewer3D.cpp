@@ -76,10 +76,8 @@ ObjectViewer3D::~ObjectViewer3D()
 	delete mTimer;
 	delete mPropGrid;
 
-	if (mRenderer) {
-		mRenderer->setRenderTarget(0);
-		mRenderer->releaseRenderTarget(mRenderWindow);
-	}
+	if (mRenderWindow)
+		mRenderWindow->unsetCurrent();
 
 	delete mPackage;
 }
@@ -120,10 +118,12 @@ void ObjectViewer3D::onIdle()
 		if (exe && mRenderWindow && mRenderer) {
 			exe->tick();
 
-			mRenderer->setRenderTarget(mRenderWindow);
+			mRenderWindow->setCurrent();
+			mRenderWindow->clear();
 			mRenderer->beginFrame();
-			exe->renderFrame(mRenderer, mRenderWindow);
+			exe->renderFrame(mRenderer, mRenderWindow.get());
 			mRenderer->endFrame();
+			mRenderWindow->present();
 		}
 	}
 }

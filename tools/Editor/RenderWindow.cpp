@@ -56,22 +56,19 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 RenderWindow::~RenderWindow()
 {
 	delete mCamera;
-
-	if (mRT) {
-		mRT->releaseViewport(mViewport);
-	}
-
-	delete mRT;
 }
 
 void RenderWindow::onIdle()
 {
 	// render a black clear frame for now
 	if (mRenderer && mRT) {
-		mRenderer->setRenderTarget(mRT);
-        mRenderer->beginFrame(true, 0xFF000000);
+		mCamera->setAspect(mRT->aspect());
+		mRT->setCurrent();
+		mRT->clear(true, 0xFF000000);
+		mRenderer->beginFrame();
 		mRenderer->beginScene(mCamera, mViewport);
 		mRenderer->endScene();
 		mRenderer->endFrame();
+		mRT->present();
 	}
 }

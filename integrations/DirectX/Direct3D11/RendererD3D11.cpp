@@ -20,6 +20,7 @@ is prohibited.
 //#include "ShaderManagerD3D9.h"
 //#include "BufferManagerD3D9.h"
 #include "Gfx/Camera.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Material.h"
 #include "Gfx/ShaderConstantTable.h"
 #include "Gfx/ShaderConstant.h"
@@ -42,41 +43,44 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D11 {
 
-class RenderWindow;
-
 Renderer::Renderer(int flags)
 {
-	// enumerate adapters
-	UINT i = 0;
-	IDXGIAdapter* adapter = nullptr;
-
 	if (SUCCEEDED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&mFactory))) {
 		DXGI_ADAPTER_DESC desc;
 		const int len = sizeof(desc.Description) / 2;
 		char buf[len];
 
-		while (mFactory->EnumAdapters(i, &adapter) != DXGI_ERROR_NOT_FOUND) {
+		// enumerate adapters
+		UINT i = 0;
+		IDXGIAdapter* adapter = nullptr;
 
+		while (mFactory->EnumAdapters(i, &adapter) != DXGI_ERROR_NOT_FOUND) {
 			// for now, just use the first one found
-			if (!mAdapter) {
+			if (!mAdapter)
 				mAdapter = adapter;
-				mAdapter->AddRef();
-			}
 
 			adapter->GetDesc(&desc);
+			adapter->Release();
 
 			size_t nChar = 0;
 			wcstombs_s(&nChar, buf, desc.Description, len);
 			Environment::get().pLogger->logMessage(buf);
 			++i;
 		}
+	} else {
+		throw Exception("Could not create D3D11 DXGI factory object");
 	}
 
-	D3D11_CREATE_DEVICE_FLAG D3Dflags = D3D11_CREATE_DEVICE_SINGLETHREADED;
+	UINT D3Dflags = D3D11_CREATE_DEVICE_SINGLETHREADED | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+
+#if defined(DEBUG) || defined(_DEBUG)
+	D3Dflags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
 	D3D_FEATURE_LEVEL supported;
 
 	HRESULT hr = D3D11CreateDevice(
-		mAdapter,
+		mAdapter.Get(),
 		D3D_DRIVER_TYPE_UNKNOWN,
 		NULL,
 		D3Dflags,
@@ -89,23 +93,23 @@ Renderer::Renderer(int flags)
 		);
 
 	if (FAILED(hr)) {
-		// TODO: throw a fit
+		DXGI_ADAPTER_DESC desc;
+		mAdapter->GetDesc(&desc);
+
+		const int LEN = sizeof(desc.Description) / 2;
+		char buf[LEN];
+		size_t sz;
+		wcstombs_s(&sz, buf, desc.Description, LEN);
+
+		String msg("Could not create D3D11 hardware-accelerated device on adapter: ");
+		msg += buf;
+
+		throw Exception(msg);
 	}
 }
 
 Renderer::~Renderer()
 {
-	if (mDeviceContext)
-		mDeviceContext->Release();
-
-	if (mDevice)
-		mDevice->Release();
-
-	if (mAdapter)
-		mAdapter->Release();
-
-	if (mFactory)
-		mFactory->Release();
 }
 
 #if 0
@@ -226,7 +230,6 @@ void Renderer::shutdown()
 	//	mD3D9 = 0;
 	//}
 }
-#endif
 
 void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 {
@@ -248,18 +251,6 @@ void Renderer::setRenderTarget(Gfx::RenderTarget* rt)
 	}
 }
 
-Gfx::RenderTarget* Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
-{
-	Gfx::RenderTarget* rt = TD_NEW RenderWindow(this, (HWND)hWnd, flags);
-	mRenderTargets.push_back(rt);
-	return rt;
-}
-
-Gfx::RenderTarget* Renderer::createRenderTexture(int /*w*/, int /*h*/, SurfaceFormat /*fmt*/, int /*flags*/)
-{
-	return nullptr;
-}
-
 void Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
 {
 	// don't release current render target
@@ -279,6 +270,25 @@ void Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
 	}
 }
 
+#endif
+
+std::shared_ptr<Gfx::RenderTarget> Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
+{
+	// RenderWindow will throw if failed, so let it bubble up
+	HWND hwnd = (HWND)hWnd;
+	RECT rect;
+	GetClientRect(hwnd, &rect);
+
+	std::shared_ptr<Gfx::RenderTarget> rtn(TD_NEW RenderWindow(this, (HWND)hWnd, rect.right-rect.left, rect.bottom-rect.top, flags));
+	mRenderTargets.push_back(rtn);
+	return rtn;
+}
+
+std::shared_ptr<Gfx::RenderTarget> Renderer::createRenderTexture(int /*w*/, int /*h*/, SurfaceFormat /*fmt*/, int /*flags*/)
+{
+	return nullptr;
+}
+
 static Gfx::Renderer* create(int flags) {
 	return TD_NEW Renderer(flags);
 }
@@ -294,38 +304,32 @@ void registerIntegration()
 	}
 }
 
-void Renderer::beginFrame(
-	bool color /* = true */, unsigned int clearColor /* = 0 */,
-	bool depth /* = true */, float depthValue /* = 1 */,
-	bool stencil /* = true */, unsigned int stencilValue /* = 0 */)
+void Renderer::beginFrame()
 {
-	assert(mCurrentRT);
-	if (mCurrentRT) {
-		mCurrentRT->clear(color, clearColor, depth, depthValue, stencil, stencilValue);
-	}
-
-	//assert(mDevice);
-	//if (mDevice) {
-	//	mDevice->BeginScene();
+	//assert(mCurrentRT);
+	//if (mCurrentRT) {
+	//	mCurrentRT->clear(color, clearColor, depth, depthValue, stencil, stencilValue);
 	//}
+
+	assert(mDevice);
+	if (mDevice) {
+		//mDevice->BeginScene();
+	}
 }
 
 void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
 {
-	assert(mCurrentRT);
-
 	mCurrentCamera = camera;
-	mCurrentVP = vp;
 
 	// ensure camera has the correct aspect ratio
-	camera->setAspect(float(mCurrentRT->width()) / float(mCurrentRT->height()));
 	camera->update();
 
 	// update camera-related shader constants
 	Matrix44 tmp;
 	camera->getViewMatrix().invert(tmp);
-	mViewIXf->set(&tmp);
-	mViewProj->set(&camera->getViewProjMatrix());
+	
+	if (mViewIXf) mViewIXf->set(&tmp);
+	if (mViewProj) mViewProj->set(&camera->getViewProjMatrix());
 
 #if 0
 	if (mCurrentVP) {
@@ -470,23 +474,23 @@ void Renderer::endFrame()
 	//	mDevice->EndScene();
 	//}
 
-	assert(mCurrentRT);
-	if (mCurrentRT) {
-		mCurrentRT->present();
-	}
+	//assert(mCurrentRT);
+	//if (mCurrentRT) {
+	//	mCurrentRT->present();
+	//}
 }
 
-ID3D11Device* Renderer::device()
+ComPtr<ID3D11Device> Renderer::device()
 {
 	return mDevice;
 }
 
-ID3D11DeviceContext* Renderer::context()
+ComPtr<ID3D11DeviceContext> Renderer::context()
 {
 	return mDeviceContext;
 }
 
-IDXGIFactory* Renderer::factory()
+ComPtr<IDXGIFactory> Renderer::factory()
 {
 	return mFactory;
 }

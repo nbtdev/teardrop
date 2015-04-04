@@ -27,16 +27,9 @@ namespace Teardrop
 				Renderer(int flags);
 				~Renderer();
 
-				Gfx::RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
-				Gfx::RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
-				void releaseRenderTarget(Gfx::RenderTarget* rt);
-				void setRenderTarget(Gfx::RenderTarget* rt);
-				void beginFrame(bool color = true,
-					unsigned int clearColor = 0,
-					bool depth = true,
-					float depthValue = 1,
-					bool stencil = true,
-					unsigned int stencilValue = 0);
+				std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
+				std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
+				void beginFrame();
 				void beginScene(Camera* camera, Gfx::Viewport* vp = 0);
 				void beginObject(const Matrix44& worldXf);
 				void endObject();
@@ -45,24 +38,22 @@ namespace Teardrop
 				void apply(Material* material);
 				void render(Submesh* submesh);
 
-				ID3D11Device* device();
-				ID3D11DeviceContext* context();
-				IDXGIFactory* factory();
+				ComPtr<ID3D11Device> device();
+				ComPtr<ID3D11DeviceContext> context();
+				ComPtr<IDXGIFactory> factory();
 
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
-				IDXGIAdapter* mAdapter = nullptr;
-				IDXGIFactory* mFactory = nullptr;
-				ID3D11Device* mDevice = nullptr;
-				ID3D11DeviceContext* mDeviceContext = nullptr;
+				ComPtr<IDXGIAdapter> mAdapter = nullptr;
+				ComPtr<IDXGIFactory> mFactory = nullptr;
+				ComPtr<ID3D11Device> mDevice = nullptr;
+				ComPtr<ID3D11DeviceContext> mDeviceContext = nullptr;
 
-				typedef std::vector<Gfx::RenderTarget*> RenderTargets;
+				typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
 				RenderTargets mRenderTargets;
-				Gfx::RenderTarget* mCurrentRT = nullptr;
 
 				Camera* mCurrentCamera = nullptr;
-				Viewport* mCurrentVP = nullptr;
 
 				ShaderConstant* mWorldITXf = nullptr;
 				ShaderConstant* mWvpXf = nullptr;
