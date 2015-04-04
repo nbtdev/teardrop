@@ -131,6 +131,16 @@ void RenderWindow::resize(int w, int h)
 
 	mWidth = w;
 	mHeight = h;
+	
+	HRESULT hr = mSwapChain->ResizeBuffers(
+		0, // preserve the number of buffers
+		mWidth, 
+		mHeight, 
+		DXGI_FORMAT_UNKNOWN, // preserve the existing format
+		0
+		);
+
+	assert(SUCCEEDED(hr));
 
 	//ZeroMemory(&mPParams, sizeof(mPParams));
 	//mPParams.Windowed = TRUE;
@@ -187,15 +197,9 @@ HWND RenderWindow::hWnd()
 
 void RenderWindow::present()
 {
-	//assert(mDevice);
-	//if (mDevice) {
-	//	if (mSwapChain) {
-	//		mSwapChain->Present(0, 0, 0, 0, 0);
-	//	}
-	//	else {
-	//		mDevice->Present(0, 0, 0, 0);
-	//	}
-	//}
+	if (mSwapChain) {
+		mSwapChain->Present(0, 0);
+	}
 }
 
 } // namespace Direct3D9
