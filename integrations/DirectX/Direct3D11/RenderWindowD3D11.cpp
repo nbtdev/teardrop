@@ -112,23 +112,6 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::resize(int w, int h)
 {
-	assert(mHwnd);
-
-	//if (mSurface) {
-	//	mSurface->Release();
-	//	mSurface = 0;
-	//}
-
-	//if (mDepthStencil) {
-	//	mDepthStencil->Release();
-	//	mDepthStencil = 0;
-	//}
-
-	//if (mSwapChain) {
-	//	mSwapChain->Release();
-	//	mSwapChain = 0;
-	//}
-
 	mWidth = w;
 	mHeight = h;
 	
@@ -141,59 +124,12 @@ void RenderWindow::resize(int w, int h)
 		);
 
 	assert(SUCCEEDED(hr));
-
-	//ZeroMemory(&mPParams, sizeof(mPParams));
-	//mPParams.Windowed = TRUE;
-	//mPParams.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	//mPParams.BackBufferFormat = D3DFMT_UNKNOWN;
-	//mPParams.hDeviceWindow = mHwnd;
-	//mPParams.BackBufferWidth = mWidth;
-	//mPParams.BackBufferHeight = mHeight;
-	//mPParams.BackBufferCount = 1;
-	//mPParams.EnableAutoDepthStencil = TRUE;
-
-	//D3DFORMAT dsFmt = D3DFMT_UNKNOWN;
-
-	//if (mInitFlags & (INIT_ENABLE_DEPTH_BUFFER | INIT_ENABLE_STENCIL_BUFFER))
-	//	dsFmt = D3DFMT_D24S8;
-
-	//mPParams.AutoDepthStencilFormat = dsFmt;
-
-	//mPParams.PresentationInterval =
-	//	(mInitFlags & INIT_ENABLE_VSYNC) ? (D3DPRESENT_DONOTWAIT | D3DPRESENT_INTERVAL_ONE) : D3DPRESENT_INTERVAL_IMMEDIATE;
-
-	//HRESULT hr = mDevice->CreateAdditionalSwapChain(&mPParams, &mSwapChain);
-
-	//if (SUCCEEDED(hr)) {
-	//	// get render target surface ref
-	//	mSwapChain->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &mSurface);
-
-	//	// create depth buffer for additional swap chain
-	//	hr = mDevice->CreateDepthStencilSurface(
-	//		mPParams.BackBufferWidth,
-	//		mPParams.BackBufferHeight,
-	//		mPParams.AutoDepthStencilFormat,
-	//		D3DMULTISAMPLE_NONE, // todo: support AA at some point
-	//		0,
-	//		FALSE,
-	//		&mDepthStencil,
-	//		NULL);
-	//}
-
-	//assert(mSurface);
-	//assert(mDepthStencil);
-	//assert(mSwapChain);
 }
 
 HWND RenderWindow::hWnd()
 {
 	return mHwnd;
 }
-
-//D3DPRESENT_PARAMETERS& RenderWindow::presentParams()
-//{
-//	return mPParams;
-//}
 
 void RenderWindow::present()
 {
@@ -202,6 +138,6 @@ void RenderWindow::present()
 	}
 }
 
-} // namespace Direct3D9
+} // namespace Direct3D11
 } // namespace Gfx
 } // namespace Teardrop

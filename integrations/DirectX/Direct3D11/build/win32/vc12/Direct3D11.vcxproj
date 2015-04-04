@@ -101,6 +101,8 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\BufferManagerD3D11.h" />
+    <ClInclude Include="..\..\..\IndexBufferD3D11.h" />
     <ClInclude Include="..\..\..\Integration.h" />
     <ClInclude Include="..\..\..\RendererD3D11.h" />
     <ClInclude Include="..\..\..\RenderTargetD3D11.h" />
@@ -110,6 +112,8 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\BufferManagerD3D11.cpp" />
+    <ClCompile Include="..\..\..\IndexBufferD3D11.cpp" />
     <ClCompile Include="..\..\..\RendererD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderTargetD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderWindowD3D11.cpp" />

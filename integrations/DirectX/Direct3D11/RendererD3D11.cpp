@@ -495,6 +495,6 @@ ComPtr<IDXGIFactory> Renderer::factory()
 	return mFactory;
 }
 
-} // Direct3D9
+} // Direct3D11
 } // Gfx
 } // Teardrop

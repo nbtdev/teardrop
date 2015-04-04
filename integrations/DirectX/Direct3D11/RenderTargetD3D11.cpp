@@ -188,6 +188,6 @@ void RenderTarget::releaseViewport(Gfx::Viewport* vp)
 	}
 }
 
-} // namespace Direct3D9
+} // namespace Direct3D11
 } // namespace Gfx
 } // namespace Teardrop

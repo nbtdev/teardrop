@@ -34,12 +34,24 @@ namespace Teardrop
 			String mMsg;
 		};
 
-		class InvalidParameterException : public Exception 
+		class InvalidParameterException : public Exception
 		{
 		public:
 			InvalidParameterException(const char* aDetail);
 			InvalidParameterException(const String& aDetail);
 			~InvalidParameterException() NOTHROW;
+		};
+
+		class BufferMappedException : public Exception
+		{
+		public:
+			BufferMappedException(const char* aDetail, void* aMappedBuffer);
+			BufferMappedException(const String& aDetail, void* aMappedBuffer);
+			~BufferMappedException() NOTHROW;
+			void* mappedBuffer() const;
+
+		protected:
+			void* mMappedBuffer = nullptr;
 		};
 	}
 }

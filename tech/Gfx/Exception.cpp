@@ -49,5 +49,29 @@ InvalidParameterException::~InvalidParameterException()
 
 }
 
+BufferMappedException::BufferMappedException(const char* aDetail, void* aMappedBuffer)
+	: Exception(aDetail)
+	, mMappedBuffer(aMappedBuffer)
+{
+
+}
+
+BufferMappedException::BufferMappedException(const String& aDetail, void* aMappedBuffer)
+	: Exception(aDetail)
+	, mMappedBuffer(aMappedBuffer)
+{
+
+}
+
+BufferMappedException::~BufferMappedException()
+{
+
+}
+
+void* BufferMappedException::mappedBuffer() const
+{
+	return mMappedBuffer;
+}
+
 } // namespace Gfx
 } // namespace Teardrop

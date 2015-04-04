@@ -33,7 +33,8 @@ namespace Teardrop
                 MAP_WRITEONLY = 3
 			};
 
-			virtual bool initialize(int indexSize, int indexCount, void* data=0) = 0;
+			// throws Gfx::Exception on failure
+			virtual void initialize(int indexSize, int indexCount, void* data=0) = 0;
 			virtual void resize(int indexSize, int indexCount) = 0;
             virtual void* map(MapFlags flags=MAP_ANY) = 0;
 			virtual void unmap() = 0;
