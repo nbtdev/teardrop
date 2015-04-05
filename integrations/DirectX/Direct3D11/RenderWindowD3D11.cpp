@@ -32,11 +32,10 @@ RenderWindow::RenderWindow(Renderer* aRenderer, HWND hWnd, int aWidth, int aHeig
 }
 
 RenderWindow::RenderWindow(Renderer* aRenderer, HWND hWnd, int aWidth, int aHeight, int flags)
-	: RenderTarget(aRenderer, aWidth, aHeight)
+	: RenderTarget(aRenderer->device(), aWidth, aHeight)
 	, mHwnd(hWnd)
 	, mInitFlags(flags)
 {
-	assert(aRenderer);
 	assert(mHwnd);
 
 	mHwnd = hWnd;
@@ -60,12 +59,6 @@ RenderWindow::RenderWindow(Renderer* aRenderer, HWND hWnd, int aWidth, int aHeig
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
 	desc.Windowed = TRUE;
-	
-	mDevice = aRenderer->device();
-
-	assert(mDevice);
-	if (!mDevice)
-		throw InvalidParameterException("Invalid 'device' renderer property in Direct3D11::RenderWindow");
 
 	ComPtr<IDXGIFactory> factory = aRenderer->factory();
 	assert(factory);
@@ -114,6 +107,12 @@ void RenderWindow::resize(int w, int h)
 {
 	mWidth = w;
 	mHeight = h;
+
+	mBackBuffer.Reset();
+	assert(!mBackBuffer);
+
+	mRenderTargetView.Reset();
+	assert(!mRenderTargetView);
 	
 	HRESULT hr = mSwapChain->ResizeBuffers(
 		0, // preserve the number of buffers
@@ -124,6 +123,24 @@ void RenderWindow::resize(int w, int h)
 		);
 
 	assert(SUCCEEDED(hr));
+
+	hr = mSwapChain->GetBuffer(
+		0,
+		__uuidof(ID3D11Texture2D),
+		&mBackBuffer
+		);
+
+	if (FAILED(hr))
+		throw Exception("Could not obtain back buffer from swap chain in Direct3D11::RenderWindow::resize");
+
+	hr = mDevice->CreateRenderTargetView(
+		mBackBuffer.Get(),
+		nullptr,
+		&mRenderTargetView
+		);
+
+	if (FAILED(hr))
+		throw Exception("Could not create render target view in Direct3D11::RenderWindow::resize");
 }
 
 HWND RenderWindow::hWnd()

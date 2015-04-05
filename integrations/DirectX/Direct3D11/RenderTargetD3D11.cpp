@@ -17,76 +17,72 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D11 {
 
-RenderTarget::RenderTarget(Renderer* aRenderer, int aWidth, int aHeight)
-	: mWidth(aWidth)
+RenderTarget::RenderTarget(ComPtr<ID3D11Device> aDevice, int aWidth, int aHeight)
+	: mDevice(aDevice)
+	, mWidth(aWidth)
 	, mHeight(aHeight)
 {
-	assert(aRenderer);
-	if (aRenderer) {
-		// create new depth-stencil and blend states for this RT
-		mDevice = aRenderer->device();
-		assert(mDevice);
+	assert(mDevice);
+	if (!mDevice) 
+		throw InvalidParameterException("Invalid 'device' parameter in Direct3D11::RenderTarget");
 
-		if (!mDevice) 
-			throw InvalidParameterException("Invalid 'device' renderer property in Direct3D11::RenderTarget");
+	// create new depth-stencil and blend states for this RT
+	mDevice->GetImmediateContext(&mDeviceContext);
+	assert(mDeviceContext);
 
-		mDeviceContext = aRenderer->context();
-		assert(mDeviceContext);
+	if (!mDeviceContext) 
+		throw InvalidParameterException("Invalid 'deviceContext' parameter in Direct3D11::RenderTarget");
 
-		if (!mDeviceContext) 
-			throw InvalidParameterException("Invalid 'deviceContext' renderer property in Direct3D11::RenderTarget");
+	// create a blend state for single RT, with "normal" alpha blending enabled
+	D3D11_BLEND_DESC desc = { 0 };
+	desc.AlphaToCoverageEnable = FALSE;
+	desc.IndependentBlendEnable = FALSE;
+	desc.RenderTarget[0].BlendEnable = TRUE;
+	desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
 
-		// create a blend state for single RT, with "normal" alpha blending enabled
-		D3D11_BLEND_DESC desc = { 0 };
-		desc.AlphaToCoverageEnable = FALSE;
-		desc.IndependentBlendEnable = FALSE;
-		desc.RenderTarget[0].BlendEnable = TRUE;
-		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-		desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-		desc.RenderTarget[0].RenderTargetWriteMask = 0x0F;
+	HRESULT hr = mDevice->CreateBlendState(
+		&desc,
+		&mBlendState
+		);
 
-		HRESULT hr = mDevice->CreateBlendState(
-			&desc,
-			&mBlendState
-			);
+	if (FAILED(hr) || !mBlendState)
+		throw Exception("Could not create blend state object in Direct3D11::RenderTarget");
 
-		if (FAILED(hr) || !mBlendState)
-			throw Exception("Could not create blend state object in Direct3D11::RenderTarget");
+	// and now the depth/stencil
+	CD3D11_TEXTURE2D_DESC dsDesc(
+		DXGI_FORMAT_D24_UNORM_S8_UINT,		// tex format
+		static_cast<UINT>(mWidth),
+		static_cast<UINT>(mHeight),
+		1,									// only one texture in the view
+		1,									// single mipmap level
+		D3D11_BIND_DEPTH_STENCIL
+		);
 
-		// and now the depth/stencil
-		CD3D11_TEXTURE2D_DESC dsDesc(
-			DXGI_FORMAT_D24_UNORM_S8_UINT,		// tex format
-			static_cast<UINT>(mWidth),
-			static_cast<UINT>(mHeight),
-			1,									// only one texture in the view
-			1,									// single mipmap level
-			D3D11_BIND_DEPTH_STENCIL
-			);
+	hr = mDevice->CreateTexture2D(
+		&dsDesc,
+		nullptr,	// no initial data
+		&mDepthStencilTexture
+		);
 
-		hr = mDevice->CreateTexture2D(
-			&dsDesc,
-			nullptr,	// no initial data
-			&mDepthStencilTexture
-			);
+	if (FAILED(hr))
+		throw Exception("Could not create depth stencil texture in Direct3D11::RenderTarget");
 
-		if (FAILED(hr))
-			throw Exception("Could not create depth stencil texture in Direct3D11::RenderTarget");
+	CD3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
 
-		CD3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
+	hr = mDevice->CreateDepthStencilView(
+		mDepthStencilTexture.Get(),
+		&dsvDesc,
+		&mDepthStencilView
+		);
 
-		hr = mDevice->CreateDepthStencilView(
-			mDepthStencilTexture.Get(),
-			&dsvDesc,
-			&mDepthStencilView
-			);
-
-		if (FAILED(hr))
-			throw Exception("Could not create depth stencil view in Direct3D11::RenderTarget");
-	}
+	if (FAILED(hr))
+		throw Exception("Could not create depth stencil view in Direct3D11::RenderTarget");
 }
 
 RenderTarget::~RenderTarget()

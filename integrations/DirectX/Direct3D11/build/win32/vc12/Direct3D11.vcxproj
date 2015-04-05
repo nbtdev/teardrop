@@ -106,7 +106,10 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
     <ClInclude Include="..\..\..\Integration.h" />
     <ClInclude Include="..\..\..\RendererD3D11.h" />
     <ClInclude Include="..\..\..\RenderTargetD3D11.h" />
+    <ClInclude Include="..\..\..\RenderTextureD3D11.h" />
     <ClInclude Include="..\..\..\RenderWindowD3D11.h" />
+    <ClInclude Include="..\..\..\Texture2DD3D11.h" />
+    <ClInclude Include="..\..\..\TextureManagerD3D11.h" />
     <ClInclude Include="..\..\..\VertexBufferD3D11.h" />
     <ClInclude Include="..\..\..\VertexDeclarationD3D11.h" />
     <ClInclude Include="..\..\..\ViewportD3D11.h" />
@@ -118,7 +121,10 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
     <ClCompile Include="..\..\..\IndexBufferD3D11.cpp" />
     <ClCompile Include="..\..\..\RendererD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderTargetD3D11.cpp" />
+    <ClCompile Include="..\..\..\RenderTextureD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderWindowD3D11.cpp" />
+    <ClCompile Include="..\..\..\Texture2DD3D11.cpp" />
+    <ClCompile Include="..\..\..\TextureManagerD3D11.cpp" />
     <ClCompile Include="..\..\..\VertexBufferD3D11.cpp" />
     <ClCompile Include="..\..\..\VertexDeclarationD3D11.cpp" />
     <ClCompile Include="..\..\..\ViewportD3D11.cpp" />

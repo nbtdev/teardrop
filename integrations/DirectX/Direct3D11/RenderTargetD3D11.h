@@ -23,7 +23,7 @@ namespace Teardrop
 			class RenderTarget : public Gfx::RenderTarget
 			{
 			public:
-				RenderTarget(Renderer* aRenderer, int aWidth, int aHeight);
+				RenderTarget(ComPtr<ID3D11Device> aDevice, int aWidth, int aHeight);
 				~RenderTarget();
 
 				void clear(

@@ -16,7 +16,7 @@ is prohibited.
 //#include "VertexBufferD3D9.h"
 //#include "VertexDeclarationD3D9.h"
 //#include "Texture2DD3D9.h"
-//#include "TextureManagerD3D9.h"
+#include "TextureManagerD3D11.h"
 //#include "ShaderManagerD3D9.h"
 #include "BufferManagerD3D11.h"
 #include "Gfx/Camera.h"
@@ -108,10 +108,12 @@ Renderer::Renderer(int flags)
 	}
 
 	TD_NEW BufferManager(this);
+	TD_NEW TextureManager(mDevice);
 }
 
 Renderer::~Renderer()
 {
+	TextureManager::instance().shutdown();
 	BufferManager::instance().shutdown();
 }
 

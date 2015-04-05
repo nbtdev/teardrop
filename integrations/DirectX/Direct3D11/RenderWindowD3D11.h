@@ -37,7 +37,6 @@ namespace Teardrop
 			protected:
 				HWND mHwnd = 0;
 				int mInitFlags = 0;
-				ComPtr<ID3D11Device> mDevice;
 				ComPtr<IDXGISwapChain> mSwapChain;
 				ComPtr<ID3D11Texture2D> mBackBuffer;
 				D3D11_TEXTURE2D_DESC mDesc;

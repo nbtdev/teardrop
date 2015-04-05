@@ -125,6 +125,6 @@ ID3D11Buffer* VertexBuffer::buffer()
 	return mD3D11Buffer.Get();
 }
 
-} // Direct3D11
-} // Gfx
-} // Teardrop
+} // namespace Direct3D11
+} // namespace Gfx
+} // namespace Teardrop

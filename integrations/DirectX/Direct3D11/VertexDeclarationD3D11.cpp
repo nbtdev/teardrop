@@ -148,6 +148,6 @@ ID3D11InputLayout* VertexDeclaration::declaration()
 	return mLayout.Get();
 }
 
-}
+} // namespace Direct3D11
 } // namespace Gfx
 } // namespace Teardrop
