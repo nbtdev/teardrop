@@ -17,7 +17,7 @@ is prohibited.
 //#include "VertexDeclarationD3D9.h"
 //#include "Texture2DD3D9.h"
 #include "TextureManagerD3D11.h"
-//#include "ShaderManagerD3D9.h"
+#include "ShaderManagerD3D11.h"
 #include "BufferManagerD3D11.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Exception.h"
@@ -109,10 +109,12 @@ Renderer::Renderer(int flags)
 
 	TD_NEW BufferManager(this);
 	TD_NEW TextureManager(mDevice);
+	TD_NEW ShaderManager(mDevice);
 }
 
 Renderer::~Renderer()
 {
+	ShaderManager::instance().shutdown();
 	TextureManager::instance().shutdown();
 	BufferManager::instance().shutdown();
 }
@@ -357,6 +359,7 @@ void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
 
 void Renderer::beginObject(const Matrix44& worldXf)
 {
+#if 0
 	// set world xform
 	mWorldXf->set(&worldXf);
 
@@ -371,6 +374,7 @@ void Renderer::beginObject(const Matrix44& worldXf)
 	tmp = worldXf * *((const Matrix44*)mViewProj->data());
 	tmp.transpose(tmp2);
 	mWvpXf->set(&tmp2);
+#endif
 }
 
 void Renderer::apply(Material* material)

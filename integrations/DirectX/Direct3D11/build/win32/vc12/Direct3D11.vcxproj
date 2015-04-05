@@ -102,31 +102,37 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\BufferManagerD3D11.h" />
+    <ClInclude Include="..\..\..\FragmentShaderD3D11.h" />
     <ClInclude Include="..\..\..\IndexBufferD3D11.h" />
     <ClInclude Include="..\..\..\Integration.h" />
     <ClInclude Include="..\..\..\RendererD3D11.h" />
     <ClInclude Include="..\..\..\RenderTargetD3D11.h" />
     <ClInclude Include="..\..\..\RenderTextureD3D11.h" />
     <ClInclude Include="..\..\..\RenderWindowD3D11.h" />
+    <ClInclude Include="..\..\..\ShaderManagerD3D11.h" />
     <ClInclude Include="..\..\..\Texture2DD3D11.h" />
     <ClInclude Include="..\..\..\TextureManagerD3D11.h" />
     <ClInclude Include="..\..\..\VertexBufferD3D11.h" />
     <ClInclude Include="..\..\..\VertexDeclarationD3D11.h" />
+    <ClInclude Include="..\..\..\VertexShaderD3D11.h" />
     <ClInclude Include="..\..\..\ViewportD3D11.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\BufferManagerD3D11.cpp" />
+    <ClCompile Include="..\..\..\FragmentShaderD3D11.cpp" />
     <ClCompile Include="..\..\..\IndexBufferD3D11.cpp" />
     <ClCompile Include="..\..\..\RendererD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderTargetD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderTextureD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderWindowD3D11.cpp" />
+    <ClCompile Include="..\..\..\ShaderManagerD3D11.cpp" />
     <ClCompile Include="..\..\..\Texture2DD3D11.cpp" />
     <ClCompile Include="..\..\..\TextureManagerD3D11.cpp" />
     <ClCompile Include="..\..\..\VertexBufferD3D11.cpp" />
     <ClCompile Include="..\..\..\VertexDeclarationD3D11.cpp" />
+    <ClCompile Include="..\..\..\VertexShaderD3D11.cpp" />
     <ClCompile Include="..\..\..\ViewportD3D11.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
