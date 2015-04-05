@@ -21,7 +21,7 @@ namespace Teardrop
 			class VertexDeclaration : public Gfx::VertexDeclaration
 			{
 			public:
-				VertexDeclaration(ID3D11Device* device, Submesh* parent);
+				VertexDeclaration(ComPtr<ID3D11Device> device, Submesh* parent);
 				~VertexDeclaration();
 
 				void rebuild();

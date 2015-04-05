@@ -17,7 +17,7 @@ namespace Teardrop {
 namespace Gfx {
 namespace Direct3D11 {
 
-VertexDeclaration::VertexDeclaration(ID3D11Device* device, Submesh* parent)
+VertexDeclaration::VertexDeclaration(ComPtr<ID3D11Device> device, Submesh* parent)
 	: Gfx::VertexDeclaration(parent)
 	, mDevice(device)
 {

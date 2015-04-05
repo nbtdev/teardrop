@@ -10,9 +10,7 @@ is prohibited.
 #include "IndexBufferD3D11.h"
 #include "RendererD3D11.h"
 #include "VertexBufferD3D11.h"
-#if 0
 #include "VertexDeclarationD3D11.h"
-#endif
 
 namespace Teardrop {
 namespace Gfx {
@@ -25,12 +23,16 @@ BufferManager::BufferManager(Renderer* aRenderer)
 
 BufferManager::~BufferManager()
 {
-	for (IndexBuffers::iterator it = mIndexBuffers.begin(); it != mIndexBuffers.end(); ++it) {
-		delete *it;
+	for (auto ib : mIndexBuffers) {
+		delete ib;
 	}
 
-	for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
-		delete *it;
+	for (auto vb : mVertexBuffers) {
+		delete vb;
+	}
+
+	for (auto decl : mVertexDeclarations) {
+		delete decl;
 	}
 }
 
@@ -48,9 +50,8 @@ Gfx::VertexBuffer* BufferManager::createVertexBuffer(Submesh* parent)
 
 Gfx::VertexDeclaration* BufferManager::createVertexDeclaration(Submesh* parent)
 {
-	//Gfx::VertexDeclaration* rtn = TD_NEW VertexDeclaration(mDevice, parent);
-	//return rtn;
-	return nullptr;
+	Gfx::VertexDeclaration* rtn = TD_NEW VertexDeclaration(mDevice, parent);
+	return rtn;
 }
 
 void BufferManager::release(Gfx::IndexBuffer* buffer)
@@ -70,8 +71,8 @@ void BufferManager::release(Gfx::VertexBuffer* buffer)
 void BufferManager::release(Gfx::VertexDeclaration* decl)
 {
 	// TODO: refcounting?
-	//mVertexDeclarations.remove(static_cast<VertexDeclaration*>(decl));
-	//delete decl;
+	mVertexDeclarations.remove(static_cast<VertexDeclaration*>(decl));
+	delete decl;
 }
 
 } // namespace Direct3D11
