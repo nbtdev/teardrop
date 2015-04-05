@@ -39,11 +39,12 @@ namespace Teardrop
 			};
 			
 			enum MapFlags {
+				MAP_ANY = 0,
 				MAP_READONLY = 1,
 				MAP_DISCARD = 2,
 			};
 
-			virtual bool initialize(int vertexCount, int initFlags, void* data=0) = 0;
+			virtual void initialize(int vertexCount, int initFlags, void* data=0) = 0;
 			virtual void resize(int vertexCount) = 0;
 			virtual void* map(MapFlags mapFlags) = 0;
 			virtual void unmap() = 0;

@@ -7,9 +7,10 @@ is prohibited.
 
 #include "stdafx.h"
 #include "BufferManagerD3D11.h"
-#if 0
 #include "IndexBufferD3D11.h"
+#include "RendererD3D11.h"
 #include "VertexBufferD3D11.h"
+#if 0
 #include "VertexDeclarationD3D11.h"
 #endif
 
@@ -18,32 +19,31 @@ namespace Gfx {
 namespace Direct3D11 {
 
 BufferManager::BufferManager(Renderer* aRenderer)
+	: mDevice(aRenderer->device())
 {
 }
 
 BufferManager::~BufferManager()
 {
-	//for (IndexBuffers::iterator it = mIndexBuffers.begin(); it != mIndexBuffers.end(); ++it) {
-	//	delete *it;
-	//}
+	for (IndexBuffers::iterator it = mIndexBuffers.begin(); it != mIndexBuffers.end(); ++it) {
+		delete *it;
+	}
 
-	//for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
-	//	delete *it;
-	//}
+	for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
+		delete *it;
+	}
 }
 
 Gfx::IndexBuffer* BufferManager::createIndexBuffer(Submesh* parent)
 {
-	//Gfx::IndexBuffer* rtn = TD_NEW IndexBuffer(mDevice, parent);
-	//return rtn;
-	return nullptr;
+	Gfx::IndexBuffer* rtn = TD_NEW IndexBuffer(mDevice, parent);
+	return rtn;
 }
 
 Gfx::VertexBuffer* BufferManager::createVertexBuffer(Submesh* parent)
 {
-	//Gfx::VertexBuffer* rtn = TD_NEW VertexBuffer(mDevice, parent);
-	//return rtn;
-	return nullptr;
+	Gfx::VertexBuffer* rtn = TD_NEW VertexBuffer(mDevice, parent);
+	return rtn;
 }
 
 Gfx::VertexDeclaration* BufferManager::createVertexDeclaration(Submesh* parent)
@@ -56,15 +56,15 @@ Gfx::VertexDeclaration* BufferManager::createVertexDeclaration(Submesh* parent)
 void BufferManager::release(Gfx::IndexBuffer* buffer)
 {
 	// TODO: refcounting?
-	//mIndexBuffers.remove(static_cast<IndexBuffer*>(buffer));
-	//delete buffer;
+	mIndexBuffers.remove(static_cast<IndexBuffer*>(buffer));
+	delete buffer;
 }
 
 void BufferManager::release(Gfx::VertexBuffer* buffer)
 {
 	// TODO: refcounting?
-	//mVertexBuffers.remove(static_cast<VertexBuffer*>(buffer));
-	//delete buffer;
+	mVertexBuffers.remove(static_cast<VertexBuffer*>(buffer));
+	delete buffer;
 }
 
 void BufferManager::release(Gfx::VertexDeclaration* decl)

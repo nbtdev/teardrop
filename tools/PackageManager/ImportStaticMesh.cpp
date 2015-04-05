@@ -11,6 +11,7 @@ is prohibited.
 #include "ImportedAsset.h"
 #include "Asset/StaticMeshAsset.h"
 #include "Asset/TextureAsset.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Material.h"
 #include "Gfx/MaterialOutput.h"
 #include "Gfx/Sampler2DExpression.h"
@@ -116,11 +117,12 @@ namespace Teardrop {
 			submesh->setPrimitiveType(Submesh::PT_TRILIST);
 
 			IndexBuffer* ib = submesh->createIndexBuffer();
-			bool success = ib->initialize(4, nIndices, indices);
 
-			assert(success);
-			if (!success)
+			try {
+				ib->initialize(4, nIndices, indices);
+			} catch (const Gfx::Exception&) {
 				return false;
+			}
 
 			// the vertex array is called "control points"
 			FbxVector4* verts = fbxMesh->GetControlPoints();

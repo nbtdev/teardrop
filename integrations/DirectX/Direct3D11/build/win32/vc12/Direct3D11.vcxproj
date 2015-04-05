@@ -107,6 +107,8 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
     <ClInclude Include="..\..\..\RendererD3D11.h" />
     <ClInclude Include="..\..\..\RenderTargetD3D11.h" />
     <ClInclude Include="..\..\..\RenderWindowD3D11.h" />
+    <ClInclude Include="..\..\..\VertexBufferD3D11.h" />
+    <ClInclude Include="..\..\..\VertexDeclarationD3D11.h" />
     <ClInclude Include="..\..\..\ViewportD3D11.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -117,6 +119,8 @@ copy $(ProjectDir)..\..\..\*.h $(SolutionDir)DirectX\include\$(ProjectName) &gt;
     <ClCompile Include="..\..\..\RendererD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderTargetD3D11.cpp" />
     <ClCompile Include="..\..\..\RenderWindowD3D11.cpp" />
+    <ClCompile Include="..\..\..\VertexBufferD3D11.cpp" />
+    <ClCompile Include="..\..\..\VertexDeclarationD3D11.cpp" />
     <ClCompile Include="..\..\..\ViewportD3D11.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

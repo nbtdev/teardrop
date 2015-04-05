@@ -18,7 +18,7 @@ is prohibited.
 //#include "Texture2DD3D9.h"
 //#include "TextureManagerD3D9.h"
 //#include "ShaderManagerD3D9.h"
-//#include "BufferManagerD3D9.h"
+#include "BufferManagerD3D11.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Exception.h"
 #include "Gfx/Material.h"
@@ -106,10 +106,13 @@ Renderer::Renderer(int flags)
 
 		throw Exception(msg);
 	}
+
+	TD_NEW BufferManager(this);
 }
 
 Renderer::~Renderer()
 {
+	BufferManager::instance().shutdown();
 }
 
 #if 0
