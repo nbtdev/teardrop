@@ -26,7 +26,7 @@ namespace Teardrop
 
 				void rebuild();
 
-				ID3D11InputLayout* declaration();
+				ID3D11InputLayout* layout();
 
 				TD_DECLARE_ALLOCATOR();
 

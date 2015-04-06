@@ -38,6 +38,9 @@ namespace Teardrop
 				void apply(Material* material);
 				void render(Submesh* submesh);
 
+				// aMatrixPalette must already be in 3x4 transposed form prior to calling this method
+				void updateMatrixPalette(const Matrix44* aMatrixPalette, int nMatrices);
+
 				ComPtr<ID3D11Device> device();
 				ComPtr<ID3D11DeviceContext> context();
 				ComPtr<IDXGIFactory> factory();
@@ -45,23 +48,29 @@ namespace Teardrop
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
-				ComPtr<IDXGIAdapter> mAdapter = nullptr;
-				ComPtr<IDXGIFactory> mFactory = nullptr;
-				ComPtr<ID3D11Device> mDevice = nullptr;
-				ComPtr<ID3D11DeviceContext> mDeviceContext = nullptr;
+				ComPtr<IDXGIAdapter> mAdapter;
+				ComPtr<IDXGIFactory> mFactory;
+				ComPtr<ID3D11Device> mDevice;
+				ComPtr<ID3D11DeviceContext> mDeviceContext;
+				ComPtr<ID3D11Buffer> mXformConstantBuffer;
+				ComPtr<ID3D11Buffer> mMatrixPalette;
 
 				typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
 				RenderTargets mRenderTargets;
 
 				Camera* mCurrentCamera = nullptr;
 
-				ShaderConstant* mWorldITXf = nullptr;
-				ShaderConstant* mWvpXf = nullptr;
-				ShaderConstant* mWorldXf = nullptr;
-				ShaderConstant* mWorldInv = nullptr;
-				ShaderConstant* mViewIXf = nullptr;
-				ShaderConstant* mViewProj = nullptr;
-				ShaderConstant* mBones = nullptr;
+				// if you change this struct you must also change the cbuffer decl in VertexShaderD3D11.cpp!
+				struct XformConstants {
+					Matrix44 mWorldITXf;
+					Matrix44 mWvpXf;
+					Matrix44 mWorldXf;
+					Matrix44 mWorldInv;
+					Matrix44 mViewIXf;
+					Matrix44 mViewProj;
+				};
+
+				XformConstants mXformConstants;
 			};
 		}
 	}

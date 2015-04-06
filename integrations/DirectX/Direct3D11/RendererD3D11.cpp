@@ -9,13 +9,7 @@ is prohibited.
 #include "RendererD3D11.h"
 #include "RenderTargetD3D11.h"
 #include "RenderWindowD3D11.h"
-//#include "ViewportD3D9.h"
-//#include "FragmentShaderD3D9.h"
-//#include "VertexShaderD3D9.h"
-//#include "IndexBufferD3D9.h"
-//#include "VertexBufferD3D9.h"
-//#include "VertexDeclarationD3D9.h"
-//#include "Texture2DD3D9.h"
+#include "VertexDeclarationD3D11.h"
 #include "TextureManagerD3D11.h"
 #include "ShaderManagerD3D11.h"
 #include "BufferManagerD3D11.h"
@@ -110,6 +104,55 @@ Renderer::Renderer(int flags)
 	TD_NEW BufferManager(this);
 	TD_NEW TextureManager(mDevice);
 	TD_NEW ShaderManager(mDevice);
+
+	// ensure that the xform constants buffer struct is 16-byte-aligned (sanity check)
+	assert(sizeof(mXformConstants) % 16 == 0);
+
+	// create/initialize the constant buffer for the xforms
+	mXformConstants.mViewIXf = Matrix44::IDENTITY;
+	mXformConstants.mViewProj = Matrix44::IDENTITY;
+	mXformConstants.mWorldInv = Matrix44::IDENTITY;
+	mXformConstants.mWorldITXf = Matrix44::IDENTITY;
+	mXformConstants.mWorldXf = Matrix44::IDENTITY;
+	mXformConstants.mWvpXf = Matrix44::IDENTITY;
+
+	CD3D11_BUFFER_DESC bufDesc(
+		sizeof(mXformConstants),
+		D3D11_BIND_CONSTANT_BUFFER
+		);
+
+	D3D11_SUBRESOURCE_DATA bufData = { 0 };
+	bufData.pSysMem = &mXformConstants;
+
+	hr = mDevice->CreateBuffer(
+		&bufDesc,
+		&bufData,
+		&mXformConstantBuffer
+		);
+
+	if (FAILED(hr)) {
+		throw Exception("Could not create xform constants buffer in Direct3D11::Renderer");
+	}
+
+	// create/initialize a matrix palette constant buffer, of the full 1024-"bone"
+	// allotment; it sound inefficient but we can't update constant buffers partially,
+	// so the plan is to make this have a non-negligible performance impact before we
+	// "solve" the problem by keeping many different just-large-enough sized buffers
+	// on the GPU
+
+	// each row is one constant, and 4 rows per matrix, with 4096 constant-per-buffer limit
+	bufDesc.ByteWidth = sizeof(Matrix44) * 1024; 
+
+	hr = mDevice->CreateBuffer(
+		&bufDesc,
+		nullptr,
+		&mMatrixPalette
+		);
+
+	if (FAILED(hr)) {
+		throw Exception("Could not create matrix palette buffer in Direct3D11::Renderer");
+	}
+
 }
 
 Renderer::~Renderer()
@@ -332,11 +375,9 @@ void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
 	camera->update();
 
 	// update camera-related shader constants
-	Matrix44 tmp;
-	camera->getViewMatrix().invert(tmp);
+	camera->getViewMatrix().invert(mXformConstants.mViewIXf);
 	
-	if (mViewIXf) mViewIXf->set(&tmp);
-	if (mViewProj) mViewProj->set(&camera->getViewProjMatrix());
+	mXformConstants.mViewProj = camera->getViewProjMatrix();
 
 #if 0
 	if (mCurrentVP) {
@@ -410,9 +451,9 @@ void Renderer::render(Submesh* submesh)
 	assert(submesh);
 	if (!submesh)
 		return;
-#if 0
 	// vertex declaration
 	VertexDeclaration* decl = static_cast<VertexDeclaration*>(submesh->vertexDeclaration());
+#if 0
 	mDevice->SetVertexDeclaration(decl->declaration());
 
 	// vertex buffer(s)
@@ -487,6 +528,25 @@ void Renderer::endFrame()
 	//if (mCurrentRT) {
 	//	mCurrentRT->present();
 	//}
+}
+
+void Renderer::updateMatrixPalette(const Matrix44* aMatrixPalette, int nMatrices)
+{
+	if (mMatrixPalette) {
+		assert(nMatrices < 1395 && "Can only update a matrix palette of 1395 matrices or fewer");
+
+		// copy only up to 
+		ComPtr<ID3D11DeviceContext> ctx;
+		mDevice->GetImmediateContext(&ctx);
+		ctx->UpdateSubresource(
+			mMatrixPalette.Get(),
+			0,
+			nullptr,
+			aMatrixPalette,
+			0,
+			0
+			);
+	}
 }
 
 ComPtr<ID3D11Device> Renderer::device()

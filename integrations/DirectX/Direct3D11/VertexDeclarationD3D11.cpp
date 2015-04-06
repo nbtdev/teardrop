@@ -7,6 +7,8 @@ is prohibited.
 
 #include "stdafx.h"
 #include "VertexDeclarationD3D11.h"
+#include "ShaderManagerD3D11.h"
+#include "VertexShaderD3D11.h"
 #include "Gfx/Exception.h"
 #include "Gfx/Submesh.h"
 #include "Gfx/VertexBuffer.h"
@@ -129,12 +131,18 @@ void VertexDeclaration::rebuild()
 	// release any existing declaration object
 	mLayout.Reset();
 
+	// it seems pretty ugly from a dependency perspective, but D3D11 forces us to have an 
+	// existing vertex shader in order to make a vertex declaration (input format), so we 
+	// need to fetch one that matches the submesh (or face the warnings that the D3D runtime
+	// will spew at us)
+	VertexShader* vs = static_cast<VertexShader*>(ShaderManager::instance().createOrFindInstanceOf(mParent));
+
 	// create the vertex declaration
 	HRESULT hr = mDevice->CreateInputLayout(
 		mElements,
 		nElem,
-		nullptr,
-		0,
+		vs->bytecode(),
+		vs->bytecodeLength(),
 		&mLayout
 		);
 
@@ -143,8 +151,11 @@ void VertexDeclaration::rebuild()
 	}
 }
 
-ID3D11InputLayout* VertexDeclaration::declaration()
+ID3D11InputLayout* VertexDeclaration::layout()
 {
+	if (!mLayout)
+		rebuild();
+
 	return mLayout.Get();
 }
 

@@ -29,11 +29,17 @@ namespace Teardrop
 
 				void apply();
 
+				void* bytecode();
+				int bytecodeLength();
+
 				TD_DECLARE_ALLOCATOR();
 
 			protected:
 				ComPtr<ID3D11Device> mDevice;
-				//IDirect3DVertexShader9* mVS;
+				ComPtr<ID3DBlob> mBytecode;
+				ComPtr<ID3D11VertexShader> mVS;
+				ComPtr<ID3D11ClassLinkage> mLinkage;
+
 				// the constants declared in the shader
 				//LPD3DXCONSTANTTABLE mConstantTable;
 				// the constants managed by the engine

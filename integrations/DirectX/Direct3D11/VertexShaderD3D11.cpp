@@ -7,43 +7,136 @@ is prohibited.
 
 #include "stdafx.h"
 #include "VertexShaderD3D11.h"
+#include "Gfx/Exception.h"
 #include "Gfx/ShaderConstantTable.h"
 #include "Gfx/ShaderConstant.h"
 #include "Gfx/Submesh.h"
 #include "Gfx/VertexBuffer.h"
 #include "Gfx/VertexElement.h"
-#include <sstream>
-#include <set>
+#include "Util/_String.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 #include <assert.h>
+#include <list>
+#include <set>
+#include <sstream>
+
+namespace {
+	const char* sSemanticLut[] = {
+		"FOG",      // VEU_UNKNOWN,
+		"POSITION", // VEU_POSITION,
+		"NORMAL",   // VEU_NORMAL,
+		"FOG",      // VEU_BLENDWEIGHT,
+		"FOG",      // VEU_BLENDINDEX,
+		"TEXCOORD", // VEU_TEXCOORD,
+		"NORMAL",   // VEU_TANGENT,
+		"NORMAL",   // VEU_BINORMAL,
+		"COLOR"     // VEU_COLOR,
+	};
+
+	const char* sTypeLut[] = {
+		"float",  // VEt_UNKNOWN,
+		"byte",   // VEU_BYTE,
+		"short",  // VEU_SHORT,
+		"half",   // VEU_HALF,
+		"float",  // VEU_FLOAT,
+	};
+} // namespace 
 
 namespace Teardrop {
 namespace Gfx {
 namespace Direct3D11 {
+struct InterStageElem {
+	InterStageElem();
+	~InterStageElem();
+	char mName[256];
+	VertexElementUsage mSemantic = VEU_UNKNOWN;
+	VertexElementType mType = VET_UNKNOWN;
+	int mWidth = 0;
+	int mRank = 0;
+	int mIndex = 0;
+	bool mSystem = false;
+};
+
+InterStageElem::InterStageElem()
+{
+	ZeroMemory(mName, sizeof(mName));
+}
+
+InterStageElem::~InterStageElem()
+{
+}
+
+class ShaderInterStage{
+public:
+	ShaderInterStage(const String& aName);
+	~ShaderInterStage();
+
+	void addElement(const InterStageElem& aElem);
+	int elementCount();
+	void exportHLSLDeclaration(String& aSource);
+
+protected:
+	std::list<InterStageElem> mElems;
+	String mName;
+};
+
+ShaderInterStage::ShaderInterStage(const String& aName)
+	: mName(aName)
+{
+}
+
+ShaderInterStage::~ShaderInterStage()
+{
+}
+
+void ShaderInterStage::addElement(const InterStageElem& aElem)
+{
+	mElems.push_back(aElem);
+}
+
+int ShaderInterStage::elementCount()
+{
+	return int(mElems.size());
+}
+
+void ShaderInterStage::exportHLSLDeclaration(String& aSource)
+{
+	aSource.append("struct ");
+	aSource.append(mName);
+	aSource.append(" {\n");
+
+	for (auto e : mElems) {
+		char buf[1024];
+
+		const char* semantic = sSemanticLut[e.mSemantic];
+		const char* type = sTypeLut[e.mType];
+
+		if (e.mRank > 1) {
+			sprintf_s(buf, 1024, "    %s%dx%d %s: %s%d;\n", type, e.mWidth, e.mRank, e.mName, semantic, e.mIndex);
+		} else {
+			sprintf_s(buf, 1024, "    %s%d %s: %s%d;\n", type, e.mWidth, e.mName, semantic, e.mIndex);
+		}
+
+		aSource.append(buf);
+	}
+
+	aSource.append("};\n");
+}
 
 static const char* sDecls =
 	"// This shader is auto-generated\n"
 	"\n"
-	"float4x4 WorldITXf : WORLDINVTRANS;\n"
-	"float4x4 WvpXf : WORLDVIEWPROJ;\n"
-	"float4x4 WorldXf : WORLD;\n"
-	"float4x4 WorldInv : WORLDINV;\n"
-	"float4x4 ViewIXf : VIEWINV;\n"
-	"float4x4 ViewProj : VIEWPROJ;\n"
-	"float4 Bones[208] : MATRIXPALETTE;\n"
-	"\n"
-	"struct VSOUT\n"
-	"{\n"
-	"    float4 HPOS : POSITION;\n"
-	"    float4 COLOR : COLOR0;\n"
-	"    float4 NORM : TEXCOORD0;\n"
-	"    float4 TXC0 : TEXCOORD1;\n"
-	"    float4 TXC1 : TEXCOORD2;\n"
-	"    float4 TXC2 : TEXCOORD3;\n"
-	"    float4 TXC3 : TEXCOORD4;\n"
-	"    float4 TXC4 : TEXCOORD5;\n"
-	"    float4 TXC5 : TEXCOORD6;\n"
-	"    float4 TXC6 : TEXCOORD7;\n"
-	"    float4 TXC7 : TEXCOORD8;\n"
+	"cbuffer XformConstants : register(b0) {\n"
+	"    float4x4 WorldITXf;\n"
+	"    float4x4 WvpXf;\n"
+	"    float4x4 WorldXf;\n"
+	"    float4x4 WorldInv;\n"
+	"    float4x4 ViewIXf;\n"
+	"    float4x4 ViewProj;\n"
+	"};\n"
+	"cbuffer MatrixPalette : register(b1){\n"
+	"    float4 Bones[4096];\n"
 	"};\n";
 
 static const char* sFuncs =
@@ -76,7 +169,6 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 {
 	assert(mDevice);
 
-#if 0
 	// build and compile vertex shader
 
 	// start with the output struct
@@ -104,34 +196,57 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		const int VEU_TEXCOORD2_MASK = VEU_TEXCOORD_MASK | (1 << 18);
 		const int VEU_TEXCOORD3_MASK = VEU_TEXCOORD_MASK | (1 << 19);
 
+		// also set up output data as we go
+		ShaderInterStage sis("VSOUT");
+
 		// generate inputs from Submesh components
-		int nVB = submesh->vertexBufferCount();
+		int nVB = aSubmesh->vertexBufferCount();
+		int nNormal = 0;
+		int nTexCoord = 0;
 		for (int i = 0; i<nVB; ++i) {
-			VertexBuffer* vb = submesh->vertexBuffer(i);
+			VertexBuffer* vb = aSubmesh->vertexBuffer(i);
 			if (vb) {
 				int nElem = vb->vertexElementCount();
 				for (int e = 0; e<nElem; ++e) {
 					VertexElement* elem = vb->vertexElement(e);
 					if (elem) {
+						InterStageElem ise;
+						ise.mSemantic = elem->mUsage;
+						ise.mType = elem->mType;
+						ise.mWidth = elem->mCount;
+
 						switch (elem->mUsage) {
 						case VEU_POSITION:
 							mSource.append("    float4 POS : POSITION;\n");
+							strcpy_s(ise.mName, sizeof(ise.mName), "POSITION");
+							sis.addElement(ise);
 							bits |= VEU_POSITION_MASK;
 							break;
 						case VEU_NORMAL:
 							mSource.append("    float4 NORM : NORMAL;\n");
+							strcpy_s(ise.mName, sizeof(ise.mName), "NORMAL");
+							ise.mIndex = nNormal++;
+							sis.addElement(ise);
 							bits |= VEU_NORMAL_MASK;
 							break;
 						case VEU_COLOR:
 							mSource.append("    float4 COLOR : COLOR0;\n");
+							strcpy_s(ise.mName, sizeof(ise.mName), "COLOR");
+							sis.addElement(ise);
 							bits |= VEU_COLOR_MASK;
 							break;
 						case VEU_TANGENT:
 							mSource.append("    float4 TANGENT : TANGENT;\n");
+							strcpy_s(ise.mName, sizeof(ise.mName), "TANGENT");
+							ise.mIndex = nNormal++;
+							sis.addElement(ise);
 							bits |= VEU_TANGENT_MASK;
 							break;
 						case VEU_BINORMAL:
 							mSource.append("    float4 BINORM : BINORMAL;\n");
+							strcpy_s(ise.mName, sizeof(ise.mName), "BINORM");
+							ise.mIndex = nNormal++;
+							sis.addElement(ise);
 							bits |= VEU_BINORMAL_MASK;
 							break;
 						case VEU_BLENDINDEX:
@@ -152,6 +267,10 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 								mSource.append("    float4 TXC2 : TEXCOORD2;\n");
 							else if (elem->mIndex == 3)
 								mSource.append("    float4 TXC3 : TEXCOORD3;\n");
+
+							strcpy_s(ise.mName, sizeof(ise.mName), "TEXCOORD");
+							ise.mIndex = nTexCoord++;
+							sis.addElement(ise);
 							break;
 						default:
 							break;
@@ -163,48 +282,16 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 
 		mSource.append("};\n\n");
 
+		// export the source for the VSOUT struct
+		sis.exportHLSLDeclaration(mSource);
+
 		// then finally the shader body with function calls
 		mSource.append("void VS(in VSIN vsin, out VSOUT vsout)\n{\n");
 
 		// start with clearing out the VSOUT members
 		mSource.append(
-			"    vsout.HPOS = float4(0,0,0,0);\n"
-			"    vsout.COLOR = float4(0,0,0,0);\n"
-			"    vsout.NORM = float4(0,0,0,0);\n"
-			"    vsout.TXC0 = float4(0,0,0,0);\n"
-			"    vsout.TXC1 = float4(0,0,0,0);\n"
-			"    vsout.TXC2 = float4(0,0,0,0);\n"
-			"    vsout.TXC3 = float4(0,0,0,0);\n"
-			"    vsout.TXC4 = float4(0,0,0,0);\n"
-			"    vsout.TXC5 = float4(0,0,0,0);\n"
-			"    vsout.TXC6 = float4(0,0,0,0);\n"
-			"    vsout.TXC7 = float4(0,0,0,0);\n"
 			"    float oo255 = 1.0f / 255.0f;\n"
 			);
-
-		if ((bits & VEU_TEXCOORD0_MASK) == VEU_TEXCOORD0_MASK) {
-			mSource.append(
-				"    vsout.TXC0 = vsin.TXC0;\n"
-				);
-		}
-
-		if ((bits & VEU_TEXCOORD1_MASK) == VEU_TEXCOORD0_MASK) {
-			mSource.append(
-				"    vsout.TXC1 = vsin.TXC1;\n"
-				);
-		}
-
-		if ((bits & VEU_TEXCOORD2_MASK) == VEU_TEXCOORD0_MASK) {
-			mSource.append(
-				"    vsout.TXC2 = vsin.TXC2;\n"
-				);
-		}
-
-		if ((bits & VEU_TEXCOORD3_MASK) == VEU_TEXCOORD0_MASK) {
-			mSource.append(
-				"    vsout.TXC3 = vsin.TXC3;\n"
-				);
-		}
 
 		if (bits & VEU_BLENDINDEX_MASK) {
 			// then GPU skinning
@@ -219,13 +306,13 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		else {
 			// static/world geometry
 			mSource.append(
-				"    vsout.NORM = mul(vsin.NORM, WorldITXf);\n"
+				"    vsout.NORMAL = mul(vsin.NORM, WorldITXf);\n"
 				"    float4 Po = float4(vsin.POS.xyz, 1);\n"
 				"    float3 Pw = mul(Po,WorldXf).xyz;\n"
 				"    //OUT.LightVec = (Lamp0Pos[0] - Pw);\n"
 				"\n"
 				"    //OUT.WorldView = normalize(ViewIXf[3].xyz - Pw);\n"
-				"    vsout.HPOS = mul(Po,WvpXf);\n"
+				"    vsout.POSITION = mul(Po,WvpXf);\n"
 				);
 		}
 
@@ -233,39 +320,48 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		mSource.append("}\n");
 	}
 
-	mHash = submesh->hash();
+	mHash = aSubmesh->hash();
+
+	// debug
+#if defined(_DEBUG) || defined(DEBUG)
+	Environment::get().pLogger->logMessage(mSource);
+#endif
 
 	if (mSource.length() && !mVS) {
 		// compile the shader
-		LPD3DXBUFFER pErrorMsgs;
-		LPD3DXBUFFER pShader;
+		ComPtr<ID3DBlob> errMsgs;
 
-		HRESULT hr = D3DXCompileShader(
+		HRESULT hr = D3DCompile(
 			mSource,
 			mSource.length(),
-			NULL, // no defines
-			NULL, // no includes
+			nullptr,
+			nullptr, // no defines
+			nullptr, // no includes
 			"VS", // entry point function
-			"vs_3_0", // Shader Model 3.0
-			0, // flags
-			&pShader,
-			&pErrorMsgs,
-			&mConstantTable// constant table
-			);
+			"vs_5_0", // Shader Model 5.0
+			0, // flags1 (compilie options)
+			0, // flags2 (effect compile options)
+			&mBytecode,
+			&errMsgs);
 
-		if (hr != D3D_OK) {
-			if (pErrorMsgs) {
-				char* pMsgs = (char*)pErrorMsgs->GetBufferPointer();
-				pErrorMsgs->Release();
+		if (FAILED(hr)) {
+			if (errMsgs) {
+				mErrs = (const char*)errMsgs->GetBufferPointer();
 			}
 		}
 		else {
-			hr = mDevice->CreateVertexShader((DWORD*)pShader->GetBufferPointer(), &mVS);
-			if (hr != D3D_OK) {
-				return false;
+			hr = mDevice->CreateVertexShader(
+				mBytecode->GetBufferPointer(),
+				mBytecode->GetBufferSize(),
+				mLinkage.Get(),
+				&mVS
+				);
+
+			if (FAILED(hr)) {
+				throw Exception("Could not create vertex shader");
 			}
 		}
-
+#if 0
 		// wrangle constants used by the shader
 		if (mConstantTable) {
 			D3DXCONSTANTTABLE_DESC desc;
@@ -291,22 +387,12 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 				}
 			}
 		}
-
-		if (pShader)
-			pShader->Release();
-	}
 #endif
+	}
 }
 
 VertexShader::~VertexShader()
 {
-	//if (mConstantTable)
-	//	mConstantTable->Release();
-
-	//if (mVS) {
-	//	mVS->Release();
-	//	mVS = 0;
-	//}
 }
 
 void VertexShader::apply()
@@ -342,6 +428,25 @@ void VertexShader::apply()
 	}
 #endif
 }
+
+void* VertexShader::bytecode()
+{
+	if (mBytecode) {
+		return mBytecode->GetBufferPointer();
+	}
+
+	return nullptr;
+}
+
+int VertexShader::bytecodeLength()
+{
+	if (mBytecode) {
+		return mBytecode->GetBufferSize();
+	}
+
+	return 0;
+}
+
 
 } // namespace Direct3D11
 } // namespace Gfx
