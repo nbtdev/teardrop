@@ -27,20 +27,45 @@ VertexBuffer::~VertexBuffer()
 	if (mSR.pData) unmap();
 }
 
-void VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* data/* =0 */)
+void VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData/* =0 */)
 {
+	D3D11_USAGE usage = D3D11_USAGE_DEFAULT;
+	UINT cpuFlag = D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE;
+
+	if (aInitFlags & INIT_WRITEONLY) {
+		cpuFlag = D3D11_CPU_ACCESS_WRITE;
+	}
+
+	if (aInitFlags & INIT_DYNAMIC) {
+		usage = D3D11_USAGE_DYNAMIC;
+	}
+
+	if (aInitFlags & INIT_STATIC) {
+		// D3D10 will need to be dynamic if we do not supply the data right now...
+		D3D_FEATURE_LEVEL level = mDevice->GetFeatureLevel();
+		if (level < D3D_FEATURE_LEVEL_11_0 && !aData) {
+			usage = D3D11_USAGE_DYNAMIC;
+		}
+		else {
+			usage = D3D11_USAGE_IMMUTABLE;
+			cpuFlag = 0;
+		}
+	}
+
+	int buflen = aVertexCount * vertexSize();
+
 	CD3D11_BUFFER_DESC desc(
-		aVertexCount * vertexSize(),
+		buflen,
 		D3D11_BIND_VERTEX_BUFFER,
-		D3D11_USAGE_DYNAMIC,
-		D3D11_CPU_ACCESS_WRITE
+		usage,
+		cpuFlag
 		);
 
 	D3D11_SUBRESOURCE_DATA sd = { 0 };
 	D3D11_SUBRESOURCE_DATA* psd = nullptr;
 
-	if (data) {
-		sd.pSysMem = data;
+	if (aData) {
+		sd.pSysMem = aData;
 		psd = &sd;
 	}
 
@@ -50,6 +75,7 @@ void VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* data/* =0 
 		&mD3D11Buffer
 		);
 
+	assert(SUCCEEDED(hr));
 	if (FAILED(hr)) {
 		throw Exception("Could not create D3D11 vertex buffer in VertexBuffer::initialize");
 	}
@@ -61,10 +87,9 @@ void VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* data/* =0 
 
 void VertexBuffer::resize(int aVertexCount)
 {
-	if (mD3D11Buffer)
-		mD3D11Buffer.Reset();
+	mD3D11Buffer.Reset();
 
-	initialize(aVertexCount, mInitFlags);
+	initialize(mCount, mInitFlags);
 }
 
 void* VertexBuffer::map(MapFlags flags /*=MAP_ANY*/)
@@ -74,32 +99,78 @@ void* VertexBuffer::map(MapFlags flags /*=MAP_ANY*/)
 		throw BufferMappedException("Vertex buffer already mapped", mSR.pData);
 	}
 
-	D3D11_MAP D3DFlags;
+	ComPtr<ID3D11DeviceContext> ctx;
+	mDevice->GetImmediateContext(&ctx);
 
-	// TODO: if we allow dynamic flags on create then we can lock discard
+	// if this is D3D10 and we have to read, then we need to copy data to a
+	// staging buffer (possibly creating that first if necessary), then copying
+	// from that staging buffer to CPU
+	D3D_FEATURE_LEVEL level = mDevice->GetFeatureLevel();
+	if (level < D3D_FEATURE_LEVEL_11_0 && flags == MAP_READONLY) {
+		if (!mD3D11StagingBuffer) {
+			int buflen = mCount * vertexSize();
 
-	if (flags & MAP_DISCARD)
-		D3DFlags = D3D11_MAP_WRITE_DISCARD;
+			CD3D11_BUFFER_DESC desc(
+				buflen,
+				0,
+				D3D11_USAGE_STAGING,
+				D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE
+				);
 
-	// TODO: D3D gets upset if you try to lock a write-only buffer as read-only...
+			HRESULT hr = mDevice->CreateBuffer(
+				&desc,
+				nullptr,
+				&mD3D11StagingBuffer
+				);
 
-	if (flags & MAP_READONLY)
-		D3DFlags = D3D11_MAP_READ;
+			assert(SUCCEEDED(hr));
+			if (FAILED(hr)) {
+				throw Exception("Could not create D3D11 staging buffer in VertexBuffer::map");
+			}
+		}
 
-	if (mD3D11Buffer && mDevice) {
-		void* rtn = 0;
-		ComPtr<ID3D11DeviceContext> ctx;
-		mDevice->GetImmediateContext(&ctx);
+		// then copy the original resource to the staging buffer...
+		ctx->CopyResource(mD3D11StagingBuffer.Get(), mD3D11Buffer.Get());
 
+		// and then map the staging buffer and return that
 		HRESULT hr = ctx->Map(
-			mD3D11Buffer.Get(),
-			0,
-			D3DFlags,
-			0,
+			mD3D11StagingBuffer.Get(), 
+			0, 
+			D3D11_MAP_READ, 
+			0, 
 			&mSR);
 
 		if (SUCCEEDED(hr)) {
+			mMappedStaging = true;
 			return mSR.pData;
+		}
+	} else {
+		// any other combinations of levels and flags should work fine 
+
+		D3D11_MAP D3DFlags;
+
+		// TODO: if we allow dynamic flags on create then we can lock discard
+
+		if (flags & MAP_DISCARD)
+			D3DFlags = D3D11_MAP_WRITE_DISCARD;
+
+		// TODO: D3D gets upset if you try to lock a write-only buffer as read-only...
+
+		if (flags & MAP_READONLY)
+			D3DFlags = D3D11_MAP_READ;
+
+		if (mD3D11Buffer && mDevice) {
+			HRESULT hr = ctx->Map(
+				mD3D11Buffer.Get(),
+				0,
+				D3DFlags,
+				0,
+				&mSR);
+
+			if (SUCCEEDED(hr)) {
+				mMappedStaging = false;
+				return mSR.pData;
+			}
 		}
 	}
 
@@ -114,7 +185,12 @@ void VertexBuffer::unmap()
 		ComPtr<ID3D11DeviceContext> ctx;
 		mDevice->GetImmediateContext(&ctx);
 
-		ctx->Unmap(mD3D11Buffer.Get(), 0);
+		if (mMappedStaging)
+			ctx->Unmap(mD3D11StagingBuffer.Get(), 0);
+		else
+			ctx->Unmap(mD3D11Buffer.Get(), 0);
+
+		mMappedStaging = false;
 
 		ZeroMemory(&mSR, sizeof(mSR));
 	}

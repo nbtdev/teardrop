@@ -8,12 +8,15 @@ is prohibited.
 #include "StaticMeshViewer.h"
 #include "Asset/StaticMeshAsset.h"
 #include "Gfx/Camera.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Mesh.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
 #include "Game/OrbitCamController.h"
 #include "Math/Matrix44.h"
 #include "Math/Transform.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -75,20 +78,25 @@ void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* r
 		return;
 
 	cam->setAspect(rt->aspect());
-	renderer->beginScene(cam, mVP);
 
-	// apply the material
-	renderer->apply(getStaticMeshAsset()->getMaterial());
+	try {
+		renderer->beginScene(cam, mVP);
 
-	// begin the object
-	renderer->beginObject(Matrix44::IDENTITY);
+		// apply the material
+		renderer->apply(getStaticMeshAsset()->getMaterial());
 
-	// draw the submeshes
-	int nSubmesh = mesh->submeshCount();
-	for (int i=0; i<nSubmesh; ++i) {
-		renderer->render(mesh->submesh(i));
+		// begin the object
+		renderer->beginObject(Matrix44::IDENTITY);
+
+		// draw the submeshes
+		int nSubmesh = mesh->submeshCount();
+		for (int i = 0; i < nSubmesh; ++i) {
+			renderer->render(mesh->submesh(i));
+		}
+
+		renderer->endObject();
+		renderer->endScene();
+	} catch (const Gfx::Exception& e) {
+		Environment::get().pLogger->logMessage(e.what());
 	}
-
-	renderer->endObject();
-	renderer->endScene();
 }

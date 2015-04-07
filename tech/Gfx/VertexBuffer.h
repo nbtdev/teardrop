@@ -36,6 +36,7 @@ namespace Teardrop
 				INIT_DYNAMIC = 1,
 				INIT_STATIC = 2,
 				INIT_WRITEONLY = 4,
+				INIT_READWRITE = 8,
 			};
 			
 			enum MapFlags {
@@ -54,6 +55,7 @@ namespace Teardrop
 		protected:
 			int mSize;
 			int mCount;
+			int mInitFlags;
 
 			typedef std::vector<VertexElement> VertexElements;
 			VertexElements mElements;

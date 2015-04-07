@@ -25,33 +25,35 @@ IndexBuffer::~IndexBuffer()
     glDeleteBuffers(1, &mBufferName);
 }
 
-bool
-IndexBuffer::initialize(int aIndexSize, int aIndexCount, void* aData)
+void
+IndexBuffer::initialize(int aIndexCount, int aInitFlags, void* aData)
 {
-    if (mBufferName) {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-        mCount = aIndexCount;
-        mSize = aIndexSize;
+	int indexSize = 2;
+	if (aIndexCount > 65535) {
+		indexSize = 4;
+	}
+
+	if (mBufferName) {
+		mCount = aIndexCount;
+		mSize = indexSize;
+		mInitFlags = aInitFlags;
+		
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, mCount * mSize, aData, GL_STATIC_DRAW);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		return true;
     }
 
-	return false;
+	// TODO: throw?
 }
 
 void
-IndexBuffer::resize(int aIndexSize, int aIndexCount)
+IndexBuffer::resize(int aIndexCount)
 {
     if (mBufferName) {
-        mSize = aIndexSize;
-        mCount = aIndexCount;
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mBufferName);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, mCount * mSize, nullptr, GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glDeleteBuffers(1, &mBufferName);
     }
+
+	initialize(aIndexCount, mInitFlags, nullptr);
 }
 
 void*

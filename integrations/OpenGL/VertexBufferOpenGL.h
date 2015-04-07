@@ -23,7 +23,7 @@ namespace Teardrop
                 VertexBuffer(Gfx::Submesh* parent);
                 ~VertexBuffer();
 
-                bool initialize(int vertexCount, int initFlags, void* data=0);
+                void initialize(int vertexCount, int initFlags, void* data=0);
                 void resize(int vertexCount);
                 void* map(MapFlags mapFlags);
                 void unmap();
@@ -34,7 +34,6 @@ namespace Teardrop
 
             protected:
                 GLuint mBufferName;
-                int mInitFlags = 0;
                 bool mIsMapped = false;
             };
         }

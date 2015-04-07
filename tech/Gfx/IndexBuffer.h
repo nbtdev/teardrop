@@ -26,6 +26,13 @@ namespace Teardrop
 			int triangleCount();
 			int indexSize();
 
+			enum InitFlags {
+				INIT_DYNAMIC = 1,
+				INIT_STATIC = 2,
+				INIT_WRITEONLY = 4,
+				INIT_READWRITE = 8,
+			};
+
 			enum MapFlags {
                 MAP_ANY = 0,
 				MAP_READONLY = 1,
@@ -34,8 +41,8 @@ namespace Teardrop
 			};
 
 			// throws Gfx::Exception on failure
-			virtual void initialize(int indexSize, int indexCount, void* data=0) = 0;
-			virtual void resize(int indexSize, int indexCount) = 0;
+			virtual void initialize(int indexCount, int aInitFlags, void* data=0) = 0;
+			virtual void resize(int indexCount) = 0;
             virtual void* map(MapFlags flags=MAP_ANY) = 0;
 			virtual void unmap() = 0;
 
@@ -44,6 +51,7 @@ namespace Teardrop
 		protected:
 			int mSize;
 			int mCount;
+			int mInitFlags;
 			Submesh* mParent;
 		};
 	}

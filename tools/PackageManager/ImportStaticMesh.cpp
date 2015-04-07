@@ -119,7 +119,7 @@ namespace Teardrop {
 			IndexBuffer* ib = submesh->createIndexBuffer();
 
 			try {
-				ib->initialize(4, nIndices, indices);
+				ib->initialize(nIndices, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_READWRITE, indices);
 			} catch (const Gfx::Exception&) {
 				return false;
 			}
@@ -146,7 +146,7 @@ namespace Teardrop {
 			elem.mUsage = VEU_POSITION;
 			vbPos->endAddVertexElements();
 
-			vbPos->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpPos[0]);
+			vbPos->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_READWRITE, &tmpPos[0]);
 
 			// vertex colors
 			int nVertColor = fbxMesh->GetElementVertexColorCount();

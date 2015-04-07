@@ -22,8 +22,8 @@ namespace Teardrop
 				IndexBuffer(ComPtr<ID3D11Device> aDevice, Submesh* parent);
 				~IndexBuffer();
 
-				void initialize(int indexSize, int indexCount, void* data = 0);
-				void resize(int indexSize, int indexCount);
+				void initialize(int indexCount, int aInitFlags, void* data = 0);
+				void resize(int indexCount);
 				void* map(MapFlags flags = MAP_ANY);
 				void unmap();
 
@@ -33,9 +33,15 @@ namespace Teardrop
 
 			protected:
 				ComPtr<ID3D11Buffer> mD3D11Buffer;
+
+				// for D3D10 devices, we can only read from staging buffers
+				ComPtr<ID3D11Buffer> mD3D11StagingBuffer;
+
 				ComPtr<ID3D11Device> mDevice;
 
 				D3D11_MAPPED_SUBRESOURCE mSR;
+
+				bool mMappedStaging = false;
 			};
 		}
 	}

@@ -33,10 +33,14 @@ namespace Teardrop
 
 			protected:
 				ComPtr<ID3D11Buffer> mD3D11Buffer;
-				ComPtr<ID3D11Device> mDevice;
 
+				// for D3D10 devices, we can only read from staging buffers
+				ComPtr<ID3D11Buffer> mD3D11StagingBuffer;
+
+				ComPtr<ID3D11Device> mDevice;
 				D3D11_MAPPED_SUBRESOURCE mSR;
-				int mInitFlags;
+
+				bool mMappedStaging = false;
 			};
 		}
 	}
