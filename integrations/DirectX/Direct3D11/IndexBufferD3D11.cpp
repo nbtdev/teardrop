@@ -44,13 +44,12 @@ void IndexBuffer::initialize(int indexCount, int aInitFlags, void* aData/* =0 */
 		usage = D3D11_USAGE_DYNAMIC;
 
 	if (aInitFlags & INIT_STATIC) {
-		// D3D10 will need to be dynamic if we do not supply the data right now...
-		D3D_FEATURE_LEVEL level = mDevice->GetFeatureLevel();
-		if (level < D3D_FEATURE_LEVEL_11_0 && !aData) {
-			usage = D3D11_USAGE_DYNAMIC;
-		} else {
+		// if we have data, we can create as IMMUTABLE; otherwise, DEFAULT so that CPU access flags can be set
+		if (aData) {
 			usage = D3D11_USAGE_IMMUTABLE;
-			cpuFlags = 0;
+			cpuFlags = 0; // no CPU access flags allowed with IMMUTABLE
+		} else {
+			usage = D3D11_USAGE_DYNAMIC;
 		}
 	}
 

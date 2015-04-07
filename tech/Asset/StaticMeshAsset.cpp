@@ -138,7 +138,7 @@ int StaticMeshAsset::deserialize(Stream& strm)
 			int indexSize;
 			nBytes += strm.read(&indexSize, sizeof(indexSize));
 
-			ib->initialize(nIndices, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY);
+			ib->initialize(nIndices, IndexBuffer::INIT_STATIC|IndexBuffer::INIT_WRITEONLY);
 
 			void* data = ib->map(IndexBuffer::MAP_DISCARD);
 			nBytes += strm.read(data, indexSize * nIndices);
