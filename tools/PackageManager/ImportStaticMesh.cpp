@@ -119,7 +119,7 @@ namespace Teardrop {
 			IndexBuffer* ib = submesh->createIndexBuffer();
 
 			try {
-				ib->initialize(nIndices, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_READWRITE, indices);
+				ib->initialize(nIndices, 0, indices);
 			} catch (const Gfx::Exception&) {
 				return false;
 			}
@@ -146,7 +146,7 @@ namespace Teardrop {
 			elem.mUsage = VEU_POSITION;
 			vbPos->endAddVertexElements();
 
-			vbPos->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_READWRITE, &tmpPos[0]);
+			vbPos->initialize(nVerts, 0, &tmpPos[0]);
 
 			// vertex colors
 			int nVertColor = fbxMesh->GetElementVertexColorCount();
@@ -178,7 +178,7 @@ namespace Teardrop {
 					buf[i].b = (unsigned char)(colors[i].mBlue* 255.0);
 				}
 
-				vbCol->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &buf[0]);
+				vbCol->initialize(nVerts, 0, &buf[0]);
 			}
 
 			// UVs
@@ -208,7 +208,7 @@ namespace Teardrop {
 					tmpUV[i].y = (float)uvs[i][1];
 				}
 
-				vbUV->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpUV[0]);
+				vbUV->initialize(nVerts, 0, &tmpUV[0]);
 			}
 
 			// normals
@@ -240,7 +240,7 @@ namespace Teardrop {
 					tmpNorm[i].w = (float)norms[i][3];
 				}
 
-				vbNorm->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpNorm[0]);
+				vbNorm->initialize(nVerts, 0, &tmpNorm[0]);
 			}
 
 			// tangents
@@ -272,7 +272,7 @@ namespace Teardrop {
 					tmpTang[i].w = (float)tangents[i][3];
 				}
 
-				vbTangent->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpTang[0]);
+				vbTangent->initialize(nVerts, 0, &tmpTang[0]);
 			}
 
 			// binormals
@@ -304,7 +304,7 @@ namespace Teardrop {
 					tmpBinorm[i].w = (float)binormals[i][3];
 				}
 
-				vbBinormal->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpBinorm[0]);
+				vbBinormal->initialize(nVerts, 0, &tmpBinorm[0]);
 			}
 
 			// finally the material(s)

@@ -34,23 +34,23 @@ void IndexBuffer::initialize(int indexCount, int aInitFlags, void* aData/* =0 */
 		indexSize = 4;
 	}
 
+	// in order to deal with D3D10+11 buffer madness, we will force all buffers to be created DEFAULT, and any
+	// mapping will be done using a staging buffer (created on demand the first time a map occurs). This will 
+	// make both D3D10 and D3D11 happy, and also solve the issue about how to handle the different needs of editing
+	// versus game-only assets. The only exception will be if the user specifies DYNAMIC, in which case this will
+	// require INIT_WRITEONLY as well. This is the behavior for both D3D10 and D3D11 so that should also work everywhere.
+	// I would love to work in D3D1*_USAGE_IMMUTABLE at some point, however...but perhaps DEFAULT will obtain the 
+	// same performance characteristics
+
 	D3D11_USAGE usage = D3D11_USAGE_DEFAULT;
-	UINT cpuFlags = D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE;
+	UINT cpuFlags = 0;
 
-	if (aInitFlags & INIT_WRITEONLY)
-		cpuFlags = D3D11_CPU_ACCESS_WRITE;
-
-	if (aInitFlags & INIT_DYNAMIC)
+	if (aInitFlags & INIT_DYNAMIC) {
+		assert((aInitFlags & INIT_WRITEONLY) && "If you specify INIT_DYNAMIC on a D3D10/11 buffer, you must also specify INIT_WRITEONLY");
 		usage = D3D11_USAGE_DYNAMIC;
 
-	if (aInitFlags & INIT_STATIC) {
-		// if we have data, we can create as IMMUTABLE; otherwise, DEFAULT so that CPU access flags can be set
-		if (aData) {
-			usage = D3D11_USAGE_IMMUTABLE;
-			cpuFlags = 0; // no CPU access flags allowed with IMMUTABLE
-		} else {
-			usage = D3D11_USAGE_DYNAMIC;
-		}
+		if (aInitFlags & INIT_WRITEONLY)
+			cpuFlags = D3D11_CPU_ACCESS_WRITE;
 	}
 
 	CD3D11_BUFFER_DESC desc(
@@ -102,11 +102,8 @@ void* IndexBuffer::map(MapFlags flags /*=MAP_ANY*/)
 	ComPtr<ID3D11DeviceContext> ctx;
 	mDevice->GetImmediateContext(&ctx);
 
-	// if this is D3D10 and we have to read, then we need to copy data to a
-	// staging buffer (possibly creating that first if necessary), then copying
-	// from that staging buffer to CPU
-	D3D_FEATURE_LEVEL level = mDevice->GetFeatureLevel();
-	if (level < D3D_FEATURE_LEVEL_11_0 && flags == MAP_READONLY) {
+	if (!(mInitFlags & INIT_DYNAMIC)) {
+		// first, create the staging buffer if it does not already exist
 		if (!mD3D11StagingBuffer) {
 			int buflen = mCount * mSize;
 
@@ -125,14 +122,15 @@ void* IndexBuffer::map(MapFlags flags /*=MAP_ANY*/)
 
 			assert(SUCCEEDED(hr));
 			if (FAILED(hr)) {
-				throw Exception("Could not create D3D11 staging buffer in VertexBuffer::map");
+				throw Exception("Could not create D3D11 staging buffer in IndexBuffer::map");
 			}
 		}
 
-		// then copy the original resource to the staging buffer...
-		ctx->CopyResource(mD3D11StagingBuffer.Get(), mD3D11Buffer.Get());
+		// then, if the map type is MAP_READONLY, copy the original resource to the staging buffer...
+		if (flags == MAP_READONLY)
+			ctx->CopyResource(mD3D11StagingBuffer.Get(), mD3D11Buffer.Get());
 
-		// and then map the staging buffer and return that
+		// regardless, map the staging buffer and return that
 		HRESULT hr = ctx->Map(
 			mD3D11StagingBuffer.Get(),
 			0,
@@ -140,29 +138,23 @@ void* IndexBuffer::map(MapFlags flags /*=MAP_ANY*/)
 			0,
 			&mSR);
 
+		mMapFlags = flags;
+
 		if (SUCCEEDED(hr)) {
-			mMappedStaging = true;
 			return mSR.pData;
 		}
 	}
 	else {
-		D3D11_MAP D3DFlags;
-
-		// TODO: if we allow dynamic flags on create then we can lock discard
-
-		if (flags & MAP_DISCARD)
-			D3DFlags = D3D11_MAP_WRITE_DISCARD;
-
-		// TODO: D3D gets upset if you try to lock a write-only buffer as read-only...
-
-		if (flags & MAP_READONLY)
-			D3DFlags = D3D11_MAP_READ;
+		// otherwise, if the initialization flags include INIT_DYNAMIC, then do normal map (but
+		// only if they also include INIT_WRITEONLY -- we should already have verified this
+		// earlier). Therefore, we only support WRITE mapping here (and we will do WRITE_DISCARD
+		// for efficiency, until other needs dictate)
 
 		if (mD3D11Buffer && mDevice) {
 			HRESULT hr = ctx->Map(
 				mD3D11Buffer.Get(),
 				0,
-				D3DFlags,
+				D3D11_MAP_WRITE_DISCARD,
 				0,
 				&mSR);
 
@@ -178,13 +170,33 @@ void* IndexBuffer::map(MapFlags flags /*=MAP_ANY*/)
 void IndexBuffer::unmap()
 {
 	assert(mSR.pData);
+	assert(mMapFlags != MAP_ANY);
 
 	if (mDevice && mSR.pData) {
 		ComPtr<ID3D11DeviceContext> ctx;
 		mDevice->GetImmediateContext(&ctx);
 
-		ctx->Unmap(mD3D11Buffer.Get(), 0);
+		// when we unmap, if the map operation was a write to a staging buffer (which 
+		// would be the case for all buffers not created with INIT_DYNAMIC), then we need
+		// to copy the staging buffer over to the live one after unmapping the staging buffer.
+		// We don't need to check anything at this point -- if they got here, then the flag 
+		// combinations have all been verified and we know that we have an open map to unmap.
 
+		if (mInitFlags & INIT_DYNAMIC) {
+			// in this case just do a normal unmap
+			ctx->Unmap(mD3D11Buffer.Get(), 0);
+		} else {
+			// do the complex unmap-and-copy; in any case, we need to unmap the staging buffer
+			ctx->Unmap(mD3D11StagingBuffer.Get(), 0);
+
+			if (mMapFlags != MAP_READONLY) {
+				// then it was a write and needs to be "flushed"; there should be no other 
+				// possible combination at this point than this
+				ctx->CopyResource(mD3D11Buffer.Get(), mD3D11StagingBuffer.Get());
+			}
+		}
+
+		mMapFlags = MAP_ANY;
 		ZeroMemory(&mSR, sizeof(mSR));
 	}
 }

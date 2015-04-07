@@ -138,7 +138,7 @@ int StaticMeshAsset::deserialize(Stream& strm)
 			int indexSize;
 			nBytes += strm.read(&indexSize, sizeof(indexSize));
 
-			ib->initialize(nIndices, IndexBuffer::INIT_STATIC|IndexBuffer::INIT_WRITEONLY);
+			ib->initialize(nIndices, 0);
 
 			void* data = ib->map(IndexBuffer::MAP_DISCARD);
 			nBytes += strm.read(data, indexSize * nIndices);
@@ -175,7 +175,7 @@ int StaticMeshAsset::deserialize(Stream& strm)
 			// then the vertex data
 			int nVerts;
 			nBytes += strm.read(&nVerts, sizeof(nVerts));
-			vb->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY);
+			vb->initialize(nVerts, 0);
 			void* data = vb->map(VertexBuffer::MAP_DISCARD);
 			nBytes += strm.read(data, nVerts * vertSize);
 			vb->unmap();
