@@ -46,6 +46,7 @@ namespace {
 namespace Teardrop {
 namespace Gfx {
 namespace Direct3D11 {
+
 struct InterStageElem {
 	InterStageElem();
 	~InterStageElem();
@@ -106,7 +107,7 @@ void ShaderInterStage::exportHLSLDeclaration(String& aSource)
 	aSource.append(mName);
 	aSource.append(" {\n");
 
-	for (auto e : mElems) {
+	for (auto& e : mElems) {
 		char buf[1024];
 
 		const char* semantic = sSemanticLut[e.mSemantic];
@@ -322,7 +323,6 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 
 	mHash = aSubmesh->hash();
 
-	// debug
 #if defined(_DEBUG) || defined(DEBUG)
 	Environment::get().pLogger->logMessage(mSource);
 #endif

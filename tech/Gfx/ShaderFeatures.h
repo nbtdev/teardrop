@@ -17,6 +17,8 @@ namespace Teardrop
 			INTERP_POSITION = 1,
 			INTERP_NORMAL = 2,
 			INTERP_TEXCOORD = 4,
+			INTERP_TANGENT = 4,
+			INTERP_BITANGENT = 4,
 		};
 
 		struct ShaderFeatures

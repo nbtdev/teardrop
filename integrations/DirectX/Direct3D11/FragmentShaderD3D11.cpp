@@ -15,13 +15,134 @@ is prohibited.
 #include "Gfx/MaterialOutput.h"
 #include "Gfx/Sampler2DExpression.h"
 #include "Gfx/ShaderConstantTable.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+#include <list>
 #include <sstream>
 #include <set>
 #include <assert.h>
 
+namespace {
+const char* sSemanticLut[] = {
+	"FOG",      // VEU_UNKNOWN,
+	"POSITION", // VEU_POSITION,
+	"NORMAL",   // VEU_NORMAL,
+	"FOG",      // VEU_BLENDWEIGHT,
+	"FOG",      // VEU_BLENDINDEX,
+	"TEXCOORD", // VEU_TEXCOORD,
+	"NORMAL",   // VEU_TANGENT,
+	"NORMAL",   // VEU_BINORMAL,
+	"COLOR"     // VEU_COLOR,
+};
+
+const char* sTypeLut[] = {
+	"float",  // VEt_UNKNOWN,
+	"byte",   // VEU_BYTE,
+	"short",  // VEU_SHORT,
+	"half",   // VEU_HALF,
+	"float",  // VEU_FLOAT,
+};
+} // namespace 
+
 namespace Teardrop {
 namespace Gfx {
 namespace Direct3D11 {
+
+struct Interpolant {
+	Interpolant();
+	~Interpolant();
+	char mName[256];
+	VertexElementUsage mSemantic = VEU_UNKNOWN;
+	VertexElementType mType = VET_UNKNOWN;
+	int mWidth = 0;
+	int mRank = 0;
+	int mIndex = 0;
+	bool mSystem = false;
+};
+
+Interpolant::Interpolant()
+{
+	ZeroMemory(mName, sizeof(mName));
+}
+
+Interpolant::~Interpolant()
+{
+}
+
+// FSEnvironmemt is a place to manage the FS's input needs (which interpolants it needs, etc.)
+class FSEnvironment
+{
+public:
+	FSEnvironment();
+	~FSEnvironment();
+
+	// if an interpolant with the given smeantic and index already 
+	// exists, this method will return that interpolant; otherwise, 
+	// this new one is added and returned
+	const Interpolant& addInterpolant(VertexElementUsage aUsage, VertexElementType aType, int aWidth=4, int aIndex=0, int aRank=1);
+
+	void exportHLSLPSInput(const String& aName, String& aSource);
+
+private:
+	std::list<Interpolant> mInterpolants;
+};
+
+FSEnvironment::FSEnvironment()
+{
+}
+
+FSEnvironment::~FSEnvironment()
+{
+}
+
+const Interpolant& FSEnvironment::addInterpolant(VertexElementUsage aUsage, VertexElementType aType, int aWidth, int aIndex, int aRank)
+{
+	for (auto& i : mInterpolants) {
+		if (i.mSemantic == aUsage && i.mIndex == aIndex)
+			// TODO: check type and do something on mismatch?
+			return i;
+	}
+
+	// make up the interpolant name based on semantic and index
+	char buf[64];
+	sprintf_s(buf, sizeof(buf), "%s%d", sSemanticLut[aUsage], aIndex);
+
+	Interpolant i;
+	strcpy_s(i.mName, sizeof(i.mName), buf);
+	i.mSemantic = aUsage;
+	i.mType = aType;
+	i.mWidth = aWidth;
+	i.mRank = aRank;
+	i.mIndex = aIndex;
+
+	mInterpolants.push_back(i);	
+	return mInterpolants.back();
+}
+
+void FSEnvironment::exportHLSLPSInput(const String& aName, String& aSource)
+{
+	aSource.append("struct ");
+	aSource.append(aName);
+	aSource.append("\n{\n");
+
+	for (auto& i : mInterpolants) {
+		char buf[1024];
+
+		const char* semantic = sSemanticLut[i.mSemantic];
+		const char* type = sTypeLut[i.mType];
+
+		if (i.mRank > 1) {
+			sprintf_s(buf, 1024, "    %s%dx%d %s: %s%d;\n", type, i.mWidth, i.mRank, i.mName, semantic, i.mIndex);
+		}
+		else {
+			sprintf_s(buf, 1024, "    %s%d %s: %s%d;\n", type, i.mWidth, i.mName, semantic, i.mIndex);
+		}
+
+		aSource.append(buf);
+	}
+
+	aSource.append("};\n");
+}
 
 FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* constants, Material* mtl)
 	: Gfx::FragmentShader(mtl)
@@ -31,7 +152,8 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 {
 	assert(mDevice);
 
-#if 0
+	FSEnvironment fsEnv;
+
 	// build and compile pixel shader
 	if (!mSource.length()) {
 		// generate source from material definition/expressions
@@ -67,13 +189,25 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 				Sampler2DExpression* sampExp = static_cast<Sampler2DExpression*>(expr);
 				mSamplers[sampExp->samplerName()] = sampExp;
 			}
+
+			// add interpolant consumption
+			const ShaderFeatures& features = expr->features();
+			if (features.mInterpolants & INTERP_TEXCOORD) {
+				unsigned short mask = features.mTexcoordMask;
+
+				for (int i = 0; i < 16; ++i) {
+					if ((mask & (1 << i))) {
+						const Interpolant& interp = fsEnv.addInterpolant(VEU_TEXCOORD, VET_FLOAT, 2, i);
+					}
+				}
+			}
 		}
 
 		std::string defStr(defs.str());
 		mSource.append(defStr.c_str());
 
 		// declare the input struct (matches the VS output struct in VertexShaderD3D9)
-		mSource.append("struct PSIN \n{\n    float4 HPOS : POSITION;\n    float4 COLOR : COLOR0;\n    float4 NORM : TEXCOORD0;\n    float4 TXC0 : TEXCOORD1;\n    float4 TXC2 : TEXCOORD2;\n};\n");
+		fsEnv.exportHLSLPSInput("PSIN", mSource);
 
 		// open the fragment shader...
 		mSource.append("float4 PS(PSIN psin) : COLOR {\n");
@@ -171,6 +305,11 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		//mSource.append("\nreturn float4(0.5,0.5,0.5,1);\n}\n");
 	}
 
+#if defined(_DEBUG) || defined(DEBUG)
+	Environment::get().pLogger->logMessage(mSource);
+#endif
+
+#if 0
 	if (mSource.length() && !mPS) {
 		// compile the shader
 		LPD3DXBUFFER pErrorMsgs;

@@ -32,7 +32,7 @@ static DXGI_FORMAT sLut[] = {
 
 Texture2D::Texture2D(ComPtr<ID3D11Device> aDevice, TextureAsset* aAsset, Usage aUsage)
 	: Gfx::Texture2D(aAsset)
-	, mDevice(mDevice)
+	, mDevice(aDevice)
 {
 	assert(mDevice);
 	assert(mAsset);
@@ -40,12 +40,15 @@ Texture2D::Texture2D(ComPtr<ID3D11Device> aDevice, TextureAsset* aAsset, Usage a
 	// create texture object
 	D3D11_USAGE usage = D3D11_USAGE_DEFAULT;
 	UINT bindFlags = D3D11_BIND_SHADER_RESOURCE;
+	UINT cpuFlags = 0;
 
 	if (aUsage == USAGE_RENDERTARGET)
 		bindFlags |= D3D11_BIND_RENDER_TARGET;
 	else
-		if (aUsage == USAGE_DYNAMIC)
+		if (aUsage == USAGE_DYNAMIC) {
 			usage = D3D11_USAGE_DYNAMIC;
+			cpuFlags = D3D11_CPU_ACCESS_WRITE;
+		}
 
 	bool genMips = mAsset->getGenerateMipmaps();
 
@@ -66,10 +69,11 @@ Texture2D::Texture2D(ComPtr<ID3D11Device> aDevice, TextureAsset* aAsset, Usage a
 	desc.SampleDesc.Count = 1;
 	desc.Usage = usage;
 	desc.BindFlags = bindFlags;
-	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	desc.CPUAccessFlags = cpuFlags;
 	
 	D3D11_SUBRESOURCE_DATA data = { 0 };
 	data.pSysMem = mAsset->data();
+	data.SysMemPitch = desc.Width;
 
 	HRESULT hr = mDevice->CreateTexture2D(
 		&desc,

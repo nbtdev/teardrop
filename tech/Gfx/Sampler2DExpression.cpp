@@ -1,4 +1,4 @@
-/****************************************************************************
+/***************************************************************************
 This source file is (c) Teardrop Games LLC. All rights reserved. 
 Redistribution and/or reproduction, in whole or in part, without prior
 written permission of a duly authorized representative of Teardrop Games LLC
@@ -27,6 +27,7 @@ Sampler2DExpression::~Sampler2DExpression()
 bool Sampler2DExpression::initialize()
 {
 	mInputs.push_back(Attribute("Texcoord", ATTR_FLOAT2, this, Attribute::Optional, "psin.TXC0"));
+	mFeatures.setFeature(INTERP_TEXCOORD, 0);
 	mOutputs.push_back(Attribute("Color", ATTR_RGBA, this));
 	mOutputs.push_back(Attribute("Color3", ATTR_RGB, this));
 

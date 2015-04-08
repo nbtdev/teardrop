@@ -11,6 +11,7 @@ is prohibited.
 #include "Gfx/FragmentShader.h"
 #include "Util/_String.h"
 #include <map>
+#include <memory>
 #include <vector>
 
 namespace Teardrop
@@ -23,6 +24,8 @@ namespace Teardrop
 
 		namespace Direct3D11
 		{
+			class FSEnvironment;
+
 			class FragmentShader : public Gfx::FragmentShader
 			{
 			public:
@@ -51,6 +54,8 @@ namespace Teardrop
 
 				typedef std::map<String, Sampler2DExpression*> Samplers;
 				Samplers mSamplers;
+
+				std::unique_ptr<FSEnvironment> mEnvironment;
 
 				String mSource; // in case we need to recompile the shader
 				String mFullpath; // in case someone wants to save the shader?

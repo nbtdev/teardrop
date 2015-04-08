@@ -20,7 +20,7 @@ ShaderFeatures::ShaderFeatures()
 void ShaderFeatures::setFeature(Interpolants interp, int texCoord/* =-1 */)
 {
 	mInterpolants |= interp;
-	if (texCoord > 0 && texCoord < 16) {
+	if (texCoord >= 0 && texCoord < 16) {
 		mTexcoordMask |= (unsigned short)(1 << texCoord);
 	}
 }
