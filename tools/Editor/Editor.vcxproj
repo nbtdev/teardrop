@@ -92,6 +92,9 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /s /i /y $(SolutionDir)bin\icons $(SolutionDir)bin\$(Configuration)\icons</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,6 +116,14 @@
       <OptimizeReferences>
       </OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /s /i /y $(SolutionDir)bin\icons $(SolutionDir)bin\$(Configuration)\icons</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <PostBuildEvent>
+      <Command>xcopy /s /i /y $(SolutionDir)bin\icons $(SolutionDir)bin\$(Configuration)\icons</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DragDropData.cpp" />
