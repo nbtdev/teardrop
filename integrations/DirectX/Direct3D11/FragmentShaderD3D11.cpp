@@ -172,14 +172,19 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		MaterialExpression** expressions = mMaterial->sortedExpressions();
 
 		std::stringstream defs;
+		int samplerIndex = 0;
 		for (int i = 0; i<exprCount; ++i) {
 			MaterialExpression* expr = expressions[i];
+			int origSamplerIndex = samplerIndex;
+
 			const Reflection::ClassDef* classDef = expr->getDerivedClassDef();
 			if (uniqueExprs.find(classDef) == uniqueExprs.end()) {
 				uniqueExprs.insert(classDef);
 
 				// and then generate the definition for this expression
-				expr->appendDefinition(MaterialExpression::SHADER_HLSL, defs);
+				expr->appendDefinition(MaterialExpression::SHADER_HLSL, samplerIndex, defs);
+				// sanity check: the expression should not have incremented the index by more than one
+				assert((samplerIndex <= origSamplerIndex+1) && "expression should not have incremented the index by more than one");
 			}
 
 			// special case -- samplers aren't regular constants so
@@ -187,7 +192,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 			// look them up by name later if needed
 			if (expr->getDerivedClassDef() == Sampler2DExpression::getClassDef()) {
 				Sampler2DExpression* sampExp = static_cast<Sampler2DExpression*>(expr);
-				mSamplers[sampExp->samplerName()] = sampExp;
+				mSamplers[sampExp->samplerName()] = SamplerEnt(sampExp, origSamplerIndex);
 			}
 
 			// add interpolant consumption
@@ -210,7 +215,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		fsEnv.exportHLSLPSInput("PSIN", mSource);
 
 		// open the fragment shader...
-		mSource.append("float4 PS(PSIN psin) : COLOR {\n");
+		mSource.append("float4 PS(PSIN psin) : SV_TARGET {\n");
 
 		// then generate the function calls
 		typedef std::map<const Attribute*, std::string> AttrToVarName;

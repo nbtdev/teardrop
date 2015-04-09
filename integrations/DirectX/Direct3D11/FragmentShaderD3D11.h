@@ -52,7 +52,13 @@ namespace Teardrop
 				typedef std::vector<ConstantBinding> ConstantBindings;
 				ConstantBindings mBindings;
 
-				typedef std::map<String, Sampler2DExpression*> Samplers;
+				struct SamplerEnt {
+					SamplerEnt() {}
+					SamplerEnt(Sampler2DExpression* aExpr, int aIndex) : mSamplerExpr(aExpr), mSamplerIndex(aIndex) {}
+					Sampler2DExpression* mSamplerExpr = nullptr;
+					int mSamplerIndex = 0;
+				};
+				typedef std::map<String, SamplerEnt> Samplers;
 				Samplers mSamplers;
 
 				std::unique_ptr<FSEnvironment> mEnvironment;

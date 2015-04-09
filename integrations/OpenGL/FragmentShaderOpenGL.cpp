@@ -62,7 +62,8 @@ bool FragmentShader::initialize()
 				uniqueExprs.insert(classDef);
 
 				// and then generate the definition for this expression
-				expr->appendDefinition(MaterialExpression::SHADER_GLSL4, defs);
+				int index = 0;
+				expr->appendDefinition(MaterialExpression::SHADER_GLSL4, index, defs);
 			}
 
 			// special case -- samplers aren't regular constants so

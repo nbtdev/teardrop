@@ -26,7 +26,7 @@ Sampler2DExpression::~Sampler2DExpression()
 
 bool Sampler2DExpression::initialize()
 {
-	mInputs.push_back(Attribute("Texcoord", ATTR_FLOAT2, this, Attribute::Optional, "psin.TXC0"));
+	mInputs.push_back(Attribute("Texcoord", ATTR_FLOAT2, this, Attribute::Optional, "psin.TEXCOORD0"));
 	mFeatures.setFeature(INTERP_TEXCOORD, 0);
 	mOutputs.push_back(Attribute("Color", ATTR_RGBA, this));
 	mOutputs.push_back(Attribute("Color3", ATTR_RGB, this));
@@ -39,10 +39,7 @@ void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
 	switch (lang) {
 	case SHADER_HLSL:
 	case SHADER_HLSL5:
-		o << std::string("    Color = tex2D(");
-		o << mSamplerName;
-		o << std::string(", Texcoord);") << std::endl;
-
+		o << std::string("    Color = ") << mSamplerName << ".Sample(samplerState, Texcoord);" << std::endl;
 		o << std::string("    Color3 = float3(Color.r, Color.g, Color.b);") << std::endl;
 		break;
 	case SHADER_GLSL4:
@@ -57,7 +54,7 @@ void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
 	}
 }
 
-void Sampler2DExpression::insertDependencies(Language lang, std::ostream& o)
+void Sampler2DExpression::insertDependencies(Language lang, int& aSampIndex, std::ostream& o)
 {
 	Sampler2D& samp = getSampler2D();
 	if (samp.texture()) {
@@ -76,7 +73,11 @@ void Sampler2DExpression::insertDependencies(Language lang, std::ostream& o)
 			o << "uniform ";
 		case SHADER_HLSL:
 		case SHADER_HLSL5:
-			o << "sampler2D " << mSamplerName << ";" << std::endl;
+			o << "texture2D " << mSamplerName << " : register(t" << aSampIndex++ << ");" << std::endl;
+
+			// TODO: for now, just one D3D11 sampler object for all textures in the material...we'll get 
+			// more complicated later when necessary
+			o << "SamplerState samplerState : register(s0);" << std::endl;
 			break;
 		default:
 			break;

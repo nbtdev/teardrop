@@ -59,10 +59,10 @@ const ShaderFeatures& MaterialExpression::features()
 	return mFeatures;
 }
 
-void MaterialExpression::appendDefinition(Language lang, std::ostream& o)
+void MaterialExpression::appendDefinition(Language lang, int& aSamplerIndex, std::ostream& o)
 {
 	// give subclasses an opportunity to insert some internal dependencies
-	insertDependencies(lang, o);
+	insertDependencies(lang, aSamplerIndex, o);
 
 	// then our own declaration; it starts the same in all languages
 	o << "void ";
@@ -149,6 +149,6 @@ void MaterialExpression::appendBody(Language /*lang*/, std::ostream& /*o*/)
 {
 }
 
-void MaterialExpression::insertDependencies(Language /*lang*/, std::ostream& /*o*/)
+void MaterialExpression::insertDependencies(Language /*lang*/, int& /*aSampIndex*/, std::ostream& /*o*/)
 {
 }

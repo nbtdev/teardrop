@@ -40,7 +40,9 @@ namespace Teardrop
 			};
 
 			// code generation
-			void appendDefinition(Language lang, std::ostream& o);
+			// aSampIndex is used by Sampler* expressions; this parameter is passed through to the
+			// insertDependencies protected method below
+			void appendDefinition(Language lang, int& aSampIndex, std::ostream& o);
 
 			void appendCall(
 				Language lang, 
@@ -63,7 +65,12 @@ namespace Teardrop
 			ShaderFeatures mFeatures;
 
 			virtual void appendBody(Language lang, std::ostream& o);
-			virtual void insertDependencies(Language lang, std::ostream& o);
+
+			// as there may be more than one sampler used in
+			// a Material, Sampler* expressions should (if necessary) use 
+			// the value of aSampIndex passed to the method, 
+			// and increment aSampIndex before returning
+			virtual void insertDependencies(Language lang, int& aSampIndex, std::ostream& o);
 		};
 	}
 }

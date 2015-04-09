@@ -33,7 +33,7 @@ namespace Teardrop
 		protected:
 			// code generation
 			void appendBody(Language lang, std::ostream& o);
-			void insertDependencies(Language lang, std::ostream& o);
+			void insertDependencies(Language lang, int& aSampIndex, std::ostream& o);
 			String mSamplerName;
 		};
 	}
