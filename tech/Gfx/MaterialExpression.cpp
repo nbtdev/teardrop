@@ -59,14 +59,14 @@ const ShaderFeatures& MaterialExpression::features()
 	return mFeatures;
 }
 
-void MaterialExpression::appendDefinition(Language lang, int& aSamplerIndex, std::ostream& o)
+void MaterialExpression::appendDefinition(Language lang, std::ostream& o)
 {
 	// give subclasses an opportunity to insert some internal dependencies
-	insertDependencies(lang, aSamplerIndex, o);
+	insertDependencies(lang, o);
 
 	// then our own declaration; it starts the same in all languages
 	o << "void ";
-	o << getDerivedClassDef()->getName();
+	insertFunctionName(lang, o);
 	o << '(';
 
 	// insert input params
@@ -94,7 +94,7 @@ void MaterialExpression::appendDefinition(Language lang, int& aSamplerIndex, std
 	o << "}\n\n";
 }
 
-void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::vector<std::string>& inputs, const std::map<const Attribute*, std::string>& outputs, std::ostream& o)
+void MaterialExpression::appendCall(Language lang, int ordinal, const std::vector<std::string>& inputs, const std::map<const Attribute*, std::string>& outputs, std::ostream& o)
 {
 	// same in all languages?
 
@@ -113,7 +113,8 @@ void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::v
 		else {
 			// this output is unused, so generate a dummy name for it
 			std::stringstream ss;
-			ss << getDerivedClassDef()->getName() << '_' << ordinal << "_unused_" << idx++;
+			insertFunctionName(lang, ss);
+			ss << '_' << ordinal << "_unused_" << idx++;
 			outputNames[i] = ss.str();
 		}
 
@@ -121,7 +122,7 @@ void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::v
 	}
 
 	// then generate the call itself, using the provided input param names and generated output param names
-	o << getDerivedClassDef()->getName();
+	insertFunctionName(lang, o);
 	o << '(';
 
 	// insert input params
@@ -149,6 +150,12 @@ void MaterialExpression::appendBody(Language /*lang*/, std::ostream& /*o*/)
 {
 }
 
-void MaterialExpression::insertDependencies(Language /*lang*/, int& /*aSampIndex*/, std::ostream& /*o*/)
+void MaterialExpression::insertDependencies(Language /*lang*/, std::ostream& /*o*/)
 {
+}
+
+void MaterialExpression::insertFunctionName(Language /*lang*/, std::ostream& o)
+{
+	const Reflection::ClassDef* classDef = getDerivedClassDef();
+	o << classDef->getName();
 }

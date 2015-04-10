@@ -37,14 +37,13 @@ bool Sampler2DExpression::initialize()
 void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
 {
 	switch (lang) {
-	case SHADER_HLSL:
 	case SHADER_HLSL5:
-		o << std::string("    Color = ") << mSamplerName << ".Sample(samplerState, Texcoord);" << std::endl;
+		o << std::string("    Color = ") << mTextureName << ".Sample(" << mSamplerName << ", Texcoord);" << std::endl;
 		o << std::string("    Color3 = float3(Color.r, Color.g, Color.b);") << std::endl;
 		break;
 	case SHADER_GLSL4:
 		o << std::string("    Color = texture2D(");
-		o << mSamplerName;
+		o << mTextureName;
 		o << std::string(", Texcoord);") << std::endl;
 
 		o << std::string("    Color3 = float3(Color.r, Color.g, Color.b);") << std::endl;
@@ -54,15 +53,27 @@ void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
 	}
 }
 
-void Sampler2DExpression::insertDependencies(Language lang, int& aSampIndex, std::ostream& o)
+void Sampler2DExpression::appendDefinition(Language lang, int aTextureIndex, int aSampIndex, std::ostream& o)
+{
+	// call our "custom" insertDependencies
+	insertDependencies(lang, aTextureIndex, aSampIndex, o);
+
+	// and then the "real" appendDefinition
+	MaterialExpression::appendDefinition(lang, o);
+}
+
+void Sampler2DExpression::insertDependencies(Language lang, int aTextureIndex, int aSampIndex, std::ostream& o)
 {
 	Sampler2D& samp = getSampler2D();
 	if (samp.texture()) {
 		// name only needs to be unique long enough to generate the shader(s)
 		if (mSamplerName.length() == 0) {
 			String tmp;
-			StringUtil::toString((void*)&samp, tmp);
-			mSamplerName = "samp2D_";
+			StringUtil::toString(aTextureIndex, tmp);
+			mTextureName = "tex2D_";
+			mTextureName.append(tmp);
+			StringUtil::toString(aSampIndex, tmp);
+			mSamplerName = "samplerState_";
 			mSamplerName.append(tmp);
 		}
 
@@ -70,14 +81,15 @@ void Sampler2DExpression::insertDependencies(Language lang, int& aSampIndex, std
 			// be tricky here...GLSL4 only needs "uniform" in front of the same declaration that HLSL uses,
 			// so insert that then fall through to the remainder of the uniform decl
 		case SHADER_GLSL4:
-			o << "uniform ";
-		case SHADER_HLSL:
+			o << "uniform sampler2D " << mTextureName << std::endl;
+			break;
+
 		case SHADER_HLSL5:
-			o << "texture2D " << mSamplerName << " : register(t" << aSampIndex++ << ");" << std::endl;
+			o << "texture2D " << mTextureName << " : register(t" << aTextureIndex << ");" << std::endl;
 
 			// TODO: for now, just one D3D11 sampler object for all textures in the material...we'll get 
 			// more complicated later when necessary
-			o << "SamplerState samplerState : register(s0);" << std::endl;
+			o << "SamplerState " << mSamplerName << " : register(s" << aSampIndex << ");" << std::endl;
 			break;
 		default:
 			break;
@@ -85,7 +97,20 @@ void Sampler2DExpression::insertDependencies(Language lang, int& aSampIndex, std
 	}
 }
 
+const String& Sampler2DExpression::textureName()
+{
+	return mTextureName;
+}
+
 const String& Sampler2DExpression::samplerName()
 {
 	return mSamplerName;
+}
+
+void Sampler2DExpression::insertFunctionName(Language /*lang*/, std::ostream& o)
+{
+	const Reflection::ClassDef* classDef = getDerivedClassDef();
+	o << classDef->getName();
+	o << '_';
+	o << (void*)this;
 }

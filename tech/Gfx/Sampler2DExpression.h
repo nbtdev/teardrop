@@ -26,14 +26,25 @@ namespace Teardrop
 			~Sampler2DExpression();
 
 			bool initialize();
+			const String& textureName();
 			const String& samplerName();
+
+			// custom method variant, not an override
+			void appendDefinition(Language lang, int aTextureIndex, int aSamplerIndex, std::ostream& o);
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
 			// code generation
 			void appendBody(Language lang, std::ostream& o);
-			void insertDependencies(Language lang, int& aSampIndex, std::ostream& o);
+
+			// custom method variant, not an override
+			void insertDependencies(Language lang, int aTextureIndex, int aSamplerIndex, std::ostream& o);
+
+			// custom function name
+			void insertFunctionName(Language lang, std::ostream& o);
+
+			String mTextureName;
 			String mSamplerName;
 		};
 	}

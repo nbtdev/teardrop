@@ -33,7 +33,6 @@ namespace Teardrop
 			Attribute* findOutputAttribute(const char* name);
 			
 			enum Language {
-				SHADER_HLSL,
 				SHADER_HLSL5,
 				SHADER_GLSL4,
 				SHADER_GLSL_ES2,
@@ -42,7 +41,7 @@ namespace Teardrop
 			// code generation
 			// aSampIndex is used by Sampler* expressions; this parameter is passed through to the
 			// insertDependencies protected method below
-			void appendDefinition(Language lang, int& aSampIndex, std::ostream& o);
+			void appendDefinition(Language lang, std::ostream& o);
 
 			void appendCall(
 				Language lang, 
@@ -70,7 +69,11 @@ namespace Teardrop
 			// a Material, Sampler* expressions should (if necessary) use 
 			// the value of aSampIndex passed to the method, 
 			// and increment aSampIndex before returning
-			virtual void insertDependencies(Language lang, int& aSampIndex, std::ostream& o);
+			virtual void insertDependencies(Language lang, std::ostream& o);
+
+			// allow subclasses to provide a custom name for their functions (defaults to the 
+			// ClassDef name)
+			virtual void insertFunctionName(Language lang, std::ostream& o);
 		};
 	}
 }

@@ -21,6 +21,7 @@ namespace Teardrop
 		class ShaderConstantTable;
 		class ShaderConstant;
 		class Sampler2DExpression;
+		class Texture2D;
 
 		namespace Direct3D11
 		{
@@ -38,10 +39,9 @@ namespace Teardrop
 
 			protected:
 				ComPtr<ID3D11Device> mDevice;
-				//IDirect3DPixelShader9* mPS;
-				// the constants declared in the shader
-				//LPD3DXCONSTANTTABLE mConstantTable;
-				// the constants managed by the engine
+				ComPtr<ID3DBlob> mBytecode;
+				ComPtr<ID3D11PixelShader> mPS;
+				ComPtr<ID3D11ClassLinkage> mLinkage;
 				ShaderConstantTable* mConstants;
 
 				struct ConstantBinding {
@@ -52,13 +52,10 @@ namespace Teardrop
 				typedef std::vector<ConstantBinding> ConstantBindings;
 				ConstantBindings mBindings;
 
-				struct SamplerEnt {
-					SamplerEnt() {}
-					SamplerEnt(Sampler2DExpression* aExpr, int aIndex) : mSamplerExpr(aExpr), mSamplerIndex(aIndex) {}
-					Sampler2DExpression* mSamplerExpr = nullptr;
-					int mSamplerIndex = 0;
-				};
-				typedef std::map<String, SamplerEnt> Samplers;
+				typedef std::vector<Sampler2DExpression*> Sampler2DExpressions;
+				Sampler2DExpressions mSamplerExpressions;
+
+				typedef std::vector<ComPtr<ID3D11SamplerState>> Samplers;
 				Samplers mSamplers;
 
 				std::unique_ptr<FSEnvironment> mEnvironment;

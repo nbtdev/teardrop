@@ -8,6 +8,7 @@ is prohibited.
 #include "stdafx.h"
 #include "FragmentShaderD3D11.h"
 #include "Texture2DD3D11.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Material.h"
 #include "Gfx/Connection.h"
 #include "Gfx/Attribute.h"
@@ -15,6 +16,7 @@ is prohibited.
 #include "Gfx/MaterialOutput.h"
 #include "Gfx/Sampler2DExpression.h"
 #include "Gfx/ShaderConstantTable.h"
+#include "Math/Vector4.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
 #include <list>
@@ -23,6 +25,9 @@ is prohibited.
 #include <assert.h>
 
 namespace {
+
+using namespace Teardrop::Gfx;
+
 const char* sSemanticLut[] = {
 	"FOG",      // VEU_UNKNOWN,
 	"POSITION", // VEU_POSITION,
@@ -42,6 +47,94 @@ const char* sTypeLut[] = {
 	"half",   // VEU_HALF,
 	"float",  // VEU_FLOAT,
 };
+
+D3D11_FILTER getFilter(
+	Sampler2D::Filter aMin,
+	Sampler2D::Filter aMag,
+	Sampler2D::Filter aMip)
+{
+	if (aMin == Sampler2D::FILTER_NONE || aMag == Sampler2D::FILTER_NONE || aMip == Sampler2D::FILTER_NONE)
+		return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+
+	if (aMin == Sampler2D::FILTER_ANISOTROPIC || aMag == Sampler2D::FILTER_ANISOTROPIC || aMip == Sampler2D::FILTER_ANISOTROPIC)
+		return D3D11_FILTER_ANISOTROPIC;
+
+	switch (aMin) {
+	case Sampler2D::FILTER_NEAREST:
+		switch (aMag) {
+		case Sampler2D::FILTER_NEAREST:
+			switch (aMip) {
+			case Teardrop::Gfx::Sampler2D::FILTER_NEAREST: return D3D11_FILTER_MIN_MAG_MIP_POINT;
+			case Teardrop::Gfx::Sampler2D::FILTER_BILINEAR: return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			}
+			break;
+		case Sampler2D::FILTER_BILINEAR:
+			switch (aMip) {
+			case Teardrop::Gfx::Sampler2D::FILTER_NEAREST: return D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT;
+			case Teardrop::Gfx::Sampler2D::FILTER_BILINEAR: return D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR;
+			}
+			break;
+		}
+		break;
+	case Sampler2D::FILTER_BILINEAR:
+		switch (aMag) {
+		case Sampler2D::FILTER_NEAREST:
+			switch (aMip) {
+			case Teardrop::Gfx::Sampler2D::FILTER_NEAREST: return D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
+			case Teardrop::Gfx::Sampler2D::FILTER_BILINEAR: return D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
+			}
+			break;
+		case Sampler2D::FILTER_BILINEAR:
+			switch (aMip) {
+			case Teardrop::Gfx::Sampler2D::FILTER_NEAREST: return D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT;
+			case Teardrop::Gfx::Sampler2D::FILTER_BILINEAR: return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			}
+			break;
+		}
+		break;
+	}
+
+	return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+}
+
+D3D11_TEXTURE_ADDRESS_MODE sMode[] = {
+	D3D11_TEXTURE_ADDRESS_CLAMP,       // ADDRMODE_UNSET = 0,
+	D3D11_TEXTURE_ADDRESS_WRAP,        // ADDRMODE_WRAP,
+	D3D11_TEXTURE_ADDRESS_MIRROR,      // ADDRMODE_MIRROR,
+	D3D11_TEXTURE_ADDRESS_CLAMP,       // ADDRMODE_CLAMP,
+	D3D11_TEXTURE_ADDRESS_BORDER,      // ADDRMODE_BORDER,
+};
+
+ComPtr<ID3D11SamplerState> getD3D11SamplerState(ID3D11Device* aDevice, Teardrop::Gfx::Sampler2DExpression* aExpr)
+{
+	Teardrop::Vector4 bColor(1.f, 1.f, 1.f, 1.f);
+
+	CD3D11_SAMPLER_DESC desc(
+		getFilter(
+			aExpr->getSampler2D().getMinFilter(),
+			aExpr->getSampler2D().getMagFilter(),
+			aExpr->getSampler2D().getMipMapFilter()
+		),
+		sMode[aExpr->getSampler2D().getAddressModeU()],
+		sMode[aExpr->getSampler2D().getAddressModeV()],
+		sMode[aExpr->getSampler2D().getAddressModeW()],
+		0, // MIP LoD bias
+		1, // max aniostropy
+		D3D11_COMPARISON_NEVER,
+		(float*)&bColor,
+		-D3D11_FLOAT32_MAX,
+		D3D11_FLOAT32_MAX
+		);
+
+	ComPtr<ID3D11SamplerState> state;
+	HRESULT hr = aDevice->CreateSamplerState(&desc, &state);
+	if (FAILED(hr)) {
+		// TODO: throw? 
+	}
+
+	return state;
+}
+
 } // namespace 
 
 namespace Teardrop {
@@ -172,27 +265,50 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		MaterialExpression** expressions = mMaterial->sortedExpressions();
 
 		std::stringstream defs;
-		int samplerIndex = 0;
-		for (int i = 0; i<exprCount; ++i) {
+		for (int i = 0; i < exprCount; ++i) {
 			MaterialExpression* expr = expressions[i];
-			int origSamplerIndex = samplerIndex;
 
 			const Reflection::ClassDef* classDef = expr->getDerivedClassDef();
 			if (uniqueExprs.find(classDef) == uniqueExprs.end()) {
 				uniqueExprs.insert(classDef);
 
 				// and then generate the definition for this expression
-				expr->appendDefinition(MaterialExpression::SHADER_HLSL, samplerIndex, defs);
-				// sanity check: the expression should not have incremented the index by more than one
-				assert((samplerIndex <= origSamplerIndex+1) && "expression should not have incremented the index by more than one");
-			}
+				if (expr->getDerivedClassDef() == Sampler2DExpression::getClassDef()) {
+					Sampler2DExpression* sampExp = static_cast<Sampler2DExpression*>(expr);
 
-			// special case -- samplers aren't regular constants so
-			// track the samplers that this shader uses, so that we can 
-			// look them up by name later if needed
-			if (expr->getDerivedClassDef() == Sampler2DExpression::getClassDef()) {
-				Sampler2DExpression* sampExp = static_cast<Sampler2DExpression*>(expr);
-				mSamplers[sampExp->samplerName()] = SamplerEnt(sampExp, origSamplerIndex);
+					// record the value of the next available index in the array of sampler expressions
+					int textureIndex = int(mSamplerExpressions.size());
+
+					// append this expression to the array of sampler expressions
+					mSamplerExpressions.push_back(sampExp);
+
+					// obtain a D3D11SamplerState that corresponds to this Sampler2DExpression (D3D11 kindly manages redundant
+					// state creation for us and will return pointers to those that already exist)
+					ComPtr<ID3D11SamplerState> state = getD3D11SamplerState(mDevice.Get(), sampExp);
+
+					// check the array of sampler states to see if this one already exists; if so, record its index (default is the next array index)
+					int samplerIndex = -1;
+					int idx = 0;
+					for (auto s : mSamplers) {
+						if (s == state) {
+							samplerIndex = idx;
+							break;
+						}
+
+						idx++;
+					}
+
+					if (samplerIndex == -1) {
+						// then it wasn't found, and we need to add it
+						samplerIndex = int(mSamplers.size());
+						mSamplers.push_back(state);
+					}
+
+					sampExp->appendDefinition(MaterialExpression::SHADER_HLSL5, textureIndex, samplerIndex, defs);
+				}
+				else {
+					expr->appendDefinition(MaterialExpression::SHADER_HLSL5, defs);
+				}
 			}
 
 			// add interpolant consumption
@@ -247,7 +363,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 
 		// then generate the function calls...
 		std::stringstream calls;
-		for (int i = 0; i<exprCount; ++i) {
+		for (int i = 0; i < exprCount; ++i) {
 			MaterialExpression* expr = expressions[i];
 
 			// our input attributes are someone else's output attributes, so collect their names
@@ -268,7 +384,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 			}
 
 			int nameIdx = 0;
-			for (size_t j = 0; j<inputAttrs.size(); ++j) {
+			for (size_t j = 0; j < inputAttrs.size(); ++j) {
 				// find this attribute's name in the connection map
 				const Attribute* attr = &inputAttrs[j];
 				AttrToVarName::iterator name = names.find(attr);
@@ -294,7 +410,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 
 			// then we can generate the code for this call
 			expr->appendCall(
-				MaterialExpression::SHADER_HLSL,
+				MaterialExpression::SHADER_HLSL5,
 				i,
 				inputs,
 				names,
@@ -314,84 +430,52 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 	Environment::get().pLogger->logMessage(mSource);
 #endif
 
-#if 0
 	if (mSource.length() && !mPS) {
 		// compile the shader
-		LPD3DXBUFFER pErrorMsgs;
-		LPD3DXBUFFER pShader;
+		ComPtr<ID3DBlob> errMsgs;
 
-		HRESULT hr = D3DXCompileShader(
+		HRESULT hr = D3DCompile(
 			mSource,
 			mSource.length(),
-			NULL, // no defines
-			NULL, // no includes
+			nullptr,
+			nullptr, // no defines
+			nullptr, // no includes
 			"PS", // entry point function
-			"ps_3_0", // Shader Model 3.0
-			0, // flags
-			&pShader,
-			&pErrorMsgs,
-			&mConstantTable // constant table
-			);
+			"ps_5_0", // Shader Model 5.0
+			0, // flags1 (compilie options)
+			0, // flags2 (effect compile options)
+			&mBytecode,
+			&errMsgs);
 
-		if (hr != D3D_OK) {
-			if (pErrorMsgs) {
-				char* pMsgs = (char*)pErrorMsgs->GetBufferPointer();
-				pErrorMsgs->Release();
+		if (FAILED(hr)) {
+			if (errMsgs) {
+				mErrs = (const char*)errMsgs->GetBufferPointer();
 			}
 		}
 		else {
-			hr = mDevice->CreatePixelShader((DWORD*)pShader->GetBufferPointer(), &mPS);
-			if (hr != D3D_OK) {
-				//return false;
+			hr = mDevice->CreatePixelShader(
+				mBytecode->GetBufferPointer(),
+				mBytecode->GetBufferSize(),
+				mLinkage.Get(),
+				&mPS
+				);
+
+			if (FAILED(hr)) {
+				throw Exception("Could not create pixel shader");
 			}
 		}
-
-		// wrangle constants used by the shader
-		if (mConstantTable) {
-			D3DXCONSTANTTABLE_DESC desc;
-			if (SUCCEEDED(mConstantTable->GetDesc(&desc))) {
-				// bind destination (shader) constants to their renderer (source) constants
-				mBindings.resize(desc.Constants);
-
-				for (UINT i = 0; i<desc.Constants; ++i) {
-					D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
-
-					if (pConst) {
-						UINT tmp = 1;
-						D3DXCONSTANT_DESC constDesc;
-						mConstantTable->GetConstantDesc(pConst, &constDesc, &tmp);
-
-						mBindings[i].mConstant = mConstants->find(constDesc.Name);
-
-						// when the renderer updates an entry in its table it will increment its version number, so we 
-						// can compare this to the renderer's version to see if we need to update the data in the shader
-						// TODO : is this actually true?
-						mBindings[i].mCurrentVersion = 0;
-					}
-				}
-			}
-		}
-
-		if (pShader)
-			pShader->Release();
 	}
-#endif
 }
 
 FragmentShader::~FragmentShader()
 {
-	//if (mConstantTable)
-	//	mConstantTable->Release();
-
-	//if (mPS) {
-	//	mPS->Release();
-	//	mPS = 0;
-	//}
 }
 
 void FragmentShader::apply()
 {
 	assert(mDevice);
+	ComPtr<ID3D11DeviceContext> ctx;
+	mDevice->GetImmediateContext(&ctx);
 
 	// check to see if PS needs initialized
 	//if (!mPS) {
