@@ -361,33 +361,6 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 				throw Exception("Could not create vertex shader");
 			}
 		}
-#if 0
-		// wrangle constants used by the shader
-		if (mConstantTable) {
-			D3DXCONSTANTTABLE_DESC desc;
-			if (SUCCEEDED(mConstantTable->GetDesc(&desc))) {
-				// bind destination (shader) constants to their renderer (source) constants
-				mBindings.resize(desc.Constants);
-
-				for (UINT i = 0; i<desc.Constants; ++i) {
-					D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
-
-					if (pConst) {
-						UINT tmp = 1;
-						D3DXCONSTANT_DESC constDesc;
-						mConstantTable->GetConstantDesc(pConst, &constDesc, &tmp);
-
-						mBindings[i].mConstant = mConstants->find(constDesc.Name);
-
-						// when the renderer updates an entry in its table it will increment its version number, so we 
-						// can compare this to the renderer's version to see if we need to update the data in the shader
-						// TODO : is this actually true?
-						mBindings[i].mCurrentVersion = 0;
-					}
-				}
-			}
-		}
-#endif
 	}
 }
 
@@ -397,36 +370,9 @@ VertexShader::~VertexShader()
 
 void VertexShader::apply()
 {
-#if 0
-	assert(mDevice);
-
-	// check to see if PS needs initialized
-	if (mVS && mDevice) {
-		mDevice->SetVertexShader(mVS);
-	}
-
-	// set any shader constants we have
-	if (mConstantTable) {
-		D3DXCONSTANTTABLE_DESC desc;
-		if (SUCCEEDED(mConstantTable->GetDesc(&desc))) {
-			// set each constant we found during compilation
-			for (UINT i = 0; i<desc.Constants; ++i) {
-				D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
-				if (pConst) {
-					D3DXCONSTANT_DESC constDesc;
-					UINT ct = 1;
-					mConstantTable->GetConstantDesc(pConst, &constDesc, &ct);
-					switch (constDesc.Type) {
-					case D3DXPT_FLOAT:
-						mDevice->SetVertexShaderConstantF(constDesc.RegisterIndex, (const float*)mBindings[i].mConstant->data(), constDesc.Rows);
-						break;
-					}
-					//mBindings[i].mConstant->;
-				}
-			}
-		}
-	}
-#endif
+	ComPtr<ID3D11DeviceContext> ctx;
+	mDevice->GetImmediateContext(&ctx);
+	ctx->VSSetShader(mVS.Get(), nullptr, 0);
 }
 
 void* VertexShader::bytecode()

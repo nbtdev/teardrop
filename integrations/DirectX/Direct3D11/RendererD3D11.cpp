@@ -7,12 +7,16 @@ is prohibited.
 
 #include "stdafx.h"
 #include "RendererD3D11.h"
+#include "IndexBufferD3D11.h"
 #include "RenderTargetD3D11.h"
 #include "RenderWindowD3D11.h"
+#include "VertexBufferD3D11.h"
 #include "VertexDeclarationD3D11.h"
+#include "VertexShaderD3D11.h"
 #include "TextureManagerD3D11.h"
 #include "ShaderManagerD3D11.h"
 #include "BufferManagerD3D11.h"
+#include "ViewportD3D11.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Exception.h"
 #include "Gfx/Material.h"
@@ -356,66 +360,48 @@ void registerIntegration()
 
 void Renderer::beginFrame()
 {
-	//assert(mCurrentRT);
-	//if (mCurrentRT) {
-	//	mCurrentRT->clear(color, clearColor, depth, depthValue, stencil, stencilValue);
-	//}
-
-	assert(mDevice);
-	if (mDevice) {
-		//mDevice->BeginScene();
-	}
 }
 
-void Renderer::beginScene(Camera* camera, Gfx::Viewport* vp)
+void Renderer::beginScene(Camera* aCamera, Gfx::Viewport* aVP)
 {
-	mCurrentCamera = camera;
+	mCurrentCamera = aCamera;
 
 	// ensure camera has the correct aspect ratio
-	camera->update();
+	mCurrentCamera->update();
 
 	// update camera-related shader constants
-	camera->getViewMatrix().invert(mXformConstants.mViewIXf);
+	mCurrentCamera->getViewMatrix().invert(mXformConstants.mViewIXf);
 	
-	mXformConstants.mViewProj = camera->getViewProjMatrix();
+	mXformConstants.mViewProj = mCurrentCamera->getViewProjMatrix();
 
-#if 0
-	if (mCurrentVP) {
-		Viewport* d3d9VP = static_cast<Viewport*>(mCurrentVP);
-		mDevice->SetViewport(&d3d9VP->viewport());
-	}
-	else {
-		// default to full-RT viewport
-		D3DVIEWPORT9 vpt;
-		vpt.MinZ = 0;
-		vpt.MaxZ = 1;
-		vpt.X = 0;
-		vpt.Y = 0;
-		vpt.Width = mCurrentRT->width();
-		vpt.Height = mCurrentRT->height();
-		mDevice->SetViewport(&vpt);
-	}
-#endif
+	Viewport* vp = static_cast<Viewport*>(aVP);
+	mDeviceContext->RSSetViewports(1, &vp->viewport());
 }
 
 void Renderer::beginObject(const Matrix44& worldXf)
 {
-#if 0
 	// set world xform
-	mWorldXf->set(&worldXf);
+	mXformConstants.mWorldXf = worldXf;
 
 	// and its derivatives
 	Matrix44 tmp, tmp2;
 	worldXf.invert(tmp);
-	mWorldInv->set(&tmp);
+	mXformConstants.mWorldInv = tmp;
 
 	tmp.transpose(tmp2);
-	mWorldITXf->set(&tmp2);
+	mXformConstants.mWorldITXf = tmp2;
 
-	tmp = worldXf * *((const Matrix44*)mViewProj->data());
+	tmp = worldXf * mXformConstants.mViewProj;		
 	tmp.transpose(tmp2);
-	mWvpXf->set(&tmp2);
-#endif
+	mXformConstants.mWvpXf = tmp2;
+
+	// apply constants
+	// TODO: apply matrix palette too
+	mDeviceContext->VSSetConstantBuffers(
+		0, 
+		1, 
+		mXformConstantBuffer.GetAddressOf()
+		);
 }
 
 void Renderer::apply(Material* material)
@@ -437,74 +423,74 @@ PT_TRIFAN,
 };
 */
 
-//static D3DPRIMITIVETYPE sD3DPrimTypes[] = {
-//	D3DPT_TRIANGLELIST,    // PT_UNKNOWN
-//	D3DPT_POINTLIST,       // PT_POINT,
-//	D3DPT_LINELIST,		   // PT_LINES,
-//	D3DPT_LINESTRIP,	   // PT_LINE_STRIP,
-//	D3DPT_TRIANGLELIST,	   // PT_TRIANGLES,
-//	D3DPT_TRIANGLESTRIP,   // PT_TRIANGLE_STRIP,
-//};
+static D3D_PRIMITIVE_TOPOLOGY sD3DPrimTypes[] = {
+	D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,    // PT_UNKNOWN
+	D3D_PRIMITIVE_TOPOLOGY_POINTLIST,       // PT_POINT,
+	D3D_PRIMITIVE_TOPOLOGY_LINELIST,        // PT_LINES,
+	D3D_PRIMITIVE_TOPOLOGY_LINESTRIP,       // PT_LINE_STRIP,
+	D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,    // PT_TRIANGLES,
+	D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,   // PT_TRIANGLE_STRIP,
+};
 
 void Renderer::render(Submesh* submesh)
 {
+	assert(mDeviceContext);
+	if (!mDeviceContext)
+		return;
+
 	assert(submesh);
 	if (!submesh)
 		return;
-	// vertex declaration
+
+	// vertex declaration (D3D11: input format)
 	VertexDeclaration* decl = static_cast<VertexDeclaration*>(submesh->vertexDeclaration());
-#if 0
-	mDevice->SetVertexDeclaration(decl->declaration());
+	assert(decl);
 
-	// vertex buffer(s)
-	int nVB = submesh->vertexBufferCount();
-	int nVerts = 0;
-	for (int v = 0; v<nVB; ++v) {
-		VertexBuffer* vb = static_cast<VertexBuffer*>(submesh->vertexBuffer(v));
-		mDevice->SetStreamSource((UINT)v, vb->buffer(), 0, (UINT)vb->vertexSize());
-
-		// all vertex buffers in the submesh must have the same vertex count
-		nVerts = vb->vertexCount();
-	}
-
-	// index buffer
-	IndexBuffer* ib = static_cast<IndexBuffer*>(submesh->indexBuffer());
+	if (decl)
+		mDeviceContext->IASetInputLayout(decl->layout());
 
 	// vertex shader
 	VertexShader* vs = static_cast<VertexShader*>(ShaderManager::instance().createOrFindInstanceOf(submesh));
 	vs->apply();
 
+	// vertex buffers
+	ID3D11Buffer* vbs[16];
+	UINT strides[16];
+	UINT offsets[16];
+	int nVB = submesh->vertexBufferCount();
+	for (int i=0; i<nVB && i<sizeof(vbs); ++i) {
+		VertexBuffer* vb = static_cast<VertexBuffer*>(submesh->vertexBuffer(i));
+		vbs[i] = vb->buffer();
+		strides[i] = vb->vertexSize();
+		offsets[i] = 0;
+	}
+
+	mDeviceContext->IASetVertexBuffers(
+		0,
+		nVB,
+		vbs,
+		strides,
+		offsets);
+
+	// index buffer
+	DXGI_FORMAT sz = DXGI_FORMAT_R16_UINT;
+	IndexBuffer* ib = static_cast<IndexBuffer*>(submesh->indexBuffer());
+	if (ib->indexSize() == 4)
+		sz = DXGI_FORMAT_R32_UINT;
+
+	mDeviceContext->IASetIndexBuffer(
+		ib->buffer(),
+		sz,
+		0);
+
+	// primitive type
+	mDeviceContext->IASetPrimitiveTopology(sD3DPrimTypes[submesh->primitiveType()]);
+
 	// draw primitives
-	if (ib) {
-		// indexed primitives
-		mDevice->SetIndices(ib->buffer());
-
-		// TODO: support other than trilist?
-		int primitiveCount = ib->indexCount() / 3;
-
-		mDevice->DrawIndexedPrimitive(
-			sD3DPrimTypes[submesh->primitiveType()],
-			0, // offset into vertex buffer
-			0, // min vertex index relative to vertex offset
-			(UINT)nVerts,
-			0, // offset into index buffer
-			(UINT)primitiveCount
-			);
-	}
-	else {
-		// non-indexed primitives
-
-		// TODO: if non-indexed mode is even supported, support other 
-		// than trilists
-		int primitiveCount = nVerts / 3;
-
-		mDevice->DrawPrimitive(
-			D3DPT_TRIANGLELIST,
-			0, // vertex offset
-			(UINT)primitiveCount
-			);
-	}
-#endif
+	mDeviceContext->DrawIndexed(
+		ib->indexCount(),
+		0,
+		0);
 }
 
 void Renderer::endObject()
@@ -520,25 +506,18 @@ void Renderer::endScene()
 void Renderer::endFrame()
 {
 	assert(mDevice);
-	//if (mDevice) {
-	//	mDevice->EndScene();
-	//}
-
-	//assert(mCurrentRT);
-	//if (mCurrentRT) {
-	//	mCurrentRT->present();
-	//}
 }
 
 void Renderer::updateMatrixPalette(const Matrix44* aMatrixPalette, int nMatrices)
 {
+	assert(mDeviceContext);
+	if (!mDeviceContext)
+		return;
+
 	if (mMatrixPalette) {
 		assert(nMatrices < 1395 && "Can only update a matrix palette of 1395 matrices or fewer");
 
-		// copy only up to 
-		ComPtr<ID3D11DeviceContext> ctx;
-		mDevice->GetImmediateContext(&ctx);
-		ctx->UpdateSubresource(
+		mDeviceContext->UpdateSubresource(
 			mMatrixPalette.Get(),
 			0,
 			nullptr,

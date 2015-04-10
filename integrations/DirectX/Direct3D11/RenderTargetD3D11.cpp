@@ -145,6 +145,12 @@ void RenderTarget::setCurrent()
 {
 	assert(mDeviceContext);
 	if (mDeviceContext) {
+		mDeviceContext->OMSetRenderTargets(
+			1,
+			mRenderTargetView.GetAddressOf(),
+			mDepthStencilView.Get()
+			);
+
 		if (mBlendState) mDeviceContext->OMSetBlendState(mBlendState.Get(), NULL, 0xFFFFFFFF);
 		if (mDepthStencilState) mDeviceContext->OMSetDepthStencilState(mDepthStencilState.Get(), 0);
 	}
