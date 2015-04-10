@@ -23,6 +23,7 @@ namespace Teardrop
 				~Texture2D();
 
 				ComPtr<ID3D11Texture2D> textureObject();
+				ComPtr<ID3D11ShaderResourceView> shaderResourceView();
 				DXGI_FORMAT textureFormat();
 
 				TD_DECLARE_ALLOCATOR();
@@ -30,6 +31,7 @@ namespace Teardrop
 			protected:
 				ComPtr<ID3D11Device> mDevice;
 				ComPtr<ID3D11Texture2D> mTexObject;
+				ComPtr<ID3D11ShaderResourceView> mTexRV;
 				DXGI_FORMAT mD3D11Format = DXGI_FORMAT_UNKNOWN;
 			};
 		}

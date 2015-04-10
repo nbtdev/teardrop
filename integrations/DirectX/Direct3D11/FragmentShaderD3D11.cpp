@@ -474,47 +474,42 @@ FragmentShader::~FragmentShader()
 void FragmentShader::apply()
 {
 	assert(mDevice);
+	if (!mDevice)
+		return;
+
 	ComPtr<ID3D11DeviceContext> ctx;
 	mDevice->GetImmediateContext(&ctx);
 
-	// check to see if PS needs initialized
-	//if (!mPS) {
-	//	initialize();
-	//}
+	// early-out if PS not here
+	// TODO: subsituture in a default one?
+	if (!mPS)
+		return;
 
-	//if (mDevice) {
-	//	mDevice->SetPixelShader(mPS);
-	//}
+	// set the pixel shader
+	ctx->PSSetShader(mPS.Get(), nullptr, 0);
 
-	// set any shader constants we have
-	//if (mConstantTable) {
-	//	D3DXCONSTANTTABLE_DESC desc;
-	//	if (SUCCEEDED(mConstantTable->GetDesc(&desc))) {
-	//		// set each constant we found during compilation
-	//		for (UINT i = 0; i<desc.Constants; ++i) {
-	//			D3DXHANDLE pConst = mConstantTable->GetConstant(NULL, i);
-	//			if (pConst) {
-	//				D3DXCONSTANT_DESC constDesc;
-	//				UINT ct = 1;
-	//				mConstantTable->GetConstantDesc(pConst, &constDesc, &ct);
-	//				switch (constDesc.Type) {
-	//				case D3DXPT_SAMPLER2D:
-	//				{
-	//					Samplers::iterator it = mSamplers.find(constDesc.Name);
-	//					if (it != mSamplers.end()) {
-	//						Sampler2DExpression* sampExp = it->second;
-	//						if (sampExp) {
-	//							Texture2D* tex = static_cast<Texture2D*>(sampExp->getSampler2D().texture());
-	//							mDevice->SetTexture(constDesc.RegisterIndex, tex->textureObject());
-	//						}
-	//					}
-	//				}
-	//				break;
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
+	// set sampler states
+	ID3D11SamplerState* samplerStates[16];
+	int i = 0;
+	for (auto s : mSamplers)
+		samplerStates[i++] = s.Get();
+
+	ctx->PSSetSamplers(0, mSamplers.size(), samplerStates);
+	
+	// set the actual texture resources
+	ID3D11ShaderResourceView* srv[16];
+	i = 0;
+	for (auto s : mSamplerExpressions) {
+		if (s) {
+			Texture2D* tex = static_cast<Texture2D*>(s->getSampler2D().texture());
+			if (tex)
+				srv[i++] = tex->shaderResourceView().Get();
+			else
+				srv[i++] = 0;
+		}
+	}
+
+	ctx->PSSetShaderResources(0, mSamplerExpressions.size(), srv);
 }
 
 const char* FragmentShader::HLSL_COMMON =

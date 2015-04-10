@@ -84,6 +84,16 @@ Texture2D::Texture2D(ComPtr<ID3D11Device> aDevice, TextureAsset* aAsset, Usage a
 	if (FAILED(hr)) {
 		throw Exception("Could not create 2D texture object in Texture2D");
 	}
+
+	hr = mDevice->CreateShaderResourceView(
+		mTexObject.Get(),
+		nullptr,
+		&mTexRV
+		);
+
+	if (FAILED(hr)) {
+		throw Exception("Could not create 2D shader resource view in Texture2D");
+	}
 }
 
 Texture2D::~Texture2D()
@@ -93,6 +103,11 @@ Texture2D::~Texture2D()
 ComPtr<ID3D11Texture2D> Texture2D::textureObject()
 {
 	return mTexObject;
+}
+
+ComPtr<ID3D11ShaderResourceView> Texture2D::shaderResourceView()
+{
+	return mTexRV;
 }
 
 DXGI_FORMAT Texture2D::textureFormat()
