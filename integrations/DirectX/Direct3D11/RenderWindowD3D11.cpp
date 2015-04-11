@@ -113,7 +113,13 @@ void RenderWindow::resize(int w, int h)
 
 	mRenderTargetView.Reset();
 	assert(!mRenderTargetView);
-	
+
+	mDepthStencilTexture.Reset();
+	assert(!mDepthStencilTexture);
+
+	mDepthStencilView.Reset();
+	assert(!mDepthStencilView);
+
 	HRESULT hr = mSwapChain->ResizeBuffers(
 		0, // preserve the number of buffers
 		mWidth, 
@@ -141,6 +147,44 @@ void RenderWindow::resize(int w, int h)
 
 	if (FAILED(hr))
 		throw Exception("Could not create render target view in Direct3D11::RenderWindow::resize");
+
+	hr = mDevice->CreateRenderTargetView(
+		mBackBuffer.Get(),
+		nullptr,
+		&mRenderTargetView
+		);
+
+	if (FAILED(hr))
+		throw Exception("Could not create render target view in Direct3D11::RenderWindow::resize");
+
+	CD3D11_TEXTURE2D_DESC dsDesc(
+		DXGI_FORMAT_D24_UNORM_S8_UINT,		// tex format
+		static_cast<UINT>(mWidth),
+		static_cast<UINT>(mHeight),
+		1,									// only one texture in the view
+		1,									// single mipmap level
+		D3D11_BIND_DEPTH_STENCIL
+		);
+
+	hr = mDevice->CreateTexture2D(
+		&dsDesc,
+		nullptr,	// no initial data
+		&mDepthStencilTexture
+		);
+
+	if (FAILED(hr))
+		throw Exception("Could not create depth stencil texture in Direct3D11::RenderWindow::resize");
+
+	CD3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
+
+	hr = mDevice->CreateDepthStencilView(
+		mDepthStencilTexture.Get(),
+		&dsvDesc,
+		&mDepthStencilView
+		);
+
+	if (FAILED(hr))
+		throw Exception("Could not create depth stencil view in Direct3D11::RenderWindow::resize");
 }
 
 HWND RenderWindow::hWnd()
@@ -151,7 +195,11 @@ HWND RenderWindow::hWnd()
 void RenderWindow::present()
 {
 	if (mSwapChain) {
-		mSwapChain->Present(0, 0);
+		HRESULT hr = mSwapChain->Present(0, 0);
+
+		if (FAILED(hr)) {
+			throw Exception("Failed to swap buffers");
+		}
 	}
 }
 

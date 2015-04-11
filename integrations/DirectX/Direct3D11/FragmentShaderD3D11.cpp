@@ -30,7 +30,7 @@ using namespace Teardrop::Gfx;
 
 const char* sSemanticLut[] = {
 	"FOG",      // VEU_UNKNOWN,
-	"POSITION", // VEU_POSITION,
+	"SV_POSITION", // VEU_POSITION,
 	"NORMAL",   // VEU_NORMAL,
 	"FOG",      // VEU_BLENDWEIGHT,
 	"FOG",      // VEU_BLENDINDEX,
@@ -312,6 +312,10 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 			}
 
 			// add interpolant consumption
+			// POSITION is required
+			fsEnv.addInterpolant(VEU_POSITION, VET_FLOAT, 4);
+
+			// everything else is optional; check the "features" to see what is used
 			const ShaderFeatures& features = expr->features();
 			if (features.mInterpolants & INTERP_TEXCOORD) {
 				unsigned short mask = features.mTexcoordMask;

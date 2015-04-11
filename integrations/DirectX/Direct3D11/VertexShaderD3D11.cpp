@@ -23,15 +23,15 @@ is prohibited.
 
 namespace {
 	const char* sSemanticLut[] = {
-		"FOG",      // VEU_UNKNOWN,
-		"POSITION", // VEU_POSITION,
-		"NORMAL",   // VEU_NORMAL,
-		"FOG",      // VEU_BLENDWEIGHT,
-		"FOG",      // VEU_BLENDINDEX,
-		"TEXCOORD", // VEU_TEXCOORD,
-		"NORMAL",   // VEU_TANGENT,
-		"NORMAL",   // VEU_BINORMAL,
-		"COLOR"     // VEU_COLOR,
+		"FOG",         // VEU_UNKNOWN,
+		"SV_POSITION", // VEU_POSITION,
+		"NORMAL",      // VEU_NORMAL,
+		"FOG",         // VEU_BLENDWEIGHT,
+		"FOG",         // VEU_BLENDINDEX,
+		"TEXCOORD",    // VEU_TEXCOORD,
+		"NORMAL",      // VEU_TANGENT,
+		"NORMAL",      // VEU_BINORMAL,
+		"COLOR"        // VEU_COLOR,
 	};
 
 	const char* sTypeLut[] = {
@@ -113,8 +113,8 @@ void ShaderInterStage::exportHLSLDeclaration(String& aSource)
 		const char* semantic = sSemanticLut[e.mSemantic];
 		const char* type = sTypeLut[e.mType];
 
-		if (e.mRank > 1) {
-			sprintf_s(buf, 1024, "    %s%dx%d %s: %s%d;\n", type, e.mWidth, e.mRank, e.mName, semantic, e.mIndex);
+		if (e.mSemantic == VEU_TEXCOORD) {
+			sprintf_s(buf, 1024, "    %s%d %s%d: %s%d;\n", type, e.mWidth, e.mName, e.mIndex, semantic, e.mIndex);
 		} else {
 			sprintf_s(buf, 1024, "    %s%d %s: %s%d;\n", type, e.mWidth, e.mName, semantic, e.mIndex);
 		}
@@ -200,6 +200,9 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		// also set up output data as we go
 		ShaderInterStage sis("VSOUT");
 
+		// set up some passthroughs
+		String passThru;
+
 		// generate inputs from Submesh components
 		int nVB = aSubmesh->vertexBufferCount();
 		int nNormal = 0;
@@ -260,14 +263,13 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 							break;
 						case VEU_TEXCOORD:
 							bits |= ((1 << VEU_TEXCOORD) | (1 << (16 + elem->mIndex)));
-							if (elem->mIndex == 0)
-								mSource.append("    float4 TXC0 : TEXCOORD0;\n");
-							else if (elem->mIndex == 1)
-								mSource.append("    float4 TXC1 : TEXCOORD1;\n");
-							else if (elem->mIndex == 2)
-								mSource.append("    float4 TXC2 : TEXCOORD2;\n");
-							else if (elem->mIndex == 3)
-								mSource.append("    float4 TXC3 : TEXCOORD3;\n");
+							{
+								char buf[64];
+								sprintf_s(buf, sizeof(buf), "    %s%d TXC%d : TEXCOORD%d;\n", sTypeLut[elem->mType], elem->mCount, elem->mIndex, elem->mIndex);
+								mSource.append(buf);
+								sprintf_s(buf, sizeof(buf), "    vsout.TEXCOORD%d = vsin.TXC%d;\n", elem->mIndex, elem->mIndex);
+								passThru.append(buf);
+							}
 
 							strcpy_s(ise.mName, sizeof(ise.mName), "TEXCOORD");
 							ise.mIndex = nTexCoord++;
@@ -289,10 +291,9 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		// then finally the shader body with function calls
 		mSource.append("void VS(in VSIN vsin, out VSOUT vsout)\n{\n");
 
-		// start with clearing out the VSOUT members
-		mSource.append(
-			"    float oo255 = 1.0f / 255.0f;\n"
-			);
+		// start with passing through to the VSOUT members
+		mSource.append("    float oo255 = 1.0f / 255.0f;\n");
+		mSource.append(passThru);
 
 		if (bits & VEU_BLENDINDEX_MASK) {
 			// then GPU skinning
@@ -347,6 +348,9 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		if (FAILED(hr)) {
 			if (errMsgs) {
 				mErrs = (const char*)errMsgs->GetBufferPointer();
+
+				// throw
+				throw ShaderCompilationException("Failed to compile vertex shader", mSource, mErrs);
 			}
 		}
 		else {

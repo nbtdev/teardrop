@@ -73,5 +73,36 @@ void* BufferMappedException::mappedBuffer() const
 	return mMappedBuffer;
 }
 
+ShaderCompilationException::ShaderCompilationException(const char* aDetail, const String& aSource, const String& aLog)
+	: Exception(aDetail)
+	, mSource(aSource)
+	, mLog(aLog)
+{
+
+}
+
+ShaderCompilationException::ShaderCompilationException(const String& aDetail, const String& aSource, const String& aLog)
+	: Exception(aDetail)
+	, mSource(aSource)
+	, mLog(aLog)
+{
+
+}
+
+ShaderCompilationException::~ShaderCompilationException()
+{
+
+}
+
+const String& ShaderCompilationException::source() const
+{
+	return mSource;
+}
+
+const String& ShaderCompilationException::log() const
+{
+	return mLog;
+}
+
 } // namespace Gfx
 } // namespace Teardrop

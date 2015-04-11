@@ -53,6 +53,21 @@ namespace Teardrop
 		protected:
 			void* mMappedBuffer = nullptr;
 		};
+
+		class ShaderCompilationException : public Exception
+		{
+		public:
+			ShaderCompilationException(const char* aDetail, const String& aSource, const String& aLog);
+			ShaderCompilationException(const String& aDetail, const String& aSource, const String& aLog);
+			~ShaderCompilationException() NOTHROW;
+
+			const String& source() const;
+			const String& log() const;
+
+		protected:
+			String mSource;
+			String mLog;
+		};
 	}
 }
 
