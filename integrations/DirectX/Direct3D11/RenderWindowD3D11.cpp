@@ -11,6 +11,7 @@ is prohibited.
 #include "Gfx/Common.h"
 #include "Gfx/Exception.h"
 #include <assert.h>
+#include <VersionHelpers.h>
 
 namespace Teardrop {
 namespace Gfx {
@@ -48,9 +49,13 @@ RenderWindow::RenderWindow(Renderer* aRenderer, HWND hWnd, int aWidth, int aHeig
 	int width = rect.right - rect.left;
 	int height = rect.bottom - rect.top;
 
+	DXGI_SWAP_EFFECT effect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL; // Win8 and greater
+	if (!IsWindows8OrGreater())
+		effect = DXGI_SWAP_EFFECT_DISCARD; // Win7 and Vista, and possibly XP
+
 	DXGI_SWAP_CHAIN_DESC desc = { 0 };
 	desc.BufferCount = 2;
-	desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
+	desc.SwapEffect = effect;
 	desc.BufferDesc.Width = width;
 	desc.BufferDesc.Height = height;
 	desc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
