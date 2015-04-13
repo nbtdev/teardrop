@@ -1,6 +1,25 @@
 # Teardrop SDK
 
+## What Is It?
+
+Without getting into the deep sordid historical details, this is the fifth (!) iteration on a working game engine and toolset, originally intended to support the development of a mecha-style combat game. Why five? Well, it took that many tries to get to a tool(set) and architecture that I liked.
+
+You may notice that some things in the SDK remind you of other engines/SDKs you may have worked with. The editor is heavily influenced by UnrealEd (as any useful game editor should be) with a touch of Unity3D. The architecture (especially the Reflection system) is primarily influenced by an internally-developed game toolkit we had at one of my previous studios, with various flavors of GameBryo thrown in. 
+
+The code style is a mishmash; as it's been over a decade since I've started this, I've had to deal with various different coding standards at various studios/employers, and I tended to adopt the style and standards used by wherever I was working at the time (it helps me retain sanity). 
+
+At first the SDK was implemented wholly on Windows (the reason was that when we implemented physics/collision and animation, we used Havok, which is only on Windows if you want the free version). I've since decided that I want to provide a 100% open-source game development solution, which is why there is a Linux build, and the various implementations were moved out of the tech tree and into their own "integrations" trees. This allows you, for instance, if you like, to provide implementations (wrappers, if you prefer that term) for whatever subsystem you care to use. Out of the box, however, my intent is to provide only open-source implementations...within reason, of course. For example, I will continue to provide FBX import and Direct3D renderer implementations, but if someone wants to build their game on Linux using only FOSS SDKs and tools, they can (for example) use the OpenGL renderer, Bullet physics integration and the (forthcoming) .blend import and never have to touch a closed-source, proprietary piece of software if they prefer. 
+
+The codebase evolves according to the YAGNI principle of continuous refactoring. In other words, you will find plenty of places in the code where something you might expect to exist, simply does not, because it's not been needed yet. Feel free to implement it if you like, and even better, offer a pull request if you do. My goal was to achieve MVP (minimum viable product) first, and flesh out the missing bits as the SDK grows. This growth, assuming I am the only one to do anything with it, will happen according to the needs of the aformentioned mecha game, which itself (unfortunately, in case you were wondering), will remain closed source (at least for current-gen releases; I plan to open the source to older, obsolete versions as releases occur, for the sake of having a sample codebase for the SDK if nothing else). 
+
+## License
+The license (not as of this writing, if you look at the file headers) is MIT/BSD -- liberal, in other words. Feel free to use it however you want (or don't), and don't feel guilty if you just use it without "giving back". I made the SDK open source for the (unlikely) occasion that anyone else might find it useful, not because I am on some Stallman-esque mission to force everyone into my world-view(-projection...sorry, that just came out on its own...and if you don't get it, this might not be the SDK for you... ;) ). 
+
+So MIT/BSD-style 3-line license it is, and if you find it useful (and only marginally buggy), then awesome...and if not, then I promise you your money back.
+
 ## Building
+
+The goal is eventually to provide handheld targets for Android and iOS (and Windows Phone if anyone is still using/developing-for that by the time I get there), but up front, it's PC desktop targets on Windows and Linux (although I'll bet someone would be able to create an OSX XCode build at some point...and that someone would probably be me if I intend to do iOS...).
 
 ### Windows
 
