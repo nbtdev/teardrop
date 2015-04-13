@@ -28,6 +28,7 @@ is prohibited.
 #include "Util/_String.h"
 #include "fbxsdk.h"
 #include <map>
+#include <memory>
 
 using namespace fbxsdk_2015_1;
 
@@ -113,13 +114,28 @@ namespace Teardrop {
 			int nIndices = nPoly * 3;
 			Gfx::Submesh* submesh = gfxMesh->createSubmesh();
 
+			// if the number of indices is less than 65536, we need to copy the data (which is 4-byte integers) into
+			// a tmp buffer of shorts, and use that to source the index data (the IB initialize method will look
+			// simply at the number of indices and set the index size to 2 or 4 on that basis)
+			std::unique_ptr<uint16_t> tmpIB;
+			void* ibData = indices;
+			if (nIndices < 65536) {
+				uint16_t* tmp = new uint16_t[nIndices];
+				tmpIB.reset(tmp);
+				ibData = tmp;
+
+				for (int idx = 0; idx < nIndices; ++idx) {
+					tmp[idx] = uint16_t(indices[idx]);
+				}
+			}
+
 			// TODO: make sure this really is what the incoming mesh data is...
 			submesh->setPrimitiveType(Submesh::PT_TRILIST);
 
 			IndexBuffer* ib = submesh->createIndexBuffer();
 
 			try {
-				ib->initialize(nIndices, 0, indices);
+				ib->initialize(nIndices, 0, ibData);
 			} catch (const Gfx::Exception&) {
 				return false;
 			}
