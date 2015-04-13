@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\AddColorExpression.cpp" />
+    <ClCompile Include="..\..\..\Exception.cpp" />
     <ClCompile Include="..\..\..\MaterialOutput.cpp" />
     <ClCompile Include="..\..\..\Sampler2DExpression.cpp" />
     <ClCompile Include="..\..\..\Attribute.cpp" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\AddColorExpression.h" />
+    <ClInclude Include="..\..\..\Exception.h" />
     <ClInclude Include="..\..\..\MaterialOutput.h" />
     <ClInclude Include="..\..\..\Sampler2DExpression.h" />
     <ClInclude Include="..\..\..\Attribute.h" />

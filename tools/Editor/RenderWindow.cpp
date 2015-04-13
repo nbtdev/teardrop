@@ -1,9 +1,24 @@
-/****************************************************************************
-This source file is (c) Teardrop Games LLC. All rights reserved. 
-Redistribution and/or reproduction, in whole or in part, without prior
-written permission of a duly authorized representative of Teardrop Games LLC
-is prohibited.
-****************************************************************************/
+/******************************************************************************
+Copyright (c) 2015 Teardrop Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+******************************************************************************/
 
 #include "RenderWindow.h"
 #include "Gfx/Renderer.h"
@@ -42,7 +57,7 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 
 	// initialize() will return a pointer to the first render target
 	// created, which will be the "main" window
-	mRT = mRenderer->initialize((uintptr_t)winId(), flags);
+	mRT = mRenderer->createRenderWindow((uintptr_t)winId(), Teardrop::Gfx::SURFACE_A8R8G8B8, flags);
 	assert(mRT);
 
 	if (mRT) {
@@ -56,22 +71,19 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 RenderWindow::~RenderWindow()
 {
 	delete mCamera;
-
-	if (mRT) {
-		mRT->releaseViewport(mViewport);
-	}
-
-	delete mRT;
 }
 
 void RenderWindow::onIdle()
 {
 	// render a black clear frame for now
 	if (mRenderer && mRT) {
-		mRenderer->setRenderTarget(mRT);
-        mRenderer->beginFrame(true, 0xFF000000);
+		mCamera->setAspect(mRT->aspect());
+		mRT->setCurrent();
+		mRT->clear(true, 0xFF000000);
+		mRenderer->beginFrame();
 		mRenderer->beginScene(mCamera, mViewport);
 		mRenderer->endScene();
 		mRenderer->endFrame();
+		mRT->present();
 	}
 }

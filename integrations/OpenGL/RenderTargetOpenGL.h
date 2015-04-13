@@ -31,6 +31,7 @@ namespace Teardrop
                     float depthValue = 1,
                     bool stencil = true,
                     unsigned int stencilValue = 0);
+				float aspect();
                 int width();
                 int height();
                 Viewport* addViewport(float x=0, float y=0, float w=1, float h=1, unsigned int zOrder=0);

@@ -24,6 +24,7 @@
 //#define D3D_DEBUG_INFO
 //#endif 
 
-#include "d3d9.h"
-#include "d3dx9.h"
-#include "dxerr.h"
+#include "d3d9helper.h"
+#include "d3d.h"
+//#include "d3dx9.h"
+//#include "dxerr.h"

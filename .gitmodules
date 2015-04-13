@@ -2,3 +2,11 @@
 	path = integrations/OpenGL/extern/glew
 	url = git@github.com:nigels-com/glew.git
 	ignore = dirty
+[submodule "tools/ThirdParty/FreeImage"]
+	path = tools/ThirdParty/FreeImage
+	url = git@github.com:nbtdev/freeimage.git
+	ignore = dirty
+[submodule "tools/ThirdParty/squish"]
+	path = tools/ThirdParty/squish
+	url = git@github.com:nbtdev/libsquish.git
+	ignore = dirty

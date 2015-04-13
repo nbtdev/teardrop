@@ -40,6 +40,7 @@
     <ClCompile Include="..\..\..\VertexElement.cpp" />
     <ClCompile Include="..\..\..\VertexShader.cpp" />
     <ClCompile Include="..\..\..\Viewport.cpp" />
+    <ClCompile Include="..\..\..\Exception.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\AddColorExpression.h">
@@ -77,5 +78,6 @@
     <ClInclude Include="..\..\..\VertexElement.h" />
     <ClInclude Include="..\..\..\VertexShader.h" />
     <ClInclude Include="..\..\..\Viewport.h" />
+    <ClInclude Include="..\..\..\Exception.h" />
   </ItemGroup>
 </Project>

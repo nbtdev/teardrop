@@ -1,15 +1,31 @@
-/****************************************************************************
-This source file is (c) Teardrop Games LLC. All rights reserved. 
-Redistribution and/or reproduction, in whole or in part, without prior
-written permission of a duly authorized representative of Teardrop Games LLC
-is prohibited.
-****************************************************************************/
+/******************************************************************************
+Copyright (c) 2015 Teardrop Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+******************************************************************************/
 
 #include "SceneRenderStep.h"
 #include "Scene.h"
 #include "Zone.h"
 #include "ZoneObject.h"
 #include "Component_Render.h"
+#include "Gfx/Camera.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
 #include "Reflection/Reflection.h"
@@ -33,9 +49,10 @@ void SceneRenderStep::render(
 
 	// then update/render the main scene
     //pRend->setRenderMode(Gfx::Renderer::RENDER_DEFAULT);
-	pRend->setRenderTarget(m_pRT);
+	m_pRT->setCurrent();
 //	pRend->clearRenderTarget(); // clears all
 //	pRend->setColorWrite(true);
+	m_pCamera->setAspect(m_pRT->aspect());
 	pRend->beginScene(m_pCamera, m_pVP);
 
 	// first, find out if there is anything to render

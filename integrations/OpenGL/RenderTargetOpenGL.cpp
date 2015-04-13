@@ -59,6 +59,11 @@ void RenderTarget::clear(
         glClear(flags);
 }
 
+float RenderTarget::aspect()
+{
+	return float(mWidth) / float(mHeight);
+}
+
 int RenderTarget::width()
 {
     return mWidth;

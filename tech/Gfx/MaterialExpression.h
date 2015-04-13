@@ -1,9 +1,24 @@
-/****************************************************************************
-This source file is (c) Teardrop Games LLC. All rights reserved. 
-Redistribution and/or reproduction, in whole or in part, without prior
-written permission of a duly authorized representative of Teardrop Games LLC
-is prohibited.
-****************************************************************************/
+/******************************************************************************
+Copyright (c) 2015 Teardrop Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+******************************************************************************/
 
 #if !defined(MATERIALEXPRESSION_INCLUDED)
 #define MATERIALEXPRESSION_INCLUDED
@@ -33,13 +48,14 @@ namespace Teardrop
 			Attribute* findOutputAttribute(const char* name);
 			
 			enum Language {
-				SHADER_HLSL,
 				SHADER_HLSL5,
 				SHADER_GLSL4,
 				SHADER_GLSL_ES2,
 			};
 
 			// code generation
+			// aSampIndex is used by Sampler* expressions; this parameter is passed through to the
+			// insertDependencies protected method below
 			void appendDefinition(Language lang, std::ostream& o);
 
 			void appendCall(
@@ -63,7 +79,16 @@ namespace Teardrop
 			ShaderFeatures mFeatures;
 
 			virtual void appendBody(Language lang, std::ostream& o);
+
+			// as there may be more than one sampler used in
+			// a Material, Sampler* expressions should (if necessary) use 
+			// the value of aSampIndex passed to the method, 
+			// and increment aSampIndex before returning
 			virtual void insertDependencies(Language lang, std::ostream& o);
+
+			// allow subclasses to provide a custom name for their functions (defaults to the 
+			// ClassDef name)
+			virtual void insertFunctionName(Language lang, std::ostream& o);
 		};
 	}
 }

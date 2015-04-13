@@ -1,9 +1,24 @@
-/****************************************************************************
-This source file is (c) Teardrop Games LLC. All rights reserved. 
-Redistribution and/or reproduction, in whole or in part, without prior
-written permission of a duly authorized representative of Teardrop Games LLC
-is prohibited.
-****************************************************************************/
+/******************************************************************************
+Copyright (c) 2015 Teardrop Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+******************************************************************************/
 
 #include "Editor.h"
 #include "Project.h"
@@ -17,6 +32,7 @@ is prohibited.
 #include "PackageManager/PackageManager.h"
 #include "Package/Package.h"
 #include "Game/Scene.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Renderer.h"
 #include "Core/Input.h"
 #include "Util/FileSystem.h"
@@ -125,36 +141,44 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 	setEditorTitle();
 	mPreferences.load();
 
-	// create renderer instance
-	// choose renderer from preferences...
-	const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
-	const Gfx::RendererRegistration* firstReg = regs;
-	assert(regs);
-	assert(firstReg);
+	try {
+		// create renderer instance
+		// choose renderer from preferences...
+		const Gfx::RendererRegistration* regs = Gfx::rendererRegistrations();
+		const Gfx::RendererRegistration* firstReg = regs;
+		assert(regs);
+		assert(firstReg);
 
-	while (regs) {
-		if (regs->mUUID == mPreferences.rendering().mEngineId) {
-			mRenderer = regs->create();
+		while (regs) {
+			if (regs->mUUID == mPreferences.rendering().mEngineId) {
+				mRenderer = regs->create(0);
+			}
+
+			regs = regs->mNext;
 		}
 
-		regs = regs->mNext;
-	}
+		// ...or first in list if no preference set (first time running, for example)
+		if (!mRenderer) {
+			if (firstReg) {
+				mRenderer = firstReg->create(0);
+			}
+		}
 
-	// ...or first in list if no preference set (first time running, for example)
-	if (!mRenderer) {
-		if (firstReg) {
-			mRenderer = firstReg->create();
+		assert(mRenderer);
+
+		if (mRenderer) {
+			// set up render window
+			mRenderWindow = new RenderWindow(mRenderer);
+
+			// once we have created the initial render window, we can finish initializing the input system
+			//Input::instance().initialize((uintptr_t)mRenderWindow->winId());
 		}
 	}
-
-	assert(mRenderer);
-
-	if (mRenderer) {
-		// set up render window
-		mRenderWindow = new RenderWindow(mRenderer);
-
-		// once we have created the initial render window, we can finish initializing the input system
-		Input::instance().initialize((uintptr_t)mRenderWindow->winId());
+	catch (const Gfx::Exception& e) {
+		QMessageBox mb;
+		mb.setText(e.what());
+		mb.exec();
+		throw e;
 	}
 
 	// do we need to load the previous project?
@@ -168,10 +192,6 @@ Editor::~Editor()
 	mPreferences.save();
 	delete mProject;
 	FreeImage_DeInitialise();
-
-	if (mRenderer) {
-		mRenderer->shutdown();
-	}
 
 	delete mRenderer;
 }

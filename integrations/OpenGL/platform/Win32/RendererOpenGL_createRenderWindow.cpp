@@ -12,10 +12,10 @@ namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
 
-Gfx::RenderTarget*
+std::shared_ptr<Gfx::RenderTarget>
 Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
 {
-	OpenGL::RenderWindow* renderWindow = TD_NEW OpenGL::RenderWindow((HWND)hWnd, flags);
+	std::shared_ptr<OpenGL::RenderWindow> renderWindow(TD_NEW OpenGL::RenderWindow((HWND)hWnd, flags));
 	mRenderTargets.push_back(renderWindow);
 
 	return renderWindow;

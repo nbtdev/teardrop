@@ -28,35 +28,18 @@ namespace Teardrop
                 : public Gfx::Renderer
             {
             public:
-                Renderer();
+				Renderer(int flags);
                 ~Renderer();
-
-                // initialize renderer with main/default render target (typically a render
-                // window); flags is a bitwise OR of the Flags enumeration values; depending
-                // on platform, an hWnd value of 0 means either "create a new top level window"
-                // or "use the window/context created for me"
-                Gfx::RenderTarget* initialize(uintptr_t hWnd, int flags);
-                void shutdown();
 
                 // create a new render window; if hWnd is 0, creates a new top-level
                 // window, otherwise, creates an embedded render context in the supplied
                 // window;
-                Gfx::RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
+                std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags);
                 // create a new render texture; if tex is null, no render texture is created
-                Gfx::RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
-                // release a previously-created render target
-                void releaseRenderTarget(Gfx::RenderTarget* rt);
-                // set render target as current render target
-                void setRenderTarget(Gfx::RenderTarget* rt);
+                std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags);
 
                 // begin a new frame render
-                void beginFrame(
-                    bool color = true,
-                    unsigned int clearColor = 0,
-                    bool depth = true,
-                    float depthValue = 1,
-                    bool stencil = true,
-                    unsigned int stencilValue = 0);
+                void beginFrame();
                 // begin a new scene (frame subset)
                 void beginScene(Camera* camera, Viewport* vp=0);
                 // begin rendering a new object (mesh instance)
@@ -75,10 +58,8 @@ namespace Teardrop
                 TD_DECLARE_ALLOCATOR();
 
             private:
-                typedef std::vector<Gfx::RenderTarget*> RenderTargets;
+                typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
                 RenderTargets mRenderTargets;
-
-                RenderTarget* mCurrentRT = nullptr;
 
 				// the render sequence is such that material changes are made before the submeshes
 				// that the material shades are provided, so since GL uses programs instead of 

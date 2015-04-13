@@ -62,7 +62,14 @@ bool FragmentShader::initialize()
 				uniqueExprs.insert(classDef);
 
 				// and then generate the definition for this expression
-				expr->appendDefinition(MaterialExpression::SHADER_GLSL4, defs);
+				if (expr->getDerivedClassDef() == Sampler2DExpression::getClassDef()) {
+					Sampler2DExpression* sampExp = static_cast<Sampler2DExpression*>(expr);
+					int texIndex = 0;
+					int sampIndex = 0;
+					sampExp->appendDefinition(MaterialExpression::SHADER_GLSL4, texIndex, sampIndex, defs);
+				} else {
+					expr->appendDefinition(MaterialExpression::SHADER_GLSL4, defs);
+				}
 			}
 
 			// special case -- samplers aren't regular constants so
@@ -161,7 +168,7 @@ bool FragmentShader::initialize()
 
 			// then we can generate the code for this call
 			expr->appendCall(
-				MaterialExpression::SHADER_HLSL,
+				MaterialExpression::SHADER_GLSL4,
 				i,
 				inputs,
 				names,

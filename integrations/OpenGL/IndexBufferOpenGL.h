@@ -23,8 +23,8 @@ namespace Teardrop {
                 ~IndexBuffer();
 
                 // Gfx::IndexBuffer implementation
-                bool initialize(int indexSize, int indexCount, void* data);
-                void resize(int indexSize, int indexCount);
+                void initialize(int indexCount, int aInitFlags, void* data);
+                void resize(int indexCount);
                 void* map(MapFlags flags);
                 void unmap();
 

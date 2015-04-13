@@ -9,8 +9,8 @@
       <AdditionalIncludeDirectories>$(SQUISH_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SQUISH_DIR)\lib\vs10;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SQUISH_DIR)\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>squish.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>  
+    </Link>
   </ItemDefinitionGroup>
 </Project>

@@ -1,9 +1,24 @@
-/****************************************************************************
-This source file is (c) Teardrop Games LLC. All rights reserved. 
-Redistribution and/or reproduction, in whole or in part, without prior
-written permission of a duly authorized representative of Teardrop Games LLC
-is prohibited.
-****************************************************************************/
+/******************************************************************************
+Copyright (c) 2015 Teardrop Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+******************************************************************************/
 
 
 #include "MaterialExpression.h"
@@ -66,7 +81,7 @@ void MaterialExpression::appendDefinition(Language lang, std::ostream& o)
 
 	// then our own declaration; it starts the same in all languages
 	o << "void ";
-	o << getDerivedClassDef()->getName();
+	insertFunctionName(lang, o);
 	o << '(';
 
 	// insert input params
@@ -94,7 +109,7 @@ void MaterialExpression::appendDefinition(Language lang, std::ostream& o)
 	o << "}\n\n";
 }
 
-void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::vector<std::string>& inputs, const std::map<const Attribute*, std::string>& outputs, std::ostream& o)
+void MaterialExpression::appendCall(Language lang, int ordinal, const std::vector<std::string>& inputs, const std::map<const Attribute*, std::string>& outputs, std::ostream& o)
 {
 	// same in all languages?
 
@@ -113,7 +128,8 @@ void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::v
 		else {
 			// this output is unused, so generate a dummy name for it
 			std::stringstream ss;
-			ss << getDerivedClassDef()->getName() << '_' << ordinal << "_unused_" << idx++;
+			insertFunctionName(lang, ss);
+			ss << '_' << ordinal << "_unused_" << idx++;
 			outputNames[i] = ss.str();
 		}
 
@@ -121,7 +137,7 @@ void MaterialExpression::appendCall(Language /*lang*/, int ordinal, const std::v
 	}
 
 	// then generate the call itself, using the provided input param names and generated output param names
-	o << getDerivedClassDef()->getName();
+	insertFunctionName(lang, o);
 	o << '(';
 
 	// insert input params
@@ -151,4 +167,10 @@ void MaterialExpression::appendBody(Language /*lang*/, std::ostream& /*o*/)
 
 void MaterialExpression::insertDependencies(Language /*lang*/, std::ostream& /*o*/)
 {
+}
+
+void MaterialExpression::insertFunctionName(Language /*lang*/, std::ostream& o)
+{
+	const Reflection::ClassDef* classDef = getDerivedClassDef();
+	o << classDef->getName();
 }

@@ -13,6 +13,7 @@ is prohibited.
 #include "ShaderManagerOpenGL.h"
 #include "TextureManagerOpenGL.h"
 #include "VertexShaderOpenGL.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Material.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Submesh.h"
@@ -27,89 +28,37 @@ namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
 
-Renderer::Renderer()
+Renderer::Renderer(int aFlags)
 {
+//	Gfx::RenderTarget* rt = createRenderWindow(hWnd, SURFACE_A8R8G8B8, aFlags);
 
-}
-
-Renderer::~Renderer()
-{
-
-}
-
-Gfx::RenderTarget*
-Renderer::initialize(uintptr_t hWnd, int flags)
-{
-	Gfx::RenderTarget* rt = createRenderWindow(hWnd, SURFACE_A8R8G8B8, flags);
-
-    // now we can initialize extensions
+	// now we can initialize extensions
 	if (GLEW_OK != glewInit()) {
-		// then do something terrible? 
-		return nullptr;
+		throw Exception("Could not initialize GLEW in OpenGL::Renderer");
 	}
 
 	// and initialize managers
 	TD_NEW BufferManager;
 	TD_NEW ShaderManager;
 	TD_NEW TextureManager;
-
-	return rt;
 }
 
-void
-Renderer::shutdown()
+Renderer::~Renderer()
 {
 	TextureManager::instance().shutdown();
 	ShaderManager::instance().shutdown();
 	BufferManager::instance().shutdown();
 }
 
-Gfx::RenderTarget*
+std::shared_ptr<Gfx::RenderTarget>
 Renderer::createRenderTexture(int w, int h, SurfaceFormat fmt, int flags)
 {
     return nullptr;
 }
 
 void
-Renderer::releaseRenderTarget(Gfx::RenderTarget* rt)
+Renderer::beginFrame()
 {
-
-}
-
-void
-Renderer::setRenderTarget(Gfx::RenderTarget* aRT)
-{
-    // let user clear current RT if they wish
-    if (aRT == nullptr) {
-        mCurrentRT = nullptr;
-        return;
-    }
-
-    // and make sure it's one of ours
-    for (auto rt : mRenderTargets) {
-        if (rt == aRT) {
-            mCurrentRT = aRT;
-            aRT->setCurrent();
-            break;
-        }
-    }
-}
-
-void
-Renderer::beginFrame(
-    bool color,
-    unsigned int clearColor,
-    bool depth,
-    float depthValue,
-    bool stencil,
-    unsigned int stencilValue)
-{
-    if (mCurrentRT) {
-		if (clearColor == 0)
-			clearColor = 0xFF000000;
-
-        mCurrentRT->clear(color, clearColor, depth, depthValue, stencil, stencilValue);
-    }
 }
 
 void
@@ -171,10 +120,6 @@ Renderer::endScene()
 void
 Renderer::endFrame()
 {
-    assert(mCurrentRT);
-    if (mCurrentRT) {
-        mCurrentRT->present();
-    }
 }
 
 struct ForHash

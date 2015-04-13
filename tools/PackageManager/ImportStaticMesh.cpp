@@ -1,9 +1,24 @@
-/****************************************************************************
-This source file is (c) Teardrop Games LLC. All rights reserved. 
-Redistribution and/or reproduction, in whole or in part, without prior
-written permission of a duly authorized representative of Teardrop Games LLC
-is prohibited.
-****************************************************************************/
+/******************************************************************************
+Copyright (c) 2015 Teardrop Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+******************************************************************************/
 
 #include "AssetImport.h"
 #include "AssetImportException.h"
@@ -11,6 +26,7 @@ is prohibited.
 #include "ImportedAsset.h"
 #include "Asset/StaticMeshAsset.h"
 #include "Asset/TextureAsset.h"
+#include "Gfx/Exception.h"
 #include "Gfx/Material.h"
 #include "Gfx/MaterialOutput.h"
 #include "Gfx/Sampler2DExpression.h"
@@ -27,6 +43,7 @@ is prohibited.
 #include "Util/_String.h"
 #include "fbxsdk.h"
 #include <map>
+#include <memory>
 
 using namespace fbxsdk_2015_1;
 
@@ -112,15 +129,31 @@ namespace Teardrop {
 			int nIndices = nPoly * 3;
 			Gfx::Submesh* submesh = gfxMesh->createSubmesh();
 
+			// if the number of indices is less than 65536, we need to copy the data (which is 4-byte integers) into
+			// a tmp buffer of shorts, and use that to source the index data (the IB initialize method will look
+			// simply at the number of indices and set the index size to 2 or 4 on that basis)
+			std::unique_ptr<uint16_t> tmpIB;
+			void* ibData = indices;
+			if (nIndices < 65536) {
+				uint16_t* tmp = new uint16_t[nIndices];
+				tmpIB.reset(tmp);
+				ibData = tmp;
+
+				for (int idx = 0; idx < nIndices; ++idx) {
+					tmp[idx] = uint16_t(indices[idx]);
+				}
+			}
+
 			// TODO: make sure this really is what the incoming mesh data is...
 			submesh->setPrimitiveType(Submesh::PT_TRILIST);
 
 			IndexBuffer* ib = submesh->createIndexBuffer();
-			bool success = ib->initialize(4, nIndices, indices);
 
-			assert(success);
-			if (!success)
+			try {
+				ib->initialize(nIndices, 0, ibData);
+			} catch (const Gfx::Exception&) {
 				return false;
+			}
 
 			// the vertex array is called "control points"
 			FbxVector4* verts = fbxMesh->GetControlPoints();
@@ -144,7 +177,7 @@ namespace Teardrop {
 			elem.mUsage = VEU_POSITION;
 			vbPos->endAddVertexElements();
 
-			vbPos->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpPos[0]);
+			vbPos->initialize(nVerts, 0, &tmpPos[0]);
 
 			// vertex colors
 			int nVertColor = fbxMesh->GetElementVertexColorCount();
@@ -176,7 +209,7 @@ namespace Teardrop {
 					buf[i].b = (unsigned char)(colors[i].mBlue* 255.0);
 				}
 
-				vbCol->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &buf[0]);
+				vbCol->initialize(nVerts, 0, &buf[0]);
 			}
 
 			// UVs
@@ -206,7 +239,7 @@ namespace Teardrop {
 					tmpUV[i].y = (float)uvs[i][1];
 				}
 
-				vbUV->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpUV[0]);
+				vbUV->initialize(nVerts, 0, &tmpUV[0]);
 			}
 
 			// normals
@@ -238,7 +271,7 @@ namespace Teardrop {
 					tmpNorm[i].w = (float)norms[i][3];
 				}
 
-				vbNorm->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpNorm[0]);
+				vbNorm->initialize(nVerts, 0, &tmpNorm[0]);
 			}
 
 			// tangents
@@ -270,7 +303,7 @@ namespace Teardrop {
 					tmpTang[i].w = (float)tangents[i][3];
 				}
 
-				vbTangent->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpTang[0]);
+				vbTangent->initialize(nVerts, 0, &tmpTang[0]);
 			}
 
 			// binormals
@@ -302,7 +335,7 @@ namespace Teardrop {
 					tmpBinorm[i].w = (float)binormals[i][3];
 				}
 
-				vbBinormal->initialize(nVerts, VertexBuffer::INIT_STATIC|VertexBuffer::INIT_WRITEONLY, &tmpBinorm[0]);
+				vbBinormal->initialize(nVerts, 0, &tmpBinorm[0]);
 			}
 
 			// finally the material(s)

@@ -23,7 +23,7 @@ VertexBuffer::~VertexBuffer()
     glDeleteBuffers(1, &mBufferName);
 }
 
-bool
+void
 VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData)
 {
     mCount = aVertexCount;
@@ -38,11 +38,9 @@ VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData)
         glBindBuffer(GL_ARRAY_BUFFER, mBufferName);
         glBufferData(GL_ARRAY_BUFFER, aVertexCount * vertexSize(), aData, usage);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		return true;
     }
 
-	return false;
+	// TODO: throw?
 }
 
 void

@@ -1,9 +1,24 @@
-/****************************************************************************
-This source file is (c) Teardrop Games LLC. All rights reserved. 
-Redistribution and/or reproduction, in whole or in part, without prior
-written permission of a duly authorized representative of Teardrop Games LLC
-is prohibited.
-****************************************************************************/
+/******************************************************************************
+Copyright (c) 2015 Teardrop Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+******************************************************************************/
 
 #if !defined(RENDERER_INCLUDED)
 #define RENDERER_INCLUDED
@@ -11,6 +26,7 @@ is prohibited.
 #include "Gfx/Common.h"
 #include <cstdlib>
 #include <cstdint>
+#include <memory>
 
 namespace Teardrop
 {
@@ -28,35 +44,17 @@ namespace Teardrop
 		class Renderer
 		{
 		public:
-			Renderer();
-			virtual ~Renderer() = 0;
-
-			// initialize renderer with main/default render target (typically a render
-			// window); flags is a bitwise OR of the Flags enumeration values; depending 
-			// on platform, an hWnd value of 0 means either "create a new top level window"
-			// or "use the window/context created for me"
-			virtual RenderTarget* initialize(uintptr_t hWnd, int flags) = 0;
-			virtual void shutdown() = 0;
+			virtual ~Renderer();
 
 			// create a new render window; if hWnd is 0, creates a new top-level
 			// window, otherwise, creates an embedded render context in the supplied 
 			// window; 
-			virtual RenderTarget* createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) = 0;
+			virtual std::shared_ptr<RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) = 0;
 			// create a new render texture; if tex is null, no render texture is created
-			virtual RenderTarget* createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
-			// release a previously-created render target
-			virtual void releaseRenderTarget(RenderTarget* rt) = 0;
-			// set render target as current render target
-			virtual void setRenderTarget(RenderTarget* rt) = 0;
+			virtual std::shared_ptr<RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
 
 			// begin a new frame render
-			virtual void beginFrame(
-				bool color = true,
-				unsigned int clearColor = 0,
-				bool depth = true,
-				float depthValue = 1,
-				bool stencil = true,
-				unsigned int stencilValue = 0) = 0;
+			virtual void beginFrame() = 0;
 			// begin a new scene (frame subset)
 			virtual void beginScene(Camera* camera, Viewport* vp=0) = 0;
 			// begin rendering a new object (mesh instance)
