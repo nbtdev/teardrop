@@ -384,16 +384,20 @@ void Renderer::beginObject(const Matrix44& worldXf)
 	mXformConstants.mWorldXf = worldXf;
 
 	// and its derivatives
-	Matrix44 tmp, tmp2;
-	worldXf.invert(tmp);
-	mXformConstants.mWorldInv = tmp;
+	worldXf.invert(mXformConstants.mWorldInv);
+	mXformConstants.mWorldInv.transpose(mXformConstants.mWorldITXf);
+	
+	Matrix44 tmp = worldXf * mXformConstants.mViewProj;
+	tmp.transpose(mXformConstants.mWvpXf);
 
-	tmp.transpose(tmp2);
-	mXformConstants.mWorldITXf = tmp2;
-
-	tmp = worldXf * mXformConstants.mViewProj;		
-	tmp.transpose(tmp2);
-	mXformConstants.mWvpXf = tmp2;
+	mDeviceContext->UpdateSubresource(
+		mXformConstantBuffer.Get(),
+		0,
+		nullptr,
+		&mXformConstants,
+		0,
+		0
+		);
 
 	// apply constants
 	// TODO: apply matrix palette too
