@@ -30,11 +30,14 @@ namespace OpenGL {
 
 Renderer::Renderer(int aFlags)
 {
-//	Gfx::RenderTarget* rt = createRenderWindow(hWnd, SURFACE_A8R8G8B8, aFlags);
+	{
+		// we have to create a dummy window in order to load extensions
+		std::shared_ptr<RenderTarget> dummy = createDummyContext();
 
-	// now we can initialize extensions
-	if (GLEW_OK != glewInit()) {
-		throw Exception("Could not initialize GLEW in OpenGL::Renderer");
+		// now we can initialize extensions
+		if (GLEW_OK != glewInit()) {
+			throw Exception("Could not initialize GLEW in OpenGL::Renderer");
+		}
 	}
 
 	// and initialize managers

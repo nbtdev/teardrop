@@ -21,6 +21,12 @@ Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
 	return renderWindow;
 }
 
+std::shared_ptr<Gfx::RenderTarget>
+Renderer::createDummyContext()
+{
+	return std::shared_ptr<Gfx::RenderTarget>(TD_NEW RenderWindow(NULL, 0, true));
+}
+
 } // namespace OpenGL
 } // namespace Gfx
 } // namespace Teardrop

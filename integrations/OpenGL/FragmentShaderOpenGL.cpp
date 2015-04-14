@@ -14,6 +14,8 @@ is prohibited.
 #include "Gfx/MaterialOutput.h"
 #include "Gfx/Sampler2DExpression.h"
 #include "Gfx/ShaderConstantTable.h"
+#include "Util/Environment.h"
+#include "Util/Logger.h"
 #include <sstream>
 #include <set>
 #include <assert.h>
@@ -183,6 +185,10 @@ bool FragmentShader::initialize()
 		mSource.append("\n    gl_FragColor = output;\n}\n");
 		//mSource.append("\nreturn float4(0.5,0.5,0.5,1);\n}\n");
 	}
+
+#if defined(_DEBUG) || defined(DEBUG)
+	Environment::get().pLogger->logMessage(mSource);
+#endif
 
 	if (mSource.length() && !mShaderName) {
 		// compile the shader

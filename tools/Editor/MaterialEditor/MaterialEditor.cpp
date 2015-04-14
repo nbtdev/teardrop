@@ -95,13 +95,13 @@ public:
 		setFlag(ItemIsMovable);
 		setFlag(ItemIsSelectable);
 
-		mA->PositionChanged.bind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
-		mB->PositionChanged.bind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+		mA->PositionChanged.bind(std::bind(&ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+		mB->PositionChanged.bind(std::bind(&ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
 	}
 
 	~ExpressionConnection() {
-		mA->PositionChanged.unbind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
-		mB->PositionChanged.unbind(std::bind(ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+		mA->PositionChanged.unbind(std::bind(&ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+		mB->PositionChanged.unbind(std::bind(&ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
 	}
 
 	void onConnectorChangedPosition(ExpressionConnector* aConn) {

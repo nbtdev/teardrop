@@ -50,23 +50,39 @@ namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
 
-RenderWindow::RenderWindow(HWND aParent, int aFlags)
+RenderWindow::RenderWindow(HWND aParent, int aFlags, bool aDummyContext)
 	: mParent(aParent)
 	, mInitFlags(aFlags)
 {
 	static ClassReg cr;
 
 	// first make a Win32 window with CS_OWNDC style
-	RECT rect = { 0 };
-	GetClientRect(mParent, &rect);
+	int w = -1;
+	int h = -1;
 
-	int w = rect.right - rect.left;
-	int h = rect.bottom - rect.top;
+	if (aParent) {
+		RECT rect = { 0 };
+		GetClientRect(mParent, &rect);
+
+		w = rect.right - rect.left;
+		h = rect.bottom - rect.top;
+	}
+
+	DWORD style = WS_CHILD | WS_VISIBLE;
+
+	if (aDummyContext) {
+		w = h = 4;
+		style &= ~WS_VISIBLE;
+	}
+
+	if (!aParent) {
+		style &= ~WS_CHILD;
+	}
 
 	HWND tmp = CreateWindow(
 		cr.className,
 		NULL,
-		WS_CHILD|WS_VISIBLE,
+		style,
 		0, 0,
 		w, h,
 		mParent,
@@ -74,6 +90,10 @@ RenderWindow::RenderWindow(HWND aParent, int aFlags)
 		(HINSTANCE)0,
 		this
 		);
+
+	if (tmp == NULL) {
+		DWORD err = GetLastError();
+	}
 
 	mWidth = w;
 	mHeight = h;
@@ -89,8 +109,12 @@ RenderWindow::RenderWindow(HWND aParent, int aFlags)
 	}
 }
 
+RenderWindow::RenderWindow(HWND aParent, int aFlags)
+	: RenderWindow(aParent, aFlags, false)
+{
+}
 RenderWindow::RenderWindow(HWND aParent)
-: RenderWindow(aParent, 0)
+	: RenderWindow(aParent, 0)
 {
 }
 

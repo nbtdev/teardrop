@@ -22,6 +22,7 @@ namespace Teardrop
 			public:
 				RenderWindow(HWND aParent);
 				RenderWindow(HWND aParent, int aFlags);
+				RenderWindow(HWND aParent, int aFlags, bool aDummyContext);
 				~RenderWindow();
 
 				// remaining overrides that OpenGL::RenderTarget does not implement
@@ -33,6 +34,11 @@ namespace Teardrop
 				// RenderWindow-specific methods
 				void initContext(HWND aDummy); // internal use only
 				int initFlags();
+
+
+				enum InitFlags {
+					INIT_HIDDEN = 0x01,
+				};
 
 				TD_DECLARE_ALLOCATOR();
 

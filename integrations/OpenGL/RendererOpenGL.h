@@ -75,6 +75,8 @@ namespace Teardrop
 
 				// avoid changing state unnecessarily (GL probably prevents this anyway...)
 				std::shared_ptr<Program> mCurrentProgram;
+
+				std::shared_ptr<Gfx::RenderTarget> createDummyContext();
             };
         }
     }
