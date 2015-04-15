@@ -15,7 +15,7 @@ The codebase evolves according to the YAGNI principle of continuous refactoring.
 ## License
 The license (not as of this writing, if you look at the file headers) is MIT/BSD -- liberal, in other words. Feel free to use it however you want (or don't), and don't feel guilty if you just use it without "giving back". I made the SDK open source for the (unlikely) occasion that anyone else might find it useful, not because I am on some Stallman-esque mission to force everyone into my world-view(-projection...sorry, that just came out on its own...and if you don't get it, this might not be the SDK for you... ;) ). 
 
-So MIT/BSD-style 3-line license it is, and if you find it useful (and only marginally buggy), then awesome...and if not, then I promise you your money back.
+So MIT license it is. If you find it useful (and only marginally buggy), then awesome...and if not, then I promise you your money back.
 
 ## Building
 
