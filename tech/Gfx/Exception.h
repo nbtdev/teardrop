@@ -28,6 +28,14 @@ THE SOFTWARE.
 
 #if defined(_WIN32) || defined(_WIN64)
 	#define NOTHROW _NOEXCEPT
+
+	#if defined(min)
+		#undef min
+	#endif // min
+
+	#if defined(max)
+		#undef max
+	#endif // min
 #else // _WIN32, _WIN64
 	#define NOTHROW nothrow
 #endif // _WIN32, _WIN64
@@ -39,8 +47,8 @@ namespace Teardrop
 		class Exception : public std::exception
 		{
 		public:
-			Exception(const char* aDetail);
-			Exception(const String& aDetail);
+			explicit Exception(const char* aDetail);
+			explicit Exception(const String& aDetail);
 			~Exception() NOTHROW;
 
 			const char* what() const NOTHROW;
@@ -52,16 +60,33 @@ namespace Teardrop
 		class InvalidParameterException : public Exception
 		{
 		public:
-			InvalidParameterException(const char* aDetail);
-			InvalidParameterException(const String& aDetail);
+			explicit InvalidParameterException(const char* aDetail);
+			explicit InvalidParameterException(const String& aDetail);
 			~InvalidParameterException() NOTHROW;
+		};
+
+		class IndexOutOfRangeException : public Exception
+		{
+		public:
+			explicit IndexOutOfRangeException(const char* aDetail, int aMin, int aMax, int aHave);
+			explicit IndexOutOfRangeException(const String& aDetail, int aMin, int aMax, int aHave);
+			~IndexOutOfRangeException() NOTHROW;
+
+			int min() const;
+			int max() const;
+			int have() const;
+
+		private:
+			int mMin;
+			int mMax;
+			int mHave;
 		};
 
 		class BufferMappedException : public Exception
 		{
 		public:
-			BufferMappedException(const char* aDetail, void* aMappedBuffer);
-			BufferMappedException(const String& aDetail, void* aMappedBuffer);
+			explicit BufferMappedException(const char* aDetail, void* aMappedBuffer);
+			explicit BufferMappedException(const String& aDetail, void* aMappedBuffer);
 			~BufferMappedException() NOTHROW;
 			void* mappedBuffer() const;
 
@@ -72,8 +97,8 @@ namespace Teardrop
 		class ShaderCompilationException : public Exception
 		{
 		public:
-			ShaderCompilationException(const char* aDetail, const String& aSource, const String& aLog);
-			ShaderCompilationException(const String& aDetail, const String& aSource, const String& aLog);
+			explicit ShaderCompilationException(const char* aDetail, const String& aSource, const String& aLog);
+			explicit ShaderCompilationException(const String& aDetail, const String& aSource, const String& aLog);
 			~ShaderCompilationException() NOTHROW;
 
 			const String& source() const;

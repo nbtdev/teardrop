@@ -27,6 +27,7 @@ THE SOFTWARE.
 #include <Reflection/EnumDef.h>
 #include <Reflection/PropertyDef.h>
 #include <Reflection/Object.h>
+#include <Util/Hash.h>
 #include <cstddef>
 #include <cstdint>
 

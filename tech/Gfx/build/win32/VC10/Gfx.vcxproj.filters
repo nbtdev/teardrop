@@ -4,6 +4,9 @@
     <Filter Include="Material Expressions">
       <UniqueIdentifier>{a6e7708f-0171-4c18-ba61-72c85a7e0896}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Codegen">
+      <UniqueIdentifier>{ee3784a9-6648-4454-8388-7d66f14dc280}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\AddColorExpression.cpp">
@@ -41,6 +44,30 @@
     <ClCompile Include="..\..\..\VertexShader.cpp" />
     <ClCompile Include="..\..\..\Viewport.cpp" />
     <ClCompile Include="..\..\..\Exception.cpp" />
+    <ClCompile Include="..\..\..\Codegen\Expression.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\Argument.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\Function.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\BinaryExpression.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\CastExpression.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\AttributeExpression.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\SamplerExpression.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\ShaderRealizer.cpp">
+      <Filter>Codegen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\AddColorExpression.h">
@@ -79,5 +106,35 @@
     <ClInclude Include="..\..\..\VertexShader.h" />
     <ClInclude Include="..\..\..\Viewport.h" />
     <ClInclude Include="..\..\..\Exception.h" />
+    <ClInclude Include="..\..\..\Codegen\Expression.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\Function.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\AttributeExpression.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\BinaryExpression.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\CastExpression.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\Argument.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\SamplerExpression.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\Variable.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\ShaderRealizer.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Codegen\Common.h">
+      <Filter>Codegen</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

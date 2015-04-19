@@ -23,11 +23,12 @@ THE SOFTWARE.
 
 #include "MaterialExpression.h"
 #include "Attribute.h"
+#include "Codegen\Function.h"
 #include <cstring>
 #include <sstream>
 
-using namespace Teardrop;
-using namespace Gfx;
+namespace Teardrop {
+namespace Gfx {
 
 TD_CLASS_IMPL(MaterialExpression);
 
@@ -41,7 +42,7 @@ MaterialExpression::~MaterialExpression()
 
 Attribute* MaterialExpression::findInputAttribute(const char* name)
 {
-	for (size_t i=0; i<mInputs.size(); ++i) {
+	for (size_t i = 0; i < mInputs.size(); ++i) {
 		if (!strcmp(mInputs[i].mName, name))
 			return &mInputs[i];
 	}
@@ -51,12 +52,18 @@ Attribute* MaterialExpression::findInputAttribute(const char* name)
 
 Attribute* MaterialExpression::findOutputAttribute(const char* name)
 {
-	for (size_t i=0; i<mOutputs.size(); ++i) {
+	for (size_t i = 0; i < mOutputs.size(); ++i) {
 		if (!strcmp(mOutputs[i].mName, name))
 			return &mOutputs[i];
 	}
 
 	return 0;
+}
+
+Codegen::Function::ConstRef
+MaterialExpression::definition() const
+{
+	return mFunction;
 }
 
 const MaterialExpression::Attributes& MaterialExpression::inputAttributes()
@@ -86,16 +93,16 @@ void MaterialExpression::appendDefinition(Language lang, std::ostream& o)
 
 	// insert input params
 	int arg = 0;
-	for (size_t i=0; i<mInputs.size(); ++i) {
-		if (arg) 
+	for (size_t i = 0; i < mInputs.size(); ++i) {
+		if (arg)
 			o << ", ";
 
 		o << "in " << Attribute::paramTypeToString(mInputs[i].mType) << ' ' << mInputs[i].mName;
 		arg++;
 	}
 
-	for (size_t i=0; i<mOutputs.size(); ++i) {
-		if (arg) 
+	for (size_t i = 0; i < mOutputs.size(); ++i) {
+		if (arg)
 			o << ", ";
 
 		o << "out " << Attribute::paramTypeToString(mOutputs[i].mType) << ' ' << mOutputs[i].mName;
@@ -118,7 +125,7 @@ void MaterialExpression::appendCall(Language lang, int ordinal, const std::vecto
 	// generate output variable names and their decls
 	std::vector<std::string> outputNames(mOutputs.size());
 	int idx = 0;
-	for (size_t i=0; i<mOutputs.size(); ++i) {
+	for (size_t i = 0; i < mOutputs.size(); ++i) {
 		std::map<const Attribute*, std::string>::const_iterator it = outputs.find(&mOutputs[i]);
 
 		if (it != outputs.end()) {
@@ -142,16 +149,16 @@ void MaterialExpression::appendCall(Language lang, int ordinal, const std::vecto
 
 	// insert input params
 	int arg = 0;
-	for (size_t i=0; i<inputs.size(); ++i) {
-		if (arg) 
+	for (size_t i = 0; i < inputs.size(); ++i) {
+		if (arg)
 			o << ", ";
 
 		o << inputs[i];
 		arg++;
 	}
 
-	for (size_t i=0; i<outputNames.size(); ++i) {
-		if (arg) 
+	for (size_t i = 0; i < outputNames.size(); ++i) {
+		if (arg)
 			o << ", ";
 
 		o << outputNames[i];
@@ -174,3 +181,6 @@ void MaterialExpression::insertFunctionName(Language /*lang*/, std::ostream& o)
 	const Reflection::ClassDef* classDef = getDerivedClassDef();
 	o << classDef->getName();
 }
+
+} // namespace Gfx
+} // namespace Teardrop

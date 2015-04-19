@@ -27,7 +27,9 @@ THE SOFTWARE.
 #include "Memory/Allocators.h"
 #include "Gfx/Attribute.h"
 #include "Gfx/ShaderFeatures.h"
+#include "Gfx/Codegen/Function.h"
 #include <iosfwd>
+#include <memory>
 #include <string>
 #include <vector>
 #include <map>
@@ -36,6 +38,7 @@ namespace Teardrop
 {
 	namespace Gfx 
 	{
+
 		class MaterialExpression : public Reflection::Object
 		{
 		public:
@@ -54,6 +57,8 @@ namespace Teardrop
 			};
 
 			// code generation
+			Codegen::Function::ConstRef definition() const;
+
 			// aSampIndex is used by Sampler* expressions; this parameter is passed through to the
 			// insertDependencies protected method below
 			void appendDefinition(Language lang, std::ostream& o);
@@ -77,6 +82,7 @@ namespace Teardrop
 			Attributes mInputs;
 			Attributes mOutputs;
 			ShaderFeatures mFeatures;
+			Codegen::Function::Ptr mFunction;
 
 			virtual void appendBody(Language lang, std::ostream& o);
 

@@ -31,7 +31,10 @@ THE SOFTWARE.
 #include "Gfx/MaterialOutput.h"
 #include "Gfx/Sampler2DExpression.h"
 #include "Gfx/ShaderConstantTable.h"
+#include "Gfx/Codegen/Function.h"
+#include "Gfx/Codegen/ShaderRealizer.h"
 #include "Math/Vector4.h"
+#include "Stream/MemoryStream.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
 #include <list>
@@ -187,7 +190,8 @@ public:
 	// if an interpolant with the given smeantic and index already 
 	// exists, this method will return that interpolant; otherwise, 
 	// this new one is added and returned
-	const Interpolant& addInterpolant(VertexElementUsage aUsage, VertexElementType aType, int aWidth=4, int aIndex=0, int aRank=1);
+	const Interpolant* addInterpolant(VertexElementUsage aUsage, VertexElementType aType, int aWidth=4, int aIndex=0, int aRank=1);
+	const Interpolant* findInterpolantBySemantic(VertexElementUsage aSemantic, int aIndex = 0);
 
 	void exportHLSLPSInput(const String& aName, String& aSource);
 
@@ -203,12 +207,12 @@ FSEnvironment::~FSEnvironment()
 {
 }
 
-const Interpolant& FSEnvironment::addInterpolant(VertexElementUsage aUsage, VertexElementType aType, int aWidth, int aIndex, int aRank)
+const Interpolant* FSEnvironment::addInterpolant(VertexElementUsage aUsage, VertexElementType aType, int aWidth, int aIndex, int aRank)
 {
 	for (auto& i : mInterpolants) {
 		if (i.mSemantic == aUsage && i.mIndex == aIndex)
 			// TODO: check type and do something on mismatch?
-			return i;
+			return &i;
 	}
 
 	// make up the interpolant name based on semantic and index
@@ -224,7 +228,17 @@ const Interpolant& FSEnvironment::addInterpolant(VertexElementUsage aUsage, Vert
 	i.mIndex = aIndex;
 
 	mInterpolants.push_back(i);	
-	return mInterpolants.back();
+	return &mInterpolants.back();
+}
+
+const Interpolant* FSEnvironment::findInterpolantBySemantic(VertexElementUsage aSemantic, int aIndex)
+{
+	for (auto& i : mInterpolants) {
+		if (i.mSemantic == aSemantic && i.mIndex == aIndex)
+			return &i;
+	}
+
+	return nullptr;
 }
 
 void FSEnvironment::exportHLSLPSInput(const String& aName, String& aSource)
@@ -261,6 +275,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 	assert(mDevice);
 
 	FSEnvironment fsEnv;
+	Codegen::ShaderRealizer realizer;
 
 	// build and compile pixel shader
 	if (!mSource.length()) {
@@ -282,6 +297,8 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		std::stringstream defs;
 		for (int i = 0; i < exprCount; ++i) {
 			MaterialExpression* expr = expressions[i];
+			Codegen::Function::ConstPtr fp = expr->definition().lock();
+			if (fp) fp->realize(realizer);
 
 			const Reflection::ClassDef* classDef = expr->getDerivedClassDef();
 			if (uniqueExprs.find(classDef) == uniqueExprs.end()) {
@@ -337,7 +354,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 
 				for (int i = 0; i < 16; ++i) {
 					if ((mask & (1 << i))) {
-						const Interpolant& interp = fsEnv.addInterpolant(VEU_TEXCOORD, VET_FLOAT, 2, i);
+						const Interpolant* interp = fsEnv.addInterpolant(VEU_TEXCOORD, VET_FLOAT, 2, i);
 					}
 				}
 			}
@@ -445,8 +462,14 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		//mSource.append("\nreturn float4(0.5,0.5,0.5,1);\n}\n");
 	}
 
+	MemoryStream ms;
+	realizer.realize(ms);
+	const char* src = (const char*)ms.data();
+	char c = 0;
+	ms.write(&c, 1);
+
 #if defined(_DEBUG) || defined(DEBUG)
-	Environment::get().pLogger->logMessage(mSource);
+	Environment::get().pLogger->logMessage(src);
 #endif
 
 	if (mSource.length() && !mPS) {

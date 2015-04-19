@@ -64,6 +64,44 @@ InvalidParameterException::~InvalidParameterException()
 
 }
 
+IndexOutOfRangeException::IndexOutOfRangeException(const char* aDetail, int aMin, int aMax, int aHave)
+	: Exception(aDetail)
+	, mMin(aMin)
+	, mMax(aMax)
+	, mHave(aHave)
+{
+
+}
+
+IndexOutOfRangeException::IndexOutOfRangeException(const String& aDetail, int aMin, int aMax, int aHave)
+	: Exception(aDetail)
+	, mMin(aMin)
+	, mMax(aMax)
+	, mHave(aHave)
+{
+
+}
+
+IndexOutOfRangeException::~IndexOutOfRangeException()
+{
+
+}
+
+int IndexOutOfRangeException::min() const
+{
+	return mMin;
+}
+
+int IndexOutOfRangeException::max() const
+{
+	return mMax;
+}
+
+int IndexOutOfRangeException::have() const
+{
+	return mHave;
+}
+
 BufferMappedException::BufferMappedException(const char* aDetail, void* aMappedBuffer)
 	: Exception(aDetail)
 	, mMappedBuffer(aMappedBuffer)

@@ -23,11 +23,25 @@ THE SOFTWARE.
 
 #include "Sampler2DExpression.h"
 #include "Sampler2D.h"
+#include "Codegen/Argument.h"
+#include "Codegen/AttributeExpression.h"
+#include "Codegen/BinaryExpression.h"
+#include "Codegen/CastExpression.h"
+#include "Codegen/Common.h"
+#include "Codegen/Function.h"
+#include "Codegen/SamplerExpression.h"
 #include "Util/StringUtil.h"
 #include <ostream>
 
-using namespace Teardrop;
-using namespace Gfx;
+namespace Teardrop {
+namespace Gfx {
+
+using Codegen::Argument;
+using Codegen::AttributeExpression;
+using Codegen::BinaryExpression;
+using Codegen::CastExpression;
+using Codegen::Expression;
+using Codegen::SamplerExpression;
 
 TD_CLASS_IMPL(Sampler2DExpression);
 
@@ -41,10 +55,58 @@ Sampler2DExpression::~Sampler2DExpression()
 
 bool Sampler2DExpression::initialize()
 {
-	mInputs.push_back(Attribute("Texcoord", ATTR_FLOAT2, this, Attribute::Optional, "psin.TEXCOORD0"));
+	mFunction.reset(TD_NEW Codegen::Function("Sampler2DExpression"));
+
+	Attribute attr1("Texcoord", ATTR_FLOAT2, this, Attribute::Optional, "psin.TEXCOORD0");
+	Attribute attr2("Color", ATTR_RGBA, this);
+	Attribute attr3("Color3", ATTR_RGB, this);
+
+	mInputs.push_back(attr1);
 	mFeatures.setFeature(INTERP_TEXCOORD, 0);
-	mOutputs.push_back(Attribute("Color", ATTR_RGBA, this));
-	mOutputs.push_back(Attribute("Color3", ATTR_RGB, this));
+	mOutputs.push_back(attr2);
+	mOutputs.push_back(attr3);
+
+	// add arguments
+	AttributeExpression::Ptr attrExpr1(TD_NEW AttributeExpression(attr1));
+	AttributeExpression::Ptr attrExpr2(TD_NEW AttributeExpression(attr2));
+	AttributeExpression::Ptr attrExpr3(TD_NEW AttributeExpression(attr3));
+
+	Argument::Ptr arg1(TD_NEW Argument(Codegen::DIRECTION_IN, attrExpr1));
+	Argument::Ptr arg2(TD_NEW Argument(Codegen::DIRECTION_OUT, attrExpr2));
+	Argument::Ptr arg3(TD_NEW Argument(Codegen::DIRECTION_OUT, attrExpr3));
+
+	Expression::Ptr samp(TD_NEW SamplerExpression("samp", &getSampler2D(), attrExpr1));
+
+	Argument::Ptr argSamp(TD_NEW Argument("samp", Codegen::DIRECTION_IN, samp));
+
+	mFunction->addArgument(argSamp);
+	mFunction->addArgument(arg1);
+	mFunction->addArgument(arg2);
+	mFunction->addArgument(arg3);
+
+	/*
+		void Sampler2DExpression(in <texture> samp, in float2 Texcoord, out RGBA Color, out RGB Color3)
+		{
+		    Color = <tex2D>(samp, Texcoord);
+		    Color3 = float3(Color); // or possibly "Color3 = Color.rgb;"
+		}
+	*/
+
+	mFunction->addStatement(
+		Expression::Ptr(TD_NEW BinaryExpression(
+			attrExpr2, 
+			Codegen::BINARY_OP_ASSIGN, 
+			samp
+			)
+		));
+		
+	mFunction->addStatement(
+		Expression::Ptr(TD_NEW BinaryExpression(
+			attrExpr3,
+			Codegen::BINARY_OP_ASSIGN,
+			Expression::Ptr(TD_NEW CastExpression(Codegen::TYPE_FLOAT3, attrExpr2))
+			)
+		));
 
 	return true;
 }
@@ -129,3 +191,6 @@ void Sampler2DExpression::insertFunctionName(Language /*lang*/, std::ostream& o)
 	o << '_';
 	o << (void*)this;
 }
+
+} // namespace Gfx
+} // namespace Teardrop

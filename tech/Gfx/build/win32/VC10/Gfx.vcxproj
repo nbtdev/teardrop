@@ -71,6 +71,13 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)
+if not exist $(SolutionDir)sdk\include\$(ProjectName)\Codegen mkdir $(SolutionDir)sdk\include\$(ProjectName)\Codegen
+copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL
+copy $(ProjectDir)\..\..\..\Codegen\*.h $(SolutionDir)sdk\include\$(ProjectName)\Codegen &gt; NUL
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -84,9 +91,26 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>if not exist $(SolutionDir)sdk\include\$(ProjectName) mkdir $(SolutionDir)sdk\include\$(ProjectName)
+if not exist $(SolutionDir)sdk\include\$(ProjectName)\Codegen mkdir $(SolutionDir)sdk\include\$(ProjectName)\Codegen
+copy $(ProjectDir)\..\..\..\*.h $(SolutionDir)sdk\include\$(ProjectName) &gt; NUL
+copy $(ProjectDir)\..\..\..\Codegen\*.h $(SolutionDir)sdk\include\$(ProjectName)\Codegen &gt; NUL
+</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\AddColorExpression.cpp" />
+    <ClCompile Include="..\..\..\Codegen\Argument.cpp" />
+    <ClCompile Include="..\..\..\Codegen\AttributeExpression.cpp" />
+    <ClCompile Include="..\..\..\Codegen\BinaryExpression.cpp" />
+    <ClCompile Include="..\..\..\Codegen\CastExpression.cpp" />
+    <ClCompile Include="..\..\..\Codegen\Expression.cpp" />
+    <ClCompile Include="..\..\..\Codegen\Function.cpp" />
+    <ClCompile Include="..\..\..\Codegen\SamplerExpression.cpp">
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessToFile>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Codegen\ShaderRealizer.cpp" />
     <ClCompile Include="..\..\..\Exception.cpp" />
     <ClCompile Include="..\..\..\MaterialOutput.cpp" />
     <ClCompile Include="..\..\..\Sampler2DExpression.cpp" />
@@ -118,6 +142,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\AddColorExpression.h" />
+    <ClInclude Include="..\..\..\Codegen\Argument.h" />
+    <ClInclude Include="..\..\..\Codegen\AttributeExpression.h" />
+    <ClInclude Include="..\..\..\Codegen\BinaryExpression.h" />
+    <ClInclude Include="..\..\..\Codegen\CastExpression.h" />
+    <ClInclude Include="..\..\..\Codegen\Common.h" />
+    <ClInclude Include="..\..\..\Codegen\Expression.h" />
+    <ClInclude Include="..\..\..\Codegen\Function.h" />
+    <ClInclude Include="..\..\..\Codegen\SamplerExpression.h" />
+    <ClInclude Include="..\..\..\Codegen\ShaderRealizer.h" />
+    <ClInclude Include="..\..\..\Codegen\Variable.h" />
     <ClInclude Include="..\..\..\Exception.h" />
     <ClInclude Include="..\..\..\MaterialOutput.h" />
     <ClInclude Include="..\..\..\Sampler2DExpression.h" />
