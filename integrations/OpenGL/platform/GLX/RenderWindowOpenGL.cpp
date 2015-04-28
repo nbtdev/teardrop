@@ -14,6 +14,11 @@ namespace Teardrop {
 namespace Gfx {
 namespace OpenGL {
 
+RenderWindow::RenderWindow()
+    : RenderWindow(nullptr, 0, 0)
+{
+}
+
 RenderWindow::RenderWindow(Display* aDisplay)
     : RenderWindow(aDisplay, 0, 0)
 {
@@ -53,6 +58,13 @@ RenderWindow::RenderWindow(Display* aDisplay, Window aParent, int aFlags)
         None
     };
 
+    bool isDummyContext = false;
+
+    if (aDisplay == NULL) {
+        isDummyContext = true;
+        mDisplay = XOpenDisplay(nullptr);
+    }
+
     int nItems;
     GLXFBConfig* config = glXChooseFBConfig(mDisplay, DefaultScreen(mDisplay), attribs, &nItems);
     if (config) {
@@ -72,6 +84,9 @@ RenderWindow::RenderWindow(Display* aDisplay, Window aParent, int aFlags)
                 mWidth = attr.width;
                 mHeight = attr.height;
             }
+        } else {
+            mWidth = -1;
+            mHeight = -1;
         }
 
         Window parent = mParent;
@@ -115,10 +130,12 @@ RenderWindow::RenderWindow(Display* aDisplay, Window aParent, int aFlags)
             return;
         }
 
-        XMapWindow(mDisplay, mWindow);
+        if (!isDummyContext) {
+            XMapWindow(mDisplay, mWindow);
 
-        XEvent event;
-        XIfEvent(mDisplay, &event, WaitForNotify, (XPointer)mWindow);
+            XEvent event;
+            XIfEvent(mDisplay, &event, WaitForNotify, (XPointer)mWindow);
+        }
 
         glXMakeCurrent(mDisplay, mWindow, mCtx);
     }
@@ -207,6 +224,12 @@ void
 RenderWindow::setCurrent()
 {
     glXMakeCurrent(mDisplay, mWindow, mCtx);
+}
+
+void
+RenderWindow::unsetCurrent()
+{
+    glXMakeCurrent(mDisplay, None, nullptr);
 }
 
 } // namespace OpenGL

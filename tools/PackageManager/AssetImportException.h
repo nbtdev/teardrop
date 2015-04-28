@@ -27,9 +27,13 @@ THE SOFTWARE.
 #include <string>
 
 #if defined(_WIN32) || defined(_WIN64)
-	#define NOTHROW _NOEXCEPT
+    #if !defined(NOTHROW)
+        #define NOTHROW _NOEXCEPT
+    #endif
 #else
-	#define NOTHROW nothrow
+    #if !defined(NOTHROW)
+        #define NOTHROW noexcept
+    #endif
 #endif
 
 namespace Teardrop {
