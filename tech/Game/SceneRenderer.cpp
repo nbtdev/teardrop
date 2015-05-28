@@ -57,7 +57,7 @@ void SceneRenderer::render(
 	if (!pRenderer)
 		return;
 
-	pRenderer->beginFrame(false, 0, false, 0, false, 0); // let the steps clear as needed
+    pRenderer->beginFrame();
 
 	for (size_t i=0; i<m_renderSteps.size(); ++i)
 	{

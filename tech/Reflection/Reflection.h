@@ -35,7 +35,7 @@ namespace Teardrop
     typedef int Int32;
     typedef int64_t Int64;
     typedef float Real;
-    typedef bool Bool;
+    typedef bool Boolean;
 }
 
 /*

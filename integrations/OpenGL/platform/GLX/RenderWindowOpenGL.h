@@ -22,15 +22,17 @@ namespace Teardrop
             class RenderWindow : public RenderTarget
             {
             public:
+                RenderWindow();
                 RenderWindow(Display* aDisplay);
-                RenderWindow(Display* aDisplay, Window aParent);
                 RenderWindow(Display* aDisplay, int aFlags);
+                RenderWindow(Display* aDisplay, Window aParent);
                 RenderWindow(Display* aDisplay, Window aParent, int aFlags);
                 ~RenderWindow();
 
                 void present();
                 void resize(int w, int h);
                 void setCurrent();
+                void unsetCurrent();
 
                 TD_DECLARE_ALLOCATOR();
 

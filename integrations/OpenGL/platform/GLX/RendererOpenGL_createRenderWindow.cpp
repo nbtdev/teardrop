@@ -10,16 +10,24 @@ is prohibited.
 #include <X11/Xlib.h>
 
 namespace Teardrop {
-	namespace Gfx {
-		namespace OpenGL {
-			Gfx::RenderTarget*
-				Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
-			{
-				OpenGL::RenderWindow* renderWindow = TD_NEW OpenGL::RenderWindow(XOpenDisplay(0), (Window)hWnd, flags);
-				mRenderTargets.push_back(renderWindow);
+namespace Gfx {
+namespace OpenGL {
 
-				return renderWindow;
-			}
-		} // namespace OpenGL
-	} // namespace Gfx
+std::shared_ptr<Gfx::RenderTarget>
+Renderer::createRenderWindow(uintptr_t hWnd, SurfaceFormat /*fmt*/, int flags)
+{
+    std::shared_ptr<OpenGL::RenderWindow> renderWindow(TD_NEW OpenGL::RenderWindow(XOpenDisplay(0), (Window)hWnd, flags));
+    mRenderTargets.push_back(renderWindow);
+
+    return renderWindow;
+}
+
+std::shared_ptr<Gfx::RenderTarget>
+Renderer::createDummyContext()
+{
+    return std::shared_ptr<Gfx::RenderTarget>(TD_NEW RenderWindow);
+}
+
+} // namespace OpenGL
+} // namespace Gfx
 } // namespace Teardrop

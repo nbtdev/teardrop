@@ -14,17 +14,12 @@ is prohibited.
 	#include <GL/gl.h>
 	#include <GL/wglext.h>
 	#include <GL/glext.h>
-	#define GL_GETPROCADDRESS wglGetProcAddress
-	#define GL_UBYTE_PTR
-	#define GL_SIZEIPTR uintptr_t
 #elif defined(__linux__)
-	#define GL_GLEXT_PROTOTYPES 1
-	#include <GL/gl.h>
+    #include <GL/glew.h>
+    #include <GL/glxew.h>
+    #include <GL/gl.h>
 	#include <GL/glx.h>
 	#include <GL/glext.h>
-	#define GL_GETPROCADDRESS glXGetProcAddress
-	#define GL_UBYTE_PTR (GLubyte*)
-	#define GL_SIZEIPTR GLsizeiptr
 #endif
 
 #endif // __GLHEADERS_H__

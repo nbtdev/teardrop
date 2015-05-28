@@ -2,6 +2,7 @@ integrations/DirectX/Direct3D9
 integrations/DirectX/Direct3D9/shader
 integrations/DirectX/DirectInput
 integrations/DirectX/DirectInput8
+integrations/OpenGL/extern/glew/include
 integrations/Havok/Animation
 integrations/Havok/HKXC/include
 integrations/Havok/Physics
@@ -69,3 +70,7 @@ integrations
 integrations/OpenGL
 integrations/XWindow
 tech/Package/platform/POSIX
+integrations/OpenGL/extern/glew/src
+integrations/OpenGL/extern/glew/include/GL
+build/mk
+integrations/OpenGL/platform/GLX

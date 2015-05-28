@@ -124,9 +124,9 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 		// figure out grid row count by taking square root of number of expressions; we will 
 		// take the floor of that value for the number of rows, and the ceiling of that value
 		// as the number of columns
-		qreal sqr = std::sqrtf(float(nExpr));
-		int rows = int(std::floorf(sqr));
-		int cols = int(std::ceilf(sqr));
+        qreal sqr = sqrtf(float(nExpr));
+        int rows = int(floorf(sqr));
+        int cols = int(ceilf(sqr));
 
 		int k = 0;
 		qreal x = 0.f;
