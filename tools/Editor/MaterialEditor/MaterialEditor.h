@@ -25,6 +25,7 @@ THE SOFTWARE.
 
 #include <QtWidgets/QWidget>
 #include <QtCore/QStringListModel>
+#include <list>
 #include <memory>
 #include <vector>
 
@@ -79,6 +80,7 @@ namespace Teardrop
 			std::vector<Reflection::ClassDef*> mExpressionClasses;
 			std::vector<ExpressionItem*> mExpressionItems;
 			std::unique_ptr<ExpressionConnectorDatabase> mConnectors;
+			std::list<ExpressionConnection*> mConnections;
 
 			// editors create/own temporary packages to hold their objects
 			Package* mPackage;

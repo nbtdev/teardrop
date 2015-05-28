@@ -22,6 +22,7 @@ THE SOFTWARE.
 
 #include "MaterialEditor.h"
 #include "EditorCanvas.h"
+#include "ExpressionConnection.h"
 #include "ExpressionConnectorDatabase.h"
 #include "ExpressionItem.h"
 #include "PropertyGrid/PropertyGrid.h"
@@ -153,13 +154,22 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 
 			ExpressionConnector::ConstRef fromConn = mConnectors->findConnectorByAttribute(from);
 			ExpressionConnector::ConstRef toConn = mConnectors->findConnectorByAttribute(to);
+
+			ExpressionConnector::ConstPtr fromPtr = fromConn.lock();
+			ExpressionConnector::ConstPtr toPtr = toConn.lock();
+
+			if (fromPtr && toPtr) {
+				ExpressionConnection* conn = TD_NEW ExpressionConnection(fromPtr, toPtr);
+				mView->scene()->addItem(conn);
+				mConnections.push_back(conn);
+			}
 		}
 	}
 
 	mView->ItemSelected.bind(std::bind(&MaterialEditor::onItemSelected, this, std::placeholders::_1));
 	mView->PathSelected.bind(std::bind(&MaterialEditor::onConnectionSelected, this, std::placeholders::_1));
 	mView->SelectionCleared.bind(std::bind(&MaterialEditor::onSelectionCleared, this));
-	}
+}
 
 MaterialEditor::~MaterialEditor()
 {
