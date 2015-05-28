@@ -176,6 +176,11 @@ int Material::expressionCount()
 	return int(mSortedExpressions.size());
 }
 
+int Material::connectionCount()
+{
+	return int(mConnections.size());
+}
+
 int Material::connections(Connection** connections, int nConnections)
 {
 	if (connections == 0 || nConnections == 0)

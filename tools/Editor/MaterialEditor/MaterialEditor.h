@@ -25,6 +25,7 @@ THE SOFTWARE.
 
 #include <QtWidgets/QWidget>
 #include <QtCore/QStringListModel>
+#include <memory>
 #include <vector>
 
 class QGraphicsView;
@@ -50,6 +51,7 @@ namespace Teardrop
 		class ProjectItem;
 		class ExpressionItem;
 		class ExpressionConnection;
+		class ExpressionConnectorDatabase;
 		class EditorCanvas;
 
 		class MaterialEditor : public QWidget
@@ -76,6 +78,7 @@ namespace Teardrop
 			QStringListModel mExpressionModel;
 			std::vector<Reflection::ClassDef*> mExpressionClasses;
 			std::vector<ExpressionItem*> mExpressionItems;
+			std::unique_ptr<ExpressionConnectorDatabase> mConnectors;
 
 			// editors create/own temporary packages to hold their objects
 			Package* mPackage;

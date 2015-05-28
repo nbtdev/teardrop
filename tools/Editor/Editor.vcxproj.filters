@@ -45,6 +45,9 @@
     <Filter Include="Viewers And Editors">
       <UniqueIdentifier>{76e18433-b296-459e-b175-613b1058e280}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Viewers And Editors\Material Editor">
+      <UniqueIdentifier>{6389b4fc-6301-4105-b812-aae51d6ae4d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DragDropData.cpp">
@@ -176,14 +179,29 @@
     <ClCompile Include="PropertyGrid\PropertyGridModel.cpp">
       <Filter>PropertyGrid</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialEditor\MaterialEditor.cpp">
-      <Filter>Viewers And Editors</Filter>
-    </ClCompile>
     <ClCompile Include="Viewers\ObjectViewer3D.cpp">
       <Filter>Viewers And Editors</Filter>
     </ClCompile>
     <ClCompile Include="Viewers\StaticMeshViewer.cpp">
       <Filter>Viewers And Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEditor\MaterialEditor.cpp">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEditor\ExpressionConnector.cpp">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEditor\ExpressionConnection.cpp">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEditor\ExpressionConnectorDatabase.cpp">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEditor\ExpressionItem.cpp">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialEditor\EditorCanvas.cpp">
+      <Filter>Viewers And Editors\Material Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +256,24 @@
     <ClInclude Include="Viewers\StaticMeshViewer.h">
       <Filter>Viewers And Editors</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialEditor\ExpressionConnector.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialEditor\EditorCanvasItem.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialEditor\ExpressionConnection.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialEditor\ExpressionConnectorDatabase.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialEditor\ExpressionItem.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialEditor\EditorCanvas.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor.rc" />
@@ -276,11 +312,11 @@
     <CustomBuild Include="PropertyGrid\PropertyGridModel.h">
       <Filter>PropertyGrid</Filter>
     </CustomBuild>
-    <CustomBuild Include="MaterialEditor\MaterialEditor.h">
-      <Filter>Viewers And Editors</Filter>
-    </CustomBuild>
     <CustomBuild Include="Viewers\ObjectViewer3D.h">
       <Filter>Viewers And Editors</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MaterialEditor\MaterialEditor.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

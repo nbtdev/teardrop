@@ -58,6 +58,7 @@ namespace Teardrop
 
 			void sortExpressions();
 			int expressionCount();
+			int connectionCount();
 			MaterialExpression** sortedExpressions();
 
 			TD_DECLARE_ALLOCATOR();

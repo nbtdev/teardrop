@@ -130,6 +130,11 @@
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="FolderDragDropData.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MaterialEditor\EditorCanvas.cpp" />
+    <ClCompile Include="MaterialEditor\ExpressionConnection.cpp" />
+    <ClCompile Include="MaterialEditor\ExpressionConnector.cpp" />
+    <ClCompile Include="MaterialEditor\ExpressionConnectorDatabase.cpp" />
+    <ClCompile Include="MaterialEditor\ExpressionItem.cpp" />
     <ClCompile Include="ObjectDragDropData.cpp" />
     <ClCompile Include="Preferences.cpp" />
     <ClCompile Include="ProgressDialog.cpp" />
@@ -231,6 +236,12 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="FolderDragDropData.h" />
+    <ClInclude Include="MaterialEditor\EditorCanvas.h" />
+    <ClInclude Include="MaterialEditor\EditorCanvasItem.h" />
+    <ClInclude Include="MaterialEditor\ExpressionConnection.h" />
+    <ClInclude Include="MaterialEditor\ExpressionConnector.h" />
+    <ClInclude Include="MaterialEditor\ExpressionConnectorDatabase.h" />
+    <ClInclude Include="MaterialEditor\ExpressionItem.h" />
     <ClInclude Include="ObjectDragDropData.h" />
     <ClInclude Include="Preferences.h" />
     <ClInclude Include="ProgressDialog.h" />
