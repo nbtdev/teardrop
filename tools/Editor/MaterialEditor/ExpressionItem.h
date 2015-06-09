@@ -53,6 +53,9 @@ namespace Teardrop {
 			std::vector<ExpressionConnector::Ptr> mInputs;
 			std::vector<ExpressionConnector::Ptr> mOutputs;
 
+		protected:
+			QVariant itemChange(GraphicsItemChange aChange, const QVariant& aValue);
+
 		public:
 			Event<ExpressionConnector::ConstPtr, const Gfx::Attribute*> ExpressionConnectorCreated;
 

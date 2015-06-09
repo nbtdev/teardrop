@@ -50,11 +50,12 @@ namespace Teardrop {
 
 			ExpressionConnector(ExpressionItem* aParent, const Gfx::Attribute& aAttr, bool aOutput);
 
-			void onPositionChanged(const QPointF& aPos);
+			void notifyMoved(const QPointF& aPos);
 			const Gfx::Attribute& attribute() const;
 			bool isOutput() const;
 			bool isWithin(const QPointF& aPos) const;
 			QPointF globalPos() const;
+			QPointF targetPos() const;
 
 			// QGraphicsItem overrides
 			QRectF boundingRect() const;

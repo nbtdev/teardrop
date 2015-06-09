@@ -21,7 +21,9 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "ExpressionConnection.h"
+#include <QtGui/QPainter>
 #include <QDebug>
+#include <QVector2D>
 
 namespace Teardrop {
 namespace Tools {
@@ -35,6 +37,8 @@ ExpressionConnection::ExpressionConnection(ExpressionConnector::ConstPtr aFrom, 
 
 	mFrom->PositionChanged.bind(std::bind(&ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
 	mTo->PositionChanged.bind(std::bind(&ExpressionConnection::onConnectorChangedPosition, this, std::placeholders::_1));
+
+	setZValue(-10.f);
 }
 
 ExpressionConnection::~ExpressionConnection() {
@@ -44,7 +48,7 @@ ExpressionConnection::~ExpressionConnection() {
 
 void ExpressionConnection::onConnectorChangedPosition(ExpressionConnector* aConn)
 {
-
+	this->update();
 }
 
 // EditorCanvasItem implementation
@@ -60,14 +64,33 @@ bool ExpressionConnection::isItem() const
 
 QRectF ExpressionConnection::boundingRect() const 
 {
-	return QRectF(/*mX, mY, mWidth + 20, mHeight*/);
+	QPointF from = mFrom->globalPos();
+	QPointF to = mTo->globalPos();
+
+	qreal left = std::min(from.x(), to.x());
+	qreal top = std::min(from.y(), to.y());
+	qreal width = std::fabs(from.x() - to.x());
+	qreal height = std::fabs(from.y() - to.y());
+
+	return QRectF(QPointF(left, top), QSizeF(width, height));
 }
 
 void ExpressionConnection::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) 
 {
-	QPointF from = mFrom->globalPos();
-	QPointF to = mTo->globalPos();
-	qDebug() << "from, to: " << from << ", " << to;
+	QPointF from = mFrom->targetPos();
+	QPointF to = mTo->targetPos();
+
+	QPainterPath path;
+	path.moveTo(from);
+
+	QPointF p1(from);
+	QPointF p3(to);
+
+	p1.setX(to.x());
+	p3.setX(from.x());
+
+	path.cubicTo(p1, p3, to);
+	painter->drawPath(path);
 }
 
 } // namespace Tools

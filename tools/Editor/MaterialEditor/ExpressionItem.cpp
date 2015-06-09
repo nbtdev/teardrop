@@ -43,6 +43,7 @@ ExpressionItem::ExpressionItem(Gfx::MaterialExpression* aExpr, ExpressionConnect
 {
 	setFlag(ItemIsMovable);
 	setFlag(ItemIsSelectable);
+	setFlag(ItemSendsGeometryChanges);
 
 	// collect expression inputs and outputs
 	const Gfx::MaterialExpression::Attributes& inputs = aExpr->inputAttributes();
@@ -100,6 +101,22 @@ void ExpressionItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	if (conn) {
 		qDebug(conn->attribute().mName);
 	}
+}
+
+QVariant ExpressionItem::itemChange(GraphicsItemChange aChange, const QVariant& aValue) {
+	if (aChange == ItemPositionChange) {
+		QPointF newPos = aValue.toPointF();
+
+		for (auto& i : mInputs) {
+			i->notifyMoved(newPos);
+		}
+
+		for (auto& o : mOutputs) {
+			o->notifyMoved(newPos);
+		}
+	}
+
+	return QGraphicsItem::itemChange(aChange, aValue);
 }
 
 QRectF ExpressionItem::boundingRect() const 

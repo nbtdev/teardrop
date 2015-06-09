@@ -36,7 +36,7 @@ ExpressionConnector::ExpressionConnector(ExpressionItem* aParent, const Gfx::Att
 	setAcceptHoverEvents(true);
 }
 
-void ExpressionConnector::onPositionChanged(const QPointF& aPos) 
+void ExpressionConnector::notifyMoved(const QPointF& aPos) 
 {
 	PositionChanged.raise(this);
 }
@@ -64,6 +64,11 @@ bool ExpressionConnector::isWithin(const QPointF& aPos) const
 QPointF ExpressionConnector::globalPos() const
 {
 	return pos() + parentItem()->pos();
+}
+
+QPointF ExpressionConnector::targetPos() const
+{
+	return pos() + parentItem()->pos() + QPointF(5.f, 5.f);
 }
 
 QRectF ExpressionConnector::boundingRect() const
