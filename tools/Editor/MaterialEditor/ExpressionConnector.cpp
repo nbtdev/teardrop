@@ -102,5 +102,15 @@ void ExpressionConnector::hoverLeaveEvent(QGraphicsSceneHoverEvent* aEvent)
 	this->update();
 }
 
+bool ExpressionConnector::isItem() const
+{
+	return false;
+}
+
+bool ExpressionConnector::isPath() const
+{
+	return false;
+}
+
 } // namespace Tools
 } // namespace Teardrop

@@ -92,17 +92,6 @@ ExpressionItem::ExpressionItem(Gfx::MaterialExpression* aExpr, ExpressionConnect
 	mHeight = 50.f + 30.f * nMax;
 }
 
-void ExpressionItem::mousePressEvent(QGraphicsSceneMouseEvent* event) 
-{
-	QGraphicsItem::mousePressEvent(event);
-
-	ExpressionConnector::ConstRef connRef = connectorAt(event->pos().toPoint());
-	ExpressionConnector::ConstPtr conn = connRef.lock();
-	if (conn) {
-		qDebug(conn->attribute().mName);
-	}
-}
-
 QVariant ExpressionItem::itemChange(GraphicsItemChange aChange, const QVariant& aValue) {
 	if (aChange == ItemPositionChange) {
 		QPointF newPos = aValue.toPointF();

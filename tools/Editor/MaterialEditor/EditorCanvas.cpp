@@ -53,16 +53,17 @@ void EditorCanvas::mousePressEvent(QMouseEvent* event)
 		EditorCanvasItem* canvasItem = static_cast<EditorCanvasItem*>(ei);
 
 		if (canvasItem) {
-			if (canvasItem->isItem())
+			if (canvasItem->isItem()) {
 				ItemSelected.raise(static_cast<ExpressionItem*>(item));
+
+				ExpressionConnector::ConstRef connRef = ei->connectorAt(event->pos() - ei->pos().toPoint());
+				ExpressionConnector::ConstPtr conn = connRef.lock();
+				if (conn) {
+					qDebug(conn->attribute().mName);
+				}
+			}
 			else if (canvasItem->isPath())
 				PathSelected.raise(static_cast<ExpressionConnection*>(item));
-
-			ExpressionConnector::ConstRef connRef = ei->connectorAt(event->pos() - ei->pos().toPoint());
-			ExpressionConnector::ConstPtr conn = connRef.lock();
-			if (conn) {
-				qDebug(conn->attribute().mName);
-			}
 		}
 	}
 	else {

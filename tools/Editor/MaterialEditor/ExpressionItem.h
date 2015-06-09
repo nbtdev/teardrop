@@ -62,7 +62,6 @@ namespace Teardrop {
 			ExpressionItem(Gfx::MaterialExpression* aExpr, ExpressionConnectorDatabase* aConnectorDb);
 			ExpressionItem(Gfx::MaterialExpression* aExpr, ExpressionConnectorDatabase* aConnectorDb, int x, int y);
 
-			void mousePressEvent(QGraphicsSceneMouseEvent* event);
 			QRectF boundingRect() const;
 			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 

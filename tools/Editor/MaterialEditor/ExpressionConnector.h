@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(__TEARDROP_EXPRESSION_CONNECTOR_H__)
 #define __TEARDROP_EXPRESSION_CONNECTOR_H__
 
+#include "EditorCanvasItem.h"
 #include "Util/Event.h"
 #include <QtWidgets/QGraphicsItem>
 #include <QtGui/QBrush>
@@ -36,7 +37,7 @@ namespace Teardrop {
 
 		class ExpressionItem;
 
-		class ExpressionConnector : public QGraphicsItem
+		class ExpressionConnector : public QGraphicsItem, public EditorCanvasItem
 		{
 			const Gfx::Attribute& mAttr;
 			QBrush mBrush;
@@ -64,6 +65,10 @@ namespace Teardrop {
 			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
 			void hoverEnterEvent(QGraphicsSceneHoverEvent* aEvent);
 			void hoverLeaveEvent(QGraphicsSceneHoverEvent* aEvent);
+
+			// EditorCanvasItem overrides
+			bool isItem() const;
+			bool isPath() const;
 		};
 
 	} // namespace Tools
