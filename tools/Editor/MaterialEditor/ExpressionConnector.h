@@ -25,6 +25,7 @@ THE SOFTWARE.
 
 #include "Util/Event.h"
 #include <QtWidgets/QGraphicsItem>
+#include <QtGui/QBrush>
 #include <memory>
 
 namespace Teardrop {
@@ -38,6 +39,7 @@ namespace Teardrop {
 		class ExpressionConnector : public QGraphicsItem
 		{
 			const Gfx::Attribute& mAttr;
+			QBrush mBrush;
 			bool mOutput; // true if the connector is an output, false otherwise
 
 		public:

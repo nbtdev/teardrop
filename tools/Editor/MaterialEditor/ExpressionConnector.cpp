@@ -31,9 +31,11 @@ namespace Tools {
 ExpressionConnector::ExpressionConnector(ExpressionItem* aParent, const Gfx::Attribute& aAttr, bool aOutput)
 	: QGraphicsItem(aParent)
 	, mAttr(aAttr)
+	, mBrush(Qt::gray)
 	, mOutput(aOutput) 
 {
 	setAcceptHoverEvents(true);
+	setZValue(-5.f);
 }
 
 void ExpressionConnector::notifyMoved(const QPointF& aPos) 
@@ -79,22 +81,25 @@ QRectF ExpressionConnector::boundingRect() const
 void ExpressionConnector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
 	painter->save();
-	painter->setBrush(Qt::gray);
+	painter->setBrush(mBrush);
 	painter->drawRect(0.f, 0.f, 10.f, 10.f);
 	painter->restore();
-
 }
 
 void ExpressionConnector::hoverEnterEvent(QGraphicsSceneHoverEvent* aEvent)
 {
 	QGraphicsItem::hoverEnterEvent(aEvent);
 	QApplication::setOverrideCursor(QCursor(Qt::PointingHandCursor));
+	mBrush = QBrush(Qt::white);
+	this->update();
 }
 
 void ExpressionConnector::hoverLeaveEvent(QGraphicsSceneHoverEvent* aEvent)
 {
 	QGraphicsItem::hoverLeaveEvent(aEvent);
 	QApplication::restoreOverrideCursor();
+	mBrush = QBrush(Qt::gray);
+	this->update();
 }
 
 } // namespace Tools

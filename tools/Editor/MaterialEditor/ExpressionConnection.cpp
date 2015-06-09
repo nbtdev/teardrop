@@ -90,7 +90,10 @@ void ExpressionConnection::paint(QPainter* painter, const QStyleOptionGraphicsIt
 	p3.setX(from.x());
 
 	path.cubicTo(p1, p3, to);
+	painter->save();
+	painter->setPen(QColor(255, 128, 0));
 	painter->drawPath(path);
+	painter->restore();
 }
 
 } // namespace Tools

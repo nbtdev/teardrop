@@ -35,6 +35,7 @@ EditorCanvas::EditorCanvas(Gfx::Material* aMaterial, QWidget* aParent)
 	: QGraphicsView(aParent)
 	, mMaterial(aMaterial)
 {
+	setBackgroundBrush(Qt::black);
 }
 
 EditorCanvas::~EditorCanvas()
@@ -51,15 +52,17 @@ void EditorCanvas::mousePressEvent(QMouseEvent* event)
 		ExpressionItem* ei = static_cast<ExpressionItem*>(item);
 		EditorCanvasItem* canvasItem = static_cast<EditorCanvasItem*>(ei);
 
-		if (canvasItem->isItem())
-			ItemSelected.raise(static_cast<ExpressionItem*>(item));
-		else if (canvasItem->isPath())
-			PathSelected.raise(static_cast<ExpressionConnection*>(item));
+		if (canvasItem) {
+			if (canvasItem->isItem())
+				ItemSelected.raise(static_cast<ExpressionItem*>(item));
+			else if (canvasItem->isPath())
+				PathSelected.raise(static_cast<ExpressionConnection*>(item));
 
-		ExpressionConnector::ConstRef connRef = ei->connectorAt(event->pos() - ei->pos().toPoint());
-		ExpressionConnector::ConstPtr conn = connRef.lock();
-		if (conn) {
-			qDebug(conn->attribute().mName);
+			ExpressionConnector::ConstRef connRef = ei->connectorAt(event->pos() - ei->pos().toPoint());
+			ExpressionConnector::ConstPtr conn = connRef.lock();
+			if (conn) {
+				qDebug(conn->attribute().mName);
+			}
 		}
 	}
 	else {

@@ -126,7 +126,11 @@ QRectF ExpressionItem::boundingRect() const
 
 void ExpressionItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) 
 {
+	painter->save();
+	painter->setBrush(Qt::lightGray);
+	painter->setPen(Qt::white);
 	painter->drawRoundedRect(10, 0, mWidth, mHeight, 5, 5);
+	painter->restore();
 
 	// figure out where the text goes -- top-center of the box
 	qreal tw = mLabel.size().width();
