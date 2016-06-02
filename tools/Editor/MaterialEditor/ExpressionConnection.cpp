@@ -22,8 +22,8 @@ THE SOFTWARE.
 
 #include "ExpressionConnection.h"
 #include <QtGui/QPainter>
-#include <QDebug>
-#include <QVector2D>
+#include <QtCore/QDebug>
+#include <QtGui/QVector2D>
 
 namespace Teardrop {
 namespace Tools {

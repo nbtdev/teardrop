@@ -26,7 +26,7 @@ THE SOFTWARE.
 #include "EditorCanvasItem.h"
 #include "ExpressionConnector.h"
 #include <QtWidgets/QGraphicsPathItem>
-#include <QtCore/QRect.h>
+#include <QtCore/QRect>
 
 namespace Teardrop {
 	namespace Tools {

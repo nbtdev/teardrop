@@ -26,7 +26,7 @@ THE SOFTWARE.
 #include "ExpressionConnector.h"
 #include "Gfx/Attribute.h"
 #include <QtGui/QMouseEvent>
-#include <QDebug>
+#include <QtCore/QDebug>
 
 namespace Teardrop {
 namespace Tools {
