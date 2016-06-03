@@ -35,20 +35,8 @@ static int s_nextClassId = 0;
 //---------------------------------------------------------------------------
 static void appendClassDef(ClassDef** pRoot, ClassDef* pClassDefToAdd)
 {
-	if (!*pRoot)
-	{
-		*pRoot = pClassDefToAdd;
-		return;
-	}
-
-	// else walk the list to find the end, and append there
-	ClassDef* pTmp = *pRoot;
-	while (pTmp->m_pNext)
-	{
-		pTmp = pTmp->m_pNext;
-	}
-
-	pTmp->m_pNext = pClassDefToAdd;
+    pClassDefToAdd->m_pNext = *pRoot;
+    *pRoot = pClassDefToAdd;
 }
 //---------------------------------------------------------------------------
 ClassDef* ClassDef::getClasses()
