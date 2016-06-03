@@ -2,7 +2,7 @@
 #  Common make variables
 #############################################################################
 
-CXXFLAGS = $(CFLAGS)
+CXXFLAGS = $(CFLAGS) -std=c++11
 OBJDIR = $(OBJROOT)/$(BUILD_TYPE)/$(NODENAME)/$(NAME)
 
 INCLUDES += \

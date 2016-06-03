@@ -2,7 +2,10 @@
 #  Qt build flags and variables
 #############################################################################
 
-QT_SDK = /opt/qt/5.4.0/5.4/gcc_64
+ifndef QT_SDK
+    QT_SDK = /opt/qt/5.4.0/5.4/gcc_64
+endif 
+
 INCLUDES += $(QT_SDK)/include
 LIBS += Qt5Core Qt5Gui Qt5Widgets
 LDFLAGS += -L$(QT_SDK)/lib -Wl,-rpath,$(QT_SDK)/lib

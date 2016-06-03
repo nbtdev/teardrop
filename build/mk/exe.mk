@@ -23,7 +23,7 @@ opt: $(OBJDIR) $(BINDIR) $(EXE)
 
 $(EXE): $(OBJS) $(DEPS)
 	@echo "  [exe] $@"
-	@$(CXX) -o $@ $^ $(LDFLAGS) 
+	$(CXX) -o $@ $^ $(LDFLAGS) 
 
 $(BINDIR):
 	@mkdir -p $(BINDIR)

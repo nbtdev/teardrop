@@ -53,7 +53,9 @@ LIBS += \
 	squish \
 	uuid \
 	freeimage \
-	z
+	z \
+	X11 \
+	GL
 
 DEPS = 	$(addprefix $(LIBPATH)/lib, $(addsuffix .a, $(TEARDROP_LIBS)))
 
