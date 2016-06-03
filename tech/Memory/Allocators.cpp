@@ -25,11 +25,11 @@ THE SOFTWARE.
 #include "Allocators.h"
 #include "MemoryRegion.h"
 #include "AllocationTracker.h"
-#include "Math/MathUtil.h"
 #include <assert.h>
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <algorithm>
 #include <new>
 
 namespace {
@@ -123,7 +123,7 @@ void* DefaultAllocator::Allocate(size_t size TD_ALLOC_SITE_ARGS)
 	TD_TRACK_ALLOCATION(pMem, size, GetName());
 	size_t sz = m_pMemRegion->GetChunkSize(pMem);
 	m_stats.current += sz;
-	m_stats.highWater = MathUtil::max(m_stats.highWater, m_stats.current);
+    m_stats.highWater = std::max(m_stats.highWater, m_stats.current);
 	return pMem;
 }
 //-----------------------------------------------------------------------------
@@ -137,7 +137,7 @@ void* DefaultAllocator::AllocateAligned(size_t size, size_t alignment TD_ALLOC_S
 	TD_TRACK_ALLOCATION(pMem, size, GetName());
 	size_t sz = m_pMemRegion->GetChunkSize(pMem);
 	m_stats.current += sz;
-	m_stats.highWater = MathUtil::max(m_stats.highWater, m_stats.current);
+    m_stats.highWater = std::max(m_stats.highWater, m_stats.current);
 	return pMem;
 }
 //-----------------------------------------------------------------------------
@@ -157,7 +157,7 @@ void* DefaultAllocator::Reallocate(void *pMem, size_t newSize TD_ALLOC_SITE_ARGS
 	TD_TRACK_ALLOCATION(pMem, newSize, GetName());
 	size_t sz = m_pMemRegion->GetChunkSize(pRtn);
 	m_stats.current += sz;
-	m_stats.highWater = MathUtil::max(m_stats.highWater, m_stats.current);
+    m_stats.highWater = std::max(m_stats.highWater, m_stats.current);
 	return pRtn;
 }
 //-----------------------------------------------------------------------------
@@ -215,7 +215,7 @@ void* CrtAllocator::Allocate(size_t size TD_ALLOC_SITE_ARGS)
 #if defined(_DEBUG)
 	size_t* pSz = (size_t*)((char*)pMem - 16);
 	m_stats.current += *pSz;
-	m_stats.highWater = MathUtil::max(m_stats.highWater, m_stats.current);
+    m_stats.highWater = std::max(m_stats.highWater, m_stats.current);
 #endif
 	//TD_TRACK_ALLOCATION(pMem, size, GetName().c_str());
 	return pMem;
@@ -228,7 +228,7 @@ void* CrtAllocator::AllocateAligned(size_t size,
 #if defined(_DEBUG)
 	size_t* pSz = (size_t*)((char*)pMem - 16);
 	m_stats.current += *pSz;
-	m_stats.highWater = MathUtil::max(m_stats.highWater, m_stats.current);
+    m_stats.highWater = std::max(m_stats.highWater, m_stats.current);
 #endif
 	//TD_TRACK_ALLOCATION(pMem, size, GetName().c_str());
 	return pMem;
@@ -250,7 +250,7 @@ void* CrtAllocator::Reallocate(void *pMem, size_t sz TD_ALLOC_SITE_ARGS)
 #if defined(_DEBUG)
 	pSz = (size_t*)((char*)p - 16);
 	m_stats.current += *pSz;
-	m_stats.highWater = MathUtil::max(m_stats.highWater, m_stats.current);
+    m_stats.highWater = std::max(m_stats.highWater, m_stats.current);
 #endif
 	//TD_TRACK_DEALLOCATION(pMem);
 	return p;
