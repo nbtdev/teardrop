@@ -3,6 +3,20 @@ set(TARGET Gfx)
 
 # library source files
 set(SOURCES
+    Codegen/Argument.h
+    Codegen/AttributeExpression.h
+    Codegen/BinaryExpression.h
+    Codegen/CastExpression.h
+    Codegen/Common.h
+    Codegen/Expression.h
+    Codegen/Function.h
+    Codegen/Identifier.h
+    Codegen/SamplerExpression.h
+    Codegen/ShaderRealizer.h
+    Codegen/Swizzle.cpp
+    Codegen/Swizzle.h
+    Codegen/Variable.h
+
     AddColorExpression.cpp
     AddColorExpression.h
     Allocators.h

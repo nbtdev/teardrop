@@ -38,9 +38,9 @@ MemoryStream::MemoryStream()
 
 MemoryStream::MemoryStream(size_t len)
 	: mData(0)
-	, mLen(len)
+    , mLen((int)len)
 	, mPos(0)
-	, mCapacity(len)
+    , mCapacity((int)len)
 	, mOwnData(true)
 {
 	mData = new unsigned char[len];
@@ -48,9 +48,9 @@ MemoryStream::MemoryStream(size_t len)
 
 MemoryStream::MemoryStream(void* data, size_t len)
 	: mData((unsigned char*)data)
-	, mLen(len)
+    , mLen((int)len)
 	, mPos(0)
-	, mCapacity(len)
+    , mCapacity((int)len)
 	, mOwnData(false)
 {
 }
@@ -78,7 +78,7 @@ int MemoryStream::read(void* data, size_t len, bool /*async*/)
 	if (mPos+l < mLen-1) {
 		memcpy(data, mData+mPos, len);
 		mPos += l;
-		return len;
+        return (int)len;
 	}
 
 	return 0;
@@ -95,7 +95,7 @@ int MemoryStream::write(const void* data, size_t len, bool /*async*/)
 	mPos += l;
 	mLen += l;
 
-	return len;
+    return (int)len;
 }
 
 size_t MemoryStream::length()
