@@ -20,7 +20,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
+//#include "stdafx.h"
+
+extern "C"
+{
+    #include "lua.h"
+    #include "lualib.h"
+    #include "lauxlib.h"
+}
+
 #include "LuaScriptVM.h"
 #include "ScriptHelper.h"
 #include "Variant.h"

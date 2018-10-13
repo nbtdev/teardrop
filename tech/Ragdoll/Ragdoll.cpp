@@ -28,13 +28,13 @@ THE SOFTWARE.
 #include "Util/SystemManager.h"
 #include "Memory/Allocators.h"
 #include "Stream/Stream.h"
-#include "Util/FourCC.h"
+//#include "Util/FourCC.h"
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
-DEFINE_SERIALIZABLE(Ragdoll);
+//DEFINE_SERIALIZABLE(Ragdoll);
 //---------------------------------------------------------------------------
-const FourCC& Ragdoll::RESOURCE_TYPE = FourCC('R','A','G','D');
+//const FourCC& Ragdoll::RESOURCE_TYPE = FourCC('R','A','G','D');
 //---------------------------------------------------------------------------
 Ragdoll::Ragdoll()
 {
@@ -65,15 +65,15 @@ bool Ragdoll::initialize()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool Ragdoll::destroy()
-{
-	return true;
-}
+//bool Ragdoll::destroy()
+//{
+//	return true;
+//}
 //---------------------------------------------------------------------------
-bool Ragdoll::release()
-{
-	return true;
-}
+//bool Ragdoll::release()
+//{
+//	return true;
+//}
 //---------------------------------------------------------------------------
 bool Ragdoll::update(float /*deltaT*/, AnimationBlender* /*pAnimBlender*/)
 {
@@ -86,25 +86,25 @@ Ragdoll* Ragdoll::clone()
 	return 0;
 }
 //---------------------------------------------------------------------------
-bool Ragdoll::load(Stream& strm)
-{
-	Teardrop::System* pSys = 
-		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_RAGDOLL);
+//bool Ragdoll::load(Stream& strm)
+//{
+//	Teardrop::System* pSys =
+//		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_RAGDOLL);
 
-	// load the whole stream and own the data once loaded
-	if (m_pData)
-	{
-		pSys->getAllocator()->Deallocate(m_pData);
-	}
+//	// load the whole stream and own the data once loaded
+//	if (m_pData)
+//	{
+//		pSys->getAllocator()->Deallocate(m_pData);
+//	}
 
-	unsigned int len = (unsigned int)strm.length();
-	m_pData = pSys->getAllocator()->AllocateAligned(len, 16 TD_ALLOC_SITE);
-	strm.read(m_pData, len);
+//	unsigned int len = (unsigned int)strm.length();
+//	m_pData = pSys->getAllocator()->AllocateAligned(len, 16 TD_ALLOC_SITE);
+//	strm.read(m_pData, len);
 
-	return initialize(m_pData, len);
-}
+//	return initialize(m_pData, len);
+//}
 //---------------------------------------------------------------------------
-bool Ragdoll::serialize(ResourceSerializer& /*ser*/)
-{
-	return false;
-}
+//bool Ragdoll::serialize(ResourceSerializer& /*ser*/)
+//{
+//	return false;
+//}

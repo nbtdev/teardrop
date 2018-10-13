@@ -20,11 +20,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "UIRenderer.h"
 #include "UIElement.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxViewport.h"
+#include "Gfx/Renderer.h"
+#include "Gfx/Viewport.h"
 #include <assert.h>
 
 using namespace Teardrop;

@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "UIDefs.h"
 #include "UIUtil.h"
 #include "UILayoutTarget.h"
@@ -28,15 +28,15 @@ THE SOFTWARE.
 #include "Basic/UIQuadElement.h"
 #include "SWF/UIFlashRenderer.h"
 #include "SWF/UIFlashElement.h"
-#include "Gfx/GfxRenderer.h"
-#include "Gfx/GfxTexture.h"
-#include "Resource/ResourceHandle.h"
-#include "Resource/ResourceManager.h"
+#include "Gfx/Renderer.h"
+//#include "Gfx/Texture.h"
+//#include "Resource/ResourceHandle.h"
+//#include "Resource/ResourceManager.h"
 #include "Memory/Memory.h"
 #include "Util/Environment.h"
 #include "Util/StringUtil.h"
 #include "Util/_String.h"
-#include "tinyxml.h"
+#include "ThirdParty/tinyxml/tinyxml.h"
 
 using namespace Teardrop;
 using namespace UI;
@@ -61,6 +61,7 @@ Element* Util::createElement(const ElementParams& params)
 
 	if (params.type == ET_BASIC)
 	{
+#if 0
 		// basic quad element
 		HResource hTex = INVALID_RESOURCE_HANDLE;
 
@@ -79,10 +80,12 @@ Element* Util::createElement(const ElementParams& params)
 		}
 
 		pRtn = pElem;
+#endif
 	}
 
 	if (params.type == ET_FLASH)
 	{
+#if 0
 		// SWF (Flash) element
 		HResource hTex = INVALID_RESOURCE_HANDLE;
 
@@ -101,6 +104,7 @@ Element* Util::createElement(const ElementParams& params)
 		}
 
 		pRtn = pElem;
+#endif
 	}
 
 	pRtn->setAlignment(params.hAlign, params.vAlign);

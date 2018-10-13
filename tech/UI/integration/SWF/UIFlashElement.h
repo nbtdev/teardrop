@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 #include "UIElement.h"
 #include "UIFlashInterfaces.h"
-#include "Resource/ResourceHandle.h"
+//#include "Resource/ResourceHandle.h"
 
 namespace Teardrop
 {
@@ -56,7 +56,7 @@ namespace Teardrop
 
 			bool initialize(
 				const char* resourceName,
-				HResource hTexture, 
+//				HResource hTexture,
 				const ElementParams& params);
 
 			void destroy();

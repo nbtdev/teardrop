@@ -23,14 +23,14 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "UIQuadElement.h"
 #include "UIRenderer.h"
-#include "Gfx/GfxMesh.h"
-#include "Gfx/GfxSubMesh.h"
-#include "Gfx/GfxVertexData.h"
-#include "Gfx/GfxVertexFormat.h"
-#include "Gfx/GfxMaterial.h"
-#include "Gfx/GfxUtil.h"
-#include "Gfx/GfxTextureStage.h"
-#include "Resource/ResourceManager.h"
+#include "Gfx/Mesh.h"
+#include "Gfx/SubMesh.h"
+#include "Gfx/VertexData.h"
+#include "Gfx/VertexFormat.h"
+#include "Gfx/Material.h"
+#include "Gfx/Util.h"
+#include "Gfx/TextureStage.h"
+//#include "Resource/ResourceManager.h"
 #include "Util/Environment.h"
 #include <assert.h>
 
@@ -39,7 +39,7 @@ using namespace UI;
 //---------------------------------------------------------------------------
 QuadElement::QuadElement()
 {
-	m_hQuad = INVALID_RESOURCE_HANDLE;
+//	m_hQuad = INVALID_RESOURCE_HANDLE;
 	m_pMtl = 0;
 }
 //---------------------------------------------------------------------------
