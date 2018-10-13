@@ -26,7 +26,7 @@ THE SOFTWARE.
 #include "Math/Matrix44.h"
 #include "Util/Environment.h"
 #include "Util/SystemManager.h"
-#include "Resource/ResourceManager.h"
+//#include "Resource/ResourceManager.h"
 #include "Memory/Allocators.h"
 
 using namespace Teardrop;

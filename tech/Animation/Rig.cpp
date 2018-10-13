@@ -67,10 +67,10 @@ SkeletonInstance* Rig::getInstance(size_t)
 	return 0;
 }
 //---------------------------------------------------------------------------
-bool Rig::release()
-{
-	return true;
-}
+//bool Rig::release()
+//{
+//	return true;
+//}
 //---------------------------------------------------------------------------
 Bone* Rig::getBone(const char* /*name*/)
 {

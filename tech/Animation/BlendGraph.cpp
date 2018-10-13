@@ -22,7 +22,7 @@ THE SOFTWARE.
 
 #include "BlendGraph.h"
 #include "Util/StringUtil.h"
-#include "tinyxml.h"
+#include "ThirdParty/tinyxml/tinyxml.h"
 #include <map>
 
 using namespace Teardrop;
@@ -31,6 +31,7 @@ BlendGraph::BlendGraph()
 {
 }
 //---------------------------------------------------------------------------
+#if 0
 bool BlendGraph::load(const String& filename, BlendGraph& graph)
 {
 	graph.reset();
@@ -208,6 +209,7 @@ bool BlendGraph::load(const String& filename, BlendGraph& graph)
 
 	return true;
 }
+#endif
 //---------------------------------------------------------------------------
 void BlendGraph::reset()
 {

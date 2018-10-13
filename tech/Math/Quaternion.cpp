@@ -39,8 +39,8 @@ void Quaternion::fromAngleAxis(float angle /*radians*/, const Vector4& axis)
     //   q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
 
     float half = angle * 0.5f;
-    float s = sin(half);
-    w = cos(half);
+    float s = sinf(half);
+    w = cosf(half);
     x = s * axis.x;
     y = s * axis.y;
     z = s * axis.z;
@@ -49,8 +49,8 @@ void Quaternion::fromAngleAxis(float angle /*radians*/, const Vector4& axis)
 void Quaternion::toAngleAxis(float& angle /*radians*/, Vector4& axis)
 {
 	// assumes quaternion is normalized already
-	angle = MathUtil::acos(w) * 2;
-	float s = MathUtil::sqrt(1 - w*w);
+    angle = MathUtil::acos(w) * 2;
+    float s = MathUtil::sqrt(1 - w*w);
 	if (MathUtil::abs(s) < MathUtil::EPSILON)
 	{
 		s = 1;
