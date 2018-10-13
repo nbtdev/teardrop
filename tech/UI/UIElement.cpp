@@ -20,9 +20,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "UIElement.h"
 #include "Math/MathUtil.h"
+
+#if defined(_WIN32) || defined(_WIN64)
+#define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
+#include <windows.h>
+#include <ocidl.h>
+#include <objbase.h>
+
+// TODO: reference additional headers your program requires here
+
+#pragma warning (disable : 4192)
+#import "PROGID:ShockwaveFlash.ShockwaveFlash" named_guids
+#endif
 
 using namespace Teardrop;
 using namespace UI;
@@ -181,5 +193,5 @@ void Element::onResize(float width, float height)
 
 	Vector4 scale(sx * width, sy * height, 1, 0);
 
-	m_inst.setTransform(Transform(pos, Quaternion::IDENTITY, scale));
+    //m_inst.setTransform(Transform(pos, Quaternion::IDENTITY, scale));
 }

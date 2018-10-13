@@ -23,7 +23,7 @@ THE SOFTWARE.
 #include "TaskScheduler.h"
 #include "TaskGraph.h"
 #include "TaskProduct.h"
-#include "CnC\CnCTaskScheduler.h"
+//#include "CnC\CnCTaskScheduler.h"
 #include "Serial\SerialTaskScheduler.h"
 #include <algorithm>
 
@@ -44,8 +44,8 @@ TaskScheduler* TaskScheduler::create(SchedulerType type)
 	{
 	case TASKSCHEDULER_SERIAL:
 		return TD_NEW SerialTaskScheduler();
-	case TASKSCHEDULER_MT:
-		return TD_NEW CnCTaskScheduler();
+//	case TASKSCHEDULER_MT:
+//		return TD_NEW CnCTaskScheduler();
 	}
 
 	return 0;

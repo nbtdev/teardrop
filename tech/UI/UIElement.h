@@ -25,8 +25,11 @@ THE SOFTWARE.
 
 #include "UI/UIDefs.h"
 #include "Math/Vector2.h"
-#include "Gfx/GfxMeshInstance.h"
+//#include "Gfx/GfxMeshInstance.h"
+#include "Memory/Memory.h"
 #include "Util/RefCounted.h"
+
+struct _variant_t;
 
 namespace Teardrop
 {
@@ -62,7 +65,7 @@ namespace Teardrop
 			//! returns normalized layer coordinates
 			virtual const Vector2& getPosition(bool& abs) const;
 			//! used by the UI renderer
-			const GfxMeshInstance& getMeshInstance() const { return m_inst; }
+            //const GfxMeshInstance& getMeshInstance() const { return m_inst; }
 			//! get horizontal and vertical alignment types
 			HAlign getHAlign() const { return m_hAlign; }
 			VAlign getVAlign() const { return m_vAlign; }
@@ -109,7 +112,7 @@ namespace Teardrop
 
 		protected:
 			IElementNotifications* m_pNotify;
-			GfxMeshInstance m_inst;
+//			GfxMeshInstance m_inst;
 			Vector2 m_position;
 			Vector2 m_positionCache; // used to cache the abs screen pos
 			Vector2 m_size;
