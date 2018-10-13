@@ -27,7 +27,7 @@ THE SOFTWARE.
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 AnimationBlender::AnimationBlender()
-    : m_hRig(nullptr)
+    //: m_hRig(nullptr)
 {
 }
 //---------------------------------------------------------------------------

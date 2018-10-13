@@ -23,7 +23,7 @@ THE SOFTWARE.
 #if !defined(BONE_INCLUDED)
 #define BONE_INCLUDED
 
-#include "Serialization/Serialization.h"
+//#include "Serialization/Serialization.h"
 #include "Memory/Memory.h"
 
 namespace Teardrop

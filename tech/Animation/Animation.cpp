@@ -50,19 +50,19 @@ bool Animation::initialize(void* pData, unsigned int dataLen)
 //---------------------------------------------------------------------------
 bool Animation::destroy()
 {
-	Teardrop::System* pAnimSys = 
-		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
+//	Teardrop::System* pAnimSys =
+//		Environment::get().pSystemMgr->getActiveSystem(Teardrop::System::SYSTEM_ANIMATION);
 
-	pAnimSys->getAllocator()->Deallocate(m_pData);
+//	pAnimSys->getAllocator()->Deallocate(m_pData);
 	m_pData = 0;
 
 	return true;
 }
 //---------------------------------------------------------------------------
-bool Animation::release()
-{
-	return true;
-}
+//bool Animation::release()
+//{
+//	return true;
+//}
 ////---------------------------------------------------------------------------
 //bool Animation::load(Stream& strm)
 //{

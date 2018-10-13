@@ -79,7 +79,7 @@ Vector2& Vector2::diff(const Vector2& a, const Vector2& b)
 //---------------------------------------------------------------------------
 float Vector2::length() const
 {
-	return sqrt(x*x + y*y);
+    return sqrtf(x*x + y*y);
 }
 //---------------------------------------------------------------------------
 float Vector2::length2() const
@@ -92,7 +92,7 @@ float Vector2::distance(const Vector2& other) const
 	float dx = other.x - x;
 	float dy = other.y - y;
 
-	return sqrt(dx*dx + dy*dy);
+    return sqrtf(dx*dx + dy*dy);
 }
 //---------------------------------------------------------------------------
 float Vector2::distance2(const Vector2& other) const

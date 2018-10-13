@@ -164,7 +164,7 @@ void StringUtil::toString(void* c, String& str)
 //---------------------------------------------------------------------------
 void StringUtil::toString(void* c, char* buf, int size)
 {
-	sprintf_s(buf, size, "%d", c);
+    sprintf_s(buf, size, "%p", c);
 }
 //---------------------------------------------------------------------------
 void StringUtil::toString(const String& out, String& in)
