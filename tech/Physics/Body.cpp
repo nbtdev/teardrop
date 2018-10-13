@@ -71,10 +71,10 @@ bool Body::destroy()
 	return true;
 }
 //---------------------------------------------------------------------------
-bool Body::release()
-{
-	return true;
-}
+//bool Body::release()
+//{
+//	return true;
+//}
 //---------------------------------------------------------------------------
 bool Body::update(float /*deltaT*/)
 {
@@ -152,8 +152,8 @@ void Body::setUserData(void* /*pData*/)
 {
 }
 //---------------------------------------------------------------------------
-bool Body::getDisplayGeometry(DisplayGeometries& /*geom*/)
-{
-	// implemented by derived classes
-	return false;
-}
+//bool Body::getDisplayGeometry(DisplayGeometries& /*geom*/)
+//{
+//	// implemented by derived classes
+//	return false;
+//}

@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 #include "UIElement.h"
 #include "UIDefs.h"
-#include "Resource/ResourceHandle.h"
+//#include "Resource/ResourceHandle.h"
 
 namespace Teardrop
 {
@@ -43,18 +43,18 @@ namespace Teardrop
 
 		class QuadElement : public Element
 		{
-			HResource m_hQuad;
+//			HResource m_hQuad;
 			GfxMaterial* m_pMtl;
 
 		public:
 			QuadElement();
 			~QuadElement();
 
-			bool initialize(HResource hTexture, const ElementParams& params);
+            bool initialize(/*HResource hTexture, */const ElementParams& params);
 			void destroy();
 
 			bool render(Renderer* pRenderer);
-			HResource getMeshHandle();
+//			HResource getMeshHandle();
 
 			// invoke a script method
 			void call(const char* function, const _variant_t* argv=0, int argc=0);

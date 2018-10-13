@@ -26,16 +26,16 @@ using namespace Teardrop;
 //---------------------------------------------------------------------------
 RagdollController::RagdollController()
 {
-	m_hRagdoll = INVALID_RESOURCE_HANDLE;
+//	m_hRagdoll = INVALID_RESOURCE_HANDLE;
 }
 //---------------------------------------------------------------------------
 RagdollController::~RagdollController()
 {
 }
 //---------------------------------------------------------------------------
-bool RagdollController::initialize(HResource hRagdoll)
+bool RagdollController::initialize(/*HResource hRagdoll*/)
 {
-	m_hRagdoll = hRagdoll;
+//	m_hRagdoll = hRagdoll;
 	return true;
 }
 //---------------------------------------------------------------------------
