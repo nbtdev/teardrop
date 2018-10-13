@@ -156,9 +156,14 @@ bool ExpressionItem::isPath() const
 	return false; 
 }
 
-bool ExpressionItem::isItem() const 
-{ 
-	return true; 
+bool ExpressionItem::isItem() const
+{
+	return true;
+}
+
+bool ExpressionItem::isConnector() const
+{
+	return false;
 }
 
 Gfx::MaterialExpression* ExpressionItem::expression()

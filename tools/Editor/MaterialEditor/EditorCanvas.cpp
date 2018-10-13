@@ -28,14 +28,21 @@ THE SOFTWARE.
 #include <QtGui/QMouseEvent>
 #include <QtCore/QDebug>
 
+namespace {
+	Teardrop::Gfx::Attribute sFauxAttr;
+} // namespace
+
 namespace Teardrop {
 namespace Tools {
 
 EditorCanvas::EditorCanvas(Gfx::Material* aMaterial, QWidget* aParent)
 	: QGraphicsView(aParent)
 	, mMaterial(aMaterial)
+	, mFauxConnector(TD_NEW FauxConnector(nullptr, sFauxAttr, false))
+	, mRBConnection(nullptr)
 {
 	setBackgroundBrush(Qt::black);
+	setRenderHint(QPainter::Antialiasing);
 }
 
 EditorCanvas::~EditorCanvas()
@@ -55,38 +62,18 @@ void EditorCanvas::mousePressEvent(QMouseEvent* event)
 		if (canvasItem) {
 			if (canvasItem->isItem()) {
 				ItemSelected.raise(static_cast<ExpressionItem*>(item));
-
-				ExpressionConnector::ConstRef connRef = ei->connectorAt(event->pos() - ei->pos().toPoint());
-				ExpressionConnector::ConstPtr conn = connRef.lock();
-				if (conn) {
-					qDebug(conn->attribute().mName);
-				}
-			}
-			else if (canvasItem->isPath())
+			} else if (canvasItem->isPath()) {
 				PathSelected.raise(static_cast<ExpressionConnection*>(item));
+			} else if (canvasItem->isConnector()) {
+				// if the connector already has a connection, then this is a move operation;
+				// otherwise, we need to create a new temp/faux connection for rubberbanding
+				// and move that instead
+			}
 		}
 	}
 	else {
 		SelectionCleared.raise();
 	}
-}
-
-void EditorCanvas::mouseMoveEvent(QMouseEvent* event)
-{
-	QGraphicsView::mouseMoveEvent(event);
-
-	//QGraphicsItem* item = itemAt(event->pos());
-
-	//if (item) {
-	//	ExpressionItem* ei = static_cast<ExpressionItem*>(item);
-	//	EditorCanvasItem* canvasItem = static_cast<EditorCanvasItem*>(ei);
-
-	//	ExpressionConnector::ConstRef connRef = ei->connectorAt(event->pos());
-	//	ExpressionConnector::ConstPtr conn = connRef.lock();
-		//if (conn) {
-		//	qDebug(conn->attribute().mName);
-		//}
-	//}
 }
 
 } // namespace Tools

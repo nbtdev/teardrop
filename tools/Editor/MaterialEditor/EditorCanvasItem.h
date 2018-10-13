@@ -31,6 +31,7 @@ namespace Teardrop {
 		public:
 			virtual bool isPath() const = 0;
 			virtual bool isItem() const = 0;
+			virtual bool isConnector() const = 0;
 		};
 
 	} // namespace Tools

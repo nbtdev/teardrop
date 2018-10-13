@@ -69,6 +69,7 @@ namespace Teardrop {
 			// EditorCanvasItem overrides
 			bool isItem() const;
 			bool isPath() const;
+			bool isConnector() const;
 		};
 
 	} // namespace Tools

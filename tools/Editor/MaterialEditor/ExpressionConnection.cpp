@@ -58,8 +58,13 @@ bool ExpressionConnection::isPath() const
 }
 
 bool ExpressionConnection::isItem() const
-{ 
-	return false; 
+{
+	return false;
+}
+
+bool ExpressionConnection::isConnector() const
+{
+	return false;
 }
 
 QRectF ExpressionConnection::boundingRect() const 

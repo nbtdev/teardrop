@@ -20,37 +20,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(__TEARDROP_EXPRESSION_CONNECTION_H__)
-#define __TEARDROP_EXPRESSION_CONNECTION_H__
+#if !defined(TEARDROP_GFX_DIRECT3D11_SHADERREALIZER_INCLUDED)
+#define TEARDROP_GFX_DIRECT3D11_SHADERREALIZER_INCLUDED
 
-#include "EditorCanvasItem.h"
-#include "ExpressionConnector.h"
-#include <QtWidgets/QGraphicsPathItem>
-#include <QtCore/QRect>
+#include "Gfx/Codegen/ShaderRealizer.h"
 
-namespace Teardrop {
-	namespace Tools {
-
-		class ExpressionConnection : public QGraphicsPathItem, public EditorCanvasItem
+namespace Teardrop
+{
+	namespace Gfx
+	{
+		namespace Direct3D11
 		{
-			ExpressionConnector::ConstPtr mFrom;
-			ExpressionConnector::ConstPtr mTo;
+			class ShaderRealizer : public Codegen::ShaderRealizer
+			{
+			public:
+				ShaderRealizer();
+				~ShaderRealizer();
 
-		public:
-			ExpressionConnection(ExpressionConnector::ConstPtr aFrom, ExpressionConnector::ConstPtr aTo);
-			~ExpressionConnection();
-			void onConnectorChangedPosition(ExpressionConnector* aConn);
-
-			// EditorCanvasItem implementation
-			bool isPath() const;
-			bool isItem() const;
-			bool isConnector() const;
-
-			QRectF boundingRect() const;
-			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-		};
-
-	} // namespace Tools
+			protected:
+				void startingRealize(Stream& aStream) const;
+				const char* lookupTypeString(Codegen::DataType aType) const;
+			};
+		} // namespace Codegen
+	} // namespace Gfx
 } // namespace Teardrop
 
-#endif // __TEARDROP_EXPRESSION_CONNECTION_H__
+
+#endif // TEARDROP_GFX_DIRECT3D11_SHADERREALIZER_INCLUDED

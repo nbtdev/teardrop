@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(__TEARDROP_EDITOR_CANVAS_H__)
 #define __TEARDROP_EDITOR_CANVAS_H__
 
+#include "FauxConnector.h"
 #include "Util/Event.h"
 #include <QtWidgets/QGraphicsView>
 
@@ -50,7 +51,13 @@ namespace Teardrop {
 
 		protected:
 			void mousePressEvent(QMouseEvent* event);
-			void mouseMoveEvent(QMouseEvent* event);
+
+			// used as the "to" end of a connection rubberband; this connector 
+			// doesn't draw, it just makes the ExpressionConnection work
+			FauxConnector::Ptr mFauxConnector;
+
+			// temporary rubber-band connection path object
+			ExpressionConnection* mRBConnection;
 		};
 
 	} // namespace Tools

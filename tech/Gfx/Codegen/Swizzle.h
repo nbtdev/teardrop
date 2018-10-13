@@ -20,37 +20,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(__TEARDROP_EXPRESSION_CONNECTION_H__)
-#define __TEARDROP_EXPRESSION_CONNECTION_H__
+#if !defined(TEARDROP_GFX_CODEGEN_SWIZZLEEXPRESSION_INCLUDED)
+#define TEARDROP_GFX_CODEGEN_SWIZZLEEXPRESSION_INCLUDED
 
-#include "EditorCanvasItem.h"
-#include "ExpressionConnector.h"
-#include <QtWidgets/QGraphicsPathItem>
-#include <QtCore/QRect>
+#include "Gfx/Codegen/Expression.h"
 
-namespace Teardrop {
-	namespace Tools {
-
-		class ExpressionConnection : public QGraphicsPathItem, public EditorCanvasItem
+namespace Teardrop
+{
+	namespace Gfx
+	{
+		namespace Codegen
 		{
-			ExpressionConnector::ConstPtr mFrom;
-			ExpressionConnector::ConstPtr mTo;
+			class Swizzle : public Expression
+			{
+			public:
+				Swizzle(Expression::ConstPtr aExpr, int aMask);
+				~Swizzle();
 
-		public:
-			ExpressionConnection(ExpressionConnector::ConstPtr aFrom, ExpressionConnector::ConstPtr aTo);
-			~ExpressionConnection();
-			void onConnectorChangedPosition(ExpressionConnector* aConn);
+				void realize(ShaderRealizer& aRealizer) const;
 
-			// EditorCanvasItem implementation
-			bool isPath() const;
-			bool isItem() const;
-			bool isConnector() const;
+				typedef std::shared_ptr<Swizzle> Ptr;
+				typedef std::shared_ptr<const Swizzle> ConstPtr;
+				typedef std::weak_ptr<Swizzle> Ref;
+				typedef std::weak_ptr<const Swizzle> ConstRef;
 
-			QRectF boundingRect() const;
-			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-		};
-
-	} // namespace Tools
+			protected:
+				Expression::ConstPtr mExpression;
+				int mMask = 0;
+			};
+		} // namespace Codegen
+	} // namespace Gfx
 } // namespace Teardrop
 
-#endif // __TEARDROP_EXPRESSION_CONNECTION_H__
+#endif // TEARDROP_GFX_CODEGEN_SWIZZLEEXPRESSION_INCLUDED

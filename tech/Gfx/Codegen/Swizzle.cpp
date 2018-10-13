@@ -20,37 +20,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(__TEARDROP_EXPRESSION_CONNECTION_H__)
-#define __TEARDROP_EXPRESSION_CONNECTION_H__
 
-#include "EditorCanvasItem.h"
-#include "ExpressionConnector.h"
-#include <QtWidgets/QGraphicsPathItem>
-#include <QtCore/QRect>
+#include "Swizzle.h"
+#include "ShaderRealizer.h"
+#include <assert.h>
 
 namespace Teardrop {
-	namespace Tools {
+namespace Gfx {
+namespace Codegen {
 
-		class ExpressionConnection : public QGraphicsPathItem, public EditorCanvasItem
-		{
-			ExpressionConnector::ConstPtr mFrom;
-			ExpressionConnector::ConstPtr mTo;
+Swizzle::Swizzle(Expression::ConstPtr aExpr, int aMask)
+	: mExpression(aExpr)
+	, mMask(aMask)
+{
+	assert(aMask && "Cannot specify an empty mask (of all zeroes)");
+	assert((aMask & 0xFF000000) && "Cannot specify a mask with an empty first component");
+}
 
-		public:
-			ExpressionConnection(ExpressionConnector::ConstPtr aFrom, ExpressionConnector::ConstPtr aTo);
-			~ExpressionConnection();
-			void onConnectorChangedPosition(ExpressionConnector* aConn);
+Swizzle::~Swizzle()
+{
 
-			// EditorCanvasItem implementation
-			bool isPath() const;
-			bool isItem() const;
-			bool isConnector() const;
+}
 
-			QRectF boundingRect() const;
-			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-		};
+void Swizzle::realize(ShaderRealizer& aRealizer) const
+{
+	mExpression->realize(aRealizer);
 
-	} // namespace Tools
+	// decode the mask into components
+	int components[4] = { 0 };
+	int nComponents = 0;
+
+	for (int i = 0; i < 4; ++i) {
+		int c = (mMask >> 8*(3-i)) & 0x000000FF;
+		if (!c) break;
+
+		components[nComponents++] = c;
+	}
+
+	aRealizer.insertSwizzle(components, nComponents);
+}
+
+} // namespace Codegen
+} // namespace Gfx
 } // namespace Teardrop
-
-#endif // __TEARDROP_EXPRESSION_CONNECTION_H__

@@ -20,61 +20,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(__TEARDROP_EXPRESSION_ITEM_H__)
-#define __TEARDROP_EXPRESSION_ITEM_H__
+#if !defined(__TEARDROP_FAUX_CONNECTOR_H__)
+#define __TEARDROP_FAUX_CONNECTOR_H__
 
-#include "EditorCanvasItem.h"
 #include "ExpressionConnector.h"
-#include "Util/Event.h"
-#include "Util/_String.h"
-#include <QtGui/QStaticText>
-#include <QtWidgets/QGraphicsItem>
 
 namespace Teardrop {
-
-	namespace Gfx { class MaterialExpression; }
-
 	namespace Tools {
 
-		class ExpressionConnectorDatabase;
-
-		class ExpressionItem : public QGraphicsItem, public EditorCanvasItem
+		class FauxConnector : public ExpressionConnector
 		{
-			Gfx::MaterialExpression* mExpr = nullptr;
-			QStaticText mLabel;
-			String mDisplayName;
-			qreal mX = 0.f;
-			qreal mY = 0.f;
-			qreal mWidth = 0.f;
-			qreal mHeight = 0.f;
-
-			ExpressionConnectorDatabase* mConnectorDb;
-
-			std::vector<ExpressionConnector::Ptr> mInputs;
-			std::vector<ExpressionConnector::Ptr> mOutputs;
-
-		protected:
-			QVariant itemChange(GraphicsItemChange aChange, const QVariant& aValue);
-
 		public:
-			Event<ExpressionConnector::ConstPtr, const Gfx::Attribute*> ExpressionConnectorCreated;
+			typedef std::shared_ptr<FauxConnector> Ptr;
+			typedef std::shared_ptr<const FauxConnector> ConstPtr;
+			typedef std::weak_ptr<FauxConnector> Ref;
+			typedef std::weak_ptr<const FauxConnector> ConstRef;
 
-			ExpressionItem(Gfx::MaterialExpression* aExpr, ExpressionConnectorDatabase* aConnectorDb);
-			ExpressionItem(Gfx::MaterialExpression* aExpr, ExpressionConnectorDatabase* aConnectorDb, int x, int y);
+			FauxConnector(ExpressionItem* aParent, const Gfx::Attribute& aAttr, bool aOutput);
 
+			// QGraphicsItem overrides
 			QRectF boundingRect() const;
 			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-
-			// EditorCanvasItem implementation
-			bool isPath() const;
-			bool isItem() const;
-			bool isConnector() const;
-
-			Gfx::MaterialExpression* expression();
-			ExpressionConnector::ConstRef connectorAt(const QPoint& aPos);
 		};
 
 	} // namespace Tools
 } // namespace Teardrop
 
-#endif // __TEARDROP_EXPRESSION_ITEM_H__
+#endif // __TEARDROP_FAUX_CONNECTOR_H__

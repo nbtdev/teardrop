@@ -203,6 +203,9 @@
     <ClCompile Include="MaterialEditor\EditorCanvas.cpp">
       <Filter>Viewers And Editors\Material Editor</Filter>
     </ClCompile>
+    <ClCompile Include="MaterialEditor\FauxConnector.cpp">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DragDropData.h">
@@ -272,6 +275,9 @@
       <Filter>Viewers And Editors\Material Editor</Filter>
     </ClInclude>
     <ClInclude Include="MaterialEditor\EditorCanvas.h">
+      <Filter>Viewers And Editors\Material Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialEditor\FauxConnector.h">
       <Filter>Viewers And Editors\Material Editor</Filter>
     </ClInclude>
   </ItemGroup>

@@ -112,5 +112,10 @@ bool ExpressionConnector::isPath() const
 	return false;
 }
 
+bool ExpressionConnector::isConnector() const
+{
+	return true;
+}
+
 } // namespace Tools
 } // namespace Teardrop

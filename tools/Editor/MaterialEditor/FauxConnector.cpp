@@ -20,37 +20,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(__TEARDROP_EXPRESSION_CONNECTION_H__)
-#define __TEARDROP_EXPRESSION_CONNECTION_H__
-
-#include "EditorCanvasItem.h"
-#include "ExpressionConnector.h"
-#include <QtWidgets/QGraphicsPathItem>
-#include <QtCore/QRect>
+#include "FauxConnector.h"
 
 namespace Teardrop {
-	namespace Tools {
+namespace Tools {
 
-		class ExpressionConnection : public QGraphicsPathItem, public EditorCanvasItem
-		{
-			ExpressionConnector::ConstPtr mFrom;
-			ExpressionConnector::ConstPtr mTo;
+FauxConnector::FauxConnector(ExpressionItem* aParent, const Gfx::Attribute& aAttr, bool aOutput)
+	: ExpressionConnector(aParent, aAttr, aOutput)
+{
+}
 
-		public:
-			ExpressionConnection(ExpressionConnector::ConstPtr aFrom, ExpressionConnector::ConstPtr aTo);
-			~ExpressionConnection();
-			void onConnectorChangedPosition(ExpressionConnector* aConn);
+QRectF FauxConnector::boundingRect() const
+{
+	return QRectF();
+}
 
-			// EditorCanvasItem implementation
-			bool isPath() const;
-			bool isItem() const;
-			bool isConnector() const;
+void FauxConnector::paint(QPainter* /*painter*/, const QStyleOptionGraphicsItem* /*option*/, QWidget* /*widget*/)
+{
+}
 
-			QRectF boundingRect() const;
-			void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-		};
-
-	} // namespace Tools
+} // namespace Tools
 } // namespace Teardrop
-
-#endif // __TEARDROP_EXPRESSION_CONNECTION_H__
