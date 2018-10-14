@@ -21,9 +21,12 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "ExpressionConnection.h"
+
 #include <QtGui/QPainter>
 #include <QtCore/QDebug>
 #include <QtGui/QVector2D>
+
+#include <cmath>
 
 namespace Teardrop {
 namespace Tools {
@@ -74,7 +77,7 @@ QRectF ExpressionConnection::boundingRect() const
 
 	qreal left = std::min(from.x(), to.x());
 	qreal top = std::min(from.y(), to.y());
-	qreal width = std::fabs(from.x() - to.x());
+    qreal width = std::fabs(from.x() - to.x());
 	qreal height = std::fabs(from.y() - to.y());
 
 	return QRectF(QPointF(left, top), QSizeF(width, height));

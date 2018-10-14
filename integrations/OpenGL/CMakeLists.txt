@@ -1,10 +1,14 @@
-# we depend on Glew lib
-add_subdirectory(extern/glew/build/cmake)
-
 # library name
 set(TARGET OpenGL)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    # on Windows, we need to build the embedded Glew lib (we can install the dev
+    # package on Linux)
+    add_subdirectory(extern/glew/build/cmake)
+    list(APPEND PLATFORM_DEPENDENCIES
+        glew
+    )
+
     list(APPEND PLATFORM_SOURCES
         platform/Win32/RendererOpenGL_createRenderWindow.cpp
         platform/Win32/RenderWindowOpenGL.cpp
@@ -17,6 +21,12 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         platform/GLX/RendererOpenGL_createRenderWindow.cpp
         platform/GLX/RenderWindowOpenGL.cpp
         platform/GLX/RenderWindowOpenGL.h
+    )
+
+    list(APPEND PLATFORM_DEPENDENCIES
+        X11
+        GL
+        GLEW
     )
 endif()
 
@@ -65,7 +75,8 @@ td_add_library(${TARGET}
 target_link_libraries(${TARGET}
     PUBLIC
         Gfx
-        glew
+
+        ${PLATFORM_DEPENDENCIES}
 )
 
 # workaround - glew doesn't set an interface include path

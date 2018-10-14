@@ -140,7 +140,7 @@ void StringUtil::toString(long c, String& str)
 //---------------------------------------------------------------------------
 void StringUtil::toString(long c, char* buf, int size)
 {
-	sprintf_s(buf, size, "%d", c);
+    sprintf_s(buf, size, "%ld", c);
 }
 //---------------------------------------------------------------------------
 void StringUtil::toString(unsigned long c, String& str)
@@ -152,7 +152,7 @@ void StringUtil::toString(unsigned long c, String& str)
 //---------------------------------------------------------------------------
 void StringUtil::toString(unsigned long c, char* buf, int size)
 {
-	sprintf_s(buf, size, "%u", c);
+    sprintf_s(buf, size, "%lu", c);
 }
 //---------------------------------------------------------------------------
 void StringUtil::toString(void* c, String& str)

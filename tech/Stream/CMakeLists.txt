@@ -16,6 +16,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     list(APPEND SOURCES
         Win32/FileStream.cpp
     )
+else()
+    list(APPEND SOURCES
+        POSIX/FileStream.cpp
+    )
 endif()
 
 # create static library with standard build settings

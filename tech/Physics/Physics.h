@@ -25,6 +25,8 @@ THE SOFTWARE.
 
 #include "Util/System.h"
 
+#include <cstddef>
+
 namespace Teardrop
 {
 	class World;

@@ -95,6 +95,21 @@ td_add_executable(${TARGET}
         ${SOURCES}
 )
 
+# Integrations used on all supported platforms
+set(INTEGRATIONS
+    OpenGL
+)
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    list(APPEND INTEGRATIONS
+        Direct3D11
+    )
+else()
+    list(APPEND INTEGRATIONS
+        XWindow
+    )
+endif()
+
 target_link_libraries(${TARGET}
     PRIVATE
         PackageManager
@@ -104,8 +119,7 @@ target_link_libraries(${TARGET}
         ${QTLIBS}
 
         # integrations
-        Direct3D11
-        OpenGL
+        ${INTEGRATIONS}
 )
 
 #

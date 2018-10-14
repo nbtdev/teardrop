@@ -103,3 +103,12 @@ The OpenGL integration and Visual Studio solution file is found in <teardrop>/in
 #### Step 9: Open and build the Tools.
 
 The tools source and Visual Studio solution can be found in <teardrop>/tools, and provide the GUI-based asset/game editor application. 
+
+### Linux
+
+#### Prerequisites
+
+* TBB
+* FBX SDK
+* QT5
+* Ubuntu: uuid-dev zlib1g-dev libfreeimage-dev libglew-dev

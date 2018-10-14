@@ -89,3 +89,8 @@ td_add_library(${TARGET}
     SOURCES
         ${SOURCES}
 )
+
+target_link_libraries(${TARGET}
+    PUBLIC
+        Math
+)

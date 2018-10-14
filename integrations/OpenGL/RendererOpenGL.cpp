@@ -35,9 +35,10 @@ Renderer::Renderer(int aFlags)
 		std::shared_ptr<RenderTarget> dummy = createDummyContext();
 
 		// now we can initialize extensions
-		if (GLEW_OK != glewInit()) {
-			throw Exception("Could not initialize GLEW in OpenGL::Renderer");
-		}
+//        glewExperimental = GL_TRUE;
+//		if (GLEW_OK != glewInit()) {
+//			throw Exception("Could not initialize GLEW in OpenGL::Renderer");
+//		}
 	}
 
 	// and initialize managers

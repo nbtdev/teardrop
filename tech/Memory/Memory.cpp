@@ -27,8 +27,10 @@ THE SOFTWARE.
 #include <stdlib.h>
 
 // thanks MSVC...
-#if !defined(_NOEXCEPT)
-#define _NOEXCEPT noexcept
+#if (defined(_WIN32) || defined(_WIN64)) && !defined(_NOEXCEPT)
+    #define _NOEXCEPT noexcept
+#else
+    #define _NOEXCEPT
 #endif // _NOEXCEPT
 
 using namespace Teardrop;

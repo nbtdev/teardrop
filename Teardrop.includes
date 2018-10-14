@@ -106,3 +106,4 @@ tools/ThirdParty/FreeImage/Dist/x64
 integrations
 integrations/DirectX
 tech/ThirdParty
+tech/Thread/platform/POSIX

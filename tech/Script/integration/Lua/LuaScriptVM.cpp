@@ -171,7 +171,7 @@ bool LuaScriptVM::registerFunc(const char* scriptName, scriptFn fn)
 	if (m_pL)
 	{
 		// register with Lua
-		lua_pushlightuserdata(m_pL, fn); // store the original function pointer
+        lua_pushlightuserdata(m_pL, (void*)fn); // store the original function pointer
 		lua_pushcclosure(m_pL, scriptCallback, 1);
 		lua_setglobal(m_pL, scriptName);
 	}

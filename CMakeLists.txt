@@ -44,6 +44,10 @@ set(CMAKE_CXX_STANDARD 14)
 # TODO: we need to know if the caller provided CMAKE_INSTALL_PREFIX on the command line...
 set(CMAKE_INSTALL_PREFIX ${TEARDROP_INSTALL_DIR})
 
+# make sure we have CMAKE_BUILD_TYPE defined
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
 
 # include build helpers
 include(cmake/td-targets.cmake)

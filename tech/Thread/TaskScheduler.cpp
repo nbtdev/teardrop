@@ -23,8 +23,8 @@ THE SOFTWARE.
 #include "TaskScheduler.h"
 #include "TaskGraph.h"
 #include "TaskProduct.h"
-//#include "CnC\CnCTaskScheduler.h"
-#include "Serial\SerialTaskScheduler.h"
+//#include "CnC/CnCTaskScheduler.h"
+#include "Serial/SerialTaskScheduler.h"
 #include <algorithm>
 
 using namespace Teardrop;

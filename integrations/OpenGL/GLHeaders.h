@@ -15,11 +15,13 @@ is prohibited.
     #include <GL/wglext.h>
     #include <GL/glext.h>
 #elif defined(__linux__)
-    #include <GL/glew.h>
-    #include <GL/glxew.h>
+//    #include <GL/glew.h>
+//    #include <GL/glxew.h>
+
+    #define GL_GLEXT_PROTOTYPES 1
     #include <GL/gl.h>
-	#include <GL/glx.h>
-	#include <GL/glext.h>
+    #include <GL/glx.h>
+    #include <GL/glext.h>
 #endif
 
 #endif // __GLHEADERS_H__

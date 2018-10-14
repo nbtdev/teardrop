@@ -46,6 +46,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         platform/POSIX/Timer.cpp
         platform/POSIX/UUID.cpp
     )
+
+    list(APPEND PLATFORM_DEPENDENCIES
+        uuid
+    )
 endif()
 
 # create static library with standard build settings

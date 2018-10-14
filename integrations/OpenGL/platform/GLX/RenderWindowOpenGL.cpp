@@ -66,6 +66,8 @@ RenderWindow::RenderWindow(Display* aDisplay, Window aParent, int aFlags)
     }
 
     int nItems;
+//    PFNGLXCHOOSEFBCONFIGPROC fn = glXChooseFBConfig;
+//    GLXFBConfig* config = fn(mDisplay, DefaultScreen(mDisplay), attribs, &nItems);
     GLXFBConfig* config = glXChooseFBConfig(mDisplay, DefaultScreen(mDisplay), attribs, &nItems);
     if (config) {
         XVisualInfo* vis = glXGetVisualFromFBConfig(mDisplay, config[0]);

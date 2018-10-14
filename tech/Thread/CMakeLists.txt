@@ -13,12 +13,25 @@ set(SOURCES
     TaskScheduler.cpp
     TaskScheduler.h
     TaskTypes.h
-    ThreadUtil.cpp
     ThreadUtil.h
 
     scheduler/Serial/SerialTaskScheduler.cpp
     scheduler/Serial/SerialTaskScheduler.h
 )
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    list(APPEND SOURCES
+        platform/Win32/ThreadUtil.cpp
+    )
+else()
+    list(APPEND SOURCES
+        platform/POSIX/ThreadUtil.cpp
+    )
+
+    list(APPEND PLATFORM_DEPENDENCIES
+        pthread
+    )
+endif()
 
 # create static library with standard build settings
 td_add_library(${TARGET}
@@ -26,6 +39,11 @@ td_add_library(${TARGET}
         STATIC
     SOURCES
         ${SOURCES}
+)
+
+target_link_libraries(${TARGET}
+    PUBLIC
+        ${PLATFORM_DEPENDENCIES}
 )
 
 target_include_directories(${TARGET}

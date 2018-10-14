@@ -38,6 +38,12 @@ THE SOFTWARE.
 #include "Util/_String.h"
 #include "tinyxml/tinyxml.h"
 
+#if defined(_WIN32) || defined(_WIN64)
+    #define STRCASECMP(a, b) STRCASECMP(a, b)
+#else
+    #define STRCASECMP(a, b) strcasecmp(a, b)
+#endif
+
 using namespace Teardrop;
 using namespace UI;
 //---------------------------------------------------------------------------
@@ -166,7 +172,7 @@ bool Util::layout(TiXmlElement& root, LayoutTarget& target, const char* path)
 			if (attr)
 			{
 				// anything but "swf" will be treated as "basic"
-				if (_stricmp(attr, "swf") == 0)
+                if (STRCASECMP(attr, "swf") == 0)
 					params.type = ET_FLASH;
 			}
 
@@ -180,11 +186,11 @@ bool Util::layout(TiXmlElement& root, LayoutTarget& target, const char* path)
 			if (attr)
 			{
 				// anything but these will be treated as "not set"
-				if (_stricmp(attr, "left") == 0)
+                if (STRCASECMP(attr, "left") == 0)
 					params.hAlign = HALIGN_LEFT;
-				if (_stricmp(attr, "center") == 0)
+                if (STRCASECMP(attr, "center") == 0)
 					params.hAlign = HALIGN_CENTER;
-				if (_stricmp(attr, "right") == 0)
+                if (STRCASECMP(attr, "right") == 0)
 					params.hAlign = HALIGN_RIGHT;
 			}
 
@@ -192,11 +198,11 @@ bool Util::layout(TiXmlElement& root, LayoutTarget& target, const char* path)
 			if (attr)
 			{
 				// anything but these will be treated as "not set"
-				if (_stricmp(attr, "top") == 0)
+                if (STRCASECMP(attr, "top") == 0)
 					params.vAlign = VALIGN_TOP;
-				if (_stricmp(attr, "middle") == 0)
+                if (STRCASECMP(attr, "middle") == 0)
 					params.vAlign = VALIGN_MIDDLE;
-				if (_stricmp(attr, "bottom") == 0)
+                if (STRCASECMP(attr, "bottom") == 0)
 					params.vAlign = VALIGN_BOTTOM;
 			}
 
