@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include "tinyxml/tinyxml.h"
 
 #if defined(_WIN32) || defined(_WIN64)
-    #define STRCASECMP(a, b) STRCASECMP(a, b)
+    #define STRCASECMP(a, b) _stricmp(a, b)
 #else
     #define STRCASECMP(a, b) strcasecmp(a, b)
 #endif
