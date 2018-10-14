@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(VERTEXBUFFERD3D11_INCLUDED)
 #define VERTEXBUFFERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/VertexBuffer.h"
 
 namespace Teardrop

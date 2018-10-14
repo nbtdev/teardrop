@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "ProgressFeedback.h"
-#include "ThirdParty/tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 #include <sstream>
 #include <tbb/task.h>
 

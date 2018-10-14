@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
 #include "RenderTextureD3D11.h"
 #include "Texture2DD3D11.h"
 #include "TextureManagerD3D11.h"

@@ -92,5 +92,12 @@ td_add_executable(${TARGET}
 target_link_libraries(${TARGET}
     PRIVATE
         PackageManager
+        Game
+        Math
+        tinyxml
         ${QTLIBS}
+
+        # integrations
+        Direct3D11
+        OpenGL
 )

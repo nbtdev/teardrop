@@ -131,7 +131,7 @@ namespace Teardrop
 
 		typedef std::list<const Variant*> Variants;
 		typedef std::multimap<const Reflection::ClassDef*, const Variant*> VariantTable;
-		typedef std::map<unsigned int, const Variant*> VariantIDLookupTable;
+        typedef std::map<size_t, const Variant*> VariantIDLookupTable;
 
 		Manifest();
 		virtual ~Manifest();

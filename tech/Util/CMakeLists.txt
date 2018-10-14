@@ -28,10 +28,23 @@ set(SOURCES
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     list(APPEND SOURCES
-        platform/WIN32/FileSystemWatcherWin32.cpp
-        platform/WIN32/FileSystemWatcherWin32.h
-        platform/WIN32/TimerWin32.cpp
-        platform/WIN32/UUID.cpp
+        platform/Win32/FileSystemWatcherWin32.cpp
+        platform/Win32/FileSystemWatcherWin32.h
+        platform/Win32/FileSystemWin32.cpp
+        platform/Win32/TimerWin32.cpp
+        platform/Win32/UUID.cpp
+    )
+
+    list(APPEND PLATFORM_DEPENDENCIES
+        Shlwapi
+    )
+endif()
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    list(APPEND SOURCES
+        platform/POSIX/FileSystem.cpp
+        platform/POSIX/Timer.cpp
+        platform/POSIX/UUID.cpp
     )
 endif()
 
@@ -41,6 +54,11 @@ td_add_library(${TARGET}
         STATIC
     SOURCES
         ${SOURCES}
+)
+
+target_link_libraries(${TARGET}
+    PUBLIC
+        ${PLATFORM_DEPENDENCIES}
 )
 
 target_include_directories(${TARGET}

@@ -23,8 +23,10 @@ THE SOFTWARE.
 #if !defined(FRAGMENTSHADERD3D11_INCLUDED)
 #define FRAGMENTSHADERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/FragmentShader.h"
 #include "Util/_String.h"
+
 #include <map>
 #include <memory>
 #include <vector>

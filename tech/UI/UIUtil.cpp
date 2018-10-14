@@ -36,7 +36,7 @@ THE SOFTWARE.
 #include "Util/Environment.h"
 #include "Util/StringUtil.h"
 #include "Util/_String.h"
-#include "ThirdParty/tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 
 using namespace Teardrop;
 using namespace UI;

@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
 #include "VertexShaderD3D11.h"
 #include "Gfx/Exception.h"
 #include "Gfx/ShaderConstantTable.h"
@@ -406,7 +405,7 @@ void* VertexShader::bytecode()
 int VertexShader::bytecodeLength()
 {
 	if (mBytecode) {
-		return mBytecode->GetBufferSize();
+        return (int)mBytecode->GetBufferSize();
 	}
 
 	return 0;

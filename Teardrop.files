@@ -70,8 +70,11 @@ doc/SVNmenu.jpg
 doc/SVNupdate.jpg
 doc/SVNupdateComplete.jpg
 init.sh
+integrations/CMakeLists.txt
+integrations/DirectX/CMakeLists.txt
 integrations/DirectX/Direct3D11/BufferManagerD3D11.cpp
 integrations/DirectX/Direct3D11/BufferManagerD3D11.h
+integrations/DirectX/Direct3D11/CMakeLists.txt
 integrations/DirectX/Direct3D11/FragmentShaderD3D11.cpp
 integrations/DirectX/Direct3D11/FragmentShaderD3D11.h
 integrations/DirectX/Direct3D11/IndexBufferD3D11.cpp
@@ -336,6 +339,7 @@ integrations/Havok/vsprops/Havok_Debug.vsprops
 integrations/Havok/vsprops/Havok_Release.vsprops
 integrations/OpenGL/BufferManagerOpenGL.cpp
 integrations/OpenGL/BufferManagerOpenGL.h
+integrations/OpenGL/CMakeLists.txt
 integrations/OpenGL/FragmentShaderOpenGL.cpp
 integrations/OpenGL/FragmentShaderOpenGL.h
 integrations/OpenGL/GLHeaders.h
@@ -3600,6 +3604,7 @@ tech/Stream/test/dos.txt
 tech/Stream/test/dos2.txt
 tech/Stream/test/unix.txt
 tech/Stream/test/unix2.txt
+tech/ThirdParty/CMakeLists.txt
 tech/ThirdParty/Lua/COPYRIGHT
 tech/ThirdParty/Lua/HISTORY
 tech/ThirdParty/Lua/INSTALL

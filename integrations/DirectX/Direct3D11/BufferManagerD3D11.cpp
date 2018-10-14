@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
 #include "BufferManagerD3D11.h"
 #include "IndexBufferD3D11.h"
 #include "RendererD3D11.h"

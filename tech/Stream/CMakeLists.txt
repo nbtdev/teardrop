@@ -12,10 +12,22 @@ set(SOURCES
     TextReader.h
 )
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    list(APPEND SOURCES
+        Win32/FileStream.cpp
+    )
+endif()
+
 # create static library with standard build settings
 td_add_library(${TARGET}
     LIBRARY_TYPE
         STATIC
     SOURCES
         ${SOURCES}
+)
+
+target_link_libraries(${TARGET}
+    PUBLIC
+        Memory
+        Util
 )

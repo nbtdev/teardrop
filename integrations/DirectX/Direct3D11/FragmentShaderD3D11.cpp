@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
 #include "FragmentShaderD3D11.h"
 #include "Texture2DD3D11.h"
 #include "Gfx/Exception.h"
@@ -513,7 +512,7 @@ void FragmentShader::apply()
 	for (auto s : mSamplers)
 		samplerStates[i++] = s.Get();
 
-	ctx->PSSetSamplers(0, mSamplers.size(), samplerStates);
+    ctx->PSSetSamplers(0, (UINT)mSamplers.size(), samplerStates);
 	
 	// set the actual texture resources
 	ID3D11ShaderResourceView* srv[16];
@@ -528,7 +527,7 @@ void FragmentShader::apply()
 		}
 	}
 
-	ctx->PSSetShaderResources(0, mSamplerExpressions.size(), srv);
+    ctx->PSSetShaderResources(0, (UINT)mSamplerExpressions.size(), srv);
 }
 
 const char* FragmentShader::HLSL_COMMON =

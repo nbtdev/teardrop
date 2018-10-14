@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(TEXTUREMANAGERD3D11_INCLUDED)
 #define TEXTUREMANAGERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/TextureManager.h"
 #include "Util/UUID.h"
 #include <map>

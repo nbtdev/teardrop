@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include "Util/Environment.h"
 #include "Stream/FileStream.h"
 #include "Memory/Memory.h"
-#include "ThirdParty/tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 
 #include "TerrainZone.h"
 #include "LandscapeScene.h"

@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(INDEXBUFFERD3D11_INCLUDED)
 #define INDEXBUFFERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/IndexBuffer.h"
 
 namespace Teardrop

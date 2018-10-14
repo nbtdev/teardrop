@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(RENDERWINDOWD3D11_INCLUDED)
 #define RENDERWINDOWD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "RenderTargetD3D11.h"
 
 namespace Teardrop

@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include "Asset/Asset.h"
 #include "Stream/FileStream.h"
 #include "Stream/MemoryStream.h"
-#include "ThirdParty/tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 #include <list>
 #include <map>
 

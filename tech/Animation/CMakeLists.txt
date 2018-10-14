@@ -30,4 +30,7 @@ target_link_libraries(${TARGET}
         Math
         Memory
         Util
+
+    PRIVATE
+        tinyxml
 )

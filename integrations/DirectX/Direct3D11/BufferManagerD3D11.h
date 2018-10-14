@@ -23,7 +23,9 @@ THE SOFTWARE.
 #if !defined(BUFFERMANAGERD3D11_INCLUDED)
 #define BUFFERMANAGERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/BufferManager.h"
+
 #include <list>
 
 namespace Teardrop

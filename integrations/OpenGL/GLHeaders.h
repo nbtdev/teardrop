@@ -12,8 +12,8 @@ is prohibited.
 	#include <GL/glew.h>
 	#include <GL/wglew.h>
 	#include <GL/gl.h>
-	#include <GL/wglext.h>
-	#include <GL/glext.h>
+    #include <GL/wglext.h>
+    #include <GL/glext.h>
 #elif defined(__linux__)
     #include <GL/glew.h>
     #include <GL/glxew.h>

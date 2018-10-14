@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(TEARDROP_GFX_DIRECT3D11_SHADERREALIZER_INCLUDED)
 #define TEARDROP_GFX_DIRECT3D11_SHADERREALIZER_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/Codegen/ShaderRealizer.h"
 
 namespace Teardrop

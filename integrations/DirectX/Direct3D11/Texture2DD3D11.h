@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(TEXTURE2D_D3D11_INCLUDED)
 #define TEXTURE2D_D3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/Texture2D.h"
 
 namespace Teardrop

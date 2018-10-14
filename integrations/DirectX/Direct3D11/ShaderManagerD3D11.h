@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(SHADERMANAGERD3D11_INCLUDED)
 #define SHADERMANAGERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/ShaderManager.h"
 #include "Gfx/ShaderFeatures.h"
 #include "Util/UUID.h"

@@ -8,6 +8,7 @@ is prohibited.
 #if !defined(RENDERTARGETOPENGL_INCLUDED)
 #define RENDERTARGETOPENGL_INCLUDED
 
+#include "GLHeaders.h"
 #include "Gfx/RenderTarget.h"
 #include "Memory/Allocators.h"
 #include <map>

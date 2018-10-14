@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(RENDERTEXTURED3D11_INCLUDED)
 #define RENDERTEXTURED3D11_INCLUDED
 
+#include "stdafx.h"
 #include "RenderTargetD3D11.h"
 #include "Gfx/Common.h"
 

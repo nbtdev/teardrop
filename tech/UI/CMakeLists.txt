@@ -47,6 +47,9 @@ td_add_library(${TARGET}
 target_link_libraries(${TARGET}
     PUBLIC
         Gfx
+
+    PRIVATE
+        tinyxml
 )
 
 target_include_directories(${TARGET}

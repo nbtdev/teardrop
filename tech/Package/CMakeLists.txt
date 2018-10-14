@@ -22,6 +22,22 @@ set(SOURCES
     UUIDWriter.h
 )
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    list(APPEND SOURCES
+        platform/Win32/UUIDStreamReader.cpp
+        platform/Win32/UUIDStreamWriter.cpp
+    )
+
+    list(APPEND PLATFORM_DEPENDENCIES
+        Ws2_32
+    )
+else()
+    list(APPEND SOURCES
+        platform/POSIX/UUIDStreamReader.cpp
+        platform/POSIX/UUIDStreamWriter.cpp
+    )
+endif()
+
 # create static library with standard build settings
 td_add_library(${TARGET}
     LIBRARY_TYPE
@@ -33,4 +49,9 @@ td_add_library(${TARGET}
 target_link_libraries(${TARGET}
     PUBLIC
         Util
+
+        ${PLATFORM_DEPENDENCIES}
+
+    PRIVATE
+        tinyxml
 )

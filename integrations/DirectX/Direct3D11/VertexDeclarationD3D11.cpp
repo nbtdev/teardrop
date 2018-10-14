@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "stdafx.h"
 #include "VertexDeclarationD3D11.h"
 #include "ShaderManagerD3D11.h"
 #include "VertexShaderD3D11.h"

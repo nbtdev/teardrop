@@ -51,3 +51,4 @@ message(STATUS "Using FBX SDK located in ${FBX_SDK_DIR}")
 
 add_subdirectory(tech)
 add_subdirectory(tools)
+add_subdirectory(integrations)

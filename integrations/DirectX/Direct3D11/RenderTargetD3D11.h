@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(RENDERTARGETD3D11_INCLUDED)
 #define RENDERTARGETD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/RenderTarget.h"
 #include "Memory/Allocators.h"
 #include <map>

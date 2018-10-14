@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(VIEWPORTD3D11_INCLUDED)
 #define VIEWPORTD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/Viewport.h"
 
 namespace Teardrop

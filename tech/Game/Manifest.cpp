@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include "Util/Logger.h"
 #include "Util/Hash.h"
 #include "Util/StringUtil.h"
-#include "ThirdParty/tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 
 using namespace Teardrop;
 using namespace Reflection;

@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(VERTEXSHADERD3D11_INCLUDED)
 #define VERTEXSHADERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/VertexShader.h"
 #include "Util/_String.h"
 #include <vector>

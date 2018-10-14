@@ -16,14 +16,14 @@ endif()
 
 # import the FBX SDK library
 add_library(FBX-SDK STATIC IMPORTED)
-set(FBX_SDK_LIB_DIR ${FBX_SDK_DIR}/lib/vs2015/${ARCH}/${CMAKE_BUILD_TYPE})
+string(TOLOWER ${CMAKE_BUILD_TYPE} FBX_BUILD_TYPE)
+set(FBX_SDK_LIB_DIR ${FBX_SDK_DIR}/lib/vs2015/${ARCH}/${FBX_BUILD_TYPE})
 set(FBX_SDK_INCLUDE_DIR ${FBX_SDK_DIR}/include)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     message(STATUS "Creating imported FBX SDK target - files in ${FBX_SDK_LIB_DIR}")
     set_target_properties(FBX-SDK PROPERTIES
-        IMPORTED_LOCATION ${FBX_SDK_LIB_DIR}/libfbxsdk.dll
-        IMPORTED_IMPLIB ${FBX_SDK_LIB_DIR}/libfbxsdk.lib
+        IMPORTED_LOCATION ${FBX_SDK_LIB_DIR}/libfbxsdk-md.lib
         INTERFACE_INCLUDE_DIRECTORIES ${FBX_SDK_INCLUDE_DIR}
     )
 endif()
@@ -97,18 +97,33 @@ td_add_library(${TARGET}
         ${SOURCES}
 )
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    list(APPEND PLATFORM_DEPENDENCIES
+        Rpcrt4
+    )
+endif()
+
 target_link_libraries(${TARGET}
     PUBLIC
         Asset
-        Util
+        Core
         Package
+        Reflection
+        Stream
+        Util
 
         # imported targets
         FreeImage
         FBX-SDK
+        LibHFZ
         TBB
-        zlib
         squish
+        zlib
+
+        ${PLATFORM_DEPENDENCIES}
+
+    PRIVATE
+        tinyxml
 )
 
 # workaround -- squish doesn't set include directories for its target,

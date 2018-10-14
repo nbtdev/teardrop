@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include "Asset/LandscapeAsset.h"
 #include "Asset/HeightfieldAsset.h"
 #include "Asset/AttributeMapAsset.h"
-#include "ThirdParty/tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 //#include <tbb/task.h>
 #include <algorithm>
 

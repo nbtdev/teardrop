@@ -103,3 +103,6 @@ F:\Qt\Qt5.10.1\5.10.1\msvc2015_64\include\QtWidgets
 F:\Qt\Qt5.10.1\5.10.1\msvc2015_64\include\QtCore
 tools/ThirdParty
 tools/ThirdParty/FreeImage/Dist/x64
+integrations
+integrations/DirectX
+tech/ThirdParty

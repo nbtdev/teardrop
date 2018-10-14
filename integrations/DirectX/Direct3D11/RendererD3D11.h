@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(RENDERERD3D11_INCLUDED)
 #define RENDERERD3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/Renderer.h"
 #include "Math/Matrix44.h"
 #include "Memory/Allocators.h"

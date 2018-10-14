@@ -23,6 +23,7 @@ THE SOFTWARE.
 #if !defined(VERTEXDECLARATIOND3D11_INCLUDED)
 #define VERTEXDECLARATIOND3D11_INCLUDED
 
+#include "stdafx.h"
 #include "Gfx/VertexDeclaration.h"
 
 namespace Teardrop

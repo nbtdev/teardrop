@@ -22,7 +22,7 @@ THE SOFTWARE.
 
 #include "BlendGraph.h"
 #include "Util/StringUtil.h"
-#include "ThirdParty/tinyxml/tinyxml.h"
+#include "tinyxml/tinyxml.h"
 #include <map>
 
 using namespace Teardrop;
