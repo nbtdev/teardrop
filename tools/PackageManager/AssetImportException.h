@@ -23,18 +23,10 @@ THE SOFTWARE.
 #if !defined(ASSETIMPORTEXCEPTION_INCLUDED)
 #define ASSETIMPORTEXCEPTION_INCLUDED
 
+#include "Config.h"
+
 #include <exception>
 #include <string>
-
-#if defined(_WIN32) || defined(_WIN64)
-    #if !defined(NOTHROW)
-        #define NOTHROW _NOEXCEPT
-    #endif
-#else
-    #if !defined(NOTHROW)
-        #define NOTHROW noexcept
-    #endif
-#endif
 
 namespace Teardrop {
 	namespace Tools {
@@ -44,9 +36,9 @@ namespace Teardrop {
 		{
 		public:
 			AssetImportException(const std::string& aAssetPath);
-			~AssetImportException() NOTHROW;
+            ~AssetImportException() noexcept;
 
-			const char* what() const NOTHROW;
+            const char* what() const noexcept;
 			const char* detail() const;
 			const char* assetPath() const;
 
@@ -59,14 +51,14 @@ namespace Teardrop {
 		{
 		public:
 			AssetFileNotFoundException(const std::string& aAssetPath);
-			~AssetFileNotFoundException() NOTHROW;
+            ~AssetFileNotFoundException() noexcept;
 		};
 
 		class InvalidAssetFormatException : public AssetImportException
 		{
 		public:
 			InvalidAssetFormatException(const std::string& aAssetPath, const std::string& aDetail);
-			~InvalidAssetFormatException() NOTHROW;
+            ~InvalidAssetFormatException() noexcept;
 		};
 	}
 }

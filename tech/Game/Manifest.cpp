@@ -225,7 +225,7 @@ void Manifest::deserializeVariant(TiXmlElement* pElem)
 
 		String hashStr(pName);
 		hashStr += pTarget;
-		int id = hashString(hashStr);
+        size_t id = hashString(hashStr);
 
 		// and also put this in the id-to-Variant lookup table
 		m_variantIdTable[id] = v;
@@ -450,7 +450,7 @@ static void populateProperties(
 				if (props[p].m_bIsCollection)
 				{
 					for (size_t v=0; v<props[p].m_values.size(); ++v)
-						pProp->setDataFromString(pObject, props[p].m_values[v], v);
+                        pProp->setDataFromString(pObject, props[p].m_values[v], (int)v);
 				}
 				else
 					pProp->setDataFromString(pObject, props[p].m_value);

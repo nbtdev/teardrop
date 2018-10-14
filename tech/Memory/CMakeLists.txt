@@ -24,6 +24,10 @@ td_add_library(${TARGET}
         ${SOURCES}
 )
 
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+set_source_files_properties(malloc-280.c PROPERTIES COMPILE_FLAGS "/wd4267 /wd4312")
+endif()
+
 target_link_libraries(${TARGET}
     PUBLIC
         Stream

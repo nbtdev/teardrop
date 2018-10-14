@@ -66,7 +66,7 @@ int Variant::numSlots() const
 
 int Variant::slotEquipment(int idx, const Mountable** equipList, int nEquipList) const
 {
-	int numEquipInSlot = mSlotEquipment.count(idx);
+    int numEquipInSlot = (int)mSlotEquipment.count(idx);
 
 	if (!numEquipInSlot)
 		return 0;
@@ -97,5 +97,5 @@ int Variant::addEquipment(int slotIdx, const Mountable** equipment, int nEquipme
 		mSlotEquipment.insert(SlotEquipment::value_type(slotIdx, equipment[i]));
 	}
 
-	return mSlotEquipment.count(slotIdx);
+    return (int)mSlotEquipment.count(slotIdx);
 }

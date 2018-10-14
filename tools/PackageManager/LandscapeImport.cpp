@@ -38,7 +38,7 @@ THE SOFTWARE.
 #include "Util/FileSystem.h"
 #include "Util/UUID.h"
 #include "FreeImage.h"
-#include "tinyxml/tinyxml.h"
+#include "ThirdParty/tinyxml/tinyxml.h"
 #include "ThirdParty/LibHFZ/wrapper.h"
 #include "zlib.h"
 #include <tbb/task.h>

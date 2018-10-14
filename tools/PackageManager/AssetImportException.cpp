@@ -31,11 +31,11 @@ namespace Tools {
 	}
 
 
-	AssetImportException::~AssetImportException() NOTHROW
+    AssetImportException::~AssetImportException() noexcept
 	{
 	}
 
-	const char* AssetImportException::what() const NOTHROW
+    const char* AssetImportException::what() const noexcept
 	{
 		return mDetail.c_str();
 	}
@@ -56,7 +56,7 @@ namespace Tools {
 		mDetail = "File not found";
 	}
 
-	AssetFileNotFoundException::~AssetFileNotFoundException() NOTHROW
+    AssetFileNotFoundException::~AssetFileNotFoundException() noexcept
 	{
 	}
 
@@ -66,7 +66,7 @@ namespace Tools {
 		mDetail = aDetail;
 	}
 
-	InvalidAssetFormatException::~InvalidAssetFormatException() NOTHROW
+    InvalidAssetFormatException::~InvalidAssetFormatException() noexcept
 	{
 	}
 

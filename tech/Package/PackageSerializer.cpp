@@ -113,14 +113,14 @@ static int serializeObjects(const Objects& objects, Stream& stream, std::list<As
 	doc.Accept(&printer);
 
 	// first, we need to know how long the XML string is
-	int len = printer.Size();
+    size_t len = printer.Size();
 	stream.write(&len, sizeof(len));
 
 	// then the actual XML
 	const char* xml = printer.CStr();
 	stream.write(xml, len);
 
-	return len + sizeof(len);
+    return int(len + sizeof(len));
 }
 
 int PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer)

@@ -45,8 +45,6 @@ THE SOFTWARE.
 #include <map>
 #include <memory>
 
-using namespace fbxsdk_2015_1;
-
 namespace Teardrop {
 	using namespace Gfx;
 

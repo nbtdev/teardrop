@@ -112,7 +112,7 @@ String& String::operator=(const String& other)
 	}
 
 	// other string will fit into our current storage
-	m_len = otherLen;
+    m_len = (unsigned int)otherLen;
     STRCPY(m_pBuf, otherLen+1, other.m_pBuf);
 	return *this;
 }
@@ -147,7 +147,7 @@ String& String::operator=(const char* other)
 	}
 
 	// other string will fit into our current storage
-	m_len = otherLen;
+    m_len = (unsigned int)otherLen;
     STRCPY(m_pBuf, otherLen+1, other);
 	return *this;
 }
@@ -281,7 +281,7 @@ void String::truncate(size_t len)
 	if (len < m_len)
 	{
 		m_pBuf[len] = 0;
-		m_len = len;
+        m_len = (unsigned int)len;
 	}
 }
 //---------------------------------------------------------------------------
@@ -342,7 +342,7 @@ size_t String::_resize(size_t otherLen)
 		}
 	}
 
-	m_len = needed;
+    m_len = (unsigned int)needed;
 
 	return newLen;
 }

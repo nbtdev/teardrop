@@ -26,17 +26,6 @@ THE SOFTWARE.
 #include "Util/_String.h"
 #include <exception>
 
-#if defined(_WIN32) || defined(_WIN64)
-    #if !defined(NOTHROW)
-        #define NOTHROW _NOEXCEPT
-    #endif
-#else
-    #if !defined(NOTHROW)
-        #define NOTHROW noexcept
-    #endif
-#endif
-
-
 namespace Teardrop
 {
 	namespace Gfx
@@ -46,9 +35,9 @@ namespace Teardrop
 		public:
 			Exception(const char* aDetail);
 			Exception(const String& aDetail);
-			~Exception() NOTHROW;
+            ~Exception() noexcept;
 
-			const char* what() const NOTHROW;
+            const char* what() const noexcept;
 
 		protected:
 			String mMsg;
@@ -59,7 +48,7 @@ namespace Teardrop
 		public:
 			InvalidParameterException(const char* aDetail);
 			InvalidParameterException(const String& aDetail);
-			~InvalidParameterException() NOTHROW;
+            ~InvalidParameterException() noexcept;
 		};
 
 		class BufferMappedException : public Exception
@@ -67,7 +56,7 @@ namespace Teardrop
 		public:
 			BufferMappedException(const char* aDetail, void* aMappedBuffer);
 			BufferMappedException(const String& aDetail, void* aMappedBuffer);
-			~BufferMappedException() NOTHROW;
+            ~BufferMappedException() noexcept;
 			void* mappedBuffer() const;
 
 		protected:
@@ -79,7 +68,7 @@ namespace Teardrop
 		public:
 			ShaderCompilationException(const char* aDetail, const String& aSource, const String& aLog);
 			ShaderCompilationException(const String& aDetail, const String& aSource, const String& aLog);
-			~ShaderCompilationException() NOTHROW;
+            ~ShaderCompilationException() noexcept;
 
 			const String& source() const;
 			const String& log() const;

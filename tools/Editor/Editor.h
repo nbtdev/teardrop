@@ -24,8 +24,8 @@ THE SOFTWARE.
 #define __TEARDROP_EDITOR_H__
 
 #include <QtWidgets/QMainWindow>
-#include "Editor.ui.h"
-#include "Preferences.ui.h"
+#include "ui_Editor.h"
+#include "ui_Preferences.h"
 #include "Preferences.h"
 
 class QWidget;

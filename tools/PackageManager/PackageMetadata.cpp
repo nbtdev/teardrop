@@ -35,8 +35,8 @@ THE SOFTWARE.
 #include "Asset/LandscapeAsset.h"
 #include "Asset/HeightfieldAsset.h"
 #include "Asset/AttributeMapAsset.h"
-#include "tinyxml/tinyxml.h"
-#include <tbb/task.h>
+#include "ThirdParty/tinyxml/tinyxml.h"
+//#include <tbb/task.h>
 #include <algorithm>
 
 using namespace std::placeholders;
@@ -366,7 +366,7 @@ int PackageMetadata::serialize(Package* pkg, Stream& strm)
 	doc.Accept(&printer);
 	String xml(printer.CStr());
 
-	int len = xml.length()+1;
+    int len = (int)xml.length()+1;
 	nBytes += strm.write(&len, sizeof(len));
 	nBytes += strm.write((const char*)xml, len);
 

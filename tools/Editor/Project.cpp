@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include "PackageManager/PackageManager.h"
 #include "PackageManager/PackageMetadata.h"
 #include "ProgressFeedback.h"
-#include "tinyxml/tinyxml.h"
+#include "ThirdParty/tinyxml/tinyxml.h"
 #include <sstream>
 #include <tbb/task.h>
 
@@ -254,7 +254,7 @@ bool Project::read(ProgressFeedback* feedback)
 
 	// load all thumbnails in parallel
 	tbb::task* dummy = new(tbb::task::allocate_root()) DummyTask;
-	dummy->set_ref_count(metaList.size() + 1);
+    dummy->set_ref_count(int(metaList.size() + 1));
 	for (std::list<Metadata*>::iterator it = metaList.begin(); it != metaList.end(); ++it) {
 		tbb::task* t = new(dummy->allocate_child()) ThumbnailTask(*it);
 		dummy->spawn(*t);
@@ -318,7 +318,7 @@ PackageManager* Project::addPackage(const char* packagePath)
 
 	// load all thumbnails in parallel
 	tbb::task* dummy = new(tbb::task::allocate_root()) DummyTask;
-	dummy->set_ref_count(metaList.size() + 1);
+    dummy->set_ref_count(int(metaList.size() + 1));
 
 	for (std::list<Metadata*>::iterator it = metaList.begin(); it != metaList.end(); ++it) {
 		tbb::task* t = new(dummy->allocate_child()) ThumbnailTask(*it);

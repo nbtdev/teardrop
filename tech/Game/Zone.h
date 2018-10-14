@@ -131,7 +131,7 @@ namespace Teardrop
 		ZoneObjects m_objects;
 		
 		// dynamic objects need updating to ensure they are fully initialized
-		typedef std::list<unsigned int> DynamicObjects;
+        typedef std::list<size_t> DynamicObjects;
 		DynamicObjects m_dynamicObjects;
 
 		SpatialPartitioning* m_pSpace;

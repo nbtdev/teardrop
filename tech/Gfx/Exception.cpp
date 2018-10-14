@@ -37,12 +37,12 @@ Exception::Exception(const String& aDetail)
 
 }
 
-Exception::~Exception() NOTHROW
+Exception::~Exception() noexcept
 {
 
 }
 
-const char* Exception::what() const NOTHROW
+const char* Exception::what() const noexcept
 {
 	return mMsg;
 }

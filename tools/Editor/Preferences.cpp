@@ -23,7 +23,7 @@ THE SOFTWARE.
 #include "Preferences.h"
 #include "Util/FileSystem.h"
 #include "Util/UUID.h"
-#include "tinyxml/tinyxml.h"
+#include "ThirdParty/tinyxml/tinyxml.h"
 #include <algorithm>
 
 using namespace Teardrop;
