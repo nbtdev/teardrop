@@ -14,6 +14,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     )
 endif()
 
+install(FILES
+    $<TARGET_FILE:FreeImage> DESTINATION ${TEARDROP_INSTALL_DIR}/bin
+)
+
 # import the FBX SDK library
 add_library(FBX-SDK STATIC IMPORTED)
 string(TOLOWER ${CMAKE_BUILD_TYPE} FBX_BUILD_TYPE)
@@ -51,6 +55,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
         INTERFACE_INCLUDE_DIRECTORIES ${TBB_INCLUDE_DIR}
     )
 endif()
+
+install(FILES
+    $<TARGET_FILE:TBB> DESTINATION ${TEARDROP_INSTALL_DIR}/bin
+)
 
 # library name
 set(TARGET PackageManager)

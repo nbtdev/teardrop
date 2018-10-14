@@ -73,5 +73,5 @@ target_include_directories(${HFZ_TARGET}
 target_compile_definitions(${HFZ_TARGET} PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 # squish actually gives us a CMakeLists.txt we can use to build their target(s)
-add_subdirectory(squish)
+add_subdirectory(squish EXCLUDE_FROM_ALL)
 

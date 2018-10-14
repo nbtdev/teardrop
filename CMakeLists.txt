@@ -35,6 +35,16 @@ project(Teardrop
 # * use C++14
 set(CMAKE_CXX_STANDARD 14)
 
+#if(CMAKE_INSTALL_PREFIX)
+#    set(INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
+#else()
+    set(TEARDROP_INSTALL_DIR ${CMAKE_SOURCE_DIR}/install/${CMAKE_BUILD_TYPE})
+#endif()
+
+# TODO: we need to know if the caller provided CMAKE_INSTALL_PREFIX on the command line...
+set(CMAKE_INSTALL_PREFIX ${TEARDROP_INSTALL_DIR})
+
+
 # include build helpers
 include(cmake/td-targets.cmake)
 

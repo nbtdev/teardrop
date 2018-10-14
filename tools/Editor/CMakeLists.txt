@@ -81,6 +81,12 @@ set(QTLIBS
     Qt5::Widgets
 )
 
+set(QT_INSTALL_LIBS
+    $<TARGET_FILE:Qt5::Core>
+    $<TARGET_FILE:Qt5::Gui>
+    $<TARGET_FILE:Qt5::Widgets>
+)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
@@ -100,4 +106,17 @@ target_link_libraries(${TARGET}
         # integrations
         Direct3D11
         OpenGL
+)
+
+#
+# Install
+#
+
+install(TARGETS
+    ${TARGET}
+    RUNTIME DESTINATION ${TEARDROP_INSTALL_DIR}/bin
+)
+
+install(FILES
+    ${QT_INSTALL_LIBS} DESTINATION ${TEARDROP_INSTALL_DIR}/bin
 )
