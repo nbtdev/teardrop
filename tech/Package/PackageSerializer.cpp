@@ -113,7 +113,7 @@ static int serializeObjects(const Objects& objects, Stream& stream, std::list<As
 	doc.Accept(&printer);
 
 	// first, we need to know how long the XML string is
-    size_t len = printer.Size();
+    uint32_t len = (uint32_t)printer.Size();
 	stream.write(&len, sizeof(len));
 
 	// then the actual XML
@@ -168,8 +168,10 @@ static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectReso
 {
 	TiXmlDocument doc;
 	doc.Parse(xml);
-	if (doc.Error())
+    if (doc.Error()) {
+        char const* errStr = doc.ErrorDesc();
 		return false;
+    }
 
 	TiXmlElement* objects = doc.RootElement();
 	if (!objects)
@@ -271,15 +273,17 @@ int PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& defer
 	}
 
 	// read in the object definitions
-	int len;
+    uint32_t len;
 	nBytes += stream.read(&len, sizeof(len));
 
 	// read this many bytes into a string
 	std::vector<char> xml(len);
-	nBytes += stream.read(&xml[0], len);
+    nBytes += stream.read(xml.data(), len);
+
+    char* xmlStr = xml.data();
 
 	// and then deserialize objects from that
-	if (!deserializeObjects(&xml[0], mPkg, deferred, lut))
+    if (!deserializeObjects(xmlStr, mPkg, deferred, lut))
 		return 0;
 
 	// then the data
