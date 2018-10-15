@@ -22,6 +22,9 @@ THE SOFTWARE.
 
 #include "LandscapeScene.h"
 
+#include "Gfx/Renderer.h"
+#include "Gfx/RenderTarget.h"
+
 using namespace Teardrop;
 
 TD_CLASS_IMPL(LandscapeScene);
@@ -44,6 +47,32 @@ bool LandscapeScene::destroy()
 	return true;
 }
 
+bool LandscapeScene::onPreLoad()
+{
+    return true;
+}
+
+bool LandscapeScene::onPostLoad()
+{
+    return true;
+}
+
 void LandscapeScene::tick()
 {
+
+}
+
+void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
+{
+
+}
+
+bool LandscapeScene::onPreUnload()
+{
+    return true;
+}
+
+bool LandscapeScene::onPostUnload()
+{
+    return true;
 }

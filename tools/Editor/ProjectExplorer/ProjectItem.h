@@ -31,6 +31,7 @@ THE SOFTWARE.
 namespace Teardrop 
 {
 	class Package;
+    class Executable;
 
 	namespace Reflection
 	{
@@ -63,7 +64,8 @@ namespace Teardrop
 			Folder* folder() const;
 			Metadata* metadata() const;
 			PackageManager* packageManager() const;
-			QString toString() const;
+            Executable* executable() const;
+            QString toString() const;
 			QString tooltip() const;
 			ProjectItem* child(int row) const;
 			ProjectItem* parent() const;
@@ -87,6 +89,8 @@ namespace Teardrop
 			bool isFolder() const;
 			// return true if this item represents a Reflection::Object
 			bool isObject() const;
+            // return true if this item corresponds to an Executable item
+            bool isExecutable() const;
 
 		protected:
 			void setParent(ProjectItem* newParent);

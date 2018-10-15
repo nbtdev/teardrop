@@ -21,6 +21,7 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "RenderWindow.h"
+#include "Package/Executable.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Camera.h"
@@ -39,6 +40,7 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	, mRT(0)
 	, mCamera(0)
 	, mViewport(0)
+    , mExecutable(nullptr)
 {
 	mTimer = new QTimer(this);
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
@@ -73,17 +75,34 @@ RenderWindow::~RenderWindow()
 	delete mCamera;
 }
 
+void RenderWindow::setExecutable(Executable* executable)
+{
+    if (mExecutable) {
+    }
+
+    mExecutable = executable;
+}
+
 void RenderWindow::onIdle()
 {
-	// render a black clear frame for now
-	if (mRenderer && mRT) {
-		mCamera->setAspect(mRT->aspect());
-		mRT->setCurrent();
-		mRT->clear(true, 0xFF000000);
-		mRenderer->beginFrame();
-		mRenderer->beginScene(mCamera, mViewport);
-		mRenderer->endScene();
-		mRenderer->endFrame();
-		mRT->present();
-	}
+    if (!mRenderer || !mRT) {
+        return;
+    }
+
+    mCamera->setAspect(mRT->aspect());
+    mRT->setCurrent();
+    mRT->clear(true, 0xFF000000);
+
+    // if no executable, just leave it the black clear frame for now
+    if (mExecutable) {
+        mExecutable->renderFrame(mRenderer, mRT.get());
+    } else {
+        mRenderer->beginFrame();
+        mRenderer->beginScene(mCamera, mViewport);
+        mRenderer->endScene();
+        mRenderer->endFrame();
+    }
+
+    mRT->present();
+
 }

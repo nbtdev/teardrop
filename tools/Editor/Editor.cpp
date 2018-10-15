@@ -371,10 +371,20 @@ void Editor::onPreferences()
 
 void Editor::onProjectExplorerSelectionChanged(ProjectItem* item)
 {
-	if (!item)
-		mPropGrid->setObject(0);
-	else
-		mPropGrid->setObject(item->object(), item->metadata());
+    if (!item) {
+        mPropGrid->setObject(nullptr);
+        return;
+    }
+
+    if (item->object()) {
+        mPropGrid->setObject(item->object(), item->metadata());
+    } else {
+        if (item->isExecutable()) {
+            mPropGrid->setObject(item->executable(), nullptr);
+        } else {
+            mPropGrid->setObject(nullptr);
+        }
+    }
 }
 
 void Editor::onObjectBrowserItemDoubleClicked(ProjectItem* item)

@@ -109,6 +109,11 @@ bool ProjectItem::isObject() const
 	return (mObject!=0);
 }
 
+bool ProjectItem::isExecutable() const
+{
+    return (mPackageMgr && (mPackageMgr->executable() != nullptr));
+}
+
 ProjectItem* ProjectItem::parent() const
 {
 	return mParent;
@@ -145,7 +150,16 @@ int ProjectItem::row() const
 
 Reflection::Object* ProjectItem::object() const
 {
-	return mObject;
+    return mObject;
+}
+
+Executable* ProjectItem::executable() const
+{
+    if (!mPackageMgr) {
+        return nullptr;
+    }
+
+    return mPackageMgr->executable();
 }
 
 Folder* ProjectItem::folder() const

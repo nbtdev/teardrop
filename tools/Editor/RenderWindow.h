@@ -30,7 +30,9 @@ class QTimer;
 
 namespace Teardrop
 {
-	namespace Gfx
+    class Executable;
+
+    namespace Gfx
 	{
 		class Renderer;
 		class RenderTarget;
@@ -48,6 +50,8 @@ namespace Teardrop
 			RenderWindow(Gfx::Renderer* renderer, QWidget* parent=0);
 			~RenderWindow();
 
+            void setExecutable(Executable* executable);
+
 		protected slots:
 			void onIdle();
 
@@ -57,6 +61,7 @@ namespace Teardrop
 			std::shared_ptr<Gfx::RenderTarget> mRT;
 			Gfx::Camera* mCamera;
 			Gfx::Viewport* mViewport;
+            Executable* mExecutable;
 		};
 	}
 }

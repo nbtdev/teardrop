@@ -66,451 +66,451 @@ struct AttributeMapAssetHeader
 #endif
 
 namespace Teardrop {
-	namespace Tools {
+namespace Tools {
 
-		static void readTexture(TiXmlElement* texture, LandscapeAsset* asset) 
-		{
-			TiXmlElement* textureParam = texture->FirstChildElement();
-			while (textureParam) {
-				const char* type = textureParam->Value();
-				const char* paramName = textureParam->Attribute("name");
-				const char* paramValue = textureParam->GetText();
+static void readTexture(TiXmlElement* texture, LandscapeAsset* asset)
+{
+    TiXmlElement* textureParam = texture->FirstChildElement();
+    while (textureParam) {
+        const char* type = textureParam->Value();
+        const char* paramName = textureParam->Attribute("name");
+        const char* paramValue = textureParam->GetText();
 
-				if (type && paramName && paramValue) {
-					if (!strcmp(type, "int")) {
-						if (!strcmp(paramName, "nx")) {
-							int nx;
-							StringUtil::fromString(paramValue, nx);
-							asset->setColormapX(nx);
-						}
-						if (!strcmp(paramName, "ny")) {
-							int ny;
-							StringUtil::fromString(paramValue, ny);
-							asset->setColormapY(ny);
-						}
-					}
-				}
+        if (type && paramName && paramValue) {
+            if (!strcmp(type, "int")) {
+                if (!strcmp(paramName, "nx")) {
+                    int nx;
+                    StringUtil::fromString(paramValue, nx);
+                    asset->setColormapX(nx);
+                }
+                if (!strcmp(paramName, "ny")) {
+                    int ny;
+                    StringUtil::fromString(paramValue, ny);
+                    asset->setColormapY(ny);
+                }
+            }
+        }
 
-				textureParam = textureParam->NextSiblingElement();
-			}
-		}
+        textureParam = textureParam->NextSiblingElement();
+    }
+}
 
-		static void readTerrain(TiXmlElement* terrain, LandscapeAsset* asset) 
-		{
-			TiXmlElement* terrainParam = terrain->FirstChildElement();
-			while (terrainParam) {
-				const char* type = terrainParam->Value();
-				const char* paramName = terrainParam->Attribute("name");
-				const char* paramValue = terrainParam->GetText();
+static void readTerrain(TiXmlElement* terrain, LandscapeAsset* asset)
+{
+    TiXmlElement* terrainParam = terrain->FirstChildElement();
+    while (terrainParam) {
+        const char* type = terrainParam->Value();
+        const char* paramName = terrainParam->Attribute("name");
+        const char* paramValue = terrainParam->GetText();
 
-				if (type && paramName && paramValue) {
-					if (!strcmp(type, "int")) {
-						if (!strcmp(paramName, "nx")) {
-							int nx;
-							StringUtil::fromString(paramValue, nx);
-							asset->setHeightFieldX(nx);
-						}
-						if (!strcmp(paramName, "ny")) {
-							int ny;
-							StringUtil::fromString(paramValue, ny);
-							asset->setHeightFieldY(ny);
-						}
-					}
-					else if (!strcmp(type, "float")) {
-						if (!strcmp(paramName, "MinAlt")) {
-							float MinAlt;
-							StringUtil::fromString(paramValue, MinAlt);
-							asset->setMinAltitude(MinAlt);
-						}
-						if (!strcmp(paramName, "MaxAlt")) {
-							float MaxAlt;
-							StringUtil::fromString(paramValue, MaxAlt);
-							asset->setMaxAltitude(MaxAlt);
-						}
-						if (!strcmp(paramName, "HorizScale")) {
-							float HorizScale;
-							StringUtil::fromString(paramValue, HorizScale);
-							asset->setScale(HorizScale);
-						}
-					}
-				}
+        if (type && paramName && paramValue) {
+            if (!strcmp(type, "int")) {
+                if (!strcmp(paramName, "nx")) {
+                    int nx;
+                    StringUtil::fromString(paramValue, nx);
+                    asset->setHeightFieldX(nx);
+                }
+                if (!strcmp(paramName, "ny")) {
+                    int ny;
+                    StringUtil::fromString(paramValue, ny);
+                    asset->setHeightFieldY(ny);
+                }
+            }
+            else if (!strcmp(type, "float")) {
+                if (!strcmp(paramName, "MinAlt")) {
+                    float MinAlt;
+                    StringUtil::fromString(paramValue, MinAlt);
+                    asset->setMinAltitude(MinAlt);
+                }
+                if (!strcmp(paramName, "MaxAlt")) {
+                    float MaxAlt;
+                    StringUtil::fromString(paramValue, MaxAlt);
+                    asset->setMaxAltitude(MaxAlt);
+                }
+                if (!strcmp(paramName, "HorizScale")) {
+                    float HorizScale;
+                    StringUtil::fromString(paramValue, HorizScale);
+                    asset->setScale(HorizScale);
+                }
+            }
+        }
 
-				terrainParam = terrainParam->NextSiblingElement();
-			}
-		}
+        terrainParam = terrainParam->NextSiblingElement();
+    }
+}
 
-		static void readMapInfo(TiXmlElement* mapInfo, LandscapeAsset* asset) 
-		{
-			TiXmlElement* mapInfoChild = mapInfo->FirstChildElement("varlist");
-			while (mapInfoChild) {
-				const char* name = mapInfoChild->Attribute("name");
-				if (!strcmp(name, "Terrain")) {
-					readTerrain(mapInfoChild, asset);
-				}
-				else if (!strcmp(name, "Texture")) {
-					readTexture(mapInfoChild, asset);
-				}
-				mapInfoChild = mapInfoChild->NextSiblingElement("varlist");
-			}
-		}
+static void readMapInfo(TiXmlElement* mapInfo, LandscapeAsset* asset)
+{
+    TiXmlElement* mapInfoChild = mapInfo->FirstChildElement("varlist");
+    while (mapInfoChild) {
+        const char* name = mapInfoChild->Attribute("name");
+        if (!strcmp(name, "Terrain")) {
+            readTerrain(mapInfoChild, asset);
+        }
+        else if (!strcmp(name, "Texture")) {
+            readTexture(mapInfoChild, asset);
+        }
+        mapInfoChild = mapInfoChild->NextSiblingElement("varlist");
+    }
+}
 
-		class DummyTask : public tbb::task
-		{
-		public:
-			DummyTask() {}
-			tbb::task* execute() { return NULL; }
-		};
+class DummyTask : public tbb::task
+{
+public:
+    DummyTask() {}
+    tbb::task* execute() { return NULL; }
+};
 
-		struct DepInfo
-		{
-			String mPathname;
-			String mDepname;
-			TextureAsset* mAsset;
-			
-			DepInfo(TextureAsset* texAsset, const String& pathname, const String& depName) : mAsset(texAsset), mPathname(pathname), mDepname(depName) {}
-			DepInfo(const DepInfo& other) { *this = other; }
-			DepInfo& operator=(const DepInfo& other) { mPathname = other.mPathname; mDepname = other.mDepname; mAsset = other.mAsset; return *this; }
-		};
+struct DepInfo
+{
+    String mPathname;
+    String mDepname;
+    TextureAsset* mAsset;
 
-		struct ImportTask : public tbb::task
-		{
-			LandscapeAsset* mAsset;
-			String mPathname;
-			String mDepName;
-			TextureAssetType mTexType;
-			typedef void(LandscapeAsset::*PFN)(TextureAsset*);
-			PFN mFP;
-			tbb::concurrent_vector<DepInfo>& mDeps;
+    DepInfo(TextureAsset* texAsset, const String& pathname, const String& depName) : mAsset(texAsset), mPathname(pathname), mDepname(depName) {}
+    DepInfo(const DepInfo& other) { *this = other; }
+    DepInfo& operator=(const DepInfo& other) { mPathname = other.mPathname; mDepname = other.mDepname; mAsset = other.mAsset; return *this; }
+};
 
-			tbb::task* execute() {
-				TextureAsset* tex = importTexture(mPathname, mTexType);
-				(mAsset->*mFP)(tex);
-				mDeps.push_back(DepInfo(tex, mPathname, mDepName));
-				return NULL;
-			}
+struct ImportTask : public tbb::task
+{
+    LandscapeAsset* mAsset;
+    String mPathname;
+    String mDepName;
+    TextureAssetType mTexType;
+    typedef void(LandscapeAsset::*PFN)(TextureAsset*);
+    PFN mFP;
+    tbb::concurrent_vector<DepInfo>& mDeps;
 
-			ImportTask(tbb::concurrent_vector<DepInfo>& deps, const String& depName) : mDeps(deps), mDepName(depName) {}
-		};
+    tbb::task* execute() {
+        TextureAsset* tex = importTexture(mPathname, mTexType);
+        (mAsset->*mFP)(tex);
+        mDeps.push_back(DepInfo(tex, mPathname, mDepName));
+        return NULL;
+    }
 
-		static void readMaps(TiXmlElement* maps, LandscapeAsset* asset, const String& filedir, ImportedAsset& imp) 
-		{
-			// import all map dependencies in parallel
-			tbb::task* dummy = new(tbb::task::allocate_root()) DummyTask;
-			dummy->set_ref_count(1);
-			tbb::concurrent_vector<DepInfo> deps;
+    ImportTask(tbb::concurrent_vector<DepInfo>& deps, const String& depName) : mDeps(deps), mDepName(depName) {}
+};
 
-			TiXmlElement* mapsChild = maps->FirstChildElement("varlist");
-			while (mapsChild) {
-				const char* mapName = mapsChild->Attribute("name");
-				TiXmlElement* mapParam = mapsChild->FirstChildElement("string");
+static void readMaps(TiXmlElement* maps, LandscapeAsset* asset, const String& filedir, ImportedAsset& imp)
+{
+    // import all map dependencies in parallel
+    tbb::task* dummy = new(tbb::task::allocate_root()) DummyTask;
+    dummy->set_ref_count(1);
+    tbb::concurrent_vector<DepInfo> deps;
 
-				const char* filename = 0;
-				const char* mapType = 0;
+    TiXmlElement* mapsChild = maps->FirstChildElement("varlist");
+    while (mapsChild) {
+        const char* mapName = mapsChild->Attribute("name");
+        TiXmlElement* mapParam = mapsChild->FirstChildElement("string");
 
-				while (mapParam) {
-					const char* name = mapParam->Attribute("name");
-					const char* text = mapParam->GetText();
+        const char* filename = 0;
+        const char* mapType = 0;
 
-					if (name && !strcmp(name, "Filename")) {
-						filename = text;
-					}
+        while (mapParam) {
+            const char* name = mapParam->Attribute("name");
+            const char* text = mapParam->GetText();
 
-					if (name && !strcmp(name, "MapType")) {
-						mapType = text;
-					}
+            if (name && !strcmp(name, "Filename")) {
+                filename = text;
+            }
 
-					if (filename && mapType) {
-						// we don't care about the design map, so process only if map is not DM
-						if (strcmp(mapName, "DM")) {
-							String filepath(filedir);
-							filepath.append(FileSystem::PATHSEP);
-							filepath.append(filename);
+            if (name && !strcmp(name, "MapType")) {
+                mapType = text;
+            }
 
-							// heightfield has to be uncompressed first...and then stays uncompressed
-							if (!strcmp(mapName, "HF")) {
-								// libHFZ to read this one
-								float* data = hfzLoadHeightfield(filepath);
-								if (data) {
-									HeightfieldAsset* tex = new HeightfieldAsset;
-									int w = asset->getHeightFieldX();
-									int h = asset->getHeightFieldY();
-									tex->setWidth(w);
-									tex->setHeight(h);
-									int nBytes = sizeof(float) * w * h;
-									void* hfData = tex->createData(nBytes);
-									memcpy(hfData, data, nBytes);
-									asset->setHeightField(tex);
-									deps.push_back(DepInfo(tex, filepath, "HeightField"));
+            if (filename && mapType) {
+                // we don't care about the design map, so process only if map is not DM
+                if (strcmp(mapName, "DM")) {
+                    String filepath(filedir);
+                    filepath.append(FileSystem::PATHSEP);
+                    filepath.append(filename);
 
-									hfzFreeHeightfieldData(data);
-								}
-							}
+                    // heightfield has to be uncompressed first...and then stays uncompressed
+                    if (!strcmp(mapName, "HF")) {
+                        // libHFZ to read this one
+                        float* data = hfzLoadHeightfield(filepath);
+                        if (data) {
+                            HeightfieldAsset* tex = new HeightfieldAsset;
+                            int w = asset->getHeightFieldX();
+                            int h = asset->getHeightFieldY();
+                            tex->setWidth(w);
+                            tex->setHeight(h);
+                            int nBytes = sizeof(float) * w * h;
+                            void* hfData = tex->createData(nBytes);
+                            memcpy(hfData, data, nBytes);
+                            asset->setHeightField(tex);
+                            deps.push_back(DepInfo(tex, filepath, "HeightField"));
 
-							// water map
-							//if (!strcmp(mapName, "WM")) {
-							//	TextureAsset* tex = importTexture(filepath, TEXTUREASSET_TYPE_BCX);
-							//	asset->setWaterMap(tex);
-							//	imp.addDep(tex);
-							//}
+                            hfzFreeHeightfieldData(data);
+                        }
+                    }
 
-							// attr map isn't really an image, it's a pair of shorts per HF sample
-							if (!strcmp(mapName, "AM")) {
-								// asset is probably in ZLIB compressed form, but gzopen/read can deal with uncompressed too
-								gzFile gz = gzopen(filepath, "rb");
+                    // water map
+                    //if (!strcmp(mapName, "WM")) {
+                    //	TextureAsset* tex = importTexture(filepath, TEXTUREASSET_TYPE_BCX);
+                    //	asset->setWaterMap(tex);
+                    //	imp.addDep(tex);
+                    //}
 
-								if (gz) {
-									AttributeMapAssetHeader hdr;
-									int r = gzread(gz, &hdr, sizeof(hdr));
-									if (r > 0 && hdr.mType == MAGIC_TYPE && hdr.mMarker == *((int*)MAGIC_MARKER)) {
-										int sz = hdr.mWidth * hdr.mHeight * 2;
-										AttributeMapAsset* am = new AttributeMapAsset;
-										void* data = am->createData(sz);
-										am->setWidth(hdr.mWidth);
-										am->setHeight(hdr.mHeight);
+                    // attr map isn't really an image, it's a pair of shorts per HF sample
+                    if (!strcmp(mapName, "AM")) {
+                        // asset is probably in ZLIB compressed form, but gzopen/read can deal with uncompressed too
+                        gzFile gz = gzopen(filepath, "rb");
 
-										r = gzread(gz, data, sz);
-										
-										if (r == sz) {
-											asset->setAttributesMap(am);
-											deps.push_back(DepInfo(am, filepath, "Attributes Map"));
-										}
-										else
-											delete am;
+                        if (gz) {
+                            AttributeMapAssetHeader hdr;
+                            int r = gzread(gz, &hdr, sizeof(hdr));
+                            if (r > 0 && hdr.mType == MAGIC_TYPE && hdr.mMarker == *((int*)MAGIC_MARKER)) {
+                                int sz = hdr.mWidth * hdr.mHeight * 2;
+                                AttributeMapAsset* am = new AttributeMapAsset;
+                                void* data = am->createData(sz);
+                                am->setWidth(hdr.mWidth);
+                                am->setHeight(hdr.mHeight);
 
-										gzclose(gz);
-									}
-								}
-							}
+                                r = gzread(gz, data, sz);
 
-							// terrain normal map
-							if (!strcmp(mapName, "TN")) {
-								ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Normal Map");
-								t->mTexType = TEXTUREASSET_TYPE_BCX;
-								t->mPathname = filepath;
-								t->mAsset = asset;
-								t->mFP = &LandscapeAsset::setNormalMap;
-								dummy->increment_ref_count();
-								dummy->spawn(*t);
-							}
+                                if (r == sz) {
+                                    asset->setAttributesMap(am);
+                                    deps.push_back(DepInfo(am, filepath, "Attributes Map"));
+                                }
+                                else
+                                    delete am;
 
-							// terrain shadow map, 8 bits (1 byte) per sample
-							if (!strcmp(mapName, "SH")) {
-								ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Shadow Map");
-								t->mTexType = TEXTUREASSET_TYPE_BCX;
-								t->mPathname = filepath;
-								t->mAsset = asset;
-								t->mFP = &LandscapeAsset::setShadowMap;
-								dummy->increment_ref_count();
-								dummy->spawn(*t);
-							}
+                                gzclose(gz);
+                            }
+                        }
+                    }
 
-							// terrain light map - raw RGB, same dimensions as heightfield
-							if (!strcmp(mapName, "LM")) {
-								ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Light Map");
-								t->mTexType = TEXTUREASSET_TYPE_BCX;
-								t->mPathname = filepath;
-								t->mAsset = asset;
-								t->mFP = &LandscapeAsset::setLightMap;
-								dummy->increment_ref_count();
-								dummy->spawn(*t);
-							}
+                    // terrain normal map
+                    if (!strcmp(mapName, "TN")) {
+                        ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Normal Map");
+                        t->mTexType = TEXTUREASSET_TYPE_BCX;
+                        t->mPathname = filepath;
+                        t->mAsset = asset;
+                        t->mFP = &LandscapeAsset::setNormalMap;
+                        dummy->increment_ref_count();
+                        dummy->spawn(*t);
+                    }
 
-							// terrain specular light map
-							if (!strcmp(mapName, "SpecLM")) {
-								ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Specular Light Map");
-								t->mTexType = TEXTUREASSET_TYPE_BCX;
-								t->mPathname = filepath;
-								t->mAsset = asset;
-								t->mFP = &LandscapeAsset::setSpecularLightMap;
-								dummy->increment_ref_count();
-								dummy->spawn(*t);
-							}
+                    // terrain shadow map, 8 bits (1 byte) per sample
+                    if (!strcmp(mapName, "SH")) {
+                        ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Shadow Map");
+                        t->mTexType = TEXTUREASSET_TYPE_BCX;
+                        t->mPathname = filepath;
+                        t->mAsset = asset;
+                        t->mFP = &LandscapeAsset::setShadowMap;
+                        dummy->increment_ref_count();
+                        dummy->spawn(*t);
+                    }
 
-							// terrain color map
-							if (!strcmp(mapName, "TX")) {
-								ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Texture Map");
-								t->mTexType = TEXTUREASSET_TYPE_BCX;
-								t->mPathname = filepath;
-								t->mAsset = asset;
-								t->mFP = &LandscapeAsset::setDiffuseMap;
-								dummy->increment_ref_count();
-								dummy->spawn(*t);
-							}
-						}
-					}
+                    // terrain light map - raw RGB, same dimensions as heightfield
+                    if (!strcmp(mapName, "LM")) {
+                        ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Light Map");
+                        t->mTexType = TEXTUREASSET_TYPE_BCX;
+                        t->mPathname = filepath;
+                        t->mAsset = asset;
+                        t->mFP = &LandscapeAsset::setLightMap;
+                        dummy->increment_ref_count();
+                        dummy->spawn(*t);
+                    }
 
-					mapParam = mapParam->NextSiblingElement("string");
-				}
+                    // terrain specular light map
+                    if (!strcmp(mapName, "SpecLM")) {
+                        ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Specular Light Map");
+                        t->mTexType = TEXTUREASSET_TYPE_BCX;
+                        t->mPathname = filepath;
+                        t->mAsset = asset;
+                        t->mFP = &LandscapeAsset::setSpecularLightMap;
+                        dummy->increment_ref_count();
+                        dummy->spawn(*t);
+                    }
 
-				mapsChild = mapsChild->NextSiblingElement("varlist");
-			}
+                    // terrain color map
+                    if (!strcmp(mapName, "TX")) {
+                        ImportTask* t = new(dummy->allocate_child()) ImportTask(deps, "Texture Map");
+                        t->mTexType = TEXTUREASSET_TYPE_BCX;
+                        t->mPathname = filepath;
+                        t->mAsset = asset;
+                        t->mFP = &LandscapeAsset::setDiffuseMap;
+                        dummy->increment_ref_count();
+                        dummy->spawn(*t);
+                    }
+                }
+            }
 
-			dummy->wait_for_all();
+            mapParam = mapParam->NextSiblingElement("string");
+        }
 
-			// collect all dependencies into our return value
-			for (size_t i=0; i<deps.size(); ++i) {
-				imp.addDep(deps[i].mAsset, deps[i].mDepname, deps[i].mPathname);
-			}
-		}
+        mapsChild = mapsChild->NextSiblingElement("varlist");
+    }
 
-		LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, LandscapeAssetType type)
-		{
-			LandscapeAsset* asset = 0;
+    dummy->wait_for_all();
 
-			if (!filepath)
-				return 0;
+    // collect all dependencies into our return value
+    for (size_t i=0; i<deps.size(); ++i) {
+        imp.addDep(deps[i].mAsset, deps[i].mDepname, deps[i].mPathname);
+    }
+}
 
-			String pathname(filepath);
-			String filedir;
-			FileSystem::directoryName(filedir, filepath);
+LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, LandscapeAssetType type)
+{
+    LandscapeAsset* asset = 0;
 
-			if (type == LANDSCAPEASSET_TYPE_L3DT) {
-				TiXmlDocument doc;
-				if (doc.LoadFile(filepath)) {
-					TiXmlElement* root = doc.RootElement();
+    if (!filepath)
+        return 0;
 
-					// sanity checks
-					const char* elemName = root->Value();
-					const char* nameAttr = root->Attribute("name");
+    String pathname(filepath);
+    String filedir;
+    FileSystem::directoryName(filedir, filepath);
 
-					if (elemName && strcmp(elemName, "varlist")) 
-						return 0;
-					if (nameAttr && strcmp(nameAttr, "ProjectData")) 
-						return 0;
+    if (type == LANDSCAPEASSET_TYPE_L3DT) {
+        TiXmlDocument doc;
+        if (doc.LoadFile(filepath)) {
+            TiXmlElement* root = doc.RootElement();
 
-					// we have an L3DT project file (more than likely...)
-					asset = new LandscapeAsset;
+            // sanity checks
+            const char* elemName = root->Value();
+            const char* nameAttr = root->Attribute("name");
 
-					TiXmlElement* varlist = root->FirstChildElement("varlist");
-					while (varlist) {
-						const char* name = varlist->Attribute("name");
-						if (name && !strcmp(name, "MapInfo")) {
-							readMapInfo(varlist, asset);
-						}
+            if (elemName && strcmp(elemName, "varlist"))
+                return 0;
+            if (nameAttr && strcmp(nameAttr, "ProjectData"))
+                return 0;
 
-						if (name && !strcmp(name, "Maps")) {
-							readMaps(varlist, asset, filedir, imp);
-						}
+            // we have an L3DT project file (more than likely...)
+            asset = new LandscapeAsset;
 
-						varlist = varlist->NextSiblingElement("varlist");
-					}
-				}
-			}
+            TiXmlElement* varlist = root->FirstChildElement("varlist");
+            while (varlist) {
+                const char* name = varlist->Attribute("name");
+                if (name && !strcmp(name, "MapInfo")) {
+                    readMapInfo(varlist, asset);
+                }
 
-			// create and insert a new Material for this landscape
-			{
-				using namespace Gfx;
-				//Sampler2DExpression* SpecLMSampExp = TD_NEW Sampler2DExpression;
-				//Sampler2DExpression* SHSampExp = TD_NEW Sampler2DExpression;
+                if (name && !strcmp(name, "Maps")) {
+                    readMaps(varlist, asset, filedir, imp);
+                }
 
-				UUID uuid;
-				MaterialOutput* output = TD_NEW MaterialOutput;
-				uuid.generate();
-				output->setObjectId(uuid);
-				output->initialize();
-				imp.addInternalDep(output);
+                varlist = varlist->NextSiblingElement("varlist");
+            }
+        }
+    }
 
-				Material* mat = TD_NEW Material;
-				mat->setOutput(output);
+    // create and insert a new Material for this landscape
+    {
+        using namespace Gfx;
+        //Sampler2DExpression* SpecLMSampExp = TD_NEW Sampler2DExpression;
+        //Sampler2DExpression* SHSampExp = TD_NEW Sampler2DExpression;
 
-				TextureAsset* texAsset = asset->getNormalMap();
-				if (texAsset) {
-					Sampler2DExpression* TNSampExp = TD_NEW Sampler2DExpression;
-					uuid.generate();
-					TNSampExp->setObjectId(uuid);
-					TNSampExp->initialize();
-					TNSampExp->getSampler2D().setTextureAsset(texAsset);
+        UUID uuid;
+        MaterialOutput* output = TD_NEW MaterialOutput;
+        uuid.generate();
+        output->setObjectId(uuid);
+        output->initialize();
+        imp.addInternalDep(output);
 
-					Connection* conn = TD_NEW Connection;
-					conn->setFromExpression(TNSampExp); conn->setFromAttribute("RGBA");
-					conn->setToExpression(output); conn->setToAttribute("Normal");
-					conn->setParent(mat);
-					uuid.generate();
-					conn->setObjectId(uuid);
-					conn->initialize();
+        Material* mat = TD_NEW Material;
+        mat->setOutput(output);
 
-					imp.addInternalDep(TNSampExp);
-					imp.addInternalDep(conn);
-				}
+        TextureAsset* texAsset = asset->getNormalMap();
+        if (texAsset) {
+            Sampler2DExpression* TNSampExp = TD_NEW Sampler2DExpression;
+            uuid.generate();
+            TNSampExp->setObjectId(uuid);
+            TNSampExp->initialize();
+            TNSampExp->getSampler2D().setTextureAsset(texAsset);
 
-				texAsset = asset->getDiffuseMap();
-				if (texAsset) {
-					Sampler2DExpression* TXSampExp = TD_NEW Sampler2DExpression;
-					uuid.generate();
-					TXSampExp->setObjectId(uuid);
-					TXSampExp->initialize();
-					TXSampExp->getSampler2D().setTextureAsset(texAsset);
-					imp.addInternalDep(TXSampExp);
+            Connection* conn = TD_NEW Connection;
+            conn->setFromExpression(TNSampExp); conn->setFromAttribute("RGBA");
+            conn->setToExpression(output); conn->setToAttribute("Normal");
+            conn->setParent(mat);
+            uuid.generate();
+            conn->setObjectId(uuid);
+            conn->initialize();
 
-					// we only care about the lightmap if there is a diffuse map too
-					texAsset = asset->getLightMap();
+            imp.addInternalDep(TNSampExp);
+            imp.addInternalDep(conn);
+        }
 
-					// if we have both, insert an "add" expression
-					if (texAsset) {
-						Sampler2DExpression* LMSampExp = TD_NEW Sampler2DExpression;
-						uuid.generate();
-						LMSampExp->setObjectId(uuid);
-						LMSampExp->initialize();
-						LMSampExp->getSampler2D().setTextureAsset(texAsset);
-						imp.addInternalDep(LMSampExp);
+        texAsset = asset->getDiffuseMap();
+        if (texAsset) {
+            Sampler2DExpression* TXSampExp = TD_NEW Sampler2DExpression;
+            uuid.generate();
+            TXSampExp->setObjectId(uuid);
+            TXSampExp->initialize();
+            TXSampExp->getSampler2D().setTextureAsset(texAsset);
+            imp.addInternalDep(TXSampExp);
 
-						// then we need an "add" expression
-						AddColorExpression* addExpr = TD_NEW AddColorExpression;
-						uuid.generate();
-						addExpr->setObjectId(uuid);
-						addExpr->initialize();
+            // we only care about the lightmap if there is a diffuse map too
+            texAsset = asset->getLightMap();
 
-						Connection* conn = TD_NEW Connection;
-						conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
-						conn->setToExpression(addExpr); conn->setToAttribute("A");
-						conn->setParent(mat);
-						uuid.generate();
-						conn->setObjectId(uuid);
-						conn->initialize();
-						imp.addInternalDep(conn);
+            // if we have both, insert an "add" expression
+            if (texAsset) {
+                Sampler2DExpression* LMSampExp = TD_NEW Sampler2DExpression;
+                uuid.generate();
+                LMSampExp->setObjectId(uuid);
+                LMSampExp->initialize();
+                LMSampExp->getSampler2D().setTextureAsset(texAsset);
+                imp.addInternalDep(LMSampExp);
 
-						conn = TD_NEW Connection;
-						conn->setFromExpression(LMSampExp); conn->setFromAttribute("RGBA");
-						conn->setToExpression(addExpr); conn->setToAttribute("B");
-						conn->setParent(mat);
-						uuid.generate();
-						conn->setObjectId(uuid);
-						conn->initialize();
-						imp.addInternalDep(conn);
+                // then we need an "add" expression
+                AddColorExpression* addExpr = TD_NEW AddColorExpression;
+                uuid.generate();
+                addExpr->setObjectId(uuid);
+                addExpr->initialize();
 
-						conn = TD_NEW Connection;
-						conn->setFromExpression(addExpr); conn->setFromAttribute("Output");
-						conn->setToExpression(output); conn->setToAttribute("Diffuse");
-						conn->setParent(mat);
-						uuid.generate();
-						conn->setObjectId(uuid);
-						conn->initialize();
-						imp.addInternalDep(conn);
+                Connection* conn = TD_NEW Connection;
+                conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
+                conn->setToExpression(addExpr); conn->setToAttribute("A");
+                conn->setParent(mat);
+                uuid.generate();
+                conn->setObjectId(uuid);
+                conn->initialize();
+                imp.addInternalDep(conn);
 
-						imp.addInternalDep(addExpr);
-					}
-					else {
-						// just connect the output of the diffuse map to the Diffuse input on the MaterialOutput
-						Connection* conn = TD_NEW Connection;
-						conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
-						conn->setToExpression(output); conn->setToAttribute("Diffuse");
-						conn->setParent(mat);
-						uuid.generate();
-						conn->setObjectId(uuid);
-						conn->initialize();
-						imp.addInternalDep(conn);
-					}
-				}
+                conn = TD_NEW Connection;
+                conn->setFromExpression(LMSampExp); conn->setFromAttribute("RGBA");
+                conn->setToExpression(addExpr); conn->setToAttribute("B");
+                conn->setParent(mat);
+                uuid.generate();
+                conn->setObjectId(uuid);
+                conn->initialize();
+                imp.addInternalDep(conn);
 
-				mat->initialize();
+                conn = TD_NEW Connection;
+                conn->setFromExpression(addExpr); conn->setFromAttribute("Output");
+                conn->setToExpression(output); conn->setToAttribute("Diffuse");
+                conn->setParent(mat);
+                uuid.generate();
+                conn->setObjectId(uuid);
+                conn->initialize();
+                imp.addInternalDep(conn);
 
-				String basename;
-				FileSystem::baseName(basename, filepath);
-				imp.addDep(mat, basename);
-			}
+                imp.addInternalDep(addExpr);
+            }
+            else {
+                // just connect the output of the diffuse map to the Diffuse input on the MaterialOutput
+                Connection* conn = TD_NEW Connection;
+                conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
+                conn->setToExpression(output); conn->setToAttribute("Diffuse");
+                conn->setParent(mat);
+                uuid.generate();
+                conn->setObjectId(uuid);
+                conn->initialize();
+                imp.addInternalDep(conn);
+            }
+        }
 
-			return asset;
-		}
+        mat->initialize();
 
-	} // namespace Tools
+        String basename;
+        FileSystem::baseName(basename, filepath);
+        imp.addDep(mat, basename);
+    }
+
+    return asset;
+}
+
+} // namespace Tools
 } // namespace Teardrop

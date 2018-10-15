@@ -28,29 +28,38 @@ THE SOFTWARE.
 #include "Math/Vector2.h"
 #include "Package/Executable.h"
 
-namespace Teardrop
+namespace Teardrop {
+
+class LandscapeScene : public Executable
 {
-	class LandscapeScene : public Executable
-	{
-	public:
-		TD_CLASS(LandscapeScene, Executable);
-		TD_CLASS_CREATABLE();
+public:
+    TD_CLASS(LandscapeScene, Executable);
+    TD_CLASS_CREATABLE();
 
-		TD_POINTER_PROPERTY(LandscapeAsset, "Landscape asset for this scene", LandscapeAsset, 0);
-		//TD_POINTER_PROPERTY(HUD, "Heads-up display for this scene", HUD, 0);
-		TD_PROPERTY(CastShadows, "Landscape casts shadows (default: yes)", bool, true, 0);
-		TD_PROPERTY(ReceiveShadows, "Landscape receives shadows (default: yes)", bool, true, 0);
-		TD_COMPLEX_PROPERTY(Tiling, "Number of tiles in X and Z ", Vector2, "(0,0)", 0);
+    TD_POINTER_PROPERTY(LandscapeAsset, "Landscape asset for this scene", LandscapeAsset, 0);
+    //TD_POINTER_PROPERTY(HUD, "Heads-up display for this scene", HUD, 0);
+    TD_PROPERTY(CastShadows, "Landscape casts shadows (default: yes)", bool, true, 0);
+    TD_PROPERTY(ReceiveShadows, "Landscape receives shadows (default: yes)", bool, true, 0);
+    TD_COMPLEX_PROPERTY(Tiling, "Number of tiles in X and Z ", Vector2, "(0,0)", 0);
 
-		LandscapeScene();
-		~LandscapeScene();
+    LandscapeScene();
+    ~LandscapeScene();
 
-		bool initialize();
-		bool destroy();
-		void tick();
+    // Object overrides
+    bool initialize() override;
+    bool destroy() override;
 
-		TD_DECLARE_ALLOCATOR();
-	};
-}
+    // Executable overrides
+    bool onPreLoad() override;
+    bool onPostLoad() override;
+    void tick() override;
+    void renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt) override;
+    bool onPreUnload() override;
+    bool onPostUnload() override;
+
+    TD_DECLARE_ALLOCATOR();
+};
+
+} // namespace Teardrop
 
 #endif // LANDSCAPEZONE_INCLUDED
