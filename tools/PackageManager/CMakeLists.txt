@@ -9,8 +9,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
         set_target_properties(FreeImage PROPERTIES
             IMPORTED_LOCATION_DEBUG "${FREEIMAGE_LIB_DIR}/FreeImaged.dll"
             IMPORTED_LOCATION_RELEASE "${FREEIMAGE_LIB_DIR}/FreeImage.dll"
+            IMPORTED_LOCATION_RELWITHDEBINFO "${FREEIMAGE_LIB_DIR}/FreeImage.dll"
             IMPORTED_IMPLIB_DEBUG "${FREEIMAGE_LIB_DIR}/FreeImaged.lib"
             IMPORTED_IMPLIB_RELEASE "${FREEIMAGE_LIB_DIR}/FreeImage.lib"
+            IMPORTED_IMPLIB_RELWITHDEBINFO "${FREEIMAGE_LIB_DIR}/FreeImage.lib"
             INTERFACE_INCLUDE_DIRECTORIES "${FREEIMAGE_INCLUDE_DIR}"
         )
     endif()
@@ -35,6 +37,11 @@ endif()
 
 add_library(FBX-SDK STATIC IMPORTED)
 string(TOLOWER ${CMAKE_BUILD_TYPE} FBX_BUILD_TYPE)
+
+if(${FBX_BUILD_TYPE} MATCHES "relwithdebinfo")
+    set(FBX_BUILD_TYPE "release")
+endif()
+
 set(FBX_SDK_LIB_DIR ${FBX_SDK_DIR}/lib/${FBX_COMPILER}/${ARCH}/${FBX_BUILD_TYPE})
 set(FBX_SDK_INCLUDE_DIR ${FBX_SDK_DIR}/include)
 
@@ -68,8 +75,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
     set_target_properties(TBB PROPERTIES
         IMPORTED_LOCATION_RELEASE ${TBB_BIN_DIR}/tbb.dll
+        IMPORTED_LOCATION_RELWITHDEBINFO ${TBB_BIN_DIR}/tbb.dll
         IMPORTED_LOCATION_DEBUG ${TBB_BIN_DIR}/tbb_debug.dll
         IMPORTED_IMPLIB_RELEASE ${TBB_LIB_DIR}/tbb.lib
+        IMPORTED_IMPLIB_RELWITHDEBINFO ${TBB_LIB_DIR}/tbb.lib
         IMPORTED_IMPLIB_DEBUG ${TBB_LIB_DIR}/tbb_debug.lib
         INTERFACE_INCLUDE_DIRECTORIES ${TBB_INCLUDE_DIR}
     )
@@ -79,6 +88,7 @@ else()
 
     set_target_properties(TBB PROPERTIES
         IMPORTED_LOCATION_RELEASE ${TBB_LIB_DIR}/libtbb.so.2
+        IMPORTED_LOCATION_REL ${TBB_LIB_DIR}/libtbb.so.2
         IMPORTED_LOCATION_DEBUG ${TBB_LIB_DIR}/libtbb_debug.so.2
         INTERFACE_LINK_OPTIONS -L${TBB_LIB_DIR}
         INTERFACE_INCLUDE_DIRECTORIES ${TBB_INCLUDE_DIR}
