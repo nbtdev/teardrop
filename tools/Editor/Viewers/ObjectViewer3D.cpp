@@ -21,18 +21,20 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "ObjectViewer3D.h"
-#include "PropertyGrid/PropertyGrid.h"
+#include "Core/Executable.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
-#include "Package/Executable.h"
 #include "Package/Package.h"
+#include "PropertyGrid/PropertyGrid.h"
+
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QSplitter>
 #include <QtCore/QTimer>
 #include <QtGui/QResizeEvent>
-#include <assert.h>
+
+#include <cassert>
 
 using namespace Teardrop;
 using namespace Tools;

@@ -23,7 +23,7 @@ THE SOFTWARE.
 #if !defined(OBJECTVIEWER3D_LOGIC_INCLUDED)
 #define OBJECTVIEWER3D_LOGIC_INCLUDED
 
-#include "Package/Logic.h"
+#include "Core/Logic.h"
 
 namespace Teardrop
 {

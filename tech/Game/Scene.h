@@ -23,8 +23,9 @@ THE SOFTWARE.
 #if !defined(SCENE_INCLUDED)
 #define SCENE_INCLUDED
 
+#include "Core/Executable.h"
+
 #include <vector>
-#include "Package/Executable.h"
 
 namespace Teardrop
 {

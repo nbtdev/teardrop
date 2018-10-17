@@ -3,11 +3,15 @@ set(TARGET Core)
 
 # library source files
 set(SOURCES
+    Executable.cpp
+    Executable.h
     Input.cpp
     Input.h
     InputEvent.h
     Integration.cpp
     Integration.h
+    Logic.cpp
+    Logic.h
     Singleton.h
 )
 

@@ -23,8 +23,8 @@ THE SOFTWARE.
 #if !defined(EXECUTABLE_INCLUDED)
 #define EXECUTABLE_INCLUDED
 
+#include "Core/Logic.h"
 #include "Memory/Allocators.h"
-#include "Package/Logic.h"
 #include "Reflection/Reflection.h"
 
 namespace Teardrop

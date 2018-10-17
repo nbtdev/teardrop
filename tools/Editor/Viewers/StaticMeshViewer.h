@@ -23,7 +23,7 @@ THE SOFTWARE.
 #if !defined(STATICMESHVIEWER_INCLUDED)
 #define STATICMESHVIEWER_INCLUDED
 
-#include "Package/Executable.h"
+#include "Core/Executable.h"
 #include "Util/Timer.h"
 
 namespace Teardrop

@@ -4,10 +4,6 @@ set(TARGET Package)
 # library source files
 set(SOURCES
     DeferredResolution.h
-    Executable.cpp
-    Executable.h
-    Logic.cpp
-    Logic.h
     Package.cpp
     Package.h
     PackageMetadataSerializer.cpp
@@ -48,6 +44,11 @@ td_add_library(${TARGET}
 
 target_link_libraries(${TARGET}
     PUBLIC
+        Asset
+        Core
+        Memory
+        Reflection
+        Stream
         Util
 
         ${PLATFORM_DEPENDENCIES}
