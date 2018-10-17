@@ -26,9 +26,13 @@ THE SOFTWARE.
 #include "ZoneObject.h"
 #include "Component_Render.h"
 #include "Gfx/Camera.h"
+#include "Gfx/Material.h"
+#include "Gfx/Mesh.h"
+#include "Gfx/Renderable.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/RenderQueue.h"
+#include "Gfx/Submesh.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/ClassDef.h"
 
@@ -68,8 +72,7 @@ void SceneRenderStep::render(
 	// get the visible objects from the scene; if any, pass over to the renderer
     Gfx::RenderQueue renderQueue;
 
-	if (objects.size())
-	{
+    if (objects.size()) {
 		// go through the list and make another of things we need to render
 		for(ZoneObjects::const_iterator it = objects.begin();
 			it != objects.end(); ++it)
@@ -90,6 +93,19 @@ void SceneRenderStep::render(
 			}
 		}
 	}
+
+    // first-pass, naive approach -- render everything in unsorted order
+    size_t nRenderables = renderQueue.renderableCount();
+    for (size_t i=0; i<nRenderables; ++i) {
+        Gfx::Renderable* renderable = renderQueue.renderable(i);
+        size_t nSubmesh = renderable->mesh()->submeshCount();
+        for (size_t s=0; s<nSubmesh; ++s) {
+            Gfx::Submesh* submesh = renderable->mesh()->submesh((int)s);
+            Gfx::Material* material = renderable->material(s);
+            pRend->apply(material);
+            pRend->render(submesh);
+        }
+    }
 
 	pRend->endScene();
 }

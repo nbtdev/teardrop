@@ -37,6 +37,8 @@ public:
 
     void addRenderable(Renderable* renderable);
     void clear();
+    size_t renderableCount() const;
+    Renderable* renderable(size_t index) const;
 
 private:
     std::vector<Renderable*> mRenderables;

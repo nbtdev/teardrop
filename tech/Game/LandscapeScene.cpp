@@ -109,8 +109,6 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
     ZoneObjects visibleObjects;
     getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
 
-    Gfx::Viewport* vp = rt->viewport();
-
     camera->setAspect(rt->aspect());
     rt->setCurrent();
     rt->clear(true, 0xFF000000);

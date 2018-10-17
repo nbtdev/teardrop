@@ -43,6 +43,20 @@ void RenderQueue::clear()
     mRenderables.clear();
 }
 
+size_t RenderQueue::renderableCount() const
+{
+    return mRenderables.size();
+}
+
+Renderable* RenderQueue::renderable(size_t index) const
+{
+    if (index >= mRenderables.size()) {
+        return nullptr;
+    }
+
+    return mRenderables[index];
+}
+
 } // namespace Gfx
 } // namespace Teardrop
 
