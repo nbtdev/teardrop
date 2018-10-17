@@ -23,6 +23,12 @@ THE SOFTWARE.
 #if !defined(INPUTDI8_INCLUDED)
 #define INPUTDI8_INCLUDED
 
+#define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
+#include <windows.h>
+
+#define DIRECTINPUT_VERSION 0x0800
+#include <DInput.h>
+
 #include "Core/Input.h"
 #include "Memory/Allocators.h"
 #include <vector>

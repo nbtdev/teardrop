@@ -23,16 +23,24 @@ THE SOFTWARE.
 #include "stdafx.h"
 #include "InputDI8.h"
 #include "Core/InputEvent.h"
-#include "tbb/concurrent_queue.h"
 
 static char s_keys[256];
 static const int MICE_SUPPORTED = 1;
 
 using Teardrop::InputEvent;
 
-typedef tbb::concurrent_queue<InputEvent> Win32InputEvents;
+#if defined(USE_TBB)
+    #include "tbb/concurrent_queue.h"
+    typedef tbb::concurrent_queue<InputEvent> Win32InputEvents;
+#else
+    #include <queue>
+    typedef std::queue<InputEvent> Win32InputEvents;
+#endif
+
 static Win32InputEvents s_win32Events;
 static HHOOK s_hKeyHook = 0;
+
+#pragma warning(disable: 4644)
 
 LRESULT CALLBACK Win32HookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
@@ -69,8 +77,8 @@ LRESULT CALLBACK Win32HookProc(int nCode, WPARAM wParam, LPARAM lParam)
 					InputEvent evt;
 					evt.evtType.type = InputEvent::RAW_WIN32;
 					evt.raw.msg = msg->message;
-					evt.raw.lParam = msg->lParam;
-					evt.raw.wParam = msg->wParam;
+                    evt.raw.lParam = (unsigned int)msg->lParam;
+                    evt.raw.wParam = (unsigned int)msg->wParam;
 					s_win32Events.push(evt);
 					break;
 				}
@@ -772,8 +780,14 @@ static bool pollRawWin32(InputEvent& event)
 		return false;
 
 	// otherwise get one and fill in the event
-	s_win32Events.try_pop(event);
-	return true;
+#if defined(USE_TBB)
+    s_win32Events.try_pop(event);
+#else
+    event = s_win32Events.front();
+    s_win32Events.pop();
+#endif
+
+    return true;
 }
 //---------------------------------------------------------------------------
 // Application is expected to call this method until no more events are pending

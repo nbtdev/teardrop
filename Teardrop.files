@@ -146,6 +146,7 @@ integrations/DirectX/Direct3D9/shader/GfxShaderD3D9.cpp
 integrations/DirectX/Direct3D9/shader/GfxShaderD3D9.h
 integrations/DirectX/Direct3D9/stdafx.cpp
 integrations/DirectX/Direct3D9/stdafx.h
+integrations/DirectX/DirectInput8/CMakeLists.txt
 integrations/DirectX/DirectInput8/InputDI8.cpp
 integrations/DirectX/DirectInput8/InputDI8.h
 integrations/DirectX/DirectInput8/Integration.cpp
