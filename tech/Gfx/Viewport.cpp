@@ -38,6 +38,10 @@ Viewport::Viewport(RenderTarget* rt)
 	, mClearEachRender(true)
 {
 	assert(rt);
+    if (rt) {
+        // default to the render target dimensions
+        setSize(Vector2((float)rt->width(), (float)rt->height()), false);
+    }
 }
 
 Viewport::~Viewport()

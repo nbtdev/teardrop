@@ -39,6 +39,10 @@ THE SOFTWARE.
 
 // hopefully temp...
 #include "Gfx/Material.h"
+#include "Game/ChaseCamController.h"
+#include "Game/FirstPersonCamController.h"
+#include "Game/FreeCamController.h"
+#include "Game/OrbitCamController.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -225,9 +229,19 @@ void ObjectBrowser::onContextMenu(QAbstractItemView* view, const QPoint& pt)
 		QMenu menu;
 		QMenu* newMenu = menu.addMenu("New");
 
-		// TODO: should this be happening here?
-		QAction* action = newMenu->addAction("Material");
-		action->setData(qVariantFromValue((void*)Gfx::Material::getClassDef()));
+        // TODO: should this all be happening here? (the answer is "no"...)
+        QAction* action = newMenu->addAction("Material");
+        action->setData(qVariantFromValue((void*)Gfx::Material::getClassDef()));
+
+        QMenu* camControlMenu = newMenu->addMenu("Camera Controller");
+        action = camControlMenu->addAction("Chase");
+        action->setData(qVariantFromValue((void*)ChaseCamController::getClassDef()));
+        action = camControlMenu->addAction("First-Person");
+        action->setData(qVariantFromValue((void*)FirstPersonCamController::getClassDef()));
+        action = camControlMenu->addAction("Free");
+        action->setData(qVariantFromValue((void*)FreeCamController::getClassDef()));
+        action = camControlMenu->addAction("Orbit");
+        action->setData(qVariantFromValue((void*)OrbitCamController::getClassDef()));
 
 		action = menu.exec(globalPt);
 

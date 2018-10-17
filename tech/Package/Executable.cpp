@@ -98,3 +98,11 @@ void Executable::notifyPropertyChangedLocal(const Reflection::PropertyDef* pProp
 		}
 	}
 }
+
+void Executable::injectMouseMove(int absX, int absY, int relX, int relY)
+{
+}
+
+void Executable::injectMouseWheel(int absZ, int relZ)
+{
+}

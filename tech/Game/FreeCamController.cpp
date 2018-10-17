@@ -218,13 +218,13 @@ FreeCamController::~FreeCamController()
 void FreeCamController::reset()
 {
 	setPosition(Vector4(100, 100, 100, 0));
-	getOrientation().fromAngleAxis(0, Vector4::UNIT_Y);
+    getOrientation().fromAngleAxis(0, Vector4(0, 1, 0, 0));
 
 	if (mCamera)
 	{
 		mCamera->setPosition(getPosition());
 		//m_pCamera->setOrientation(m_orientation);
-		mCamera->setLookAt(Vector4::ZERO);
+        mCamera->setLookAt(Vector4(0, 0, 0, 0));
 	}
 
 	mMove =

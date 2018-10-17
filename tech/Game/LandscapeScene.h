@@ -24,8 +24,8 @@ THE SOFTWARE.
 #define LANDSCAPEZONE_INCLUDED
 
 #include "Asset/LandscapeAsset.h"
-#include "Memory/Allocators.h"
 #include "Math/Vector2.h"
+#include "Memory/Allocators.h"
 #include "Package/Executable.h"
 
 namespace Teardrop {
@@ -37,6 +37,8 @@ public:
     TD_CLASS_CREATABLE();
 
     TD_POINTER_PROPERTY(LandscapeAsset, "Landscape asset for this scene", LandscapeAsset, 0);
+    TD_POINTER_PROPERTY(CameraController, "Camera controller", CameraController, 0);
+    TD_COMPLEX_PROPERTY(Viewport, "Render viewport (integer/pixel dimensions)", Vector2, "(0,0)", 0);
     //TD_POINTER_PROPERTY(HUD, "Heads-up display for this scene", HUD, 0);
     TD_PROPERTY(CastShadows, "Landscape casts shadows (default: yes)", bool, true, 0);
     TD_PROPERTY(ReceiveShadows, "Landscape receives shadows (default: yes)", bool, true, 0);
@@ -56,8 +58,13 @@ public:
     void renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt) override;
     bool onPreUnload() override;
     bool onPostUnload() override;
+    void injectMouseMove(int absX, int absY, int relX = 0, int relY = 0) override;
+    void injectMouseWheel(int absZ, int relZ = 0) override;
 
     TD_DECLARE_ALLOCATOR();
+
+private:
+    void generateTerrainTiles();
 };
 
 } // namespace Teardrop

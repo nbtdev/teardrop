@@ -50,6 +50,10 @@ namespace Teardrop
 		virtual bool onPreUnload();
 		virtual bool onPostUnload();
 
+        // input injection
+        virtual void injectMouseMove(int absX, int absY, int relX = 0, int relY = 0);
+        virtual void injectMouseWheel(int absZ, int relZ = 0);
+
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
