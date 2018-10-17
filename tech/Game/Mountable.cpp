@@ -154,7 +154,7 @@ void Mountable::notifyUnmounted()
 	m_pSlot = 0;
 }
 //---------------------------------------------------------------------------
-void Mountable::queueForRendering(Gfx::Renderer* pRend)
+void Mountable::queueForRendering(Gfx::RenderQueue* pQueue)
 {
 	ComponentList list;
 	findComponents(RenderComponent::getClassDef(), list);
@@ -162,7 +162,7 @@ void Mountable::queueForRendering(Gfx::Renderer* pRend)
 	for (ComponentList::iterator it = list.begin(); it != list.end(); ++it)
 	{
 		RenderComponent* pComp = static_cast<RenderComponent*>(*it);
-		pComp->queueForRendering(pRend);
+        pComp->queueForRendering(pQueue);
 	}
 }
 //---------------------------------------------------------------------------

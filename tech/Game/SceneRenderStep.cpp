@@ -28,12 +28,14 @@ THE SOFTWARE.
 #include "Gfx/Camera.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
+#include "Gfx/RenderQueue.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/ClassDef.h"
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
 SceneRenderStep::SceneRenderStep()
+    : m_pVP(nullptr)
 {
 }
 //---------------------------------------------------------------------------
@@ -52,11 +54,20 @@ void SceneRenderStep::render(
 	m_pRT->setCurrent();
 //	pRend->clearRenderTarget(); // clears all
 //	pRend->setColorWrite(true);
+
+    Gfx::Viewport* vp = m_pVP;
+    if (!vp) {
+        // use the default viewport on the render target
+        vp = m_pRT->viewport();
+    }
+
 	m_pCamera->setAspect(m_pRT->aspect());
-	pRend->beginScene(m_pCamera, m_pVP);
+    pRend->beginScene(m_pCamera, vp);
 
 	// first, find out if there is anything to render
 	// get the visible objects from the scene; if any, pass over to the renderer
+    Gfx::RenderQueue renderQueue;
+
 	if (objects.size())
 	{
 		// go through the list and make another of things we need to render
@@ -66,17 +77,16 @@ void SceneRenderStep::render(
 			ZoneObject* pObj = const_cast<ZoneObject*>(*it);
 			ZoneObject::ComponentList renderables;
 			pObj->findComponents(RenderComponent::getClassDef(), renderables);
-			for (ZoneObject::ComponentList::iterator r = renderables.begin();
-				r != renderables.end(); ++r)
+            for (auto r : renderables)
 			{
 				RenderComponent* pRenderable = 
-					static_cast<RenderComponent*>(*r);
+                    static_cast<RenderComponent*>(r);
 
 				// update render component's affecting light list if needed. this
 				// call will internally short-circuit if the object is not lit or
 				// the light list doesn't need rebuilt
 				pRenderable->updateLightList(pScene);
-				pRenderable->queueForRendering(pRend);
+                pRenderable->queueForRendering(&renderQueue);
 			}
 		}
 	}

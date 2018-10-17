@@ -22,6 +22,9 @@ THE SOFTWARE.
 
 #include "LandscapeScene.h"
 
+#include "Game/SceneRenderer.h"
+#include "Game/SceneRenderStep.h"
+#include "Game/ZoneObjects.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
@@ -34,6 +37,7 @@ using namespace Teardrop;
 TD_CLASS_IMPL(LandscapeScene);
 
 LandscapeScene::LandscapeScene()
+    : mSceneRenderer(nullptr)
 {
 }
 
@@ -73,6 +77,9 @@ bool LandscapeScene::onPostLoad()
         logic->onPostLoad(this);
     }
 
+    mSceneRenderer = new SceneRenderer;
+    mSceneRenderer->addStep(new SceneRenderStep);
+
     return true;
 }
 
@@ -99,19 +106,25 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
         return;
     }
 
+    ZoneObjects visibleObjects;
+    getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
+
     Gfx::Viewport* vp = rt->viewport();
+
     camera->setAspect(rt->aspect());
     rt->setCurrent();
     rt->clear(true, 0xFF000000);
-    renderer->beginFrame();
-    renderer->beginScene(camera, vp);
-    renderer->endScene();
-    renderer->endFrame();
+
+    mSceneRenderer->render(visibleObjects, renderer, this, camera);
+
     rt->present();
 }
 
 bool LandscapeScene::onPreUnload()
 {
+    delete mSceneRenderer;
+    mSceneRenderer = nullptr;
+
     Logic* logic = getLogic();
     if (logic) {
         // invoke the logic first

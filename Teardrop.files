@@ -3160,8 +3160,8 @@ tech/Asset/HeightfieldAsset.cpp
 tech/Asset/HeightfieldAsset.h
 tech/Asset/LandscapeAsset.cpp
 tech/Asset/LandscapeAsset.h
-tech/Asset/StaticMeshAsset.cpp
-tech/Asset/StaticMeshAsset.h
+tech/Asset/MeshAsset.cpp
+tech/Asset/MeshAsset.h
 tech/Asset/TextureAsset.cpp
 tech/Asset/TextureAsset.h
 tech/Asset/build/win32/VC10/Asset.vcxproj
@@ -3351,7 +3351,6 @@ tech/Gfx/Exception.cpp
 tech/Gfx/Exception.h
 tech/Gfx/FragmentShader.cpp
 tech/Gfx/FragmentShader.h
-tech/Gfx/IMeshInstanceProvider.h
 tech/Gfx/IndexBuffer.cpp
 tech/Gfx/IndexBuffer.h
 tech/Gfx/Light.cpp
@@ -3364,9 +3363,13 @@ tech/Gfx/MaterialOutput.cpp
 tech/Gfx/MaterialOutput.h
 tech/Gfx/Mesh.cpp
 tech/Gfx/Mesh.h
+tech/Gfx/RenderQueue.cpp
+tech/Gfx/RenderQueue.h
 tech/Gfx/RenderTarget.cpp
 tech/Gfx/RenderTarget.h
+tech/Gfx/Renderable.cpp
 tech/Gfx/Renderable.h
+tech/Gfx/RenderableProvider.h
 tech/Gfx/Renderer.cpp
 tech/Gfx/Renderer.h
 tech/Gfx/Sampler2D.cpp

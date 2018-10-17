@@ -11,8 +11,8 @@ set(SOURCES
     HeightfieldAsset.h
     LandscapeAsset.cpp
     LandscapeAsset.h
-    StaticMeshAsset.cpp
-    StaticMeshAsset.h
+    MeshAsset.cpp
+    MeshAsset.h
     TextureAsset.cpp
     TextureAsset.h
 )

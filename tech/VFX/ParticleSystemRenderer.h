@@ -25,7 +25,7 @@ THE SOFTWARE.
 
 #include "Game/Component.h"
 #include "VFX/ParticleData.h"
-#include "Gfx/IMeshInstanceProvider.h"
+#include "Gfx/RenderableProvider.h"
 #include "Math/Vector2.h"
 #include "Math/Vector4.h"
 #include "Math/Quaternion.h"

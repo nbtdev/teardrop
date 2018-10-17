@@ -24,16 +24,18 @@ THE SOFTWARE.
 #define LANDSCAPEZONE_INCLUDED
 
 #include "Asset/LandscapeAsset.h"
-#include "Core/Executable.h"
+#include "Game/Scene.h"
 #include "Math/Vector2.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop {
 
-class LandscapeScene : public Executable
+class SceneRenderer;
+
+class LandscapeScene : public Scene
 {
 public:
-    TD_CLASS(LandscapeScene, Executable);
+    TD_CLASS(LandscapeScene, Scene);
     TD_CLASS_CREATABLE();
 
     TD_POINTER_PROPERTY(LandscapeAsset, "Landscape asset for this scene", LandscapeAsset, 0);
@@ -64,6 +66,10 @@ public:
     TD_DECLARE_ALLOCATOR();
 
 private:
+    // TODO: this is a little strange at the outset; not sure the Executable should have this
+    // stuff contained within it, expect to move this out during a later refactor
+    SceneRenderer* mSceneRenderer;
+
     void generateTerrainTiles();
 };
 

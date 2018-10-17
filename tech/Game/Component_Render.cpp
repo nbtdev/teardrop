@@ -27,9 +27,8 @@ THE SOFTWARE.
 #include "DynamicLight.h"
 #include "Gfx/Mesh.h"
 #include "Gfx/Submesh.h"
-#include "Gfx/Material.h"
-#include "Gfx/Renderer.h"
-#include "Gfx/IMeshInstanceProvider.h"
+#include "Gfx/RenderQueue.h"
+#include "Gfx/RenderableProvider.h"
 #include "Util/Hash.h"
 #include "Util/Environment.h"
 #include <algorithm>
@@ -108,19 +107,25 @@ bool RenderComponent::initialize()
 //	m_meshInst.m_bCastShadows = getShadowCaster();
 //	m_meshInst.m_bReceiveShadows = getShadowReceiver();
 
-	if (getMeshName() != "(undefined)")
-	{
-		String name(m_assetPath);
-		name += "/";
-		name += getMeshName();
+    // set up the Renderable
+    MeshAsset* meshAsset = getMeshAsset();
+    if (!meshAsset) {
+        return true;
+    }
 
-//		m_meshInst.setMeshHandle(
-//			Environment::get().pResourceMgr->acquire(
-//			GfxMesh::RESOURCE_TYPE, name));
+    mRenderable.setMesh(meshAsset->mesh());
 
-		recalculateLighting();
-	}
-	return true;
+    // use our override, if one is present, or the default if not
+    Gfx::Material* material = getMaterial();
+    if (!material) {
+        material = meshAsset->getMaterial();
+    }
+
+    // TODO: support more than one material (one per submesh)
+    mRenderable.addMaterial(material);
+
+    recalculateLighting();
+    return true;
 }
 //---------------------------------------------------------------------------
 bool RenderComponent::destroy()
@@ -155,35 +160,35 @@ static bool lightFilter(ZoneObject* pObj)
 	return false;
 }
 //---------------------------------------------------------------------------
-//void RenderComponent::queueForRendering(GfxRenderer* pRenderer)
-//{
-//	// if we are disabled, don't queue any renderables
-//	if (!getEnabled())
-//		return;
-
-//	// queue the one we have
-//    pRenderer->queueForRendering(m_meshInst);
-
-//	// and then the ones from registered providers
-//	for (MeshInstanceProviders::iterator it = m_meshInstProviders.begin();
-//		it != m_meshInstProviders.end(); ++it)
-//	{
-//		(*it)->queueForRendering(pRenderer);
-//	}
-//}
-//---------------------------------------------------------------------------
-void RenderComponent::addMeshInstanceProvider(IMeshInstanceProvider* pProvider)
+void RenderComponent::queueForRendering(Gfx::RenderQueue* pQueue)
 {
-	m_meshInstProviders.push_back(pProvider);
+    // if we are disabled, don't queue any renderables
+    if (!getEnabled())
+        return;
+
+    // queue the one we have
+    pQueue->addRenderable(&mRenderable);
+
+    // and then the ones from registered providers
+    for (RenderableProviders::iterator it = m_renderableProviders.begin();
+        it != m_renderableProviders.end(); ++it)
+    {
+        (*it)->queueForRendering(pQueue);
+    }
 }
 //---------------------------------------------------------------------------
-void RenderComponent::removeMeshInstanceProvider(IMeshInstanceProvider* pProvider)
+void RenderComponent::addRenderableProvider(RenderableProvider* pProvider)
 {
-	MeshInstanceProviders::iterator it = std::find(
-		m_meshInstProviders.begin(), m_meshInstProviders.end(), pProvider);
+    m_renderableProviders.push_back(pProvider);
+}
+//---------------------------------------------------------------------------
+void RenderComponent::removeRenderableProvider(RenderableProvider* pProvider)
+{
+    RenderableProviders::iterator it = std::find(
+        m_renderableProviders.begin(), m_renderableProviders.end(), pProvider);
 
-	if (it != m_meshInstProviders.end())
-		m_meshInstProviders.erase(it);
+    if (it != m_renderableProviders.end())
+        m_renderableProviders.erase(it);
 }
 //---------------------------------------------------------------------------
 void RenderComponent::updateLightList(Scene* pScene)

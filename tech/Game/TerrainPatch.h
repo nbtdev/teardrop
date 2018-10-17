@@ -24,7 +24,7 @@ THE SOFTWARE.
 #define TDTERRAINPATCH_INCLUDED
 
 #include "Game/ZoneObject.h"
-#include "Gfx/IMeshInstanceProvider.h"
+#include "Gfx/RenderableProvider.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop

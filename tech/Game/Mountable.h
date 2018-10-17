@@ -24,7 +24,7 @@ THE SOFTWARE.
 #define MOUNTABLE_INCLUDED
 
 #include "Game/ComponentHost.h"
-#include "Gfx/IMeshInstanceProvider.h"
+#include "Gfx/RenderableProvider.h"
 #include "Util/_String.h"
 #include "Reflection/Reflection.h"
 #include "Memory/Allocators.h"
@@ -49,7 +49,7 @@ namespace Teardrop
 	class Mountable
 		: public Reflection::Object
 		, public ComponentHost
-        , public Gfx::IMeshInstanceProvider
+        , public Gfx::RenderableProvider
 	{
 	public:
 		TD_CLASS(Mountable, Object);
@@ -81,7 +81,7 @@ namespace Teardrop
 		virtual void notifyUnmounted();
 		//! called by the mount host to collect any renderable mesh instances
 		//! (IMeshInstanceProvider implementation)
-        virtual void queueForRendering(Gfx::Renderer* pRend);
+        virtual void queueForRendering(Gfx::RenderQueue* pQueue);
 
 		TD_DECLARE_ALLOCATOR();
 

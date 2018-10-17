@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include "Package/PackageSerializer.h"
 #include "Asset/TextureAsset.h"
 #include "Asset/LandscapeAsset.h"
-#include "Asset/StaticMeshAsset.h"
+#include "Asset/MeshAsset.h"
 #include "AssetImport.h"
 #include "Stream/FileStream.h"
 #include "Util/FileSystem.h"
@@ -68,8 +68,8 @@ void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char*
 			imp.setAsset(texAsset, assetMeta);
 		}
 	}
-	else if (assetClass == StaticMeshAsset::getClassDef()) {
-		StaticMeshAsset* asset = importStaticMesh(imp, filepath);
+	else if (assetClass == MeshAsset::getClassDef()) {
+		MeshAsset* asset = importStaticMesh(imp, filepath);
 		if (asset) {
 			// add the new asset to the package
 			mPackage->add(asset);

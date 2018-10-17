@@ -24,7 +24,7 @@ THE SOFTWARE.
 #include "AssetImportException.h"
 #include "Metadata.h"
 #include "ImportedAsset.h"
-#include "Asset/StaticMeshAsset.h"
+#include "Asset/MeshAsset.h"
 #include "Asset/TextureAsset.h"
 #include "Gfx/Exception.h"
 #include "Gfx/Material.h"
@@ -108,7 +108,7 @@ namespace Teardrop {
 			return gfxMtl;
 		}
 
-		static bool importMesh(FbxNode* node, StaticMeshAsset* asset, ImportedAsset& imp, MaterialTable& table, const char* filepath)
+		static bool importMesh(FbxNode* node, MeshAsset* asset, ImportedAsset& imp, MaterialTable& table, const char* filepath)
 		{
 			// then the mesh data
 			FbxMesh* fbxMesh = (FbxMesh*)node->GetNodeAttribute();
@@ -360,7 +360,7 @@ namespace Teardrop {
 			return true;
 		}
 
-		static void importNode(FbxNode* node, StaticMeshAsset* asset, ImportedAsset& imp, MaterialTable& table, const char* filepath) 
+		static void importNode(FbxNode* node, MeshAsset* asset, ImportedAsset& imp, MaterialTable& table, const char* filepath) 
 		{
 			using namespace Gfx;
 
@@ -385,9 +385,9 @@ namespace Teardrop {
 			}
 		}
 
-		StaticMeshAsset* importStaticMesh(ImportedAsset& imp, const char* filepath)
+		MeshAsset* importStaticMesh(ImportedAsset& imp, const char* filepath)
 		{
-			StaticMeshAsset* asset = 0;
+			MeshAsset* asset = 0;
 
 			FbxManager* fbx = FbxManager::Create();
 			FbxIOSettings* ios = FbxIOSettings::Create(fbx, IOSROOT);
@@ -402,7 +402,7 @@ namespace Teardrop {
 				FbxNode* node = scene->GetRootNode();
 				MaterialTable table;
 
-				asset = TD_NEW StaticMeshAsset;
+				asset = TD_NEW MeshAsset;
 				asset->initialize();
 
 				for (int i=0; i<node->GetChildCount(); ++i) {

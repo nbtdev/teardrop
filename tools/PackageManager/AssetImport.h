@@ -27,7 +27,7 @@ namespace Teardrop
 {
 	class TextureAsset;
 	class LandscapeAsset;
-	class StaticMeshAsset;
+	class MeshAsset;
 
 	namespace Tools
 	{
@@ -49,7 +49,7 @@ namespace Teardrop
 
 		TextureAsset* importTexture(const char* filepath, TextureAssetType type);
 		LandscapeAsset* importLandscape(/*out*/ImportedAsset& imp, /*in*/const char* filepath, LandscapeAssetType type);
-		StaticMeshAsset* importStaticMesh(/*out*/ImportedAsset& imp, /*in*/const char* filepath);
+		MeshAsset* importStaticMesh(/*out*/ImportedAsset& imp, /*in*/const char* filepath);
 	}
 }
 

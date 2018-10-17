@@ -23,7 +23,10 @@ THE SOFTWARE.
 #if !defined(COMPONENT_RENDER_INCLUDED)
 #define COMPONENT_RENDER_INCLUDED
 
+#include "Asset/MeshAsset.h"
+#include "Gfx/Material.h"
 #include "Gfx/ShaderConstantTable.h"
+#include "Gfx/Renderable.h"
 #include "Memory/Allocators.h"
 #include "Game/Component.h"
 #include "Util/SharedPointer.h"
@@ -38,26 +41,22 @@ namespace Teardrop
     class Matrix44;
 
     namespace Gfx {
-        class IMeshInstanceProvider;
-        class Renderer;
+        class RenderableProvider;
+        class RenderQueue;
         class Light;
     }
 
 	class RenderComponent 
 		: public Component
 	{
-//		GfxMeshInstance m_meshInst;
-        Gfx::ShaderConstantTable m_constants;
-		
-        typedef std::list<Gfx::IMeshInstanceProvider*> MeshInstanceProviders;
-		MeshInstanceProviders m_meshInstProviders;
-
 	public:
+
 		TD_CLASS(RenderComponent, Component);
 		TD_CLASS_CREATABLE();
 
-		TD_PROPERTY(MeshName, "Name of mesh asset file to use", String, "(undefined)", FileChooser);
-		TD_PROPERTY(ShaderName, "Name of shader to use on this asset (overrides value exported with asset)", String, "", 0);
+        TD_POINTER_PROPERTY(MeshAsset, "Name of mesh asset file to use", MeshAsset, 0);
+        TD_POINTER_PROPERTY(Material, "Material override for this component", Gfx::Material, 0);
+        TD_PROPERTY(ShaderName, "Name of shader to use on this asset (overrides value exported with asset)", String, "", 0);
 		TD_PROPERTY(ShadowCaster, "Whether or not this object casts shadows", bool, true, 0);
 		TD_PROPERTY(ShadowReceiver, "Whether or not this object receives shadows", bool, true, 0);
 		TD_PROPERTY(Lit, "Whether or not this object is dynamically lit", bool, true, 0);
@@ -84,16 +83,22 @@ namespace Teardrop
         Gfx::ShaderConstantTable& getShaderConstants() { return m_constants; }
 
 		// queue all mesh instances for rendering
-        void queueForRendering(Gfx::Renderer* pRenderer);
+        void queueForRendering(Gfx::RenderQueue* pRenderQueue);
 
 		// add/remove mesh instance providers
-        void addMeshInstanceProvider(Gfx::IMeshInstanceProvider*);
-        void removeMeshInstanceProvider(Gfx::IMeshInstanceProvider*);
+        void addRenderableProvider(Gfx::RenderableProvider*);
+        void removeRenderableProvider(Gfx::RenderableProvider*);
 
 		TD_DECLARE_ALLOCATOR();
 
 	protected:
-		// call this if you change the "lit" properties of the materials for the mesh instance
+        Gfx::Renderable mRenderable;
+        Gfx::ShaderConstantTable m_constants;
+
+        typedef std::list<Gfx::RenderableProvider*> RenderableProviders;
+        RenderableProviders m_renderableProviders;
+
+        // call this if you change the "lit" properties of the materials for the mesh instance
 		void recalculateLighting();
 
         typedef std::vector<Gfx::Light*> LightList;
@@ -102,8 +107,9 @@ namespace Teardrop
 
 		bool m_bNeedLightsUpdated;
 
+
 	private:
-		void onInstanceCreated();
+        void onInstanceCreated();
 	};
 }
 

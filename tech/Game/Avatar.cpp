@@ -202,7 +202,7 @@ void Avatar::strip()
 				// also, need to unregister the Mountable with any RenderComponent
 				// we have (for now, just register with the first one found, if any)
 				if (pRend)
-					pRend->removeMeshInstanceProvider(pMountable);
+					pRend->removeRenderableProvider(pMountable);
 
 				// then finally, destroy and delete it
 				if (pMountable)
@@ -247,7 +247,7 @@ bool Avatar::addToSlot(Mountable* pMountable, int slotId)
 				RenderComponent* pRend = 0;
 				if (findComponents(RenderComponent::getClassDef(), (Component**)&pRend))
 				{
-					pRend->addMeshInstanceProvider(pMountable);
+					pRend->addRenderableProvider(pMountable);
 				}
 
 				return true;

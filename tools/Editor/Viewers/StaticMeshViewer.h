@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 namespace Teardrop
 {
-	class StaticMeshAsset;
+	class MeshAsset;
 	class OrbitCamController;
 
 	namespace Gfx
@@ -42,7 +42,7 @@ namespace Teardrop
 		{
 		public:
 			TD_CLASS(StaticMeshViewer, Executable);
-			TD_POINTER_PROPERTY(StaticMeshAsset, "Static mesh being viewed", StaticMeshAsset, 0);
+            TD_POINTER_PROPERTY(StaticMeshAsset, "Static mesh being viewed", MeshAsset, 0);
 
 			StaticMeshViewer();
 			~StaticMeshViewer();

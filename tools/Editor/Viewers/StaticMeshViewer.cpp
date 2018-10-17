@@ -21,7 +21,7 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "StaticMeshViewer.h"
-#include "Asset/StaticMeshAsset.h"
+#include "Asset/MeshAsset.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Exception.h"
 #include "Gfx/Mesh.h"

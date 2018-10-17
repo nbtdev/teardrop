@@ -23,7 +23,7 @@ THE SOFTWARE.
 #if !defined(GFXLIGHT_INCLUDED)
 #define GFXLIGHT_INCLUDED
 
-#include "Gfx/Allocators.h"
+#include "Memory/Allocators.h"
 #include "Math/Vector4.h"
 
 namespace Teardrop
@@ -84,7 +84,7 @@ namespace Teardrop
             void setColor(unsigned char r, unsigned char g, unsigned char b);
             void setShadowCamera(Camera* pCam);
 
-            DECLARE_GFX_ALIGNED_ALLOCATOR();
+            TD_DECLARE_ALLOCATOR();
 
         private:
             Vector4 m_direction;

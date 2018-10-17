@@ -24,6 +24,7 @@ THE SOFTWARE.
 #define SCENE_INCLUDED
 
 #include "Core/Executable.h"
+#include "Reflection/Reflection.h"
 
 #include <vector>
 
@@ -43,27 +44,10 @@ namespace Teardrop
 
 	class Scene : public Executable
 	{
-		typedef std::vector<size_t> ZoneNeighbors;
-		typedef struct ZoneNode
-		{
-			Zone* pZone;
-			ZoneNeighbors neighbors;
-
-			bool operator==(const ZoneNode& other)
-			{
-				return (pZone == other.pZone);
-			}
-		} ZoneNode;
-
-		typedef std::vector<ZoneNode> Zones;
-
-		size_t m_currentZone;
-		Zones m_zones;
-		World* m_pWorld;
-		float m_accumTime;
-
 	public:
-		Scene();
+        TD_CLASS(Scene, Executable)
+
+        Scene();
 		~Scene();
 
 		bool initialize();
@@ -114,7 +98,27 @@ namespace Teardrop
 			/*in*/const Reflection::ClassDef* pClass, 
 			/*out*/ZoneObjects& list);
 
-	private:
+    protected:
+        typedef std::vector<size_t> ZoneNeighbors;
+        typedef struct ZoneNode
+        {
+            Zone* pZone;
+            ZoneNeighbors neighbors;
+
+            bool operator==(const ZoneNode& other)
+            {
+                return (pZone == other.pZone);
+            }
+        } ZoneNode;
+
+        typedef std::vector<ZoneNode> Zones;
+
+        size_t m_currentZone;
+        Zones m_zones;
+        World* m_pWorld;
+        float m_accumTime;
+
+    private:
 	};
 }
 

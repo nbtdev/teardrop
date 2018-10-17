@@ -20,40 +20,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(RENDERABLE_INCLUDED)
-#define RENDERABLE_INCLUDED
+#pragma once
 
 #include <vector>
 
-namespace Teardrop
+namespace Teardrop {
+namespace Gfx {
+
+class Mesh;
+class Material;
+
+class Renderable
 {
-	namespace Gfx 
-	{
-		class IndexBuffer;
-		class VertexBuffer;
+public:
+    Renderable();
 
-		struct Renderable
-		{
-		public:
-			Renderable();
+    ///
+    /// \brief Renderable
+    /// \param mesh Mesh to render
+    /// \param subMeshMaterials Array of Material*; number of pointers in this
+    ///        array *must* match the number of submeshes in \a mesh
+    ///
+    Renderable(Mesh* mesh, Material** subMeshMaterials);
+    ~Renderable();
 
-			enum PrimitiveType
-			{
-				PT_POINT = 0,
-				PT_LINES,
-				PT_LINE_STRIP,
-				PT_TRIANGLES,
-				PT_TRIANGLE_STRIP,
-				PT_MAX
-			};
+    void setMesh(Mesh* mesh);
+    void addMaterial(Material* submeshMaterial);
 
-			IndexBuffer* mIndexBuffer;
-			int mElementOffset;
-			VertexBuffer** mVertexBuffers;
-			int mNumVertexBuffers;
-			PrimitiveType mPrimType;
-		};
-	}
-}
+    Mesh* mesh() const;
+    Material* material(size_t index) const;
 
-#endif // RENDERABLE_INCLUDED
+private:
+    Mesh* mMesh;
+    std::vector<Material*> mMaterials;
+};
+
+} // namespace Gfx
+} // namespace Teardrop

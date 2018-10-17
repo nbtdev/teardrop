@@ -42,14 +42,15 @@ THE SOFTWARE.
 #include <algorithm>
 
 using namespace Teardrop;
+TD_CLASS_IMPL(Scene)
 //---------------------------------------------------------------------------
 const static float TIMESTEP = 1.f/60.f;
 //---------------------------------------------------------------------------
 Scene::Scene()
 {
-	m_currentZone = Zone::INVALID;
-	m_pWorld = 0;
-	m_accumTime = 0;
+    m_currentZone = Zone::INVALID;
+    m_pWorld = 0;
+    m_accumTime = 0;
 }
 //---------------------------------------------------------------------------
 Scene::~Scene()
@@ -58,7 +59,7 @@ Scene::~Scene()
 //---------------------------------------------------------------------------
 bool Scene::initialize()
 {
-	// create the zone(s) from the LandscapeAsset data
+    // create the zone(s) from the LandscapeAsset data
 	Zone* zone = createZone(TerrainZone::getClassDef(), 0);
 	setCurrentZone(*zone);
 	return true;

@@ -34,7 +34,6 @@ set(SOURCES
     Exception.h
     FragmentShader.cpp
     FragmentShader.h
-    IMeshInstanceProvider.h
     IndexBuffer.cpp
     IndexBuffer.h
     Light.cpp
@@ -47,9 +46,13 @@ set(SOURCES
     MaterialOutput.h
     Mesh.cpp
     Mesh.h
+    Renderable.cpp
     Renderable.h
+    RenderableProvider.h
     Renderer.cpp
     Renderer.h
+    RenderQueue.cpp
+    RenderQueue.h
     RenderTarget.cpp
     RenderTarget.h
     Sampler2D.cpp

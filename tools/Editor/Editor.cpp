@@ -52,7 +52,7 @@ THE SOFTWARE.
 #include "Viewers/StaticMeshViewer.h"
 
 #include "Gfx/Material.h"
-#include "Asset/StaticMeshAsset.h"
+#include "Asset/MeshAsset.h"
 
 using namespace Teardrop;
 using namespace Tools;
@@ -404,8 +404,8 @@ void Editor::onObjectBrowserItemDoubleClicked(ProjectItem* item)
 				mtlEd->show();
 			}
 
-			if (classDef->isA(StaticMeshAsset::getClassDef())) {
-				StaticMeshAsset* sma = static_cast<StaticMeshAsset*>(obj);
+			if (classDef->isA(MeshAsset::getClassDef())) {
+				MeshAsset* sma = static_cast<MeshAsset*>(obj);
 				ObjectViewer3D* objViewer = TD_NEW ObjectViewer3D(mRenderer);
 
                 // hook up signals for cleanup on exit

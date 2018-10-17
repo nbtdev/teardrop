@@ -3,6 +3,11 @@ set(TARGET Game)
 
 # library source files
 set(SOURCES
+    Octree/Octree.cpp
+    Octree/Octree.h
+    Octree/OctreeNode.cpp
+    Octree/OctreeNode.h
+
     Avatar.cpp
     Avatar.h
     BeamWeapon.cpp
@@ -122,6 +127,9 @@ td_add_library(${TARGET}
 )
 
 target_link_libraries(${TARGET}
+    PUBLIC
+        Math
+
     PRIVATE
         tinyxml
 )
