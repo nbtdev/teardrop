@@ -48,14 +48,16 @@ namespace Teardrop
 					bool depth = true,
 					float depthValue = 1,
 					bool stencil = true,
-					unsigned int stencilValue = 0);
-				float aspect();
-				int width();
-				int height();
-				void setCurrent();
-				void unsetCurrent();
-				Gfx::Viewport* addViewport(float x = 0, float y = 0, float w = 1, float h = 1, unsigned int zOrder = 0);
-				void releaseViewport(Gfx::Viewport* vp);
+                    unsigned int stencilValue = 0) override;
+                float aspect() override;
+                int width() override;
+                int height() override;
+                void setCurrent() override;
+                void unsetCurrent() override;
+                Gfx::Viewport* addViewport(float x = 0, float y = 0, float w = 1, float h = 1, size_t zOrder = 0) override;
+                size_t viewportCount(size_t zOrder) const override;
+                Gfx::Viewport* viewport(size_t index = 0, size_t zOrder = 0) const override;
+                void releaseViewport(Gfx::Viewport* vp) override;
 
 				TD_DECLARE_ALLOCATOR();
 
@@ -71,7 +73,7 @@ namespace Teardrop
 				int mWidth = 0;
 				int mHeight = 0;
 
-				typedef std::multimap<unsigned int /*zOrder*/, Viewport*> Viewports;
+                typedef std::multimap<size_t /*zOrder*/, Viewport*> Viewports;
 				Viewports mViewports;
 			};
 		}

@@ -46,6 +46,10 @@ D3D11_VIEWPORT& Viewport::viewport()
 	mVP.Width = mSize.x;
 	mVP.Height = mSize.y;
 
+    // TODO: let the user set this
+    mVP.MinDepth = 0;
+    mVP.MaxDepth = 1;
+
 	return mVP;
 }
 

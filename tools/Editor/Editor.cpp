@@ -435,15 +435,9 @@ void Editor::onActivePackageChanged(PackageManager* pkgMgr)
 		QMessageBox mb;
 		mb.setText(QString("Package ") + pkgMgr->metadata()->getName() + QString(" must be set as 'executable'"));
 		mb.exec();
-	}
-	else {
-		//// for now, we know it's just Scene
-		//Scene* scene = static_cast<Scene*>(list.front());
-		//Scene* currentScene = mRenderWindow->scene();
-		//if (currentScene)
-		//	currentScene->destroy();
 
-		//scene->initialize();
-		//mRenderWindow->setScene(scene);
+        return;
 	}
+
+    mRenderWindow->setExecutable(exe);
 }

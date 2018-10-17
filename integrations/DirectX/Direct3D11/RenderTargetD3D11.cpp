@@ -181,7 +181,7 @@ void RenderTarget::unsetCurrent()
 #endif
 }
 
-Gfx::Viewport* RenderTarget::addViewport(float x/* =0 */, float y/* =0 */, float w/* =1 */, float h/* =1 */, unsigned int zOrder/* =0 */)
+Gfx::Viewport* RenderTarget::addViewport(float x/* =0 */, float y/* =0 */, float w/* =1 */, float h/* =1 */, size_t zOrder/* =0 */)
 {
 	Viewport* vp = TD_NEW Viewport(this);
 
@@ -191,6 +191,28 @@ Gfx::Viewport* RenderTarget::addViewport(float x/* =0 */, float y/* =0 */, float
 	Viewports::value_type val(zOrder, vp);
 	mViewports.insert(val);
 	return vp;
+}
+
+size_t RenderTarget::viewportCount(size_t zOrder) const
+{
+    size_t count = (size_t)mViewports.count(zOrder);
+    return count;
+}
+
+Gfx::Viewport* RenderTarget::viewport(size_t index, size_t zOrder) const
+{
+    size_t count = viewportCount(zOrder);
+
+    if (index >= count) {
+        return nullptr;
+    }
+
+    auto it = mViewports.lower_bound(zOrder);
+    while (index--) {
+        ++it;
+    }
+
+    return it->second;
 }
 
 void RenderTarget::releaseViewport(Gfx::Viewport* vp)

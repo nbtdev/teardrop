@@ -52,6 +52,10 @@ namespace Teardrop
 
             void setExecutable(Executable* executable);
 
+        protected: // QWidget event overrides
+            void mouseMoveEvent(QMouseEvent* event);
+            void wheelEvent(QWheelEvent* event);
+
 		protected slots:
 			void onIdle();
 
@@ -62,6 +66,8 @@ namespace Teardrop
 			Gfx::Camera* mCamera;
 			Gfx::Viewport* mViewport;
             Executable* mExecutable;
+            int mLastMouseX;
+            int mLastMouseY;
 		};
 	}
 }

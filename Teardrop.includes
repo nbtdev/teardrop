@@ -84,6 +84,7 @@ tools
 F:\Qt\Qt5.10.1\5.10.1\msvc2015_64\include
 F:\Qt\Qt5.10.1\5.10.1\msvc2015_64\include\QtWidgets
 F:\Qt\Qt5.10.1\5.10.1\msvc2015_64\include\QtCore
+F:\Qt\Qt5.10.1\5.10.1\msvc2015_64\include\QtGui
 tools/ThirdParty
 tools/ThirdParty/FreeImage/Dist/x64
 integrations

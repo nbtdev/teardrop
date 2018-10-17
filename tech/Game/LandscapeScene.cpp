@@ -27,6 +27,8 @@ THE SOFTWARE.
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Viewport.h"
 
+#include <iostream>
+
 using namespace Teardrop;
 
 TD_CLASS_IMPL(LandscapeScene);
@@ -97,14 +99,12 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
         return;
     }
 
-    Gfx::Viewport vp(rt);
-    // TODO: override with Viewport property contents?
-
+    Gfx::Viewport* vp = rt->viewport();
     camera->setAspect(rt->aspect());
     rt->setCurrent();
     rt->clear(true, 0xFF000000);
     renderer->beginFrame();
-    renderer->beginScene(camera, &vp);
+    renderer->beginScene(camera, vp);
     renderer->endScene();
     renderer->endFrame();
     rt->present();
@@ -137,6 +137,8 @@ bool LandscapeScene::onPostUnload()
 
 void LandscapeScene::injectMouseMove(int absX, int absY, int relX, int relY)
 {
+    std::cerr << "Mouse: (" << absX << "," << absY << ")" << std::endl;
+
     CameraController* camControl = getCameraController();
     if (camControl) {
         camControl->injectMouseMove(absX, absY, relX, relY);
@@ -145,6 +147,8 @@ void LandscapeScene::injectMouseMove(int absX, int absY, int relX, int relY)
 
 void LandscapeScene::injectMouseWheel(int absZ, int relZ)
 {
+    std::cerr << "Wheel: (" << absZ << "," << relZ << ")" << std::endl;
+
     CameraController* camControl = getCameraController();
     if (camControl) {
         camControl->injectMouseWheel(absZ, relZ);

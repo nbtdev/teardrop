@@ -28,6 +28,8 @@ THE SOFTWARE.
 #include "Gfx/Viewport.h"
 #include <QtCore/QTimer>
 #include <QtGui/QIcon>
+#include <QMouseEvent>
+#include <QWheelEvent>
 #include <assert.h>
  
 using namespace Teardrop;
@@ -41,6 +43,8 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	, mCamera(0)
 	, mViewport(0)
     , mExecutable(nullptr)
+    , mLastMouseX(-1)
+    , mLastMouseY(-1)
 {
 	mTimer = new QTimer(this);
 	connect(mTimer, SIGNAL(timeout()), this, SLOT(onIdle()));
@@ -81,6 +85,40 @@ void RenderWindow::setExecutable(Executable* executable)
     }
 
     mExecutable = executable;
+}
+
+void RenderWindow::mouseMoveEvent(QMouseEvent* event)
+{
+    if (!mExecutable) {
+        return;
+    }
+
+    // otherwise, inject the input
+    int ax = event->pos().x();
+    int ay = event->pos().y();
+
+    if (mLastMouseX < 0) {
+        mLastMouseX = ax;
+    }
+
+    if (mLastMouseY < 0) {
+        mLastMouseY = ay;
+    }
+
+    int rx = mLastMouseX - ax;
+    int ry = mLastMouseY - ay;
+
+    mExecutable->injectMouseMove(ax, ay, rx, ry);
+}
+
+void RenderWindow::wheelEvent(QWheelEvent* event)
+{
+    if (!mExecutable) {
+        return;
+    }
+
+    // otherwise, inject the input
+    mExecutable->injectMouseWheel(event->delta(), event->delta());
 }
 
 void RenderWindow::onIdle()
