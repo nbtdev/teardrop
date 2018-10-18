@@ -69,6 +69,7 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 	, mScene(0)
 	, mRenderer(0)
 	, mRenderWindow(0)
+    , mActiveExecutable(nullptr)
 {
 	FreeImage_Initialise();
 
@@ -439,5 +440,14 @@ void Editor::onActivePackageChanged(PackageManager* pkgMgr)
         return;
 	}
 
-    mRenderWindow->setExecutable(exe);
+    if (mActiveExecutable) {
+        mActiveExecutable->onPreUnload();
+        mActiveExecutable->onPostUnload();
+    }
+
+    mActiveExecutable = exe;
+
+    mActiveExecutable->onPreLoad();
+    mActiveExecutable->onPostLoad();
+    mRenderWindow->setExecutable(mActiveExecutable);
 }

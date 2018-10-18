@@ -138,15 +138,17 @@ void PackageManager::importAsset(ImportedAsset& imp, Folder* folder, const char*
 std::pair<Reflection::Object*, Metadata*> PackageManager::createObject(Folder* folder, const Reflection::ClassDef* classDef)
 {
 	// create the object
-	Reflection::Object* obj = 0;
-	Metadata* meta = 0;
+    Reflection::Object* obj = nullptr;
+    Metadata* meta = nullptr;
 
 	if (classDef && folder) {
 		obj = classDef->createInstance();
-		mPackage->add(obj);
+        if(obj->initialize()) {
+            mPackage->add(obj);
 
-		String uuid;
-		meta = mMetadata->add(uuid, folder, obj);
+            String uuid;
+            meta = mMetadata->add(uuid, folder, obj);
+        }
 	}
 
 	return std::pair<Reflection::Object*, Metadata*>(obj, meta);

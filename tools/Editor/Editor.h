@@ -35,6 +35,7 @@ class QLabel;
 namespace Teardrop
 {
 	class Scene;
+    class Executable;
 
 	namespace Gfx {
 		class Renderer;
@@ -87,6 +88,7 @@ namespace Teardrop
 
 			Project* mProject;
 			Scene* mScene;
+            Executable* mActiveExecutable;
 			Gfx::Renderer* mRenderer;
 
 			QCursor mCursor;

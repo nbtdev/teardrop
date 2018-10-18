@@ -78,7 +78,8 @@ bool LandscapeScene::onPostLoad()
     }
 
     mSceneRenderer = new SceneRenderer;
-    mSceneRenderer->addStep(new SceneRenderStep);
+    mSceneRenderStep = new SceneRenderStep;
+    mSceneRenderer->addStep(mSceneRenderStep);
 
     return true;
 }
@@ -106,12 +107,11 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
         return;
     }
 
-    ZoneObjects visibleObjects;
-    getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
+    mSceneRenderStep->setRenderTarget(rt);
 
+    ZoneObjects visibleObjects;
     camera->setAspect(rt->aspect());
-    rt->setCurrent();
-    rt->clear(true, 0xFF000000);
+    getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
 
     mSceneRenderer->render(visibleObjects, renderer, this, camera);
 

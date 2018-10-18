@@ -133,6 +133,7 @@ void RenderWindow::onIdle()
 
     // if no executable, just leave it the black clear frame for now
     if (mExecutable) {
+        mExecutable->tick();
         mExecutable->renderFrame(mRenderer, mRT.get());
     } else {
         mRenderer->beginFrame();

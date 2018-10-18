@@ -56,6 +56,7 @@ void SceneRenderStep::render(
 	// then update/render the main scene
     //pRend->setRenderMode(Gfx::Renderer::RENDER_DEFAULT);
 	m_pRT->setCurrent();
+    m_pRT->clear(true, 0xFF000000);
 //	pRend->clearRenderTarget(); // clears all
 //	pRend->setColorWrite(true);
 

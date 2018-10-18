@@ -31,6 +31,7 @@ THE SOFTWARE.
 namespace Teardrop {
 
 class SceneRenderer;
+class SceneRenderStep;
 
 class LandscapeScene : public Scene
 {
@@ -69,6 +70,7 @@ private:
     // TODO: this is a little strange at the outset; not sure the Executable should have this
     // stuff contained within it, expect to move this out during a later refactor
     SceneRenderer* mSceneRenderer;
+    SceneRenderStep* mSceneRenderStep;
 
     void generateTerrainTiles();
 };
