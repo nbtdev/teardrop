@@ -93,13 +93,13 @@ bool TerrainPatch::destroy()
 	return true;
 }
 //---------------------------------------------------------------------------
+#if 0
 bool TerrainPatch::create(
 	TerrainZone* /*pOwner*/, 
     const Gfx::Bitmap& /*heightmap*/,
 	size_t /*x*/, 
 	size_t /*y*/)
 {
-#if 0
 	m_pOwner = pOwner;
 
 	float xStep, zStep; // one-over the width and height of the patch
@@ -334,9 +334,9 @@ bool TerrainPatch::create(
 	constants.getConstant(String("vStep"))->setValue(vStep);
 	constants.getConstant(String("xScale"))->setValue(xScale);
 	constants.getConstant(String("zScale"))->setValue(zScale);
-#endif
 	return true;
 }
+#endif
 #if 0
 //---------------------------------------------------------------------------
 void TerrainPatch::preRender(GfxRenderer* pRenderer)

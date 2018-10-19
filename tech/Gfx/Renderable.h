@@ -22,6 +22,10 @@ THE SOFTWARE.
 
 #pragma once
 
+#include "Gfx/Material.h"
+#include "Gfx/Mesh.h"
+#include "Math/Transform.h"
+
 #include <vector>
 
 namespace Teardrop {
@@ -34,25 +38,21 @@ class Renderable
 {
 public:
     Renderable();
-
-    ///
-    /// \brief Renderable
-    /// \param mesh Mesh to render
-    /// \param subMeshMaterials Array of Material*; number of pointers in this
-    ///        array *must* match the number of submeshes in \a mesh
-    ///
     Renderable(Mesh* mesh, Material** subMeshMaterials);
     ~Renderable();
 
     void setMesh(Mesh* mesh);
+    void setTransform(Transform const& transform);
     void addMaterial(Material* submeshMaterial);
 
     Mesh* mesh() const;
     Material* material(size_t index) const;
+    Transform const& transform() const;
 
 private:
     Mesh* mMesh;
     std::vector<Material*> mMaterials;
+    Transform mTransform;
 };
 
 } // namespace Gfx

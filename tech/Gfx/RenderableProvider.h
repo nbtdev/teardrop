@@ -22,36 +22,15 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "Memory/Allocators.h"
-
-#include <memory>
-#include <vector>
-
 namespace Teardrop {
 namespace Gfx {
 
-class Submesh;
+class RenderQueue;
 
-class Mesh
+class RenderableProvider
 {
 public:
-    typedef std::shared_ptr<Mesh> Ptr;
-
-    Mesh();
-    ~Mesh();
-
-    Submesh* createSubmesh();
-    void createSubmeshes(int nSubmeshes);
-    void removeSubmesh(Submesh* submesh);
-    void removeSubmesh(int index);
-    int submeshCount();
-    Submesh* submesh(int index);
-
-    TD_DECLARE_ALLOCATOR();
-
-protected:
-    typedef std::vector<Submesh*> Submeshes;
-    Submeshes mSubmeshes;
+    virtual void queueForRendering(RenderQueue* pQueue) = 0;
 };
 
 } // namespace Gfx

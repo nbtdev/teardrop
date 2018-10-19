@@ -20,39 +20,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#pragma once
+#if !defined(STATICMESHASSET_INCLUDED)
+#define STATICMESHASSET_INCLUDED
 
-#include "Memory/Allocators.h"
+#include "Asset/Asset.h"
+#include "Gfx/Material.h"
 
-#include <memory>
-#include <vector>
-
-namespace Teardrop {
-namespace Gfx {
-
-class Submesh;
-
-class Mesh
+namespace Teardrop
 {
-public:
-    typedef std::shared_ptr<Mesh> Ptr;
+	namespace Gfx {
+		class Mesh;
+	}
 
-    Mesh();
-    ~Mesh();
+    class MeshAsset : public Asset
+	{
+	public:
+        TD_CLASS(MeshAsset, Asset);
+		TD_CLASS_CREATABLE();
+		TD_POINTER_PROPERTY(Material, "Default material for this asset", Gfx::Material, 0);
 
-    Submesh* createSubmesh();
-    void createSubmeshes(int nSubmeshes);
-    void removeSubmesh(Submesh* submesh);
-    void removeSubmesh(int index);
-    int submeshCount();
-    Submesh* submesh(int index);
+        MeshAsset();
+        ~MeshAsset();
 
-    TD_DECLARE_ALLOCATOR();
+		// will create if not already present
+        Gfx::Mesh* mesh();
 
-protected:
-    typedef std::vector<Submesh*> Submeshes;
-    Submeshes mSubmeshes;
-};
+		int serialize(Stream& strm);
+		int deserialize(Stream& strm);
 
-} // namespace Gfx
+		TD_DECLARE_ALLOCATOR();
+
+	protected:
+        Gfx::Mesh* mMesh;
+	};
 } // namespace Teardrop
+
+#endif // STATICMESHASSET_INCLUDED

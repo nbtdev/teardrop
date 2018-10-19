@@ -127,11 +127,11 @@ static void readTerrain(TiXmlElement* terrain, LandscapeAsset* asset)
                     StringUtil::fromString(paramValue, MaxAlt);
                     asset->setMaxAltitude(MaxAlt);
                 }
-                if (!strcmp(paramName, "HorizScale")) {
-                    float HorizScale;
-                    StringUtil::fromString(paramValue, HorizScale);
-                    asset->setScale(HorizScale);
-                }
+//                if (!strcmp(paramName, "HorizScale")) {
+//                    float HorizScale;
+//                    StringUtil::fromString(paramValue, HorizScale);
+//                    asset->setScale(HorizScale);
+//                }
             }
         }
 

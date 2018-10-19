@@ -40,7 +40,6 @@ namespace Teardrop
 		TD_PROPERTY(ColormapY, "Height in texels of colormap (diffuse) texture", int, 0, "ReadOnly");
 		TD_PROPERTY(MinAltitude, "World-space altitude of the lowest sample in the heightfield (can be negative)", float, -1, 0);
 		TD_PROPERTY(MaxAltitude, "World-space altitude of the highest sample in the heightfield (can be negative)", float, 1, 0);
-		TD_PROPERTY(Scale, "Spacing, in world units, of heightfield samples", float, 1, 0);
 		TD_POINTER_PROPERTY(DiffuseMap, "Landscape terrain colormap", TextureAsset, 0);
 		TD_POINTER_PROPERTY(AttributesMap, "Landscape terrain attributes map", TextureAsset, 0);
 		TD_POINTER_PROPERTY(LightMap, "Landscape terrain light map", TextureAsset, 0);

@@ -53,6 +53,11 @@ void Renderable::setMesh(Mesh* mesh)
     mMesh = mesh;
 }
 
+void Renderable::setTransform(Transform const& transform)
+{
+    mTransform = transform;
+}
+
 void Renderable::addMaterial(Material* submeshMaterial)
 {
     mMaterials.push_back(submeshMaterial);
@@ -70,6 +75,11 @@ Material* Renderable::material(size_t index) const
     }
 
     return mMaterials[index];
+}
+
+Transform const& Renderable::transform() const
+{
+    return mTransform;
 }
 
 } // namespace Gfx

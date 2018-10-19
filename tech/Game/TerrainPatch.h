@@ -36,7 +36,7 @@ namespace Teardrop
 	struct Environment;
 
     namespace Gfx {
-        class Bitmap;
+        class Texture;
     }
 
 	class TerrainPatch : 
@@ -47,7 +47,7 @@ namespace Teardrop
 		short* m_pIndexBuffer;
 		TerrainZone* m_pOwner;
 
-	public:
+    public:
 		TD_CLASS(TerrainPatch, ZoneObject);
 
 		TerrainPatch();
@@ -57,11 +57,11 @@ namespace Teardrop
 		bool destroy();
 
 		//! create patch from source heightmap data
-		bool create(
-			TerrainZone* pOwner, 
-            const Gfx::Bitmap& heightmap,
-			size_t x, 
-			size_t y);
+//		bool create(
+//			TerrainZone* pOwner,
+//            const Gfx::Bitmap& heightmap,
+//			size_t x,
+//			size_t y);
 
 		// we don't want these serialized since they are dynamically created
 		bool shouldSerialize() const { return false; }

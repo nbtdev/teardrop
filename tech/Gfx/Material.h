@@ -20,62 +20,63 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(MATERIAL_INCLUDED)
-#define MATERIAL_INCLUDED
+#pragma once
 
 #include "Gfx/MaterialOutput.h"
 #include "Memory/Allocators.h"
 #include "Reflection/Reflection.h"
+
 #include <map>
+#include <memory>
 #include <vector>
 
-namespace Teardrop
+namespace Teardrop {
+namespace Gfx {
+
+class MaterialExpression;
+class FragmentShader;
+class Connection;
+struct Attribute;
+
+class Material : public Reflection::Object
 {
-	namespace Gfx 
-	{
-		class MaterialExpression;
-		class FragmentShader;
-		class Connection;
-		struct Attribute;
+public:
+    typedef std::shared_ptr<Material> Ptr;
 
-		class Material : public Reflection::Object
-		{
-		public:
-			TD_CLASS(Material, Object);
-			TD_CLASS_CREATABLE();
-			TD_POINTER_PROPERTY(Output, "Material output expression", MaterialOutput, Hidden);
+    TD_CLASS(Material, Object);
+    TD_CLASS_CREATABLE();
+    TD_POINTER_PROPERTY(Output, "Material output expression", MaterialOutput, Hidden);
 
-			Material();
-			~Material();
+    Material();
+    ~Material();
 
-			bool initialize();
-			bool destroy();
-			void apply();
+    bool initialize();
+    bool destroy();
+    void apply();
 
-			FragmentShader* shader();
-			void addConnection(Connection* conn);
-			int connections(Connection** connections, int nConnections);
+    FragmentShader* shader();
+    void addConnection(Connection* conn);
+    int connections(Connection** connections, int nConnections);
 
-			void sortExpressions();
-			int expressionCount();
-			int connectionCount();
-			MaterialExpression** sortedExpressions();
+    void sortExpressions();
+    int expressionCount();
+    int connectionCount();
+    MaterialExpression** sortedExpressions();
 
-			TD_DECLARE_ALLOCATOR();
+    TD_DECLARE_ALLOCATOR();
 
-		protected:
-			// will hold pointer to platform/renderer-specific shader instance of this material
-			FragmentShader* mShader;
+protected:
+    // will hold pointer to platform/renderer-specific shader instance of this material
+    FragmentShader* mShader;
 
-			// map of connections from input to instance; this works because inputs support only
-			// one connection
-			typedef std::map<const Attribute*, Connection*> Connections;
-			Connections mConnections;
+    // map of connections from input to instance; this works because inputs support only
+    // one connection
+    typedef std::map<const Attribute*, Connection*> Connections;
+    Connections mConnections;
 
-			typedef std::vector<MaterialExpression*> Expressions;
-			Expressions mSortedExpressions;
-		};
-	}
-}
+    typedef std::vector<MaterialExpression*> Expressions;
+    Expressions mSortedExpressions;
+};
 
-#endif // MATERIAL_INCLUDED
+} // namespace Gfx
+} // namespace Teardrop

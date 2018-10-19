@@ -26,12 +26,18 @@ THE SOFTWARE.
 #include "Asset/LandscapeAsset.h"
 #include "Game/Scene.h"
 #include "Math/Vector2.h"
+#include "Math/Vector4.h"
 #include "Memory/Allocators.h"
 
 namespace Teardrop {
 
+class AABB;
 class SceneRenderer;
 class SceneRenderStep;
+
+namespace Gfx {
+    class Renderable;
+}
 
 class LandscapeScene : public Scene
 {
@@ -42,6 +48,8 @@ public:
     TD_POINTER_PROPERTY(LandscapeAsset, "Landscape asset for this scene", LandscapeAsset, 0);
     TD_POINTER_PROPERTY(CameraController, "Camera controller", CameraController, 0);
     TD_COMPLEX_PROPERTY(Viewport, "Render viewport (integer/pixel dimensions)", Vector2, "(0,0)", 0);
+    TD_COMPLEX_PROPERTY(Size, "Size, in world units, of landscape dimensions (Y is altitude), default: use heightfield dimensions", Vector4, "(0,0,0,0)", 0);
+
     //TD_POINTER_PROPERTY(HUD, "Heads-up display for this scene", HUD, 0);
     TD_PROPERTY(CastShadows, "Landscape casts shadows (default: yes)", bool, true, 0);
     TD_PROPERTY(ReceiveShadows, "Landscape receives shadows (default: yes)", bool, true, 0);
@@ -71,6 +79,11 @@ private:
     // stuff contained within it, expect to move this out during a later refactor
     SceneRenderer* mSceneRenderer;
     SceneRenderStep* mSceneRenderStep;
+
+    Gfx::Renderable* mTerrainRenderables;
+
+    AABB* mBoundingBoxes;
+    size_t mTerrainRenderableCount;
 
     void generateTerrainTiles();
 };
