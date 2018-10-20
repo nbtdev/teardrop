@@ -167,7 +167,22 @@ void createTerrainPatch(TerrainRenderable& renderable, int x, int y, LandscapeSc
         for (size_t px = 0; px < patchWidth; ++px) {
             size_t i = py * patchWidth + px;
             TerrainVertex& terrainVertex = vertexData[i];
-            float h = pSrc[(py + yOff) * imgWidth + (px + xOff)];
+
+            size_t globalX = xOff + px;
+            size_t globalY = yOff + py;
+
+            // clamp the bottom and right edges to the last texels on those edges
+            size_t effectiveX = globalX;
+            if (effectiveX >= imgWidth) {
+                effectiveX = imgWidth - 1;
+            }
+
+            size_t effectiveY = globalY;
+            if (effectiveY >= imgHeight) {
+                effectiveY = imgHeight - 1;
+            }
+
+            float h = pSrc[effectiveY * imgWidth + effectiveX];
 
             // calculate vert position and UV data; height is already in full (not
             // normalized) single-precision form
