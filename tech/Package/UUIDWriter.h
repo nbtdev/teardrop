@@ -34,7 +34,7 @@ namespace Teardrop
     public:
         UUIDWriter(const UUID& aUUID);
         virtual ~UUIDWriter();
-        virtual uint32_t write() = 0;
+        virtual uint64_t write() = 0;
 
     protected:
         const UUID& mUUID;

@@ -43,7 +43,7 @@ const void* Asset::data()
 	return mData;
 }
 
-int Asset::length()
+uint64_t Asset::length()
 {
 	return mLength;
 }
@@ -66,12 +66,12 @@ void* Asset::createData(int len)
 	return mData;
 }
 
-int Asset::serialize(Stream& /*strm*/)
+uint64_t Asset::serialize(Stream& /*strm*/)
 {
 	return 0;
 }
 
-int Asset::deserialize(Stream& /*strm*/)
+uint64_t Asset::deserialize(Stream& /*strm*/)
 {
 	return 0;
 }

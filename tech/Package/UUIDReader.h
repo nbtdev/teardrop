@@ -35,7 +35,7 @@ namespace Teardrop
         UUIDReader(UUID& aUUID);
         virtual ~UUIDReader();
 
-        virtual uint32_t read() = 0;
+        virtual uint64_t read() = 0;
 
     protected:
         UUID& mUUID;

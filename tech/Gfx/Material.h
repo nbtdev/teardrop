@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "Gfx/MaterialOutput.h"
+#include "Gfx/VertexElement.h"
 #include "Memory/Allocators.h"
 #include "Reflection/Reflection.h"
 
@@ -63,6 +64,10 @@ public:
     int connectionCount();
     MaterialExpression** sortedExpressions();
 
+    void beginGeometryStream();
+    void endGeometryStream();
+    void addVertexElement(VertexElement const& vertexElement);
+
     TD_DECLARE_ALLOCATOR();
 
 protected:
@@ -76,6 +81,10 @@ protected:
 
     typedef std::vector<MaterialExpression*> Expressions;
     Expressions mSortedExpressions;
+
+    typedef std::vector<Gfx::VertexElement> GeometryStream;
+    typedef std::vector<GeometryStream> GeometryStreams;
+    GeometryStreams mGeometryStreams;
 };
 
 } // namespace Gfx

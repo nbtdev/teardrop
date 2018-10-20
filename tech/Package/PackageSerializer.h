@@ -49,8 +49,8 @@ namespace Teardrop
 
 		static const int PACKAGE_VERSION;
 
-		int serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
-		int deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer = 0);
+        uint64_t serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer = 0);
+        uint64_t deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer = 0);
 
 	protected:
 		Package* mPkg;

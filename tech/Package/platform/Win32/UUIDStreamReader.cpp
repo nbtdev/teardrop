@@ -40,10 +40,10 @@ namespace Teardrop
 
 	}
 
-	uint32_t
+    uint64_t
 		UUIDStreamReader::read()
 	{
-		uint32_t nBytes = mStream.read(&mUUID, sizeof(mUUID));
+        uint64_t nBytes = mStream.read(&mUUID, sizeof(mUUID));
 
 		// the first half (int and two shorts) of the UUID need to 
 		// have their byte order swapped

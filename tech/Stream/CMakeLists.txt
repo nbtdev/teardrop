@@ -3,6 +3,7 @@ set(TARGET Stream)
 
 # library source files
 set(SOURCES
+    FileStream.cpp
     FileStream.h
     MemoryStream.cpp
     MemoryStream.h

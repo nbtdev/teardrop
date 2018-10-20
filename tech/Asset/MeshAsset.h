@@ -45,8 +45,8 @@ namespace Teardrop
 		// will create if not already present
         Gfx::Mesh* mesh();
 
-		int serialize(Stream& strm);
-		int deserialize(Stream& strm);
+        uint64_t serialize(Stream& strm) override;
+        uint64_t deserialize(Stream& strm) override;
 
 		TD_DECLARE_ALLOCATOR();
 

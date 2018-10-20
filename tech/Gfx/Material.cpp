@@ -195,3 +195,17 @@ int Material::connections(Connection** connections, int nConnections)
 
 	return nConn;
 }
+
+void Material::beginGeometryStream()
+{
+    mGeometryStreams.push_back(GeometryStream());
+}
+
+void Material::endGeometryStream()
+{
+}
+
+void Material::addVertexElement(VertexElement const& vertexElement)
+{
+    mGeometryStreams.back().push_back(vertexElement);
+}

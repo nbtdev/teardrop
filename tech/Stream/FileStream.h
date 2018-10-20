@@ -43,8 +43,8 @@ namespace Teardrop
 	{
 		void* m_handle;
 		int m_mode;
-		size_t m_length;
-		size_t m_position;
+        uint64_t m_length;
+        uint64_t m_position;
 		bool m_eof;
 		int m_asyncState;
 		char m_async[32]; // async I/O working area
@@ -62,17 +62,17 @@ namespace Teardrop
 
 		// Stream implementation
 		//! read data from this file stream
-		int read(void* pData, size_t len, bool async=false);
+        uint64_t read(void* pData, uint64_t len, bool async=false) override;
 		//! write data to this file stream
-		int write(const void* pData, size_t len, bool async=false);
+        uint64_t write(const void* pData, uint64_t len, bool async=false) override;
 		//! return stream length
-		size_t length() { return m_length; }
+        uint64_t length()  override;
 		//! return stream length
-		size_t getPosition() { return m_position; }
+        uint64_t getPosition()  override;
 		//! seek to another part of this stream
-		bool seek(int offset, SeekType seekType = CURRENT, bool async=false);
+        bool seek(int64_t offset, SeekType seekType = CURRENT, bool async=false) override;
 		//! check to see if we are at the end of the stream
-		bool isEnd() { return m_eof; }
+        bool isEnd() override;
 
 		enum AsyncState
 		{

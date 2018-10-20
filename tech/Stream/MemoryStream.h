@@ -31,28 +31,28 @@ namespace Teardrop
 	class MemoryStream : public Stream
 	{
 		unsigned char* mData;
-		int mLen;
-		int mPos;
-		int mCapacity;
+        uint64_t mLen;
+        uint64_t mPos;
+        uint64_t mCapacity;
 		bool mOwnData;
 
 	public:
 		MemoryStream();
-		MemoryStream(size_t len);
-		MemoryStream(void* data, size_t len);
+        MemoryStream(uint64_t len);
+        MemoryStream(void* data, uint64_t len);
 		~MemoryStream();
 
 		// Stream implementation - note that async flags are ignored for MemoryStream
 		//! read data from this stream
-		int read(void* pData, size_t len, bool async=false);
+        uint64_t read(void* pData, uint64_t len, bool async=false);
 		//! write data to this stream
-		int write(const void* pData, size_t len, bool async=false);
+        uint64_t write(const void* pData, uint64_t len, bool async=false);
 		//! return stream length in bytes
 		size_t length();
 		//! return stream position
 		size_t getPosition();
 		//! seek to another part of this stream
-		bool seek(int offset, SeekType seekType = CURRENT, bool async=false);
+        bool seek(int64_t offset, SeekType seekType = CURRENT, bool async=false);
 		//! check to see if we are at the end of the stream
 		bool isEnd();
 

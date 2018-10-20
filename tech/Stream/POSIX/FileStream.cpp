@@ -53,7 +53,7 @@ FileStream::~FileStream()
     delete (Internal*)m_handle;
 }
 //---------------------------------------------------------------------------
-int FileStream::read(void* buffer, size_t size, bool /*async*/)
+uint64_t FileStream::read(void* buffer, uint64_t size, bool /*async*/)
 {
     if (((m_mode & READ) && m_handle) == 0)
         return 0;
@@ -73,7 +73,7 @@ int FileStream::read(void* buffer, size_t size, bool /*async*/)
     return bytesRead;
 }
 //---------------------------------------------------------------------------
-int FileStream::write(const void* buffer, size_t size, bool async)
+uint64_t FileStream::write(const void* buffer, uint64_t size, bool async)
 {
     if (((m_mode & (WRITE|APPEND)) && m_handle) == 0)
         return 0;
@@ -153,18 +153,24 @@ bool FileStream::isOpen() {
     return (m_handle && ((Internal*)m_handle)->mStrm && ((Internal*)m_handle)->mStrm->is_open());
 }
 //---------------------------------------------------------------------------
-bool FileStream::seek(int offset, SeekType seekType, bool /*async*/)
+bool FileStream::seek(int64_t offset, SeekType seekType, bool /*async*/)
 {
     if (m_handle) {
         Internal* i = (Internal*)m_handle;
 
         if (i->mStrm && i->mStrm->is_open()) {
             std::ios_base::seekdir seekDir = std::ios_base::cur;
-            if (seekType == BEGIN) seekDir = std::ios_base::beg;
-            else if (seekType == END) seekDir = std::ios_base::end;
+            if (seekType == BEGIN) {
+                seekDir = std::ios_base::beg;
+            } else if (seekType == END) {
+                seekDir = std::ios_base::end;
+            }
 
-            if (m_mode & READ) i->mStrm->seekg(offset, seekDir);
-            else if (m_mode & WRITE) i->mStrm->seekp(offset, seekDir);
+            if (m_mode & READ) {
+                i->mStrm->seekg(offset, seekDir);
+            } else if (m_mode & WRITE) {
+                i->mStrm->seekp(offset, seekDir);
+            }
 
             return i->mStrm->good();
         }

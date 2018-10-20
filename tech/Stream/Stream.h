@@ -24,6 +24,7 @@ THE SOFTWARE.
 #define TDSTREAM_INCLUDED
 
 #include <cstddef>
+#include <cstdint>
 
 namespace Teardrop
 {
@@ -40,15 +41,15 @@ namespace Teardrop
 		virtual ~Stream();
 
 		//! read data from this stream
-		virtual int read(void* pData, size_t len, bool async=false) = 0;
+        virtual uint64_t read(void* pData, uint64_t len, bool async=false) = 0;
 		//! write data to this stream
-		virtual int write(const void* pData, size_t len, bool async=false) = 0;
+        virtual uint64_t write(const void* pData, uint64_t len, bool async=false) = 0;
 		//! return stream length
 		virtual size_t length() = 0;
 		//! return stream position
 		virtual size_t getPosition() = 0;
 		//! seek to another part of this stream
-		virtual bool seek(int offset, SeekType seekType = CURRENT, bool async=false) = 0;
+        virtual bool seek(int64_t offset, SeekType seekType = CURRENT, bool async=false) = 0;
 		//! check to see if we are at the end of the stream
 		virtual bool isEnd() = 0;
 

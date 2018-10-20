@@ -104,8 +104,8 @@ void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* r
 		renderer->beginObject(Matrix44::IDENTITY);
 
 		// draw the submeshes
-		int nSubmesh = mesh->submeshCount();
-		for (int i = 0; i < nSubmesh; ++i) {
+        size_t nSubmesh = mesh->submeshCount();
+        for (size_t i = 0; i < nSubmesh; ++i) {
 			renderer->render(mesh->submesh(i));
 		}
 

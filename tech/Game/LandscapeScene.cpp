@@ -27,18 +27,26 @@ THE SOFTWARE.
 #include "Game/SceneRenderStep.h"
 #include "Game/ZoneObjects.h"
 #include "Gfx/Camera.h"
+#include "Gfx/Connection.h"
 #include "Gfx/IndexBuffer.h"
+#include "Gfx/Material.h"
+#include "Gfx/MaterialOutput.h"
 #include "Gfx/Mesh.h"
 #include "Gfx/SubMesh.h"
 #include "Gfx/Renderable.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
+#include "Gfx/TextureManager.h"
+#include "Gfx/Texture2D.h"
+#include "Gfx/Sampler2D.h"
+#include "Gfx/Sampler2DExpression.h"
 #include "Gfx/VertexBuffer.h"
 #include "Gfx/VertexElement.h"
 #include "Gfx/Viewport.h"
 #include "Math/AABB.h"
 #include "Math/MathUtil.h"
 #include "Math/Vector4.h"
+#include "Util/UUID.h"
 
 namespace {
 
@@ -77,9 +85,49 @@ struct TerrainVertex
     TD_DECLARE_ALLOCATOR();
 };
 
+// terrain material has only to deal with a single submesh, so we only need one material
 Gfx::Material* createTerrainMaterial(LandscapeAsset* landscapeAsset, Gfx::VertexBuffer* vertexBuffer)
 {
-    return nullptr;
+    TextureAsset* colorAsset = landscapeAsset->getDiffuseMap();
+
+    // to begin, we need to make a material...
+    Gfx::Material* mtl = TD_NEW Gfx::Material;
+
+    // then, need an output expression for the material
+    Gfx::MaterialOutput* output = TD_NEW Gfx::MaterialOutput;
+    UUID uuid;
+    uuid.generate();
+    output->setObjectId(uuid);
+    output->initialize();
+    mtl->setOutput(output);
+
+    // hook up the color (diffuse) texture/sampler to the output
+    if (colorAsset) {
+        Gfx::Sampler2DExpression* expr = TD_NEW Gfx::Sampler2DExpression;
+        uuid.generate();
+        expr->setObjectId(uuid);
+        expr->initialize();
+        expr->getSampler2D().setTextureAsset(colorAsset);
+
+        Gfx::Connection* conn = TD_NEW Gfx::Connection;
+        uuid.generate();
+        conn->setFromExpression(expr); conn->setFromAttribute("Color");
+        conn->setToExpression(output); conn->setToAttribute("Diffuse");
+        conn->setParent(mtl);
+        conn->setObjectId(uuid);
+        conn->initialize();
+    }
+
+    // TODO: hook up other textures
+
+    // finally, we need the layout for the geometry stream
+    mtl->beginGeometryStream();
+    for (int i=0; i<vertexBuffer->vertexElementCount(); ++i) {
+        mtl->addVertexElement(*vertexBuffer->vertexElement(i));
+    }
+    mtl->endGeometryStream();
+
+    return mtl;
 }
 
 void createTerrainPatch(TerrainRenderable& renderable, int x, int y, LandscapeScene* scene)
@@ -370,12 +418,22 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
     }
 
     mSceneRenderStep->setRenderTarget(rt);
-
-    ZoneObjects visibleObjects;
     camera->setAspect(rt->aspect());
-    getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
 
-    mSceneRenderer->render(visibleObjects, renderer, this, camera);
+//    ZoneObjects visibleObjects;
+//    getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
+//    mSceneRenderer->render(visibleObjects, renderer, this, camera);
+
+    // naive approach -- just render all of the terrain tiles without regard to
+    // visibility
+    for (size_t patch = 0; patch < mTerrainRenderableCount; ++patch) {
+        Gfx::Renderable const& renderable = mTerrainRenderables[patch];
+
+        for (size_t i=0; i<renderable.mesh()->submeshCount(); ++i) {
+            renderer->apply(renderable.material(i));
+            renderer->render(renderable.mesh()->submesh(i));
+        }
+    }
 
     rt->present();
 }

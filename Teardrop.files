@@ -3593,6 +3593,7 @@ tech/Script/test/LuaTest.vcproj
 tech/Script/test/my.lua
 tech/Serialization/CMakeLists.txt
 tech/Stream/CMakeLists.txt
+tech/Stream/FileStream.cpp
 tech/Stream/FileStream.h
 tech/Stream/MemoryStream.cpp
 tech/Stream/MemoryStream.h

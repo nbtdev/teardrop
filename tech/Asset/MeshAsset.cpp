@@ -43,17 +43,17 @@ MeshAsset::~MeshAsset()
 	delete mMesh;
 }
 
-int MeshAsset::serialize(Stream& strm)
+uint64_t MeshAsset::serialize(Stream& strm)
 {
 	if (!mMesh)
 		return 0;
 
-	int nBytes = 0;
+    uint64_t nBytes = 0;
 
-	int nSubmesh = mMesh->submeshCount();
+    uint64_t nSubmesh = mMesh->submeshCount();
 	nBytes += strm.write(&nSubmesh, sizeof(nSubmesh));
 
-	for (int s=0; s<nSubmesh; ++s) {
+    for (size_t s=0; s<nSubmesh; ++s) {
 		Submesh* sm = mMesh->submesh(s);
 
 		// write primitive type
@@ -117,12 +117,12 @@ int MeshAsset::serialize(Stream& strm)
 	return nBytes;
 }
 
-int MeshAsset::deserialize(Stream& strm)
+uint64_t MeshAsset::deserialize(Stream& strm)
 {
-	int nBytes = 0;
+    uint64_t nBytes = 0;
 
 	// read submesh count -- if zero, skip out
-	int nSubmesh;
+    uint64_t nSubmesh;
 	nBytes += strm.read(&nSubmesh, sizeof(nSubmesh));
 
 	if (!nSubmesh)
@@ -134,23 +134,23 @@ int MeshAsset::deserialize(Stream& strm)
     mMesh = TD_NEW Mesh;
 	mMesh->createSubmeshes(nSubmesh);
 
-	for (int s=0; s<nSubmesh; ++s) {
+    for (size_t s=0; s<nSubmesh; ++s) {
 		Submesh* sm = mMesh->submesh(s);
 
 		// read primitive type
-		int primType;
+        uint32_t primType;
 		nBytes += strm.read(&primType, sizeof(primType));
 		sm->setPrimitiveType((Submesh::PrimitiveType)primType);
 
 		// read index count; if positive, create an index buffer and populate it
-		int nIndices;
+        uint32_t nIndices;
 		nBytes += strm.read(&nIndices, sizeof(nIndices));
 
 		if (nIndices) {
 			IndexBuffer* ib = sm->createIndexBuffer();
 			
 			// TODO: deprecated, we calculate this based on index count
-			int indexSize;
+            uint32_t indexSize;
 			nBytes += strm.read(&indexSize, sizeof(indexSize));
 
 			ib->initialize(nIndices, 0);
@@ -161,36 +161,37 @@ int MeshAsset::deserialize(Stream& strm)
 		}
 
 		// then vertex buffer count
-		int nVB;
+        uint32_t nVB;
 		nBytes += strm.read(&nVB, sizeof(nVB));
 
-		for (int v=0; v<nVB; ++v) {
+        for (uint32_t v=0; v<nVB; ++v) {
 			VertexBuffer* vb = sm->createVertexBuffer();
 
 			// vertex elements first
-			int nElems;
+            uint32_t nElems;
 			nBytes += strm.read(&nElems, sizeof(nElems));
 
 			vb->beginAddVertexElements();
-			for (int e=0; e<nElems; ++e) {
+            for (size_t e=0; e<nElems; ++e) {
 				VertexElement& elem = vb->addVertexElement();
 
-				int type;
+                uint32_t type;
 				nBytes += strm.read(&type, sizeof(type));
 				elem.mType = (VertexElementType)type;
 				nBytes += strm.read(&elem.mCount, sizeof(elem.mCount));
-				int usage;
+                uint32_t usage;
 				nBytes += strm.read(&usage, sizeof(usage));
 				elem.mUsage = (VertexElementUsage)usage;
 				nBytes += strm.read(&elem.mIndex, sizeof(elem.mIndex));
 			}
 
-			int vertSize = vb->endAddVertexElements();
+            uint32_t vertSize = vb->endAddVertexElements();
 
 			// then the vertex data
-			int nVerts;
+            uint32_t nVerts;
 			nBytes += strm.read(&nVerts, sizeof(nVerts));
 			vb->initialize(nVerts, 0);
+
 			void* data = vb->map(VertexBuffer::MAP_DISCARD);
 			nBytes += strm.read(data, nVerts * vertSize);
 			vb->unmap();

@@ -366,8 +366,7 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 				// throw
 				throw ShaderCompilationException("Failed to compile vertex shader", mSource, mErrs);
 			}
-		}
-		else {
+        } else {
 			hr = mDevice->CreateVertexShader(
 				mBytecode->GetBufferPointer(),
 				mBytecode->GetBufferSize(),

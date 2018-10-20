@@ -41,11 +41,11 @@ public:
     ~Mesh();
 
     Submesh* createSubmesh();
-    void createSubmeshes(int nSubmeshes);
+    void createSubmeshes(size_t nSubmeshes);
     void removeSubmesh(Submesh* submesh);
-    void removeSubmesh(int index);
-    int submeshCount();
-    Submesh* submesh(int index);
+    void removeSubmesh(size_t index);
+    size_t submeshCount();
+    Submesh* submesh(size_t index);
 
     TD_DECLARE_ALLOCATOR();
 

@@ -210,7 +210,7 @@ void LuaScriptVM::call(const char* fn,
 	ScriptHelper h(*m_pL);
 	if (argCount)
 	{
-		for (size_t i=0; i<argCount; ++i)
+        for (int i=0; i<argCount; ++i)
 		{
 			h.setParam(i, args[i]);
 		}

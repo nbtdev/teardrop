@@ -45,14 +45,14 @@ Submesh* Mesh::createSubmesh()
 	return mSubmeshes.back();
 }
 
-void Mesh::createSubmeshes(int nSubmeshes)
+void Mesh::createSubmeshes(size_t nSubmeshes)
 {
 	assert(mSubmeshes.size()==0);
 
 	if (mSubmeshes.size() == 0) {
 		mSubmeshes.resize(nSubmeshes);
 
-		for (int i=0; i<nSubmeshes; ++i) {
+        for (size_t i=0; i<nSubmeshes; ++i) {
 			mSubmeshes[i] = TD_NEW Submesh;
 		}
 	}
@@ -62,32 +62,32 @@ void Mesh::removeSubmesh(Submesh* submesh)
 {
 	for (size_t i=0; i<mSubmeshes.size(); ++i) {
 		if (mSubmeshes[i] == submesh) {
-			removeSubmesh(int(i));
+            removeSubmesh(i);
 			break;
 		}
 	}
 }
 
-void Mesh::removeSubmesh(int index)
+void Mesh::removeSubmesh(size_t index)
 {
-	assert(index>=0 && index<int(mSubmeshes.size()));
+    assert(index>=0 && index<mSubmeshes.size());
 
-	if (index >= 0 && index < int(mSubmeshes.size())) {
+    if (index >= 0 && index < mSubmeshes.size()) {
 		delete mSubmeshes[index];
 		mSubmeshes.erase(mSubmeshes.begin()+index);
 	}
 }
 
-int Mesh::submeshCount()
+size_t Mesh::submeshCount()
 {
-	return int(mSubmeshes.size());
+    return mSubmeshes.size();
 }
 
-Submesh* Mesh::submesh(int index)
+Submesh* Mesh::submesh(size_t index)
 {
-	assert(index>=0 && index<int(mSubmeshes.size()));
+    assert(index>=0 && index<mSubmeshes.size());
 
-	if (index >= 0 && index < int(mSubmeshes.size())) {
+    if (index >= 0 && index < mSubmeshes.size()) {
 		return mSubmeshes[index];
 	}
 

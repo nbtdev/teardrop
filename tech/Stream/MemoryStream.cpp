@@ -30,27 +30,27 @@ MemoryStream::MemoryStream()
 	: mData(0)
 	, mLen(0)
 	, mPos(0)
-	, mCapacity(1024)
+    , mCapacity(1024)
 	, mOwnData(true)
 {
 	mData = new unsigned char[mCapacity];
 }
 
-MemoryStream::MemoryStream(size_t len)
+MemoryStream::MemoryStream(uint64_t len)
 	: mData(0)
-    , mLen((int)len)
+    , mLen(len)
 	, mPos(0)
-    , mCapacity((int)len)
+    , mCapacity(len)
 	, mOwnData(true)
 {
 	mData = new unsigned char[len];
 }
 
-MemoryStream::MemoryStream(void* data, size_t len)
+MemoryStream::MemoryStream(void* data, uint64_t len)
 	: mData((unsigned char*)data)
-    , mLen((int)len)
+    , mLen(len)
 	, mPos(0)
-    , mCapacity((int)len)
+    , mCapacity(len)
 	, mOwnData(false)
 {
 }
@@ -62,7 +62,7 @@ MemoryStream::~MemoryStream()
 
 void MemoryStream::expand()
 {
-	int newCap = mCapacity * 2;
+    uint64_t newCap = mCapacity * 2;
 	unsigned char* newData = new unsigned char[newCap];
 	memcpy(newData, mData, mLen);
 	delete [] mData;
@@ -71,22 +71,23 @@ void MemoryStream::expand()
 	mCapacity = newCap;
 }
 
-int MemoryStream::read(void* data, size_t len, bool /*async*/)
+uint64_t MemoryStream::read(void* data, uint64_t len, bool /*async*/)
 {
-	int l = int(len);
+    uint64_t l = len;
+
 	assert(mPos+l < mLen-1);
 	if (mPos+l < mLen-1) {
 		memcpy(data, mData+mPos, len);
 		mPos += l;
-        return (int)len;
+        return len;
 	}
 
 	return 0;
 }
 
-int MemoryStream::write(const void* data, size_t len, bool /*async*/)
+uint64_t MemoryStream::write(const void* data, uint64_t len, bool /*async*/)
 {
-	int l = int(len);
+    uint64_t l = len;
 	while ((l+mLen) > mCapacity) 
 		expand();
 
@@ -95,43 +96,50 @@ int MemoryStream::write(const void* data, size_t len, bool /*async*/)
 	mPos += l;
 	mLen += l;
 
-    return (int)len;
+    return len;
 }
 
-size_t MemoryStream::length()
+uint64_t MemoryStream::length()
 {
 	return mLen;
 }
 
-size_t MemoryStream::getPosition()
+uint64_t MemoryStream::getPosition()
 {
 	return mPos;
 }
 
-bool MemoryStream::seek(int offset, SeekType seekType, bool /*async*/)
+bool MemoryStream::seek(int64_t offset, SeekType seekType, bool /*async*/)
 {
+    int64_t pos = (int64_t)mPos;
+
 	switch (seekType)
 	{
 	case BEGIN:
 		assert(offset >= 0);
-		assert(offset < mLen);
-		if (offset >= 0 && offset < mLen) mPos = offset;
-		else return false;
+        assert(offset < (int64_t)mLen);
+        if (offset >= 0 && offset < (int64_t)mLen) {
+            mPos = (uint64_t)offset;
+        } else {
+            return false;
+        }
 		break;
 	case CURRENT:
-		assert(offset+mPos >= 0 && offset+mPos < mLen);
-		if (offset+mPos >= 0 && offset+mPos < mLen)
-			mPos += offset;
-		else
+        assert(offset+pos >= 0 && offset+pos < (int64_t)mLen);
+        if (offset+pos >= 0 && offset+pos < (int64_t)mLen) {
+            mPos = (uint64_t)(pos + offset);
+        } else {
 			return false;
+        }
 		break;
 	case END:
 		assert(offset >= 0);
-		assert(offset < mLen);
-		if (offset >= 0 && offset < mLen) 
-			mPos = mLen - offset - 1;
-		else 
+        assert(offset < (int64_t)mLen);
+        if (offset >= 0 && offset < (int64_t)mLen) {
+            mPos = (uint64_t)((int64_t)mLen - offset - 1);
+        } else  {
 			return false;
+        }
 		break;
 	}
 

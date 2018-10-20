@@ -35,7 +35,7 @@ namespace Teardrop
         UUIDStreamWriter(Stream& aStream, const UUID& aUUID);
         ~UUIDStreamWriter();
 
-        uint32_t write();
+        uint64_t write();
 
     protected:
         Stream& mStream;

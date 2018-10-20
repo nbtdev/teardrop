@@ -40,7 +40,7 @@ namespace Teardrop
 
 	}
 
-	uint32_t
+    uint64_t
 		UUIDStreamWriter::write()
 	{
 		UUID tmp = mUUID;

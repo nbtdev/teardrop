@@ -51,7 +51,7 @@ namespace Teardrop
 
 		struct VertexElement
 		{
-			VertexElement();
+            VertexElement();
 
 			// vertex element size in bytes
 			int size();

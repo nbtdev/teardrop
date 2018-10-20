@@ -46,13 +46,12 @@ FileStream::~FileStream()
 		CloseHandle(m_handle);
 }
 //---------------------------------------------------------------------------
-int FileStream::read(void* buffer, size_t size, bool async) 
+uint64_t FileStream::read(void* buffer, uint64_t size, bool async)
 {
 	if (((m_mode & READ) && m_handle) == 0)
 		return 0;
 
-	if (async)
-	{
+    if (async) {
 		m_asyncState = IDLE;
 	}
 
@@ -62,20 +61,17 @@ int FileStream::read(void* buffer, size_t size, bool async)
 
 	// since we're always overlapped, ReadFile always returns 0 and
 	// the end-of-file condition is reported via GetLastError() == ERROR_HANDLE_EOF
-	if (b == 0)
-	{
+    if (b == 0) {
 		DWORD err = GetLastError();
 
-		if (err == ERROR_HANDLE_EOF)
-		{
+        if (err == ERROR_HANDLE_EOF) {
 			// EOF
 			m_eof = true;
 			return 0;
 		}
 	}
 
-	if (!async)
-	{
+    if (!async) {
 		BOOL r = GetOverlappedResult(
 			m_handle, pO, &bytesRead, TRUE);
 		if (TRUE == r) {
@@ -90,7 +86,7 @@ int FileStream::read(void* buffer, size_t size, bool async)
 	return bytesRead;
 }
 //---------------------------------------------------------------------------
-int FileStream::write(const void* buffer, size_t size, bool async) 
+uint64_t FileStream::write(const void* buffer, uint64_t size, bool async)
 {
 	if (((m_mode & (WRITE|APPEND)) && m_handle) == 0)
 		return 0;
@@ -105,8 +101,7 @@ int FileStream::write(const void* buffer, size_t size, bool async)
 	DWORD bytesWritten = 0;
 	WriteFile(m_handle, buffer, (DWORD)size, &bytesWritten, pO);
 
-	if (!async)
-	{
+    if (!async) {
 		if (TRUE == GetOverlappedResult(
 			m_handle, pO, &bytesWritten, TRUE)) {
 			m_position += bytesWritten;
@@ -195,7 +190,7 @@ bool FileStream::isOpen() {
 	return (m_handle != 0);
 }
 //---------------------------------------------------------------------------
-bool FileStream::seek(int offset, SeekType seekType, bool /*async*/)
+bool FileStream::seek(int64_t offset, SeekType seekType, bool /*async*/)
 {	
 	//if (async)
 	//{
@@ -203,18 +198,13 @@ bool FileStream::seek(int offset, SeekType seekType, bool /*async*/)
 		GetFileSizeEx(m_handle, &size);
 
 		LPOVERLAPPED lpO = (LPOVERLAPPED)&m_async;
-		if (seekType == BEGIN)
-		{
-			lpO->Offset = offset;
-		}
-		else if (seekType == END)
-		{
+        if (seekType == BEGIN) {
+            lpO->Offset = (DWORD)offset;
+        } else if (seekType == END) {
 			// this will bite us when file sizes get close to and over 4GB
-			lpO->Offset = (DWORD)size.QuadPart - offset;
-		}
-		else
-		{
-			lpO->Offset = (int)m_position + offset;
+            lpO->Offset = (DWORD)(size.QuadPart - offset);
+        } else {
+            lpO->Offset = (DWORD)((int64_t)m_position + offset);
 		}
 
 		return true;
@@ -247,14 +237,12 @@ bool FileStream::seek(int offset, SeekType seekType, bool /*async*/)
 //---------------------------------------------------------------------------
 void FileStream::update()
 {
-	if (m_asyncState == NOT_ASYNC)
-	{
+    if (m_asyncState == NOT_ASYNC) {
 		return;
 	}
 
 	// otherwise, if an operation is pending check the status
-	if (m_asyncState != IDLE)
-	{
+    if (m_asyncState != IDLE) {
 		LPOVERLAPPED pO = (LPOVERLAPPED)&m_async;
 		DWORD cbBytes = 0;
 		BOOL r = GetOverlappedResult(
@@ -263,10 +251,8 @@ void FileStream::update()
 			&cbBytes,
 			FALSE);
 
-		if (r == FALSE)
-		{
-			if (GetLastError() == ERROR_IO_INCOMPLETE)
-			{
+        if (r == FALSE) {
+            if (GetLastError() == ERROR_IO_INCOMPLETE) {
 				return;
 			}
 		}

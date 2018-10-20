@@ -64,8 +64,8 @@ namespace Teardrop
 		TextureAsset();
 		~TextureAsset();
 
-		int serialize(Stream& strm);
-		int deserialize(Stream& strm);
+        uint64_t serialize(Stream& strm) override;
+        uint64_t deserialize(Stream& strm) override;
 
 		TD_DECLARE_ALLOCATOR();
 

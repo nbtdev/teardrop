@@ -46,7 +46,7 @@ PackageSerializer::~PackageSerializer()
 
 }
 
-static int serializeObjects(const Objects& objects, Stream& stream, std::list<Asset*>& assets)
+static uint64_t serializeObjects(const Objects& objects, Stream& stream, std::list<Asset*>& assets)
 {
 	TiXmlDocument doc;
 	TiXmlElement objectsElem("objects");
@@ -123,9 +123,9 @@ static int serializeObjects(const Objects& objects, Stream& stream, std::list<As
     return int(len + sizeof(len));
 }
 
-int PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer)
+uint64_t PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer* metadataSerializer)
 {
-	int nBytes = 0;
+    uint64_t nBytes = 0;
 
 	// first, the package format version -- we always write the current version
 	PackageHeader hdr;
@@ -259,9 +259,9 @@ static bool deserializeObjects(const char* xml, Package* pkg, DeferredObjectReso
 	return true;
 }
 
-int PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer)
+uint64_t PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& deferred, ObjectIdToObject& lut, PackageMetadataSerializer* metadataSerializer)
 {
-	int nBytes = 0;
+    uint64_t nBytes = 0;
 
 	// first read the header
 	PackageHeader hdr;

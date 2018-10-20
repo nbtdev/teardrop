@@ -54,8 +54,8 @@ namespace Teardrop
 			~PackageMetadata();
 
 			// PackageMetadataSerializer implementation
-			int serialize(Package* pkg, Stream& strm);
-			int deserialize(Package* pkg, Stream& strm);
+            uint64_t serialize(Package* pkg, Stream& strm);
+            uint64_t deserialize(Package* pkg, Stream& strm);
 
 			Folder* rootFolder();
 

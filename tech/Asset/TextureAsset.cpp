@@ -52,9 +52,9 @@ TextureAsset::~TextureAsset()
 {
 }
 
-int TextureAsset::serialize(Stream& strm)
+uint64_t TextureAsset::serialize(Stream& strm)
 {
-	int len = mLength;
+    uint64_t len = mLength;
 	strm.write(&len, sizeof(len));
 
 	if (strm.write(mData, len))
@@ -63,12 +63,12 @@ int TextureAsset::serialize(Stream& strm)
 		return 0;
 }
 
-int TextureAsset::deserialize(Stream& strm)
+uint64_t TextureAsset::deserialize(Stream& strm)
 {
 	delete mDynamicData;
 	mDynamicData = 0;
 
-	int len = 0;
+    uint64_t len = 0;
 	if (strm.read(&len, sizeof(len))) {
 		mDynamicData = TD_NEW unsigned char[len];
 		mData = mDynamicData;

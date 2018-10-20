@@ -35,7 +35,7 @@ namespace Teardrop
         UUIDStreamReader(Stream& aStream, UUID& aUUID);
         ~UUIDStreamReader();
 
-        uint32_t read();
+        uint64_t read();
 
     protected:
         Stream& mStream;

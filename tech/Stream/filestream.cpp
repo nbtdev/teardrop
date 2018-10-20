@@ -20,67 +20,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Renderable.h"
-
-#include "Mesh.h"
+#include "Config.h"
+#include "FileStream.h"
 
 namespace Teardrop {
-namespace Gfx {
 
-Renderable::Renderable()
-    : mMesh(nullptr)
+uint64_t FileStream::length()
 {
-
+    return m_length;
 }
 
-Renderable::Renderable(Mesh* mesh, Material** subMeshMaterials)
-    : mMesh(mesh)
+uint64_t FileStream::getPosition()
 {
-    size_t nSubmesh = mesh->submeshCount();
-    mMaterials.reserve(nSubmesh);
-    for (size_t i=0; i<nSubmesh; ++i) {
-        mMaterials.push_back(subMeshMaterials[i]);
-    }
+    return m_position;
 }
 
-Renderable::~Renderable()
+bool FileStream::isEnd()
 {
-
+    return m_eof;
 }
 
-void Renderable::setMesh(Mesh* mesh)
-{
-    mMesh = mesh;
-}
-
-void Renderable::setTransform(Transform const& transform)
-{
-    mTransform = transform;
-}
-
-void Renderable::addMaterial(Material* submeshMaterial)
-{
-    mMaterials.push_back(submeshMaterial);
-}
-
-Mesh* Renderable::mesh() const
-{
-    return mMesh;
-}
-
-Material* Renderable::material(size_t index) const
-{
-    if (index >= mMaterials.size()) {
-        return nullptr;
-    }
-
-    return mMaterials[index];
-}
-
-Transform const& Renderable::transform() const
-{
-    return mTransform;
-}
-
-} // namespace Gfx
 } // namespace Teardrop

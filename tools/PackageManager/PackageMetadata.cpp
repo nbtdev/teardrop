@@ -353,9 +353,9 @@ static void addFolders(TiXmlElement& parentElem, PackageMetadata* meta, Folder* 
 	}
 }
 
-int PackageMetadata::serialize(Package* pkg, Stream& strm)
+uint64_t PackageMetadata::serialize(Package* pkg, Stream& strm)
 {
-	int nBytes = 0;
+    uint64_t nBytes = 0;
 
 	// then serialize folder structure to XML
 	TiXmlDocument doc;
@@ -366,7 +366,7 @@ int PackageMetadata::serialize(Package* pkg, Stream& strm)
 	doc.Accept(&printer);
 	String xml(printer.CStr());
 
-    int len = (int)xml.length()+1;
+    uint64_t len = (uint64_t)xml.length()+1;
 	nBytes += strm.write(&len, sizeof(len));
 	nBytes += strm.write((const char*)xml, len);
 
@@ -439,11 +439,11 @@ void PackageMetadata::loadFolders(TiXmlElement* elem, Folder* parent, Package* p
 	}
 }
 
-int PackageMetadata::deserialize(Package* pkg, Stream& strm)
+uint64_t PackageMetadata::deserialize(Package* pkg, Stream& strm)
 {
-	int nBytes = 0;
+    uint64_t nBytes = 0;
 
-	int len;
+    uint64_t len;
 	nBytes += strm.read(&len, sizeof(len));
 	char* buf = new char[len];
 	nBytes += strm.read(buf, len);

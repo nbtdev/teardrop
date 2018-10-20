@@ -23,6 +23,8 @@ THE SOFTWARE.
 #if !defined(PACKAGEMETADATASERIALIZER_INCLUDED)
 #define PACKAGEMETADATASERIALIZER_INCLUDED
 
+#include <cstdint>
+
 namespace Teardrop 
 {
 	class Package;
@@ -33,8 +35,8 @@ namespace Teardrop
 	public:
 		virtual ~PackageMetadataSerializer();
 
-		virtual int serialize(Package* pkg, Stream& strm) = 0;
-		virtual int deserialize(Package* pkg, Stream& strm) = 0;
+        virtual uint64_t serialize(Package* pkg, Stream& strm) = 0;
+        virtual uint64_t deserialize(Package* pkg, Stream& strm) = 0;
 	};
 }
 

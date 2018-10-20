@@ -41,15 +41,15 @@ namespace Teardrop
 		// return pointer to data blob
 		const void* data();
 		// return length of data blob in bytes
-		int length();
+        uint64_t length();
 		// we don't own this data blob
 		void setData(void* data, int len);
 		// we own this data blob
 		void* createData(int len);
 		// write asset data to strm
-		virtual int serialize(Stream& strm);
+        virtual uint64_t serialize(Stream& strm);
 		// read asset data from strm
-		virtual int deserialize(Stream& strm);
+        virtual uint64_t deserialize(Stream& strm);
 
 		TD_DECLARE_ALLOCATOR();
 
@@ -57,7 +57,7 @@ namespace Teardrop
 		// this always points to real data
 		void* mData;
 		// this contains the length of the data blob in bytes
-		int mLength;
+        uint64_t mLength;
 		// if the data is on the heap and owned by us, this and 
 		// mData will be the same and we should delete this in 
 		// dtor; otherwise, this is zero
