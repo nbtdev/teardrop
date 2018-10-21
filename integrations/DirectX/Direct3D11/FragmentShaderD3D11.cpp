@@ -275,11 +275,11 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		// then functions for each expression in the shader; we can iterate the sorted
 		// expressions and put out definitions for each unique expression ClassDef
 		std::set<const Reflection::ClassDef*> uniqueExprs;
-		int exprCount = mMaterial->expressionCount();
+        size_t exprCount = mMaterial->expressionCount();
 		MaterialExpression** expressions = mMaterial->sortedExpressions();
 
 		std::stringstream defs;
-		for (int i = 0; i < exprCount; ++i) {
+        for (size_t i = 0; i < exprCount; ++i) {
 			MaterialExpression* expr = expressions[i];
 
 			const Reflection::ClassDef* classDef = expr->getDerivedClassDef();
@@ -291,7 +291,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 					Sampler2DExpression* sampExp = static_cast<Sampler2DExpression*>(expr);
 
 					// record the value of the next available index in the array of sampler expressions
-					int textureIndex = int(mSamplerExpressions.size());
+                    size_t textureIndex = mSamplerExpressions.size();
 
 					// append this expression to the array of sampler expressions
 					mSamplerExpressions.push_back(sampExp);
@@ -356,7 +356,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 		AttrToVarName names;
 
 		// go through all connections and form this map
-		int nConnections = mMaterial->connections(0, 0);
+        size_t nConnections = mMaterial->connections(0, 0);
 
 		//  there may not be connections yet, so do the following only if connections exist
 		if (nConnections) {
@@ -366,8 +366,8 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 			// variable names should be based on the name (type) of the expression
 			// that owns the "from" (output) attr; for uniqueness, we'll just assign
 			// monotonically-increasing ordinals to each connection
-			int ord = 0;
-			for (int i = 0; i < nConnections; ++i) {
+            size_t ord = 0;
+            for (size_t i = 0; i < nConnections; ++i) {
 				std::stringstream ss;
 				Gfx::Attribute* out = connections[i]->output();
 				MaterialExpression* me = out->mParent;
@@ -381,7 +381,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 
 		// then generate the function calls...
 		std::stringstream calls;
-		for (int i = 0; i < exprCount; ++i) {
+        for (size_t i = 0; i < exprCount; ++i) {
 			MaterialExpression* expr = expressions[i];
 
 			// our input attributes are someone else's output attributes, so collect their names
@@ -401,7 +401,7 @@ FragmentShader::FragmentShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable
 				}
 			}
 
-			int nameIdx = 0;
+            size_t nameIdx = 0;
 			for (size_t j = 0; j < inputAttrs.size(); ++j) {
 				// find this attribute's name in the connection map
 				const Attribute* attr = &inputAttrs[j];

@@ -101,10 +101,10 @@ void SceneRenderStep::render(
         Gfx::Renderable* renderable = renderQueue.renderable(i);
         size_t nSubmesh = renderable->mesh()->submeshCount();
         for (size_t s=0; s<nSubmesh; ++s) {
-            Gfx::Submesh* submesh = renderable->mesh()->submesh((int)s);
-            Gfx::Material* material = renderable->material(s);
-            pRend->apply(material);
-            pRend->render(submesh);
+//            Gfx::Submesh* submesh = renderable->mesh()->submesh((int)s);
+//            Gfx::Material* material = renderable->material(s);
+//            pRend->apply(material);
+//            pRend->render(submesh);
         }
     }
 

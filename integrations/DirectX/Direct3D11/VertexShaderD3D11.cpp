@@ -30,7 +30,9 @@ THE SOFTWARE.
 #include "Util/_String.h"
 #include "Util/Environment.h"
 #include "Util/Logger.h"
-#include <assert.h>
+
+#include <cassert>
+#include <cstddef>
 #include <list>
 #include <set>
 #include <sstream>
@@ -67,9 +69,9 @@ struct InterStageElem {
 	char mName[256];
 	VertexElementUsage mSemantic = VEU_UNKNOWN;
 	VertexElementType mType = VET_UNKNOWN;
-	int mWidth = 0;
-	int mRank = 0;
-	int mIndex = 0;
+    size_t mWidth = 0;
+    size_t mRank = 0;
+    size_t mIndex = 0;
 	bool mSystem = false;
 };
 
@@ -128,9 +130,9 @@ void ShaderInterStage::exportHLSLDeclaration(String& aSource)
 		const char* type = sTypeLut[e.mType];
 
 		if (e.mSemantic == VEU_TEXCOORD) {
-			sprintf_s(buf, 1024, "    %s%d %s%d: %s%d;\n", type, e.mWidth, e.mName, e.mIndex, semantic, e.mIndex);
+            sprintf_s(buf, 1024, "    %s%llu %s%llu: %s%llu;\n", type, e.mWidth, e.mName, e.mIndex, semantic, e.mIndex);
 		} else {
-			sprintf_s(buf, 1024, "    %s%d %s: %s%d;\n", type, e.mWidth, e.mName, semantic, e.mIndex);
+            sprintf_s(buf, 1024, "    %s%llu %s: %s%llu;\n", type, e.mWidth, e.mName, semantic, e.mIndex);
 		}
 
 		aSource.append(buf);
@@ -193,23 +195,23 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		mSource.append(sFuncs);
 
 		// track which bits we need to process
-		unsigned int bits = 0;
+        size_t bits = 0;
 
 		// input structs
 		mSource.append("struct VSIN\n{\n");
 
-		const int VEU_POSITION_MASK = (1 << VEU_POSITION);
-		const int VEU_COLOR_MASK = (1 << VEU_COLOR);
-		const int VEU_NORMAL_MASK = (1 << VEU_NORMAL);
-		const int VEU_BINORMAL_MASK = (1 << VEU_BINORMAL);
-		const int VEU_TANGENT_MASK = (1 << VEU_TANGENT);
-		const int VEU_BLENDINDEX_MASK = (1 << VEU_BLENDINDEX);
-		const int VEU_BLENDWEIGHT_MASK = (1 << VEU_BLENDWEIGHT);
-		const int VEU_TEXCOORD_MASK = (1 << VEU_TEXCOORD);
-		const int VEU_TEXCOORD0_MASK = VEU_TEXCOORD_MASK | (1 << 16);
-		const int VEU_TEXCOORD1_MASK = VEU_TEXCOORD_MASK | (1 << 17);
-		const int VEU_TEXCOORD2_MASK = VEU_TEXCOORD_MASK | (1 << 18);
-		const int VEU_TEXCOORD3_MASK = VEU_TEXCOORD_MASK | (1 << 19);
+        const size_t VEU_POSITION_MASK = (1 << VEU_POSITION);
+        const size_t VEU_COLOR_MASK = (1 << VEU_COLOR);
+        const size_t VEU_NORMAL_MASK = (1 << VEU_NORMAL);
+        const size_t VEU_BINORMAL_MASK = (1 << VEU_BINORMAL);
+        const size_t VEU_TANGENT_MASK = (1 << VEU_TANGENT);
+        const size_t VEU_BLENDINDEX_MASK = (1 << VEU_BLENDINDEX);
+        const size_t VEU_BLENDWEIGHT_MASK = (1 << VEU_BLENDWEIGHT);
+        const size_t VEU_TEXCOORD_MASK = (1 << VEU_TEXCOORD);
+        const size_t VEU_TEXCOORD0_MASK = VEU_TEXCOORD_MASK | (1 << 16);
+        const size_t VEU_TEXCOORD1_MASK = VEU_TEXCOORD_MASK | (1 << 17);
+        const size_t VEU_TEXCOORD2_MASK = VEU_TEXCOORD_MASK | (1 << 18);
+        const size_t VEU_TEXCOORD3_MASK = VEU_TEXCOORD_MASK | (1 << 19);
 
 		// also set up output data as we go
 		ShaderInterStage sis("VSOUT");
@@ -218,14 +220,14 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 		String passThru;
 
 		// generate inputs from Submesh components
-		int nVB = aSubmesh->vertexBufferCount();
-		int nNormal = 0;
-		int nTexCoord = 0;
-		for (int i = 0; i<nVB; ++i) {
+        size_t nVB = aSubmesh->vertexBufferCount();
+        size_t nNormal = 0;
+        size_t nTexCoord = 0;
+        for (size_t i = 0; i<nVB; ++i) {
 			VertexBuffer* vb = aSubmesh->vertexBuffer(i);
 			if (vb) {
-				int nElem = vb->vertexElementCount();
-				for (int e = 0; e<nElem; ++e) {
+                size_t nElem = vb->vertexElementCount();
+                for (size_t e = 0; e<nElem; ++e) {
 					VertexElement* elem = vb->vertexElement(e);
 					if (elem) {
 						InterStageElem ise;
@@ -279,9 +281,9 @@ VertexShader::VertexShader(ComPtr<ID3D11Device> aDevice, ShaderConstantTable* co
 							bits |= ((1 << VEU_TEXCOORD) | (1 << (16 + elem->mIndex)));
 							{
 								char buf[64];
-								sprintf_s(buf, sizeof(buf), "    %s%d TXC%d : TEXCOORD%d;\n", sTypeLut[elem->mType], elem->mCount, elem->mIndex, elem->mIndex);
+                                sprintf_s(buf, sizeof(buf), "    %s%llu TXC%llu : TEXCOORD%llu;\n", sTypeLut[elem->mType], elem->mCount, elem->mIndex, elem->mIndex);
 								mSource.append(buf);
-								sprintf_s(buf, sizeof(buf), "    vsout.TEXCOORD%d = vsin.TXC%d;\n", elem->mIndex, elem->mIndex);
+                                sprintf_s(buf, sizeof(buf), "    vsout.TEXCOORD%llu = vsin.TXC%llu;\n", elem->mIndex, elem->mIndex);
 								passThru.append(buf);
 							}
 

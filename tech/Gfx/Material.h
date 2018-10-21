@@ -35,7 +35,6 @@ namespace Teardrop {
 namespace Gfx {
 
 class MaterialExpression;
-class FragmentShader;
 class Connection;
 struct Attribute;
 
@@ -53,27 +52,19 @@ public:
 
     bool initialize();
     bool destroy();
-    void apply();
 
-    FragmentShader* shader();
     void addConnection(Connection* conn);
-    int connections(Connection** connections, int nConnections);
+    size_t connections(Connection** connections, size_t nConnections);
 
     void sortExpressions();
-    int expressionCount();
-    int connectionCount();
+    size_t expressionCount();
+    size_t connectionCount();
     MaterialExpression** sortedExpressions();
-
-    void beginGeometryStream();
-    void endGeometryStream();
-    void addVertexElement(VertexElement const& vertexElement);
+    uint64_t hash();
 
     TD_DECLARE_ALLOCATOR();
 
 protected:
-    // will hold pointer to platform/renderer-specific shader instance of this material
-    FragmentShader* mShader;
-
     // map of connections from input to instance; this works because inputs support only
     // one connection
     typedef std::map<const Attribute*, Connection*> Connections;
@@ -82,9 +73,7 @@ protected:
     typedef std::vector<MaterialExpression*> Expressions;
     Expressions mSortedExpressions;
 
-    typedef std::vector<Gfx::VertexElement> GeometryStream;
-    typedef std::vector<GeometryStream> GeometryStreams;
-    GeometryStreams mGeometryStreams;
+    uint64_t mHash;
 };
 
 } // namespace Gfx

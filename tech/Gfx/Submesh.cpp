@@ -70,26 +70,26 @@ void Submesh::removeIndexBuffer()
 	mIndexBuffer = 0;
 }
 
-void Submesh::removeVertexBuffer(int index) 
+void Submesh::removeVertexBuffer(size_t index)
 {
-	assert(index >=0 && index < int(mVertexBuffers.size()));
+    assert(index >=0 && index < mVertexBuffers.size());
 
-	if (index >=0 && index < int(mVertexBuffers.size())) {
+    if (index >=0 && index < mVertexBuffers.size()) {
 		BufferManager::instance().release(mVertexBuffers[index]);
 		mVertexBuffers.erase(mVertexBuffers.begin()+index);
 	}
 }
 
-int Submesh::vertexBufferCount()
+size_t Submesh::vertexBufferCount()
 {
-	return int(mVertexBuffers.size());
+    return mVertexBuffers.size();
 }
 
-VertexBuffer* Submesh::vertexBuffer(int index)
+VertexBuffer* Submesh::vertexBuffer(size_t index)
 {
-	assert(index >=0 && index < int(mVertexBuffers.size()));
+    assert(index >=0 && index < mVertexBuffers.size());
 
-	if (index >=0 && index < int(mVertexBuffers.size())) {
+    if (index >=0 && index < mVertexBuffers.size()) {
 		return mVertexBuffers[index];
 	}
 
@@ -137,8 +137,8 @@ unsigned int Submesh::hash()
 		// create a hash from our structure
 		for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
 			VertexBuffer* vb = *it;
-			int nElems = vb->vertexElementCount();
-			for (int i=0; i<nElems; ++i) {
+            size_t nElems = vb->vertexElementCount();
+            for (size_t i=0; i<nElems; ++i) {
 				VertexElement* elem = vb->vertexElement(i);
 				mHash |= (1 << elem->mUsage);
 
@@ -158,8 +158,8 @@ const ShaderFeatures& Submesh::features()
 		// build the features struct
 		for (VertexBuffers::iterator it = mVertexBuffers.begin(); it != mVertexBuffers.end(); ++it) {
 			VertexBuffer* vb = *it;
-			int nElems = vb->vertexElementCount();
-			for (int i=0; i<nElems; ++i) {
+            size_t nElems = vb->vertexElementCount();
+            for (size_t i=0; i<nElems; ++i) {
 				VertexElement* elem = vb->vertexElement(i);
 				switch(elem->mUsage) {
 					case VEU_POSITION:
@@ -169,7 +169,7 @@ const ShaderFeatures& Submesh::features()
 						mFeatures.setFeature(INTERP_NORMAL);
 						break;
 					case VEU_TEXCOORD:
-						mFeatures.setFeature(INTERP_TEXCOORD, elem->mIndex);
+                        mFeatures.setFeature(INTERP_TEXCOORD, (int)elem->mIndex);
 						break;
 				}
 			}

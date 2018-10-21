@@ -22,7 +22,10 @@ THE SOFTWARE.
 
 
 #include "MaterialExpression.h"
+
 #include "Attribute.h"
+#include "Util/Hash.h"
+
 #include <cstring>
 #include <sstream>
 
@@ -109,7 +112,7 @@ void MaterialExpression::appendDefinition(Language lang, std::ostream& o)
 	o << "}\n\n";
 }
 
-void MaterialExpression::appendCall(Language lang, int ordinal, const std::vector<std::string>& inputs, const std::map<const Attribute*, std::string>& outputs, std::ostream& o)
+void MaterialExpression::appendCall(Language lang, size_t ordinal, const std::vector<std::string>& inputs, const std::map<const Attribute*, std::string>& outputs, std::ostream& o)
 {
 	// same in all languages?
 
@@ -161,6 +164,14 @@ void MaterialExpression::appendCall(Language lang, int ordinal, const std::vecto
 	o << ");\n";
 }
 
+uint64_t MaterialExpression::hash(uint64_t seed)
+{
+    seed = hashString64(seed, getClassDef()->getName());
+
+    // then have subclasses roll in any static values
+    return hashStatics(seed);
+}
+
 void MaterialExpression::appendBody(Language /*lang*/, std::ostream& /*o*/)
 {
 }
@@ -173,4 +184,10 @@ void MaterialExpression::insertFunctionName(Language /*lang*/, std::ostream& o)
 {
 	const Reflection::ClassDef* classDef = getDerivedClassDef();
 	o << classDef->getName();
+}
+
+uint64_t MaterialExpression::hashStatics(uint64_t seed)
+{
+    // default behavior -- NOP
+    return seed;
 }

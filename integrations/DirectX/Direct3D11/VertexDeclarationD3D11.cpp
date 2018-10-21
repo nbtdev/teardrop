@@ -47,7 +47,7 @@ VertexDeclaration::~VertexDeclaration()
 
 namespace {
 
-static DXGI_FORMAT makeD3D11Type(VertexElementType type, int count)
+static DXGI_FORMAT makeD3D11Type(VertexElementType type, size_t count)
 {
 	if (type == VET_FLOAT) {
 		if (count == 4) return DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -87,11 +87,11 @@ const char* s_SemanticNameLUT[] =
 void VertexDeclaration::rebuild()
 {
 	mHash = 0;
-	int nTexCoord = 0;
+    size_t nTexCoord = 0;
 
-	int nElem = 0;
-	int nVB = mParent->vertexBufferCount();
-	for (int v = 0; v<nVB; ++v) {
+    size_t nElem = 0;
+    size_t nVB = mParent->vertexBufferCount();
+    for (size_t v = 0; v<nVB; ++v) {
 		VertexBuffer* vb = mParent->vertexBuffer(v);
 		if (vb) {
 			nElem += vb->vertexElementCount();
@@ -101,15 +101,15 @@ void VertexDeclaration::rebuild()
 	delete[] mElements;
 	mElements = TD_NEW D3D11_INPUT_ELEMENT_DESC[nElem];
 
-	int eIdx = 0;
-	for (int v = 0; v<nVB; ++v) {
+    size_t eIdx = 0;
+    for (size_t v = 0; v<nVB; ++v) {
 		VertexBuffer* vb = mParent->vertexBuffer(v);
 
 		if (vb) {
-			int offset = 0;
+            size_t offset = 0;
 
-			int nVbElem = vb->vertexElementCount();
-			for (int e = 0; e<nVbElem; ++e)
+            size_t nVbElem = vb->vertexElementCount();
+            for (size_t e = 0; e<nVbElem; ++e)
 			{
 				VertexElement* ve = vb->vertexElement(e);
 				D3D11_INPUT_ELEMENT_DESC& elem = mElements[eIdx];
@@ -119,7 +119,7 @@ void VertexDeclaration::rebuild()
 				elem.Format = makeD3D11Type(ve->mType, ve->mCount);
 				elem.AlignedByteOffset = (WORD)offset;
 				elem.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-				elem.InputSlot = v;
+                elem.InputSlot = (UINT)v;
 				elem.InstanceDataStepRate = 0;
 
 				offset += ve->size();
@@ -129,7 +129,7 @@ void VertexDeclaration::rebuild()
 				if (ve->mUsage == VEU_TEXCOORD)
 					nTexCoord++;
 
-				int mask = 0;
+                int mask = 0;
 				if (ve->mUsage != VEU_UNKNOWN) {
 					mask = 1 << ve->mUsage;
 				}
@@ -154,7 +154,7 @@ void VertexDeclaration::rebuild()
 	// create the vertex declaration
 	HRESULT hr = mDevice->CreateInputLayout(
 		mElements,
-		nElem,
+        (UINT)nElem,
 		vs->bytecode(),
 		vs->bytecodeLength(),
 		&mLayout

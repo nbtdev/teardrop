@@ -41,7 +41,7 @@ VertexBuffer::~VertexBuffer()
 	if (mSR.pData) unmap();
 }
 
-void VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData/* =0 */)
+void VertexBuffer::initialize(size_t aVertexCount, size_t aInitFlags, void* aData/* =0 */)
 {
 	D3D11_USAGE usage = D3D11_USAGE_DEFAULT;
 	UINT cpuFlags = 0;
@@ -54,10 +54,10 @@ void VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData/* =0
 			cpuFlags = D3D11_CPU_ACCESS_WRITE;
 	}
 
-	int buflen = aVertexCount * vertexSize();
+    size_t buflen = aVertexCount * vertexSize();
 
 	CD3D11_BUFFER_DESC desc(
-		buflen,
+        (UINT)buflen,
 		D3D11_BIND_VERTEX_BUFFER,
 		usage,
 		cpuFlags
@@ -87,7 +87,7 @@ void VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData/* =0
 	}
 }
 
-void VertexBuffer::resize(int aVertexCount)
+void VertexBuffer::resize(size_t aVertexCount)
 {
 	mD3D11Buffer.Reset();
 
@@ -107,10 +107,10 @@ void* VertexBuffer::map(MapFlags flags /*=MAP_ANY*/)
 	if (!(mInitFlags & INIT_DYNAMIC)) {
 		// first, create the staging buffer if it does not already exist
 		if (!mD3D11StagingBuffer) {
-			int buflen = mCount * mSize;
+            size_t buflen = mCount * mSize;
 
 			CD3D11_BUFFER_DESC desc(
-				buflen,
+                (UINT)buflen,
 				0,
 				D3D11_USAGE_STAGING,
 				D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE

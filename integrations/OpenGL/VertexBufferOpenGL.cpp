@@ -24,7 +24,7 @@ VertexBuffer::~VertexBuffer()
 }
 
 void
-VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData)
+VertexBuffer::initialize(size_t aVertexCount, size_t aInitFlags, void* aData)
 {
     mCount = aVertexCount;
     mInitFlags = aInitFlags;
@@ -44,7 +44,7 @@ VertexBuffer::initialize(int aVertexCount, int aInitFlags, void* aData)
 }
 
 void
-VertexBuffer::resize(int aVertexCount)
+VertexBuffer::resize(size_t aVertexCount)
 {
     if (mBufferName) {
         mCount = aVertexCount;

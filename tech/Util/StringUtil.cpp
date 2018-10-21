@@ -145,14 +145,26 @@ void StringUtil::toString(long c, char* buf, int size)
 //---------------------------------------------------------------------------
 void StringUtil::toString(unsigned long c, String& str)
 {
-	char buf[32];
-	toString(c, buf, 32);
-	str = buf;
+    char buf[32];
+    toString(c, buf, 32);
+    str = buf;
 }
 //---------------------------------------------------------------------------
 void StringUtil::toString(unsigned long c, char* buf, int size)
 {
     sprintf_s(buf, size, "%lu", c);
+}
+//---------------------------------------------------------------------------
+void StringUtil::toString(unsigned long long c, String& str)
+{
+    char buf[32];
+    toString(c, buf, 32);
+    str = buf;
+}
+//---------------------------------------------------------------------------
+void StringUtil::toString(unsigned long long c, char* buf, int size)
+{
+    sprintf_s(buf, size, "%llu", c);
 }
 //---------------------------------------------------------------------------
 void StringUtil::toString(void* c, String& str)
@@ -264,12 +276,22 @@ void StringUtil::fromString(const char* buf, long& c)
 //---------------------------------------------------------------------------
 void StringUtil::fromString(const String& str, unsigned long& c)
 {
-	c = strtoul(str, 0, 10);
+    c = strtoul(str, 0, 10);
 }
 //---------------------------------------------------------------------------
 void StringUtil::fromString(const char* buf, unsigned long& c)
 {
-	c = strtoul(buf, 0, 10);
+    c = strtoul(buf, 0, 10);
+}
+//---------------------------------------------------------------------------
+void StringUtil::fromString(const String& str, unsigned long long& c)
+{
+    c = strtoul(str, 0, 10);
+}
+//---------------------------------------------------------------------------
+void StringUtil::fromString(const char* buf, unsigned long long& c)
+{
+    c = strtoul(buf, 0, 10);
 }
 //---------------------------------------------------------------------------
 void StringUtil::fromString(const String& str, void*& c)

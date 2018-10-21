@@ -58,9 +58,11 @@ namespace Teardrop
 		static void toString(unsigned int c, char* buf, int size);
 		static void toString(long c, String& str);
 		static void toString(long c, char* buf, int size);
-		static void toString(unsigned long c, String& str);
-		static void toString(unsigned long c, char* buf, int size);
-		static void toString(void* c, String& str);
+        static void toString(unsigned long c, String& str);
+        static void toString(unsigned long c, char* buf, int size);
+        static void toString(unsigned long long c, String& str);
+        static void toString(unsigned long long c, char* buf, int size);
+        static void toString(void* c, String& str);
 		static void toString(void* c, char* buf, int size);
 
 		static void fromString(const String& str, float& c);
@@ -81,9 +83,11 @@ namespace Teardrop
 		static void fromString(const char* buf, unsigned int& c);
 		static void fromString(const String& str, long& c);
 		static void fromString(const char* buf, long& c);
-		static void fromString(const String& str, unsigned long& c);
-		static void fromString(const char* buf, unsigned long& c);
-		static void fromString(const String& str, void*& c);
+        static void fromString(const String& str, unsigned long& c);
+        static void fromString(const char* buf, unsigned long& c);
+        static void fromString(const String& str, unsigned long long& c);
+        static void fromString(const char* buf, unsigned long long& c);
+        static void fromString(const String& str, void*& c);
 		static void fromString(const char* buf, void*& c);
 
 		// this seems pedantic, but Reflection wants it for completeness,

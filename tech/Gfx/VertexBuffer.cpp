@@ -38,12 +38,12 @@ VertexBuffer::~VertexBuffer()
 {
 }
 
-int VertexBuffer::vertexCount()
+size_t VertexBuffer::vertexCount()
 {
 	return mCount;
 }
 
-int VertexBuffer::vertexSize()
+size_t VertexBuffer::vertexSize()
 {
 	return mSize;
 }
@@ -52,7 +52,7 @@ void VertexBuffer::beginAddVertexElements()
 {	
 }
 
-int VertexBuffer::endAddVertexElements()
+size_t VertexBuffer::endAddVertexElements()
 {
 	// recalculate vertex size
 	mSize = 0;
@@ -69,15 +69,15 @@ VertexElement& VertexBuffer::addVertexElement()
 	return mElements.back();
 }
 
-int VertexBuffer::vertexElementCount()
+size_t VertexBuffer::vertexElementCount()
 {
-	return int(mElements.size());
+    return mElements.size();
 }
 
-VertexElement* VertexBuffer::vertexElement(int idx)
+VertexElement* VertexBuffer::vertexElement(size_t idx)
 {
-	assert(idx >= 0 && idx < int(mElements.size()));
-	if (idx >= 0 && idx < int(mElements.size())) {
+    assert(idx >= 0 && idx < mElements.size());
+    if (idx >= 0 && idx < mElements.size()) {
 		return &mElements[idx];
 	}
 

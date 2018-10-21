@@ -38,14 +38,14 @@ namespace Teardrop
 			VertexBuffer(Submesh* parent);
 			virtual ~VertexBuffer();
 
-			int vertexCount();
-			int vertexSize();
+            size_t vertexCount();
+            size_t vertexSize();
 
 			void beginAddVertexElements();
 			VertexElement& addVertexElement();
-			int endAddVertexElements();
-			int vertexElementCount();
-			VertexElement* vertexElement(int index);
+            size_t endAddVertexElements();
+            size_t vertexElementCount();
+            VertexElement* vertexElement(size_t index);
 			
 			enum InitFlags {
 				INIT_DYNAMIC = 1,
@@ -60,17 +60,17 @@ namespace Teardrop
 				MAP_DISCARD = 2,
 			};
 
-			virtual void initialize(int vertexCount, int initFlags, void* data=0) = 0;
-			virtual void resize(int vertexCount) = 0;
+            virtual void initialize(size_t vertexCount, size_t initFlags, void* data=0) = 0;
+            virtual void resize(size_t vertexCount) = 0;
 			virtual void* map(MapFlags mapFlags) = 0;
 			virtual void unmap() = 0;
 
 			TD_DECLARE_ALLOCATOR();
 
 		protected:
-			int mSize;
-			int mCount;
-			int mInitFlags;
+            size_t mSize;
+            size_t mCount;
+            size_t mInitFlags;
 
 			typedef std::vector<VertexElement> VertexElements;
 			VertexElements mElements;

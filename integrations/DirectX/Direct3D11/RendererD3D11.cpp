@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include "Gfx/Camera.h"
 #include "Gfx/Exception.h"
 #include "Gfx/Material.h"
+#include "Gfx/PipelineStateManager.h"
 #include "Gfx/ShaderConstantTable.h"
 #include "Gfx/ShaderConstant.h"
 #include "Gfx/Submesh.h"
@@ -122,6 +123,7 @@ Renderer::Renderer(int flags)
 	TD_NEW BufferManager(this);
 	TD_NEW TextureManager(mDevice);
 	TD_NEW ShaderManager(mDevice);
+    TD_NEW PipelineStateManager();
 
 	// ensure that the xform constants buffer struct is 16-byte-aligned (sanity check)
 	assert(sizeof(mXformConstants) % 16 == 0);
@@ -175,6 +177,7 @@ Renderer::Renderer(int flags)
 
 Renderer::~Renderer()
 {
+    PipelineStateManager::instance().shutdown();
 	ShaderManager::instance().shutdown();
 	TextureManager::instance().shutdown();
 	BufferManager::instance().shutdown();
@@ -422,10 +425,14 @@ void Renderer::beginObject(const Matrix44& worldXf)
 		);
 }
 
-void Renderer::apply(Material* material)
+void Renderer::apply(Pipeline* pipeline)
 {
-	if (material)
-		material->apply();
+    if (!pipeline) {
+        return;
+    }
+
+    // establish a graphics pipeline setup based on this material; in the case of
+    // D3D11, that means a vertex and a pixel shader, and perhaps a geometry shader
 }
 
 /*
@@ -475,17 +482,17 @@ void Renderer::render(Submesh* submesh)
 	ID3D11Buffer* vbs[16];
 	UINT strides[16];
 	UINT offsets[16];
-	int nVB = submesh->vertexBufferCount();
-	for (int i=0; i<nVB && i<sizeof(vbs); ++i) {
+    size_t nVB = submesh->vertexBufferCount();
+    for (size_t i=0; i<nVB && i<sizeof(vbs); ++i) {
 		VertexBuffer* vb = static_cast<VertexBuffer*>(submesh->vertexBuffer(i));
 		vbs[i] = vb->buffer();
-		strides[i] = vb->vertexSize();
+        strides[i] = (UINT)vb->vertexSize();
 		offsets[i] = 0;
 	}
 
 	mDeviceContext->IASetVertexBuffers(
 		0,
-		nVB,
+        (UINT)nVB,
 		vbs,
 		strides,
 		offsets);

@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include "Gfx/Camera.h"
 #include "Gfx/Exception.h"
 #include "Gfx/Mesh.h"
+#include "Gfx/PipelineStateManager.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
 #include "Game/OrbitCamController.h"
@@ -85,7 +86,8 @@ void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* r
 	}
 
 	Gfx::Camera* cam = mController->camera();
-	Gfx::Mesh* mesh = getStaticMeshAsset()->mesh();
+    MeshAsset* meshAsset = getStaticMeshAsset();
+    Gfx::Mesh* mesh = meshAsset->mesh();
 
 	assert(mesh);
 
@@ -97,19 +99,24 @@ void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* r
 	try {
 		renderer->beginScene(cam, mVP);
 
-		// apply the material
-		renderer->apply(getStaticMeshAsset()->getMaterial());
-
-		// begin the object
-		renderer->beginObject(Matrix44::IDENTITY);
-
-		// draw the submeshes
         size_t nSubmesh = mesh->submeshCount();
-        for (size_t i = 0; i < nSubmesh; ++i) {
-			renderer->render(mesh->submesh(i));
-		}
 
-		renderer->endObject();
+        if (nSubmesh > 0) {
+            // set up the pipeline for this object
+            renderer->apply(meshAsset->pipeline());
+
+            // begin the object
+            renderer->beginObject(Matrix44::IDENTITY);
+
+            // draw the submeshes
+            size_t nSubmesh = mesh->submeshCount();
+            for (size_t i = 0; i < nSubmesh; ++i) {
+                renderer->render(mesh->submesh(i));
+            }
+
+            renderer->endObject();
+        }
+
 		renderer->endScene();
 	} catch (const Gfx::Exception& e) {
 		Environment::get().pLogger->logMessage(e.what());

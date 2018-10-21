@@ -62,35 +62,45 @@ size_t Teardrop::hashData(void* pData, size_t len)
 //---------------------------------------------------------------------------
 uint64_t Teardrop::hashString64(const char* strVal)
 {
-	if (!strVal)
-		return 0;
+    return hashString64(0, strVal);
+}
+//---------------------------------------------------------------------------
+uint64_t Teardrop::hashString64(uint64_t seed, const char* strVal)
+{
+    if (!strVal)
+        return 0;
 
-	const char* p = strVal;
-    uint64_t rtn = 0;
-	while(*p)
-	{
-		rtn = rtn * 131 + *p;
-		++p;
-	}
+    const char* p = strVal;
+    uint64_t rtn = seed;
+    while(*p)
+    {
+        rtn = rtn * 131 + *p;
+        ++p;
+    }
 
-	return rtn;
+    return rtn;
 }
 //---------------------------------------------------------------------------
 uint64_t Teardrop::hashData64(void* pData, size_t len)
 {
-	if (!pData)
-		return 0;
+    return hashData64(0, pData, len);
+}
+//---------------------------------------------------------------------------
+uint64_t Teardrop::hashData64(uint64_t seed, void* pData, size_t len)
+{
+    if (!pData)
+        return 0;
 
-	const char* p = (const char*)pData;
-	size_t i = 0;
-    uint64_t rtn = 0;
+    const char* p = (const char*)pData;
+    size_t i = 0;
+    uint64_t rtn = seed;
 
-	while(i < len)
-	{
-		rtn = rtn * 131 + *p;
-		++i;
-		++p;
-	}
+    while(i < len)
+    {
+        rtn = rtn * 131 + *p;
+        ++i;
+        ++p;
+    }
 
-	return rtn;
+    return rtn;
 }

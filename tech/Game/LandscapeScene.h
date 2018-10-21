@@ -36,6 +36,7 @@ class SceneRenderer;
 class SceneRenderStep;
 
 namespace Gfx {
+    class Pipeline;
     class Renderable;
 }
 
@@ -81,6 +82,7 @@ private:
     SceneRenderStep* mSceneRenderStep;
 
     Gfx::Renderable* mTerrainRenderables;
+    Gfx::Pipeline* mTerrainPipeline;
 
     AABB* mBoundingBoxes;
     size_t mTerrainRenderableCount;

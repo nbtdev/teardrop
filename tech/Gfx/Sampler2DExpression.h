@@ -45,7 +45,7 @@ namespace Teardrop
 			const String& samplerName();
 
 			// custom method variant, not an override
-			void appendDefinition(Language lang, int aTextureIndex, int aSamplerIndex, std::ostream& o);
+            void appendDefinition(Language lang, size_t aTextureIndex, size_t aSamplerIndex, std::ostream& o);
 
 			TD_DECLARE_ALLOCATOR();
 
@@ -54,7 +54,7 @@ namespace Teardrop
 			void appendBody(Language lang, std::ostream& o);
 
 			// custom method variant, not an override
-			void insertDependencies(Language lang, int aTextureIndex, int aSamplerIndex, std::ostream& o);
+            void insertDependencies(Language lang, size_t aTextureIndex, size_t aSamplerIndex, std::ostream& o);
 
 			// custom function name
 			void insertFunctionName(Language lang, std::ostream& o);

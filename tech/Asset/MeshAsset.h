@@ -30,6 +30,7 @@ namespace Teardrop
 {
 	namespace Gfx {
 		class Mesh;
+        class Pipeline;
 	}
 
     class MeshAsset : public Asset
@@ -44,6 +45,7 @@ namespace Teardrop
 
 		// will create if not already present
         Gfx::Mesh* mesh();
+        Gfx::Pipeline* pipeline();
 
         uint64_t serialize(Stream& strm) override;
         uint64_t deserialize(Stream& strm) override;
@@ -52,6 +54,8 @@ namespace Teardrop
 
 	protected:
         Gfx::Mesh* mMesh;
+        Gfx::Pipeline* mPipeline;
+        uint64_t mPipelineHash;
 	};
 } // namespace Teardrop
 

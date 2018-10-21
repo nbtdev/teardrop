@@ -60,7 +60,7 @@ namespace Teardrop
 
 			void appendCall(
 				Language lang, 
-				int ordinal, // instance ordinal for this expression in the shader
+                size_t ordinal, // instance ordinal for this expression in the shader
 				const std::vector<std::string>& inputs, // input argument names
 				const std::map<const Attribute*, std::string>& outputs, // output argument names 
 				std::ostream& o
@@ -70,6 +70,7 @@ namespace Teardrop
 			const Attributes& inputAttributes();
 			const Attributes& outputAttributes();
 			const ShaderFeatures& features();
+            uint64_t hash(uint64_t seed);
 
 			TD_DECLARE_ALLOCATOR();
 
@@ -89,6 +90,9 @@ namespace Teardrop
 			// allow subclasses to provide a custom name for their functions (defaults to the 
 			// ClassDef name)
 			virtual void insertFunctionName(Language lang, std::ostream& o);
+
+            // allow subclasses to hash their static inputs into the hash provided by "seed"
+            virtual uint64_t hashStatics(uint64_t seed);
 		};
 	}
 }

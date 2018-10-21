@@ -68,7 +68,7 @@ void Sampler2DExpression::appendBody(Language lang, std::ostream& o)
 	}
 }
 
-void Sampler2DExpression::appendDefinition(Language lang, int aTextureIndex, int aSampIndex, std::ostream& o)
+void Sampler2DExpression::appendDefinition(Language lang, size_t aTextureIndex, size_t aSampIndex, std::ostream& o)
 {
 	// call our "custom" insertDependencies
 	insertDependencies(lang, aTextureIndex, aSampIndex, o);
@@ -77,7 +77,7 @@ void Sampler2DExpression::appendDefinition(Language lang, int aTextureIndex, int
 	MaterialExpression::appendDefinition(lang, o);
 }
 
-void Sampler2DExpression::insertDependencies(Language lang, int aTextureIndex, int aSampIndex, std::ostream& o)
+void Sampler2DExpression::insertDependencies(Language lang, size_t aTextureIndex, size_t aSampIndex, std::ostream& o)
 {
 	Sampler2D& samp = getSampler2D();
 	if (samp.texture()) {

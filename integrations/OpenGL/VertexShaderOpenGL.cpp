@@ -113,12 +113,12 @@ bool VertexShader::initialize(Submesh* submesh)
 		const int VEU_TEXCOORD3_MASK = VEU_TEXCOORD_MASK | (1 << 19);
 
 		// generate inputs from Submesh components
-		int nVB = submesh->vertexBufferCount();
-		for (int i = 0; i<nVB; ++i) {
+        size_t nVB = submesh->vertexBufferCount();
+        for (size_t i = 0; i<nVB; ++i) {
 			VertexBuffer* vb = submesh->vertexBuffer(i);
 			if (vb) {
-				int nElem = vb->vertexElementCount();
-				for (int e = 0; e<nElem; ++e) {
+                size_t nElem = vb->vertexElementCount();
+                for (size_t e = 0; e<nElem; ++e) {
 					VertexElement* elem = vb->vertexElement(e);
 					if (elem) {
 						switch (elem->mUsage) {

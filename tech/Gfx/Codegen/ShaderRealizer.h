@@ -48,6 +48,8 @@ namespace Teardrop
 				ShaderRealizer();
 				~ShaderRealizer();
 
+                virtual void beginProgram();
+                virtual void endProgram();
 				virtual void openScope();
 				virtual void closeScope();
 				virtual void endStatement();

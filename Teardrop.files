@@ -3363,6 +3363,10 @@ tech/Gfx/MaterialOutput.cpp
 tech/Gfx/MaterialOutput.h
 tech/Gfx/Mesh.cpp
 tech/Gfx/Mesh.h
+tech/Gfx/Pipeline.cpp
+tech/Gfx/Pipeline.h
+tech/Gfx/PipelineStateManager.cpp
+tech/Gfx/PipelineStateManager.h
 tech/Gfx/RenderQueue.cpp
 tech/Gfx/RenderQueue.h
 tech/Gfx/RenderTarget.cpp

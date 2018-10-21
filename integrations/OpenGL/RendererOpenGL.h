@@ -46,6 +46,8 @@ namespace Teardrop
                 void beginObject(const Matrix44& worldXf);
                 // set material (shader) used for subsequent renders
                 void apply(Material* material);
+                // set up pipeline used for subsequent renders
+                void apply(Pipeline* pipeline);
                 // render
                 void render(Submesh* submesh);
                 // end object (mesh instance)

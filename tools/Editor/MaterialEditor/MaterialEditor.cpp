@@ -117,7 +117,7 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 
 		mMaterial->sortExpressions();
 		Gfx::MaterialExpression** exprs = mMaterial->sortedExpressions();
-		int nExpr = mMaterial->expressionCount();
+        size_t nExpr = mMaterial->expressionCount();
 		mExpressionItems.resize(nExpr);
 
 		// TODO: when the user makes changes to the material editor item layout, we should save 
@@ -128,14 +128,14 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 		// take the floor of that value for the number of rows, and the ceiling of that value
 		// as the number of columns
         qreal sqr = std::sqrt(float(nExpr));
-        int rows = int(std::floor(sqr));
-        int cols = int(std::ceil(sqr));
+        size_t rows = size_t(std::floor(sqr));
+        size_t cols = size_t(std::ceil(sqr));
 
-		int k = 0;
+        size_t k = 0;
 		qreal x = 0.f;
 		qreal y = 0.f;
-		for (int j = 0; j < rows; ++j, y += 300.f) {
-			for (int i = 0; i < cols; ++i, x -= 150.f) {
+        for (size_t j = 0; j < rows; ++j, y += 300.f) {
+            for (size_t i = 0; i < cols; ++i, x -= 150.f) {
 				Gfx::MaterialExpression* expr = exprs[k];
 				ExpressionItem* item = TD_NEW ExpressionItem(expr, mConnectors.get());
 				mExpressionItems[k] = item;
@@ -146,7 +146,7 @@ MaterialEditor::MaterialEditor(ProjectItem* materialItem, QWidget* parent/* =0 *
 		}
 
 		// make the connections between connected attributes
-		int nConnections = mMaterial->connectionCount();
+        size_t nConnections = mMaterial->connectionCount();
 		std::vector<Gfx::Connection*> connections(nConnections);
 		mMaterial->connections(connections.data(), nConnections);
 

@@ -38,8 +38,8 @@ namespace Teardrop
 				VertexBuffer(ComPtr<ID3D11Device> aDevice, Submesh* parent);
 				~VertexBuffer();
 
-				void initialize(int aVertexCount, int aInitFlags, void* data = 0);
-				void resize(int aVertexCount);
+                void initialize(size_t aVertexCount, size_t aInitFlags, void* data = 0);
+                void resize(size_t aVertexCount);
 				void* map(MapFlags flags = MAP_ANY);
 				void unmap();
 

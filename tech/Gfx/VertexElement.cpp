@@ -26,7 +26,7 @@ THE SOFTWARE.
 using namespace Teardrop;
 using namespace Gfx;
 
-static int sTypeSizes[] = {
+static size_t sTypeSizes[] = {
 	0,	//VET_UNKNOWN,
 	1,	//VET_BYTE,
 	2,	//VET_SHORT,
@@ -42,7 +42,7 @@ VertexElement::VertexElement()
 {
 }
 
-int VertexElement::size()
+size_t VertexElement::size()
 {
 	return sTypeSizes[mType] * mCount;
 }

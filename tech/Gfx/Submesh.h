@@ -44,10 +44,10 @@ namespace Teardrop
 			IndexBuffer* createIndexBuffer();
 			VertexBuffer* createVertexBuffer();
 			void removeIndexBuffer();
-			void removeVertexBuffer(int index);
+            void removeVertexBuffer(size_t index);
 
-			int vertexBufferCount();
-			VertexBuffer* vertexBuffer(int index);
+            size_t vertexBufferCount();
+            VertexBuffer* vertexBuffer(size_t index);
 			IndexBuffer* indexBuffer();
 
 			VertexDeclaration* vertexDeclaration();

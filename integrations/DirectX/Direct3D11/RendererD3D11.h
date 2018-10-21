@@ -51,7 +51,7 @@ namespace Teardrop
 				void endObject();
 				void endScene();
 				void endFrame();
-				void apply(Material* material);
+                void apply(Pipeline* pipeline);
 				void render(Submesh* submesh);
 
 				// aMatrixPalette must already be in 3x4 transposed form prior to calling this method

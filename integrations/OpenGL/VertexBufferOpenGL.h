@@ -23,8 +23,8 @@ namespace Teardrop
                 VertexBuffer(Gfx::Submesh* parent);
                 ~VertexBuffer();
 
-                void initialize(int vertexCount, int initFlags, void* data=0);
-                void resize(int vertexCount);
+                void initialize(size_t vertexCount, size_t initFlags, void* data=0);
+                void resize(size_t vertexCount);
                 void* map(MapFlags mapFlags);
                 void unmap();
 

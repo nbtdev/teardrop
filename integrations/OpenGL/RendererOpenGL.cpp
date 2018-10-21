@@ -60,13 +60,11 @@ Renderer::createRenderTexture(int w, int h, SurfaceFormat fmt, int flags)
     return nullptr;
 }
 
-void
-Renderer::beginFrame()
+void Renderer::beginFrame()
 {
 }
 
-void
-Renderer::beginScene(Camera* /*aCamera*/, Viewport* aVP)
+void Renderer::beginScene(Camera* /*aCamera*/, Viewport* aVP)
 {
     // setup viewport and camera for the next render
     const Vector2& pos = aVP->getPosition();
@@ -76,20 +74,21 @@ Renderer::beginScene(Camera* /*aCamera*/, Viewport* aVP)
     glViewport(int(pos.x), int(pos.y), int(dim.x), int(dim.y));
 }
 
-void
-Renderer::beginObject(const Matrix44& worldXf)
+void Renderer::beginObject(const Matrix44& worldXf)
 {
 
 }
 
-void
-Renderer::apply(Material* material)
+void Renderer::apply(Material* material)
 {
-	mCurrentMtl = material;
+    mCurrentMtl = material;
 }
 
-void
-Renderer::render(Submesh* submesh)
+void Renderer::apply(Pipeline* /*pipeline*/)
+{
+}
+
+void Renderer::render(Submesh* submesh)
 {
 	// calculate the program to use (creating a new one if necessary) based on current material and 
 	// this submesh
@@ -109,20 +108,17 @@ Renderer::render(Submesh* submesh)
 		mCurrentProgram->disable();
 }
 
-void
-Renderer::endObject()
+void Renderer::endObject()
 {
 
 }
 
-void
-Renderer::endScene()
+void Renderer::endScene()
 {
 
 }
 
-void
-Renderer::endFrame()
+void Renderer::endFrame()
 {
 }
 

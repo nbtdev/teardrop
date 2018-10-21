@@ -22,10 +22,11 @@ THE SOFTWARE.
 
 
 #include "Material.h"
-#include "MaterialOutput.h"
-#include "FragmentShader.h"
-#include "ShaderManager.h"
-#include "Connection.h"
+
+#include "Gfx/Connection.h"
+#include "Gfx/MaterialOutput.h"
+#include "Util/Hash.h"
+
 #include <algorithm>
 #include <set>
 
@@ -35,7 +36,7 @@ using namespace Gfx;
 TD_CLASS_IMPL(Material);
 
 Material::Material()
-	: mShader(0)
+    : mHash(0)
 {
 }
 
@@ -50,30 +51,16 @@ bool Material::initialize()
 
 bool Material::destroy()
 {
-	ShaderManager::instance().release(mShader);
-	mShader = 0;
-
 	return true;
-}
-
-FragmentShader* Material::shader()
-{
-	if (!mShader) {
-		mShader = ShaderManager::instance().createOrFindInstanceOf(this);
-		mShader->initialize();
-	}
-
-	return mShader;
 }
 
 void Material::addConnection(Connection* conn)
 {
 	mConnections.insert(Connections::value_type(conn->output(), conn));
-}
 
-void Material::apply()
-{
-	shader()->apply();
+    // force a rehash next time someone asks (typically will force a new
+    // shader creation)
+    mHash = 0;
 }
 
 template<typename NodeType>
@@ -136,6 +123,9 @@ private:
 
 void Material::sortExpressions()
 {
+    // force a rehash after this
+    mHash = 0;
+
 	std::set<MaterialExpression*> added;
 	DAG<MaterialExpression> dag;
 
@@ -166,46 +156,62 @@ void Material::sortExpressions()
 MaterialExpression** Material::sortedExpressions()
 {
 	if (expressionCount()) 
-		return &mSortedExpressions[0];
+        return mSortedExpressions.data();
 
 	return nullptr;
 }
 
-int Material::expressionCount()
+size_t Material::expressionCount()
 {
-	return int(mSortedExpressions.size());
+    return mSortedExpressions.size();
 }
 
-int Material::connectionCount()
+size_t Material::connectionCount()
 {
-	return int(mConnections.size());
+    return mConnections.size();
 }
 
-int Material::connections(Connection** connections, int nConnections)
+size_t Material::connections(Connection** connections, size_t nConnections)
 {
 	if (connections == 0 || nConnections == 0)
-		return int(mConnections.size());
+        return mConnections.size();
 
 	// otherwise, fill in the passed array
-	int nConn = std::max(nConnections, int(mConnections.size()));
+    size_t nConn = std::max(nConnections, mConnections.size());
 	Connections::iterator it = mConnections.begin();
-	for (int i=0; i<nConn; ++i) {
+    for (size_t i=0; i<nConn; ++i) {
 		connections[i] = it->second;
 	}
 
 	return nConn;
 }
 
-void Material::beginGeometryStream()
+uint64_t Material::hash()
 {
-    mGeometryStreams.push_back(GeometryStream());
-}
+    if (mHash) {
+        return mHash;
+    }
 
-void Material::endGeometryStream()
-{
-}
+    // otherwise, we need to crawl the DAG and hash anything that is not a dynamic input of
+    // some sort (sampler inputs, things that come from uniform buffers, etc. -- anything that
+    // is not defined statically by the material itself)
+    MaterialExpression** expressions = sortedExpressions();
+    if (expressions == nullptr) {
+        sortExpressions();
+        expressions = sortedExpressions();
+    }
 
-void Material::addVertexElement(VertexElement const& vertexElement)
-{
-    mGeometryStreams.back().push_back(vertexElement);
+    if (expressions == nullptr) {
+        return 0;
+    }
+
+    size_t exprCount = expressionCount();
+    for (size_t i=0; i<exprCount; ++i) {
+        MaterialExpression* expr = expressions[i];
+
+        // each expression knows how to hash itself, and this method takes a seed value
+        mHash = expr->hash(mHash);
+    }
+
+    return mHash;
 }

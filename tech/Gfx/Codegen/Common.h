@@ -43,8 +43,11 @@ namespace Teardrop
 
 			enum BinaryOperation {
 				BINARY_OP_ASSIGN,
-				BINARY_OP_ADD,
-			};
+                BINARY_OP_ADD,
+                BINARY_OP_SUB,
+                BINARY_OP_MUL,
+                BINARY_OP_DIV,
+            };
 
 			enum Direction {
 				DIRECTION_IN,

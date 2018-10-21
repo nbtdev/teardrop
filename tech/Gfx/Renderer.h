@@ -39,6 +39,7 @@ namespace Teardrop
 		class Camera;
 		class Viewport;
 		class Material;
+        class Pipeline;
 		class Submesh;
 
 		class Renderer
@@ -59,9 +60,9 @@ namespace Teardrop
 			virtual void beginScene(Camera* camera, Viewport* vp=0) = 0;
 			// begin rendering a new object (mesh instance)
 			virtual void beginObject(const Matrix44& worldXf) = 0;
-			// set material (shader) used for subsequent renders
-			virtual void apply(Material* material) = 0;
-			// render 
+            // set up the graphics pipeline to render one or more Renderables
+            virtual void apply(Pipeline* pipeline) = 0;
+            // render
 			virtual void render(Submesh* submesh) = 0;
 			// end object (mesh instance)
 			virtual void endObject() = 0;

@@ -21,9 +21,10 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "MeshAsset.h"
-#include "Gfx/Mesh.h"
-#include "Gfx/Submesh.h"
 #include "Gfx/IndexBuffer.h"
+#include "Gfx/Mesh.h"
+#include "Gfx/PipelineStateManager.h"
+#include "Gfx/Submesh.h"
 #include "Gfx/VertexBuffer.h"
 #include "Gfx/VertexElement.h"
 #include "Stream/Stream.h"
@@ -34,7 +35,9 @@ using namespace Gfx;
 TD_CLASS_IMPL(MeshAsset);
 
 MeshAsset::MeshAsset()
-	: mMesh(0)
+    : mMesh(nullptr)
+    , mPipeline(nullptr)
+    , mPipelineHash(0)
 {
 }
 
@@ -57,54 +60,54 @@ uint64_t MeshAsset::serialize(Stream& strm)
 		Submesh* sm = mMesh->submesh(s);
 
 		// write primitive type
-		int primType = sm->primitiveType();
+        uint32_t primType = sm->primitiveType();
 		nBytes += strm.write(&primType, sizeof(primType));
 
 		IndexBuffer* ib = sm->indexBuffer();
 		if (ib && ib->indexCount()) {
 			// write index count
-			int nIndices = ib->indexCount();
+            uint32_t nIndices = ib->indexCount();
 			nBytes += strm.write(&nIndices, sizeof(nIndices));
 
 			// index size
-			int indexSize = ib->indexSize();
+            uint32_t indexSize = ib->indexSize();
 			nBytes += strm.write(&indexSize, sizeof(indexSize));
 
 			// then the actual index data
-			int byteLen = nIndices * indexSize;
+            uint32_t byteLen = nIndices * indexSize;
 			void* data = ib->map(IndexBuffer::MAP_READONLY);
 			nBytes += strm.write(data, byteLen);
 			ib->unmap();
 		}
 		else {
 			// just write zero for index count
-			int zero = 0;
+            uint32_t zero = 0;
 			nBytes += strm.write(&zero, sizeof(zero));
 		}
 
 		// then the vertex data
-		int nVB = sm->vertexBufferCount();
+        size_t nVB = sm->vertexBufferCount();
 		nBytes += strm.write(&nVB, sizeof(nVB));
 
-		for (int vbi=0; vbi<nVB; ++vbi) {
+        for (size_t vbi=0; vbi<nVB; ++vbi) {
 			VertexBuffer* vb = sm->vertexBuffer(vbi);
 			
-			int nElems = vb->vertexElementCount();
+            size_t nElems = vb->vertexElementCount();
 			nBytes += strm.write(&nElems, sizeof(nElems));
 
-			for (int e=0; e<nElems; ++e) {
+            for (size_t e=0; e<nElems; ++e) {
 				Gfx::VertexElement* elem = vb->vertexElement(e);
 
-				int type = elem->mType;
+                uint32_t type = elem->mType;
 				nBytes += strm.write(&type, sizeof(type));
 				nBytes += strm.write(&elem->mCount, sizeof(elem->mCount));
-				int usage = elem->mUsage;
+                uint32_t usage = elem->mUsage;
 				nBytes += strm.write(&usage, sizeof(usage));
 				nBytes += strm.write(&elem->mIndex, sizeof(elem->mIndex));
 			}
 
 			// vertex count
-			int nVerts = vb->vertexCount();
+            uint32_t nVerts = (uint32_t)vb->vertexCount();
 			nBytes += strm.write(&nVerts, sizeof(nVerts));
 
 			// then the actual VB data
@@ -185,7 +188,7 @@ uint64_t MeshAsset::deserialize(Stream& strm)
 				nBytes += strm.read(&elem.mIndex, sizeof(elem.mIndex));
 			}
 
-            uint32_t vertSize = vb->endAddVertexElements();
+            uint32_t vertSize = (uint32_t)vb->endAddVertexElements();
 
 			// then the vertex data
             uint32_t nVerts;
@@ -207,4 +210,30 @@ Gfx::Mesh* MeshAsset::mesh()
         mMesh = TD_NEW Gfx::Mesh;
 
 	return mMesh;
+}
+
+Gfx::Pipeline* MeshAsset::pipeline()
+{
+    if (mPipeline) {
+        return mPipeline;
+    }
+
+    Gfx::Mesh* mesh = this->mesh();
+    if (mesh->submeshCount() == 0) {
+        return nullptr;
+    }
+
+    // TODO/NOTE: we assume a single material for all submeshes in the mesh!
+
+    // fetch a matching pipeline for us
+    if (mPipelineHash > 0) {
+        mPipeline = Gfx::PipelineStateManager::instance().findPipelineState(mPipelineHash);
+        return mPipeline;
+    }
+
+    PipelineData pipelineData = Gfx::PipelineStateManager::instance().createOrFindPipelineState(mesh->submesh(0), getMaterial());
+    mPipeline = pipelineData.pipeline;
+    mPipelineHash = pipelineData.hash;
+
+    return mPipeline;
 }

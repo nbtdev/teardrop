@@ -46,6 +46,10 @@ set(SOURCES
     MaterialOutput.h
     Mesh.cpp
     Mesh.h
+    Pipeline.cpp
+    Pipeline.h
+    PipelineStateManager.cpp
+    PipelineStateManager.h
     Renderable.cpp
     Renderable.h
     RenderableProvider.h

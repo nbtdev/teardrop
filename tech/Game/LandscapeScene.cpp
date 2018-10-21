@@ -32,10 +32,11 @@ THE SOFTWARE.
 #include "Gfx/Material.h"
 #include "Gfx/MaterialOutput.h"
 #include "Gfx/Mesh.h"
-#include "Gfx/SubMesh.h"
+#include "Gfx/Pipeline.h"
 #include "Gfx/Renderable.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
+#include "Gfx/SubMesh.h"
 #include "Gfx/TextureManager.h"
 #include "Gfx/Texture2D.h"
 #include "Gfx/Sampler2D.h"
@@ -57,20 +58,16 @@ struct TerrainRenderable : public Gfx::Renderable
     TerrainRenderable(){}
     TerrainRenderable(TerrainRenderable&& other) {
         mMesh = other.mMesh;
-        mMaterial = other.mMaterial;
         mTransform = std::move(other.mTransform);
 
         other.mMesh = nullptr;
-        other.mMaterial = nullptr;
     }
 
     ~TerrainRenderable() {
         delete mMesh;
-        delete mMaterial;
     }
 
     Gfx::Mesh* mMesh;
-    Gfx::Material* mMaterial;
     Transform mTransform;
     AABB mAABB;
 };
@@ -86,12 +83,14 @@ struct TerrainVertex
 };
 
 // terrain material has only to deal with a single submesh, so we only need one material
-Gfx::Material* createTerrainMaterial(LandscapeAsset* landscapeAsset, Gfx::VertexBuffer* vertexBuffer)
+Gfx::Pipeline* createTerrainPipeline(LandscapeAsset* landscapeAsset, Gfx::VertexBuffer* vertexBuffer)
 {
     TextureAsset* colorAsset = landscapeAsset->getDiffuseMap();
 
     // to begin, we need to make a material...
-    Gfx::Material* mtl = TD_NEW Gfx::Material;
+    Gfx::Pipeline* pipeline = TD_NEW Gfx::Pipeline;
+    Gfx::Material* mtl = pipeline->material();
+    mtl->initialize();
 
     // then, need an output expression for the material
     Gfx::MaterialOutput* output = TD_NEW Gfx::MaterialOutput;
@@ -120,14 +119,16 @@ Gfx::Material* createTerrainMaterial(LandscapeAsset* landscapeAsset, Gfx::Vertex
 
     // TODO: hook up other textures
 
-    // finally, we need the layout for the geometry stream
-    mtl->beginGeometryStream();
-    for (int i=0; i<vertexBuffer->vertexElementCount(); ++i) {
-        mtl->addVertexElement(*vertexBuffer->vertexElement(i));
-    }
-    mtl->endGeometryStream();
+    // finally, we need to add the layout for the geometry stream
+    pipeline->beginGeometryStream();
 
-    return mtl;
+    for (int i=0; i<vertexBuffer->vertexElementCount(); ++i) {
+        pipeline->addVertexElement(*vertexBuffer->vertexElement(i));
+    }
+
+    pipeline->endGeometryStream();
+
+    return pipeline;
 }
 
 void createTerrainPatch(TerrainRenderable& renderable, int x, int y, LandscapeScene* scene)
@@ -203,10 +204,6 @@ void createTerrainPatch(TerrainRenderable& renderable, int x, int y, LandscapeSc
 
     size_t numVerts = patchWidth * patchHeight;
     vb->initialize((int)numVerts, Gfx::VertexBuffer::INIT_WRITEONLY);
-
-    Gfx::Material* mtl = createTerrainMaterial(landscapeAsset, vb);
-    renderable.mMaterial = mtl;
-    renderable.addMaterial(mtl);
 
     float minY = 0, maxY = 0;
 
@@ -330,6 +327,7 @@ LandscapeScene::LandscapeScene()
     : mSceneRenderer(nullptr)
     , mSceneRenderStep(nullptr)
     , mTerrainRenderables(nullptr)
+    , mTerrainPipeline(nullptr)
     , mBoundingBoxes(nullptr)
     , mTerrainRenderableCount(0)
 {
@@ -351,6 +349,7 @@ LandscapeScene::~LandscapeScene()
     }
 
     delete [] mTerrainRenderables;
+    delete mTerrainPipeline;
     delete [] mBoundingBoxes;
     delete mSceneRenderer;
 }
@@ -430,7 +429,7 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
         Gfx::Renderable const& renderable = mTerrainRenderables[patch];
 
         for (size_t i=0; i<renderable.mesh()->submeshCount(); ++i) {
-            renderer->apply(renderable.material(i));
+            renderer->apply(mTerrainPipeline);
             renderer->render(renderable.mesh()->submesh(i));
         }
     }
@@ -505,6 +504,20 @@ void LandscapeScene::generateTerrainTiles()
             TerrainRenderable* terrainRenderables = (TerrainRenderable*)mTerrainRenderables;
             createTerrainPatch(terrainRenderables[y * nTilesX + x], x, y, this);
         }
+    }
+
+    // all of the tiles have the same vertex layout, so grab the first tile and use it to
+    // generate the terrain material
+    if (mTerrainRenderableCount) {
+        Gfx::Mesh* mesh = mTerrainRenderables[0].mesh();
+
+        // should be safe to assume that the mesh has one submesh with one vertex buffer...
+        assert(mesh->submeshCount());
+        assert(mesh->submesh(0)->vertexBufferCount());
+        Gfx::VertexBuffer* vb = mesh->submesh(0)->vertexBuffer(0);
+
+        // this pipeline will be used to render all (sub)meshes in the terrain
+        mTerrainPipeline = createTerrainPipeline(asset, vb);
     }
 }
 
