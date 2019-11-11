@@ -39,7 +39,7 @@ UUIDStreamReader::~UUIDStreamReader()
 
 }
 
-uint32_t
+uint64_t
 UUIDStreamReader::read()
 {
     return mStream.read(&mUUID, sizeof(mUUID));

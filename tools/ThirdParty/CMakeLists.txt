@@ -1,3 +1,5 @@
+add_subdirectory(FreeImage)
+
 # only need this for Windows; on Linux zlib is sensibly available easily via apt/yum
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     #

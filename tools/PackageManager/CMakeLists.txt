@@ -1,31 +1,3 @@
-if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    # import the FreeImage library
-    add_library(FreeImage SHARED IMPORTED)
-    set(FREEIMAGE_LIB_DIR ${FREEIMAGE_DIR}/Dist/${ARCH})
-    set(FREEIMAGE_INCLUDE_DIR ${FREEIMAGE_DIR}/Dist/${ARCH})
-
-    if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-        message(STATUS "Creating imported FreeImage target - files in ${FREEIMAGE_LIB_DIR}")
-        set_target_properties(FreeImage PROPERTIES
-            IMPORTED_LOCATION_DEBUG "${FREEIMAGE_LIB_DIR}/FreeImaged.dll"
-            IMPORTED_LOCATION_RELEASE "${FREEIMAGE_LIB_DIR}/FreeImage.dll"
-            IMPORTED_LOCATION_RELWITHDEBINFO "${FREEIMAGE_LIB_DIR}/FreeImage.dll"
-            IMPORTED_IMPLIB_DEBUG "${FREEIMAGE_LIB_DIR}/FreeImaged.lib"
-            IMPORTED_IMPLIB_RELEASE "${FREEIMAGE_LIB_DIR}/FreeImage.lib"
-            IMPORTED_IMPLIB_RELWITHDEBINFO "${FREEIMAGE_LIB_DIR}/FreeImage.lib"
-            INTERFACE_INCLUDE_DIRECTORIES "${FREEIMAGE_INCLUDE_DIR}"
-        )
-    endif()
-
-    install(FILES
-        $<TARGET_FILE:FreeImage> DESTINATION ${TEARDROP_INSTALL_DIR}/bin
-    )
-
-    set(FREEIMAGE_TARGET FreeImage)
-else()
-    set(FREEIMAGE_TARGET freeimage)
-endif()
-
 # import the FBX SDK library
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(FBX_COMPILER vs2015)
@@ -57,47 +29,13 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     )
 endif()
 
-# import the TBB library
-add_library(TBB SHARED IMPORTED)
-
-if(${ARCH} MATCHES "x64")
-    set(TBB_ARCH intel64)
+find_package(TBB REQUIRED PATHS ${TBB_DIR}/cmake)
+if(TBB_FOUND)
+    message(STATUS "TBB found: ${TBB_IMPORTED_TARGETS}")
+    install(TARGETS ${TBB_IMPORTED_TARGETS})
 else()
-    set(TBB_ARCH ia32)
+    message(FATAL_ERROR "TBB not found (TBB_DIR='${TBB_DIR}')")
 endif()
-
-set(TBB_INCLUDE_DIR ${TBB_DIR}/include)
-message(STATUS "Creating imported TBB target - files in ${TBB_LIB_DIR}")
-
-if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    set(TBB_LIB_DIR ${TBB_DIR}/lib/${TBB_ARCH}/vc14)
-    set(TBB_BIN_DIR ${TBB_DIR}/bin/${TBB_ARCH}/vc14)
-
-    set_target_properties(TBB PROPERTIES
-        IMPORTED_LOCATION_RELEASE ${TBB_BIN_DIR}/tbb.dll
-        IMPORTED_LOCATION_RELWITHDEBINFO ${TBB_BIN_DIR}/tbb.dll
-        IMPORTED_LOCATION_DEBUG ${TBB_BIN_DIR}/tbb_debug.dll
-        IMPORTED_IMPLIB_RELEASE ${TBB_LIB_DIR}/tbb.lib
-        IMPORTED_IMPLIB_RELWITHDEBINFO ${TBB_LIB_DIR}/tbb.lib
-        IMPORTED_IMPLIB_DEBUG ${TBB_LIB_DIR}/tbb_debug.lib
-        INTERFACE_INCLUDE_DIRECTORIES ${TBB_INCLUDE_DIR}
-    )
-else()
-    set(TBB_LIB_DIR ${TBB_DIR}/lib/${TBB_ARCH}/gcc4.7)
-    set(TBB_BIN_DIR ${TBB_DIR}/bin/${TBB_ARCH}/gcc4.7)
-
-    set_target_properties(TBB PROPERTIES
-        IMPORTED_LOCATION_RELEASE ${TBB_LIB_DIR}/libtbb.so.2
-        IMPORTED_LOCATION_REL ${TBB_LIB_DIR}/libtbb.so.2
-        IMPORTED_LOCATION_DEBUG ${TBB_LIB_DIR}/libtbb_debug.so.2
-        INTERFACE_LINK_OPTIONS -L${TBB_LIB_DIR}
-        INTERFACE_INCLUDE_DIRECTORIES ${TBB_INCLUDE_DIR}
-    )
-endif()
-
-install(FILES
-    $<TARGET_FILE:TBB> DESTINATION ${TEARDROP_INSTALL_DIR}/bin
-)
 
 # library name
 set(TARGET PackageManager)
@@ -153,6 +91,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    list(APPEND PLATFORM_DEPENDENCIES
+        GLEW
+    )
+
     set(ZLIB z)
 endif()
 
@@ -166,10 +108,11 @@ target_link_libraries(${TARGET}
         Util
 
         # imported targets
-        ${FREEIMAGE_TARGET}
+        FreeImage
         FBX-SDK
         LibHFZ
-        TBB
+        TBB::tbb
+        TBB::tbbmalloc
         squish
         ${ZLIB}
 

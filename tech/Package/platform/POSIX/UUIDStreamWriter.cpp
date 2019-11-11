@@ -39,7 +39,7 @@ UUIDStreamWriter::~UUIDStreamWriter()
 
 }
 
-uint32_t
+uint64_t
 UUIDStreamWriter::write()
 {
     return mStream.write(&mUUID, sizeof(mUUID));

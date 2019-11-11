@@ -91,3 +91,8 @@ integrations
 integrations/DirectX
 tech/ThirdParty
 tech/Thread/platform/POSIX
+tools/ThirdParty/FreeImage
+tools/ThirdParty/FreeImage/Source
+tools/ThirdParty/FreeImage/Source/FreeImage
+tools/ThirdParty/FreeImage/Source/LibJPEG
+tools/ThirdParty/FreeImage/Source/ZLib

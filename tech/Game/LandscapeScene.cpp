@@ -36,7 +36,7 @@ THE SOFTWARE.
 #include "Gfx/Renderable.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
-#include "Gfx/SubMesh.h"
+#include "Gfx/Submesh.h"
 #include "Gfx/TextureManager.h"
 #include "Gfx/Texture2D.h"
 #include "Gfx/Sampler2D.h"
