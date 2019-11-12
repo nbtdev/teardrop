@@ -81,10 +81,24 @@ set(QTLIBS
     Qt5::Widgets
 )
 
+get_target_property(QT5_LIB_DIR Qt5::Core LOCATION)
+get_filename_component(QT5_LIB_DIR ${QT5_LIB_DIR} DIRECTORY)
+
 set(QT_INSTALL_LIBS
     $<TARGET_FILE:Qt5::Core>
     $<TARGET_FILE:Qt5::Gui>
     $<TARGET_FILE:Qt5::Widgets>
+
+    $<TARGET_SONAME_FILE:Qt5::Core>
+    $<TARGET_SONAME_FILE:Qt5::Gui>
+    $<TARGET_SONAME_FILE:Qt5::Widgets>
+
+    ${QT5_LIB_DIR}/libicui18n.so.56
+    ${QT5_LIB_DIR}/libicui18n.so.56.1
+    ${QT5_LIB_DIR}/libicuuc.so.56
+    ${QT5_LIB_DIR}/libicuuc.so.56.1
+    ${QT5_LIB_DIR}/libicudata.so.56
+    ${QT5_LIB_DIR}/libicudata.so.56.1
 )
 
 set(CMAKE_AUTOMOC ON)
@@ -94,6 +108,9 @@ td_add_executable(${TARGET}
     SOURCES
         ${SOURCES}
 )
+
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # Integrations used on all supported platforms
 set(INTEGRATIONS
@@ -129,6 +146,7 @@ target_link_libraries(${TARGET}
 install(TARGETS
     ${TARGET}
     RUNTIME DESTINATION ${TEARDROP_INSTALL_DIR}/bin
+
 )
 
 install(FILES

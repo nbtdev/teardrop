@@ -32,7 +32,7 @@ Renderer::Renderer(int aFlags)
 {
 	{
 		// we have to create a dummy window in order to load extensions
-		std::shared_ptr<RenderTarget> dummy = createDummyContext();
+        //std::shared_ptr<RenderTarget> dummy = createDummyContext();
 
 		// now we can initialize extensions
 //        glewExperimental = GL_TRUE;

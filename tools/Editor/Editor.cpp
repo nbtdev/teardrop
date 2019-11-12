@@ -60,16 +60,16 @@ using namespace std::placeholders;
 
 Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow(parent, flags)
-	, mPropGrid(0)
-	, mProjectExp(0)
-	, mObjBrowser(0)
-	, m3DView(0)
-	, mPropGridDesc(0)
-	, mProject(0)
-	, mScene(0)
-	, mRenderer(0)
-	, mRenderWindow(0)
+    , mRenderWindow(nullptr)
+    , mPropGrid(nullptr)
+    , mProjectExp(nullptr)
+    , mObjBrowser(nullptr)
+    , m3DView(nullptr)
+    , mPropGridDesc(nullptr)
+    , mProject(nullptr)
+    , mScene(nullptr)
     , mActiveExecutable(nullptr)
+    , mRenderer(nullptr)
 {
 	FreeImage_Initialise();
 
