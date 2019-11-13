@@ -156,11 +156,7 @@ integrations/DirectX/DirectInput8/build/win32/vc10/DirectInput8.vcxproj
 integrations/DirectX/DirectInput8/build/win32/vc9/DirectInput8.vcproj
 integrations/DirectX/DirectInput8/stdafx.cpp
 integrations/DirectX/DirectInput8/stdafx.h
-integrations/DirectX/DirectX/vsprops/vc10/Teardrop-DirectX (Debug).props
-integrations/DirectX/DirectX/vsprops/vc10/Teardrop-DirectX (Release).props
 integrations/DirectX/DirectX_VC12.sln
-integrations/DirectX/vsprops/DirectX_Debug.props
-integrations/DirectX/vsprops/DirectX_Release.props
 integrations/Havok/Animation/AnimationBlenderHavok.cpp
 integrations/Havok/Animation/AnimationBlenderHavok.h
 integrations/Havok/Animation/AnimationHavok.cpp
@@ -276,8 +272,6 @@ integrations/OpenGL/platform/GLX/RendererOpenGL_createRenderWindow.cpp
 integrations/OpenGL/platform/Win32/RenderWindowOpenGL.cpp
 integrations/OpenGL/platform/Win32/RenderWindowOpenGL.h
 integrations/OpenGL/platform/Win32/RendererOpenGL_createRenderWindow.cpp
-integrations/OpenGL/vsprops/OpenGL-Integration.Debug.props
-integrations/OpenGL/vsprops/vc12/OpenGL-Integration.Debug.props
 integrations/Raknet/NetworkSystem.cpp
 integrations/Raknet/NetworkSystem.h
 integrations/Raknet/Peer.cpp
@@ -1057,16 +1051,6 @@ tech/VFX/ParticleSystemRenderer.h
 tech/VFX/build/win32/VC10/VFX.vcxproj
 tech/VFX/build/win32/VC10/VFX.vcxproj.filters
 tech/VFX/build/win32/VC9/VFX.vcproj
-tech/vsprops/CnC Debug.props
-tech/vsprops/CnC Release.props
-tech/vsprops/Debug C Runtime Library Type.props
-tech/vsprops/Lua.props
-tech/vsprops/Release C Runtime Library Type.props
-tech/vsprops/SDK Library.props
-tech/vsprops/TBB_Debug.props
-tech/vsprops/TBB_Release.props
-tech/vsprops/TinyXML_Debug.props
-tech/vsprops/TinyXML_Release.props
 tools/CMakeLists.txt
 tools/Editor/CMakeLists.txt
 tools/Editor/DragDropData.cpp
@@ -2584,11 +2568,3 @@ tools/ThirdParty/squish/vs9/squish/squish.vcproj
 tools/ThirdParty/squish/vs9/squishpng/squishpng.vcproj
 tools/ThirdParty/squish/vs9/squishtest/squishtest.vcproj
 tools/Tools_VC12.sln
-tools/vsprops/vc10/FBX_SDK_Debug.props
-tools/vsprops/vc10/FBX_SDK_Release.props
-tools/vsprops/vc10/FreeImage_Debug.props
-tools/vsprops/vc10/FreeImage_Release.props
-tools/vsprops/vc10/Qt4.props
-tools/vsprops/vc10/Qt5.props
-tools/vsprops/vc10/Squish_Debug.props
-tools/vsprops/vc10/Squish_Release.props
