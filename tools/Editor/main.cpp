@@ -43,6 +43,7 @@ THE SOFTWARE.
 	#include "OpenGL/IntegrationOpenGL.h"
 #else // _WIN32, _WIN64
     #include "OpenGL/IntegrationOpenGL.h"
+    #include "Vulkan/IntegrationVulkan.h"
     #include "XWindow/Integration.h"
 #endif // _WIN32, _WIN64
 
@@ -84,6 +85,7 @@ int main(int argc, char *argv[])
 	Teardrop::Gfx::OpenGL::registerIntegration();
 	//Teardrop::DirectInput::Integration inputIntegration;
 #else // _WIN32, _WIN64
+    Teardrop::Gfx::Vulkan::registerIntegration();
     Teardrop::Gfx::OpenGL::registerIntegration();
     Teardrop::XWindow::Integration inputIntegration;
 #endif // _WIN32, _WIN64

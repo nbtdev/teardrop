@@ -19,3 +19,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
+
+#pragma once
+
+#include "Core/Integration.h"
+
+namespace Teardrop {
+namespace Gfx {
+namespace Vulkan {
+
+class Integration : public Teardrop::Integration
+{
+public:
+    Integration();
+    ~Integration();
+    void load();
+    void unload();
+};
+
+void registerIntegration();
+
+} // namespace Vulkan
+} // namespace Gfx
+} // namespace Teardrop

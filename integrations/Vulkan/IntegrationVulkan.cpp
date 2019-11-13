@@ -19,3 +19,53 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
+
+#include "IntegrationVulkan.h"
+
+#include "RendererVulkan.h"
+#include "Util/_String.h"
+
+namespace Teardrop {
+namespace Gfx {
+namespace Vulkan {
+
+Integration::Integration()
+{
+
+}
+
+Integration::~Integration()
+{
+
+}
+
+void
+Integration::load()
+{
+
+}
+
+void
+Integration::unload()
+{
+
+}
+
+static Gfx::Renderer* create(int aFlags) {
+    return TD_NEW Renderer(aFlags);
+}
+
+void registerIntegration()
+{
+    static RendererRegistration reg;
+    if (!reg.mDisplayName) {
+        reg.mUUID.fromString(String("8c99f4bd-325c-4a81-aaa2-e1eb295dcf31"));
+        reg.mCreateFn = &create;
+        reg.mDisplayName = "Vulkan";
+        registerRenderer(&reg);
+    }
+}
+
+} // namespace Vulkan
+} // namespace Gfx
+} // namespace Teardrop

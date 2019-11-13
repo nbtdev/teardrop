@@ -114,6 +114,7 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # Integrations used on all supported platforms
 set(INTEGRATIONS
+    Vulkan
     OpenGL
 )
 
