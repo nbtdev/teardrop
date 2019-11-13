@@ -17,4 +17,9 @@ tools/bin
 GeneratedFiles
 integrations/OpenGL/include
 integrations/DirectX/DirectX/include
-
+*.creator
+*.includes
+*.files
+*.config
+build
+install
