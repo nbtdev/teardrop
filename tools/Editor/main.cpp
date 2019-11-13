@@ -46,11 +46,6 @@ THE SOFTWARE.
     #include "XWindow/Integration.h"
 #endif // _WIN32, _WIN64
 
-// hacky
-#include "Game/LandscapeScene.h"
-static Teardrop::LandscapeScene __lscene;
-// end hacky
-
 int main(int argc, char *argv[])
 {
 	Teardrop::String::setAllocator(GetCRTAllocator());
