@@ -2584,13 +2584,6 @@ tools/ThirdParty/squish/vs9/squish/squish.vcproj
 tools/ThirdParty/squish/vs9/squishpng/squishpng.vcproj
 tools/ThirdParty/squish/vs9/squishtest/squishtest.vcproj
 tools/Tools_VC12.sln
-tools/bin/icons/move.ico
-tools/bin/icons/place.ico
-tools/bin/icons/play.ico
-tools/bin/icons/rotate.ico
-tools/bin/icons/scale.ico
-tools/bin/icons/select.ico
-tools/bin/icons/stop.ico
 tools/vsprops/vc10/FBX_SDK_Debug.props
 tools/vsprops/vc10/FBX_SDK_Release.props
 tools/vsprops/vc10/FreeImage_Debug.props
