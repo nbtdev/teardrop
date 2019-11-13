@@ -21,5 +21,7 @@ integrations/DirectX/DirectX/include
 *.includes
 *.files
 *.config
+*.cflags
+*.cxxflags
 build
 install
