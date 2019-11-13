@@ -159,13 +159,9 @@ integrations/DirectX/DirectInput8/stdafx.cpp
 integrations/DirectX/DirectInput8/stdafx.h
 integrations/DirectX/DirectX/vsprops/vc10/Teardrop-DirectX (Debug).props
 integrations/DirectX/DirectX/vsprops/vc10/Teardrop-DirectX (Release).props
-integrations/DirectX/DirectX/vsprops/vc9/Teardrop-DirectX (Debug).vsprops
-integrations/DirectX/DirectX/vsprops/vc9/Teardrop-DirectX (Release).vsprops
 integrations/DirectX/DirectX_VC12.sln
 integrations/DirectX/vsprops/DirectX_Debug.props
-integrations/DirectX/vsprops/DirectX_Debug.vsprops
 integrations/DirectX/vsprops/DirectX_Release.props
-integrations/DirectX/vsprops/DirectX_Release.vsprops
 integrations/Havok/Animation/AnimationBlenderHavok.cpp
 integrations/Havok/Animation/AnimationBlenderHavok.h
 integrations/Havok/Animation/AnimationHavok.cpp
@@ -208,8 +204,6 @@ integrations/Havok/HKXC/src/ragdoll.cpp
 integrations/Havok/HKXC/src/rig.cpp
 integrations/Havok/HKXC/src/rigidBody.cpp
 integrations/Havok/HKXC/src/scene.cpp
-integrations/Havok/Havok/vsprops/vc9/Teardrop-Havok (Debug).vsprops
-integrations/Havok/Havok/vsprops/vc9/Teardrop-Havok (Release).vsprops
 integrations/Havok/HavokIntegration_VC9.sln
 integrations/Havok/Physics/BodyHavok.cpp
 integrations/Havok/Physics/BodyHavok.h
@@ -242,8 +236,6 @@ integrations/Havok/Ragdoll/build/win32/VC9/Ragdoll.vcproj
 integrations/Havok/Ragdoll/build/win32/stdafx.cpp
 integrations/Havok/Ragdoll/build/win32/stdafx.h
 integrations/Havok/Ragdoll/build/win32/targetver.h
-integrations/Havok/vsprops/Havok_Debug.vsprops
-integrations/Havok/vsprops/Havok_Release.vsprops
 integrations/OpenGL/BufferManagerOpenGL.cpp
 integrations/OpenGL/BufferManagerOpenGL.h
 integrations/OpenGL/CMakeLists.txt
@@ -291,16 +283,12 @@ integrations/Raknet/NetworkSystem.cpp
 integrations/Raknet/NetworkSystem.h
 integrations/Raknet/Peer.cpp
 integrations/Raknet/Peer.h
-integrations/Raknet/Raknet/vsprops/VC9/Teardrop-Raknet (Debug).vsprops
-integrations/Raknet/Raknet/vsprops/VC9/Teardrop-Raknet (Release).vsprops
 integrations/Raknet/RaknetIntegration.sln
 integrations/Raknet/Stream.cpp
 integrations/Raknet/Stream.h
 integrations/Raknet/build/win32/VC9/RaknetIntegration.vcproj
 integrations/Raknet/stdafx.cpp
 integrations/Raknet/stdafx.h
-integrations/Raknet/vsprops/Raknet_Debug.vsprops
-integrations/Raknet/vsprops/Raknet_Release.vsprops
 integrations/XWindow/CMakeLists.txt
 integrations/XWindow/InputXWindow.cpp
 integrations/XWindow/InputXWindow.h
@@ -1071,28 +1059,15 @@ tech/VFX/build/win32/VC10/VFX.vcxproj
 tech/VFX/build/win32/VC10/VFX.vcxproj.filters
 tech/VFX/build/win32/VC9/VFX.vcproj
 tech/vsprops/CnC Debug.props
-tech/vsprops/CnC Debug.vsprops
 tech/vsprops/CnC Release.props
-tech/vsprops/CnC Release.vsprops
 tech/vsprops/Debug C Runtime Library Type.props
-tech/vsprops/Debug C Runtime Library Type.vsprops
-tech/vsprops/Intel Profiling API.vsprops
 tech/vsprops/Lua.props
-tech/vsprops/Lua.vsprops
 tech/vsprops/Release C Runtime Library Type.props
-tech/vsprops/Release C Runtime Library Type.vsprops
 tech/vsprops/SDK Library.props
-tech/vsprops/SDK Library.vsprops
 tech/vsprops/TBB_Debug.props
-tech/vsprops/TBB_Debug.vsprops
 tech/vsprops/TBB_Release.props
-tech/vsprops/TBB_Release.vsprops
 tech/vsprops/TinyXML_Debug.props
-tech/vsprops/TinyXML_Debug.vsprops
 tech/vsprops/TinyXML_Release.props
-tech/vsprops/TinyXML_Release.vsprops
-tech/vsprops/WxWidgets Debug.vsprops
-tech/vsprops/WxWidgets Release.vsprops
 tools/CMakeLists.txt
 tools/Editor/CMakeLists.txt
 tools/Editor/DragDropData.cpp
@@ -2625,9 +2600,3 @@ tools/vsprops/vc10/Qt4.props
 tools/vsprops/vc10/Qt5.props
 tools/vsprops/vc10/Squish_Debug.props
 tools/vsprops/vc10/Squish_Release.props
-tools/vsprops/vc9/FBX_SDK_Debug.vsprops
-tools/vsprops/vc9/FBX_SDK_Release.vsprops
-tools/vsprops/vc9/FreeImage_Debug.vsprops
-tools/vsprops/vc9/FreeImage_Release.vsprops
-tools/vsprops/vc9/Squish_Debug.vsprops
-tools/vsprops/vc9/Squish_Release.vsprops
