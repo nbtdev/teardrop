@@ -1,5 +1,5 @@
 /******************************************************************************
-Copyright (c) 2018 Teardrop Games
+Copyright (c) 2019 Teardrop Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,55 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Renderer.h"
+#include "RenderPassVulkan.h"
 
-using namespace Teardrop;
-using namespace Gfx;
+#include "AllocatorsVulkan.h"
 
-Renderer::~Renderer()
+namespace Teardrop {
+namespace Gfx {
+namespace Vulkan {
+
+RenderPass::RenderPass(VkDevice device)
+    : mDevice(device)
+{
+    VkRenderPassCreateInfo info = {};
+    info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+
+    vkCreateRenderPass(device, &info, getAllocationCallbacks(), &mRenderPass);
+}
+
+RenderPass::~RenderPass()
+{
+    if (mRenderPass != VK_NULL_HANDLE) {
+        vkDestroyRenderPass(mDevice, mRenderPass, getAllocationCallbacks());
+    }
+}
+
+void RenderPass::attachInputBuffer(IndexBuffer* buffer)
 {
 
 }
+
+void RenderPass::attachInputBuffer(VertexBuffer* buffer)
+{
+
+}
+
+void RenderPass::attachInputTexture(Texture* texture)
+{
+
+}
+
+void RenderPass::attachOutput(RenderTarget* renderTarget)
+{
+
+}
+
+VkRenderPass RenderPass::renderPass() const
+{
+    return mRenderPass;
+}
+
+} // namespace Vulkan
+} // namespace Gfx
+} // namespace Teardrop

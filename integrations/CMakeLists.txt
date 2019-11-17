@@ -4,5 +4,4 @@ else()
     add_subdirectory(XWindow)
 endif()
 
-add_subdirectory(OpenGL)
 add_subdirectory(Vulkan)

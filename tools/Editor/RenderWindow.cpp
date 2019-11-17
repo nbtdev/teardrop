@@ -136,12 +136,12 @@ void RenderWindow::onIdle()
         mExecutable->tick();
         mExecutable->renderFrame(mRenderer, mRT.get());
     } else {
-        mRenderer->beginFrame();
-        mRenderer->beginScene(mCamera, mViewport);
-        mRenderer->endScene();
-        mRenderer->endFrame();
+//        mRenderer->beginFrame();
+//        mRenderer->beginScene(mCamera, mViewport);
+//        mRenderer->endScene();
+//        mRenderer->endFrame();
     }
 
-    mRT->present();
+//    mRT->present();
 
 }

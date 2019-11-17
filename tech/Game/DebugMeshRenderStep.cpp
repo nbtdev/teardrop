@@ -60,5 +60,5 @@ void DebugMeshRenderStep::render(
 //		pRenderer->queueForRendering(pComp->getDebugMesh());
 	}
 
-	pRenderer->endScene();
+//	pRenderer->endScene();
 }

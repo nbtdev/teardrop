@@ -1,5 +1,5 @@
 /******************************************************************************
-Copyright (c) 2018 Teardrop Games
+Copyright (c) 2019 Teardrop Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Renderer.h"
+#pragma once
 
-using namespace Teardrop;
-using namespace Gfx;
+#include "Gfx/SynchronizationPrimitive.h"
 
-Renderer::~Renderer()
+#include <vulkan/vulkan.h>
+
+namespace Teardrop {
+namespace Gfx {
+namespace Vulkan {
+
+struct SynchronizationPrimitive : public Gfx::SynchronizationPrimitive
 {
+    SynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled, VkDevice device);
+    ~SynchronizationPrimitive();
 
-}
+    VkDevice mDevice;
+
+    union {
+        VkFence fence;
+        VkSemaphore semaphore;
+        VkEvent event;
+    } mPrimitive;
+};
+
+} // namespace Vulkan
+} // namespace Gfx
+} // namespace Teardrop

@@ -57,7 +57,7 @@ void SceneRenderer::render(
 	if (!pRenderer)
 		return;
 
-    pRenderer->beginFrame();
+//    pRenderer->beginFrame();
 
 	for (size_t i=0; i<m_renderSteps.size(); ++i)
 	{
@@ -72,5 +72,5 @@ void SceneRenderer::render(
 		}
 	}
 
-	pRenderer->endFrame();
+//	pRenderer->endFrame();
 }

@@ -425,16 +425,16 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
 
     // naive approach -- just render all of the terrain tiles without regard to
     // visibility
-    for (size_t patch = 0; patch < mTerrainRenderableCount; ++patch) {
-        Gfx::Renderable const& renderable = mTerrainRenderables[patch];
+//    for (size_t patch = 0; patch < mTerrainRenderableCount; ++patch) {
+//        Gfx::Renderable const& renderable = mTerrainRenderables[patch];
 
-        for (size_t i=0; i<renderable.mesh()->submeshCount(); ++i) {
-            renderer->apply(mTerrainPipeline);
-            renderer->render(renderable.mesh()->submesh(i));
-        }
-    }
+//        for (size_t i=0; i<renderable.mesh()->submeshCount(); ++i) {
+//            renderer->apply(mTerrainPipeline);
+//            renderer->render(renderable.mesh()->submesh(i));
+//        }
+//    }
 
-    rt->present();
+//    rt->present();
 }
 
 bool LandscapeScene::onPreUnload()

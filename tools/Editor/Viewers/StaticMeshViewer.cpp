@@ -97,27 +97,27 @@ void StaticMeshViewer::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* r
 	cam->setAspect(rt->aspect());
 
 	try {
-		renderer->beginScene(cam, mVP);
+//		renderer->beginScene(cam, mVP);
 
-        size_t nSubmesh = mesh->submeshCount();
+//        size_t nSubmesh = mesh->submeshCount();
 
-        if (nSubmesh > 0) {
-            // set up the pipeline for this object
-            renderer->apply(meshAsset->pipeline());
+//        if (nSubmesh > 0) {
+//            // set up the pipeline for this object
+//            renderer->apply(meshAsset->pipeline());
 
-            // begin the object
-            renderer->beginObject(Matrix44::IDENTITY);
+//            // begin the object
+//            renderer->beginObject(Matrix44::IDENTITY);
 
-            // draw the submeshes
-            size_t nSubmesh = mesh->submeshCount();
-            for (size_t i = 0; i < nSubmesh; ++i) {
-                renderer->render(mesh->submesh(i));
-            }
+//            // draw the submeshes
+//            size_t nSubmesh = mesh->submeshCount();
+//            for (size_t i = 0; i < nSubmesh; ++i) {
+//                renderer->render(mesh->submesh(i));
+//            }
 
-            renderer->endObject();
-        }
+//            renderer->endObject();
+//        }
 
-		renderer->endScene();
+//		renderer->endScene();
 	} catch (const Gfx::Exception& e) {
 		Environment::get().pLogger->logMessage(e.what());
 	}

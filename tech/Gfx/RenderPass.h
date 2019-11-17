@@ -1,5 +1,5 @@
 /******************************************************************************
-Copyright (c) 2018 Teardrop Games
+Copyright (c) 2019 Teardrop Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Renderer.h"
+#pragma once
 
-using namespace Teardrop;
-using namespace Gfx;
+namespace Teardrop {
+namespace Gfx {
 
-Renderer::~Renderer()
+class RenderTarget;
+class Texture;
+class IndexBuffer;
+class VertexBuffer;
+
+class RenderPass
 {
+public:
+    virtual ~RenderPass();
 
-}
+    virtual void attachInputBuffer(IndexBuffer* buffer) = 0;
+    virtual void attachInputBuffer(VertexBuffer* buffer) = 0;
+    virtual void attachInputTexture(Texture* texture) = 0;
+    virtual void attachOutput(RenderTarget* renderTarget) = 0;
+};
+
+} // namespace Gfx
+} // namespace Teardrop

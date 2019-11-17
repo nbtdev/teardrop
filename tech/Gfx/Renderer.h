@@ -20,58 +20,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(RENDERER_INCLUDED)
-#define RENDERER_INCLUDED
+#pragma once
 
 #include "Gfx/Common.h"
-#include <cstdlib>
+#include "Gfx/SynchronizationPrimitive.h"
+
 #include <cstdint>
 #include <memory>
 
-namespace Teardrop
+namespace Teardrop {
+namespace Gfx  {
+
+class CommandBuffer;
+class CommandQueue;
+class RenderPass;
+class Pipeline;
+class RenderTarget;
+
+class Renderer
 {
-	class Matrix44;
+public:
+    virtual ~Renderer();
 
-	namespace Gfx 
-	{
-		class RenderTarget;
-		class Texture2D;
-		class Camera;
-		class Viewport;
-		class Material;
-        class Pipeline;
-		class Submesh;
+    // create a new render window; if hWnd is 0, creates a new top-level
+    // window, otherwise, creates an embedded render context in the supplied
+    // window;
+    virtual std::shared_ptr<RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) = 0;
+    // create a new render texture; if tex is null, no render texture is created
+    virtual std::shared_ptr<RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
+    virtual std::weak_ptr<CommandBuffer> createCommandBuffer(bool oneShot) = 0;
+    virtual std::weak_ptr<RenderPass> createRenderPass() = 0;
+    virtual std::weak_ptr<Pipeline> createPipeline(PipelineType type) = 0;
+    virtual SynchronizationPrimitive* createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) = 0;
+    virtual std::weak_ptr<CommandQueue> getCommandQueue(size_t index) = 0;
+    virtual size_t getCommandQueueCount() const = 0;
+};
 
-		class Renderer
-		{
-		public:
-			virtual ~Renderer();
+} // namespace Gfx
+} // namespace Teardrop
 
-			// create a new render window; if hWnd is 0, creates a new top-level
-			// window, otherwise, creates an embedded render context in the supplied 
-			// window; 
-			virtual std::shared_ptr<RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) = 0;
-			// create a new render texture; if tex is null, no render texture is created
-			virtual std::shared_ptr<RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
-
-			// begin a new frame render
-			virtual void beginFrame() = 0;
-			// begin a new scene (frame subset)
-			virtual void beginScene(Camera* camera, Viewport* vp=0) = 0;
-			// begin rendering a new object (mesh instance)
-			virtual void beginObject(const Matrix44& worldXf) = 0;
-            // set up the graphics pipeline to render one or more Renderables
-            virtual void apply(Pipeline* pipeline) = 0;
-            // render
-			virtual void render(Submesh* submesh) = 0;
-			// end object (mesh instance)
-			virtual void endObject() = 0;
-			// end scene
-			virtual void endScene() = 0;
-			// end frame render and swap buffers (if applicable)
-			virtual void endFrame() = 0;
-		};
-	}
-}
-
-#endif // RENDERER_INCLUDED

@@ -67,7 +67,7 @@ void SceneRenderStep::render(
     }
 
 	m_pCamera->setAspect(m_pRT->aspect());
-    pRend->beginScene(m_pCamera, vp);
+//    pRend->beginScene(m_pCamera, vp);
 
 	// first, find out if there is anything to render
 	// get the visible objects from the scene; if any, pass over to the renderer
@@ -108,5 +108,5 @@ void SceneRenderStep::render(
         }
     }
 
-	pRend->endScene();
+//	pRend->endScene();
 }

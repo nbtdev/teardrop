@@ -1,5 +1,5 @@
 /******************************************************************************
-Copyright (c) 2018 Teardrop Games
+Copyright (c) 2019 Teardrop Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,43 +22,53 @@ THE SOFTWARE.
 
 #pragma once
 
-#include <cstddef>
+#include "RenderTargetVulkan.h"
+
+#include "Gfx/Common.h"
+
+#include <vulkan/vulkan.h>
 
 namespace Teardrop {
-namespace Gfx  {
+namespace Gfx {
+namespace Vulkan {
 
-class CommandQueue;
-struct SynchronizationPrimitive;
-class Viewport;
-
-class RenderTarget
+class RenderWindow : public RenderTarget
 {
 public:
-    RenderTarget();
-    virtual ~RenderTarget();
+    RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice, VkDevice device, uintptr_t hWnd, SurfaceFormat fmt, int flags);
+    ~RenderWindow();
 
-    virtual void clear(
-        bool color = true,
-        unsigned int clearColor = 0,
-        bool depth = true,
-        float depthValue = 1,
-        bool stencil = true,
-        unsigned int stencilValue = 0) = 0;
-    virtual float aspect() = 0;
-    virtual int width() = 0;
-    virtual int height() = 0;
-    virtual void resize(int w, int h) = 0;
-    virtual void setCurrent() = 0;
-    virtual void unsetCurrent() = 0;
-    virtual Viewport* addViewport(float x=0, float y=0, float w=1, float h=1, size_t zOrder=0) = 0;
-    virtual size_t viewportCount(size_t zOrder = 0) const = 0;
-    virtual Viewport* viewport(size_t index = 0, size_t zOrder = 0) const = 0;
-    virtual void releaseViewport(Viewport* vp) = 0;
-    virtual void presentQueue(CommandQueue* queue,
-                              SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
-                              SynchronizationPrimitive* cpuWaitPrimitive
-                              ) = 0;
+    // RenderTarget implementation
+    void resize(int w, int h) override;
+    void setCurrent() override;
+    void unsetCurrent() override;
+
+    // RenderTargetEx implementation
+    void presentQueue(CommandQueue* queue,
+                      Gfx::SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
+                      Gfx::SynchronizationPrimitive* cpuWaitPrimitive
+                      ) override;
+
+    VkImage acquireNextImage();
+
+    TD_DECLARE_ALLOCATOR();
+
+protected:
+    int mInitFlags;
+    VkSurfaceKHR mSurface;
+    VkSwapchainKHR mSwapchain;
+    VkDevice mDevice;
+    VkPhysicalDevice mPhysicalDevice;
+    VkInstance mInstance;
+
+    uint32_t mImageCount;
+    VkImage* mImages;
+    VkSemaphore* mSemaphores;
+    VkFence* mFences;
+
+    uint32_t mFrameCount;
 };
 
+} // namespace Vulkan
 } // namespace Gfx
 } // namespace Teardrop

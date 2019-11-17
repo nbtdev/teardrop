@@ -5,10 +5,24 @@ set(TARGET Vulkan)
 
 # library source files
 set(SOURCES
+    CommandBufferVulkan.cpp
+    CommandBufferVulkan.h
+    CommandQueueVulkan.cpp
+    CommandQueueVulkan.h
     IntegrationVulkan.cpp
     IntegrationVulkan.h
     RendererVulkan.cpp
     RendererVulkan.h
+    RenderPassVulkan.cpp
+    RenderPassVulkan.h
+    RenderTargetVulkan.cpp
+    RenderTargetVulkan.h
+    RenderWindowVulkan.cpp
+    RenderWindowVulkan.h
+    SynchronizationPrimitiveVulkan.cpp
+    SynchronizationPrimitiveVulkan.h
+    ViewportVulkan.cpp
+    ViewportVulkan.h
 )
 
 if(Vulkan_FOUND)
@@ -20,6 +34,12 @@ if(Vulkan_FOUND)
         SOURCES
             ${SOURCES}
     )
+
+    if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        list(APPEND PLATFORM_DEPENDENCIES
+            X11-xcb
+        )
+    endif()
 
     target_link_libraries(${TARGET}
         PUBLIC

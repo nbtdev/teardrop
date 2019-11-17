@@ -1,5 +1,5 @@
 /******************************************************************************
-Copyright (c) 2018 Teardrop Games
+Copyright (c) 2019 Teardrop Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Renderer.h"
+#pragma once
 
-using namespace Teardrop;
-using namespace Gfx;
+#include "Gfx/Viewport.h"
 
-Renderer::~Renderer()
+namespace Teardrop {
+namespace Gfx {
+namespace Vulkan {
+
+class Viewport : public Gfx::Viewport
 {
+public:
+    Viewport(Gfx::RenderTarget* rt);
+    ~Viewport();
 
-}
+    TD_DECLARE_ALLOCATOR();
+
+protected:
+};
+
+} // namespace Vulkan
+} // namespace Gfx
+} // namespace Teardrop

@@ -22,44 +22,40 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "Gfx/Renderer.h"
-#include "Memory/Allocators.h"
+#include "Gfx/CommandBuffer.h"
 
 #include <vulkan/vulkan.h>
-
-#include <map>
-#include <memory>
-#include <vector>
 
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-class Renderer : public Gfx::Renderer
+class CommandBuffer : public Gfx::CommandBuffer
 {
 public:
-    Renderer(int flags);
-    ~Renderer();
+    CommandBuffer(VkDevice device);
+    ~CommandBuffer();
 
-    // Gfx::Renderer implementation
-    std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) override;
-    std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) override;
-    std::weak_ptr<CommandBuffer> createCommandBuffer(bool oneShot) override;
-    std::weak_ptr<RenderPass> createRenderPass() override;
-    std::weak_ptr<Pipeline> createPipeline(PipelineType type) override;
-    SynchronizationPrimitive* createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
-    std::weak_ptr<CommandQueue> getCommandQueue(size_t index) override;
-    size_t getCommandQueueCount() const override;
+    // Gfx::CommandBuffer implementation
+    void beginRecording() override;
+    void endRecording() override;
+    void reset() override;
+    void beginRenderPass(RenderPass* renderPass, Pipeline* pipeline) override;
+    void endRenderPass() override;
+    void setViewport(Viewport* vp) override;
+    void bindIndexBuffer(IndexBuffer* buffer) override;
+    void bindVertexBuffers(VertexBuffer** buffer, size_t bufferCount) override;
+    void bindDescriptorSets(DescriptorSet** sets, size_t setCount) override;
+    void draw(size_t vertexCount, size_t startingVertex) override;
+    void drawIndexed(size_t indexCount, size_t startingIndex) override;
+    void drawInstanced(size_t vertexCount, size_t startingVertex, size_t instanceCount, size_t startingInstance) override;
+    void drawInstancedIndexed(size_t indexCount, size_t startingIndex, size_t instanceCount, size_t startingInstance) override;
 
-    TD_DECLARE_ALLOCATOR();
+    VkCommandBuffer commandBuffer() const;
 
 private:
-    typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
-    RenderTargets mRenderTargets;
-
-    VkInstance mInstance;
-    VkPhysicalDevice mPhysicalDevice;
     VkDevice mDevice;
+    VkCommandBuffer mCommandBuffer;
 };
 
 } // namespace Vulkan

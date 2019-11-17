@@ -1,5 +1,5 @@
 /******************************************************************************
-Copyright (c) 2018 Teardrop Games
+Copyright (c) 2019 Teardrop Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Renderer.h"
+#pragma once
 
-using namespace Teardrop;
-using namespace Gfx;
+#include "Gfx/CommandQueue.h"
 
-Renderer::~Renderer()
+#include <vulkan/vulkan.h>
+
+namespace Teardrop {
+namespace Gfx {
+namespace Vulkan {
+
+class CommandQueue : public Gfx::CommandQueue
 {
+public:
+    CommandQueue(VkDevice device);
+    ~CommandQueue();
 
-}
+    // Gfx::CommandQueue implementation
+    void submit(CommandBuffer* commandBuffer,
+                SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
+                SynchronizationPrimitive* gpuSignalPrimitives, size_t gpuSignalCount,
+                SynchronizationPrimitive* cpuSignalPrimitive
+                ) override;
+
+    VkQueue queue() const;
+
+private:
+    VkDevice mDevice;
+    VkQueue mQueue;
+};
+
+} // namespace Vulkan
+} // namespace Gfx
+} // namespace Teardrop

@@ -30,7 +30,7 @@ namespace Teardrop
 	namespace Gfx 
 	{
 		class Renderer;
-
+        class RendererEx;
 
 		enum InitFlags {
 			INIT_FRAMEBUFFER_ALPHA = (1<<0),
@@ -51,7 +51,7 @@ namespace Teardrop
 		};
 
 		// Renderer implementation registration
-		typedef Renderer*(*RendererCreateFn)(int /*flags*/);
+        typedef Renderer*(*RendererCreateFn)(int /*flags*/);
 
 		struct RendererRegistration
 		{
@@ -60,9 +60,9 @@ namespace Teardrop
 			
 			// (required) unique implementation ID
 			UUID mUUID;
-			// (required) creation function that returns an instance of Renderer
+            // (required) creation function that returns an instance of Renderer
             RendererCreateFn mCreateFn = nullptr;
-			// (required) short name suitable for list entries
+            // (required) short name suitable for list entries
             const char* mDisplayName = nullptr;
 			// (optional) description of renderer implementation
             const char* mDescription = nullptr;
@@ -72,6 +72,12 @@ namespace Teardrop
 
 		void registerRenderer(RendererRegistration* registration);
 		const RendererRegistration* rendererRegistrations();
+
+        enum PipelineType {
+            PIPELINE_UNKNOWN,
+            PIPELINE_GRAPHICS,
+            PIPELINE_COMPUTE,
+        };
 	}
 }
 

@@ -135,12 +135,12 @@ void ObjectViewer3D::onIdle()
 		if (exe && mRenderWindow && mRenderer) {
 			exe->tick();
 
-			mRenderWindow->setCurrent();
-			mRenderWindow->clear();
-			mRenderer->beginFrame();
-			exe->renderFrame(mRenderer, mRenderWindow.get());
-			mRenderer->endFrame();
-			mRenderWindow->present();
+//			mRenderWindow->setCurrent();
+//			mRenderWindow->clear();
+//			mRenderer->beginFrame();
+//			exe->renderFrame(mRenderer, mRenderWindow.get());
+//			mRenderer->endFrame();
+//			mRenderWindow->present();
 		}
 	}
 }

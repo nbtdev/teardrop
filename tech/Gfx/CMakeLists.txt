@@ -28,6 +28,9 @@ set(SOURCES
     Camera.h
     Common.cpp
     Common.h
+    CommandBuffer.h
+    CommandQueue.cpp
+    CommandQueue.h
     Connection.cpp
     Connection.h
     Exception.cpp
@@ -55,6 +58,7 @@ set(SOURCES
     RenderableProvider.h
     Renderer.cpp
     Renderer.h
+    RenderPass.h
     RenderQueue.cpp
     RenderQueue.h
     RenderTarget.cpp
@@ -73,6 +77,7 @@ set(SOURCES
     ShaderManager.h
     Submesh.cpp
     Submesh.h
+    SynchronizationPrimitive.h
     Texture2D.cpp
     Texture2D.h
     TextureManager.cpp

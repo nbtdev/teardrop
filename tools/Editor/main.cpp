@@ -40,9 +40,7 @@ THE SOFTWARE.
     #include "Direct3D11/Integration.h"
 //    #include "Direct3D9/Integration.h"
 //    #include "DirectInput8/Integration.h"
-	#include "OpenGL/IntegrationOpenGL.h"
 #else // _WIN32, _WIN64
-    #include "OpenGL/IntegrationOpenGL.h"
     #include "Vulkan/IntegrationVulkan.h"
     #include "XWindow/Integration.h"
 #endif // _WIN32, _WIN64
@@ -82,11 +80,9 @@ int main(int argc, char *argv[])
 #if defined(_WIN32) || defined(_WIN64)
 	//Teardrop::Gfx::Direct3D9::registerIntegration();
 	Teardrop::Gfx::Direct3D11::registerIntegration();
-	Teardrop::Gfx::OpenGL::registerIntegration();
 	//Teardrop::DirectInput::Integration inputIntegration;
 #else // _WIN32, _WIN64
     Teardrop::Gfx::Vulkan::registerIntegration();
-    Teardrop::Gfx::OpenGL::registerIntegration();
     Teardrop::XWindow::Integration inputIntegration;
 #endif // _WIN32, _WIN64
 
