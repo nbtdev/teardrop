@@ -49,7 +49,12 @@ public:
                       Gfx::SynchronizationPrimitive* cpuWaitPrimitive
                       ) override;
 
-    VkImage acquireNextImage();
+    VkImage swap(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
+              Gfx::SynchronizationPrimitive* cpuWaitPrimitive);
+
+    VkImage currentImage() const;
+    uint32_t frameCount() const;
+    uint32_t imageCount() const;
 
     TD_DECLARE_ALLOCATOR();
 
@@ -61,12 +66,10 @@ protected:
     VkPhysicalDevice mPhysicalDevice;
     VkInstance mInstance;
 
-    uint32_t mImageCount;
     VkImage* mImages;
-    VkSemaphore* mSemaphores;
-    VkFence* mFences;
-
+    uint32_t mImageCount;
     uint32_t mFrameCount;
+    uint32_t mCurrentImageIndex;
 };
 
 } // namespace Vulkan

@@ -292,7 +292,7 @@ std::shared_ptr<Gfx::RenderTarget> Renderer::createRenderTexture(int w, int h, S
 
 }
 
-std::weak_ptr<CommandBuffer> Renderer::createCommandBuffer(bool oneShot)
+std::weak_ptr<CommandBuffer> Renderer::createCommandBuffer(bool reusable)
 {
 
 }

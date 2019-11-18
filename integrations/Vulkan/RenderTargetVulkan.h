@@ -25,6 +25,8 @@ THE SOFTWARE.
 #include "Gfx/RenderTarget.h"
 #include "Memory/Allocators.h"
 
+#include <vulkan/vulkan.h>
+
 #include <map>
 
 namespace Teardrop {
@@ -34,7 +36,7 @@ namespace Vulkan {
 class RenderTarget : public Gfx::RenderTarget
 {
 public:
-    RenderTarget();
+    RenderTarget(VkDevice device);
     ~RenderTarget();
 
     void clear(
@@ -52,6 +54,8 @@ public:
     Gfx::Viewport* viewport(size_t index = 0, size_t zOrder = 0) const override;
     void releaseViewport(Viewport* vp) override;
 
+    VkFramebuffer framebuffer() const;
+
     TD_DECLARE_ALLOCATOR();
 
 protected:
@@ -60,6 +64,9 @@ protected:
 
     typedef std::multimap<size_t /*zOrder*/, Viewport*> Viewports;
     Viewports mViewports;
+
+    VkDevice mDevice;
+    VkFramebuffer mFramebuffer;
 };
 
 } // namespace Vulkan

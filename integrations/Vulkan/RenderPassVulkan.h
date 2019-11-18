@@ -37,10 +37,10 @@ public:
     ~RenderPass();
 
     // Gfx::RenderPass implementation
-    void attachInputBuffer(IndexBuffer* buffer) override;
-    void attachInputBuffer(VertexBuffer* buffer) override;
-    void attachInputTexture(Texture* texture) override;
-    void attachOutput(RenderTarget* renderTarget) override;
+    void attachInputBuffer(Gfx::IndexBuffer* buffer) override;
+    void attachInputBuffer(Gfx::VertexBuffer* buffer) override;
+    void attachInputTexture(Gfx::Texture* texture) override;
+    void attachOutput(Gfx::RenderTarget* renderTarget) override;
 
     VkRenderPass renderPass() const;
 

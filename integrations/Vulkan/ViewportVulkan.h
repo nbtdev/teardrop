@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 #include "Gfx/Viewport.h"
 
+#include <vulkan/vulkan.h>
+
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
@@ -31,12 +33,16 @@ namespace Vulkan {
 class Viewport : public Gfx::Viewport
 {
 public:
-    Viewport(Gfx::RenderTarget* rt);
+    Viewport(Gfx::RenderTarget* rt, VkDevice device);
     ~Viewport();
+
+    VkViewport const& viewport() const;
 
     TD_DECLARE_ALLOCATOR();
 
 protected:
+    VkDevice mDevice;
+    VkViewport mViewport;
 };
 
 } // namespace Vulkan

@@ -20,47 +20,53 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#pragma once
+#include "IndexBufferVulkan.h"
 
-#include "Gfx/Renderer.h"
-#include "Memory/Allocators.h"
-
-#include <vulkan/vulkan.h>
-
-#include <map>
-#include <memory>
-#include <vector>
+#include "AllocatorsVulkan.h"
 
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-class Renderer : public Gfx::Renderer
+IndexBuffer::IndexBuffer(Submesh* parent, VkDevice device)
+    : Gfx::IndexBuffer(parent)
+    , mDevice(device)
+    , mBuffer(VK_NULL_HANDLE)
 {
-public:
-    Renderer(int flags);
-    ~Renderer();
 
-    // Gfx::Renderer implementation
-    std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) override;
-    std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) override;
-    std::weak_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
-    std::weak_ptr<RenderPass> createRenderPass() override;
-    std::weak_ptr<Pipeline> createPipeline(PipelineType type) override;
-    SynchronizationPrimitive* createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
-    std::weak_ptr<CommandQueue> getCommandQueue(size_t index) override;
-    size_t getCommandQueueCount() const override;
+}
 
-    TD_DECLARE_ALLOCATOR();
+IndexBuffer::~IndexBuffer()
+{
+    if (mBuffer != VK_NULL_HANDLE) {
+        vkDestroyBuffer(mDevice, mBuffer, getAllocationCallbacks());
+    }
+}
 
-private:
-    typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
-    RenderTargets mRenderTargets;
+void IndexBuffer::initialize(int indexCount, int aInitFlags, void* data)
+{
 
-    VkInstance mInstance;
-    VkPhysicalDevice mPhysicalDevice;
-    VkDevice mDevice;
-};
+}
+
+void IndexBuffer::resize(int indexCount)
+{
+
+}
+
+void* IndexBuffer::map(MapFlags flags=MAP_ANY)
+{
+    return nullptr;
+}
+
+void IndexBuffer::unmap()
+{
+
+}
+
+VkBuffer IndexBuffer::buffer() const
+{
+    return mBuffer;
+}
 
 } // namespace Vulkan
 } // namespace Gfx

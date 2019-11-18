@@ -22,44 +22,33 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "Gfx/Renderer.h"
-#include "Memory/Allocators.h"
+#include "Gfx/IndexBuffer.h"
 
 #include <vulkan/vulkan.h>
-
-#include <map>
-#include <memory>
-#include <vector>
 
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-class Renderer : public Gfx::Renderer
+class IndexBuffer : public Gfx::IndexBuffer
 {
 public:
-    Renderer(int flags);
-    ~Renderer();
+    IndexBuffer(Submesh* parent, VkDevice device);
+    ~IndexBuffer();
 
-    // Gfx::Renderer implementation
-    std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) override;
-    std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) override;
-    std::weak_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
-    std::weak_ptr<RenderPass> createRenderPass() override;
-    std::weak_ptr<Pipeline> createPipeline(PipelineType type) override;
-    SynchronizationPrimitive* createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
-    std::weak_ptr<CommandQueue> getCommandQueue(size_t index) override;
-    size_t getCommandQueueCount() const override;
+    // Gfx::IndexBuffer implementation
+    void initialize(int indexCount, int aInitFlags, void* data=0) override;
+    void resize(int indexCount) override;
+    void* map(MapFlags flags=MAP_ANY) override;
+    void unmap() override;
+
+    VkBuffer buffer() const;
 
     TD_DECLARE_ALLOCATOR();
 
 private:
-    typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
-    RenderTargets mRenderTargets;
-
-    VkInstance mInstance;
-    VkPhysicalDevice mPhysicalDevice;
     VkDevice mDevice;
+    VkBuffer mBuffer;
 };
 
 } // namespace Vulkan

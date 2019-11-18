@@ -20,56 +20,53 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(INDEXBUFFER_INCLUDED)
-#define INDEXBUFFER_INCLUDED
+#pragma once
 
 #include "Memory/Allocators.h"
 
-namespace Teardrop
+namespace Teardrop {
+namespace Gfx {
+
+class Submesh;
+
+class IndexBuffer
 {
-	namespace Gfx 
-	{
-		class Submesh;
+public:
+    IndexBuffer(Submesh* parent);
+    virtual ~IndexBuffer();
 
-		class IndexBuffer
-		{
-		public:
-			IndexBuffer(Submesh* parent);
-			virtual ~IndexBuffer();
+    int indexCount();
+    int triangleCount();
+    int indexSize();
 
-			int indexCount();
-			int triangleCount();
-			int indexSize();
+    enum InitFlags {
+        INIT_DYNAMIC = 1,
+        INIT_STATIC = 2,
+        INIT_WRITEONLY = 4,
+        INIT_READWRITE = 8,
+    };
 
-			enum InitFlags {
-				INIT_DYNAMIC = 1,
-				INIT_STATIC = 2,
-				INIT_WRITEONLY = 4,
-				INIT_READWRITE = 8,
-			};
+    enum MapFlags {
+        MAP_ANY = 0,
+        MAP_READONLY = 1,
+        MAP_DISCARD = 2,
+        MAP_WRITEONLY = 3
+    };
 
-			enum MapFlags {
-                MAP_ANY = 0,
-				MAP_READONLY = 1,
-				MAP_DISCARD = 2,
-                MAP_WRITEONLY = 3
-			};
+    // throws Gfx::Exception on failure
+    virtual void initialize(int indexCount, int aInitFlags, void* data=0) = 0;
+    virtual void resize(int indexCount) = 0;
+    virtual void* map(MapFlags flags=MAP_ANY) = 0;
+    virtual void unmap() = 0;
 
-			// throws Gfx::Exception on failure
-			virtual void initialize(int indexCount, int aInitFlags, void* data=0) = 0;
-			virtual void resize(int indexCount) = 0;
-            virtual void* map(MapFlags flags=MAP_ANY) = 0;
-			virtual void unmap() = 0;
+    TD_DECLARE_ALLOCATOR();
 
-			TD_DECLARE_ALLOCATOR();
+protected:
+    int mSize;
+    int mCount;
+    int mInitFlags;
+    Submesh* mParent;
+};
 
-		protected:
-			int mSize;
-			int mCount;
-			int mInitFlags;
-			Submesh* mParent;
-		};
-	}
-}
-
-#endif // INDEXBUFFER_INCLUDED
+} // namespace Gfx
+} // namespace Teardrop

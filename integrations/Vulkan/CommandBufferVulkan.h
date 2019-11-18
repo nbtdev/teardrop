@@ -33,14 +33,14 @@ namespace Vulkan {
 class CommandBuffer : public Gfx::CommandBuffer
 {
 public:
-    CommandBuffer(VkDevice device);
+    CommandBuffer(VkDevice device, VkCommandBuffer commandBuffer, bool reusable);
     ~CommandBuffer();
 
     // Gfx::CommandBuffer implementation
     void beginRecording() override;
     void endRecording() override;
     void reset() override;
-    void beginRenderPass(RenderPass* renderPass, Pipeline* pipeline) override;
+    void beginRenderPass(RenderPass* renderPass, RenderTarget* renderTarget, Pipeline* pipeline) override;
     void endRenderPass() override;
     void setViewport(Viewport* vp) override;
     void bindIndexBuffer(IndexBuffer* buffer) override;
@@ -56,6 +56,7 @@ public:
 private:
     VkDevice mDevice;
     VkCommandBuffer mCommandBuffer;
+    bool mReusable;
 };
 
 } // namespace Vulkan

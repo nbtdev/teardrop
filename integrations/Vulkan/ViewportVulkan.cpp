@@ -26,13 +26,19 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-Viewport::Viewport(Gfx::RenderTarget* rt)
+Viewport::Viewport(Gfx::RenderTarget* rt, VkDevice device)
     : Gfx::Viewport(rt)
+    , mDevice(device)
 {
 }
 
 Viewport::~Viewport()
 {
+}
+
+VkViewport const& Viewport::viewport() const
+{
+    return mViewport;
 }
 
 } // namespace Vulkan

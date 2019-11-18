@@ -22,7 +22,9 @@ THE SOFTWARE.
 
 #include "RenderTargetVulkan.h"
 
+#include "AllocatorsVulkan.h"
 #include "ViewportVulkan.h"
+
 #include "Math/Vector2.h"
 
 #include <cassert>
@@ -32,7 +34,9 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-RenderTarget::RenderTarget()
+RenderTarget::RenderTarget(VkDevice device)
+    : mDevice(device)
+    , mFramebuffer(VK_NULL_HANDLE)
 {
 }
 
@@ -40,6 +44,10 @@ RenderTarget::~RenderTarget()
 {
     for (Viewports::iterator it = mViewports.begin(); it != mViewports.end(); ++it) {
         delete it->second;
+    }
+
+    if (mFramebuffer != VK_NULL_HANDLE) {
+        vkDestroyFramebuffer(mDevice, mFramebuffer, getAllocationCallbacks());
     }
 }
 
@@ -67,7 +75,7 @@ int RenderTarget::height()
 
 Gfx::Viewport* RenderTarget::addViewport(float x/* =0 */, float y/* =0 */, float w/* =1 */, float h/* =1 */, size_t zOrder/* =0 */)
 {
-    Viewport* vp = TD_NEW Viewport(this);
+    Viewport* vp = TD_NEW Viewport(this, mDevice);
 
     vp->setPosition(Vector2(x, y), true);
     vp->setSize(Vector2(w, h), true);
@@ -108,6 +116,11 @@ void RenderTarget::releaseViewport(Gfx::Viewport* vp)
             return;
         }
     }
+}
+
+VkFramebuffer RenderTarget::framebuffer() const
+{
+    return mFramebuffer;
 }
 
 } // namespace Vulkan

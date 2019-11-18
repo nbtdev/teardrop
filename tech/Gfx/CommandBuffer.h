@@ -32,6 +32,7 @@ class IndexBuffer;
 class VertexBuffer;
 class Pipeline;
 class RenderPass;
+class RenderTarget;
 class Viewport;
 
 class CommandBuffer
@@ -43,7 +44,7 @@ public:
     virtual void endRecording() = 0;
     virtual void reset() = 0;
 
-    virtual void beginRenderPass(RenderPass* renderPass, Pipeline* pipeline) = 0;
+    virtual void beginRenderPass(RenderPass* renderPass, RenderTarget* renderTarget, Pipeline* pipeline) = 0;
     virtual void endRenderPass() = 0;
     virtual void setViewport(Viewport* vp) = 0;
     virtual void bindIndexBuffer(IndexBuffer* buffer) = 0;

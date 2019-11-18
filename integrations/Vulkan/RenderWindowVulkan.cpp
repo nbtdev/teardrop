@@ -48,17 +48,17 @@ namespace Gfx {
 namespace Vulkan {
 
 RenderWindow::RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice, VkDevice device, uintptr_t hWnd, SurfaceFormat fmt, int flags)
-    : mInitFlags(flags)
+    : RenderTarget(device)
+    , mInitFlags(flags)
     , mSurface(VK_NULL_HANDLE)
     , mSwapchain(VK_NULL_HANDLE)
     , mDevice(device)
     , mPhysicalDevice(physicalDevice)
     , mInstance(instance)
-    , mImageCount(0)
     , mImages(nullptr)
-    , mSemaphores(nullptr)
-    , mFences(nullptr)
+    , mImageCount(0)
     , mFrameCount(0)
+    , mCurrentImageIndex(0)
 {
 #if defined(__linux__)
     Display *dpy = XOpenDisplay(NULL);
@@ -152,25 +152,13 @@ RenderWindow::RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice,
     mImageCount = imageCount;
     mImages = new VkImage[mImageCount];
     for (uint32_t i=0; i<mImageCount; ++i) {
-        VkFenceCreateInfo fenceCreateInfo = {};
-        fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-        fenceCreateInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-        vkCreateFence(device, &fenceCreateInfo, getAllocationCallbacks(), &mFences[i]);
-
-        VkSemaphoreCreateInfo semCreateInfo = {};
-        semCreateInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-        vkCreateSemaphore(device, &semCreateInfo, getAllocationCallbacks(), &mSemaphores[i]);
-
         mImages[i] = images[i];
     }
 }
 
 RenderWindow::~RenderWindow()
 {
-    for (uint32_t i=0; i<mImageCount; ++i) {
-        vkDestroyFence(mDevice, mFences[i], getAllocationCallbacks());
-        vkDestroySemaphore(mDevice, mSemaphores[i], getAllocationCallbacks());
-    }
+    delete [] mImages;
 
     if (mSwapchain != VK_NULL_HANDLE) {
         vkDestroySwapchainKHR(mDevice, mSwapchain, getAllocationCallbacks());
@@ -196,21 +184,30 @@ void RenderWindow::unsetCurrent()
 
 }
 
-VkImage RenderWindow::acquireNextImage()
+VkImage RenderWindow::swap(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
+                        Gfx::SynchronizationPrimitive* cpuWaitPrimitive)
 {
-    uint32_t currentIndex = mFrameCount % mImageCount;
-    uint32_t imageIndex = UINT32_MAX;
+    assert(gpuWaitPrimitive);
+    assert(cpuWaitPrimitive);
+    if (!gpuWaitPrimitive || !cpuWaitPrimitive) {
+        return VK_NULL_HANDLE;
+    }
 
-    vkWaitForFences(mDevice, 1, &mFences[currentIndex], VK_TRUE, UINT64_MAX);
-    vkResetFences(mDevice, 1, &mFences[currentIndex]);
+    Vulkan::SynchronizationPrimitive* fencePrimitive = (Vulkan::SynchronizationPrimitive*)cpuWaitPrimitive;
+    Vulkan::SynchronizationPrimitive* semaphorePrimitive = (Vulkan::SynchronizationPrimitive*)gpuWaitPrimitive;
+    VkFence fence = fencePrimitive->mPrimitive.fence;
+    VkSemaphore semaphore = semaphorePrimitive->mPrimitive.semaphore;
 
-    VkResult r = vkAcquireNextImageKHR(mDevice, mSwapchain, UINT64_MAX, mSemaphores[currentIndex], VK_NULL_HANDLE, &imageIndex);
+    vkWaitForFences(mDevice, 1, &fence, VK_TRUE, UINT64_MAX);
+    vkResetFences(mDevice, 1, &fence);
+
+    VkResult r = vkAcquireNextImageKHR(mDevice, mSwapchain, UINT64_MAX, semaphore, VK_NULL_HANDLE, &mCurrentImageIndex);
 
     if (VK_SUCCESS != r) {
         return VK_NULL_HANDLE;
     }
 
-    return mImages[imageIndex];
+    return mImages[mCurrentImageIndex];
 }
 
 void RenderWindow::presentQueue(Gfx::CommandQueue* queue,
@@ -240,6 +237,7 @@ void RenderWindow::presentQueue(Gfx::CommandQueue* queue,
     info.pSwapchains = &mSwapchain;
     info.swapchainCount = 1;
     info.waitSemaphoreCount = (uint32_t)gpuWaitCount;
+    info.pImageIndices = &mCurrentImageIndex;
 
     if (gpuWaitCount && gpuWaitPrimitives) {
         VkSemaphore* semaphores = (VkSemaphore*)alloca(sizeof(VkSemaphore) * gpuWaitCount);
