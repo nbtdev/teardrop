@@ -30,10 +30,12 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
+class RenderTarget;
+
 class RenderPass : public Gfx::RenderPass
 {
 public:
-    RenderPass(VkDevice device);
+    RenderPass(VkDevice device, char const* debugName = nullptr);
     ~RenderPass();
 
     // Gfx::RenderPass implementation
@@ -41,12 +43,19 @@ public:
     void attachInputBuffer(Gfx::VertexBuffer* buffer) override;
     void attachInputTexture(Gfx::Texture* texture) override;
     void attachOutput(Gfx::RenderTarget* renderTarget) override;
+    void setClearColor(float r, float g, float b, float a) override;
 
-    VkRenderPass renderPass() const;
+    VkRenderPass renderPass();
 
 private:
+    RenderTarget* mRenderTarget;
     VkDevice mDevice;
     VkRenderPass mRenderPass;
+    VkClearColorValue mClearValue;
+    bool mClearOnLoad;
+    bool mNeedsRebuild;
+
+    void build();
 };
 
 } // namespace Vulkan

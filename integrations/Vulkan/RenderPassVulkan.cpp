@@ -28,13 +28,12 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-RenderPass::RenderPass(VkDevice device)
-    : mDevice(device)
+RenderPass::RenderPass(VkDevice device, char const* debugName)
+    : Gfx::RenderPass(debugName)
+    , mDevice(device)
+    , mClearOnLoad(false)
+    , mNeedsRebuild(false)
 {
-    VkRenderPassCreateInfo info = {};
-    info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-
-    vkCreateRenderPass(device, &info, getAllocationCallbacks(), &mRenderPass);
 }
 
 RenderPass::~RenderPass()
@@ -46,27 +45,58 @@ RenderPass::~RenderPass()
 
 void RenderPass::attachInputBuffer(IndexBuffer* buffer)
 {
-
+    mNeedsRebuild = true;
 }
 
 void RenderPass::attachInputBuffer(VertexBuffer* buffer)
 {
-
+    mNeedsRebuild = true;
 }
 
 void RenderPass::attachInputTexture(Texture* texture)
 {
-
+    mNeedsRebuild = true;
 }
 
-void RenderPass::attachOutput(RenderTarget* renderTarget)
+void RenderPass::attachOutput(Gfx::RenderTarget* renderTarget)
 {
-
+    mRenderTarget = (Vulkan::RenderTarget*)renderTarget;
+    mNeedsRebuild = true;
 }
 
-VkRenderPass RenderPass::renderPass() const
+void RenderPass::setClearColor(float r, float g, float b, float a)
 {
+    mClearOnLoad = true;
+    mClearValue.float32[0] = r;
+    mClearValue.float32[1] = g;
+    mClearValue.float32[2] = b;
+    mClearValue.float32[3] = a;
+    mNeedsRebuild = true;
+}
+
+VkRenderPass RenderPass::renderPass()
+{
+    build();
     return mRenderPass;
+}
+
+void RenderPass::build()
+{
+    if (!mNeedsRebuild) {
+        return;
+    }
+
+    if (mRenderPass != VK_NULL_HANDLE) {
+        vkDestroyRenderPass(mDevice, mRenderPass, getAllocationCallbacks());
+    }
+
+    VkRenderPassCreateInfo info = {};
+    info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+    info.subpassCount = 0;
+
+    vkCreateRenderPass(mDevice, &info, getAllocationCallbacks(), &mRenderPass);
+
+    mNeedsRebuild = false;
 }
 
 } // namespace Vulkan

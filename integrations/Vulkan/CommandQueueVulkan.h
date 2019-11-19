@@ -66,6 +66,7 @@ public:
     ~CommandQueue();
 
     // Gfx::CommandQueue implementation
+    std::unique_ptr<Gfx::CommandQueue::Submission> createSubmission() override;
     void submit(Gfx::CommandQueue::Submission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive) override;
 
     VkQueue queue() const;

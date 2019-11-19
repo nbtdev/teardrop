@@ -49,10 +49,10 @@ public:
     // create a new render texture; if tex is null, no render texture is created
     virtual std::shared_ptr<RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) = 0;
     virtual std::unique_ptr<CommandBuffer> createCommandBuffer(bool reusable) = 0;
-    virtual std::unique_ptr<RenderPass> createRenderPass() = 0;
+    virtual std::unique_ptr<RenderPass> createRenderPass(char const* name = nullptr) = 0;
     virtual std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate) = 0;
-    virtual Gfx::CommandQueue* getCommandQueue(size_t index) = 0;
     virtual std::unique_ptr<SynchronizationPrimitive> createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) = 0;
+    virtual Gfx::CommandQueue* getCommandQueue(size_t index) = 0;
     virtual size_t getCommandQueueCount() const = 0;
 };
 

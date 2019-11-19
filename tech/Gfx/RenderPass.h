@@ -42,6 +42,7 @@ public:
     virtual void attachInputBuffer(VertexBuffer* buffer) = 0;
     virtual void attachInputTexture(Texture* texture) = 0;
     virtual void attachOutput(RenderTarget* renderTarget) = 0;
+    virtual void setClearColor(float r, float g, float b, float a) = 0;
 
     String const& name() const;
 

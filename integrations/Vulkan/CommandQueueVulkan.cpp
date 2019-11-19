@@ -126,6 +126,11 @@ CommandQueue::~CommandQueue()
 {
 }
 
+std::unique_ptr<Gfx::CommandQueue::Submission> CommandQueue::createSubmission()
+{
+    return std::unique_ptr<Vulkan::CommandQueue::Submission>(new Vulkan::CommandQueue::Submission);
+}
+
 void CommandQueue::submit(Gfx::CommandQueue::Submission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive)
 {
     assert(submissionInfo);

@@ -46,7 +46,7 @@ public:
     std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) override;
     std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) override;
     std::unique_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
-    std::unique_ptr<RenderPass> createRenderPass() override;
+    std::unique_ptr<RenderPass> createRenderPass(char const* name = nullptr) override;
     std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate) override;
     CommandQueue* getCommandQueue(size_t index) override;
     std::unique_ptr<Gfx::SynchronizationPrimitive> createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;

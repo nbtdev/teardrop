@@ -347,11 +347,11 @@ std::unique_ptr<Gfx::CommandBuffer> Renderer::createCommandBuffer(bool reusable)
     return std::unique_ptr<Gfx::CommandBuffer>(new Vulkan::CommandBuffer(mDevice, buffer, info.commandPool, reusable));
 }
 
-std::unique_ptr<Gfx::RenderPass> Renderer::createRenderPass()
+std::unique_ptr<Gfx::RenderPass> Renderer::createRenderPass(char const* name)
 {
     // the RenderPass class is primarily a builder class, so the actual creation of the render
     // pass will take place there; here we just make a new builder and hand it off
-    return std::unique_ptr<Gfx::RenderPass>(new Vulkan::RenderPass(mDevice));
+    return std::unique_ptr<Gfx::RenderPass>(new Vulkan::RenderPass(mDevice, name));
 }
 
 std::unique_ptr<Gfx::Pipeline> Renderer::createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate)

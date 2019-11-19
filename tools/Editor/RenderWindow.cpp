@@ -22,7 +22,10 @@ THE SOFTWARE.
 
 #include "RenderWindow.h"
 #include "Core/Executable.h"
+#include "Gfx/CommandBuffer.h"
+#include "Gfx/CommandQueue.h"
 #include "Gfx/Renderer.h"
+#include "Gfx/RenderPass.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Viewport.h"
@@ -37,11 +40,11 @@ using namespace Tools;
 
 RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	: QWidget(parent)
-	, mTimer(0)
+    , mTimer(nullptr)
 	, mRenderer(renderer)
-	, mRT(0)
-	, mCamera(0)
-	, mViewport(0)
+    , mRT(nullptr)
+    , mCamera(nullptr)
+    , mViewport(nullptr)
     , mExecutable(nullptr)
     , mLastMouseX(-1)
     , mLastMouseY(-1)
@@ -72,6 +75,10 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	}
 
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
+
+    // create "clear screen" render pass for use when no executable is present
+    mClearPass = mRenderer->createRenderPass("EmptyBlackPass");
+    mClearPass->attachOutput(mRT.get());
 }
 
 RenderWindow::~RenderWindow()
@@ -127,6 +134,11 @@ void RenderWindow::onIdle()
         return;
     }
 
+    Gfx::CommandQueue* queue = mRenderer->getCommandQueue(0);
+    if (!queue) {
+        return;
+    }
+
     mCamera->setAspect(mRT->aspect());
     mRT->setCurrent();
     mRT->clear(true, 0xFF000000);
@@ -136,12 +148,14 @@ void RenderWindow::onIdle()
         mExecutable->tick();
         mExecutable->renderFrame(mRenderer, mRT.get());
     } else {
-//        mRenderer->beginFrame();
-//        mRenderer->beginScene(mCamera, mViewport);
-//        mRenderer->endScene();
-//        mRenderer->endFrame();
+        std::unique_ptr<Gfx::CommandBuffer> cmdBuf = mRenderer->createCommandBuffer(false);
+        cmdBuf->beginRecording();
+        cmdBuf->beginRenderPass(mClearPass.get(), mRT.get(), nullptr);
+        cmdBuf->endRecording();
+
+        std::unique_ptr<Gfx::CommandQueue::Submission> submit = queue->createSubmission();
+        mRenderer->getCommandQueue(0)->submit(submit.get(), 1, nullptr);
     }
 
-//    mRT->present();
-
+    mRT->presentQueue(queue, nullptr, 0, nullptr);
 }

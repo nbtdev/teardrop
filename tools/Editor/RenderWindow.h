@@ -20,56 +20,56 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#ifndef RENDERWINDOW_H
-#define RENDERWINDOW_H
+#pragma once
 
-#include <QtWidgets/QWidget>
+#include <QObject>
+#include <QWidget>
 #include <memory>
 
 class QTimer;
 
-namespace Teardrop
+namespace Teardrop {
+
+class Executable;
+
+namespace Gfx {
+class Renderer;
+class RenderPass;
+class RenderTarget;
+class Camera;
+class Viewport;
+} // namespace Gfx
+
+namespace Tools {
+
+class RenderWindow : public QWidget
 {
-    class Executable;
+    Q_OBJECT
 
-    namespace Gfx
-	{
-		class Renderer;
-		class RenderTarget;
-		class Camera;
-		class Viewport;
-	}
+public:
+    RenderWindow(Gfx::Renderer* renderer, QWidget* parent=nullptr);
+    ~RenderWindow();
 
-	namespace Tools 
-	{
-		class RenderWindow : public QWidget
-		{
-			Q_OBJECT
+    void setExecutable(Executable* executable);
 
-		public:
-			RenderWindow(Gfx::Renderer* renderer, QWidget* parent=0);
-			~RenderWindow();
+protected: // QWidget event overrides
+    void mouseMoveEvent(QMouseEvent* event);
+    void wheelEvent(QWheelEvent* event);
 
-            void setExecutable(Executable* executable);
+protected slots:
+    void onIdle();
 
-        protected: // QWidget event overrides
-            void mouseMoveEvent(QMouseEvent* event);
-            void wheelEvent(QWheelEvent* event);
+private:
+    QTimer* mTimer;
+    Gfx::Renderer* mRenderer;
+    std::shared_ptr<Gfx::RenderTarget> mRT;
+    std::unique_ptr<Gfx::RenderPass> mClearPass;
+    Gfx::Camera* mCamera;
+    Gfx::Viewport* mViewport;
+    Executable* mExecutable;
+    int mLastMouseX;
+    int mLastMouseY;
+};
 
-		protected slots:
-			void onIdle();
-
-		private:
-			QTimer* mTimer;
-			Gfx::Renderer* mRenderer;
-			std::shared_ptr<Gfx::RenderTarget> mRT;
-			Gfx::Camera* mCamera;
-			Gfx::Viewport* mViewport;
-            Executable* mExecutable;
-            int mLastMouseX;
-            int mLastMouseY;
-		};
-	}
-}
-
-#endif // RENDERWINDOW_H
+} // namespace Tools
+} // namespace Teardrop

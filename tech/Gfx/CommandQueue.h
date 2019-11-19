@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 
 namespace Teardrop {
 namespace Gfx {
@@ -47,6 +48,7 @@ public:
 
     virtual ~CommandQueue();
 
+    virtual std::unique_ptr<Submission> createSubmission() = 0;
     virtual void submit(Submission* submissionInfo, size_t submitCount, SynchronizationPrimitive* cpuSignalPrimitive) = 0;
 };
 
