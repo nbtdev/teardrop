@@ -24,7 +24,11 @@ THE SOFTWARE.
 
 #include "AllocatorsVulkan.h"
 #include "CommandBufferVulkan.h"
+#include "CommandQueueVulkan.h"
+#include "PipelineVulkan.h"
+#include "RenderPassVulkan.h"
 #include "RenderWindowVulkan.h"
+#include "SynchronizationPrimitiveVulkan.h"
 
 #include "Memory/Allocators.h"
 
@@ -121,7 +125,12 @@ VkAllocationCallbacks const* getAllocationCallbacks()
 
 Renderer::Renderer(int /*flags*/)
     : mInstance(VK_NULL_HANDLE)
+    , mPhysicalDevice(VK_NULL_HANDLE)
     , mDevice(VK_NULL_HANDLE)
+    , mTransientCommandPool(VK_NULL_HANDLE)
+    , mResetCommandPool(VK_NULL_HANDLE)
+    , mQueueFamilyIndex(UINT32_MAX)
+    , mCommandQueue(nullptr)
 {
     uint32_t nProps = 0;
     if (VK_SUCCESS != vkEnumerateInstanceExtensionProperties(nullptr, &nProps, nullptr)) {
@@ -220,6 +229,8 @@ Renderer::Renderer(int /*flags*/)
         return;
     }
 
+    mQueueFamilyIndex = suitableQueueFamilyIndex;
+
     // pick the first one in the list for now
     // TODO: let the user choose/set their device choice
     mPhysicalDevice = physDevices[firstActualGPU];
@@ -266,6 +277,16 @@ Renderer::Renderer(int /*flags*/)
         std::cout << "Failed to create device" << std::endl;
         return;
     }
+
+    // get the command queue and make an object from it
+    VkQueue queue = VK_NULL_HANDLE;
+    vkGetDeviceQueue(mDevice, mQueueFamilyIndex, 0, &queue);
+    if (VK_NULL_HANDLE == queue) {
+        std::cout << "Failed to get device queue" << std::endl;
+        return;
+    }
+
+    mCommandQueue.reset(new Vulkan::CommandQueue(mDevice, queue));
 
     // create command buffer pool
     VkCommandPoolCreateInfo commandPoolCreateInfo = {};
@@ -326,29 +347,39 @@ std::unique_ptr<Gfx::CommandBuffer> Renderer::createCommandBuffer(bool reusable)
     return std::unique_ptr<Gfx::CommandBuffer>(new Vulkan::CommandBuffer(mDevice, buffer, info.commandPool, reusable));
 }
 
-std::unique_ptr<RenderPass> Renderer::createRenderPass()
+std::unique_ptr<Gfx::RenderPass> Renderer::createRenderPass()
 {
-
+    // the RenderPass class is primarily a builder class, so the actual creation of the render
+    // pass will take place there; here we just make a new builder and hand it off
+    return std::unique_ptr<Gfx::RenderPass>(new Vulkan::RenderPass(mDevice));
 }
 
-std::unique_ptr<Pipeline> Renderer::createPipeline(PipelineType type)
+std::unique_ptr<Gfx::Pipeline> Renderer::createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate)
 {
-
+    // Pipeline is primarily a builder class, so the actual creation and initialization of the
+    // pipeline will take place there; here we just make a new builder and hand it off
+    return std::unique_ptr<Gfx::Pipeline>(new Vulkan::Pipeline(mDevice, renderPassTemplate));
 }
 
-SynchronizationPrimitive* Renderer::createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled)
+std::unique_ptr<Gfx::SynchronizationPrimitive> Renderer::createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled)
 {
-
+    return std::unique_ptr<Gfx::SynchronizationPrimitive>(new Vulkan::SynchronizationPrimitive(type, signaled, mDevice));
 }
 
-CommandQueue* Renderer::getCommandQueue(size_t index)
+Gfx::CommandQueue* Renderer::getCommandQueue(size_t index)
 {
+    // anything other than the one we have, return null
+    if (index > 0) {
+        return nullptr;
+    }
 
+    return mCommandQueue.get();
 }
 
 size_t Renderer::getCommandQueueCount() const
 {
-
+    // hardcoded to 1 for now
+    return 1;
 }
 
 } // namespace Vulkan

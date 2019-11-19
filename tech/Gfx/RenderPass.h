@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include "Util/_String.h"
+
 namespace Teardrop {
 namespace Gfx {
 
@@ -33,12 +35,18 @@ class VertexBuffer;
 class RenderPass
 {
 public:
+    RenderPass(String const& name = String::EMPTY);
     virtual ~RenderPass();
 
     virtual void attachInputBuffer(IndexBuffer* buffer) = 0;
     virtual void attachInputBuffer(VertexBuffer* buffer) = 0;
     virtual void attachInputTexture(Texture* texture) = 0;
     virtual void attachOutput(RenderTarget* renderTarget) = 0;
+
+    String const& name() const;
+
+protected:
+    String mName;
 };
 
 } // namespace Gfx

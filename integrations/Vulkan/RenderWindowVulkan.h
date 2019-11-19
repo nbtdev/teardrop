@@ -44,7 +44,7 @@ public:
     void unsetCurrent() override;
 
     // RenderTargetEx implementation
-    void presentQueue(CommandQueue* queue,
+    void presentQueue(Gfx::CommandQueue* queue,
                       Gfx::SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
                       Gfx::SynchronizationPrimitive* cpuWaitPrimitive
                       ) override;

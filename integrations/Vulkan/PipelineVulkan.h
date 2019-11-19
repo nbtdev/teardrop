@@ -20,24 +20,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Gfx/RenderPass.h"
+#pragma once
+
+#include "Gfx/Pipeline.h"
+
+#include <vulkan/vulkan.h>
 
 namespace Teardrop {
 namespace Gfx {
 
-RenderPass::RenderPass(String const& name)
-    : mName(name)
-{
-}
+class RenderPass;
 
-RenderPass::~RenderPass()
-{
-}
+namespace Vulkan {
 
-String const& RenderPass::name() const
+class Pipeline : public Gfx::Pipeline
 {
-    return mName;
-}
+public:
+    Pipeline(VkDevice device, Gfx::RenderPass* renderPassTemplate);
+    ~Pipeline();
 
+private:
+    VkDevice mDevice;
+    VkPipeline mPipeline;
+};
+
+} // namespace Vulkan
 } // namespace Gfx
 } // namespace Teardrop

@@ -47,9 +47,9 @@ public:
     std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) override;
     std::unique_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
     std::unique_ptr<RenderPass> createRenderPass() override;
-    std::unique_ptr<Pipeline> createPipeline(PipelineType type) override;
+    std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate) override;
     CommandQueue* getCommandQueue(size_t index) override;
-    SynchronizationPrimitive* createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
+    std::unique_ptr<Gfx::SynchronizationPrimitive> createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
     size_t getCommandQueueCount() const override;
 
     TD_DECLARE_ALLOCATOR();
@@ -63,6 +63,9 @@ private:
     VkDevice mDevice;
     VkCommandPool mTransientCommandPool;
     VkCommandPool mResetCommandPool;
+
+    uint32_t mQueueFamilyIndex;
+    std::unique_ptr<CommandQueue> mCommandQueue;
 };
 
 } // namespace Vulkan

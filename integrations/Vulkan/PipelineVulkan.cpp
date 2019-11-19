@@ -20,24 +20,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "Gfx/RenderPass.h"
+#include "PipelineVulkan.h"
+
+#include "AllocatorsVulkan.h"
 
 namespace Teardrop {
 namespace Gfx {
+namespace Vulkan {
 
-RenderPass::RenderPass(String const& name)
-    : mName(name)
+Pipeline::Pipeline(VkDevice device, Gfx::RenderPass* renderPassTemplate)
+    : mDevice(device)
+    , mPipeline(VK_NULL_HANDLE)
 {
+
 }
 
-RenderPass::~RenderPass()
+Pipeline::~Pipeline()
 {
+    if (mPipeline == VK_NULL_HANDLE) {
+        return;
+    }
+
+    vkDestroyPipeline(mDevice, mPipeline, getAllocationCallbacks());
 }
 
-String const& RenderPass::name() const
-{
-    return mName;
-}
-
+} // namespace Vulkan
 } // namespace Gfx
 } // namespace Teardrop

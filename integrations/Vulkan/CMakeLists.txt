@@ -15,6 +15,8 @@ set(SOURCES
     IntegrationVulkan.h
     RendererVulkan.cpp
     RendererVulkan.h
+    PipelineVulkan.cpp
+    PipelineVulkan.h
     RenderPassVulkan.cpp
     RenderPassVulkan.h
     RenderTargetVulkan.cpp

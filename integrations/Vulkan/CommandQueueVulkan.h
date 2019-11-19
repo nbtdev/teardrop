@@ -42,7 +42,7 @@ public:
         ~Submission();
 
         // Gfx::CommandQueue::Submission implementation
-        void addCommandBuffer(CommandBuffer* commandBuffer) override;
+        void addCommandBuffer(Gfx::CommandBuffer* commandBuffer) override;
         void addWaitPrimitive(SynchronizationPrimitive* primitive, uint32_t stageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT) override;
         void addSignalPrimitive(SynchronizationPrimitive* primitive) override;
         bool validate() const override;
