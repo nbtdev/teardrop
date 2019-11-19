@@ -29,6 +29,7 @@ set(SOURCES
     Common.cpp
     Common.h
     CommandBuffer.h
+    CommandBuffer.cpp
     CommandQueue.cpp
     CommandQueue.h
     Connection.cpp
@@ -59,6 +60,7 @@ set(SOURCES
     Renderer.cpp
     Renderer.h
     RenderPass.h
+    RenderPass.cpp
     RenderQueue.cpp
     RenderQueue.h
     RenderTarget.cpp

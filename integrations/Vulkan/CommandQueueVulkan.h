@@ -26,6 +26,8 @@ THE SOFTWARE.
 
 #include <vulkan/vulkan.h>
 
+#include <vector>
+
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
@@ -33,15 +35,38 @@ namespace Vulkan {
 class CommandQueue : public Gfx::CommandQueue
 {
 public:
-    CommandQueue(VkDevice device);
+    class Submission : public Gfx::CommandQueue::Submission
+    {
+    public:
+        Submission();
+        ~Submission();
+
+        // Gfx::CommandQueue::Submission implementation
+        void addCommandBuffer(CommandBuffer* commandBuffer) override;
+        void addWaitPrimitive(SynchronizationPrimitive* primitive, uint32_t stageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT) override;
+        void addSignalPrimitive(SynchronizationPrimitive* primitive) override;
+        bool validate() const override;
+
+        uint32_t commandBufferCount() const;
+        VkCommandBuffer const* commandBuffers() const;
+        uint32_t waitSemaphoreCount() const;
+        VkSemaphore const* waitSemaphores() const;
+        uint32_t signalSemaphoreCount() const;
+        VkSemaphore const* signalSemaphores() const;
+        uint32_t const* stageWaitMasks() const;
+
+    private:
+        std::vector<VkCommandBuffer> mCommandBuffers;
+        std::vector<VkSemaphore> mWaitSemaphores;
+        std::vector<VkSemaphore> mSignalSemaphores;
+        std::vector<uint32_t> mStageWaitMasks;
+    };
+
+    CommandQueue(VkDevice device, VkQueue queue);
     ~CommandQueue();
 
     // Gfx::CommandQueue implementation
-    void submit(CommandBuffer* commandBuffer,
-                SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
-                SynchronizationPrimitive* gpuSignalPrimitives, size_t gpuSignalCount,
-                SynchronizationPrimitive* cpuSignalPrimitive
-                ) override;
+    void submit(Gfx::CommandQueue::Submission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive) override;
 
     VkQueue queue() const;
 

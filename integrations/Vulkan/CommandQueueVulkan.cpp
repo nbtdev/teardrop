@@ -22,27 +22,140 @@ THE SOFTWARE.
 
 #include "CommandQueueVulkan.h"
 
+#include "CommandBufferVulkan.h"
+#include "SynchronizationPrimitiveVulkan.h"
+
+#include <alloca.h>
+#include <vulkan/vulkan.h>
+
+#include <cassert>
+
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-CommandQueue::CommandQueue(VkDevice device)
+CommandQueue::Submission::Submission()
 {
+}
 
+CommandQueue::Submission::~Submission()
+{
+}
+
+void CommandQueue::Submission::addCommandBuffer(Gfx::CommandBuffer* commandBuffer)
+{
+    assert(commandBuffer);
+    if (!commandBuffer) {
+        return;
+    }
+
+    Vulkan::CommandBuffer* cmdBuf = (Vulkan::CommandBuffer*)commandBuffer;
+    mCommandBuffers.push_back(cmdBuf->commandBuffer());
+}
+
+void CommandQueue::Submission::addWaitPrimitive(Gfx::SynchronizationPrimitive* primitive, uint32_t stageMask)
+{
+    assert(primitive);
+    if (!primitive) {
+        return;
+    }
+
+    Vulkan::SynchronizationPrimitive* prim = (Vulkan::SynchronizationPrimitive*)prim;
+    mWaitSemaphores.push_back(prim->mPrimitive.semaphore);
+    mStageWaitMasks.push_back(stageMask);
+}
+
+void CommandQueue::Submission::addSignalPrimitive(Gfx::SynchronizationPrimitive* primitive)
+{
+    assert(primitive);
+    if (!primitive) {
+        return;
+    }
+
+    Vulkan::SynchronizationPrimitive* prim = (Vulkan::SynchronizationPrimitive*)prim;
+    mSignalSemaphores.push_back(prim->mPrimitive.semaphore);
+}
+
+bool CommandQueue::Submission::validate() const
+{
+    return true;
+}
+
+uint32_t CommandQueue::Submission::commandBufferCount() const
+{
+    return (uint32_t)mCommandBuffers.size();
+}
+
+VkCommandBuffer const* CommandQueue::Submission::commandBuffers() const
+{
+    return mCommandBuffers.data();
+}
+
+uint32_t CommandQueue::Submission::waitSemaphoreCount() const
+{
+    return (uint32_t)mWaitSemaphores.size();
+}
+
+VkSemaphore const* CommandQueue::Submission::waitSemaphores() const
+{
+    return mWaitSemaphores.data();
+}
+
+uint32_t CommandQueue::Submission::signalSemaphoreCount() const
+{
+    return (uint32_t)mSignalSemaphores.size();
+}
+
+VkSemaphore const* CommandQueue::Submission::signalSemaphores() const
+{
+    return mSignalSemaphores.data();
+}
+
+uint32_t const* CommandQueue::Submission::stageWaitMasks() const
+{
+    return mStageWaitMasks.data();
+}
+
+CommandQueue::CommandQueue(VkDevice device, VkQueue queue)
+    : mDevice(device)
+    , mQueue(queue)
+{
 }
 
 CommandQueue::~CommandQueue()
 {
-
 }
 
-void CommandQueue::submit(CommandBuffer* commandBuffer,
-            SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
-            SynchronizationPrimitive* gpuSignalPrimitives, size_t gpuSignalCount,
-            SynchronizationPrimitive* cpuSignalPrimitive
-            )
+void CommandQueue::submit(Gfx::CommandQueue::Submission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive)
 {
+    assert(submissionInfo);
+    if (!submissionInfo) {
+        return;
+    }
 
+    Vulkan::CommandQueue::Submission* vkSubmissions = (Vulkan::CommandQueue::Submission*)submissionInfo;
+
+    VkFence fence = VK_NULL_HANDLE;
+    if (cpuSignalPrimitive) {
+        Vulkan::SynchronizationPrimitive* fencePrim = (Vulkan::SynchronizationPrimitive*)cpuSignalPrimitive;
+        fence = fencePrim->mPrimitive.fence;
+    }
+
+    VkSubmitInfo* submitInfos = (VkSubmitInfo*)alloca(sizeof(VkSubmitInfo) * submitCount);
+
+    for (uint32_t i=0; i<submitCount; ++i) {
+        submitInfos[i] = {};
+        submitInfos[i].sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+        submitInfos[i].pCommandBuffers = vkSubmissions[i].commandBuffers();
+        submitInfos[i].commandBufferCount = vkSubmissions[i].commandBufferCount();
+        submitInfos[i].pWaitSemaphores = vkSubmissions[i].waitSemaphores();
+        submitInfos[i].waitSemaphoreCount = vkSubmissions[i].waitSemaphoreCount();
+        submitInfos[i].pSignalSemaphores = vkSubmissions[i].signalSemaphores();
+        submitInfos[i].signalSemaphoreCount = vkSubmissions[i].signalSemaphoreCount();
+        submitInfos[i].pWaitDstStageMask = vkSubmissions[i].stageWaitMasks();
+    }
+
+    vkQueueSubmit(mQueue, (uint32_t)submitCount, submitInfos, fence);
 }
 
 VkQueue CommandQueue::queue() const

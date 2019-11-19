@@ -20,35 +20,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#pragma once
+#include "Gfx/RenderPass.h"
 
-#include <cstddef>
-#include <cstdint>
 
 namespace Teardrop {
 namespace Gfx {
 
-class CommandBuffer;
-struct SynchronizationPrimitive;
-
-class CommandQueue
+RenderPass::~RenderPass()
 {
-public:
-    class Submission
-    {
-    public:
-        virtual ~Submission();
-
-        virtual void addCommandBuffer(CommandBuffer* commandBuffer) = 0;
-        virtual void addWaitPrimitive(SynchronizationPrimitive* primitive, uint32_t stageMask) = 0;
-        virtual void addSignalPrimitive(SynchronizationPrimitive* primitive) = 0;
-        virtual bool validate() const = 0;
-    };
-
-    virtual ~CommandQueue();
-
-    virtual void submit(Submission* submissionInfo, size_t submitCount, SynchronizationPrimitive* cpuSignalPrimitive) = 0;
-};
+}
 
 } // namespace Gfx
 } // namespace Teardrop
