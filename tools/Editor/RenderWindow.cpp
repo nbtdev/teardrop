@@ -151,6 +151,7 @@ void RenderWindow::onIdle()
         std::unique_ptr<Gfx::CommandBuffer> cmdBuf = mRenderer->createCommandBuffer(false);
         cmdBuf->beginRecording();
         cmdBuf->beginRenderPass(mClearPass.get(), mRT.get(), nullptr);
+        cmdBuf->endRenderPass();
         cmdBuf->endRecording();
 
         std::unique_ptr<Gfx::CommandQueue::Submission> submit = queue->createSubmission();
