@@ -20,53 +20,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "IndexBufferVulkan.h"
+#pragma once
 
-#include "AllocatorsVulkan.h"
+#include "Gfx/VertexBuffer.h"
+
+#include <vulkan/vulkan.h>
 
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-IndexBuffer::IndexBuffer(Submesh* parent, VkDevice device)
-    : Gfx::IndexBuffer(parent)
-    , mDevice(device)
-    , mBuffer(VK_NULL_HANDLE)
+class VertexBuffer : public Gfx::VertexBuffer
 {
+public:
+    VertexBuffer(Submesh* parent, VkDevice device);
+    ~VertexBuffer();
 
-}
+    // Gfx::VertexBuffer implementation
+    void initialize(size_t vertexCount, size_t initFlags, void* data) override;
+    void resize(size_t vertexCount) override;
+    void* map(MapFlags mapFlags) override;
+    void unmap() override;
 
-IndexBuffer::~IndexBuffer()
-{
-    if (mBuffer != VK_NULL_HANDLE) {
-        vkDestroyBuffer(mDevice, mBuffer, getAllocationCallbacks());
-    }
-}
+    VkBuffer buffer() const;
 
-void IndexBuffer::initialize(int indexCount, int aInitFlags, void* data)
-{
+    TD_DECLARE_ALLOCATOR();
 
-}
-
-void IndexBuffer::resize(int indexCount)
-{
-
-}
-
-void* IndexBuffer::map(MapFlags flags)
-{
-    return nullptr;
-}
-
-void IndexBuffer::unmap()
-{
-
-}
-
-VkBuffer IndexBuffer::buffer() const
-{
-    return mBuffer;
-}
+private:
+    VkDevice mDevice;
+    VkBuffer mBuffer;
+};
 
 } // namespace Vulkan
 } // namespace Gfx

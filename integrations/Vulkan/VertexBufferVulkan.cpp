@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#include "IndexBufferVulkan.h"
+#include "VertexBufferVulkan.h"
 
 #include "AllocatorsVulkan.h"
 
@@ -28,42 +28,42 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-IndexBuffer::IndexBuffer(Submesh* parent, VkDevice device)
-    : Gfx::IndexBuffer(parent)
+VertexBuffer::VertexBuffer(Submesh* parent, VkDevice device)
+    : Gfx::VertexBuffer(parent)
     , mDevice(device)
     , mBuffer(VK_NULL_HANDLE)
 {
 
 }
 
-IndexBuffer::~IndexBuffer()
+VertexBuffer::~VertexBuffer()
 {
     if (mBuffer != VK_NULL_HANDLE) {
         vkDestroyBuffer(mDevice, mBuffer, getAllocationCallbacks());
     }
 }
 
-void IndexBuffer::initialize(int indexCount, int aInitFlags, void* data)
+void VertexBuffer::initialize(size_t vertexCount, size_t initFlags, void* data)
 {
 
 }
 
-void IndexBuffer::resize(int indexCount)
+void VertexBuffer::resize(size_t vertexCount)
 {
 
 }
 
-void* IndexBuffer::map(MapFlags flags)
+void* VertexBuffer::map(MapFlags flags)
 {
     return nullptr;
 }
 
-void IndexBuffer::unmap()
+void VertexBuffer::unmap()
 {
 
 }
 
-VkBuffer IndexBuffer::buffer() const
+VkBuffer VertexBuffer::buffer() const
 {
     return mBuffer;
 }

@@ -9,6 +9,8 @@ set(SOURCES
     CommandBufferVulkan.h
     CommandQueueVulkan.cpp
     CommandQueueVulkan.h
+    IndexBufferVulkan.cpp
+    IndexBufferVulkan.h
     IntegrationVulkan.cpp
     IntegrationVulkan.h
     RendererVulkan.cpp
@@ -21,6 +23,8 @@ set(SOURCES
     RenderWindowVulkan.h
     SynchronizationPrimitiveVulkan.cpp
     SynchronizationPrimitiveVulkan.h
+    VertexBufferVulkan.cpp
+    VertexBufferVulkan.h
     ViewportVulkan.cpp
     ViewportVulkan.h
 )

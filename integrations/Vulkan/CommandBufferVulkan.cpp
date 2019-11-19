@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include "IndexBufferVulkan.h"
 #include "RenderPassVulkan.h"
 #include "RenderTargetVulkan.h"
+#include "VertexBufferVulkan.h"
 #include "ViewportVulkan.h"
 
 #include <cassert>
@@ -149,6 +150,16 @@ void CommandBuffer::bindVertexBuffers(Gfx::VertexBuffer** buffers, size_t buffer
         return;
     }
 
+    VkBuffer* vertexBuffers = (VkBuffer*)alloca(sizeof(VkBuffer) * bufferCount);
+    VkDeviceSize* offsets = (VkDeviceSize*)alloca(sizeof(VkDeviceSize) * bufferCount);
+
+    Vulkan::VertexBuffer** vBuffers = (Vulkan::VertexBuffer**)buffers;
+    for (uint32_t i=0; i<bufferCount; ++i) {
+        vertexBuffers[i] = vBuffers[i]->buffer();
+        offsets[i] = 0;
+    }
+
+    vkCmdBindVertexBuffers(mCommandBuffer, 0, (uint32_t)bufferCount, vertexBuffers, offsets);
 }
 
 void CommandBuffer::bindDescriptorSets(DescriptorSet** sets, size_t setCount)
@@ -158,22 +169,22 @@ void CommandBuffer::bindDescriptorSets(DescriptorSet** sets, size_t setCount)
 
 void CommandBuffer::draw(size_t vertexCount, size_t startingVertex)
 {
-
+    vkCmdDraw(mCommandBuffer, (uint32_t)vertexCount, 0, (uint32_t)startingVertex, 0);
 }
 
 void CommandBuffer::drawIndexed(size_t indexCount, size_t startingIndex)
 {
-
+    vkCmdDrawIndexed(mCommandBuffer, (uint32_t)indexCount, 0, (uint32_t)startingIndex, 0, 0);
 }
 
 void CommandBuffer::drawInstanced(size_t vertexCount, size_t startingVertex, size_t instanceCount, size_t startingInstance)
 {
-
+    vkCmdDraw(mCommandBuffer, (uint32_t)vertexCount, (uint32_t)instanceCount, (uint32_t)startingVertex, (uint32_t)startingInstance);
 }
 
 void CommandBuffer::drawInstancedIndexed(size_t indexCount, size_t startingIndex, size_t instanceCount, size_t startingInstance)
 {
-
+    vkCmdDrawIndexed(mCommandBuffer, (uint32_t)indexCount, (uint32_t)instanceCount, (uint32_t)startingIndex, 0, (uint32_t)startingIndex);
 }
 
 VkCommandBuffer CommandBuffer::commandBuffer() const
