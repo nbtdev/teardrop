@@ -34,9 +34,10 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-CommandBuffer::CommandBuffer(VkDevice device, VkCommandBuffer commandBuffer, bool reusable)
+CommandBuffer::CommandBuffer(VkDevice device, VkCommandBuffer commandBuffer, VkCommandPool pool, bool reusable)
     : mDevice(device)
     , mCommandBuffer(commandBuffer)
+    , mPool(pool)
     , mReusable(reusable)
 {
     assert(commandBuffer != VK_NULL_HANDLE);
@@ -44,6 +45,7 @@ CommandBuffer::CommandBuffer(VkDevice device, VkCommandBuffer commandBuffer, boo
 
 CommandBuffer::~CommandBuffer()
 {
+    vkFreeCommandBuffers(mDevice, mPool, 1, &mCommandBuffer);
 }
 
 void CommandBuffer::beginRecording()

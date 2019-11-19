@@ -33,7 +33,7 @@ namespace Vulkan {
 class CommandBuffer : public Gfx::CommandBuffer
 {
 public:
-    CommandBuffer(VkDevice device, VkCommandBuffer commandBuffer, bool reusable);
+    CommandBuffer(VkDevice device, VkCommandBuffer commandBuffer, VkCommandPool pool, bool reusable);
     ~CommandBuffer();
 
     // Gfx::CommandBuffer implementation
@@ -56,6 +56,7 @@ public:
 private:
     VkDevice mDevice;
     VkCommandBuffer mCommandBuffer;
+    VkCommandPool mPool;
     bool mReusable;
 };
 

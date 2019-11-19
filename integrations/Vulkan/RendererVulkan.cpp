@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "RendererVulkan.h"
 
 #include "AllocatorsVulkan.h"
+#include "CommandBufferVulkan.h"
 #include "RenderWindowVulkan.h"
 
 #include "Memory/Allocators.h"
@@ -265,10 +266,22 @@ Renderer::Renderer(int /*flags*/)
         std::cout << "Failed to create device" << std::endl;
         return;
     }
+
+    // create command buffer pool
+    VkCommandPoolCreateInfo commandPoolCreateInfo = {};
+    commandPoolCreateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+    commandPoolCreateInfo.queueFamilyIndex = suitableQueueFamilyIndex;
+    commandPoolCreateInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+    vkCreateCommandPool(mDevice, &commandPoolCreateInfo, getAllocationCallbacks(), &mResetCommandPool);
+    commandPoolCreateInfo.flags |= VK_COMMAND_POOL_CREATE_TRANSIENT_BIT;
+    vkCreateCommandPool(mDevice, &commandPoolCreateInfo, getAllocationCallbacks(), &mTransientCommandPool);
 }
 
 Renderer::~Renderer()
 {
+    vkDestroyCommandPool(mDevice, mTransientCommandPool, getAllocationCallbacks());
+    vkDestroyCommandPool(mDevice, mResetCommandPool, getAllocationCallbacks());
+
     if (mDevice != VK_NULL_HANDLE) {
         vkDestroyDevice(mDevice, getAllocationCallbacks());
     }
@@ -292,17 +305,33 @@ std::shared_ptr<Gfx::RenderTarget> Renderer::createRenderTexture(int w, int h, S
 
 }
 
-std::weak_ptr<CommandBuffer> Renderer::createCommandBuffer(bool reusable)
+std::unique_ptr<Gfx::CommandBuffer> Renderer::createCommandBuffer(bool reusable)
+{
+    VkCommandBuffer buffer = VK_NULL_HANDLE;
+
+    VkCommandBufferAllocateInfo info = {};
+    info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    info.commandBufferCount = 1;
+    info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+
+    if (reusable) {
+        // then get it from the RESET pool
+        info.commandPool = mResetCommandPool;
+    } else {
+        // get it from the TRANSIENT pool
+        info.commandPool = mTransientCommandPool;
+    }
+
+    vkAllocateCommandBuffers(mDevice, &info, &buffer);
+    return std::unique_ptr<Gfx::CommandBuffer>(new Vulkan::CommandBuffer(mDevice, buffer, info.commandPool, reusable));
+}
+
+std::unique_ptr<RenderPass> Renderer::createRenderPass()
 {
 
 }
 
-std::weak_ptr<RenderPass> Renderer::createRenderPass()
-{
-
-}
-
-std::weak_ptr<Pipeline> Renderer::createPipeline(PipelineType type)
+std::unique_ptr<Pipeline> Renderer::createPipeline(PipelineType type)
 {
 
 }
@@ -312,7 +341,7 @@ SynchronizationPrimitive* Renderer::createSynchronizationPrimitive(Synchronizati
 
 }
 
-std::weak_ptr<CommandQueue> Renderer::getCommandQueue(size_t index)
+CommandQueue* Renderer::getCommandQueue(size_t index)
 {
 
 }

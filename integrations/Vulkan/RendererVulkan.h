@@ -23,6 +23,7 @@ THE SOFTWARE.
 #pragma once
 
 #include "Gfx/Renderer.h"
+
 #include "Memory/Allocators.h"
 
 #include <vulkan/vulkan.h>
@@ -44,11 +45,11 @@ public:
     // Gfx::Renderer implementation
     std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) override;
     std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) override;
-    std::weak_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
-    std::weak_ptr<RenderPass> createRenderPass() override;
-    std::weak_ptr<Pipeline> createPipeline(PipelineType type) override;
+    std::unique_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
+    std::unique_ptr<RenderPass> createRenderPass() override;
+    std::unique_ptr<Pipeline> createPipeline(PipelineType type) override;
+    CommandQueue* getCommandQueue(size_t index) override;
     SynchronizationPrimitive* createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
-    std::weak_ptr<CommandQueue> getCommandQueue(size_t index) override;
     size_t getCommandQueueCount() const override;
 
     TD_DECLARE_ALLOCATOR();
@@ -60,6 +61,8 @@ private:
     VkInstance mInstance;
     VkPhysicalDevice mPhysicalDevice;
     VkDevice mDevice;
+    VkCommandPool mTransientCommandPool;
+    VkCommandPool mResetCommandPool;
 };
 
 } // namespace Vulkan
