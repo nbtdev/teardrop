@@ -21,53 +21,74 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "SceneRenderStep.h"
+
+#include "Component_Render.h"
+#include "RenderContext.h"
 #include "Scene.h"
 #include "Zone.h"
 #include "ZoneObject.h"
-#include "Component_Render.h"
 #include "Gfx/Camera.h"
+#include "Gfx/CommandBuffer.h"
+#include "Gfx/CommandQueue.h"
 #include "Gfx/Material.h"
 #include "Gfx/Mesh.h"
 #include "Gfx/Renderable.h"
 #include "Gfx/Renderer.h"
+#include "Gfx/RenderPass.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/RenderQueue.h"
 #include "Gfx/Submesh.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/ClassDef.h"
 
+namespace {
+
 using namespace Teardrop;
-//---------------------------------------------------------------------------
+using namespace Gfx;
+
+void renderSubmesh(CommandBuffer* cmdBuf, Submesh* submesh)
+{
+
+}
+
+} // namespace
+
+namespace Teardrop {
+
 SceneRenderStep::SceneRenderStep()
-    : m_pVP(nullptr)
+    : mVP(nullptr)
 {
 }
-//---------------------------------------------------------------------------
+
 SceneRenderStep::~SceneRenderStep()
 {
 }
-//---------------------------------------------------------------------------
-void SceneRenderStep::render(
-    const VisibleObjects& objects, Gfx::Renderer* pRend, Scene* pScene)
+
+void SceneRenderStep::render(const VisibleObjects& objects, Context* context, Scene* pScene)
 {
-	if (!m_pCamera)
-		return;
+    assert(context);
 
-	// then update/render the main scene
-    //pRend->setRenderMode(Gfx::Renderer::RENDER_DEFAULT);
-	m_pRT->setCurrent();
-    m_pRT->clear(true, 0xFF000000);
-//	pRend->clearRenderTarget(); // clears all
-//	pRend->setColorWrite(true);
+//    mCamera->setAspect(renderTarget->aspect());
 
-    Gfx::Viewport* vp = m_pVP;
+    Gfx::Viewport* vp = mVP;
     if (!vp) {
         // use the default viewport on the render target
-        vp = m_pRT->viewport();
+        vp = context->renderTarget()->viewport();
     }
 
-	m_pCamera->setAspect(m_pRT->aspect());
-//    pRend->beginScene(m_pCamera, vp);
+    assert(vp);
+    if (!vp) {
+        return;
+    }
+
+    // if we have not yet created a render pass, do so now
+    if (!mRenderPass) {
+        mRenderPass = context->renderer()->createRenderPass("SceneRenderPass");
+        mRenderPass->attachOutput(context->renderTarget());
+        mRenderPass->setClearColor(0.f, 0.f, 0.f, 1.f);
+    }
+
+    // then update the main scene
 
 	// first, find out if there is anything to render
 	// get the visible objects from the scene; if any, pass over to the renderer
@@ -95,18 +116,44 @@ void SceneRenderStep::render(
 		}
 	}
 
+    // render the main scene; start with a one-shot command buffer (we don't want to keep them
+    // around because the contents of the scene likely are constantly changing, so there is no
+    // point in pre-recording anything)
+    std::unique_ptr<Gfx::CommandBuffer> commandBuffer(context->renderer()->createCommandBuffer(false));
+    commandBuffer->beginRecording();
+    commandBuffer->beginRenderPass(mRenderPass.get(), context->renderTarget());
+
+    Gfx::Pipeline* currentPipeline = nullptr;
+
     // first-pass, naive approach -- render everything in unsorted order
+    // TODO: at least sort by Pipeline
     size_t nRenderables = renderQueue.renderableCount();
     for (size_t i=0; i<nRenderables; ++i) {
         Gfx::Renderable* renderable = renderQueue.renderable(i);
         size_t nSubmesh = renderable->mesh()->submeshCount();
         for (size_t s=0; s<nSubmesh; ++s) {
-//            Gfx::Submesh* submesh = renderable->mesh()->submesh((int)s);
-//            Gfx::Material* material = renderable->material(s);
-//            pRend->apply(material);
-//            pRend->render(submesh);
+            Gfx::Submesh* submesh = renderable->mesh()->submesh((int)s);
+            Gfx::Pipeline* pipeline = renderable->pipeline(s);
+
+            if (!submesh || !pipeline) {
+                continue;
+            }
+
+            if (currentPipeline != pipeline) {
+                currentPipeline = pipeline;
+                commandBuffer->bindPipeline(currentPipeline);
+            }
+
+            renderSubmesh(commandBuffer.get(), submesh);
         }
     }
 
-//	pRend->endScene();
+    commandBuffer->endRenderPass();
+    commandBuffer->endRecording();
+
+    std::unique_ptr<Gfx::CommandQueueSubmission> submission = context->graphicsQueue()->createSubmission();
+    submission->addCommandBuffer(commandBuffer.get());
+    context->graphicsQueue()->submit(submission.get(), 1, nullptr);
 }
+
+} // namespace Teardrop

@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <Memory/Allocators.h>
+
 #include <cstddef>
 
 namespace Teardrop {
@@ -44,9 +46,10 @@ public:
     virtual void endRecording() = 0;
     virtual void reset() = 0;
 
-    virtual void beginRenderPass(RenderPass* renderPass, RenderTarget* renderTarget, Pipeline* pipeline) = 0;
+    virtual void beginRenderPass(RenderPass* renderPass, RenderTarget* renderTarget) = 0;
     virtual void endRenderPass() = 0;
     virtual void setViewport(Viewport* vp) = 0;
+    virtual void bindPipeline(Pipeline* pipeline) = 0;
     virtual void bindIndexBuffer(IndexBuffer* buffer) = 0;
     virtual void bindVertexBuffers(VertexBuffer** buffer, size_t bufferCount) = 0;
     virtual void bindDescriptorSets(DescriptorSet** sets, size_t setCount) = 0;
@@ -54,6 +57,8 @@ public:
     virtual void drawIndexed(size_t indexCount, size_t startingIndex) = 0;
     virtual void drawInstanced(size_t vertexCount, size_t startingVertex, size_t instanceCount, size_t startingInstance) = 0;
     virtual void drawInstancedIndexed(size_t indexCount, size_t startingIndex, size_t instanceCount, size_t startingInstance) = 0;
+
+    TD_DECLARE_ALLOCATOR();
 };
 
 } // namespace Gfx

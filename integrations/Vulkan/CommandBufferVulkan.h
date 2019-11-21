@@ -40,9 +40,10 @@ public:
     void beginRecording() override;
     void endRecording() override;
     void reset() override;
-    void beginRenderPass(RenderPass* renderPass, RenderTarget* renderTarget, Pipeline* pipeline) override;
+    void beginRenderPass(RenderPass* renderPass, RenderTarget* renderTarget) override;
     void endRenderPass() override;
     void setViewport(Viewport* vp) override;
+    void bindPipeline(Pipeline* pipeline) override;
     void bindIndexBuffer(IndexBuffer* buffer) override;
     void bindVertexBuffers(VertexBuffer** buffer, size_t bufferCount) override;
     void bindDescriptorSets(DescriptorSet** sets, size_t setCount) override;

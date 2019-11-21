@@ -20,61 +20,58 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(SCENERENDERER_INCLUDED)
-#define SCENERENDERER_INCLUDED
+#pragma once
 
 #include "Memory/Allocators.h"
+
+#include <memory>
 #include <vector>
 
-namespace Teardrop
+namespace Teardrop {
+
+namespace Gfx {
+class Camera;
+} // namespace Gfx
+
+class ZoneObject;
+class Context;
+class RenderStep;
+class Scene;
+
+/*
+    Class to manage multiple steps in a single-frame render.
+    Note that the render call takes the "main scene cam" as
+    a parameter; this is an optimization to allow this class
+    to cache the list of objects visible with this camera, in
+    anticipation of reuse of same by multiple different
+    RenderStep implementations. At the least, it will need to
+    be done once per frame anyway. All RenderStep::render()
+    implementations take this list as a parameter, but they are
+    not required to use it, of course.
+*/
+
+class SceneRenderer
 {
-    namespace Gfx {
-        class Renderer;
-        class Camera;
-    }
+public:
+    SceneRenderer();
+    virtual ~SceneRenderer();
 
-    class ZoneObject;
-	class RenderStep;
-	class Scene;
+    // when you add a step, this class will take ownership of it and clean it up on destruction;
+    // RenderSteps are executed in the order in which they are added.
+    virtual void addStep(RenderStep* pStep);
 
-	/*
-		Class to manage multiple steps in a single-frame render. 
-		Note that the render call takes the "main scene cam" as 
-		a parameter; this is an optimization to allow this class
-		to cache the list of objects visible with this camera, in
-		anticipation of reuse of same by multiple different 
-		RenderStep implementations. At the least, it will need to
-		be done once per frame anyway. All RenderStep::render() 
-		implementations take this list as a parameter, but they are
-		not required to use it, of course.
-	*/
+    typedef std::vector<ZoneObject*> ZoneObjects;
+    virtual void render(
+        const ZoneObjects& visbleObjects,	// list of objects visible through the camera
+        Context* context,
+        Scene* pScene
+        );
 
-	class SceneRenderer
-	{
-		typedef std::vector<RenderStep*> RenderSteps;
-		RenderSteps m_renderSteps;
-        Gfx::Camera* m_pCamera;
+    TD_DECLARE_ALLOCATOR();
 
-	public:
-		SceneRenderer();
-		virtual ~SceneRenderer();
+private:
+    typedef std::vector<std::unique_ptr<RenderStep>> RenderSteps;
+    RenderSteps mRenderSteps;
+};
 
-		// when you add a step, this class will take ownership of it and clean it up on destruction;
-		// RenderSteps are executed in the order in which they are added.
-		virtual void addStep(RenderStep* pStep);
-
-		typedef std::vector<ZoneObject*> ZoneObjects;
-		virtual void render(
-			const ZoneObjects& visbleObjects,	// list of objects visible through the camera
-            Gfx::Renderer* pRenderer,				// renderer to use to render the scene
-			Scene* pScene,						// passthru to RenderSteps
-            Gfx::Camera* pViewCam	= 0				// main player view camera
-			);
-
-        void setCamera(Gfx::Camera* pCam) { m_pCamera = pCam; }
-
-		TD_DECLARE_ALLOCATOR();
-	};
-}
-
-#endif // SCENERENDERER_INCLUDED
+} // namespace Teardrop

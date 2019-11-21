@@ -184,32 +184,6 @@ void RenderWindow::unsetCurrent()
 
 }
 
-VkImage RenderWindow::swap(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
-                        Gfx::SynchronizationPrimitive* cpuWaitPrimitive)
-{
-    assert(gpuWaitPrimitive);
-    assert(cpuWaitPrimitive);
-    if (!gpuWaitPrimitive || !cpuWaitPrimitive) {
-        return VK_NULL_HANDLE;
-    }
-
-    Vulkan::SynchronizationPrimitive* fencePrimitive = (Vulkan::SynchronizationPrimitive*)cpuWaitPrimitive;
-    Vulkan::SynchronizationPrimitive* semaphorePrimitive = (Vulkan::SynchronizationPrimitive*)gpuWaitPrimitive;
-    VkFence fence = fencePrimitive->mPrimitive.fence;
-    VkSemaphore semaphore = semaphorePrimitive->mPrimitive.semaphore;
-
-    vkWaitForFences(mDevice, 1, &fence, VK_TRUE, UINT64_MAX);
-    vkResetFences(mDevice, 1, &fence);
-
-    VkResult r = vkAcquireNextImageKHR(mDevice, mSwapchain, UINT64_MAX, semaphore, VK_NULL_HANDLE, &mCurrentImageIndex);
-
-    if (VK_SUCCESS != r) {
-        return VK_NULL_HANDLE;
-    }
-
-    return mImages[mCurrentImageIndex];
-}
-
 void RenderWindow::presentQueue(Gfx::CommandQueue* queue,
                                 Gfx::SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
                                 Gfx::SynchronizationPrimitive* cpuWaitPrimitive
@@ -254,6 +228,62 @@ void RenderWindow::presentQueue(Gfx::CommandQueue* queue,
     mFrameCount++;
 }
 
+size_t RenderWindow::swapchainLength() const
+{
+    return imageCount();
+}
+
+void RenderWindow::waitForNext(Gfx::SynchronizationPrimitive *gpuWaitPrimitive, Gfx::SynchronizationPrimitive *cpuWaitPrimitive)
+{
+    assert(gpuWaitPrimitive);
+    assert(cpuWaitPrimitive);
+    if (!gpuWaitPrimitive || !cpuWaitPrimitive) {
+        return;
+    }
+
+    Vulkan::SynchronizationPrimitive* fencePrimitive = (Vulkan::SynchronizationPrimitive*)cpuWaitPrimitive;
+    Vulkan::SynchronizationPrimitive* semaphorePrimitive = (Vulkan::SynchronizationPrimitive*)gpuWaitPrimitive;
+    VkFence fence = fencePrimitive->mPrimitive.fence;
+    VkSemaphore semaphore = semaphorePrimitive->mPrimitive.semaphore;
+
+    vkWaitForFences(mDevice, 1, &fence, VK_TRUE, UINT64_MAX);
+    vkResetFences(mDevice, 1, &fence);
+
+    vkAcquireNextImageKHR(mDevice, mSwapchain, UINT64_MAX, semaphore, VK_NULL_HANDLE, &mCurrentImageIndex);
+}
+
+VkImage RenderWindow::currentImage() const
+{
+    return mImages[mCurrentImageIndex];
+}
+
+uint32_t RenderWindow::frameCount() const
+{
+    return mFrameCount;
+}
+
+uint32_t RenderWindow::imageCount() const
+{
+    return mImageCount;
+}
+
+void RenderWindow::createFramebuffer()
+{
+    // unconditionally (re)create the framebuffer object; if that is not
+    // desired, don't call this method
+    if (mFramebuffer != VK_NULL_HANDLE) {
+        vkDestroyFramebuffer(mDevice, mFramebuffer, getAllocationCallbacks());
+        mFramebuffer = VK_NULL_HANDLE;
+    }
+
+    VkFramebufferCreateInfo info = {};
+    info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+    info.width = (uint32_t)width();
+    info.height = (uint32_t)height();
+    info.layers = 1;
+
+    vkCreateFramebuffer(mDevice, &info, getAllocationCallbacks(), &mFramebuffer);
+}
 
 } // namespace Vulkan
 } // namespace Gfx

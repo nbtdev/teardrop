@@ -34,10 +34,7 @@ class Executable;
 
 namespace Gfx {
 class Renderer;
-class RenderPass;
 class RenderTarget;
-class Camera;
-class Viewport;
 } // namespace Gfx
 
 namespace Tools {
@@ -63,9 +60,6 @@ private:
     QTimer* mTimer;
     Gfx::Renderer* mRenderer;
     std::shared_ptr<Gfx::RenderTarget> mRT;
-    std::unique_ptr<Gfx::RenderPass> mClearPass;
-    Gfx::Camera* mCamera;
-    Gfx::Viewport* mViewport;
     Executable* mExecutable;
     int mLastMouseX;
     int mLastMouseY;

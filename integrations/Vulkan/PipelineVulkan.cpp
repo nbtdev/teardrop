@@ -44,6 +44,11 @@ Pipeline::~Pipeline()
     vkDestroyPipeline(mDevice, mPipeline, getAllocationCallbacks());
 }
 
+VkPipeline Pipeline::pipeline() const
+{
+    return mPipeline;
+}
+
 } // namespace Vulkan
 } // namespace Gfx
 } // namespace Teardrop

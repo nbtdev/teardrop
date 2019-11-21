@@ -58,7 +58,7 @@ namespace Teardrop
         void setRenderTarget(Gfx::RenderTarget* pRT) { m_pRT = pRT; }
 
 		// RenderStep implementation
-        void render(const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* pScene);
+        void render(const VisibleObjects& objects, Context* context, Scene* pScene);
 
 		TD_DECLARE_ALLOCATOR();
 	};

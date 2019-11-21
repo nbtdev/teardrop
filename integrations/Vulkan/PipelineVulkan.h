@@ -39,6 +39,8 @@ public:
     Pipeline(VkDevice device, Gfx::RenderPass* renderPassTemplate);
     ~Pipeline();
 
+    VkPipeline pipeline() const;
+
 private:
     VkDevice mDevice;
     VkPipeline mPipeline;

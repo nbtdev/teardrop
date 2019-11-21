@@ -20,43 +20,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(RENDERSTEP_INCLUDED)
-#define RENDERSTEP_INCLUDED
+#pragma once
 
 #include "Memory/Allocators.h"
+
+#include <memory>
 #include <vector>
 
-namespace Teardrop
+namespace Teardrop {
+
+namespace Gfx {
+class CommandQueueSubmission;
+class RenderPass;
+class Camera;
+} // namespace Gfx
+
+class Context;
+class Scene;
+class ZoneObject;
+
+class RenderStep
 {
-    namespace Gfx {
-        class Renderer;
-        class Camera;
-    }
+public:
+    typedef std::vector<ZoneObject*> VisibleObjects;
 
-	class ZoneObject;
-	class Scene;
+    RenderStep();
+    virtual ~RenderStep();
 
-	class RenderStep
-	{
-	public:
-		typedef std::vector<ZoneObject*> VisibleObjects;
+    virtual void render(
+        const VisibleObjects& visibleObjects,   // objects visible through the main scene camera
+        Context* context,                       // the target to render into (may be ignored by render step implementation)
+        Scene* pScene                           // the scene we are rendering (some steps may use it for obtaining different sets of visible objects, for instance)
+        ) = 0;
 
-		RenderStep();
-		virtual ~RenderStep();
+    TD_DECLARE_ALLOCATOR();
 
-		virtual void render(
-			const VisibleObjects& visibleObjects,	// objects visible through the main scene camera
-            Gfx::Renderer* pRenderer,					// the renderer to use
-			Scene* pScene							// the scene we are rendering (some steps may use it for obtaining different sets of visible objects, for instance)
-			) = 0;
+protected:
+    std::unique_ptr<Gfx::RenderPass> mRenderPass;
+};
 
-        virtual void setCamera(Gfx::Camera* pCamera);
-
-		TD_DECLARE_ALLOCATOR();
-
-	protected:
-        Gfx::Camera* m_pCamera;
-	};
-}
-
-#endif // RENDERSTEP_INCLUDED
+} // namespace Teardrop

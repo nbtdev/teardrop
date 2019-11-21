@@ -21,56 +21,45 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "SceneRenderer.h"
+
+#include "RenderContext.h"
 #include "RenderStep.h"
 #include "Scene.h"
 #include "Zone.h"
 #include "ZoneObject.h"
 #include "Component_Render.h"
 #include "Gfx/Renderer.h"
+#include "Gfx/CommandQueue.h"
 
-using namespace Teardrop;
-//---------------------------------------------------------------------------
+namespace Teardrop {
+
 SceneRenderer::SceneRenderer()
 {
-	m_pCamera = 0;
 }
-//---------------------------------------------------------------------------
+
 SceneRenderer::~SceneRenderer()
 {
-	for (size_t i=0; i<m_renderSteps.size(); ++i)
-	{
-		delete m_renderSteps[i];
-	}
 }
-//---------------------------------------------------------------------------
+
 void SceneRenderer::addStep(RenderStep* pStep)
 {
-	m_renderSteps.push_back(pStep);
+    mRenderSteps.push_back(std::unique_ptr<RenderStep>(pStep));
 }
-//---------------------------------------------------------------------------
+
 void SceneRenderer::render(
 	const ZoneObjects& visibleObjects, 
-    Gfx::Renderer* pRenderer,
-	Scene* pScene,
-    Gfx::Camera* pViewCam)
+    Context* context,
+    Scene* pScene)
 {
-	if (!pRenderer)
+    if (!context)
 		return;
 
-//    pRenderer->beginFrame();
-
-	for (size_t i=0; i<m_renderSteps.size(); ++i)
+    for (size_t i=0; i<mRenderSteps.size(); ++i)
 	{
-		if (m_renderSteps[i])
-		{
-			if (pViewCam)
-				m_renderSteps[i]->setCamera(pViewCam);
-			else
-				m_renderSteps[i]->setCamera(m_pCamera);
-
-			m_renderSteps[i]->render(visibleObjects, pRenderer, pScene);
+        if (mRenderSteps[i]) {
+            mRenderSteps[i]->render(visibleObjects, context, pScene);
 		}
 	}
-
-//	pRenderer->endFrame();
 }
+
+} // namespace Teardrop

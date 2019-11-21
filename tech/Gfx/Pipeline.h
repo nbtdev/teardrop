@@ -55,6 +55,8 @@ public:
     FragmentShader* fragmentShader();
     VertexShader* vertexShader();
 
+    TD_DECLARE_ALLOCATOR();
+
 protected:
     Material* mMaterial;
     Material* mOwnedMaterial;

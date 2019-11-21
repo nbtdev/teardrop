@@ -20,44 +20,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(SCENERENDERSTEP_INCLUDED)
-#define SCENERENDERSTEP_INCLUDED
+#pragma once
 
 #include "RenderStep.h"
 
-namespace Teardrop
+namespace Teardrop {
+
+namespace Gfx {
+class Viewport;
+} // namespace Gfx
+
+class Scene;
+
+/**
+ * @brief Render step that renders the normal 3D perspective view of the scene
+ */
+class SceneRenderStep : public RenderStep
 {
-	/*
-		Render step that renders the normal 3D perspective view 
-		of the scene
-	*/
+public:
+    SceneRenderStep();
+    ~SceneRenderStep();
 
-    namespace Gfx {
-        class Viewport;
-        class RenderTarget;
-    }
+    void setViewport(Gfx::Viewport* pVP) { mVP = pVP; }
 
-	class Scene;
+    // RenderStep implementation
+    void render(const VisibleObjects& objects, Context* context, Scene* pScene) override;
 
-	class SceneRenderStep
-		: public RenderStep
-	{
-        Gfx::Viewport* m_pVP;
-        Gfx::RenderTarget* m_pRT;
-		Scene* m_pScene;
+    TD_DECLARE_ALLOCATOR();
 
-	public:
-		SceneRenderStep();
-		~SceneRenderStep();
+private:
+    Gfx::Viewport* mVP;
+};
 
-        void setViewport(Gfx::Viewport* pVP) { m_pVP = pVP; }
-        void setRenderTarget(Gfx::RenderTarget* pRT) { m_pRT = pRT; }
+} // namespace Teardrop
 
-		// RenderStep implementation
-        void render(const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* pScene);
 
-		TD_DECLARE_ALLOCATOR();
-	};
-}
-
-#endif // SCENERENDERSTEP_INCLUDED

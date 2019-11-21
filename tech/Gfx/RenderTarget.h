@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include "Memory/Allocators.h"
+
 #include <cstddef>
 
 namespace Teardrop {
@@ -58,6 +60,11 @@ public:
                               SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
                               SynchronizationPrimitive* cpuWaitPrimitive
                               ) = 0;
+    virtual size_t swapchainLength() const = 0;
+    virtual void waitForNext(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
+                             Gfx::SynchronizationPrimitive* cpuWaitPrimitive) = 0;
+
+    TD_DECLARE_ALLOCATOR();
 };
 
 } // namespace Gfx

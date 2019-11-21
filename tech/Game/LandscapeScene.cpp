@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "LandscapeScene.h"
 
 #include "Asset/LandscapeAsset.h"
+#include "Game/RenderContext.h"
 #include "Game/SceneRenderer.h"
 #include "Game/SceneRenderStep.h"
 #include "Game/ZoneObjects.h"
@@ -342,7 +343,7 @@ LandscapeScene::~LandscapeScene()
         Gfx::Mesh* mesh = renderable.mesh();
 
         for (size_t s = 0; s < (size_t)mesh->submeshCount(); ++s) {
-            delete renderable.material(s);
+            //delete renderable.material(s);
         }
 
         delete mesh;
@@ -416,12 +417,16 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
         return;
     }
 
-    mSceneRenderStep->setRenderTarget(rt);
-    camera->setAspect(rt->aspect());
+    if (!mRenderContext) {
+        mRenderContext.reset(new RenderContext(renderer, rt));
+    }
 
-//    ZoneObjects visibleObjects;
-//    getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
-//    mSceneRenderer->render(visibleObjects, renderer, this, camera);
+    camera->setAspect(rt->aspect());
+    mRenderContext->beginFrame(camera);
+
+    ZoneObjects visibleObjects;
+    getVisibleObjects(camera->getFrustumPlanes(), visibleObjects);
+    mSceneRenderer->render(visibleObjects, mRenderContext.get(), this);
 
     // naive approach -- just render all of the terrain tiles without regard to
     // visibility
@@ -435,6 +440,7 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
 //    }
 
 //    rt->present();
+    mRenderContext->endFrame();
 }
 
 bool LandscapeScene::onPreUnload()

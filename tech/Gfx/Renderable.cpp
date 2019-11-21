@@ -33,13 +33,13 @@ Renderable::Renderable()
 
 }
 
-Renderable::Renderable(Mesh* mesh, Material** subMeshMaterials)
+Renderable::Renderable(Mesh* mesh, Pipeline** subMeshPipelines)
     : mMesh(mesh)
 {
     size_t nSubmesh = mesh->submeshCount();
-    mMaterials.reserve(nSubmesh);
+    mPipelines.reserve(nSubmesh);
     for (size_t i=0; i<nSubmesh; ++i) {
-        mMaterials.push_back(subMeshMaterials[i]);
+        mPipelines.push_back(subMeshPipelines[i]);
     }
 }
 
@@ -58,9 +58,9 @@ void Renderable::setTransform(Transform const& transform)
     mTransform = transform;
 }
 
-void Renderable::addMaterial(Material* submeshMaterial)
+void Renderable::addPipeline(Pipeline* submeshPipeline)
 {
-    mMaterials.push_back(submeshMaterial);
+    mPipelines.push_back(submeshPipeline);
 }
 
 Mesh* Renderable::mesh() const
@@ -68,13 +68,13 @@ Mesh* Renderable::mesh() const
     return mMesh;
 }
 
-Material* Renderable::material(size_t index) const
+Pipeline* Renderable::pipeline(size_t index) const
 {
-    if (index >= mMaterials.size()) {
+    if (index >= mPipelines.size()) {
         return nullptr;
     }
 
-    return mMaterials[index];
+    return mPipelines[index];
 }
 
 Transform const& Renderable::transform() const

@@ -67,6 +67,8 @@ protected:
 
     VkDevice mDevice;
     VkFramebuffer mFramebuffer;
+
+    virtual void createFramebuffer() = 0;
 };
 
 } // namespace Vulkan

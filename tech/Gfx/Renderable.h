@@ -22,8 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "Gfx/Material.h"
 #include "Gfx/Mesh.h"
+#include "Gfx/Pipeline.h"
 #include "Math/Transform.h"
 
 #include <vector>
@@ -32,26 +32,26 @@ namespace Teardrop {
 namespace Gfx {
 
 class Mesh;
-class Material;
+class Pipeline;
 
 class Renderable
 {
 public:
     Renderable();
-    Renderable(Mesh* mesh, Material** subMeshMaterials);
+    Renderable(Mesh* mesh, Pipeline** subMeshPipelines);
     ~Renderable();
 
     void setMesh(Mesh* mesh);
     void setTransform(Transform const& transform);
-    void addMaterial(Material* submeshMaterial);
+    void addPipeline(Pipeline* submeshPipeline);
 
     Mesh* mesh() const;
-    Material* material(size_t index) const;
+    Pipeline* pipeline(size_t index) const;
     Transform const& transform() const;
 
 private:
     Mesh* mMesh;
-    std::vector<Material*> mMaterials;
+    std::vector<Pipeline*> mPipelines;
     Transform mTransform;
 };
 

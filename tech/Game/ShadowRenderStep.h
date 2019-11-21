@@ -41,7 +41,7 @@ namespace Teardrop
 		ShadowRenderStep();
 		~ShadowRenderStep();
 
-        void render(const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* pScene);
+        void render(const VisibleObjects& objects, Context* context, Scene* pScene);
 
 		TD_DECLARE_ALLOCATOR();
 

@@ -86,6 +86,8 @@ set(SOURCES
     PointLight.h
     Prop.cpp
     Prop.h
+    RenderContext.cpp
+    RenderContext.h
     RenderStep.cpp
     RenderStep.h
     Scene.cpp

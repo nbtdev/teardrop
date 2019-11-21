@@ -39,7 +39,7 @@ DebugMeshRenderStep::~DebugMeshRenderStep()
 }
 //---------------------------------------------------------------------------
 void DebugMeshRenderStep::render(
-    const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* /*pScene*/)
+    const VisibleObjects& objects, Context* context, Scene* pScene)
 {
 	if (!m_bEnabled)
 		return;

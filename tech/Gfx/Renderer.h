@@ -54,6 +54,8 @@ public:
     virtual std::unique_ptr<SynchronizationPrimitive> createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) = 0;
     virtual Gfx::CommandQueue* getCommandQueue(size_t index) = 0;
     virtual size_t getCommandQueueCount() const = 0;
+
+    TD_DECLARE_ALLOCATOR();
 };
 
 } // namespace Gfx

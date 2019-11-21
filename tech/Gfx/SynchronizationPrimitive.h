@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include "Memory/Allocators.h"
+
 namespace Teardrop {
 namespace Gfx {
 
@@ -33,6 +35,8 @@ enum SynchronizationPrimitiveType {
 
 struct SynchronizationPrimitive {
     SynchronizationPrimitiveType mType;
+
+    TD_DECLARE_ALLOCATOR();
 };
 
 } // namespace Gfx

@@ -29,9 +29,12 @@ THE SOFTWARE.
 #include "Math/Vector4.h"
 #include "Memory/Allocators.h"
 
+#include <memory>
+
 namespace Teardrop {
 
 class AABB;
+class RenderContext;
 class SceneRenderer;
 class SceneRenderStep;
 
@@ -80,6 +83,7 @@ private:
     // stuff contained within it, expect to move this out during a later refactor
     SceneRenderer* mSceneRenderer;
     SceneRenderStep* mSceneRenderStep;
+    std::unique_ptr<RenderContext> mRenderContext;
 
     Gfx::Renderable* mTerrainRenderables;
     Gfx::Pipeline* mTerrainPipeline;

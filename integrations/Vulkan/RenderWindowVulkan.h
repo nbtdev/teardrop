@@ -48,9 +48,9 @@ public:
                       Gfx::SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
                       Gfx::SynchronizationPrimitive* cpuWaitPrimitive
                       ) override;
-
-    VkImage swap(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
-              Gfx::SynchronizationPrimitive* cpuWaitPrimitive);
+    size_t swapchainLength() const override;
+    void waitForNext(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
+              Gfx::SynchronizationPrimitive* cpuWaitPrimitive) override;
 
     VkImage currentImage() const;
     uint32_t frameCount() const;
@@ -59,6 +59,9 @@ public:
     TD_DECLARE_ALLOCATOR();
 
 protected:
+    void createFramebuffer() override;
+
+private:
     int mInitFlags;
     VkSurfaceKHR mSurface;
     VkSwapchainKHR mSwapchain;

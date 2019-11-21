@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "CommandBufferVulkan.h"
 
 #include "IndexBufferVulkan.h"
+#include "PipelineVulkan.h"
 #include "RenderPassVulkan.h"
 #include "RenderTargetVulkan.h"
 #include "VertexBufferVulkan.h"
@@ -75,7 +76,7 @@ void CommandBuffer::reset()
     vkResetCommandBuffer(mCommandBuffer, 0);
 }
 
-void CommandBuffer::beginRenderPass(Gfx::RenderPass* renderPass, Gfx::RenderTarget* renderTarget, Pipeline* pipeline)
+void CommandBuffer::beginRenderPass(Gfx::RenderPass* renderPass, Gfx::RenderTarget* renderTarget)
 {
     assert(renderPass);
     if (!renderPass) {
@@ -120,6 +121,17 @@ void CommandBuffer::setViewport(Gfx::Viewport* vp)
     Vulkan::Viewport* vvp = (Vulkan::Viewport*)vp;
     VkViewport const& viewport = vvp->viewport();
     vkCmdSetViewport(mCommandBuffer, 0, 1, &viewport);
+}
+
+void CommandBuffer::bindPipeline(Gfx::Pipeline* pipeline)
+{
+    assert(pipeline);
+    if (!pipeline) {
+        return;
+    }
+
+    Vulkan::Pipeline* vulkanPipeline = (Vulkan::Pipeline*)pipeline;
+    vkCmdBindPipeline(mCommandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, vulkanPipeline->pipeline());
 }
 
 void CommandBuffer::bindIndexBuffer(Gfx::IndexBuffer* buffer)

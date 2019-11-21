@@ -34,9 +34,9 @@ THE SOFTWARE.
 namespace Teardrop {
 namespace Gfx {
 
-class MaterialExpression;
-class Connection;
 struct Attribute;
+class Connection;
+class MaterialExpression;
 
 class Material : public Reflection::Object
 {

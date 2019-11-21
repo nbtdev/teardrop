@@ -33,6 +33,6 @@ DepthOnlyRenderStep::~DepthOnlyRenderStep()
 }
 //---------------------------------------------------------------------------
 void DepthOnlyRenderStep::render(
-    const VisibleObjects& /*objects*/, Gfx::Renderer* /*pRenderer*/, Scene* /*pScene*/)
+    const VisibleObjects& objects, Context* context, Scene* pScene)
 {
 }

@@ -21,12 +21,14 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "ShadowRenderStep.h"
-#include "Scene.h"
+
 #include "Component_Render.h"
+#include "DynamicLight.h"
+#include "RenderContext.h"
+#include "Scene.h"
+#include "SpawnPoint.h"
 #include "TerrainPatch.h"
 #include "TerrainZone.h"
-#include "SpawnPoint.h"
-#include "DynamicLight.h"
 #include "Gfx/Renderer.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Light.h"
@@ -53,7 +55,7 @@ ShadowRenderStep::~ShadowRenderStep()
 }
 //---------------------------------------------------------------------------
 void ShadowRenderStep::render(
-    const VisibleObjects& objects, Gfx::Renderer* pRend, Scene* pScene)
+    const VisibleObjects& objects, Context* context, Scene* pScene)
 {
 	// update shadow textures first, if any (naive implementation, btw, just getting it working first)
 	Zone* pZone = pScene->getCurrentZone();
@@ -65,7 +67,7 @@ void ShadowRenderStep::render(
 	for (size_t i=0; i<numLights; ++i)
 	{
 		DynamicLight* pLight = pZone->getShadowCastingLight(i);
-		renderShadowTexture(pRend, pScene, objects, pLight);
+        renderShadowTexture(context->renderer(), pScene, objects, pLight);
 	}
 }
 //---------------------------------------------------------------------------
@@ -151,6 +153,7 @@ static bool focusCamera(
 //---------------------------------------------------------------------------
 static void renderShadowTexture(
     Gfx::Renderer* /*pRend*/,
+    Gfx::RenderTarget* renderTarget,
 	Scene* /*pScene*/, 
 	const ShadowRenderStep::VisibleObjects& objects, 
     Gfx::Light* pLight)

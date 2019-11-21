@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include "Memory/Allocators.h"
+
 #include <vector>
 
 namespace Teardrop {
@@ -39,6 +41,8 @@ public:
     void clear();
     size_t renderableCount() const;
     Renderable* renderable(size_t index) const;
+
+    TD_DECLARE_ALLOCATOR();
 
 private:
     std::vector<Renderable*> mRenderables;

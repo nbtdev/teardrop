@@ -40,7 +40,7 @@ namespace Teardrop
 		DepthOnlyRenderStep();
 		~DepthOnlyRenderStep();
 
-        void render(const VisibleObjects& objects, Gfx::Renderer* pRenderer, Scene* pScene);
+        void render(const VisibleObjects& objects, Context* context, Scene* pScene);
 
 		TD_DECLARE_ALLOCATOR();
 	};

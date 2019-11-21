@@ -25,7 +25,7 @@ THE SOFTWARE.
 namespace Teardrop {
 namespace Gfx {
 
-CommandQueue::Submission::~Submission()
+CommandQueueSubmission::~CommandQueueSubmission()
 {
 }
 

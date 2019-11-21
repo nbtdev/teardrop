@@ -32,42 +32,44 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
+class Submission : public Gfx::CommandQueueSubmission
+{
+public:
+    Submission();
+    ~Submission();
+
+    // Gfx::CommandQueue::Submission implementation
+    void addCommandBuffer(Gfx::CommandBuffer* commandBuffer) override;
+    void addWaitPrimitive(SynchronizationPrimitive* primitive, uint32_t stageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT) override;
+    void addSignalPrimitive(SynchronizationPrimitive* primitive) override;
+    void clear() override;
+    bool validate() const override;
+
+    uint32_t commandBufferCount() const;
+    VkCommandBuffer const* commandBuffers() const;
+    uint32_t waitSemaphoreCount() const;
+    VkSemaphore const* waitSemaphores() const;
+    uint32_t signalSemaphoreCount() const;
+    VkSemaphore const* signalSemaphores() const;
+    uint32_t const* stageWaitMasks() const;
+
+private:
+    std::vector<VkCommandBuffer> mCommandBuffers;
+    std::vector<VkSemaphore> mWaitSemaphores;
+    std::vector<VkSemaphore> mSignalSemaphores;
+    std::vector<uint32_t> mStageWaitMasks;
+};
+
 class CommandQueue : public Gfx::CommandQueue
 {
 public:
-    class Submission : public Gfx::CommandQueue::Submission
-    {
-    public:
-        Submission();
-        ~Submission();
-
-        // Gfx::CommandQueue::Submission implementation
-        void addCommandBuffer(Gfx::CommandBuffer* commandBuffer) override;
-        void addWaitPrimitive(SynchronizationPrimitive* primitive, uint32_t stageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT) override;
-        void addSignalPrimitive(SynchronizationPrimitive* primitive) override;
-        bool validate() const override;
-
-        uint32_t commandBufferCount() const;
-        VkCommandBuffer const* commandBuffers() const;
-        uint32_t waitSemaphoreCount() const;
-        VkSemaphore const* waitSemaphores() const;
-        uint32_t signalSemaphoreCount() const;
-        VkSemaphore const* signalSemaphores() const;
-        uint32_t const* stageWaitMasks() const;
-
-    private:
-        std::vector<VkCommandBuffer> mCommandBuffers;
-        std::vector<VkSemaphore> mWaitSemaphores;
-        std::vector<VkSemaphore> mSignalSemaphores;
-        std::vector<uint32_t> mStageWaitMasks;
-    };
 
     CommandQueue(VkDevice device, VkQueue queue);
     ~CommandQueue();
 
     // Gfx::CommandQueue implementation
-    std::unique_ptr<Gfx::CommandQueue::Submission> createSubmission() override;
-    void submit(Gfx::CommandQueue::Submission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive) override;
+    std::unique_ptr<Gfx::CommandQueueSubmission> createSubmission() override;
+    void submit(Gfx::CommandQueueSubmission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive) override;
 
     VkQueue queue() const;
 

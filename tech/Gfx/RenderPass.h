@@ -46,6 +46,8 @@ public:
 
     String const& name() const;
 
+    TD_DECLARE_ALLOCATOR();
+
 protected:
     String mName;
 };

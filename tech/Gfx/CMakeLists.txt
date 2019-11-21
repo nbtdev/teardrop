@@ -26,12 +26,12 @@ set(SOURCES
     BufferManager.h
     Camera.cpp
     Camera.h
-    Common.cpp
-    Common.h
     CommandBuffer.h
     CommandBuffer.cpp
     CommandQueue.cpp
     CommandQueue.h
+    Common.cpp
+    Common.h
     Connection.cpp
     Connection.h
     Exception.cpp

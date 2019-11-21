@@ -34,15 +34,15 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-CommandQueue::Submission::Submission()
+Submission::Submission()
 {
 }
 
-CommandQueue::Submission::~Submission()
+Submission::~Submission()
 {
 }
 
-void CommandQueue::Submission::addCommandBuffer(Gfx::CommandBuffer* commandBuffer)
+void Submission::addCommandBuffer(Gfx::CommandBuffer* commandBuffer)
 {
     assert(commandBuffer);
     if (!commandBuffer) {
@@ -53,7 +53,7 @@ void CommandQueue::Submission::addCommandBuffer(Gfx::CommandBuffer* commandBuffe
     mCommandBuffers.push_back(cmdBuf->commandBuffer());
 }
 
-void CommandQueue::Submission::addWaitPrimitive(Gfx::SynchronizationPrimitive* primitive, uint32_t stageMask)
+void Submission::addWaitPrimitive(Gfx::SynchronizationPrimitive* primitive, uint32_t stageMask)
 {
     assert(primitive);
     if (!primitive) {
@@ -65,7 +65,7 @@ void CommandQueue::Submission::addWaitPrimitive(Gfx::SynchronizationPrimitive* p
     mStageWaitMasks.push_back(stageMask);
 }
 
-void CommandQueue::Submission::addSignalPrimitive(Gfx::SynchronizationPrimitive* primitive)
+void Submission::addSignalPrimitive(Gfx::SynchronizationPrimitive* primitive)
 {
     assert(primitive);
     if (!primitive) {
@@ -76,42 +76,50 @@ void CommandQueue::Submission::addSignalPrimitive(Gfx::SynchronizationPrimitive*
     mSignalSemaphores.push_back(prim->mPrimitive.semaphore);
 }
 
-bool CommandQueue::Submission::validate() const
+void Submission::clear()
+{
+    mCommandBuffers.clear();
+    mWaitSemaphores.clear();
+    mSignalSemaphores.clear();
+    mStageWaitMasks.clear();
+}
+
+bool Submission::validate() const
 {
     return true;
 }
 
-uint32_t CommandQueue::Submission::commandBufferCount() const
+uint32_t Submission::commandBufferCount() const
 {
     return (uint32_t)mCommandBuffers.size();
 }
 
-VkCommandBuffer const* CommandQueue::Submission::commandBuffers() const
+VkCommandBuffer const* Submission::commandBuffers() const
 {
     return mCommandBuffers.data();
 }
 
-uint32_t CommandQueue::Submission::waitSemaphoreCount() const
+uint32_t Submission::waitSemaphoreCount() const
 {
     return (uint32_t)mWaitSemaphores.size();
 }
 
-VkSemaphore const* CommandQueue::Submission::waitSemaphores() const
+VkSemaphore const* Submission::waitSemaphores() const
 {
     return mWaitSemaphores.data();
 }
 
-uint32_t CommandQueue::Submission::signalSemaphoreCount() const
+uint32_t Submission::signalSemaphoreCount() const
 {
     return (uint32_t)mSignalSemaphores.size();
 }
 
-VkSemaphore const* CommandQueue::Submission::signalSemaphores() const
+VkSemaphore const* Submission::signalSemaphores() const
 {
     return mSignalSemaphores.data();
 }
 
-uint32_t const* CommandQueue::Submission::stageWaitMasks() const
+uint32_t const* Submission::stageWaitMasks() const
 {
     return mStageWaitMasks.data();
 }
@@ -126,19 +134,19 @@ CommandQueue::~CommandQueue()
 {
 }
 
-std::unique_ptr<Gfx::CommandQueue::Submission> CommandQueue::createSubmission()
+std::unique_ptr<Gfx::CommandQueueSubmission> CommandQueue::createSubmission()
 {
-    return std::unique_ptr<Vulkan::CommandQueue::Submission>(new Vulkan::CommandQueue::Submission);
+    return std::unique_ptr<Gfx::CommandQueueSubmission>(new Vulkan::Submission);
 }
 
-void CommandQueue::submit(Gfx::CommandQueue::Submission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive)
+void CommandQueue::submit(Gfx::CommandQueueSubmission* submissionInfo, size_t submitCount, Gfx::SynchronizationPrimitive* cpuSignalPrimitive)
 {
     assert(submissionInfo);
     if (!submissionInfo) {
         return;
     }
 
-    Vulkan::CommandQueue::Submission* vkSubmissions = (Vulkan::CommandQueue::Submission*)submissionInfo;
+    Vulkan::Submission* vkSubmissions = (Vulkan::Submission*)submissionInfo;
 
     VkFence fence = VK_NULL_HANDLE;
     if (cpuSignalPrimitive) {

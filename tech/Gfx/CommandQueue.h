@@ -22,6 +22,8 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <Memory/Allocators.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -32,24 +34,29 @@ namespace Gfx {
 class CommandBuffer;
 struct SynchronizationPrimitive;
 
+class CommandQueueSubmission
+{
+public:
+    virtual ~CommandQueueSubmission();
+
+    virtual void addCommandBuffer(CommandBuffer* commandBuffer) = 0;
+    virtual void addWaitPrimitive(SynchronizationPrimitive* primitive, uint32_t stageMask) = 0;
+    virtual void addSignalPrimitive(SynchronizationPrimitive* primitive) = 0;
+    virtual void clear() = 0;
+    virtual bool validate() const = 0;
+
+    TD_DECLARE_ALLOCATOR();
+};
+
 class CommandQueue
 {
 public:
-    class Submission
-    {
-    public:
-        virtual ~Submission();
-
-        virtual void addCommandBuffer(CommandBuffer* commandBuffer) = 0;
-        virtual void addWaitPrimitive(SynchronizationPrimitive* primitive, uint32_t stageMask) = 0;
-        virtual void addSignalPrimitive(SynchronizationPrimitive* primitive) = 0;
-        virtual bool validate() const = 0;
-    };
-
     virtual ~CommandQueue();
 
-    virtual std::unique_ptr<Submission> createSubmission() = 0;
-    virtual void submit(Submission* submissionInfo, size_t submitCount, SynchronizationPrimitive* cpuSignalPrimitive) = 0;
+    virtual std::unique_ptr<CommandQueueSubmission> createSubmission() = 0;
+    virtual void submit(CommandQueueSubmission* submissionInfo, size_t submitCount, SynchronizationPrimitive* cpuSignalPrimitive) = 0;
+
+    TD_DECLARE_ALLOCATOR();
 };
 
 } // namespace Gfx

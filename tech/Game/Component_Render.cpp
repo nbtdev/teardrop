@@ -122,7 +122,7 @@ bool RenderComponent::initialize()
     }
 
     // TODO: support more than one material (one per submesh)
-    mRenderable.addMaterial(material);
+    //mRenderable.addMaterial(material);
 
     recalculateLighting();
     return true;

@@ -22,18 +22,16 @@ THE SOFTWARE.
 
 #include "RenderStep.h"
 
-using namespace Teardrop;
-//---------------------------------------------------------------------------
+#include "Gfx/RenderPass.h"
+
+namespace Teardrop {
+
 RenderStep::RenderStep()
 {
-	m_pCamera = 0;
 }
-//---------------------------------------------------------------------------
+
 RenderStep::~RenderStep()
 {
 }
-//---------------------------------------------------------------------------
-void RenderStep::setCamera(Gfx::Camera* pCamera)
-{
-	m_pCamera = pCamera;
-}
+
+} // namespace Teardrop

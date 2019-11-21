@@ -22,10 +22,7 @@ THE SOFTWARE.
 
 #include "RenderWindow.h"
 #include "Core/Executable.h"
-#include "Gfx/CommandBuffer.h"
-#include "Gfx/CommandQueue.h"
 #include "Gfx/Renderer.h"
-#include "Gfx/RenderPass.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Camera.h"
 #include "Gfx/Viewport.h"
@@ -43,8 +40,6 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
     , mTimer(nullptr)
 	, mRenderer(renderer)
     , mRT(nullptr)
-    , mCamera(nullptr)
-    , mViewport(nullptr)
     , mExecutable(nullptr)
     , mLastMouseX(-1)
     , mLastMouseY(-1)
@@ -69,21 +64,11 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	mRT = mRenderer->createRenderWindow((uintptr_t)winId(), Teardrop::Gfx::SURFACE_A8R8G8B8, flags);
 	assert(mRT);
 
-	if (mRT) {
-		mCamera = TD_NEW Gfx::Camera;
-		mViewport = mRT->addViewport();
-	}
-
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
-
-    // create "clear screen" render pass for use when no executable is present
-    mClearPass = mRenderer->createRenderPass("EmptyBlackPass");
-    mClearPass->attachOutput(mRT.get());
 }
 
 RenderWindow::~RenderWindow()
 {
-	delete mCamera;
 }
 
 void RenderWindow::setExecutable(Executable* executable)
@@ -130,33 +115,8 @@ void RenderWindow::wheelEvent(QWheelEvent* event)
 
 void RenderWindow::onIdle()
 {
-    if (!mRenderer || !mRT) {
-        return;
-    }
-
-    Gfx::CommandQueue* queue = mRenderer->getCommandQueue(0);
-    if (!queue) {
-        return;
-    }
-
-    mCamera->setAspect(mRT->aspect());
-    mRT->setCurrent();
-    mRT->clear(true, 0xFF000000);
-
-    // if no executable, just leave it the black clear frame for now
     if (mExecutable) {
         mExecutable->tick();
         mExecutable->renderFrame(mRenderer, mRT.get());
-    } else {
-        std::unique_ptr<Gfx::CommandBuffer> cmdBuf = mRenderer->createCommandBuffer(false);
-        cmdBuf->beginRecording();
-        cmdBuf->beginRenderPass(mClearPass.get(), mRT.get(), nullptr);
-        cmdBuf->endRenderPass();
-        cmdBuf->endRecording();
-
-        std::unique_ptr<Gfx::CommandQueue::Submission> submit = queue->createSubmission();
-        mRenderer->getCommandQueue(0)->submit(submit.get(), 1, nullptr);
     }
-
-    mRT->presentQueue(queue, nullptr, 0, nullptr);
 }
