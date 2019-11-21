@@ -30,6 +30,8 @@ THE SOFTWARE.
 #include <QtCore/QStringList>
 #include "Reflection/ClassDef.h"
 
+#include <iostream>
+
 using namespace Teardrop;
 using namespace Tools;
 using namespace Reflection;
@@ -64,6 +66,7 @@ TypeChooser::TypeChooser(QWidget* parent, const ClassDef* baseClass)
 	ClassDef* classDef = ClassDef::getClasses();
 	QStringList list;
 	while (classDef) {
+        std::cout << (const char*)classDef->getName() << std::endl;
 		if (classDef->isA(baseClass) && classDef->isCreatable()) {
 			QVariant v = qVariantFromValue((void*)classDef);
 			mTypeList->addItem((const char*)classDef->getName(), v);

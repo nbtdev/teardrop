@@ -109,6 +109,8 @@ set(SOURCES
     TerrainZone.h
     Trigger.cpp
     Trigger.h
+    Types.cpp
+    Types.h
     Variant.cpp
     Variant.h
     Weapon.cpp

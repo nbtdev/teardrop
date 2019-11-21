@@ -21,8 +21,11 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "PackageManager.h"
+
 #include "PackageMetadata.h"
 #include "Folder.h"
+
+#include "Game/Types.h"
 #include "Package/Package.h"
 #include "Package/PackageSerializer.h"
 #include "Asset/TextureAsset.h"
@@ -40,6 +43,12 @@ PackageManager::PackageManager()
 	: mPackage(0)
 	, mMetadata(0)
 {
+    static int __init = 0;
+    if (!__init) {
+        __init = 1;
+        initializeTypes();
+    }
+
 	mPackage = new Package;
 	mMetadata = new PackageMetadata(mPackage);
 }
