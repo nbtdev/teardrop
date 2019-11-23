@@ -47,6 +47,7 @@ public:
                       Gfx::SynchronizationPrimitive* cpuWaitPrimitive
                       ) override;
     size_t swapchainLength() const override;
+    size_t currentSwapchainIndex() const override;
     void waitForNext(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
               Gfx::SynchronizationPrimitive* cpuWaitPrimitive) override;
     VkImage image() const override;

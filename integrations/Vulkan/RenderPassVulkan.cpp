@@ -31,7 +31,9 @@ namespace Vulkan {
 
 RenderPass::RenderPass(VkDevice device, char const* debugName)
     : Gfx::RenderPass(debugName)
+    , mRenderTarget(nullptr)
     , mDevice(device)
+    , mRenderPass(VK_NULL_HANDLE)
     , mClearOnLoad(false)
     , mNeedsRebuild(false)
 {
@@ -63,9 +65,9 @@ void RenderPass::attachOutput(Gfx::RenderTarget* renderTarget)
 void RenderPass::setClearColor(float r, float g, float b, float a)
 {
     mClearOnLoad = true;
-    mClearValue.float32[0] = r;
+    mClearValue.float32[0] = b;
     mClearValue.float32[1] = g;
-    mClearValue.float32[2] = b;
+    mClearValue.float32[2] = r;
     mClearValue.float32[3] = a;
     mNeedsRebuild = true;
 }
@@ -74,6 +76,11 @@ VkRenderPass RenderPass::renderPass()
 {
     build();
     return mRenderPass;
+}
+
+VkClearColorValue RenderPass::clearColorValue() const
+{
+    return mClearValue;
 }
 
 void RenderPass::build()
@@ -90,11 +97,16 @@ void RenderPass::build()
     colorTargetReference.attachment = 0;
     colorTargetReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
+    VkAttachmentLoadOp loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    if (mClearOnLoad) {
+        loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    }
+
     VkAttachmentDescription attachmentDesc = {};
     attachmentDesc.format = mRenderTarget->format();
-    attachmentDesc.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    attachmentDesc.loadOp = loadOp;
     attachmentDesc.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-    attachmentDesc.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    attachmentDesc.stencilLoadOp = loadOp;
     attachmentDesc.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     attachmentDesc.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     attachmentDesc.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;

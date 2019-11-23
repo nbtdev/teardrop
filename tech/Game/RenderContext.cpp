@@ -74,6 +74,11 @@ Gfx::Camera* RenderContext::camera() const
     return mCamera;
 }
 
+Gfx::SynchronizationPrimitive* RenderContext::framePresentFinishedPrimitive() const
+{
+    return mFramePresentFinishedPrimitives[mRenderTarget->currentSwapchainIndex()].get();
+}
+
 Gfx::CommandQueue* RenderContext::graphicsQueue() const
 {
     assert(mRenderer);

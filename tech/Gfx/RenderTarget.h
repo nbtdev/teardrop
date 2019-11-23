@@ -61,6 +61,7 @@ public:
                               SynchronizationPrimitive* cpuWaitPrimitive
                               ) = 0;
     virtual size_t swapchainLength() const = 0;
+    virtual size_t currentSwapchainIndex() const = 0;
     virtual void waitForNext(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
                              Gfx::SynchronizationPrimitive* cpuWaitPrimitive) = 0;
 

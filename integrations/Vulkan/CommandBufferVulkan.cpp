@@ -46,7 +46,9 @@ CommandBuffer::CommandBuffer(VkDevice device, VkCommandBuffer commandBuffer, VkC
 
 CommandBuffer::~CommandBuffer()
 {
-    vkFreeCommandBuffers(mDevice, mPool, 1, &mCommandBuffer);
+    if (VK_NULL_HANDLE != mCommandBuffer) {
+        vkFreeCommandBuffers(mDevice, mPool, 1, &mCommandBuffer);
+    }
 }
 
 void CommandBuffer::beginRecording()
@@ -86,9 +88,8 @@ void CommandBuffer::beginRenderPass(Gfx::RenderPass* renderPass, Gfx::RenderTarg
     Vulkan::RenderPass* pass = (Vulkan::RenderPass*)renderPass;
     Vulkan::RenderTarget* rt = (Vulkan::RenderTarget*)renderTarget;
 
-    VkClearValue black = {
-        {0.f, 0.f, 0.f, 1.f}
-    };
+    VkClearValue clearValue = {};
+    clearValue.color = pass->clearColorValue();
 
     VkRenderPassBeginInfo info = {
         VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
@@ -100,7 +101,7 @@ void CommandBuffer::beginRenderPass(Gfx::RenderPass* renderPass, Gfx::RenderTarg
             {(uint32_t)rt->width(), (uint32_t)rt->height()}
         },
         1,
-        &black
+        &clearValue
     };
 
     vkCmdBeginRenderPass(mCommandBuffer, &info, VK_SUBPASS_CONTENTS_INLINE);

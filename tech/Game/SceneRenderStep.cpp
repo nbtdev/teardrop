@@ -85,7 +85,7 @@ void SceneRenderStep::render(const VisibleObjects& objects, Context* context, Sc
     if (!mRenderPass) {
         mRenderPass = context->renderer()->createRenderPass("SceneRenderPass");
         mRenderPass->attachOutput(context->renderTarget());
-        mRenderPass->setClearColor(0.f, 0.f, 0.f, 1.f);
+        mRenderPass->setClearColor(1.f, 0.f, 0.f, 1.f);
     }
 
     // then update the main scene
@@ -119,7 +119,14 @@ void SceneRenderStep::render(const VisibleObjects& objects, Context* context, Sc
     // render the main scene; start with a one-shot command buffer (we don't want to keep them
     // around because the contents of the scene likely are constantly changing, so there is no
     // point in pre-recording anything)
-    std::unique_ptr<Gfx::CommandBuffer> commandBuffer(context->renderer()->createCommandBuffer(false));
+    if (mCommandBuffers.empty()) {
+        for (size_t i=0; i<context->renderTarget()->swapchainLength(); ++i) {
+            mCommandBuffers.push_back(context->renderer()->createCommandBuffer(true));
+        }
+    }
+
+    Gfx::CommandBuffer* commandBuffer = mCommandBuffers[context->renderTarget()->currentSwapchainIndex()].get();
+    commandBuffer->reset();
     commandBuffer->beginRecording();
     commandBuffer->beginRenderPass(mRenderPass.get(), context->renderTarget());
 
@@ -144,7 +151,7 @@ void SceneRenderStep::render(const VisibleObjects& objects, Context* context, Sc
                 commandBuffer->bindPipeline(currentPipeline);
             }
 
-            renderSubmesh(commandBuffer.get(), submesh);
+            renderSubmesh(commandBuffer, submesh);
         }
     }
 
@@ -152,8 +159,9 @@ void SceneRenderStep::render(const VisibleObjects& objects, Context* context, Sc
     commandBuffer->endRecording();
 
     std::unique_ptr<Gfx::CommandQueueSubmission> submission = context->graphicsQueue()->createSubmission();
-    submission->addCommandBuffer(commandBuffer.get());
-    context->graphicsQueue()->submit(submission.get(), 1, nullptr);
+    submission->addCommandBuffer(commandBuffer);
+
+    context->graphicsQueue()->submit(submission.get(), 1, context->framePresentFinishedPrimitive());
 }
 
 } // namespace Teardrop

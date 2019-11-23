@@ -45,6 +45,7 @@ public:
     virtual Gfx::Renderer* renderer() const = 0;
     virtual Gfx::RenderTarget* renderTarget() const = 0;
     virtual Gfx::Camera* camera() const = 0;
+    virtual Gfx::SynchronizationPrimitive* framePresentFinishedPrimitive() const = 0;
     virtual Gfx::CommandQueue* graphicsQueue() const = 0;
     virtual Gfx::CommandQueue* computeQueue() const = 0;
     virtual Gfx::CommandQueue* blitQueue() const = 0;
@@ -63,6 +64,7 @@ public:
     Gfx::Renderer* renderer() const override;
     Gfx::RenderTarget* renderTarget() const override;
     Gfx::Camera* camera() const override;
+    Gfx::SynchronizationPrimitive* framePresentFinishedPrimitive() const override;
     Gfx::CommandQueue* graphicsQueue() const override;
     Gfx::CommandQueue* computeQueue() const override;
     Gfx::CommandQueue* blitQueue() const override;

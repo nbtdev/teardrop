@@ -43,8 +43,8 @@ THE SOFTWARE.
 
 using namespace Teardrop;
 //---------------------------------------------------------------------------
-static void renderShadowTexture(
-    Gfx::Renderer*, Scene*, const ShadowRenderStep::VisibleObjects&, Gfx::Light*);
+//static void renderShadowTexture(
+//    Gfx::Renderer*, Scene*, const ShadowRenderStep::VisibleObjects&, Gfx::Light*);
 //---------------------------------------------------------------------------
 ShadowRenderStep::ShadowRenderStep()
 {
@@ -67,7 +67,7 @@ void ShadowRenderStep::render(
 	for (size_t i=0; i<numLights; ++i)
 	{
 		DynamicLight* pLight = pZone->getShadowCastingLight(i);
-        renderShadowTexture(context->renderer(), pScene, objects, pLight);
+        //renderShadowTexture(context->renderer(), pScene, objects, pLight);
 	}
 }
 //---------------------------------------------------------------------------

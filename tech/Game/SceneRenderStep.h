@@ -24,9 +24,13 @@ THE SOFTWARE.
 
 #include "RenderStep.h"
 
+#include <memory>
+#include <vector>
+
 namespace Teardrop {
 
 namespace Gfx {
+class CommandBuffer;
 class Viewport;
 } // namespace Gfx
 
@@ -50,8 +54,8 @@ public:
 
 private:
     Gfx::Viewport* mVP;
+
+    std::vector<std::unique_ptr<Gfx::CommandBuffer>> mCommandBuffers;
 };
 
 } // namespace Teardrop
-
-

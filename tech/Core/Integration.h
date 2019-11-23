@@ -30,8 +30,8 @@ namespace Teardrop
 	public:
 		Integration();
 		virtual ~Integration();
-		virtual void load() = 0;
-		virtual void unload() = 0;
+        virtual void load() = 0;
+        virtual void unload() = 0;
 	};
 }
 

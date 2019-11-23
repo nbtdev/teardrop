@@ -46,6 +46,8 @@ public:
     void setClearColor(float r, float g, float b, float a) override;
 
     VkRenderPass renderPass();
+    VkClearColorValue clearColorValue() const;
+    VkClearDepthStencilValue clearDepthStencilValue() const;
 
 private:
     std::vector<Gfx::Texture*> mInputTextures;
