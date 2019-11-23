@@ -94,7 +94,7 @@ void CommandBuffer::beginRenderPass(Gfx::RenderPass* renderPass, Gfx::RenderTarg
         VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
         nullptr,
         pass->renderPass(),
-        rt->framebuffer(),
+        rt->framebuffer(pass->renderPass()),
         {
             {0, 0},
             {(uint32_t)rt->width(), (uint32_t)rt->height()}

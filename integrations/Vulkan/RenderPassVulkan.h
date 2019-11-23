@@ -26,6 +26,8 @@ THE SOFTWARE.
 
 #include <vulkan/vulkan.h>
 
+#include <vector>
+
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
@@ -39,15 +41,15 @@ public:
     ~RenderPass();
 
     // Gfx::RenderPass implementation
-    void attachInputBuffer(Gfx::IndexBuffer* buffer) override;
-    void attachInputBuffer(Gfx::VertexBuffer* buffer) override;
-    void attachInputTexture(Gfx::Texture* texture) override;
+    void attachInputTexture(Gfx::Texture* texture, size_t slot) override;
     void attachOutput(Gfx::RenderTarget* renderTarget) override;
     void setClearColor(float r, float g, float b, float a) override;
 
     VkRenderPass renderPass();
 
 private:
+    std::vector<Gfx::Texture*> mInputTextures;
+
     RenderTarget* mRenderTarget;
     VkDevice mDevice;
     VkRenderPass mRenderPass;

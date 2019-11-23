@@ -261,10 +261,12 @@ Renderer::Renderer(int /*flags*/)
         }
     }
 
+    float one = 1.f;
     VkDeviceQueueCreateInfo deviceQueueCreateInfo = {};
     deviceQueueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     deviceQueueCreateInfo.queueCount = 1;
     deviceQueueCreateInfo.queueFamilyIndex = suitableQueueFamilyIndex;
+    deviceQueueCreateInfo.pQueuePriorities = &one;
 
     VkDeviceCreateInfo deviceCreateInfo = {};
     deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;

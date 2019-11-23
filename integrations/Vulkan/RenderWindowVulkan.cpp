@@ -52,10 +52,12 @@ RenderWindow::RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice,
     , mInitFlags(flags)
     , mSurface(VK_NULL_HANDLE)
     , mSwapchain(VK_NULL_HANDLE)
-    , mDevice(device)
     , mPhysicalDevice(physicalDevice)
     , mInstance(instance)
+    , mImageFormat(VK_FORMAT_UNDEFINED)
     , mImages(nullptr)
+    , mImageViews(nullptr)
+    , mFramebuffers(nullptr)
     , mImageCount(0)
     , mFrameCount(0)
     , mCurrentImageIndex(0)
@@ -121,6 +123,13 @@ RenderWindow::RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice,
         return;
     }
 
+    VkBool32 supported;
+    vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, 0, mSurface, &supported);
+    if (supported != VK_TRUE) {
+        std::cout << "Surface not supported for presentation on this device for queue family 0" << std::endl;
+        return;
+    }
+
     // create a swapchain with mImages images, each in the desired format
     VkSwapchainCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
@@ -136,6 +145,7 @@ RenderWindow::RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice,
     createInfo.imageArrayLayers = 1;
     createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR;
+    createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
 
     VkResult r = vkCreateSwapchainKHR(device, &createInfo, getAllocationCallbacks(), &mSwapchain);
     if (VK_SUCCESS != r) {
@@ -154,6 +164,8 @@ RenderWindow::RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice,
     for (uint32_t i=0; i<mImageCount; ++i) {
         mImages[i] = images[i];
     }
+
+    mImageFormat = targetFormat;
 }
 
 RenderWindow::~RenderWindow()
@@ -252,9 +264,32 @@ void RenderWindow::waitForNext(Gfx::SynchronizationPrimitive *gpuWaitPrimitive, 
     vkAcquireNextImageKHR(mDevice, mSwapchain, UINT64_MAX, semaphore, VK_NULL_HANDLE, &mCurrentImageIndex);
 }
 
-VkImage RenderWindow::currentImage() const
+VkImage RenderWindow::image() const
 {
     return mImages[mCurrentImageIndex];
+}
+
+VkFormat RenderWindow::format() const
+{
+    return mImageFormat;
+}
+
+VkImageView RenderWindow::imageView()
+{
+    if (!mImageViews) {
+        createImageViews();
+    }
+
+    return mImageViews[mCurrentImageIndex];
+}
+
+VkFramebuffer RenderWindow::framebuffer(VkRenderPass renderPass)
+{
+    if (!mFramebuffers) {
+        createFrameBuffers(renderPass);
+    }
+
+    return mFramebuffers[mCurrentImageIndex];
 }
 
 uint32_t RenderWindow::frameCount() const
@@ -267,22 +302,80 @@ uint32_t RenderWindow::imageCount() const
     return mImageCount;
 }
 
-void RenderWindow::createFramebuffer()
+void RenderWindow::createImageViews()
+{
+    destroyImageViews();
+
+    mImageViews = new VkImageView[mImageCount];
+
+    for (uint32_t i=0; i<mImageCount; ++i) {
+        mImageViews[i] = VK_NULL_HANDLE;
+
+        VkImageViewCreateInfo info = {};
+        info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+        info.image = mImages[i];
+        info.viewType = VK_IMAGE_VIEW_TYPE_2D;
+        info.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        info.subresourceRange.levelCount = 1;
+        info.subresourceRange.layerCount = 1;
+        info.format = mImageFormat;
+        vkCreateImageView(mDevice, &info, getAllocationCallbacks(), &mImageViews[i]);
+    }
+}
+
+void RenderWindow::destroyImageViews()
+{
+    if (!mImageViews) {
+        return;
+    }
+
+    for (uint32_t i=0; i<mImageCount; ++i) {
+        vkDestroyImageView(mDevice, mImageViews[i], getAllocationCallbacks());
+    }
+
+    delete [] mImageViews;
+    mImageViews = nullptr;
+}
+
+void RenderWindow::createFrameBuffers(VkRenderPass renderPass)
 {
     // unconditionally (re)create the framebuffer object; if that is not
     // desired, don't call this method
-    if (mFramebuffer != VK_NULL_HANDLE) {
-        vkDestroyFramebuffer(mDevice, mFramebuffer, getAllocationCallbacks());
-        mFramebuffer = VK_NULL_HANDLE;
+    destroyFrameBuffers();
+
+    mFramebuffers = new VkFramebuffer[mImageCount];
+
+    // we also need the image views; create them now if they have not already been created
+    createImageViews();
+
+    for (uint32_t i=0; i<mImageCount; ++i) {
+        mFramebuffers[i] = VK_NULL_HANDLE;
+
+        VkFramebufferCreateInfo info = {};
+        info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        info.width = (uint32_t)width();
+        info.height = (uint32_t)height();
+        info.layers = 1;
+        info.renderPass = renderPass;
+        info.pAttachments = &mImageViews[i];
+        info.attachmentCount = 1;
+
+        vkCreateFramebuffer(mDevice, &info, getAllocationCallbacks(), &mFramebuffers[i]);
+    }
+}
+
+void RenderWindow::destroyFrameBuffers()
+{
+    if (!mFramebuffers) {
+        return;
     }
 
-    VkFramebufferCreateInfo info = {};
-    info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-    info.width = (uint32_t)width();
-    info.height = (uint32_t)height();
-    info.layers = 1;
+    for (uint32_t i=0; i<mImageCount; ++i) {
+        vkDestroyFramebuffer(mDevice, mFramebuffers[i], getAllocationCallbacks());
+    }
 
-    vkCreateFramebuffer(mDevice, &info, getAllocationCallbacks(), &mFramebuffer);
+    delete [] mFramebuffers;
+    mFramebuffers = nullptr;
 }
 
 } // namespace Vulkan

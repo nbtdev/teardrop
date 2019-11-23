@@ -29,8 +29,6 @@ namespace Gfx {
 
 class RenderTarget;
 class Texture;
-class IndexBuffer;
-class VertexBuffer;
 
 class RenderPass
 {
@@ -38,9 +36,7 @@ public:
     RenderPass(String const& name = String::EMPTY);
     virtual ~RenderPass();
 
-    virtual void attachInputBuffer(IndexBuffer* buffer) = 0;
-    virtual void attachInputBuffer(VertexBuffer* buffer) = 0;
-    virtual void attachInputTexture(Texture* texture) = 0;
+    virtual void attachInputTexture(Texture* texture, size_t slot) = 0;
     virtual void attachOutput(RenderTarget* renderTarget) = 0;
     virtual void setClearColor(float r, float g, float b, float a) = 0;
 

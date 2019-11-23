@@ -36,7 +36,6 @@ namespace Vulkan {
 
 RenderTarget::RenderTarget(VkDevice device)
     : mDevice(device)
-    , mFramebuffer(VK_NULL_HANDLE)
 {
 }
 
@@ -44,10 +43,6 @@ RenderTarget::~RenderTarget()
 {
     for (Viewports::iterator it = mViewports.begin(); it != mViewports.end(); ++it) {
         delete it->second;
-    }
-
-    if (mFramebuffer != VK_NULL_HANDLE) {
-        vkDestroyFramebuffer(mDevice, mFramebuffer, getAllocationCallbacks());
     }
 }
 
@@ -116,11 +111,6 @@ void RenderTarget::releaseViewport(Gfx::Viewport* vp)
             return;
         }
     }
-}
-
-VkFramebuffer RenderTarget::framebuffer() const
-{
-    return mFramebuffer;
 }
 
 } // namespace Vulkan

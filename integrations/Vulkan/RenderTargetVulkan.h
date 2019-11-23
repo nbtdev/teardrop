@@ -54,7 +54,10 @@ public:
     Gfx::Viewport* viewport(size_t index = 0, size_t zOrder = 0) const override;
     void releaseViewport(Viewport* vp) override;
 
-    VkFramebuffer framebuffer() const;
+    virtual VkImage image() const = 0;
+    virtual VkFormat format() const = 0;
+    virtual VkImageView imageView() = 0;
+    virtual VkFramebuffer framebuffer(VkRenderPass renderPass) = 0;
 
     TD_DECLARE_ALLOCATOR();
 
@@ -66,9 +69,6 @@ protected:
     Viewports mViewports;
 
     VkDevice mDevice;
-    VkFramebuffer mFramebuffer;
-
-    virtual void createFramebuffer() = 0;
 };
 
 } // namespace Vulkan

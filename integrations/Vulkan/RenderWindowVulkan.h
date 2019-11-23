@@ -42,8 +42,6 @@ public:
     void resize(int w, int h) override;
     void setCurrent() override;
     void unsetCurrent() override;
-
-    // RenderTargetEx implementation
     void presentQueue(Gfx::CommandQueue* queue,
                       Gfx::SynchronizationPrimitive* gpuWaitPrimitives, size_t gpuWaitCount,
                       Gfx::SynchronizationPrimitive* cpuWaitPrimitive
@@ -51,28 +49,35 @@ public:
     size_t swapchainLength() const override;
     void waitForNext(Gfx::SynchronizationPrimitive* gpuWaitPrimitive,
               Gfx::SynchronizationPrimitive* cpuWaitPrimitive) override;
+    VkImage image() const override;
+    VkFormat format() const override;
+    VkImageView imageView() override;
+    VkFramebuffer framebuffer(VkRenderPass renderPass) override;
 
-    VkImage currentImage() const;
     uint32_t frameCount() const;
     uint32_t imageCount() const;
 
     TD_DECLARE_ALLOCATOR();
 
-protected:
-    void createFramebuffer() override;
-
 private:
     int mInitFlags;
     VkSurfaceKHR mSurface;
     VkSwapchainKHR mSwapchain;
-    VkDevice mDevice;
     VkPhysicalDevice mPhysicalDevice;
     VkInstance mInstance;
 
+    VkFormat mImageFormat;
     VkImage* mImages;
+    mutable VkImageView* mImageViews;
+    mutable VkFramebuffer* mFramebuffers;
     uint32_t mImageCount;
     uint32_t mFrameCount;
     uint32_t mCurrentImageIndex;
+
+    void createImageViews();
+    void destroyImageViews();
+    void createFrameBuffers(VkRenderPass renderPass);
+    void destroyFrameBuffers();
 };
 
 } // namespace Vulkan

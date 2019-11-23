@@ -64,6 +64,9 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 	mRT = mRenderer->createRenderWindow((uintptr_t)winId(), Teardrop::Gfx::SURFACE_A8R8G8B8, flags);
 	assert(mRT);
 
+    // single full-window viewport
+    mRT->addViewport();
+
 	this->setWindowIcon(QIcon("icons/td-icon-32.png"));
 }
 

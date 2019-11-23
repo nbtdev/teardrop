@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "RenderPassVulkan.h"
 
 #include "AllocatorsVulkan.h"
+#include "RenderTargetVulkan.h"
 
 namespace Teardrop {
 namespace Gfx {
@@ -43,18 +44,13 @@ RenderPass::~RenderPass()
     }
 }
 
-void RenderPass::attachInputBuffer(IndexBuffer* buffer)
+void RenderPass::attachInputTexture(Texture* texture, size_t slot)
 {
-    mNeedsRebuild = true;
-}
+    if (mInputTextures.size() < (slot + 1)) {
+        mInputTextures.resize(slot + 1);
+    }
 
-void RenderPass::attachInputBuffer(VertexBuffer* buffer)
-{
-    mNeedsRebuild = true;
-}
-
-void RenderPass::attachInputTexture(Texture* texture)
-{
+    mInputTextures[slot] = texture;
     mNeedsRebuild = true;
 }
 
@@ -90,9 +86,30 @@ void RenderPass::build()
         vkDestroyRenderPass(mDevice, mRenderPass, getAllocationCallbacks());
     }
 
+    VkAttachmentReference colorTargetReference = {};
+    colorTargetReference.attachment = 0;
+    colorTargetReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+    VkAttachmentDescription attachmentDesc = {};
+    attachmentDesc.format = mRenderTarget->format();
+    attachmentDesc.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    attachmentDesc.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+    attachmentDesc.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    attachmentDesc.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    attachmentDesc.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    attachmentDesc.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    attachmentDesc.samples = VK_SAMPLE_COUNT_1_BIT;
+
+    VkSubpassDescription subpass = {};
+    subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+    subpass.pColorAttachments = &colorTargetReference;
+
     VkRenderPassCreateInfo info = {};
     info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    info.subpassCount = 0;
+    info.subpassCount = 1;
+    info.pSubpasses = &subpass;
+    info.attachmentCount = 1;
+    info.pAttachments = &attachmentDesc;
 
     vkCreateRenderPass(mDevice, &info, getAllocationCallbacks(), &mRenderPass);
 
