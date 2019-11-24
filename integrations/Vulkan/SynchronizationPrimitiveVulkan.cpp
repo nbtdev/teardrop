@@ -86,6 +86,15 @@ SynchronizationPrimitive::~SynchronizationPrimitive()
     }
 }
 
+void SynchronizationPrimitive::wait()
+{
+    if (mType != SYNCH_TYPE_GPU_TO_CPU) {
+        return;
+    }
+
+    vkWaitForFences(mDevice, 1, &mPrimitive.fence, VK_TRUE, UINT64_MAX);
+}
+
 } // namespace Vulkan
 } // namespace Gfx
 } // namespace Teardrop

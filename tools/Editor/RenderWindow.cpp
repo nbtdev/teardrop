@@ -72,6 +72,8 @@ RenderWindow::RenderWindow(Gfx::Renderer* renderer, QWidget* parent/* =0 */)
 
 RenderWindow::~RenderWindow()
 {
+    mRenderer->releaseRenderTarget(mRT);
+    mRT.reset();
 }
 
 void RenderWindow::setExecutable(Executable* executable)

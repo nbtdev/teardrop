@@ -302,6 +302,8 @@ Renderer::Renderer(int /*flags*/)
 
 Renderer::~Renderer()
 {
+    mRenderTargets.clear();
+
     vkDestroyCommandPool(mDevice, mTransientCommandPool, getAllocationCallbacks());
     vkDestroyCommandPool(mDevice, mResetCommandPool, getAllocationCallbacks());
 
@@ -319,8 +321,19 @@ std::shared_ptr<Gfx::RenderTarget> Renderer::createRenderWindow(uintptr_t hWnd, 
     std::shared_ptr<Gfx::RenderTarget> rt;
 
     rt.reset(new Vulkan::RenderWindow(mInstance, mPhysicalDevice, mDevice, hWnd, fmt, flags));
+    mRenderTargets.push_back(rt);
 
     return rt;
+}
+
+void Renderer::releaseRenderTarget(std::shared_ptr<Gfx::RenderTarget> renderTarget)
+{
+    for (auto iter = mRenderTargets.begin(); iter != mRenderTargets.end(); ++iter) {
+        if ((*iter).get() == renderTarget.get()) {
+            mRenderTargets.erase(iter);
+            return;
+        }
+    }
 }
 
 std::shared_ptr<Gfx::RenderTarget> Renderer::createRenderTexture(int w, int h, SurfaceFormat fmt, int flags)
@@ -382,6 +395,11 @@ size_t Renderer::getCommandQueueCount() const
 {
     // hardcoded to 1 for now
     return 1;
+}
+
+void Renderer::flush()
+{
+    vkQueueWaitIdle(mCommandQueue->queue());
 }
 
 } // namespace Vulkan

@@ -20,30 +20,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#pragma once
-
-#include "Memory/Allocators.h"
+#include "Gfx/SynchronizationPrimitive.h"
 
 namespace Teardrop {
 namespace Gfx {
 
-enum SynchronizationPrimitiveType {
-    SYNCH_TYPE_GPU_TO_GPU,
-    SYNCH_TYPE_GPU_TO_CPU,
-    SYNCH_TYPE_CPU_TO_GPU,
-};
-
-struct SynchronizationPrimitive {
-    SynchronizationPrimitiveType mType;
-
-    virtual ~SynchronizationPrimitive();
-
-    // this only applies to primitives with SYNCH_TYPE_GPU_TO_CPU type;
-    // ignored for all others
-    virtual void wait() = 0;
-
-    TD_DECLARE_ALLOCATOR();
-};
+SynchronizationPrimitive::~SynchronizationPrimitive()
+{
+}
 
 } // namespace Gfx
 } // namespace Teardrop

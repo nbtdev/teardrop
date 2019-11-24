@@ -461,6 +461,9 @@ RenderWindow::RenderWindow(VkInstance instance, VkPhysicalDevice physicalDevice,
 
 RenderWindow::~RenderWindow()
 {
+    destroyImageViews();
+    destroyFrameBuffers();
+
     delete [] mImages;
 
     if (mSwapchain != VK_NULL_HANDLE) {

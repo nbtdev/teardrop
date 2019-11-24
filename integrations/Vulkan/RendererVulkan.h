@@ -36,6 +36,8 @@ namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
+class CommandQueue;
+
 class Renderer : public Gfx::Renderer
 {
 public:
@@ -45,19 +47,18 @@ public:
     // Gfx::Renderer implementation
     std::shared_ptr<Gfx::RenderTarget> createRenderWindow(uintptr_t hWnd, SurfaceFormat fmt, int flags) override;
     std::shared_ptr<Gfx::RenderTarget> createRenderTexture(int w, int h, SurfaceFormat fmt, int flags) override;
+    void releaseRenderTarget(std::shared_ptr<RenderTarget> renderTarget) override;
     std::unique_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
     std::unique_ptr<RenderPass> createRenderPass(char const* name = nullptr) override;
     std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate) override;
-    CommandQueue* getCommandQueue(size_t index) override;
+    Gfx::CommandQueue* getCommandQueue(size_t index) override;
     std::unique_ptr<Gfx::SynchronizationPrimitive> createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
     size_t getCommandQueueCount() const override;
+    void flush() override;
 
     TD_DECLARE_ALLOCATOR();
 
 private:
-    typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
-    RenderTargets mRenderTargets;
-
     VkInstance mInstance;
     VkPhysicalDevice mPhysicalDevice;
     VkDevice mDevice;
@@ -65,7 +66,10 @@ private:
     VkCommandPool mResetCommandPool;
 
     uint32_t mQueueFamilyIndex;
-    std::unique_ptr<CommandQueue> mCommandQueue;
+    std::unique_ptr<Vulkan::CommandQueue> mCommandQueue;
+
+    typedef std::vector<std::shared_ptr<Gfx::RenderTarget>> RenderTargets;
+    RenderTargets mRenderTargets;
 };
 
 } // namespace Vulkan

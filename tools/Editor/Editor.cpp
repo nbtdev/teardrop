@@ -190,16 +190,24 @@ Editor::Editor(QWidget *parent, Qt::WindowFlags flags)
 
 Editor::~Editor()
 {
-	mPreferences.save();
-	delete mProject;
-	FreeImage_DeInitialise();
-
-	delete mRenderer;
 }
 
 void Editor::onClose()
 {
-	delete mRenderWindow;
+    mRenderer->flush();
+
+    delete mProject;
+    mProject = nullptr;
+
+    delete mRenderWindow;
+    mRenderWindow = nullptr;
+
+    delete mRenderer;
+    mRenderer = nullptr;
+
+    mPreferences.save();
+    FreeImage_DeInitialise();
+
 	QMainWindow::close();
 }
 

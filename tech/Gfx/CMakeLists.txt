@@ -79,6 +79,7 @@ set(SOURCES
     ShaderManager.h
     Submesh.cpp
     Submesh.h
+    SynchronizationPrimitive.cpp
     SynchronizationPrimitive.h
     Texture2D.cpp
     Texture2D.h

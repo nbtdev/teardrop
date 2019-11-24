@@ -35,6 +35,9 @@ struct SynchronizationPrimitive : public Gfx::SynchronizationPrimitive
     SynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled, VkDevice device);
     ~SynchronizationPrimitive();
 
+    // SynchronizationPrimitive implementation
+    void wait() override;
+
     VkDevice mDevice;
 
     union {
