@@ -37,7 +37,7 @@ using namespace Tools;
 
 ProjectExplorer::ProjectExplorer(QWidget* parent)
 	: QTreeView(parent)
-	, mModel(0)
+    , mModel(nullptr)
 {
 	setAcceptDrops(true);
 	setDragEnabled(true);
@@ -55,7 +55,7 @@ ProjectExplorer::~ProjectExplorer()
 void ProjectExplorer::setProject(Project* project)
 {
 	delete mModel;
-	mModel = 0;
+    mModel = nullptr;
 
 	if (project) {
 		mModel = new ProjectModel(project);
@@ -138,7 +138,7 @@ void ProjectExplorer::onContextMenu(const QPoint& pt)
 					projModel->removePackage(index);
 					setCurrentIndex(QModelIndex());
 
-                    SelectionChanged.raise(0);
+                    SelectionChanged.raise(nullptr);
 					break;
 				case 5:
 					projModel->setActiveIndex(index);
@@ -146,7 +146,7 @@ void ProjectExplorer::onContextMenu(const QPoint& pt)
 					break;
 				case 6:
 					{
-						TypeChooser chooser(0, Executable::getClassDef());
+                        TypeChooser chooser(nullptr, Executable::getClassDef());
 						QDialog::DialogCode code = (QDialog::DialogCode)chooser.exec();
 
 						if (code == QDialog::Accepted) {
@@ -201,7 +201,7 @@ void ProjectExplorer::onContextMenu(const QPoint& pt)
 void ProjectExplorer::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
     if (!current.isValid())
-        SelectionChanged.raise(0);
+        SelectionChanged.raise(nullptr);
     else {
         ProjectItem* item = static_cast<ProjectItem*>(current.internalPointer());
         SelectionChanged.raise(item);

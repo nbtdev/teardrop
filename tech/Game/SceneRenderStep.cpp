@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "Gfx/Camera.h"
 #include "Gfx/CommandBuffer.h"
 #include "Gfx/CommandQueue.h"
+#include "Gfx/IndexBuffer.h"
 #include "Gfx/Material.h"
 #include "Gfx/Mesh.h"
 #include "Gfx/Renderable.h"
@@ -38,6 +39,7 @@ THE SOFTWARE.
 #include "Gfx/RenderTarget.h"
 #include "Gfx/RenderQueue.h"
 #include "Gfx/Submesh.h"
+#include "Gfx/VertexBuffer.h"
 #include "Reflection/Reflection.h"
 #include "Reflection/ClassDef.h"
 
@@ -48,7 +50,21 @@ using namespace Gfx;
 
 void renderSubmesh(CommandBuffer* cmdBuf, Submesh* submesh)
 {
+    size_t nVB = submesh->vertexBufferCount();
+    Gfx::VertexBuffer** vertexBuffers = (Gfx::VertexBuffer**)alloca(sizeof(Gfx::VertexBuffer*) * nVB);
+    for (size_t i=0; i<nVB; ++i) {
+        vertexBuffers[i] = submesh->vertexBuffer(i);
+    }
 
+    cmdBuf->bindVertexBuffers(vertexBuffers, nVB);
+
+    Gfx::IndexBuffer* ib = submesh->indexBuffer();
+    if (ib) {
+        cmdBuf->bindIndexBuffer(ib);
+        cmdBuf->drawIndexed((size_t)ib->indexCount(), 0);
+    } else {
+        cmdBuf->draw(submesh->vertexBuffer(0)->vertexCount(), 0);
+    }
 }
 
 } // namespace

@@ -422,6 +422,8 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
     }
 
     camera->setAspect(rt->aspect());
+    camera->update();
+
     mRenderContext->beginFrame(camera);
 
     ZoneObjects visibleObjects;
