@@ -72,24 +72,24 @@ void Mesh::removeSubmesh(size_t index)
 {
     assert(index>=0 && index<mSubmeshes.size());
 
-    if (index >= 0 && index < mSubmeshes.size()) {
+    if (index < mSubmeshes.size()) {
 		delete mSubmeshes[index];
-		mSubmeshes.erase(mSubmeshes.begin()+index);
+        mSubmeshes.erase(mSubmeshes.begin()+(int)index);
 	}
 }
 
-size_t Mesh::submeshCount()
+size_t Mesh::submeshCount() const
 {
     return mSubmeshes.size();
 }
 
-Submesh* Mesh::submesh(size_t index)
+Submesh* Mesh::submesh(size_t index) const
 {
     assert(index>=0 && index<mSubmeshes.size());
 
-    if (index >= 0 && index < mSubmeshes.size()) {
+    if (index < mSubmeshes.size()) {
 		return mSubmeshes[index];
 	}
 
-	return 0;
+    return nullptr;
 }

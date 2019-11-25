@@ -45,13 +45,12 @@ namespace Teardrop
 			VertexBuffer* createVertexBuffer();
 			void removeIndexBuffer();
             void removeVertexBuffer(size_t index);
+            void clearVertexDeclaration();
+            VertexDeclaration* vertexDeclaration();
 
-            size_t vertexBufferCount();
-            VertexBuffer* vertexBuffer(size_t index);
-			IndexBuffer* indexBuffer();
-
-			VertexDeclaration* vertexDeclaration();
-			void clearVertexDeclaration();
+            size_t vertexBufferCount() const;
+            VertexBuffer* vertexBuffer(size_t index) const;
+            IndexBuffer* indexBuffer() const;
 			
 			enum PrimitiveType
 			{

@@ -85,11 +85,7 @@ private:
     SceneRenderStep* mSceneRenderStep;
     std::unique_ptr<RenderContext> mRenderContext;
 
-    Gfx::Renderable* mTerrainRenderables;
     Gfx::Pipeline* mTerrainPipeline;
-
-    AABB* mBoundingBoxes;
-    size_t mTerrainRenderableCount;
 
     void generateTerrainTiles();
 };

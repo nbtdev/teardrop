@@ -1,5 +1,5 @@
 /******************************************************************************
-Copyright (c) 2018 Teardrop Games
+Copyright (c) 2019 Teardrop Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,36 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "Gfx/Mesh.h"
-#include "Gfx/Pipeline.h"
-#include "Math/Transform.h"
+#include "Component_Render.h"
 
-#include <vector>
+#include "Math/AABB.h"
+#include "Memory/Allocators.h"
 
 namespace Teardrop {
+
 namespace Gfx {
 
-class Mesh;
 class Pipeline;
-
-class Renderable
-{
-public:
-    Renderable();
-    Renderable(Mesh* mesh, Pipeline** subMeshPipelines);
-    ~Renderable();
-
-    void setMesh(Mesh* mesh);
-    void setTransform(Transform const& transform);
-    void addPipeline(Pipeline* submeshPipeline);
-    void setPipeline(Pipeline* submeshPipeline, size_t index);
-
-    Mesh* mesh() const;
-    Pipeline* pipeline(size_t index) const;
-    Transform const& transform() const;
-
-private:
-    Mesh* mMesh;
-    std::vector<Pipeline*> mPipelines;
-    Transform mTransform;
-};
+class Renderable;
 
 } // namespace Gfx
+
+class LandscapeScene;
+
+class TerrainTileComponent : public RenderComponent
+{
+    TD_CLASS(TerrainTileComponent, RenderComponent);
+
+    void initializeTile(int tileX, int tileY, LandscapeScene* scene);
+    void setPipeline(Gfx::Pipeline* pipeline);
+
+    AABB const& boundingBox() const;
+    Gfx::Renderable const& renderable() const;
+
+    TD_DECLARE_ALLOCATOR();
+
+protected:
+    AABB mAABB;
+};
+
 } // namespace Teardrop

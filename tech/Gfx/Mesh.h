@@ -44,8 +44,9 @@ public:
     void createSubmeshes(size_t nSubmeshes);
     void removeSubmesh(Submesh* submesh);
     void removeSubmesh(size_t index);
-    size_t submeshCount();
-    Submesh* submesh(size_t index);
+
+    size_t submeshCount() const;
+    Submesh* submesh(size_t index) const;
 
     TD_DECLARE_ALLOCATOR();
 

@@ -67,36 +67,36 @@ VertexBuffer* Submesh::createVertexBuffer()
 void Submesh::removeIndexBuffer()
 {
 	BufferManager::instance().release(mIndexBuffer);
-	mIndexBuffer = 0;
+    mIndexBuffer = nullptr;
 }
 
 void Submesh::removeVertexBuffer(size_t index)
 {
     assert(index >=0 && index < mVertexBuffers.size());
 
-    if (index >=0 && index < mVertexBuffers.size()) {
+    if (index < mVertexBuffers.size()) {
 		BufferManager::instance().release(mVertexBuffers[index]);
-		mVertexBuffers.erase(mVertexBuffers.begin()+index);
+        mVertexBuffers.erase(mVertexBuffers.begin() + (int)index);
 	}
 }
 
-size_t Submesh::vertexBufferCount()
+size_t Submesh::vertexBufferCount() const
 {
     return mVertexBuffers.size();
 }
 
-VertexBuffer* Submesh::vertexBuffer(size_t index)
+VertexBuffer* Submesh::vertexBuffer(size_t index) const
 {
     assert(index >=0 && index < mVertexBuffers.size());
 
-    if (index >=0 && index < mVertexBuffers.size()) {
+    if (index < mVertexBuffers.size()) {
 		return mVertexBuffers[index];
 	}
 
-	return 0;
+    return nullptr;
 }
 
-IndexBuffer* Submesh::indexBuffer()
+IndexBuffer* Submesh::indexBuffer() const
 {
 	return mIndexBuffer;
 }
@@ -139,7 +139,7 @@ unsigned int Submesh::hash()
 			VertexBuffer* vb = *it;
             size_t nElems = vb->vertexElementCount();
             for (size_t i=0; i<nElems; ++i) {
-				VertexElement* elem = vb->vertexElement(i);
+                VertexElement const* elem = vb->vertexElement(i);
 				mHash |= (1 << elem->mUsage);
 
 				if (elem->mUsage == VEU_TEXCOORD) {
@@ -160,7 +160,7 @@ const ShaderFeatures& Submesh::features()
 			VertexBuffer* vb = *it;
             size_t nElems = vb->vertexElementCount();
             for (size_t i=0; i<nElems; ++i) {
-				VertexElement* elem = vb->vertexElement(i);
+                VertexElement const* elem = vb->vertexElement(i);
 				switch(elem->mUsage) {
 					case VEU_POSITION:
 						mFeatures.setFeature(INTERP_POSITION);

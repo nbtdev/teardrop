@@ -39,6 +39,8 @@ set(SOURCES
     Component_Physics.h
     Component_Render.cpp
     Component_Render.h
+    Component_TerrainTile.cpp
+    Component_TerrainTile.h
     ComponentHost.cpp
     ComponentHost.h
     CountdownTrigger.cpp

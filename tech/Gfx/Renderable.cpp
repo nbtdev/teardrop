@@ -63,6 +63,15 @@ void Renderable::addPipeline(Pipeline* submeshPipeline)
     mPipelines.push_back(submeshPipeline);
 }
 
+void Renderable::setPipeline(Pipeline* submeshPipeline, size_t index)
+{
+    if (index >= mPipelines.size()) {
+        return;
+    }
+
+    mPipelines[index] = submeshPipeline;
+}
+
 Mesh* Renderable::mesh() const
 {
     return mMesh;

@@ -41,7 +41,7 @@ size_t Teardrop::hashString(const char* strVal)
 	return rtn;
 }
 //---------------------------------------------------------------------------
-size_t Teardrop::hashData(void* pData, size_t len)
+size_t Teardrop::hashData(void const* pData, size_t len)
 {
 	if (!pData)
 		return 0;
@@ -81,12 +81,12 @@ uint64_t Teardrop::hashString64(uint64_t seed, const char* strVal)
     return rtn;
 }
 //---------------------------------------------------------------------------
-uint64_t Teardrop::hashData64(void* pData, size_t len)
+uint64_t Teardrop::hashData64(void const* pData, size_t len)
 {
     return hashData64(0, pData, len);
 }
 //---------------------------------------------------------------------------
-uint64_t Teardrop::hashData64(uint64_t seed, void* pData, size_t len)
+uint64_t Teardrop::hashData64(uint64_t seed, void const* pData, size_t len)
 {
     if (!pData)
         return 0;

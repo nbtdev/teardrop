@@ -44,8 +44,8 @@ namespace Teardrop
 			void beginAddVertexElements();
 			VertexElement& addVertexElement();
             size_t endAddVertexElements();
-            size_t vertexElementCount();
-            VertexElement* vertexElement(size_t index);
+            size_t vertexElementCount() const;
+            VertexElement const* vertexElement(size_t index) const;
 			
 			enum InitFlags {
 				INIT_DYNAMIC = 1,

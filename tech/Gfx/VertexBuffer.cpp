@@ -69,12 +69,12 @@ VertexElement& VertexBuffer::addVertexElement()
 	return mElements.back();
 }
 
-size_t VertexBuffer::vertexElementCount()
+size_t VertexBuffer::vertexElementCount() const
 {
     return mElements.size();
 }
 
-VertexElement* VertexBuffer::vertexElement(size_t idx)
+VertexElement const* VertexBuffer::vertexElement(size_t idx) const
 {
     assert(idx >= 0 && idx < mElements.size());
     if (idx >= 0 && idx < mElements.size()) {

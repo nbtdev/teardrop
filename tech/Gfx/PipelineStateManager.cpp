@@ -52,7 +52,7 @@ uint64_t hashSubmeshAndMaterial(Submesh* submesh, Material* material)
     for (size_t i=0; i<nVB; ++i) {
         Gfx::VertexBuffer* vb = submesh->vertexBuffer(i);
         for (size_t j=0; j<vb->vertexElementCount(); ++j) {
-            Gfx::VertexElement* elem = vb->vertexElement(j);
+            Gfx::VertexElement const* elem = vb->vertexElement(j);
             hash = hashData64(hash, elem, sizeof(*elem));
         }
     }

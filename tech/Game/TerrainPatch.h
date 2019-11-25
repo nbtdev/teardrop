@@ -20,56 +20,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(TDTERRAINPATCH_INCLUDED)
-#define TDTERRAINPATCH_INCLUDED
+#pragma once
 
 #include "Game/ZoneObject.h"
 #include "Gfx/RenderableProvider.h"
 #include "Memory/Allocators.h"
 
-namespace Teardrop
-{
-	class TerrainZone;
-	struct TerrainVertex;
-	struct TerrainVertex2;
-	struct TerrainNormal;
-	struct Environment;
+namespace Teardrop {
 
-    namespace Gfx {
-        class Texture;
-    }
+class TerrainZone;
 
-	class TerrainPatch : 
-		public ZoneObject
-	{
-		TerrainVertex* m_pVertexBuffer;
-		TerrainNormal* m_pNormalBuffer;
-		short* m_pIndexBuffer;
-		TerrainZone* m_pOwner;
-
-    public:
-		TD_CLASS(TerrainPatch, ZoneObject);
-
-		TerrainPatch();
-		~TerrainPatch();
-
-		bool initialize();
-		bool destroy();
-
-		//! create patch from source heightmap data
-//		bool create(
-//			TerrainZone* pOwner,
-//            const Gfx::Bitmap& heightmap,
-//			size_t x,
-//			size_t y);
-
-		// we don't want these serialized since they are dynamically created
-		bool shouldSerialize() const { return false; }
-
-		void notifyPropertyChangedLocal(const Reflection::PropertyDef*);
-
-		TD_DECLARE_ALLOCATOR();
-	};
+namespace Gfx {
+    class Texture;
 }
 
-#endif // TDTERRAINPATCH_INCLUDED
+class TerrainPatch :
+    public ZoneObject
+{
+    TerrainZone* m_pOwner;
+
+public:
+    TD_CLASS(TerrainPatch, ZoneObject);
+
+    TerrainPatch();
+    ~TerrainPatch();
+
+    bool initialize();
+    bool destroy();
+
+    // we don't want these serialized since they are dynamically created
+    bool shouldSerialize() const { return false; }
+
+    void notifyPropertyChangedLocal(const Reflection::PropertyDef*);
+
+    TD_DECLARE_ALLOCATOR();
+};
+
+} // namespace Teardrop
+

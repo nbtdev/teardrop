@@ -96,7 +96,7 @@ uint64_t MeshAsset::serialize(Stream& strm)
 			nBytes += strm.write(&nElems, sizeof(nElems));
 
             for (size_t e=0; e<nElems; ++e) {
-				Gfx::VertexElement* elem = vb->vertexElement(e);
+                Gfx::VertexElement const* elem = vb->vertexElement(e);
 
                 uint32_t type = elem->mType;
 				nBytes += strm.write(&type, sizeof(type));

@@ -31,16 +31,16 @@ namespace Teardrop
 	//! hash a null-terminated string to a word-length unique hash value
 	size_t hashString(const char* strVal);
 	//! hash an arbitrary byte stream of length len to a word-length unique hash value
-	size_t hashData(void* pData, size_t len);
+    size_t hashData(void const* pData, size_t len);
     //! hash a null-terminated string to a word-length unique hash value
     uint64_t hashString64(const char* strVal);
     //! hash a null-terminated string to a word-length unique hash value, with a starting hash value
     uint64_t hashString64(uint64_t seed, const char* strVal);
     //! hash an arbitrary byte stream of length len to a word-length unique hash value
-    uint64_t hashData64(void* pData, size_t len);
+    uint64_t hashData64(void const* pData, size_t len);
     //! hash an arbitrary byte stream of length len to a word-length unique hash value, with
     //! a starting hash value
-    uint64_t hashData64(uint64_t seed, void* pData, size_t len);
+    uint64_t hashData64(uint64_t seed, void const* pData, size_t len);
 }
 
 #endif // TDHASH_INCLUDED
