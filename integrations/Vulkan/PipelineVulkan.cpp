@@ -31,6 +31,7 @@ namespace Vulkan {
 Pipeline::Pipeline(VkDevice device, Gfx::RenderPass* renderPassTemplate)
     : mDevice(device)
     , mPipeline(VK_NULL_HANDLE)
+    , mTemplate(renderPassTemplate)
 {
 }
 
@@ -46,6 +47,11 @@ Pipeline::~Pipeline()
 VkPipeline Pipeline::pipeline() const
 {
     return mPipeline;
+}
+
+void Pipeline::build()
+{
+
 }
 
 } // namespace Vulkan

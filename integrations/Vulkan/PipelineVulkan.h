@@ -44,6 +44,9 @@ public:
 private:
     VkDevice mDevice;
     VkPipeline mPipeline;
+    Gfx::RenderPass* mTemplate;
+
+    void build() override;
 };
 
 } // namespace Vulkan
