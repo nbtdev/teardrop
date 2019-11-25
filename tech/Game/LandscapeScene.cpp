@@ -115,12 +115,12 @@ LandscapeScene::~LandscapeScene()
 
 bool LandscapeScene::initialize()
 {
-	return true;
+    return Scene::initialize();
 }
 
 bool LandscapeScene::destroy()
 {
-	return true;
+    return Scene::destroy();
 }
 
 bool LandscapeScene::onPreLoad()

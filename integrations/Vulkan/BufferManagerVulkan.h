@@ -22,35 +22,46 @@ THE SOFTWARE.
 
 #pragma once
 
-#include "Gfx/IndexBuffer.h"
+#include "Gfx/BufferManager.h"
 
 #include <vulkan/vulkan.h>
+
+#include <vector>
 
 namespace Teardrop {
 namespace Gfx {
 namespace Vulkan {
 
-class IndexBuffer : public Gfx::IndexBuffer
+class IndexBuffer;
+class VertexBuffer;
+class VertexDeclaration;
+
+class BufferManager : public Gfx::BufferManager
 {
 public:
-    IndexBuffer(Submesh* parent, VkDevice device, VkPhysicalDevice physicalDevice);
-    ~IndexBuffer();
+    BufferManager(VkDevice device, VkPhysicalDevice physicalDevice);
+    ~BufferManager();
 
-    // Gfx::IndexBuffer implementation
-    void initialize(int indexCount, int aInitFlags, void* data=nullptr) override;
-    void resize(int indexCount) override;
-    void* map(MapFlags flags=MAP_ANY) override;
-    void unmap() override;
-
-    VkBuffer buffer() const;
+    // Gfx::BufferManager implementation
+    Gfx::IndexBuffer* createIndexBuffer(Submesh* parent) override;
+    Gfx::VertexBuffer* createVertexBuffer(Submesh* parent) override;
+    Gfx::VertexDeclaration* createVertexDeclaration(Submesh* parent) override;
+    void release(Gfx::IndexBuffer* buffer) override;
+    void release(Gfx::VertexBuffer* buffer) override;
+    void release(Gfx::VertexDeclaration* decl) override;
 
     TD_DECLARE_ALLOCATOR();
 
-private:
+protected:
+    typedef std::vector<IndexBuffer*> IndexBuffers;
+    typedef std::vector<VertexBuffer*> VertexBuffers;
+    typedef std::vector<VertexDeclaration*> VertexDeclarations;
+    IndexBuffers mIndexBuffers;
+    VertexBuffers mVertexBuffers;
+    VertexDeclarations mVertexDeclarations;
+
     VkDevice mDevice;
     VkPhysicalDevice mPhysicalDevice;
-    VkDeviceMemory mMemory;
-    VkBuffer mBuffer;
 };
 
 } // namespace Vulkan

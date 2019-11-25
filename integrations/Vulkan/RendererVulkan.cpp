@@ -23,6 +23,7 @@ THE SOFTWARE.
 #include "RendererVulkan.h"
 
 #include "AllocatorsVulkan.h"
+#include "BufferManagerVulkan.h"
 #include "CommandBufferVulkan.h"
 #include "CommandQueueVulkan.h"
 #include "PipelineVulkan.h"
@@ -298,10 +299,14 @@ Renderer::Renderer(int /*flags*/)
     vkCreateCommandPool(mDevice, &commandPoolCreateInfo, getAllocationCallbacks(), &mResetCommandPool);
     commandPoolCreateInfo.flags |= VK_COMMAND_POOL_CREATE_TRANSIENT_BIT;
     vkCreateCommandPool(mDevice, &commandPoolCreateInfo, getAllocationCallbacks(), &mTransientCommandPool);
+
+    TD_NEW BufferManager(mDevice, mPhysicalDevice);
 }
 
 Renderer::~Renderer()
 {
+    BufferManager::instance().shutdown();
+
     mRenderTargets.clear();
 
     vkDestroyCommandPool(mDevice, mTransientCommandPool, getAllocationCallbacks());

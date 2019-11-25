@@ -47,10 +47,10 @@ TD_CLASS_IMPL(Scene)
 const static float TIMESTEP = 1.f/60.f;
 //---------------------------------------------------------------------------
 Scene::Scene()
+    : m_currentZone(Zone::INVALID)
+    , m_pWorld(nullptr)
+    , m_accumTime(0.f)
 {
-    m_currentZone = Zone::INVALID;
-    m_pWorld = 0;
-    m_accumTime = 0;
 }
 //---------------------------------------------------------------------------
 Scene::~Scene()
@@ -60,7 +60,8 @@ Scene::~Scene()
 bool Scene::initialize()
 {
     // create the zone(s) from the LandscapeAsset data
-	Zone* zone = createZone(TerrainZone::getClassDef(), 0);
+    Zone* zone = createZone(TerrainZone::getClassDef(), nullptr);
+    zone->initialize(nullptr);
 	setCurrentZone(*zone);
 	return true;
 }
@@ -100,7 +101,7 @@ bool Scene::destroy()
 		//pSys->removeWorldFromDebugger(m_pWorld);
 		m_pWorld->release();
 		delete m_pWorld;
-		m_pWorld = 0;
+        m_pWorld = nullptr;
 	}
 
 	return true;
@@ -135,7 +136,7 @@ const Vector4& Scene::getAmbientLight() const
 Zone* Scene::createZone(const char* type, LoadListener* pCB)
 {
 	if (!type)
-		return 0;
+        return nullptr;
 
 	// use reflection to create the instance
 	return createZone(Reflection::ClassDef::findClassDef(type), pCB);
@@ -144,7 +145,7 @@ Zone* Scene::createZone(const char* type, LoadListener* pCB)
 Zone* Scene::createZone(Reflection::ClassDef* pClassDef, LoadListener* pCB)
 {
 	if (!pClassDef)
-		return 0;
+        return nullptr;
 
 	ZoneNode node;
 	node.pZone = static_cast<Zone*>(pClassDef->createInstance());
@@ -195,8 +196,7 @@ void Scene::destroyZone(Zone* pZone)
 //---------------------------------------------------------------------------
 bool Scene::addNeighbor(const Zone *pMe, const Zone* pNeighbor)
 {
-	if (!pMe || !pNeighbor)
-	{
+    if (!pMe || !pNeighbor) {
 		return false;
 	}
 
@@ -208,9 +208,8 @@ bool Scene::addNeighbor(const Zone *pMe, const Zone* pNeighbor)
 //---------------------------------------------------------------------------
 Zone* Scene::getCurrentZone() const
 {
-	if (m_currentZone == Zone::INVALID)
-	{
-		return 0;
+    if (m_currentZone == Zone::INVALID) {
+        return nullptr;
 	}
 
 	return m_zones[m_currentZone].pZone;

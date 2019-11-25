@@ -33,7 +33,7 @@ namespace Vulkan {
 class VertexBuffer : public Gfx::VertexBuffer
 {
 public:
-    VertexBuffer(Submesh* parent, VkDevice device);
+    VertexBuffer(Submesh* parent, VkDevice device, VkPhysicalDevice physicalDevice);
     ~VertexBuffer();
 
     // Gfx::VertexBuffer implementation
@@ -48,6 +48,8 @@ public:
 
 private:
     VkDevice mDevice;
+    VkPhysicalDevice mPhysicalDevice;
+    VkDeviceMemory mMemory;
     VkBuffer mBuffer;
 };
 

@@ -44,8 +44,8 @@ public:
     void endRenderPass() override;
     void setViewport(Viewport* vp) override;
     void bindPipeline(Pipeline* pipeline) override;
-    void bindIndexBuffer(IndexBuffer* buffer) override;
-    void bindVertexBuffers(VertexBuffer** buffer, size_t bufferCount) override;
+    void bindIndexBuffer(Gfx::IndexBuffer* buffer) override;
+    void bindVertexBuffers(Gfx::VertexBuffer** buffer, size_t bufferCount) override;
     void bindDescriptorSets(DescriptorSet** sets, size_t setCount) override;
     void draw(size_t vertexCount, size_t startingVertex) override;
     void drawIndexed(size_t indexCount, size_t startingIndex) override;

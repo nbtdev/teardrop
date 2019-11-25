@@ -5,6 +5,8 @@ set(TARGET Vulkan)
 
 # library source files
 set(SOURCES
+    BufferManagerVulkan.cpp
+    BufferManagerVulkan.h
     CommandBufferVulkan.cpp
     CommandBufferVulkan.h
     CommandQueueVulkan.cpp
