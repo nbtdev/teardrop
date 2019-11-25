@@ -32,7 +32,6 @@ Pipeline::Pipeline(VkDevice device, Gfx::RenderPass* renderPassTemplate)
     : mDevice(device)
     , mPipeline(VK_NULL_HANDLE)
 {
-
 }
 
 Pipeline::~Pipeline()

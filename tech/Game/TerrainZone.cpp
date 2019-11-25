@@ -63,14 +63,14 @@ const char* TerrainZone::getType() const
 	return ZONE_TYPE;
 }
 //---------------------------------------------------------------------------
-bool TerrainZone::initialize(World* /*pWorld*/)
+bool TerrainZone::initialize(World* world)
 {
-#if 0
-	if(!Zone::initialize(pWorld))
+    if(!Zone::initialize(world))
 	{
 		return false;
 	}
 
+#if 0
 	if (!getHeightMap().length())
 	{
 		return false;

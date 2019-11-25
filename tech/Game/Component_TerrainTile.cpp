@@ -231,7 +231,12 @@ void TerrainTileComponent::initializeTile(int tileX, int tileY, LandscapeScene *
 
 void TerrainTileComponent::setPipeline(Gfx::Pipeline* pipeline)
 {
-    mRenderable.setPipeline(pipeline, 0);
+    Gfx::Pipeline* p = mRenderable.pipeline(0);
+    if (p) {
+        mRenderable.setPipeline(pipeline, 0);
+    } else {
+        mRenderable.addPipeline(pipeline);
+    }
 }
 
 AABB const& TerrainTileComponent::boundingBox() const

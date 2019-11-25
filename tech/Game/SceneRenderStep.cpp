@@ -117,7 +117,7 @@ void SceneRenderStep::render(const VisibleObjects& objects, Context* context, Sc
 		{
 			ZoneObject* pObj = const_cast<ZoneObject*>(*it);
 			ZoneObject::ComponentList renderables;
-			pObj->findComponents(RenderComponent::getClassDef(), renderables);
+            pObj->findComponents(RenderComponent::getClassDef(), renderables, true);
             for (auto r : renderables)
 			{
 				RenderComponent* pRenderable = 
