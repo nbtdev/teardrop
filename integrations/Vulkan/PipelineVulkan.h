@@ -24,29 +24,29 @@ THE SOFTWARE.
 
 #include "Gfx/Pipeline.h"
 
+#include "Gfx/Common.h"
+
 #include <vulkan/vulkan.h>
 
 namespace Teardrop {
 namespace Gfx {
-
-class RenderPass;
-
 namespace Vulkan {
 
 class Pipeline : public Gfx::Pipeline
 {
 public:
-    Pipeline(VkDevice device, Gfx::RenderPass* renderPassTemplate);
+    Pipeline(VkDevice device, PipelineType type, Gfx::RenderTarget* renderTarget);
     ~Pipeline();
+
+    // Gfx::Pipeline implementation
+    void build() override;
 
     VkPipeline pipeline() const;
 
 private:
     VkDevice mDevice;
     VkPipeline mPipeline;
-    Gfx::RenderPass* mTemplate;
-
-    void build() override;
+    PipelineType mType;
 };
 
 } // namespace Vulkan

@@ -50,7 +50,7 @@ public:
     void releaseRenderTarget(std::shared_ptr<RenderTarget> renderTarget) override;
     std::unique_ptr<CommandBuffer> createCommandBuffer(bool reusable) override;
     std::unique_ptr<RenderPass> createRenderPass(char const* name = nullptr) override;
-    std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate) override;
+    std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderTarget* renderTarget) override;
     Gfx::CommandQueue* getCommandQueue(size_t index) override;
     std::unique_ptr<Gfx::SynchronizationPrimitive> createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) override;
     size_t getCommandQueueCount() const override;

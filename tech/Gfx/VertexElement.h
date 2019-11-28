@@ -54,7 +54,7 @@ namespace Teardrop
             VertexElement();
 
 			// vertex element size in bytes
-            size_t size();
+            size_t size() const;
 
 			// element data math type
 			VertexElementType mType;

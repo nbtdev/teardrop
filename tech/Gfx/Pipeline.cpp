@@ -28,15 +28,11 @@ namespace Teardrop {
 namespace Gfx {
 
 Pipeline::Pipeline()
-    : Pipeline(nullptr)
-{
-}
-
-Pipeline::Pipeline(Material* material)
-    : mMaterial(material)
+    : mMaterial(nullptr)
     , mOwnedMaterial(nullptr)
     , mFragmentShader(nullptr)
     , mVertexShader(nullptr)
+    , mRenderTarget(nullptr)
 {
 }
 
@@ -52,7 +48,11 @@ Pipeline::~Pipeline()
 void Pipeline::setMaterial(Material* material)
 {
     mMaterial = material;
-    build();
+}
+
+void Pipeline::setRenderTarget(RenderTarget* renderTarget)
+{
+    mRenderTarget = renderTarget;
 }
 
 Material* Pipeline::material()
@@ -74,7 +74,6 @@ void Pipeline::beginGeometryStream()
 
 void Pipeline::endGeometryStream()
 {
-    build();
 }
 
 void Pipeline::addVertexElement(VertexElement const& vertexElement)
@@ -82,18 +81,19 @@ void Pipeline::addVertexElement(VertexElement const& vertexElement)
     mGeometryStreams.back().push_back(vertexElement);
 }
 
-FragmentShader* Pipeline::fragmentShader()
+RenderTarget* Pipeline::renderTarget() const
+{
+    return mRenderTarget;
+}
+
+FragmentShader* Pipeline::fragmentShader() const
 {
     return nullptr;
 }
 
-VertexShader* Pipeline::vertexShader()
+VertexShader* Pipeline::vertexShader() const
 {
     return nullptr;
-}
-
-void Pipeline::build()
-{
 }
 
 } // namespace Gfx

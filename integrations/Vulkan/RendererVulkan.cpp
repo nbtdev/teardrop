@@ -374,11 +374,11 @@ std::unique_ptr<Gfx::RenderPass> Renderer::createRenderPass(char const* name)
     return std::unique_ptr<Gfx::RenderPass>(new Vulkan::RenderPass(mDevice, name));
 }
 
-std::unique_ptr<Gfx::Pipeline> Renderer::createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate)
+std::unique_ptr<Gfx::Pipeline> Renderer::createPipeline(PipelineType type, Gfx::RenderTarget* renderTarget)
 {
     // Pipeline is primarily a builder class, so the actual creation and initialization of the
     // pipeline will take place there; here we just make a new builder and hand it off
-    return std::unique_ptr<Gfx::Pipeline>(new Vulkan::Pipeline(mDevice, renderPassTemplate));
+    return std::unique_ptr<Gfx::Pipeline>(new Vulkan::Pipeline(mDevice, type, renderTarget));
 }
 
 std::unique_ptr<Gfx::SynchronizationPrimitive> Renderer::createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled)

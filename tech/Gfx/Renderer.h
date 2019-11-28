@@ -33,8 +33,8 @@ namespace Gfx  {
 
 class CommandBuffer;
 class CommandQueue;
-class RenderPass;
 class Pipeline;
+class RenderPass;
 class RenderTarget;
 
 class Renderer
@@ -53,7 +53,7 @@ public:
 
     virtual std::unique_ptr<CommandBuffer> createCommandBuffer(bool reusable) = 0;
     virtual std::unique_ptr<RenderPass> createRenderPass(char const* name = nullptr) = 0;
-    virtual std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderPass* renderPassTemplate) = 0;
+    virtual std::unique_ptr<Pipeline> createPipeline(PipelineType type, Gfx::RenderTarget* renderTarget) = 0;
     virtual std::unique_ptr<SynchronizationPrimitive> createSynchronizationPrimitive(SynchronizationPrimitiveType type, bool signaled) = 0;
     virtual Gfx::CommandQueue* getCommandQueue(size_t index) = 0;
     virtual size_t getCommandQueueCount() const = 0;

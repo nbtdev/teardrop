@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include "Gfx/Connection.h"
 #include "Gfx/Mesh.h"
 #include "Gfx/Pipeline.h"
+#include "Gfx/Renderer.h"
 #include "Gfx/RenderTarget.h"
 #include "Gfx/Sampler2DExpression.h"
 #include "Gfx/Submesh.h"
@@ -44,12 +45,13 @@ namespace {
 using namespace Teardrop;
 
 // terrain material has only to deal with a single submesh, so we only need one material
-Gfx::Pipeline* createTerrainPipeline(LandscapeAsset* landscapeAsset, Gfx::VertexBuffer const* vertexBuffer)
+std::unique_ptr<Gfx::Pipeline> createTerrainPipeline(LandscapeAsset* landscapeAsset, Gfx::VertexBuffer const* vertexBuffer, Gfx::RenderTarget* rt, Gfx::Renderer* renderer)
 {
     TextureAsset* colorAsset = landscapeAsset->getDiffuseMap();
 
     // to begin, we need to make a material...
-    Gfx::Pipeline* pipeline = TD_NEW Gfx::Pipeline;
+    std::unique_ptr<Gfx::Pipeline> pipeline = renderer->createPipeline(Gfx::PIPELINE_GRAPHICS, rt);
+
     Gfx::Material* mtl = pipeline->material();
     mtl->initialize();
 
@@ -80,7 +82,7 @@ Gfx::Pipeline* createTerrainPipeline(LandscapeAsset* landscapeAsset, Gfx::Vertex
 
     // TODO: hook up other textures
 
-    // finally, we need to add the layout for the geometry stream
+    // add the layout for the geometry stream
     pipeline->beginGeometryStream();
 
     for (size_t i=0; i<vertexBuffer->vertexElementCount(); ++i) {
@@ -88,6 +90,9 @@ Gfx::Pipeline* createTerrainPipeline(LandscapeAsset* landscapeAsset, Gfx::Vertex
     }
 
     pipeline->endGeometryStream();
+
+    // finally, build the pipeline
+    pipeline->build();
 
     return pipeline;
 }
@@ -109,7 +114,6 @@ LandscapeScene::~LandscapeScene()
 {
     // the Renderables do not own their contents, so we need to
     // delete any meshes/materials we may have created
-    delete mTerrainPipeline;
     delete mSceneRenderer;
 }
 
@@ -181,6 +185,24 @@ void LandscapeScene::renderFrame(Gfx::Renderer* renderer, Gfx::RenderTarget* rt)
 
     camera->setAspect(rt->aspect());
     camera->update();
+
+    // delayed creation of the pipeline, as we need a render target in order to
+    // create a graphics pipeline properly
+    if (!mTerrainPipeline && !mTerrainTileComponents.empty()) {
+        // all of the tiles have the same vertex layout, so grab the tile and use it to
+        // generate the terrain material
+        Gfx::Renderable const& renderable = mTerrainTileComponents[0]->renderable();
+        Gfx::Mesh const* mesh = renderable.mesh();
+        Gfx::Submesh const* submesh = mesh->submesh(0);
+        Gfx::VertexBuffer const* vb = submesh->vertexBuffer(0);
+        mTerrainPipeline = createTerrainPipeline(getLandscapeAsset(), vb, rt, renderer);
+
+        for (auto* comp : mTerrainTileComponents) {
+            comp->setPipeline(mTerrainPipeline.get());
+        }
+
+        mTerrainTileComponents.clear();
+    }
 
     mRenderContext->beginFrame(camera);
 
@@ -260,18 +282,6 @@ void LandscapeScene::generateTerrainTiles()
             TerrainTileComponent* tileComponent = TD_NEW TerrainTileComponent;
             tileComponent->initialize();
             tileComponent->initializeTile(x, y, this);
-
-            if (!mTerrainPipeline) {
-                // all of the tiles have the same vertex layout, so grab the tile and use it to
-                // generate the terrain material
-                Gfx::Renderable const& renderable = tileComponent->renderable();
-                Gfx::Mesh const* mesh = renderable.mesh();
-                Gfx::Submesh const* submesh = mesh->submesh(0);
-                Gfx::VertexBuffer const* vb = submesh->vertexBuffer(0);
-                mTerrainPipeline = createTerrainPipeline(asset, vb);
-            }
-
-            tileComponent->setPipeline(mTerrainPipeline);
 
             TerrainPatch* patch = TD_NEW TerrainPatch;
             patch->initialize();

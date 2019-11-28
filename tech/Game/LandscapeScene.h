@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "Memory/Allocators.h"
 
 #include <memory>
+#include <vector>
 
 namespace Teardrop {
 
@@ -37,6 +38,7 @@ class AABB;
 class RenderContext;
 class SceneRenderer;
 class SceneRenderStep;
+class TerrainTileComponent;
 
 namespace Gfx {
     class Pipeline;
@@ -84,8 +86,8 @@ private:
     SceneRenderer* mSceneRenderer;
     SceneRenderStep* mSceneRenderStep;
     std::unique_ptr<RenderContext> mRenderContext;
-
-    Gfx::Pipeline* mTerrainPipeline;
+    std::vector<TerrainTileComponent*> mTerrainTileComponents;
+    std::unique_ptr<Gfx::Pipeline> mTerrainPipeline;
 
     void generateTerrainTiles();
 };

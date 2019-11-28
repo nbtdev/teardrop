@@ -42,7 +42,7 @@ VertexElement::VertexElement()
 {
 }
 
-size_t VertexElement::size()
+size_t VertexElement::size() const
 {
 	return sTypeSizes[mType] * mCount;
 }

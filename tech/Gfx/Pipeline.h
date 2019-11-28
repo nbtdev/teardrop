@@ -31,6 +31,7 @@ namespace Gfx {
 
 class Material;
 class FragmentShader;
+class RenderTarget;
 class VertexShader;
 
 ///
@@ -41,19 +42,21 @@ class Pipeline
 {
 public:
     Pipeline();
-    Pipeline(Material* material);
     virtual ~Pipeline();
 
     void setMaterial(Material* material);
-
-    Material* material();
+    void setRenderTarget(RenderTarget* renderTarget);
 
     void beginGeometryStream();
     void endGeometryStream();
     void addVertexElement(VertexElement const& vertexElement);
+    Material* material();
 
-    FragmentShader* fragmentShader();
-    VertexShader* vertexShader();
+    RenderTarget* renderTarget() const;
+    FragmentShader* fragmentShader() const;
+    VertexShader* vertexShader() const;
+
+    virtual void build() = 0;
 
     TD_DECLARE_ALLOCATOR();
 
@@ -65,11 +68,11 @@ protected:
     FragmentShader* mFragmentShader;
     VertexShader* mVertexShader;
 
+    RenderTarget* mRenderTarget;
+
     typedef std::vector<Gfx::VertexElement> GeometryStream;
     typedef std::vector<GeometryStream> GeometryStreams;
     GeometryStreams mGeometryStreams;
-
-    virtual void build();
 };
 
 } // namespace Gfx
