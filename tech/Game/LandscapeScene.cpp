@@ -280,6 +280,7 @@ void LandscapeScene::generateTerrainTiles()
     for (int y = 0; y < nTilesY; ++y) {
         for (int x = 0; x < nTilesX; ++x) {
             TerrainTileComponent* tileComponent = TD_NEW TerrainTileComponent;
+            mTerrainTileComponents.push_back(tileComponent);
             tileComponent->initialize();
             tileComponent->initializeTile(x, y, this);
 

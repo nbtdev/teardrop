@@ -85,8 +85,8 @@ void Pipeline::build()
     std::unique_ptr<RenderPass> renderPass(new RenderPass(mDevice));
     renderPass->attachOutput(mRenderTarget);
 
-    VkShaderModule vertexShaderModule = VK_NULL_HANDLE;
-    VkShaderModule fragmentShaderModule = VK_NULL_HANDLE;
+    VkShaderModule vertexShaderModule = buildVertexShader();
+    VkShaderModule fragmentShaderModule = buildFragmentShader();
 
     // first, vertex shader stage
     VkPipelineShaderStageCreateInfo vertexStage = {};
@@ -167,6 +167,16 @@ void Pipeline::build()
     }
 
     vkCreateGraphicsPipelines(mDevice, VK_NULL_HANDLE, 1, &info, getAllocationCallbacks(), &mPipeline);
+}
+
+VkShaderModule Pipeline::buildVertexShader()
+{
+    return VK_NULL_HANDLE;
+}
+
+VkShaderModule Pipeline::buildFragmentShader()
+{
+    return VK_NULL_HANDLE;
 }
 
 } // namespace Vulkan

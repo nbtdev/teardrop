@@ -61,7 +61,6 @@ Material* Pipeline::material()
         mOwnedMaterial = TD_NEW Material;
         mOwnedMaterial->initialize();
         mMaterial = mOwnedMaterial;
-        build();
     }
 
     return mMaterial;
