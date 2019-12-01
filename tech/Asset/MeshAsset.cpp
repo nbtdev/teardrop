@@ -86,13 +86,13 @@ uint64_t MeshAsset::serialize(Stream& strm)
 		}
 
 		// then the vertex data
-        size_t nVB = sm->vertexBufferCount();
+        uint32_t nVB = sm->vertexBufferCount();
 		nBytes += strm.write(&nVB, sizeof(nVB));
 
         for (size_t vbi=0; vbi<nVB; ++vbi) {
 			VertexBuffer* vb = sm->vertexBuffer(vbi);
 			
-            size_t nElems = vb->vertexElementCount();
+            uint32_t nElems = vb->vertexElementCount();
 			nBytes += strm.write(&nElems, sizeof(nElems));
 
             for (size_t e=0; e<nElems; ++e) {

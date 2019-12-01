@@ -98,8 +98,16 @@ static uint64_t serializeObjects(const Objects& objects, Stream& stream, std::li
 						elem.InsertEndChild(np);
 						pd = pd->m_pNext;
 					}
-				}
-				else {
+                } else {
+                    if (prop->isPointer()) {
+                        void* value = nullptr;
+                        prop->getData(obj, &value);
+                        if (!value) {
+                            prop = prop->m_pNext;
+                            continue;
+                        }
+                    }
+
 					String sVal;
 					prop->getDataAsString(obj, sVal);
 					elem.SetAttribute("value", sVal);

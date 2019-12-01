@@ -422,7 +422,7 @@ LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, Landsc
             TNSampExp->getSampler2D().setTextureAsset(texAsset);
 
             Connection* conn = TD_NEW Connection;
-            conn->setFromExpression(TNSampExp); conn->setFromAttribute("RGBA");
+            conn->setFromExpression(TNSampExp); conn->setFromAttribute("Color");
             conn->setToExpression(output); conn->setToAttribute("Normal");
             conn->setParent(mat);
             uuid.generate();
@@ -461,7 +461,7 @@ LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, Landsc
                 addExpr->initialize();
 
                 Connection* conn = TD_NEW Connection;
-                conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
+                conn->setFromExpression(TXSampExp); conn->setFromAttribute("Color");
                 conn->setToExpression(addExpr); conn->setToAttribute("A");
                 conn->setParent(mat);
                 uuid.generate();
@@ -470,7 +470,7 @@ LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, Landsc
                 imp.addInternalDep(conn);
 
                 conn = TD_NEW Connection;
-                conn->setFromExpression(LMSampExp); conn->setFromAttribute("RGBA");
+                conn->setFromExpression(LMSampExp); conn->setFromAttribute("Color");
                 conn->setToExpression(addExpr); conn->setToAttribute("B");
                 conn->setParent(mat);
                 uuid.generate();
@@ -492,7 +492,7 @@ LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, Landsc
             else {
                 // just connect the output of the diffuse map to the Diffuse input on the MaterialOutput
                 Connection* conn = TD_NEW Connection;
-                conn->setFromExpression(TXSampExp); conn->setFromAttribute("RGBA");
+                conn->setFromExpression(TXSampExp); conn->setFromAttribute("Color");
                 conn->setToExpression(output); conn->setToAttribute("Diffuse");
                 conn->setParent(mat);
                 uuid.generate();

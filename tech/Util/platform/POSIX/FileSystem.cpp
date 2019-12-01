@@ -21,11 +21,14 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "Util/FileSystem.h"
+
 #include <fcntl.h>
 #include <glob.h>
 #include <sys/sendfile.h>
 #include <sys/stat.h>
 #include <unistd.h>
+
+#include <cerrno>
 #include <cstdlib>
 
 using namespace Teardrop;
@@ -101,8 +104,10 @@ void FileSystem::getAppDataPath(String& path)
 bool FileSystem::createDirectory(const String& dirPath)
 {
     int rtn = mkdir(dirPath, 0755);
-    if (rtn) {
-        return false;
+    if (rtn == -1) {
+        if (errno != EEXIST) {
+            return false;
+        }
     }
 
     return true;
