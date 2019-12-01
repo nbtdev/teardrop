@@ -71,7 +71,7 @@ namespace Teardrop
 		return &s_classDef; \
 	} \
     static uint64_t Class; \
-    virtual uint64_t getClassId(); \
+    uint64_t getClassId(); \
 
 #define TD_CLASS_CREATABLE() \
 	private: \
@@ -223,7 +223,7 @@ namespace Teardrop
 		propType& get##propName() { return ___##propName.get(); } \
 
 #define TD_POINTER_PROPERTY(propName, propDesc, propType, propEditor) \
-    TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, propEditor, PointerProperty) \
+    TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, nullptr, propEditor, PointerProperty) \
 	public: \
 		propType* get##propName() { return ___##propName.get(); } \
 		void set##propName(propType* __val) { notifyPropertyChanging(get##propName##Def()); ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }

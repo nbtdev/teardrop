@@ -3,6 +3,9 @@ find_package(Vulkan)
 # library name
 set(TARGET Vulkan)
 
+# support for shader compilation
+add_subdirectory(glslang)
+
 # library source files
 set(SOURCES
     BufferManagerVulkan.cpp
@@ -53,6 +56,7 @@ if(Vulkan_FOUND)
         PUBLIC
             Gfx
             Vulkan::Vulkan
+            glslang
             ${PLATFORM_DEPENDENCIES}
     )
 else()

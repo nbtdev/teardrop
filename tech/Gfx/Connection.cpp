@@ -25,6 +25,11 @@ THE SOFTWARE.
 #include "MaterialExpression.h"
 #include "Material.h"
 
+#include "Util/Environment.h"
+#include "Util/Logger.h"
+
+#include <cstring>
+
 using namespace Teardrop;
 using namespace Gfx;
 
@@ -46,12 +51,22 @@ bool Connection::initialize()
 	MaterialExpression* expr = getFromExpression();
 	if (expr) {
 		mOutput = expr->findOutputAttribute(getFromAttribute());
+        if (!mOutput) {
+            char buf[1024] = {};
+            snprintf(buf, 1024, "Could not find output attribute '%s' on expression '%s'", (char const*)getFromAttribute(), (char const*)getFromExpression()->getName());
+            Environment::get().pLogger->logMessage(buf);
+        }
 	}
 
 	expr = getToExpression();
 	if (expr) {
 		mInput = expr->findInputAttribute(getToAttribute());
-	}
+        if (!mInput) {
+            char buf[1024] = {};
+            snprintf(buf, 1024, "Could not find input attribute '%s' on expression '%s'", (char const*)getFromAttribute(), (char const*)getFromExpression()->getName());
+            Environment::get().pLogger->logMessage(buf);
+        }
+    }
 
 	// attach ourselves to our "parent" Material
 	Material* mtl = getParent();

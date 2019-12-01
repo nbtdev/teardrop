@@ -32,6 +32,11 @@ THE SOFTWARE.
 #include <vector>
 
 namespace Teardrop {
+
+namespace Reflection {
+class ClassDef;
+} // namespace Reflection
+
 namespace Gfx {
 
 struct Attribute;
@@ -55,6 +60,9 @@ public:
 
     void addConnection(Connection* conn);
     size_t connections(Connection** connections, size_t nConnections);
+    MaterialOutput* initializeOutput();
+    MaterialExpression* createExpression(Reflection::ClassDef const* classDef);
+    Connection* connect(MaterialExpression* fromExpr, String const& fromAttr, MaterialExpression* toExpr, String const& toAttr);
 
     void sortExpressions();
     size_t expressionCount();
@@ -71,6 +79,7 @@ protected:
     Connections mConnections;
 
     typedef std::vector<MaterialExpression*> Expressions;
+    Expressions mExpressions;
     Expressions mSortedExpressions;
 
     uint64_t mHash;

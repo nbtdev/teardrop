@@ -33,30 +33,30 @@ THE SOFTWARE.
     #define STRCAT(d, n, s) strncat(d, s, n)
 #endif // _WIN32, _WIN64
 
-using namespace Teardrop;
-//---------------------------------------------------------------------------
+namespace Teardrop {
+
 const String& String::EMPTY = String();
-//---------------------------------------------------------------------------
-Allocator* String::s_pAllocator = 0; // USER MUST SET THIS
-//---------------------------------------------------------------------------
+
+Allocator* String::s_pAllocator = nullptr; // USER MUST SET THIS
+
 void String::setAllocator(Allocator* pAlloc)
 {
 	s_pAllocator = pAlloc;
 }
-//---------------------------------------------------------------------------
+
 String::String()
 {
 	m_default[0] = 0;
 	m_pBuf = m_default;
 	m_len = 0;
 }
-//---------------------------------------------------------------------------
+
 String::~String()
 {
 	if (m_pBuf != m_default)
 		s_pAllocator->DeallocateAligned(m_pBuf);
 }
-//---------------------------------------------------------------------------
+
 void String::clear()
 {
 	if (m_pBuf != m_default)
@@ -66,12 +66,17 @@ void String::clear()
 	m_pBuf[0] = 0;
 	m_len = 0;
 }
-//---------------------------------------------------------------------------
+
 size_t String::length() const
 {
-	return strlen(m_pBuf);
+    return strlen(m_pBuf);
 }
-//---------------------------------------------------------------------------
+
+bool String::empty() const
+{
+    return (m_len == 0);
+}
+
 String::String(const String& other)
 {
 	m_default[0] = 0;
@@ -79,7 +84,7 @@ String::String(const String& other)
 	m_len = 0;
 	*this = other;
 }
-//---------------------------------------------------------------------------
+
 String::String(const char* other)
 {
 	m_default[0] = 0;
@@ -87,7 +92,7 @@ String::String(const char* other)
 	m_len = 0;
 	*this = other;
 }
-//---------------------------------------------------------------------------
+
 String& String::operator=(const String& other)
 {
 	size_t otherLen = other.m_len;
@@ -116,7 +121,7 @@ String& String::operator=(const String& other)
     STRCPY(m_pBuf, otherLen+1, other.m_pBuf);
 	return *this;
 }
-//---------------------------------------------------------------------------
+
 String& String::operator=(const char* other)
 {
 	if (other == 0) {
@@ -151,83 +156,83 @@ String& String::operator=(const char* other)
     STRCPY(m_pBuf, otherLen+1, other);
 	return *this;
 }
-//---------------------------------------------------------------------------
+
 String& String::operator+=(char c)
 {
 	char tmp[] = {c,0};
 	return (*this += tmp);
 }
-//---------------------------------------------------------------------------
+
 String& String::operator+=(const char* other)
 {
 	size_t newLen = _resize(strlen(other));
     STRCAT(m_pBuf, newLen, other);
 	return *this;
 }
-//---------------------------------------------------------------------------
+
 String& String::operator+=(const String& other)
 {
 	return (*this += other.m_pBuf);
 }
-//---------------------------------------------------------------------------
+
 String operator+(const String& l, const String& r)
 {
 	String rtn(l);
 	return (rtn += r);
 }
-//---------------------------------------------------------------------------
+
 String operator+(const String& l, const char* r)
 {
 	String rtn(l);
 	return (rtn += r);
 }
-//---------------------------------------------------------------------------
+
 String operator+(const char* l, const String& r)
 {
 	String rtn(l);
 	return (rtn += r);
 }
-//---------------------------------------------------------------------------
+
 bool String::operator==(const String& other) const
 {
 	return (0 == strcmp(m_pBuf, other.m_pBuf));
 }
-//---------------------------------------------------------------------------
+
 bool String::operator==(const char* other) const
 {
 	return (0 != other && 0 == strcmp(m_pBuf, other));
 }
-//---------------------------------------------------------------------------
+
 bool String::operator!=(const String& other) const
 {
 	return !(*this == other);
 }
-//---------------------------------------------------------------------------
+
 bool String::operator!=(const char* other) const
 {
 	return !(*this == other);
 }
-//---------------------------------------------------------------------------
+
 bool String::operator<(const String& other) const
 {
 	return (strcmp(m_pBuf, other.m_pBuf) < 0);
 }
-//---------------------------------------------------------------------------
+
 String& String::append(const String& other)
 {
 	return (*this += other);
 }
-//---------------------------------------------------------------------------
+
 String& String::append(const char* other)
 {
 	return (*this += other);
 }
-//---------------------------------------------------------------------------
+
 String& String::append(char c)
 {
 	return (*this += c);
 }
-//---------------------------------------------------------------------------
+
 size_t String::findFirst(char c) const
 {
 	size_t rtn = 0;
@@ -243,7 +248,7 @@ size_t String::findFirst(char c) const
 
 	return INVALID;
 }
-//---------------------------------------------------------------------------
+
 size_t String::findLast(char c) const
 {
 	size_t rtn = m_len - 1;
@@ -260,7 +265,7 @@ size_t String::findLast(char c) const
 
 	return INVALID;
 }
-//---------------------------------------------------------------------------
+
 size_t String::find(const char* aNeedle) const
 {
 	char* p = strstr(m_pBuf, aNeedle);
@@ -269,12 +274,12 @@ size_t String::find(const char* aNeedle) const
 
 	return INVALID;
 }
-//---------------------------------------------------------------------------
+
 size_t String::find(const String& aNeedle) const
 {
 	return find((const char*)aNeedle);
 }
-//---------------------------------------------------------------------------
+
 void String::truncate(size_t len)
 {
 	// fast-and-easy version: put a null in the desired place
@@ -284,7 +289,7 @@ void String::truncate(size_t len)
         m_len = (unsigned int)len;
 	}
 }
-//---------------------------------------------------------------------------
+
 String String::substr(size_t begin, size_t end) const
 {
 	if (end >= begin)
@@ -306,17 +311,17 @@ String String::substr(size_t begin, size_t end) const
 
 	return EMPTY;
 }
-//---------------------------------------------------------------------------
+
 bool String::contains(const char* other) const
 {
 	return (0 != strstr(m_pBuf, other));
 }
-//---------------------------------------------------------------------------
+
 bool String::contains(const String& other) const
 {
 	return (0 != strstr(m_pBuf, other.m_pBuf));
 }
-//---------------------------------------------------------------------------
+
 size_t String::_resize(size_t otherLen)
 {
 	size_t myBuflen = ((m_len + 3) & ~0x03);
@@ -346,7 +351,7 @@ size_t String::_resize(size_t otherLen)
 
 	return newLen;
 }
-//---------------------------------------------------------------------------
+
 char& String::operator [](size_t idx)
 {
 	if (idx > m_len)
@@ -365,3 +370,5 @@ void String::replaceAll(char find, char with)
 		++p;
 	}
 }
+
+} // namespace Teardrop

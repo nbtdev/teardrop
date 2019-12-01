@@ -398,47 +398,30 @@ LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, Landsc
     }
 
     // create and insert a new Material for this landscape
-    {
+    if (asset) {
         using namespace Gfx;
         //Sampler2DExpression* SpecLMSampExp = TD_NEW Sampler2DExpression;
         //Sampler2DExpression* SHSampExp = TD_NEW Sampler2DExpression;
 
-        UUID uuid;
-        MaterialOutput* output = TD_NEW MaterialOutput;
-        uuid.generate();
-        output->setObjectId(uuid);
-        output->initialize();
-        imp.addInternalDep(output);
-
         Material* mat = TD_NEW Material;
-        mat->setOutput(output);
+        mat->initialize();
+
+        MaterialOutput* output = mat->initializeOutput();
+        imp.addInternalDep(output);
 
         TextureAsset* texAsset = asset->getNormalMap();
         if (texAsset) {
-            Sampler2DExpression* TNSampExp = TD_NEW Sampler2DExpression;
-            uuid.generate();
-            TNSampExp->setObjectId(uuid);
-            TNSampExp->initialize();
+            Sampler2DExpression* TNSampExp = (Sampler2DExpression*)mat->createExpression(Sampler2DExpression::getClassDef());
             TNSampExp->getSampler2D().setTextureAsset(texAsset);
-
-            Connection* conn = TD_NEW Connection;
-            conn->setFromExpression(TNSampExp); conn->setFromAttribute("Color");
-            conn->setToExpression(output); conn->setToAttribute("Normal");
-            conn->setParent(mat);
-            uuid.generate();
-            conn->setObjectId(uuid);
-            conn->initialize();
-
             imp.addInternalDep(TNSampExp);
+
+            Connection* conn = mat->connect(TNSampExp, "Color", output, "Normal");
             imp.addInternalDep(conn);
         }
 
         texAsset = asset->getDiffuseMap();
         if (texAsset) {
-            Sampler2DExpression* TXSampExp = TD_NEW Sampler2DExpression;
-            uuid.generate();
-            TXSampExp->setObjectId(uuid);
-            TXSampExp->initialize();
+            Sampler2DExpression* TXSampExp = (Sampler2DExpression*)mat->createExpression(Sampler2DExpression::getClassDef());
             TXSampExp->getSampler2D().setTextureAsset(texAsset);
             imp.addInternalDep(TXSampExp);
 
@@ -447,66 +430,35 @@ LandscapeAsset* importLandscape(ImportedAsset& imp, const char* filepath, Landsc
 
             // if we have both, insert an "add" expression
             if (texAsset) {
-                Sampler2DExpression* LMSampExp = TD_NEW Sampler2DExpression;
-                uuid.generate();
-                LMSampExp->setObjectId(uuid);
-                LMSampExp->initialize();
+                Sampler2DExpression* LMSampExp = (Sampler2DExpression*)mat->createExpression(Sampler2DExpression::getClassDef());
                 LMSampExp->getSampler2D().setTextureAsset(texAsset);
                 imp.addInternalDep(LMSampExp);
 
                 // then we need an "add" expression
-                AddColorExpression* addExpr = TD_NEW AddColorExpression;
-                uuid.generate();
-                addExpr->setObjectId(uuid);
-                addExpr->initialize();
-
-                Connection* conn = TD_NEW Connection;
-                conn->setFromExpression(TXSampExp); conn->setFromAttribute("Color");
-                conn->setToExpression(addExpr); conn->setToAttribute("A");
-                conn->setParent(mat);
-                uuid.generate();
-                conn->setObjectId(uuid);
-                conn->initialize();
+                AddColorExpression* addExpr = (AddColorExpression*)mat->createExpression(AddColorExpression::getClassDef());
+                Connection* conn = mat->connect(TXSampExp, "Color", addExpr, "A");
                 imp.addInternalDep(conn);
 
-                conn = TD_NEW Connection;
-                conn->setFromExpression(LMSampExp); conn->setFromAttribute("Color");
-                conn->setToExpression(addExpr); conn->setToAttribute("B");
-                conn->setParent(mat);
-                uuid.generate();
-                conn->setObjectId(uuid);
-                conn->initialize();
+                conn = mat->connect(LMSampExp, "Color", addExpr, "B");
                 imp.addInternalDep(conn);
 
-                conn = TD_NEW Connection;
-                conn->setFromExpression(addExpr); conn->setFromAttribute("Output");
-                conn->setToExpression(output); conn->setToAttribute("Diffuse");
-                conn->setParent(mat);
-                uuid.generate();
-                conn->setObjectId(uuid);
-                conn->initialize();
+                conn = mat->connect(addExpr, "Output", output, "Diffuse");
                 imp.addInternalDep(conn);
 
                 imp.addInternalDep(addExpr);
             }
             else {
                 // just connect the output of the diffuse map to the Diffuse input on the MaterialOutput
-                Connection* conn = TD_NEW Connection;
-                conn->setFromExpression(TXSampExp); conn->setFromAttribute("Color");
-                conn->setToExpression(output); conn->setToAttribute("Diffuse");
-                conn->setParent(mat);
-                uuid.generate();
-                conn->setObjectId(uuid);
-                conn->initialize();
+                Connection* conn = mat->connect(TXSampExp, "Color", output, "Diffuse");
                 imp.addInternalDep(conn);
             }
         }
 
-        mat->initialize();
-
         String basename;
         FileSystem::baseName(basename, filepath);
         imp.addDep(mat, basename);
+
+        asset->setMaterial(mat);
     }
 
     return asset;

@@ -20,40 +20,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ******************************************************************************/
 
-#if !defined(LANDSCAPEASSET_INCLUDED)
-#define LANDSCAPEASSET_INCLUDED
+#pragma once
 
 #include "Asset/Asset.h"
 #include "Asset/TextureAsset.h"
+#include "Gfx/Material.h"
 
-namespace Teardrop
+namespace Teardrop {
+
+class LandscapeAsset : public Asset
 {
-	class LandscapeAsset : public Asset
-	{
-	public:
-		TD_CLASS(LandscapeAsset, Asset);
-		TD_CLASS_CREATABLE();
-		TD_POINTER_PROPERTY(HeightField, "Landscape terrain heightfield; must be 8- or 16-bit grayscale", TextureAsset, 0);
-		TD_PROPERTY(HeightFieldX, "Number of samples in X direction (usually same as heightfield X dimension)", int, 0, "ReadOnly");
-		TD_PROPERTY(HeightFieldY, "Number of samples in Y direction (usually same as heightfield Y dimension)", int, 0, "ReadOnly");
-		TD_PROPERTY(ColormapX, "Width in texels of colormap (diffuse) texture", int, 0, "ReadOnly");
-		TD_PROPERTY(ColormapY, "Height in texels of colormap (diffuse) texture", int, 0, "ReadOnly");
-		TD_PROPERTY(MinAltitude, "World-space altitude of the lowest sample in the heightfield (can be negative)", float, -1, 0);
-		TD_PROPERTY(MaxAltitude, "World-space altitude of the highest sample in the heightfield (can be negative)", float, 1, 0);
-		TD_POINTER_PROPERTY(DiffuseMap, "Landscape terrain colormap", TextureAsset, 0);
-		TD_POINTER_PROPERTY(AttributesMap, "Landscape terrain attributes map", TextureAsset, 0);
-		TD_POINTER_PROPERTY(LightMap, "Landscape terrain light map", TextureAsset, 0);
-		TD_POINTER_PROPERTY(SpecularLightMap, "Landscape terrain specular highlight map", TextureAsset, 0);
-		TD_POINTER_PROPERTY(ShadowMap, "Landscape terrain shadow map", TextureAsset, 0);
-		TD_POINTER_PROPERTY(NormalMap, "Landscape terrain normal map", TextureAsset, 0);
+public:
+    TD_CLASS(LandscapeAsset, Asset)
+    TD_CLASS_CREATABLE()
 
-		LandscapeAsset();
-		~LandscapeAsset();
+    TD_POINTER_PROPERTY(HeightField, "Landscape terrain heightfield; must be 8- or 16-bit grayscale", TextureAsset, nullptr)
+    TD_POINTER_PROPERTY(DiffuseMap, "Landscape terrain colormap", TextureAsset, nullptr)
+    TD_POINTER_PROPERTY(AttributesMap, "Landscape terrain attributes map", TextureAsset, nullptr)
+    TD_POINTER_PROPERTY(LightMap, "Landscape terrain light map", TextureAsset, nullptr)
+    TD_POINTER_PROPERTY(SpecularLightMap, "Landscape terrain specular highlight map", TextureAsset, nullptr)
+    TD_POINTER_PROPERTY(ShadowMap, "Landscape terrain shadow map", TextureAsset, nullptr)
+    TD_POINTER_PROPERTY(NormalMap, "Landscape terrain normal map", TextureAsset, nullptr)
+    TD_POINTER_PROPERTY(Material, "Landscape terrain material", Gfx::Material, nullptr)
+    TD_PROPERTY(HeightFieldX, "Number of samples in X direction (usually same as heightfield X dimension)", int, 0, "ReadOnly")
+    TD_PROPERTY(HeightFieldY, "Number of samples in Y direction (usually same as heightfield Y dimension)", int, 0, "ReadOnly")
+    TD_PROPERTY(ColormapX, "Width in texels of colormap (diffuse) texture", int, 0, "ReadOnly")
+    TD_PROPERTY(ColormapY, "Height in texels of colormap (diffuse) texture", int, 0, "ReadOnly")
+    TD_PROPERTY(MinAltitude, "World-space altitude of the lowest sample in the heightfield (can be negative)", float, -1, 0)
+    TD_PROPERTY(MaxAltitude, "World-space altitude of the highest sample in the heightfield (can be negative)", float, 1, 0)
 
-		TD_DECLARE_ALLOCATOR();
 
-	protected:
-	};
+    LandscapeAsset();
+    ~LandscapeAsset();
+
+    TD_DECLARE_ALLOCATOR()
+
+protected:
+};
+
 } // namespace Teardrop
-
-#endif // LANDSCAPEASSET_INCLUDED

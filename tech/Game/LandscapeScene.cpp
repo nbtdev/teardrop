@@ -51,36 +51,7 @@ std::unique_ptr<Gfx::Pipeline> createTerrainPipeline(LandscapeAsset* landscapeAs
 
     // to begin, we need to make a material...
     std::unique_ptr<Gfx::Pipeline> pipeline = renderer->createPipeline(Gfx::PIPELINE_GRAPHICS, rt);
-
-    Gfx::Material* mtl = pipeline->material();
-    mtl->initialize();
-
-    // then, need an output expression for the material
-    Gfx::MaterialOutput* output = TD_NEW Gfx::MaterialOutput;
-    UUID uuid;
-    uuid.generate();
-    output->setObjectId(uuid);
-    output->initialize();
-    mtl->setOutput(output);
-
-    // hook up the color (diffuse) texture/sampler to the output
-    if (colorAsset) {
-        Gfx::Sampler2DExpression* expr = TD_NEW Gfx::Sampler2DExpression;
-        uuid.generate();
-        expr->setObjectId(uuid);
-        expr->initialize();
-        expr->getSampler2D().setTextureAsset(colorAsset);
-
-        Gfx::Connection* conn = TD_NEW Gfx::Connection;
-        uuid.generate();
-        conn->setFromExpression(expr); conn->setFromAttribute("Color");
-        conn->setToExpression(output); conn->setToAttribute("Diffuse");
-        conn->setParent(mtl);
-        conn->setObjectId(uuid);
-        conn->initialize();
-    }
-
-    // TODO: hook up other textures
+    pipeline->setMaterial(landscapeAsset->getMaterial());
 
     // add the layout for the geometry stream
     pipeline->beginGeometryStream();

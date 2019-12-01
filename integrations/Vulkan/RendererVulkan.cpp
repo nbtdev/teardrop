@@ -33,6 +33,9 @@ THE SOFTWARE.
 
 #include "Memory/Allocators.h"
 
+#include "glslang/Public/ShaderLang.h"
+
+#include <atomic>
 #include <cstring>
 #include <iostream>
 #include <vector>
@@ -103,6 +106,8 @@ uint32_t getSuitablePhysicalDeviceQueueFamilyIndex(VkPhysicalDevice physDevice)
 
     return UINT32_MAX;
 }
+
+std::atomic_int glslangInit(0);
 
 } // namespace
 
@@ -301,10 +306,22 @@ Renderer::Renderer(int /*flags*/)
     vkCreateCommandPool(mDevice, &commandPoolCreateInfo, getAllocationCallbacks(), &mTransientCommandPool);
 
     TD_NEW BufferManager(mDevice, mPhysicalDevice);
+
+    // initialize glslang library, if not already done
+    int initCount = glslangInit.fetch_add(1);
+    if (initCount == 0) {
+        glslang::InitializeProcess();
+    }
 }
 
 Renderer::~Renderer()
 {
+    // shutdown glslang library if we are the last ones to do so
+    int initCount = glslangInit.fetch_sub(1);
+    if (initCount == 0) {
+        glslang::FinalizeProcess();
+    }
+
     BufferManager::instance().shutdown();
 
     mRenderTargets.clear();

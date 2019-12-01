@@ -8,3 +8,6 @@
 [submodule "FreeImage"]
 	path = tools/ThirdParty/FreeImage
 	url = https://github.com/nbtdev/FreeImage.git
+[submodule "glslang"]
+	path = integrations/Vulkan/glslang
+	url = https://github.com/KhronosGroup/glslang.git

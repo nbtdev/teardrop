@@ -24,22 +24,38 @@ THE SOFTWARE.
 #include "MaterialExpression.h"
 
 #include "Attribute.h"
+
+#include "Reflection/ClassDef.h"
 #include "Util/Hash.h"
 
+#include <atomic>
 #include <cstring>
 #include <sstream>
 
-using namespace Teardrop;
-using namespace Gfx;
+namespace {
+
+std::atomic_size_t sExpressionIndex(0);
+
+} // namespace
+
+namespace Teardrop {
+namespace Gfx {
 
 TD_CLASS_IMPL(MaterialExpression);
 
-MaterialExpression::MaterialExpression()
+bool MaterialExpression::initialize()
 {
-}
+    // generate unique name for this expression instance
+    Teardrop::Reflection::ClassDef const* classDef = getDerivedClassDef();
+    std::string uniqueName = classDef->getName();
+    uniqueName += '_';
 
-MaterialExpression::~MaterialExpression()
-{
+    size_t i = sExpressionIndex.fetch_add(1) + 1;
+    uniqueName += std::to_string(i);
+
+    setName(uniqueName.c_str());
+
+    return true;
 }
 
 Attribute* MaterialExpression::findInputAttribute(const char* name)
@@ -191,3 +207,6 @@ uint64_t MaterialExpression::hashStatics(uint64_t seed)
     // default behavior -- NOP
     return seed;
 }
+
+} // namespace Gfx
+} // namespace Teardrop

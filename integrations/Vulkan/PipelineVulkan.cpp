@@ -25,7 +25,20 @@ THE SOFTWARE.
 #include "AllocatorsVulkan.h"
 #include "RenderPassVulkan.h"
 
+#include "Gfx/Connection.h"
+#include "Gfx/Material.h"
+#include "Gfx/MaterialExpression.h"
+#include "Gfx/MaterialOutput.h"
+#include "Util/_String.h"
+
+#include "glslang/Include/intermediate.h"
+#include "glslang/MachineIndependent/localintermediate.h"
+#include "glslang/Public/ShaderLang.h"
+
 #include <memory>
+#include <unordered_set>
+
+#include <iostream>
 
 namespace {
 
@@ -41,6 +54,26 @@ VkFormat getVertexElementFormat(Teardrop::Gfx::VertexElement const& elem)
     }
 
     return VK_FORMAT_UNDEFINED;
+}
+
+void generateSourceCode(Teardrop::Gfx::Material* material, std::vector<std::string>& lines)
+{
+    material->sortExpressions();
+
+    size_t nExpressions = material->expressionCount();
+    Teardrop::Gfx::MaterialExpression** expressions = material->sortedExpressions();
+
+    for (size_t i=0; i<nExpressions; ++i) {
+        Teardrop::Gfx::MaterialExpression* expr = expressions[i];
+        if (!expr) {
+            continue;
+        }
+
+        char const* name = (char const*)expr->getDerivedClassDef()->getName();
+        if (name) {
+            lines.push_back(name);
+        }
+    }
 }
 
 } // namespace
@@ -176,6 +209,15 @@ VkShaderModule Pipeline::buildVertexShader()
 
 VkShaderModule Pipeline::buildFragmentShader()
 {
+    // generate fragment shader source code
+    std::vector<std::string> lines;
+    generateSourceCode(mMaterial, lines);
+
+    std::cout << "Generated source:" << std::endl;
+    for (auto const& line : lines) {
+        std::cout << "    " << line << std::endl;
+    }
+
     return VK_NULL_HANDLE;
 }
 

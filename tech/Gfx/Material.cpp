@@ -46,12 +46,33 @@ Material::~Material()
 
 bool Material::initialize()
 {
-	return true;
+}
+
+MaterialOutput* Material::initializeOutput()
+{
+    MaterialOutput* output = TD_NEW MaterialOutput;
+
+    UUID uuid;
+    uuid.generate();
+    output->setObjectId(uuid);
+    output->initialize();
+
+    setOutput(output);
+    return output;
 }
 
 bool Material::destroy()
 {
-	return true;
+    for (auto* expr : mExpressions) {
+        expr->destroy();
+        delete expr;
+    }
+
+    mSortedExpressions.clear();
+
+    getOutput()->destroy();
+    delete getOutput();
+    return true;
 }
 
 void Material::addConnection(Connection* conn)
@@ -184,6 +205,39 @@ size_t Material::connections(Connection** connections, size_t nConnections)
 	}
 
 	return nConn;
+}
+
+MaterialExpression* Material::createExpression(const Reflection::ClassDef *classDef)
+{
+    if (classDef && classDef->isA(MaterialExpression::getClassDef())) {
+        MaterialExpression* expr = (MaterialExpression*)classDef->createInstance();
+        mExpressions.push_back(expr);
+
+        UUID uuid;
+        uuid.generate();
+        expr->setObjectId(uuid);
+        expr->initialize();
+
+        return expr;
+    }
+
+    return nullptr;
+}
+
+Connection* Material::connect(MaterialExpression *fromExpr, const String &fromAttr, MaterialExpression *toExpr, const String &toAttr)
+{
+    Connection* conn = TD_NEW Connection;
+    conn->setFromExpression(fromExpr); conn->setFromAttribute(fromAttr);
+    conn->setToExpression(toExpr); conn->setToAttribute(toAttr);
+    conn->setParent(this);
+
+    UUID uuid;
+    uuid.generate();
+    conn->setObjectId(uuid);
+    conn->initialize();
+
+    addConnection(conn);
+    return conn;
 }
 
 uint64_t Material::hash()

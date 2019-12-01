@@ -79,6 +79,7 @@ namespace Teardrop
 		bool contains(const String& search) const;
 		bool contains(const char* search) const;
 		size_t length() const;
+        bool empty() const;
 		void truncate(size_t len);
 		void clear();
 		void replaceAll(char find, char with);
