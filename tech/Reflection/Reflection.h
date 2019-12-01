@@ -27,6 +27,8 @@ THE SOFTWARE.
 #include <Reflection/EnumDef.h>
 #include <Reflection/PropertyDef.h>
 #include <Reflection/Object.h>
+#include <Util/Hash.h>
+
 #include <cstddef>
 #include <cstdint>
 
@@ -58,7 +60,7 @@ namespace Teardrop
 		} \
 	} s_classDefInit; \
 	public: \
-	virtual const Teardrop::Reflection::ClassDef* getDerivedClassDef() const \
+    const Teardrop::Reflection::ClassDef* getDerivedClassDef() const override \
 	{ \
 		return getClassDef(); \
 	} \
@@ -82,8 +84,7 @@ namespace Teardrop
 
 #define TD_CLASS_IMPL(c) \
 	c::ClassDefInitializer c::s_classDefInit; \
-    namespace Teardrop { uint64_t hashString64(const char* strVal); } \
-    uint64_t c::Class = hashString64(#c); \
+    uint64_t c::Class = Teardrop::hashString64(#c); \
     uint64_t c::getClassId() \
 	{ \
 		static c _c; \
@@ -99,7 +100,7 @@ namespace Teardrop
 	protected: \
 		static Reflection::__PROPERTY_TYPE<propType>* get##propName##Def() \
 		{ \
-            static Reflection::__PROPERTY_TYPE<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)0)->___##propName))); \
+            static Reflection::__PROPERTY_TYPE<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)nullptr)->___##propName))); \
 			return &sProp; \
 		} \
 		struct t##propName##Initializer \
@@ -128,7 +129,7 @@ namespace Teardrop
 	protected: \
 		static Reflection::Property<propType>* get##propName##Def() \
 		{ \
-            static Reflection::Property<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)0)->___##propName))); \
+            static Reflection::Property<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)nullptr)->___##propName))); \
 			return &sProp; \
 		} \
 		struct t##propName##Initializer \
@@ -156,7 +157,7 @@ namespace Teardrop
 	protected: \
 		static Reflection::NestedObjectProperty<propType>* get##propName##Def() \
 		{ \
-            static Reflection::NestedObjectProperty<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)0)->___##propName))); \
+            static Reflection::NestedObjectProperty<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)nullptr)->___##propName))); \
 			return &sProp; \
 		} \
 		struct t##propName##Initializer \
@@ -183,7 +184,7 @@ namespace Teardrop
 		{ \
 			static Reflection::Property<propType>* get##propName##Def() \
 			{ \
-                static Reflection::Property<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)0)->___##propName))); \
+                static Reflection::Property<propType> sProp(#propName, #propType, ((std::size_t)&(((tClass*)nullptr)->___##propName))); \
 				return &sProp; \
 			} \
 			t##propName##Initializer(const char* type, const char* desc) \
@@ -222,7 +223,7 @@ namespace Teardrop
 		propType& get##propName() { return ___##propName.get(); } \
 
 #define TD_POINTER_PROPERTY(propName, propDesc, propType, propEditor) \
-	TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, propEditor, PointerProperty) \
+    TD_SCALAR_PROPERTY_BASE(propName, propDesc, propType, 0, propEditor, PointerProperty) \
 	public: \
 		propType* get##propName() { return ___##propName.get(); } \
 		void set##propName(propType* __val) { notifyPropertyChanging(get##propName##Def()); ___##propName.set(__val); notifyPropertyChanged(get##propName##Def()); }

@@ -21,6 +21,7 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "PackageMetadata.h"
+
 #include "ObjectMetadata.h"
 #include "TextureAssetMetadata.h"
 #include "LandscapeAssetMetadata.h"
@@ -28,15 +29,18 @@ THE SOFTWARE.
 #include "AttributeMapAssetMetadata.h"
 #include "Folder.h"
 #include "Thumbnail.h"
-#include "Stream/Stream.h"
-#include "Util/UUID.h"
-#include "Package/Package.h"
+
 #include "Asset/TextureAsset.h"
 #include "Asset/LandscapeAsset.h"
 #include "Asset/HeightfieldAsset.h"
 #include "Asset/AttributeMapAsset.h"
+#include "Package/Package.h"
+#include "Stream/Stream.h"
+#include "Util/UUID.h"
+
 #include "tinyxml/tinyxml.h"
 //#include <tbb/task.h>
+
 #include <algorithm>
 
 using namespace std::placeholders;
@@ -358,11 +362,12 @@ uint64_t PackageMetadata::serialize(Package* pkg, Stream& strm)
     uint64_t nBytes = 0;
 
 	// then serialize folder structure to XML
-	TiXmlDocument doc;
+    TiXmlDocument doc;
 	TiXmlElement folders("folders");
 	addFolders(folders, this, mRoot);
-	TiXmlPrinter printer;
-	doc.InsertEndChild(folders);
+    doc.InsertEndChild(folders);
+
+    TiXmlPrinter printer;
 	doc.Accept(&printer);
 	String xml(printer.CStr());
 

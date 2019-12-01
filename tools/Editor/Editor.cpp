@@ -299,7 +299,8 @@ void Editor::onSaveAs()
 	// ask for filename and then do a normal save
 	QFileDialog dlg;
 	dlg.setFileMode(QFileDialog::AnyFile);
-	dlg.setNameFilter(tr("Project Files (*.project)"));
+    dlg.setNameFilter(tr("Project Files (*.project)"));
+    dlg.setOption(QFileDialog::DontUseNativeDialog, true);
 
 	QStringList files;
 	if (dlg.exec()) {

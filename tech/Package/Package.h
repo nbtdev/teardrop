@@ -59,6 +59,7 @@ namespace Teardrop
 
 		// the one special object instance each package can manage...
 		Executable* executable();
+        void makeExecutable(Executable* exe);
         Executable* makeExecutable(const Reflection::ClassDef* classDef=nullptr);
 
 		TD_DECLARE_ALLOCATOR();

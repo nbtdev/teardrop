@@ -21,14 +21,19 @@ THE SOFTWARE.
 ******************************************************************************/
 
 #include "PackageSerializer.h"
+
 #include "PackageMetadataSerializer.h"
 #include "Package.h"
 #include "UUIDStreamReader.h"
 #include "UUIDStreamWriter.h"
+
 #include "Asset/Asset.h"
+#include "Core/Executable.h"
 #include "Stream/FileStream.h"
 #include "Stream/MemoryStream.h"
+
 #include "tinyxml/tinyxml.h"
+
 #include <list>
 #include <map>
 
@@ -135,8 +140,15 @@ uint64_t PackageSerializer::serialize(Stream& stream, PackageMetadataSerializer*
 	nBytes += stream.write(&hdr, sizeof(hdr));
 
 	// then the objects in the package
-	const Objects& objs = mPkg->objects();
+    Objects objs = mPkg->objects();
 	std::list<Asset*> assetList;
+
+    // if the package is executable, add that to the object list too
+    Executable* exe = mPkg->executable();
+    if (exe) {
+        objs.push_back(exe);
+    }
+
 	nBytes += serializeObjects(objs, stream, assetList);
 
 	// then all asset data, if any
@@ -303,10 +315,21 @@ uint64_t PackageSerializer::deserialize(Stream& stream, DeferredObjectResolves& 
         nBytes += sr.read();
 	}
 
-	// then finally, if the caller provided a metadata serializer, use it
+    // if the caller provided a metadata serializer, use it
 	if (metadataSerializer) {
 		nBytes += metadataSerializer->deserialize(mPkg, stream);
 	}
+
+    // finally, if the package was executable, find that object and set it now
+    Objects exeObjects;
+    mPkg->findAllByType(exeObjects, Executable::getClassDef(), true);
+    if (!exeObjects.empty()) {
+        // there should only be one
+        assert(exeObjects.size() == 1);
+        if (exeObjects.size() == 1) {
+            mPkg->makeExecutable((Executable*)exeObjects.front());
+        }
+    }
 
 	return nBytes;
 }

@@ -40,7 +40,11 @@ Package::~Package()
 
 	for (Objects::iterator it = mObjects.begin(); it != mObjects.end(); ++it) {
 		delete *it;
-	}
+
+        if (*it == mExecutable) {
+            mExecutable = nullptr;
+        }
+    }
 
 	delete mExecutable;
 }
@@ -120,24 +124,29 @@ Executable* Package::executable()
 	return mExecutable;
 }
 
+void Package::makeExecutable(Executable* exe)
+{
+    mExecutable = exe;
+}
+
 Executable* Package::makeExecutable(const Reflection::ClassDef* classDef/* =0 */)
 {
-	// a classDef of 0 means clear the current executable, if any
-	if (mExecutable) {
-		mExecutable->destroy();
-		delete mExecutable;
-		mExecutable = 0;
-	}
+    // a classDef of 0 means clear the current executable, if any
+    if (mExecutable) {
+        mExecutable->destroy();
+        delete mExecutable;
+        mExecutable = nullptr;
+    }
 
-	// then if classDef not null, make a new one
-	if (classDef) {
-		assert(classDef->isA(Executable::getClassDef()));
+    // then if classDef not null, make a new one
+    if (classDef) {
+        assert(classDef->isA(Executable::getClassDef()));
 
-		if (classDef->isA(Executable::getClassDef())) {
-			mExecutable = static_cast<Executable*>(classDef->createInstance());
-			mExecutable->initialize();
-		}
-	}
+        if (classDef->isA(Executable::getClassDef())) {
+            mExecutable = static_cast<Executable*>(classDef->createInstance());
+            mExecutable->initialize();
+        }
+    }
 
-	return mExecutable;
+    return mExecutable;
 }
