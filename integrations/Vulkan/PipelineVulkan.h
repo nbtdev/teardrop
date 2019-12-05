@@ -47,9 +47,6 @@ private:
     VkDevice mDevice;
     VkPipeline mPipeline;
     PipelineType mType;
-
-    VkShaderModule buildVertexShader();
-    VkShaderModule buildFragmentShader();
 };
 
 } // namespace Vulkan

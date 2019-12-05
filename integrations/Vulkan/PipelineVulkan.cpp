@@ -35,12 +35,17 @@ THE SOFTWARE.
 #include "glslang/MachineIndependent/localintermediate.h"
 #include "glslang/Public/ShaderLang.h"
 
+#include <cinttypes>
+#include <cstring>
 #include <memory>
 #include <unordered_set>
 
 #include <iostream>
 
 namespace {
+
+typedef std::vector<Teardrop::Gfx::VertexElement> GeometryStream;
+typedef std::vector<GeometryStream> GeometryStreams;
 
 VkFormat getVertexElementFormat(Teardrop::Gfx::VertexElement const& elem)
 {
@@ -56,7 +61,82 @@ VkFormat getVertexElementFormat(Teardrop::Gfx::VertexElement const& elem)
     return VK_FORMAT_UNDEFINED;
 }
 
-void generateSourceCode(Teardrop::Gfx::Material* material, std::vector<std::string>& lines)
+char const* glslType(Teardrop::Gfx::VertexElement const& elem)
+{
+    switch (elem.mType) {
+    case Teardrop::Gfx::VET_FLOAT:
+        if (elem.mCount == 1) { return "float"; }
+        else if (elem.mCount == 2) { return "vec2"; }
+        else if (elem.mCount == 3) { return "vec3"; }
+        else if (elem.mCount == 4) { return "vec4"; }
+        break;
+    default:
+        if (elem.mCount == 1) { return "float"; }
+        else if (elem.mCount == 2) { return "vec2"; }
+        else if (elem.mCount == 3) { return "vec3"; }
+        else if (elem.mCount == 4) { return "vec4"; }
+        break;
+    }
+
+    return "float4";
+}
+
+std::string uniqueName(Teardrop::Gfx::VertexElement const& elem, size_t location)
+{
+    std::string name;
+
+    switch (elem.mUsage) {
+    case Teardrop::Gfx::VEU_POSITION:
+        name = "Pos";
+        break;
+    case Teardrop::Gfx::VEU_NORMAL:
+        name = "Normal";
+        break;
+    case Teardrop::Gfx::VEU_TANGENT:
+        name = "Tangent";
+        break;
+    case Teardrop::Gfx::VEU_COLOR:
+        name = "Color";
+        break;
+    case Teardrop::Gfx::VEU_BINORMAL:
+        name = "Binormal";
+        break;
+    case Teardrop::Gfx::VEU_TEXCOORD:
+        name = "TexCoord";
+        break;
+    case Teardrop::Gfx::VEU_BLENDINDEX:
+        name = "BlendIndex";
+        break;
+    case Teardrop::Gfx::VEU_BLENDWEIGHT:
+        name = "BlendWeight";
+        break;
+    case Teardrop::Gfx::VEU_UNKNOWN:
+        name = "Unknown";
+        break;
+    }
+
+    name += std::to_string(location);
+
+    return name;
+}
+
+void generateVertexShaderSourceCode(GeometryStreams const& geometryStreams, std::vector<std::string>& lines)
+{
+    // stock header
+    lines.push_back("#version 450");
+
+    // static geometry, affine WVP transform provided in constant data
+    for (GeometryStream const& stream : geometryStreams) {
+        size_t location = 0;
+        for (Teardrop::Gfx::VertexElement const& elem : stream) {
+            char buf[256] = {};
+            snprintf(buf, 256, "layout (location = %" PRIu64 ") in %s in%s", location, glslType(elem), uniqueName(elem, location).c_str());
+            lines.push_back(buf);
+        }
+    }
+}
+
+void generateFragmentShaderSourceCode(Teardrop::Gfx::Material* material, std::vector<std::string>& lines)
 {
     material->sortExpressions();
 
@@ -74,6 +154,47 @@ void generateSourceCode(Teardrop::Gfx::Material* material, std::vector<std::stri
             lines.push_back(name);
         }
     }
+}
+
+
+VkShaderModule buildVertexShader(GeometryStreams const& geometryStreams)
+{
+    std::vector<std::string> lines;
+    generateVertexShaderSourceCode(geometryStreams, lines);
+
+    std::cout << "Generated source:" << std::endl;
+    for (auto const& line : lines) {
+        std::cout << "    " << line << std::endl;
+    }
+
+    return VK_NULL_HANDLE;
+}
+
+VkShaderModule buildFragmentShader(Teardrop::Gfx::Material* material)
+{
+    // generate fragment shader source code
+    std::vector<std::string> lines;
+    generateFragmentShaderSourceCode(material, lines);
+
+    std::cout << "Generated source:" << std::endl;
+    for (auto const& line : lines) {
+        std::cout << "    " << line << std::endl;
+    }
+
+    return VK_NULL_HANDLE;
+}
+
+struct Shaders
+{
+    VkShaderModule vertexShader = VK_NULL_HANDLE;
+    VkShaderModule tessShader = VK_NULL_HANDLE;
+    VkShaderModule geometryShader = VK_NULL_HANDLE;
+    VkShaderModule fragmentShader = VK_NULL_HANDLE;
+};
+
+Shaders buildShaders(GeometryStreams const& geometryStreams, Teardrop::Gfx::Material* material)
+{
+
 }
 
 } // namespace
@@ -118,21 +239,20 @@ void Pipeline::build()
     std::unique_ptr<RenderPass> renderPass(new RenderPass(mDevice));
     renderPass->attachOutput(mRenderTarget);
 
-    VkShaderModule vertexShaderModule = buildVertexShader();
-    VkShaderModule fragmentShaderModule = buildFragmentShader();
+    Shaders shaders = buildShaders(mGeometryStreams, mMaterial);
 
     // first, vertex shader stage
     VkPipelineShaderStageCreateInfo vertexStage = {};
     vertexStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     vertexStage.stage = VK_SHADER_STAGE_VERTEX_BIT;
-    vertexStage.module = vertexShaderModule;
+    vertexStage.module = shaders.vertexShader;
     vertexStage.pName = "main";
 
     // then, fragment shader stage
     VkPipelineShaderStageCreateInfo fragmentStage = {};
     fragmentStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     fragmentStage.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-    fragmentStage.module = fragmentShaderModule;
+    fragmentStage.module = shaders.fragmentShader;
     fragmentStage.pName = "main";
 
     VkPipelineShaderStageCreateInfo stages[] = {
@@ -200,25 +320,6 @@ void Pipeline::build()
     }
 
     vkCreateGraphicsPipelines(mDevice, VK_NULL_HANDLE, 1, &info, getAllocationCallbacks(), &mPipeline);
-}
-
-VkShaderModule Pipeline::buildVertexShader()
-{
-    return VK_NULL_HANDLE;
-}
-
-VkShaderModule Pipeline::buildFragmentShader()
-{
-    // generate fragment shader source code
-    std::vector<std::string> lines;
-    generateSourceCode(mMaterial, lines);
-
-    std::cout << "Generated source:" << std::endl;
-    for (auto const& line : lines) {
-        std::cout << "    " << line << std::endl;
-    }
-
-    return VK_NULL_HANDLE;
 }
 
 } // namespace Vulkan
